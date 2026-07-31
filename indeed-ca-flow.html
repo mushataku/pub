@@ -1,0 +1,305 @@
+<!--
+  Indeed自動メッセージ導入後のCA対応フロー（2026-07-31）
+  雛形: ~/.claude/skills/tree-map/assets/tree-map.html（HTML/CSS/render は雛形のまま・DATA のみ差し替え）
+-->
+<title>Indeed自動メッセージ導入後のCA対応フロー</title>
+<style>
+:root{--bg:#faf9f7;--card:#ffffff;--ink:#1e222a;--sub:#5b6472;--line:#c9c5bd;
+  --ok:#2e7d43;--okbg:#e4f2e7;--warn:#9a6b00;--warnbg:#fbf0d2;--bad:#b3261e;--badbg:#fbe4e2;
+  --fix:#1565c0;--fixbg:#e8f1fb;--dirbg:#edece8;}
+@media (prefers-color-scheme: dark){:root{--bg:#15171c;--card:#1e2128;--ink:#e8e6e1;--sub:#a5adba;--line:#454b56;
+  --ok:#7fce93;--okbg:#20362a;--warn:#e4c05e;--warnbg:#3a331b;--bad:#f2867e;--badbg:#43231f;
+  --fix:#82b4e8;--fixbg:#1e2a38;--dirbg:#2a2e36;}}
+:root[data-theme="light"]{--bg:#faf9f7;--card:#ffffff;--ink:#1e222a;--sub:#5b6472;--line:#c9c5bd;
+  --ok:#2e7d43;--okbg:#e4f2e7;--warn:#9a6b00;--warnbg:#fbf0d2;--bad:#b3261e;--badbg:#fbe4e2;
+  --fix:#1565c0;--fixbg:#e8f1fb;--dirbg:#edece8;}
+:root[data-theme="dark"]{--bg:#15171c;--card:#1e2128;--ink:#e8e6e1;--sub:#a5adba;--line:#454b56;
+  --ok:#7fce93;--okbg:#20362a;--warn:#e4c05e;--warnbg:#3a331b;--bad:#f2867e;--badbg:#43231f;
+  --fix:#82b4e8;--fixbg:#1e2a38;--dirbg:#2a2e36;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,system-ui,sans-serif;
+  font-size:14.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+main{max-width:960px;margin:0 auto;padding:26px 20px 64px}
+h1{font-size:20px;margin:0 0 4px}
+p.lead{color:var(--sub);margin:2px 0 0;font-size:13px}
+.mapwrap{overflow-x:auto;margin-top:18px}
+.tree,.tree ul{list-style:none;margin:0;padding:0}
+.tree ul{padding-left:26px}
+.tree li{position:relative;padding:5px 0 5px 24px}
+.tree li::before{content:"";position:absolute;left:0;top:-8px;height:30px;width:17px;
+  border-left:2px solid var(--line);border-bottom:2px solid var(--line);border-bottom-left-radius:12px}
+.tree li::after{content:"";position:absolute;left:0;top:22px;bottom:-8px;border-left:2px solid var(--line)}
+.tree li:last-child::after{display:none}
+.tree > li{padding-left:0}
+.tree > li::before,.tree > li::after{display:none}
+.node{display:inline-block;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:5px 12px;max-width:100%}
+.node .row{display:flex;flex-wrap:wrap;align-items:baseline;gap:7px}
+.node b{font-size:13.5px}
+.node .note{display:block;font-size:12px;color:var(--sub);margin-top:1px;max-width:640px}
+.rootnode > .node{border-width:2px;border-color:var(--ink);padding:8px 16px;background:var(--dirbg)}
+.rootnode > .node b{font-size:15px}
+.dirnode > .node{background:var(--dirbg);border-width:1.5px}
+.leafnode .node{border-style:dashed;background:transparent;font-size:12.5px;padding:3px 10px}
+.sick > .node{border-left:4px solid var(--bad)}
+.mild > .node{border-left:4px solid var(--warn)}
+.badge{display:inline-block;font-size:10.5px;padding:0 7px;border-radius:8px;line-height:1.8;font-weight:700;white-space:nowrap}
+.b-ok{background:var(--okbg);color:var(--ok)}
+.b-warn{background:var(--warnbg);color:var(--warn)}
+.b-bad{background:var(--badbg);color:var(--bad)}
+.layer{display:inline-block;font-size:10.5px;border:1px solid var(--line);border-radius:4px;padding:0 6px;color:var(--sub);line-height:1.7;white-space:nowrap}
+.axis{font-style:normal;color:var(--fix);font-size:11.5px}
+.fix{display:block;font-size:12px;color:var(--fix);background:var(--fixbg);border-left:3px solid var(--fix);
+  border-radius:4px;padding:3px 8px;margin-top:5px;max-width:620px}
+details{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+details summary{cursor:pointer;padding:10px 16px;font-weight:600;font-size:13.5px}
+details[open] summary{border-bottom:1px solid var(--line)}
+details .inner{padding:12px 16px}
+.tbl{overflow-x:auto}
+.tbl table{border-collapse:collapse;width:100%;min-width:640px}
+.tbl td,.tbl th{padding:6px 9px;border-bottom:1px solid var(--line);font-size:13px;text-align:left;vertical-align:top}
+.tbl th{font-size:11.5px;color:var(--sub)}
+.legend{font-size:12px;color:var(--sub);margin-top:10px}
+code{font-family:Consolas,Menlo,monospace;font-size:12.3px;background:var(--dirbg);border-radius:4px;padding:0 4px}
+.tplpre{white-space:pre-wrap;font-family:inherit;font-size:12.8px;background:var(--dirbg);border-radius:8px;padding:12px 14px;margin:0;line-height:1.7}
+.tplnote{font-size:12px;color:var(--sub);margin:0 0 8px}
+</style>
+
+<main>
+<h1>Indeed自動メッセージ導入後のCA対応フロー</h1>
+<p class="lead">2026-07-31 整理。幹の軸＝工程（自動の入口 → CAの対応）。メッセージ送信は5ポイント・テンプレ全てそろい。</p>
+
+<div class="mapwrap"><ul class="tree" id="tree"></ul></div>
+<p class="legend">凡例: <span class="badge b-ok">✓</span>=そろっている　<span class="badge b-warn">注意</span>=要確認・保留　黄帯=展開前に潰す穴　<span class="layer">🤖 自動</span>=機械送信（無印はCA手動）　破線=葉　<span class="axis">青字=分岐の軸</span></p>
+
+<details><summary>テンプレ台帳（5ポイント）</summary><div class="inner tbl">
+<table>
+<tr><th>#</th><th>送信ポイント</th><th>チャネル</th><th>件名・備考</th></tr>
+<tr><td>1</td><td>応募直後の自動メッセージ（電話予告＋メアド回収）</td><td>Indeed内</td><td>自動送信・実装済み</td></tr>
+<tr><td>2</td><td>不在フォロー（折り返し依頼＋メアド追い回収＋#3への誘導）</td><td>Indeed内</td><td>—</td></tr>
+<tr><td>3</td><td>本連絡（電話名乗り＋TR予約フォーム＋公式LINE案内）</td><td>メール</td><td>件名「選考のご案内」<b>固定</b>（#2の注記が指す先）</td></tr>
+<tr><td>4</td><td>履歴書・職務経歴書の送付依頼（非有効・メアドあり）</td><td>メール</td><td>件名「選考のご案内（{会社名}）」</td></tr>
+<tr><td>5</td><td>書類拝受＋選考クローズ</td><td>メール</td><td>件名「書類拝受のご連絡」＝#3系と区別</td></tr>
+</table>
+</div></details>
+
+<details><summary>テンプレ全文 #1: 応募直後の自動メッセージ（Indeed内・自動送信）</summary><div class="inner">
+<p class="tplnote">実物の文面は未転記（Indeedの自動送信設定画面が正）。要素は「末尾◯◯◯◯の番号から電話する予告」＋「ご希望の受信メールアドレスの記載依頼」の2つ。</p>
+</div></details>
+
+<details><summary>テンプレ全文 #2: 不在フォロー（Indeed内）</summary><div class="inner">
+<pre class="tplpre">{応募者の氏名}様
+お世話になっております。
+{会社名}の採用担当です。
+
+先程、ご登録いただきましたお電話番号にご連絡させていただきました。
+こちら選考のご案内になりますので、お手すきの際に折り返しいただけますと幸いです。
+
+※すぐの折り返しが難しい場合は、ご希望の受信メールアドレスを記載してお送りいただけますと幸いです。
+※既にメールアドレスをお送り頂いている方へは、「選考のご案内」という件名にて担当者の○○または○○よりご連絡しておりますので、ご確認のほどよろしくお願いいたします。
+
+何卒よろしくお願いいたします。</pre>
+</div></details>
+
+<details><summary>テンプレ全文 #3: 本連絡（メール・件名「選考のご案内」固定）</summary><div class="inner">
+<pre class="tplpre">{応募者の氏名}様
+
+お世話になっております。
+先程末尾○○の番号よりお電話させていただきました、
+○○株式会社の○○と申します。
+
+このたびは、○○株式会社/○○の求人にご応募いただき、誠にありがとうございます。
+
+選考に進んでいただくためのご案内でご連絡いたしました。
+お電話可能な時間につきまして、下記フォームよりご回答のほどよろしくお願いいたします！
+[TR予約URL]
+
+また、初回の選考のご案内、日程調整についてはお電話でご案内をしておりますが、それ以降のやり取りは弊社公式LINEにて行っております。
+以下URLよりご追加いただけますと幸いです！
+
+▼公式LINEアカウントはこちら
+[URL]
+
+ご不明点等ございましたらお気軽にご連絡くださいませ。
+何卒よろしくお願いいたします。
+
+○○株式会社
+○○</pre>
+</div></details>
+
+<details><summary>テンプレ全文 #4: 履歴書・職務経歴書の送付依頼（メール・件名「選考のご案内（{会社名}）」）</summary><div class="inner">
+<pre class="tplpre">{応募者の氏名}様
+
+お世話になっております。
+{会社名}の採用担当です。
+
+このたびは、弊社求人にご応募いただき、誠にありがとうございます。
+また、ご連絡先のご共有もありがとうございます。
+
+選考にあたりまして、まずは書類にてご経歴を確認させていただいております。
+お手数ですが、履歴書・職務経歴書を本メールへのご返信にてお送りいただけますでしょうか。
+※書式は問いません。お持ちのものをそのままお送りください。
+
+ご不明点等ございましたらお気軽にご連絡くださいませ。
+何卒よろしくお願いいたします。
+
+{会社名}
+{担当者名}</pre>
+</div></details>
+
+<details><summary>テンプレ全文 #5: 書類拝受＋選考クローズ（メール・件名「書類拝受のご連絡」）</summary><div class="inner">
+<pre class="tplpre">{応募者の氏名}様
+
+お世話になっております。
+{会社名}の採用担当です。
+
+書類をお送りいただき、誠にありがとうございます。
+確かに拝受いたしました。
+
+いただいた書類をもとに、社内にて選考をさせていただきます。
+選考を通過された場合のみ、1週間以内にご連絡を差し上げます。
+あらかじめご了承いただけますと幸いです。
+
+このたびはご応募いただき、ありがとうございました。
+何卒よろしくお願いいたします。
+
+{会社名}
+{担当者名}</pre>
+</div></details>
+
+<details><summary>展開前に潰す穴（2件）</summary><div class="inner tbl">
+<table>
+<tr><th>穴</th><th>中身</th><th>次アクション</th></tr>
+<tr><td>追い架電ルール</td><td>有効応募・不在・返信なしの人への再架電回数・SMS併用が従来ルールのままでよいか未定義</td><td>拓也がCA運用ルールとして明文化 or 従来通りと宣言</td></tr>
+<tr><td>#3の送信主体</td><td>メアド受領後の本連絡メールが自動送信かCA手動かをマスターキーに未確認</td><td>マスターキーに確認（手動ならCA手順書に組み込む）</td></tr>
+</table>
+</div></details>
+
+<script>
+const DATA = {
+  cls:'rootnode', label:'Indeed自動メッセージ導入後のCA対応フロー',
+  badges:[{k:'ok',t:'テンプレ5点そろい'}],
+  note:'2026-07-31 整理（詳細は下の台帳）',
+  axis:'工程で分岐（自動の入口 → CAの対応）',
+  children:[
+
+    { cls:'dirnode', layer:'🤖 自動', label:'入口: 応募直後のIndeed内自動メッセージ',
+      badges:[{k:'ok',t:'#1 実装済み'}],
+      note:'有効/非有効を問わず全応募に機械送信',
+      axis:'メッセージの要素で分岐（役割が2つ）',
+      children:[
+        { label:'末尾4桁の電話予告',
+          note:'「末尾◯◯◯◯の番号からお電話します」',
+          axis:'設計理由で分岐（狙いが2つ）',
+          children:[
+            { cls:'leafnode', text:'架電を予告して警戒を下げる（急な着信でびっくりさせない）' },
+            { cls:'leafnode', text:'フル番号を書かない＝電話番号で検索されるのを防ぐ' },
+          ]},
+        { label:'メールアドレス回収の依頼',
+          note:'公式LINEへ直接誘導できないための迂回路',
+          axis:'因果で分岐（制約 → 迂回設計）',
+          children:[
+            { cls:'leafnode', text:'制約: Indeedメッセージ内でのLINE誘導は規約違反' },
+            { cls:'leafnode', text:'迂回: メアドを受け取り、メール(#3)で公式LINE登録へ誘導' },
+          ]},
+      ]},
+
+    { cls:'dirnode', label:'CAの対応',
+      note:'ここからは人が送る・かける（自動送信は入口の#1のみ）',
+      axis:'応募の種別で分岐（架電するかの分水嶺）',
+      children:[
+
+    { cls:'dirnode', label:'有効応募への対応',
+      note:'架電は従来と完全に同じ（朝イチ架電＋就業中の応募へ即時・全件）',
+      axis:'架電の結果で分岐',
+      children:[
+        { cls:'leafnode', text:'出た → 従来通りの選考案内フローへ' },
+        { label:'出なかった（不在）',
+          note:'Indeed内＋メールの2段構えでフォロー',
+          axis:'フォローのチャネルで分岐',
+          children:[
+            { label:'Indeed内: 不在フォロー（#2）', badges:[{k:'ok',t:'テンプレあり'}],
+              note:'不在者全員にIndeedメッセージで送る',
+              axis:'文面が果たす役割で分岐',
+              children:[
+                { cls:'leafnode', text:'選考案内のための折り返し依頼（本旨）' },
+                { cls:'leafnode', text:'メアド未取得者への追い回収（記載して返信してと依頼）' },
+                { cls:'leafnode', text:'メアド取得済みの人をメール(#3)へ誘導' },
+              ]},
+            { label:'メール: 本連絡（#3）',
+              badges:[{k:'ok',t:'テンプレあり'},{k:'warn',t:'件名「選考のご案内」固定・#2が名指し'},{k:'warn',t:'送信主体 要確認'}],
+              note:'メアド取得者のみに送る',
+              axis:'導線の要素で分岐',
+              children:[
+                { cls:'leafnode', text:'名乗り: 末尾◯◯の番号からお電話した者です、と#1の予告に接続' },
+                { cls:'leafnode', text:'TR予約フォームで電話可能な時間を回答してもらう' },
+                { cls:'leafnode', text:'日程調整以降のやり取りは公式LINEへ（登録URLを案内）' },
+              ]},
+            { cls:'mild', label:'電話・SMS: 追い方', badges:[{k:'warn',t:'未定義'}],
+              note:'再架電の回数・SMS併用が従来ルールのままかは展開前に要確認' },
+          ]},
+      ]},
+
+    { cls:'dirnode', label:'非有効応募への対応',
+      note:'架電しないのは従来通り',
+      axis:'対応の性質で分岐（原則の運用／保留中の例外）',
+      children:[
+        { label:'原則運用',
+          note:'メアドをもらった人にだけ書類対応をする',
+          axis:'メアド提供の有無で分岐',
+          children:[
+            { cls:'leafnode', text:'メアドなし → 従来通り何もしない' },
+            { label:'メアドあり → 書類選考フローでクローズ',
+              note:'連絡先をいただいた以上、無応答では終わらせない',
+              axis:'工程で分岐（依頼 → 受領後）',
+              children:[
+                { label:'メール: 履歴書・職務経歴書の送付依頼（#4）', badges:[{k:'ok',t:'テンプレあり'}],
+                  note:'件名「選考のご案内（{会社名}）」',
+                  axis:'文面の役割で分岐',
+                  children:[
+                    { cls:'leafnode', text:'書式不問・本メールへの返信で書類を依頼' },
+                    { cls:'leafnode', text:'「まずは書類にて確認」＝#1の電話予告のまま電話が来ない理由の説明を兼ねる' },
+                  ]},
+                { label:'メール: 書類拝受＋選考クローズ（#5）', badges:[{k:'ok',t:'テンプレあり'}],
+                  note:'件名「書類拝受のご連絡」＝#3系の選考導線と区別',
+                  axis:'クローズの設計で分岐',
+                  children:[
+                    { cls:'leafnode', text:'「通過された場合のみ1週間以内に連絡」を明記＝待たせる期待を作らない' },
+                    { cls:'leafnode', text:'不通過の場合は以降連絡しない（前項の明記が事前の予告になっている）' },
+                  ]},
+              ]},
+          ]},
+        { cls:'mild', label:'例外検討: エンジニア上流経験者', badges:[{k:'warn',t:'保留'}],
+          note:'振り先があり単価も高いので対応する価値はある',
+          axis:'役割で分岐（CA／拓也）',
+          children:[
+            { cls:'leafnode', text:'CA: 一旦気にせず従来通り（対応価値の判断はしない）' },
+            { cls:'leafnode', text:'拓也: 対象をまとめて土井さんに伺い、OKなら運用を切り替え' },
+          ]},
+      ]},
+
+      ]},
+  ]
+};
+
+const _AXIS_EMPTY = s => s==='—' || s==='-' || s==='';
+function render(n){
+  if(n.text!==undefined) return `<li class="${n.cls||'leafnode'}"><div class="node">${n.text}</div></li>`;
+  const kidn = (n.children&&n.children.length) || 0;
+  if(kidn && !n.axis) console.warn('[tree-map] 分岐に axis(切る軸) が未設定:', n.label);
+  if(kidn && _AXIS_EMPTY(n.axis)) console.warn('[tree-map] axis を "—"/空 でごまかすな（軸を書くか子を畳め）:', n.label);
+  if(n.axis && !_AXIS_EMPTY(n.axis) && kidn<2) console.warn('[tree-map] 偽分岐（軸ありだが子<2）＝畳むか2子以上に割れ:', n.label);
+  if(n.note && (String(n.note).match(/。/g)||[]).length>=2) console.warn('[tree-map] note に第2メッセージの疑い（句点2つ以上）＝children へ割れ:', n.label);
+  const showAxis = n.axis && !_AXIS_EMPTY(n.axis);
+  const layer  = n.layer ? `<span class="layer">${n.layer}</span>` : '';
+  const label  = n.label ? `<b>${n.label}</b>` : '';
+  const badges = (n.badges||[]).map(b=>`<span class="badge b-${b.k}">${b.t}</span>`).join('');
+  let note = n.note || '';
+  if(showAxis) note = (note ? note+'　' : '') + `<span class="axis">分岐の軸＝${n.axis}</span>`;
+  const noteEl = note ? `<span class="note">${note}</span>` : '';
+  const kids = kidn ? `<ul>${n.children.map(render).join('')}</ul>` : '';
+  return `<li class="${n.cls||''}"><div class="node"><div class="row">${layer}${label}${badges}</div>${noteEl}</div>${kids}</li>`;
+}
+document.getElementById('tree').innerHTML = render(DATA);
+</script>
+</main>
