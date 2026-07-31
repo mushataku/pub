@@ -61,7 +61,7 @@ code{font-family:Consolas,Menlo,monospace;font-size:12.3px;background:var(--dirb
 
 <main>
 <h1>スキル生態系の全体地図 — LLM環境を「育てる」開発体制</h1>
-<p class="lead">幹の軸＝レイヤ（判断の原理 → 常設の資産 → 回す運用）。同梱ブループリントmdの§1〜§3と対応。2026-07-31 作成（友人環境の一般化）</p>
+<p class="lead">幹の軸＝レイヤ3層（判断の原理 → 常設の資産 → 回す運用）＋その実演1本（分身プロジェクト）。同梱ブループリントmdの§1〜§4と対応。2026-07-31 作成（友人環境の一般化）</p>
 
 <div class="mapwrap"><ul class="tree" id="tree"></ul></div>
 <p class="legend">凡例: <span class="axis">青字=分岐の軸（なぜ子に分けたか）</span>　破線=葉（最小粒度の命題）　🔩=決定論（機械）層・無印=確率論（LLM/人間）層——DP2Lの層は木の分岐と直交するためマークで重ねている</p>
@@ -101,7 +101,7 @@ code{font-family:Consolas,Menlo,monospace;font-size:12.3px;background:var(--dirb
 const DATA = {
   cls:'rootnode', label:'スキル生態系',
   note:'LLMを「使う」のでなく、セッションを跨いで蓄積される資産群として「LLM環境を育てる」開発体制',
-  axis:'レイヤ（判断の原理 → 常設の資産 → 回す運用）',
+  axis:'体制のレイヤ3層（原理→資産→運用）＋その実演1本（ケーススタディ）',
   children:[
 
     { cls:'dirnode', layer:'原理', label:'思考OS（土台原理）',
@@ -165,7 +165,7 @@ const DATA = {
             { cls:'leafnode', text:'無条件ロード規約＝パス署名の無いドメイン（調査等）に条件付きロードを付けない' },
           ]},
         { layer:'技能', label:'skills',
-          note:'繰り返し作業の型＝descriptionによる確率的ディスパッチで発話から自動発火する', axis:'型の性格',
+          note:'繰り返し作業の型＝descriptionによる確率的ディスパッチで発話から自動発火する', axis:'型の性格（代表例・網羅ではない）',
           children:[
             { cls:'leafnode', text:'ワークフロー型＝指示書作成・実装実行・報告の定型フロー' },
             { cls:'leafnode', text:'ファクトリー型＝canon・博士agent・新repo雛形を製造する「装置を作る装置」' },
@@ -182,7 +182,7 @@ const DATA = {
             { cls:'leafnode', text:'整合lint＝台帳と実物・正本と配布先（parity）のズレを機械検査' },
           ]},
         { layer:'専門家', label:'agents',
-          note:'繰り返し発生する相談・レビューを常設の役に資産化する', axis:'役の種類',
+          note:'繰り返し発生する相談・レビューを常設の役に資産化する', axis:'役の種類（代表例・網羅ではない）',
           children:[
             { cls:'leafnode', text:'博士＝引用付き正本に接地したドメイン相談役（記憶で答えさせない）' },
             { cls:'leafnode', text:'critic＝作成の文脈を渡さず独立コンテキストで叩く批判役' },
@@ -214,10 +214,37 @@ const DATA = {
           children:[
             { cls:'leafnode', text:'SSOT＝正本1箇所・他は要約＋ポインタ（乖離事故を防ぐ）' },
             { cls:'leafnode', text:'2人目の消費者が現れるまで切らない（過分割＝誤発火を防ぐ）' },
-            { cls:'leafnode', text:'層A（汎用）と層B（個人特化）を分離し依存は一方向（汎用コアの汚染を防ぐ）' },
+            { cls:'leafnode', text:'層A（汎用・ユーザーを知らない）→層B（個人特化）への依存は禁止・逆だけ許す（汎用コアの汚染を防ぐ）' },
             { cls:'leafnode', text:'受け入れテスト＝発動すべき／すべきでない／境界の3群プロンプトで採点（発火事故を防ぐ）' },
             { cls:'leafnode', text:'違和感が出たら構造手術＝診断→切る基準1行→執刀→grep検証（歪みの蓄積を防ぐ）' },
             { cls:'leafnode', text:'整合lint 🔩（常設資産）を回す（静かな腐敗を防ぐ）' },
+          ]},
+      ]},
+
+    { cls:'dirnode', layer:'実演', label:'ケーススタディ: 分身プロジェクト',
+      note:'ユーザーという関数 f(状況)→出力 を一方向再現する応用例＝壁打ち相手ではない（複製との往復議論は情報利得ゼロ）', axis:'設計の3柱',
+      children:[
+        { label:'段階設計', note:'いきなり無人代行を狙わない', axis:'信頼の作り方（照合→拡大→汚染防止）',
+          children:[
+            { cls:'leafnode', text:'まず検分器＝「本人ならこう決める＋理由」を先出しし、実判断と照合して一致を貯める' },
+            { cls:'leafnode', text:'貯まった領域から委任を拡大（ハードストップ3カテゴリは常にエスカレーション）' },
+            { cls:'leafnode', text:'照合はMLのevalに相当（interview=train／分身=inference）＝ホールドアウトした判断セットを分身にも人格データにも流さない（eval汚染の禁止）' },
+          ]},
+        { label:'部品と依存方向', note:'配役＝abstract-core・goal-seek が層A、persona-interview・分身が層B（依存規律は「運用規律」幹の条文の通り）', axis:'部品の責任',
+          children:[
+            { label:'abstract-core（層A・純粋コア）', note:'判断・発言・選好を価値観/原則へ抽象化する汎用エンジン', axis:'コアの成り立ちと拡張方式',
+              children:[
+                { cls:'leafnode', text:'技法は認知科学から移植＝CDM・ラダリング（why連鎖）・後付け虚話（confabulation）検出' },
+                { cls:'leafnode', text:'レンズ＝アダプタ差し替え（人の判断／タスク構造）＝改善はコアに集中し全レンズへ複利' },
+              ]},
+            { cls:'leafnode', text:'persona-interview（層B・IO殻）＝本人判定ゲート（member-checking）を経て人格データへ書き込む唯一の書き手' },
+            { cls:'leafnode', text:'goal-seek（層A・IO殻）＝効く変数を洗い出し1問ずつ埋める汎用ループ' },
+            { cls:'leafnode', text:'分身エージェント（層B・inference）＝人格データを読み goal-seek を起動する薄い配線層' },
+          ]},
+        { label:'育ち方（原則の実演）', note:'装置が先でなく原理が先＝原理から装置が従った実例', axis:'実演された原則',
+          children:[
+            { cls:'leafnode', text:'コアは最初 persona-interview の内部工程＝2人目の消費者（goal-seek）が現れた時点で切り出し' },
+            { cls:'leafnode', text:'「レンズと聞き方の同居」発覚で純化手術＝1ファイル2軸禁止の実行' },
           ]},
       ]},
   ]

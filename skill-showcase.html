@@ -1,0 +1,235 @@
+<title>おもろいスキル図鑑 — 生態系の見どころ</title>
+<style>
+:root{--bg:#faf9f7;--card:#ffffff;--ink:#1e222a;--sub:#5b6472;--line:#c9c5bd;
+  --ok:#2e7d43;--okbg:#e4f2e7;--warn:#9a6b00;--warnbg:#fbf0d2;--bad:#b3261e;--badbg:#fbe4e2;
+  --fix:#1565c0;--fixbg:#e8f1fb;--dirbg:#edece8;}
+@media (prefers-color-scheme: dark){:root{--bg:#15171c;--card:#1e2128;--ink:#e8e6e1;--sub:#a5adba;--line:#454b56;
+  --ok:#7fce93;--okbg:#20362a;--warn:#e4c05e;--warnbg:#3a331b;--bad:#f2867e;--badbg:#43231f;
+  --fix:#82b4e8;--fixbg:#1e2a38;--dirbg:#2a2e36;}}
+:root[data-theme="light"]{--bg:#faf9f7;--card:#ffffff;--ink:#1e222a;--sub:#5b6472;--line:#c9c5bd;
+  --ok:#2e7d43;--okbg:#e4f2e7;--warn:#9a6b00;--warnbg:#fbf0d2;--bad:#b3261e;--badbg:#fbe4e2;
+  --fix:#1565c0;--fixbg:#e8f1fb;--dirbg:#edece8;}
+:root[data-theme="dark"]{--bg:#15171c;--card:#1e2128;--ink:#e8e6e1;--sub:#a5adba;--line:#454b56;
+  --ok:#7fce93;--okbg:#20362a;--warn:#e4c05e;--warnbg:#3a331b;--bad:#f2867e;--badbg:#43231f;
+  --fix:#82b4e8;--fixbg:#1e2a38;--dirbg:#2a2e36;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,system-ui,sans-serif;
+  font-size:14.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+main{max-width:960px;margin:0 auto;padding:26px 20px 64px}
+h1{font-size:20px;margin:0 0 4px}
+p.lead{color:var(--sub);margin:2px 0 0;font-size:13px}
+.mapwrap{overflow-x:auto;margin-top:18px}
+.tree,.tree ul{list-style:none;margin:0;padding:0}
+.tree ul{padding-left:26px}
+.tree li{position:relative;padding:5px 0 5px 24px}
+.tree li::before{content:"";position:absolute;left:0;top:-8px;height:30px;width:17px;
+  border-left:2px solid var(--line);border-bottom:2px solid var(--line);border-bottom-left-radius:12px}
+.tree li::after{content:"";position:absolute;left:0;top:22px;bottom:-8px;border-left:2px solid var(--line)}
+.tree li:last-child::after{display:none}
+.tree > li{padding-left:0}
+.tree > li::before,.tree > li::after{display:none}
+.node{display:inline-block;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:5px 12px;max-width:100%}
+.node .row{display:flex;flex-wrap:wrap;align-items:baseline;gap:7px}
+.node b{font-size:13.5px}
+.node .note{display:block;font-size:12px;color:var(--sub);margin-top:1px;max-width:640px}
+.rootnode > .node{border-width:2px;border-color:var(--ink);padding:8px 16px;background:var(--dirbg)}
+.rootnode > .node b{font-size:15px}
+.dirnode > .node{background:var(--dirbg);border-width:1.5px}
+.leafnode .node{border-style:dashed;background:transparent;font-size:12.5px;padding:3px 10px}
+.sick > .node{border-left:4px solid var(--bad)}
+.mild > .node{border-left:4px solid var(--warn)}
+.badge{display:inline-block;font-size:10.5px;padding:0 7px;border-radius:8px;line-height:1.8;font-weight:700;white-space:nowrap}
+.b-ok{background:var(--okbg);color:var(--ok)}
+.b-warn{background:var(--warnbg);color:var(--warn)}
+.b-bad{background:var(--badbg);color:var(--bad)}
+.layer{display:inline-block;font-size:10.5px;border:1px solid var(--line);border-radius:4px;padding:0 6px;color:var(--sub);line-height:1.7;white-space:nowrap}
+.axis{font-style:normal;color:var(--fix);font-size:11.5px}
+.fix{display:block;font-size:12px;color:var(--fix);background:var(--fixbg);border-left:3px solid var(--fix);
+  border-radius:4px;padding:3px 8px;margin-top:5px;max-width:620px}
+details{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+details summary{cursor:pointer;padding:10px 16px;font-weight:600;font-size:13.5px}
+details[open] summary{border-bottom:1px solid var(--line)}
+details .inner{padding:12px 16px}
+.tbl{overflow-x:auto}
+.tbl table{border-collapse:collapse;width:100%;min-width:640px}
+.tbl td,.tbl th{padding:6px 9px;border-bottom:1px solid var(--line);font-size:13px;text-align:left;vertical-align:top}
+.tbl th{font-size:11.5px;color:var(--sub)}
+.legend{font-size:12px;color:var(--sub);margin-top:10px}
+code{font-family:Consolas,Menlo,monospace;font-size:12.3px;background:var(--dirbg);border-radius:4px;padding:0 4px}
+</style>
+
+<main>
+<h1>おもろいスキル図鑑 — 生態系の見どころ</h1>
+<p class="lead">全体地図（skill-ecosystem-map.html）の姉妹図。幹の軸＝スキルの族（何を製造・保守・確定・執筆・抽出するか）。族の代表は内部解剖まで割り、FSRP（1単位1責任）がファイル構成に・DP2L（決定論🔩×確率論）が部品の分担に写っているのを見せる。全一覧は下の表。2026-07-31</p>
+
+<div class="mapwrap"><ul class="tree" id="tree"></ul></div>
+<p class="legend">凡例: <span class="axis">青字=分岐の軸</span>　破線=葉。ちなみに<b>この図自体が外科族 tree-map の出力</b>——雛形＋データ差し替え＋lint＋独立criticの2段検品を通ってここに居る</p>
+
+<details><summary>全スキル一覧（グローバル19本・1行ずつ）</summary><div class="inner tbl">
+<table><tr><th>スキル</th><th>族</th><th>何をする</th></tr>
+<tr><td>make-canon</td><td>製造</td><td>任意トピックの引用付き正本（canon）を調査→層化→蒸留で製造</td></tr>
+<tr><td>make-hakase</td><td>製造</td><td>「〇〇博士」agentを知識基盤ゼロから設計・監査・配置まで一気通貫で製造</td></tr>
+<tr><td>setup-project</td><td>製造</td><td>新repoに標準構成（CLAUDE.md読み込み表・docs 5点・deny設定）を一発で配る鋳型</td></tr>
+<tr><td>structure-surgery</td><td>保守</td><td>テキスト資産群の機能配置を診断→切る基準1行→執刀→grep検証</td></tr>
+<tr><td>tree-map</td><td>保守</td><td>構造可視化の規格（この図の雛形・ノード規約・lint・納品作法の正本）</td></tr>
+<tr><td>session-init</td><td>保守</td><td>セッション開始時の必須ドキュメント読み込みを一括実行</td></tr>
+<tr><td>goal-seek</td><td>問診</td><td>走る前に「効く変数」を洗い出し未確定を1問ずつ質問で埋める</td></tr>
+<tr><td>structure-first</td><td>問診</td><td>線形制作物を構成層→実装層の2パスで作る（goal-seekを2回呼ぶ）</td></tr>
+<tr><td>abstract-core</td><td>抽出</td><td>判断・発言・選好を価値観/原則へ抽象化する汎用エンジン（層A・純粋コア）</td></tr>
+<tr><td>persona-interview</td><td>分身</td><td>過去判断を掘り本人判定ゲートを経て人格データを更新する唯一の書き手</td></tr>
+<tr><td>takuya-agent</td><td>分身</td><td>人格データを読み判断を先出しする代理ハブ（inference側）</td></tr>
+<tr><td>natural-writing</td><td>文筆</td><td>AI臭（平均への回帰）を足し算の規律で消す文体スキル</td></tr>
+<tr><td>craft-writing</td><td>文筆</td><td>線形読み物の「うまさ」＝論証の支持力と推進力を設計・推敲</td></tr>
+<tr><td>code-instruction</td><td>実装</td><td>実装指示書（完了条件を最上位に据えたmd）の書き方の正本</td></tr>
+<tr><td>cowork-impl</td><td>実装</td><td>指示書を読んで実装→テスト→デプロイ→報告書までワンショット自走</td></tr>
+<tr><td>line-hakase</td><td>相談役</td><td>make-hakase製の第1号博士（LINE公式アカウント/Messaging API分野）</td></tr>
+<tr><td>crowdsourcing-hakase</td><td>相談役</td><td>make-hakase製の第2号博士（クラウドソーシング受注攻略分野）</td></tr>
+<tr><td>notebooklm</td><td>基盤</td><td>NotebookLMを引用付き回答エンジンとして叩く接続スキル</td></tr>
+<tr><td>check-kodai-group</td><td>連携</td><td>チームのLINEグループログを読んで「次何やる？」まで持ってくる定型連携</td></tr>
+</table>
+<p class="legend">木に居るのは族の代表だけ（全部載せると図が表になる）。実装族・相談役族・基盤族は仕組みが本体なので表のみ。</p>
+</div></details>
+
+<script>
+const DATA = {
+  cls:'rootnode', label:'おもろいスキル図鑑',
+  note:'生態系の中から「人に見せたい」スキルを族ごとに内部解剖まで深掘りする（網羅は下の一覧表が担当）',
+  axis:'スキルの族（何を製造・保守・確定・執筆・抽出するか）',
+  children:[
+
+    { cls:'dirnode', layer:'製造', label:'ファクトリー族 — 装置を作る装置',
+      note:'一番の見どころ＝スキルがスキル・agent・知識を製造する自己増殖の入口', axis:'製造物',
+      children:[
+        { label:'make-canon', note:'任意トピックの「引用付き正本」を製造する', axis:'工程の見どころ',
+          children:[
+            { cls:'leafnode', text:'観点別に複数ラウンド調査→ソースを信頼度で層化→意思決定に直結する問いで蒸留' },
+            { cls:'leafnode', text:'スタート温度3モード＝コールド／追い焚き（既存ノートブックに追いラウンド）／ウォーム（既存正本を点検再利用）' },
+            { cls:'leafnode', text:'〔実測逸話〕deep調査は題材の密度が高い言語圏に自動収束する（プロンプトの言語は無関係）' },
+          ]},
+        { label:'make-hakase', note:'任意話題の「〇〇博士」agentを知識基盤ゼロから一気通貫で製造する', axis:'設計の見どころ',
+          children:[
+            { cls:'leafnode', text:'コールドスタート既定＝正本が無い前提で内部の make-canon から呼ぶ（重いのは想定内で自走）' },
+            { cls:'leafnode', text:'確信度をドメイン別に分ける＝規範系は一次接地で断定可・不透明システムは公式明言と実測を峻別' },
+            { cls:'leafnode', text:'〔実測逸話〕v1→v3.3まで版を重ねた反復自体が記録されている（設計思想の変更履歴ごと資産）' },
+          ]},
+      ]},
+
+    { cls:'dirnode', layer:'保守', label:'外科族 — 構造を保つ',
+      note:'資産が増えるほど効いてくる、生態系の免疫系', axis:'免疫系での分業（執刀／検算計器）',
+      children:[
+        { label:'structure-surgery — 構造手術の解剖', note:'スキル・docs・ルール群の「機能配置・関係・分類」を診断して執刀する', axis:'工程（診断→裁定→執刀→検証→記録＋空振り出口）',
+          children:[
+            { cls:'leafnode', text:'診断＝歪み（2軸同居・重複・レイヤー違反）を列挙し before図を作る' },
+            { cls:'leafnode', text:'裁定ゲート＝「切る基準」を1行に言語化し、選択肢＋損失シナリオを添えて人間が決める' },
+            { cls:'leafnode', text:'執刀＝分割・統合・純化・改名・再配線' },
+            { cls:'leafnode', text:'検証 🔩＝旧構造参照のgrep総ざらい（コンパイラ不在の世界の型チェック代用）' },
+            { cls:'leafnode', text:'記録＋after図＝可視化は納品物でなく検証装置' },
+            { cls:'leafnode', text:'歪みが無ければ「空振り」報告で正常終了（手術ありきにしない）' },
+          ]},
+        { label:'tree-map — 自己言及の解剖', note:'いま見ているこの図を描いているスキルを、この図の形式で解剖する', axis:'DP2Lの層と継ぎ目（骨🔩／肉／検品）',
+          children:[
+            { label:'render()＝決定論の骨 🔩', note:'再帰レンダラが見た目・接続線・規約検査を機械で保証する（雛形は触らない）', axis:'lint4点＝FSRPの機械化',
+              children:[
+                { cls:'leafnode', text:'分岐に軸が無い→warn（分けた理由を書け）' },
+                { cls:'leafnode', text:'軸を「—」でごまかす→warn（軸を書けないなら分岐にするな）' },
+                { cls:'leafnode', text:'偽分岐（軸ありで子1つ）→warn（畳むか2子以上に割れ）' },
+                { cls:'leafnode', text:'noteに句点2つ→warn（第2メッセージは children へ割れ）' },
+              ]},
+            { label:'DATA＝確率の肉', note:'書き手（LLM/人間）が意味で切るネストデータ＝差し替えるのはここだけ', axis:'書き手の規律',
+              children:[
+                { cls:'leafnode', text:'1ノード1メッセージ＝2つ言いたくなったら子に割る（FSRPそのもの）' },
+                { cls:'leafnode', text:'葉の定義＝これ以上割ると1命題未満（名詞句1つ）になる単位' },
+              ]},
+            { cls:'leafnode', text:'継ぎ目＝検品2段（機械lint緑→独立criticで軸MECE・単一の家・自己相似・境界規律は全体地図の幹1 DP2Lの通り）' },
+          ]},
+      ]},
+
+    { cls:'dirnode', layer:'問診', label:'問診族 — 走る前に意図を確定する',
+      note:'「作ってから違うと言われる」を上流で潰す族', axis:'確定する対象',
+      children:[
+        { label:'goal-seek — 問診ループの解剖', note:'ゴール・依頼・修正指示から「効く変数」を確定してから走る', axis:'ループの工程',
+          children:[
+            { cls:'leafnode', text:'受理直後にN回目チェック＝前例をretrieveして差分だけ計画（フル探索に入らない）' },
+            { cls:'leafnode', text:'taskレンズ（abstract-coreを起動）で依頼を構造分解' },
+            { cls:'leafnode', text:'効く変数を全部洗い出し→未確定を1問ずつ質問で埋める（一括アンケートにしない）' },
+            { cls:'leafnode', text:'収穫＝埋めた答えから汎用の型を抽出し、次回の前例資産にする' },
+            { cls:'leafnode', text:'純粋規律＝本体は目的抽出関数のまま保ち、使い方のパッケージ化は別スキルへ摘出（混入した時の手術記録つき）' },
+          ]},
+        { label:'structure-first', note:'記事・スライド等の線形制作物を2パスで作る＝goal-seekを構成層→実装層で2回呼ぶパターン', axis:'2パスの中身',
+          children:[
+            { cls:'leafnode', text:'Pass1＝構成層（読者の入場負荷の分解→機能要素→章への写像→照合FIX）' },
+            { cls:'leafnode', text:'Pass2＝実装層（素材・文言・図）——層をまたぐ質問を混ぜない' },
+          ]},
+      ]},
+
+    { cls:'dirnode', layer:'文筆', label:'文筆族 — AIの文章を人間の文章にする',
+      note:'責任を2スキルに分離（人間味／うまさ）し、推敲は craft→natural の順で natural が最終パス', axis:'責任の分担',
+      children:[
+        { label:'natural-writing', note:'AI臭の正体＝「平均への回帰」を消す文体規律', axis:'規律の見どころ',
+          children:[
+            { cls:'leafnode', text:'引き算（禁止語リスト）でなく足し算＝具体の一回性・主観と断定・弱みの先出し' },
+            { cls:'leafnode', text:'〔実測逸話〕定説の逆転を実測で確認＝体言止めゼロの方がAI臭い・「最後に」はむしろ人間語' },
+            { cls:'leafnode', text:'検知不可能性定理を根拠に、機械判定は黄色信号まで・有罪判定は意味の層と割り切る' },
+          ]},
+        { label:'craft-writing', note:'線形読み物の「うまさ」＝論証の支持力と読ませる推進力の規律', axis:'規律の見どころ',
+          children:[
+            { cls:'leafnode', text:'生成前の設計3問＝結論の位置・段落ごとの論証骨格・緊張の設置と回収' },
+            { cls:'leafnode', text:'推敲パス＝話題テスト・漏出テスト・緊張台帳・情報ゼロ句の純削除' },
+          ]},
+      ]},
+
+    { cls:'dirnode', layer:'抽出', label:'抽出族（分身プロジェクトの心臓部）— abstract-core の内部解剖',
+      note:'体制内の配役・依存方向は全体地図の幹4が正本＝ここはファイル構成の解剖だけ（FSRPを構成に適用した見本）', axis:'ファイルの軸（コア／レンズ／references）',
+      children:[
+        { label:'SKILL.md＝コア手順', note:'文脈確保→技法分岐→虚話チェック→出力の純粋ループ', axis:'純粋性の保ち方',
+          children:[
+            { cls:'leafnode', text:'クライアント（persona-interview／goal-seek／直接起動）がレンズを指定して起動する' },
+            { cls:'leafnode', text:'コアは書き込まない＝出力を返すだけ（Functional Core, Imperative Shell の Core 側）' },
+          ]},
+        { label:'adapters/＝レンズ（何の本質を探るか）', note:'1問い1レンズ・案件で複数run・統合はクライアントの仕事', axis:'レンズの対象',
+          children:[
+            { cls:'leafnode', text:'human-judgment＝人の判断・選好レンズ' },
+            { cls:'leafnode', text:'task＝タスク構造レンズ（ゴール階層・AND/OR分解・完了条件）' },
+            { cls:'leafnode', text:'ADAPTER.md＝レンズ3要素規格（入力契約／ドメインスクリプト／検証ループ）＝インターフェース定義' },
+          ]},
+        { label:'references/＝技法と界面の骨格', note:'1技法1ファイル＝どの抽象度でも1単位1責任', axis:'中の種別（掘る技法／状況で重ねる層）',
+          children:[
+            { label:'掘る技法', note:'認知科学から移植した抽出の道具（分岐で1つ選ぶ・虚話チェックのみ常時）', axis:'技法',
+              children:[
+                { cls:'leafnode', text:'cdm-protocol＝CDM（専門家の暗黙判断を掘る面接法）' },
+                { cls:'leafnode', text:'why-laddering＝why連鎖で価値観まで遡る' },
+                { cls:'leafnode', text:'confabulation-check＝後付け虚話の検出（本人の「理由の言明」をそのまま信じない）' },
+              ]},
+            { label:'状況で重ねる層', note:'レンズと分離された「聞き方・界面」の層（分離の経緯は全体地図の幹4「育ち方」）', axis:'いつ重ねるか',
+              children:[
+                { cls:'leafnode', text:'live-interview〔運用〕＝本人にライブで問えるときだけ重ねる聞き方道具箱（沈黙・行き詰まりの作法）' },
+                { cls:'leafnode', text:'intent-synthesis〔界面〕＝依頼者がいるとき人×タスクを合成する指示理解' },
+                { cls:'leafnode', text:'member-checking〔②確認〕＝照合プロトコルの正本（三点セット提示・3値判定・誤承認/誤棄却の対策）' },
+              ]},
+          ]},
+      ]},
+  ]
+};
+
+const _AXIS_EMPTY = s => s==='—' || s==='-' || s==='';
+function render(n){
+  if(n.text!==undefined) return `<li class="${n.cls||'leafnode'}"><div class="node">${n.text}</div></li>`;
+  const kidn = (n.children&&n.children.length) || 0;
+  if(kidn && !n.axis) console.warn('[tree-map] 分岐に axis(切る軸) が未設定:', n.label);
+  if(kidn && _AXIS_EMPTY(n.axis)) console.warn('[tree-map] axis を "—"/空 でごまかすな（軸を書くか子を畳め）:', n.label);
+  if(n.axis && !_AXIS_EMPTY(n.axis) && kidn<2) console.warn('[tree-map] 偽分岐（軸ありだが子<2）＝畳むか2子以上に割れ:', n.label);
+  if(n.note && (String(n.note).match(/。/g)||[]).length>=2) console.warn('[tree-map] note に第2メッセージの疑い（句点2つ以上）＝children へ割れ:', n.label);
+  const showAxis = n.axis && !_AXIS_EMPTY(n.axis);
+  const layer  = n.layer ? `<span class="layer">${n.layer}</span>` : '';
+  const label  = n.label ? `<b>${n.label}</b>` : '';
+  const badges = (n.badges||[]).map(b=>`<span class="badge b-${b.k}">${b.t}</span>`).join('');
+  let note = n.note || '';
+  if(showAxis) note = (note ? note+'　' : '') + `<span class="axis">分岐の軸＝${n.axis}</span>`;
+  const noteEl = note ? `<span class="note">${note}</span>` : '';
+  const kids = kidn ? `<ul>${n.children.map(render).join('')}</ul>` : '';
+  return `<li class="${n.cls||''}"><div class="node"><div class="row">${layer}${label}${badges}</div>${noteEl}</div>${kids}</li>`;
+}
+document.getElementById('tree').innerHTML = render(DATA);
+</script>
+</main>
