@@ -107,44 +107,50 @@
 
 <div class="card">
   <p class="lead">同じ職種の中に、軸の両端がある。</p>
-  <p>下の図は、職種を縦に、手順化度を横に取ったものです。<b>インフラも開発もQAも、線が左右に伸びている</b>——どの職種を選んでも、行き先は決まりません。</p>
+  <p>下の図は、職種を縦に、手順化度を横に取ったものです。<b>インフラも開発もQAも、線が左右に伸びている</b>——どの職種を選んでも、行き先は決まりません。<br>
+  さらに下段には、<b>職種の枠を超えた働き方</b>（フルスタック・FDE・独立）も同じ軸の上に置いてあります。</p>
 </div>
 
 <figure>
-<svg viewBox="0 0 720 330" role="img" aria-label="職種別の手順化度の分布図。インフラ・開発・QAはいずれも左端から右端まで幅を持つ。">
+<svg viewBox="0 0 720 452" role="img" aria-label="職種別の手順化度の分布図。インフラ・開発・QAはいずれも左端から右端まで幅を持つ。下段に職種横断の働き方としてフルスタック・FDE・独立をプロット。右端は未経験では入れない領域。">
+  <!-- 未経験では入れない領域（右端） -->
+  <rect x="500" y="34" width="180" height="386" fill="#12100e" opacity="0.045"/>
+  <line x1="500" y1="34" x2="500" y2="420" stroke="#7c7b76" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="672" y="50" font-size="11.5" font-weight="bold" fill="#52514e" text-anchor="end">未経験では入れない領域</text>
+  <text x="672" y="66" font-size="10.5" fill="#7c7b76" text-anchor="end">手順書が無い＝教えられない＝経験者のみ</text>
+
   <!-- グリッド -->
-  <line x1="200" y1="34" x2="200" y2="292" stroke="#e2e0da" stroke-width="1"/>
-  <line x1="360" y1="34" x2="360" y2="292" stroke="#e2e0da" stroke-width="1"/>
-  <line x1="520" y1="34" x2="520" y2="292" stroke="#e2e0da" stroke-width="1"/>
+  <line x1="245" y1="34" x2="245" y2="420" stroke="#e2e0da" stroke-width="1"/>
+  <line x1="373" y1="34" x2="373" y2="420" stroke="#e2e0da" stroke-width="1"/>
   <!-- 軸ラベル -->
   <text x="150" y="24" font-size="12.5" font-weight="bold" fill="#0d366b">◀ 手順化度 高い</text>
   <text x="690" y="24" font-size="12.5" font-weight="bold" fill="#1c5cab" text-anchor="end">低い ▶</text>
 
   <!-- インフラ -->
-  <text x="10" y="70" font-size="14" font-weight="bold" fill="#12100e">インフラ</text>
-  <line x1="150" y1="65" x2="660" y2="65" stroke="#e2e0da" stroke-width="2" stroke-dasharray="3 4"/>
-  <circle cx="175" cy="65" r="9" fill="#0d366b"/>
-  <text x="175" y="90" font-size="11.5" fill="#52514e" text-anchor="middle">運用監視</text>
-  <circle cx="360" cy="65" r="9" fill="#1c5cab"/>
-  <text x="360" y="90" font-size="11.5" fill="#52514e" text-anchor="middle">構築</text>
-  <circle cx="630" cy="65" r="9" fill="#86b6ef" stroke="#1c5cab" stroke-width="1.5"/>
-  <text x="630" y="90" font-size="11.5" fill="#52514e" text-anchor="middle">設計・SRE</text>
+  <text x="10" y="90" font-size="14" font-weight="bold" fill="#12100e">インフラ</text>
+  <line x1="150" y1="85" x2="660" y2="85" stroke="#e2e0da" stroke-width="2" stroke-dasharray="3 4"/>
+  <circle cx="175" cy="85" r="9" fill="#0d366b"/>
+  <text x="175" y="110" font-size="11.5" fill="#52514e" text-anchor="middle">運用監視</text>
+  <circle cx="360" cy="85" r="9" fill="#1c5cab"/>
+  <text x="360" y="110" font-size="11.5" fill="#52514e" text-anchor="middle">構築</text>
+  <circle cx="630" cy="85" r="9" fill="#86b6ef" stroke="#1c5cab" stroke-width="1.5"/>
+  <text x="630" y="110" font-size="11.5" fill="#52514e" text-anchor="middle">設計・SRE</text>
 
   <!-- 開発 -->
-  <text x="10" y="150" font-size="14" font-weight="bold" fill="#12100e">開発</text>
-  <line x1="150" y1="145" x2="660" y2="145" stroke="#e2e0da" stroke-width="2" stroke-dasharray="3 4"/>
-  <circle cx="245" cy="145" r="9" fill="#0d366b"/>
-  <text x="245" y="170" font-size="11.5" fill="#52514e" text-anchor="middle">下流・製造</text>
-  <circle cx="600" cy="145" r="9" fill="#86b6ef" stroke="#1c5cab" stroke-width="1.5"/>
-  <text x="600" y="170" font-size="11.5" fill="#52514e" text-anchor="middle">上流・設計</text>
+  <text x="10" y="155" font-size="14" font-weight="bold" fill="#12100e">開発</text>
+  <line x1="150" y1="150" x2="660" y2="150" stroke="#e2e0da" stroke-width="2" stroke-dasharray="3 4"/>
+  <circle cx="245" cy="150" r="9" fill="#0d366b"/>
+  <text x="245" y="175" font-size="11.5" fill="#52514e" text-anchor="middle">下流・製造</text>
+  <circle cx="600" cy="150" r="9" fill="#86b6ef" stroke="#1c5cab" stroke-width="1.5"/>
+  <text x="600" y="175" font-size="11.5" fill="#52514e" text-anchor="middle">上流・設計</text>
 
   <!-- QA -->
-  <text x="10" y="230" font-size="14" font-weight="bold" fill="#12100e">QA・テスト</text>
-  <line x1="150" y1="225" x2="660" y2="225" stroke="#e2e0da" stroke-width="2" stroke-dasharray="3 4"/>
-  <circle cx="168" cy="225" r="9" fill="#0d366b"/>
-  <text x="168" y="250" font-size="11.5" fill="#52514e" text-anchor="middle">手動テスト</text>
-  <circle cx="470" cy="225" r="9" fill="#3987e5"/>
-  <text x="470" y="250" font-size="11.5" fill="#52514e" text-anchor="middle">SET（自動化）</text>
+  <text x="10" y="220" font-size="14" font-weight="bold" fill="#12100e">QA・テスト</text>
+  <line x1="150" y1="215" x2="660" y2="215" stroke="#e2e0da" stroke-width="2" stroke-dasharray="3 4"/>
+  <circle cx="168" cy="215" r="9" fill="#0d366b"/>
+  <text x="168" y="240" font-size="11.5" fill="#52514e" text-anchor="middle">手動テスト</text>
+  <circle cx="470" cy="215" r="9" fill="#3987e5"/>
+  <text x="470" y="240" font-size="11.5" fill="#52514e" text-anchor="middle">SET（自動化）</text>
 
   <!-- 社内SE -->
   <text x="10" y="285" font-size="14" font-weight="bold" fill="#12100e">社内SE</text>
@@ -153,12 +159,44 @@
   <text x="300" y="305" font-size="11.5" fill="#52514e" text-anchor="middle">ヘルプデスク</text>
   <circle cx="555" cy="280" r="9" fill="#86b6ef" stroke="#1c5cab" stroke-width="1.5"/>
   <text x="555" y="305" font-size="11.5" fill="#52514e" text-anchor="middle">業務改善・DX</text>
+
+  <!-- 区切り -->
+  <line x1="10" y1="330" x2="700" y2="330" stroke="#c9c7c0" stroke-width="1.5"/>
+  <text x="10" y="350" font-size="12" font-weight="bold" fill="#7c7b76">▼ 職種の枠を超えた働き方（どれも右端＝経験者の領域）</text>
+
+  <!-- 職種横断 -->
+  <line x1="150" y1="392" x2="660" y2="392" stroke="#e2e0da" stroke-width="2" stroke-dasharray="3 4"/>
+  <!-- フルスタック -->
+  <circle cx="556" cy="392" r="10" fill="#86b6ef" stroke="#1c5cab" stroke-width="1.5"/>
+  <text x="556" y="417" font-size="11.5" font-weight="bold" fill="#12100e" text-anchor="middle">フルスタック</text>
+  <text x="556" y="432" font-size="10" fill="#7c7b76" text-anchor="middle">技術の幅を1人で持つ</text>
+  <!-- FDE -->
+  <circle cx="628" cy="392" r="10" fill="#3987e5" stroke="#0d366b" stroke-width="1.5"/>
+  <text x="628" y="371" font-size="11.5" font-weight="bold" fill="#12100e" text-anchor="middle">FDE</text>
+  <text x="628" y="357" font-size="10" fill="#7c7b76" text-anchor="middle">顧客の現場で課題から解く</text>
+  <!-- 独立・個人事業（武者野） -->
+  <circle cx="672" cy="392" r="10" fill="#0ca30c" stroke="#0a7a0a" stroke-width="1.5"/>
+  <text x="672" y="417" font-size="11.5" font-weight="bold" fill="#0a7a0a" text-anchor="middle">独立・個人事業</text>
+  <text x="672" y="432" font-size="10" fill="#7c7b76" text-anchor="middle">武者野の現在地</text>
 </svg>
-<figcaption>職種は「点」ではなく「幅」を持つ。だから職種名だけでは行き先が決まらない。</figcaption>
+<figcaption>職種は「点」ではなく「幅」を持つ。そして下段の働き方は<b>すべて右端＝未経験では入れない領域</b>にある。</figcaption>
 </figure>
 
 <div class="key">
 <b>比べるべきは職種でなく、軸のどこに立つか。</b>「開発 vs インフラ」で議論しても答えが出ないのは、両方とも左端から右端まで幅を持っているからです。
+</div>
+
+<h3>下段の3つについて</h3>
+<table>
+  <tr><th>働き方</th><th>中身</th><th>なぜ右端か</th></tr>
+  <tr><td><b>フルスタック</b></td><td>フロント・バック・インフラを1人で通す</td><td>領域をまたぐ判断が要る。ただし<b>「何を作るか」は与えられている</b>ことが多く、FDEより少し左</td></tr>
+  <tr><td><b>FDE</b><br><small>Forward Deployed Engineer</small></td><td>顧客の現場に入り、ボトルネックを自分で見つけ、設計から実装・定着まで通す</td><td><b>課題そのものを定義する</b>ところから始まる。手順書が存在しえない</td></tr>
+  <tr><td><b>独立・個人事業</b></td><td>自分の事業の課題を、自分で見つけて自分で解く</td><td>顧客も課題も自分で決める。<b>軸の最右端</b></td></tr>
+</table>
+
+<div class="note">
+<b>この3つは、多くのエンジニアが「いつかここに行きたい」と思う場所です。</b>そして<b>全部が未経験では入れない領域にあります。</b><br>
+だから「憧れの働き方」を目標に据えるのは正しいけれど、<b>それを1社目の応募先にすることはできません</b>。ここを混同すると、求職者は「入れない求人に応募し続ける」ことになります。
 </div>
 
 <h2><span class="emoji">🪙</span>3. 左端で起きる2つのこと（同じ原因から）</h2>
@@ -206,6 +244,23 @@
 <div class="card">
   <p class="lead">リスクは、入口に留まること。</p>
   <p>未経験の入口は、構造上ぜんぶ軸の左端にあります。そこから入ること自体は問題ではなく、<b>むしろ他に道がない</b>。問題は、そこから右へ動けるかどうか。<b>そしてAIの浸透も左端から進みます。</b></p>
+</div>
+
+<h3>軸には対称性がある — 両端とも、理由は同じ</h3>
+
+<div class="card">
+  <table style="margin:4px 0;">
+    <tr><th style="width:34%">軸の位置</th><th>なぜそうなるか</th></tr>
+    <tr><td><b>左端</b>: 手順化されている</td><td>マニュアルがある → <b>教えられる</b> → 未経験を採用できる<br><span style="color:#b52d2d;">同時に、機械にも同じ手順を踏ませられる → 自動化の第一標的</span></td></tr>
+    <tr><td><b>右端</b>: 手順化されていない</td><td>手順書が無い → <b>教えられない</b> → 育成コストを払えない → <b>経験者しか採らない</b></td></tr>
+  </table>
+  <p style="margin-top:12px;">つまり<b>「手順化されているか」という同じ1つの性質が、両端の採用のしかたを決めています。</b>左端が開いているのも、右端が閉じているのも、理由は同じ。</p>
+</div>
+
+<div class="note">
+<b>ここが未経験キャリア支援で一番大事な事実です。</b><br>
+未経験の求職者が自分で求人を探すと、目につくのは「面白そうな会社」＝右寄りの環境です。でもそこは<b>構造的に閉じている</b>。応募しても、同じ枠に経験者が来るので通りません。<br>
+<b>落ち続けた経験のある求職者に対して、CAが最初に伝えるべきはこれです</b>——「あなたの能力の問題ではなく、扉の設計の問題だった」と。
 </div>
 
 <figure>
@@ -341,6 +396,8 @@
   <li><b>求人は「入れるか」でなく「上がれるか」で評価する。</b>入口の広さは魅力ではなく、構造の結果</li>
   <li><b>経歴は単品でなく掛け算で見る。</b>本人が安く見積もっている組み合わせを見つけて、言語化して返す</li>
   <li><b>「自分で課題を見つけて解決した話」を必ず拾う。</b>書類に書かれていないことが多く、しかも一番効く</li>
+  <li><b>過去に落ち続けた経験があるなら、構造で説明する。</b>「右端は未経験に閉じている」——落ちた理由が能力でなく扉の設計だったと伝えるだけで、自己評価が正しい位置に戻る</li>
+  <li><b>憧れの働き方（フルスタック・FDE・独立）は、目標としては正しく、1社目としては選べない。</b>ここを分けて話す</li>
 </ul>
 </div>
 
