@@ -170,10 +170,10 @@
   <circle cx="540" cy="392" r="10" fill="#86b6ef" stroke="#1c5cab" stroke-width="1.5"/>
   <text x="540" y="417" font-size="11.5" font-weight="bold" fill="#12100e" text-anchor="middle">フルスタック</text>
   <text x="540" y="432" font-size="10" fill="#7c7b76" text-anchor="middle">課題は与えられる／技術の幅で解く</text>
-  <!-- FDE・独立（同一位置＝手順化度は同じ） -->
+  <!-- FDE・ITコンサル・独立（同一位置＝手順化度は同じ） -->
   <circle cx="646" cy="392" r="11" fill="#3987e5" stroke="#0d366b" stroke-width="1.5"/>
-  <text x="646" y="371" font-size="11.5" font-weight="bold" fill="#12100e" text-anchor="middle">FDE ／ 独立・個人事業</text>
-  <text x="646" y="356" font-size="10" fill="#7c7b76" text-anchor="middle">課題の定義から自分でやる（＝武者野の現在地）</text>
+  <text x="646" y="371" font-size="11.5" font-weight="bold" fill="#12100e" text-anchor="middle">FDE ／ ITコンサル ／ 独立</text>
+  <text x="646" y="356" font-size="10" fill="#7c7b76" text-anchor="middle">課題の定義から自分でやる（独立＝武者野の現在地）</text>
 </svg>
 <figcaption>職種は「点」ではなく「幅」を持つ。そして下段の働き方は<b>すべて右端＝未経験では入れない領域</b>にある。<br>
 <b>FDEと独立は同じ位置</b>——どちらも「課題を自分で定義する」ので、手順化度では区別できない（違いは下表）。</figcaption>
@@ -205,6 +205,12 @@
     <td><b>状況</b>（顧客の事情は選べない）</td>
   </tr>
   <tr>
+    <td><b>ITコンサル</b></td>
+    <td><b>顧客の課題</b>（経営・業務の側から入る）</td>
+    <td>技術とビジネスの<b>翻訳</b>。作るのは他者なので、<b>決めたことを人に実行させる力</b>が要る</td>
+    <td><b>状況</b>＋<b>実装の主導権</b>（自分では作らない）</td>
+  </tr>
+  <tr>
     <td><b>独立・個人事業</b><br><small>武者野の現在地</small></td>
     <td><b>自分の事業の課題</b></td>
     <td><b>課題を自分で設定すること</b>＋事業として成立させること</td>
@@ -220,8 +226,63 @@
 </div>
 
 <div class="note">
-<b>この3つは、多くのエンジニアが「いつかここに行きたい」と思う場所です。</b>そして<b>全部が未経験では入れない領域にあります。</b><br>
+<b>これらは、多くのエンジニアが「いつかここに行きたい」と思う場所です。</b>そして<b>全部が未経験では入れない領域にあります。</b><br>
 だから「憧れの働き方」を目標に据えるのは正しいけれど、<b>それを1社目の応募先にすることはできません</b>。ここを混同すると、求職者は「入れない求人に応募し続ける」ことになります。
+</div>
+
+<h3>そこへは、開発からもインフラからも来られる</h3>
+
+<div class="card">
+  <p class="lead">下段への到達経路に、非対称はない。</p>
+  <p>フルスタックやFDEになった人は、<b>元をたどれば開発出身かインフラ出身のどちらか</b>です。片方からしか来られない理由はありません。<br>
+  ここを勘違いすると「インフラに入ったら開発系のキャリアは終わり」という誤解が生まれます。</p>
+</div>
+
+<figure>
+<svg viewBox="0 0 690 230" role="img" aria-label="フルスタック・FDEへの到達経路。開発からもインフラからも合流できる対称的な図。">
+  <!-- 開発から -->
+  <rect x="24" y="26" width="216" height="62" rx="12" fill="#f2edfc" stroke="#cdbcf0"/>
+  <text x="132" y="50" font-size="13.5" font-weight="bold" fill="#563a9e" text-anchor="middle">開発（上流・設計）</text>
+  <text x="132" y="72" font-size="11.5" fill="#52514e" text-anchor="middle">作る力を軸に、基盤へ広げる</text>
+  <!-- インフラから -->
+  <rect x="24" y="140" width="216" height="62" rx="12" fill="#eef4fd" stroke="#bcd4f5"/>
+  <text x="132" y="164" font-size="13.5" font-weight="bold" fill="#123f78" text-anchor="middle">インフラ（設計・SRE）</text>
+  <text x="132" y="186" font-size="11.5" fill="#52514e" text-anchor="middle">基盤を軸に、作る力を足す</text>
+  <!-- 矢印 -->
+  <path d="M248 57 Q350 57 390 100" stroke="#7b52c4" stroke-width="2.5" fill="none"/>
+  <polygon points="396,108 380,101 385,116" fill="#7b52c4"/>
+  <path d="M248 171 Q350 171 390 128" stroke="#1c5cab" stroke-width="2.5" fill="none"/>
+  <polygon points="396,120 380,127 385,112" fill="#1c5cab"/>
+  <!-- 到達点 -->
+  <rect x="404" y="82" width="262" height="64" rx="12" fill="#0d366b"/>
+  <text x="535" y="108" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">フルスタック／FDE／ITコンサル</text>
+  <text x="535" y="130" font-size="11.5" fill="#cde2fb" text-anchor="middle">どちらの出身でも到達しうる</text>
+  <text x="345" y="222" font-size="12.5" font-weight="bold" fill="#123f78" text-anchor="middle">出発点が違うだけで、片方だけが有利ということはない</text>
+</svg>
+<figcaption>「開発出身のフルスタック」も「インフラ出身のフルスタック」も実在する。<b>どちらか一方しか到達できないなら、その方が不自然。</b></figcaption>
+</figure>
+
+<div class="key">
+<b>ここで「水平移動」と「拡張」を分けて考える必要があります。</b>
+<table style="margin:8px 0 0;">
+  <tr><th style="width:30%">動き方</th><th>中身</th><th>コスト</th></tr>
+  <tr>
+    <td><b>水平移動</b><br><small>例: インフラ → 開発</small></td>
+    <td>分野を乗り換える。<b>今までの専門性を一度降ろす</b></td>
+    <td><b>高い。</b>技術を学び直し、案件に入るまで時間がかかり、年収が下がることもある</td>
+  </tr>
+  <tr>
+    <td><b>拡張</b><br><small>例: インフラ → インフラ＋開発</small></td>
+    <td>専門性を軸に残したまま、隣を足していく。<b>捨てるものがない</b></td>
+    <td><b>低い。</b>今の仕事を続けながら積める</td>
+  </tr>
+</table>
+<p style="margin:10px 0 0;">「インフラから開発へ移った人」の記録が少ないのは、<b>水平移動が割に合わないから</b>かもしれません。一方で<b>拡張は「転向」の形を取らない</b>ので、そもそも記録として書かれにくい——インフラエンジニアがコードを書けるようになっても、「転向しました」とは言わないからです。</p>
+</div>
+
+<div class="note">
+<b>面談で使うなら:</b> 「インフラに入ったら開発はもうできない」と思っている求職者に対して、<b>「乗り換える」のでなく「足していく」道がある</b>と伝えられます。<br>
+ただし<b>「だからインフラでも大丈夫」と安請け合いはしない</b>こと。拡張が起きるかどうかは、その会社でコードを書く機会があるかに完全に依存します（IaCを使っているか、自動化を任せてもらえるか）。<b>求人票と面接で確認すべき具体的な項目</b>です。
 </div>
 
 <h2><span class="emoji">🪙</span>3. 左端で起きる2つのこと（同じ原因から）</h2>
