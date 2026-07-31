@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>手順化度の軸 — 職種名を捨ててキャリアを測る</title>
+<style>
+  :root{
+    --ink:#1c2735; --sub:#5d6d82; --line:#dde5ef;
+    --hot:#d9534f; --hot-bg:#fdeded;
+    --warm:#e08b34; --warm-bg:#fdf4e9;
+    --cool:#2f8fd0; --cool-bg:#eaf4fc;
+    --cold:#1f9d6b; --cold-bg:#e9f7f0;
+    --deep:#6b46c1; --deep-bg:#f2edfc;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
+    color:var(--ink); margin:0; line-height:1.85; background:#f6f8fb; font-size:16px;
+  }
+  .wrap{max-width:900px; margin:0 auto; padding:26px 18px 70px;}
+  header{
+    background:linear-gradient(120deg,#d9534f 0%,#e08b34 30%,#2f8fd0 70%,#1f9d6b 100%);
+    color:#fff; border-radius:18px; padding:28px 26px; margin-bottom:24px;
+    box-shadow:0 6px 24px rgba(40,60,90,.2);
+  }
+  header h1{margin:0 0 8px; font-size:26px; line-height:1.45;}
+  header p{margin:0; font-size:15px; opacity:.96;}
+  .badge{display:inline-block; background:rgba(255,255,255,.24); border-radius:20px; padding:3px 13px; font-size:13px; margin-bottom:11px;}
+  h2{font-size:21px; margin:38px 0 12px; padding-left:14px; border-left:6px solid var(--deep); line-height:1.5;}
+  h3{font-size:17px; margin:22px 0 7px;}
+  .card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin:14px 0; box-shadow:0 2px 8px rgba(28,39,53,.05);}
+  .lead{font-size:17.5px; font-weight:bold; color:var(--deep); margin:0 0 10px;}
+  .big{font-size:19px; font-weight:bold; text-align:center; margin:18px 0; color:var(--deep); line-height:1.6;}
+
+  /* 軸バー */
+  .axis-head{display:flex; justify-content:space-between; font-size:13.5px; font-weight:bold; margin:18px 0 5px; padding:0 3px;}
+  .axis-head .l{color:var(--hot);} .axis-head .r{color:var(--cold);}
+  .bar{height:15px; border-radius:8px; background:linear-gradient(90deg,#d9534f,#e08b34 33%,#2f8fd0 66%,#1f9d6b); margin-bottom:6px;}
+  .bar-cap{display:flex; justify-content:space-between; font-size:12.5px; color:var(--sub); margin-bottom:20px; padding:0 3px;}
+
+  /* 職種行 */
+  .row{
+    display:grid; grid-template-columns:150px 1fr; gap:0;
+    border:1px solid var(--line); border-radius:12px; overflow:hidden;
+    margin-bottom:9px; background:#fff;
+  }
+  .row .name{
+    padding:12px 13px; font-weight:bold; font-size:14.5px; line-height:1.5;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .row .name small{font-weight:normal; font-size:12px; opacity:.8; margin-top:2px;}
+  .row .body{padding:11px 14px; font-size:14.5px; line-height:1.75; border-left:1px solid var(--line);}
+  .r-hot .name{background:var(--hot-bg); color:var(--hot);}
+  .r-warm .name{background:var(--warm-bg); color:var(--warm);}
+  .r-cool .name{background:var(--cool-bg); color:var(--cool);}
+  .r-cold .name{background:var(--cold-bg); color:var(--cold);}
+  .meta{font-size:12.5px; color:var(--sub); margin-top:4px;}
+  .meta b{color:var(--ink);}
+
+  .coin{display:flex; gap:12px; flex-wrap:wrap; margin:14px 0;}
+  .coin > div{flex:1 1 250px; border-radius:12px; padding:14px 16px; font-size:15px;}
+  .coin .a{background:var(--cold-bg); border:1px solid #b5e0cc;}
+  .coin .b{background:var(--hot-bg); border:1px solid #f3c3c2;}
+  .coin b{display:block; margin-bottom:5px;}
+
+  .key{background:var(--deep-bg); border:1px solid #cdbcf0; border-radius:12px; padding:15px 18px; margin:15px 0; font-size:15.5px;}
+  .note{background:var(--warm-bg); border:1px solid #f0d3ae; border-radius:12px; padding:14px 17px; margin:14px 0; font-size:15px;}
+  .sol{background:#fff; border:1px solid var(--line); border-left:6px solid var(--cold); border-radius:12px; padding:15px 18px; margin:12px 0;}
+  .sol .t{font-size:17px; font-weight:bold; color:var(--cold); margin-bottom:5px;}
+  .sol .ex{background:var(--cold-bg); border-radius:8px; padding:9px 12px; margin-top:9px; font-size:14px;}
+  table{border-collapse:collapse; width:100%; margin:12px 0; font-size:14.5px; background:#fff;}
+  th,td{border:1px solid var(--line); padding:9px 11px; text-align:left; vertical-align:top;}
+  th{background:var(--deep-bg); color:#563a9e; white-space:nowrap;}
+  ul{padding-left:22px;} li{margin-bottom:6px;}
+  .emoji{font-size:20px; margin-right:5px;}
+  footer{margin-top:44px; padding-top:18px; border-top:2px solid var(--line); color:var(--sub); font-size:13.5px;}
+  a{color:var(--cool);}
+  @media(max-width:620px){
+    body{font-size:15px;} header h1{font-size:20px;} h2{font-size:18px;}
+    .row{grid-template-columns:1fr;} .row .body{border-left:none; border-top:1px solid var(--line);}
+    .row .name{flex-direction:row; align-items:baseline; gap:7px;}
+    .big{font-size:16.5px;} table{font-size:13.5px;} th,td{padding:7px 8px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="badge">CA向け・社内学習資料 ／ 応用編</div>
+  <h1>手順化度の軸<br><span style="font-size:19px;">職種名を捨てて、キャリアを1本の軸で測る</span></h1>
+  <p>「開発かインフラか」で悩む求職者に、別の目盛りを渡すための資料。</p>
+</header>
+
+<div class="card">
+  <p class="lead">職種名は、キャリアの目盛りにならない。</p>
+  <p>同じ「開発エンジニア」でも、言われた通りに作るだけの人と、何を作るか決める人がいます。同じ「インフラエンジニア」でも、手順書どおりに対応する人と、構成を設計する人がいる。<b>職種名は、この差をまったく表現できません。</b></p>
+  <p>代わりに使える目盛りが1本あります。</p>
+</div>
+
+<div class="big">その仕事は、どれだけ「手順化」されているか</div>
+
+<h2><span class="emoji">📏</span>1. 手順化度とは</h2>
+
+<div class="card">
+  <p><b>手順化度が高い＝「こういう時はこうする」が事前に決められている度合いが高い。</b></p>
+  <p>測り方は簡単で、次の質問で分かります。</p>
+  <ul style="margin-top:9px;">
+    <li>マニュアルや手順書は存在するか</li>
+    <li>新人が入って、何日で戦力になるか</li>
+    <li>「判断」が必要な場面が1日に何回あるか</li>
+    <li>同じ状況で、人によって答えが変わるか</li>
+  </ul>
+</div>
+
+<div class="axis-head"><span class="l">◀ 手順化度 高い</span><span class="r">手順化度 低い ▶</span></div>
+<div class="bar"></div>
+<div class="bar-cap"><span>決められた通りにやる</span><span>その都度、決める</span></div>
+
+<h2><span class="emoji">🔀</span>2. この軸は職種名と直交している</h2>
+
+<div class="card">
+  <p class="lead">同じ職種の中に、軸の両端がある。</p>
+  <p>だから「開発 vs インフラ」で議論しても答えが出ません。<b>比べるべきは職種でなく、軸のどこに立つか。</b></p>
+</div>
+
+<div class="axis-head"><span class="l">◀ 手順化度 高い</span><span class="r">手順化度 低い ▶</span></div>
+<div class="bar"></div>
+
+<div class="row r-hot">
+  <div class="name">インフラ<small>運用監視・NOC</small></div>
+  <div class="body">アラートを見て手順書どおりに対応。「CPU90%超えたらこの手順、ダメなら報告」。
+  <div class="meta"><b>未経験の入口</b>／夜勤あり／<b>AI代替リスク 最大</b></div></div>
+</div>
+
+<div class="row r-hot">
+  <div class="name">QA<small>手動テスト</small></div>
+  <div class="body">テスト仕様書の項目を1つずつ確認していく。「この画面でこのボタン→この表示が出るか」。
+  <div class="meta"><b>未経験の入口</b>／<b>AI代替リスク 最大</b>（自動化が最も進行中）</div></div>
+</div>
+
+<div class="row r-warm">
+  <div class="name">開発<small>下流・製造工程</small></div>
+  <div class="body">詳細設計書のとおりにコードを書く。何を作るかは既に決まっている。
+  <div class="meta">未経験でも入れる場合あり／<b>AI代替リスク 大</b>（生成AIが最も得意な領域）</div></div>
+</div>
+
+<div class="row r-warm">
+  <div class="name">インフラ<small>構築</small></div>
+  <div class="body">指示を受けてサーバーを立て、設定する。手順はあるが、環境ごとの差異に対応する必要がある。
+  <div class="meta">経験1〜3年の層／AI代替リスク 中</div></div>
+</div>
+
+<div class="row r-cool">
+  <div class="name">SET<small>テスト自動化</small></div>
+  <div class="body">テストをコードで書き、自動実行の仕組みを作る。「何をどう検証すべきか」の設計が要る。
+  <div class="meta">QA経験＋コードが要る／<b>AI代替リスク 中</b>（書く作業は自動化・設計は残る）</div></div>
+</div>
+
+<div class="row r-cool">
+  <div class="name">社内SE<small>業務改善・DX推進</small></div>
+  <div class="body">現場の困りごとを聞き出し、何を自動化すべきか決めて作る。<b>正解が事前に存在しない。</b>
+  <div class="meta">業務理解＋技術／AI代替リスク 中〜小</div></div>
+</div>
+
+<div class="row r-cold">
+  <div class="name">開発<small>上流・設計</small></div>
+  <div class="body">要件を聞き、何を作るか決める。トレードオフの判断が仕事。
+  <div class="meta">経験者の領域／<b>AI代替リスク 小</b></div></div>
+</div>
+
+<div class="row r-cold">
+  <div class="name">インフラ<small>設計・SRE</small></div>
+  <div class="body">「月1000万アクセスに耐える構成」を決める。落ちない設計を作る。
+  <div class="meta">到達点／年収1000万超も／<b>AI代替リスク 小</b></div></div>
+</div>
+
+<div class="key">
+<b>注目してほしい点:</b> インフラも開発もQAも、<b>軸の上に何度も現れます</b>。左端にも右端にもいる。<br>
+つまり<b>「どの職種を選ぶか」は、行き先を決めていない</b>。決まるのは軸のどこに立つかです。
+</div>
+
+<h2><span class="emoji">🪙</span>3. 軸の左端で起きる2つのこと（同じ原因から）</h2>
+
+<div class="card">
+  <p>手順化度が高い、というたった1つの性質から、正反対に見える2つの帰結が出ます。</p>
+</div>
+
+<div class="coin">
+  <div class="a"><b>😊 未経験でも入れる</b>マニュアルがあるから初日から戦力になる。だから会社は経験を問わずに採用できる。</div>
+  <div class="b"><b>😰 自動化されやすい</b>手順が決まっている＝機械に同じ手順を踏ませられる。だから置き換えの第一候補になる。</div>
+</div>
+
+<div class="big">「未経験でも入れる」と「AIに代替されやすい」は<br>同じことを別の側から言っているだけ</div>
+
+<div class="note">
+<b>だからこの2つは、いつも一緒に来ます。</b>「未経験歓迎・研修充実」の求人がインフラ運用監視やテスターに集中しているのは、業界が親切だからではありません。<b>手順化されているから、その両方が成立している</b>だけです。<br>
+求職者に「未経験歓迎だから安心ですよ」とだけ言うと、この構造を隠すことになります。
+</div>
+
+<h2><span class="emoji">🧗</span>4. 帰結 — 本当のリスクは「職種選び」ではない</h2>
+
+<div class="card">
+  <p class="lead">リスクは、入口に留まること。</p>
+  <p>未経験の入口は、構造上ぜんぶ軸の左端にあります。そこから入ること自体は問題ではなく、<b>むしろそれ以外に道がない</b>。問題は、そこから右へ動けるかどうか。</p>
+  <p>そして<b>AIの浸透は左端から順に進みます</b>。つまり「入口に留まる」＝「置き換えの波が最初に来る場所に立ち続ける」ということ。</p>
+</div>
+
+<div class="key">
+求職者に伝えるべき問いは <b>「開発とインフラ、どっちが安全ですか？」ではなく</b><br>
+<b>「その会社に入って、3年で右に動けますか？」</b>
+</div>
+
+<h3>だからCAが求人票で見るべきポイントが変わる</h3>
+<table>
+  <tr><th>見るところ</th><th>何が分かるか</th></tr>
+  <tr><td>キャリアパスが図で示されているか</td><td>右へ動く道が<b>設計されているか</b>。「1〜3年で運用保守→構築へ」等の明記は強いシグナル</td></tr>
+  <tr><td>研修が入社時だけか、継続的か</td><td>入口に留めるつもりか、上げるつもりか</td></tr>
+  <tr><td>資格支援の対象資格</td><td>会社が想定している到達点が読める</td></tr>
+  <tr><td>上位職の平均年齢・在籍年数</td><td>実際に上がった人がいるか（いなければ図は絵に描いた餅）</td></tr>
+</table>
+
+<h2><span class="emoji">🎯</span>5. 構造的ジレンマと、4つの解き方</h2>
+
+<div class="card">
+  <p class="lead">未経験の入口は必ず左端にある。では、どうやって右に行くのか。</p>
+  <p>これが未経験キャリア支援の中心にある問いです。解き方は大きく4つあります。</p>
+</div>
+
+<div class="sol">
+  <div class="t">① 時間で解く — 左から入って右へ移動する</div>
+  最も王道で、最も一般的。ただし<b>移動できるかは会社次第</b>なので、CAは求人票のキャリアパスと上位職の実在を確認する必要があります。「3年で上流へ」と書いてあっても、実際に上がった人がいるかは別問題。
+  <div class="ex"><b>CAの仕事:</b> 「入れる会社」でなく「上がれる会社」を選ぶ。上の表の4項目で見分ける。</div>
+</div>
+
+<div class="sol">
+  <div class="t">② 掛け算で解く — 手順化しにくい「組み合わせ」を持ち込む</div>
+  1つ1つは平凡なスキルでも、<b>組み合わせは手順化しにくい</b>。「業務知識×技術」「テスト経験×コード」「現場経験×資格」のような掛け算は、マニュアル化しづらいので左端に落ちません。
+  <div class="ex"><b>CAの仕事:</b> 求職者の経歴を単品で見ずに、掛け算で見る。本人は「どれも中途半端」と思っていることが多いので、そこを構造で言語化してあげる。</div>
+</div>
+
+<div class="sol">
+  <div class="t">③ 隣接で解く — 前職のドメイン知識を持ち込む</div>
+  技術は未経験でも、<b>その業界のことを知っている</b>のは強い。金融事務の経験者が金融システムの現場に入る、製造業出身者が工場系の案件に入る、など。ドメイン知識は手順書に書けないので、これも左端に落ちません。
+  <div class="ex"><b>CAの仕事:</b> 「未経験」と「その業界を知らない」を分けて考える。前職の業界と案件の業界が重なる求人を優先的に探す。</div>
+</div>
+
+<div class="sol">
+  <div class="t">④ 今いる場所で解く — 手順化されていない仕事を自分で作る</div>
+  今の職場で「誰も指示していないのに、自分で課題を見つけて解決した」経験は、<b>定義上、手順化されていない仕事</b>です。業務改善・自動化・マニュアル整備などがこれに当たります。
+  <div class="ex"><b>CAの仕事:</b> 転職前の求職者にこれを勧められる。また、既にやっている人の話を面談で必ず拾う——本人は「ただの業務効率化」と思っていて、書類に書いていないことが多い。</div>
+</div>
+
+<div class="key">
+<b>②③④に共通するのは、「経験年数」以外の方法で希少性を作っていること。</b><br>
+未経験・第二新卒の求職者は年数で勝負できないので、CAが探すべきはここです。
+</div>
+
+<h2><span class="emoji">🧭</span>6. 面談での使い方</h2>
+
+<div class="card">
+<ul style="margin:0;">
+  <li><b>職種の希望を聞いたら、層まで聞く。</b>「インフラ志望」なら、監視をイメージしているのか設計まで見ているのか。ここが違うと提案が全部ズレる</li>
+  <li><b>「AIに代替されませんか」には、職種でなく層で答える。</b>「この職種なら安全」は嘘になる。「手順どおりの作業は減り、決める仕事は残る」が正確</li>
+  <li><b>求人は「入れるか」でなく「上がれるか」で評価する。</b>入口の広さは魅力ではなく、構造の結果</li>
+  <li><b>経歴は単品でなく掛け算で見る。</b>本人が安く見積もっている組み合わせを見つけて、言語化して返す</li>
+  <li><b>「自分で課題を見つけて解決した話」を必ず拾う。</b>書類に書かれていないことが多く、しかも一番効く</li>
+</ul>
+</div>
+
+<footer>
+Gooner人材事業部 CA向け社内資料 ／ 2026年8月<br>
+入門編（職種の基礎・用語辞典）は <a href="https://mushataku.github.io/pub/it-career-basics.html">CAのためのIT職種入門</a> を参照。<br>
+※この資料は職種構造の整理です。AI代替の実測データ・市場動向は別途まとめます。
+</footer>
+
+</div>
+</body>
+</html>
