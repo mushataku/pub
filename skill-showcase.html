@@ -61,7 +61,7 @@ code{font-family:Consolas,Menlo,monospace;font-size:12.3px;background:var(--dirb
 
 <main>
 <h1>おもろいスキル図鑑 — 生態系の見どころ</h1>
-<p class="lead">全体地図（skill-ecosystem-map.html）の姉妹図。幹の軸＝スキルの族（何を製造・保守・確定・執筆・抽出するか）。族の代表は内部解剖まで割り、FSRP（1単位1責任）がファイル構成に・DP2L（決定論🔩×確率論）が部品の分担に写っているのを見せる。全一覧は下の表。2026-07-31</p>
+<p class="lead">全体地図（skill-ecosystem-map.html）の姉妹図。幹の軸＝見る面（呼び出しグラフ＝誰が誰をかますか／族別の解剖＝中身）。解剖は「よく呼ばれる順」に並べ、FSRP（1単位1責任）がファイル構成に・DP2L（決定論🔩×確率論）が部品の分担に写っているのを見せる。全一覧は下の表。2026-07-31</p>
 
 <div class="mapwrap"><ul class="tree" id="tree"></ul></div>
 <p class="legend">凡例: <span class="axis">青字=分岐の軸</span>　破線=葉。ちなみに<b>この図自体が外科族 tree-map の出力</b>——雛形＋データ差し替え＋lint＋独立criticの2段検品を通ってここに居る</p>
@@ -94,15 +94,102 @@ code{font-family:Consolas,Menlo,monospace;font-size:12.3px;background:var(--dirb
 <script>
 const DATA = {
   cls:'rootnode', label:'おもろいスキル図鑑',
-  note:'生態系の中から「人に見せたい」スキルを族ごとに内部解剖まで深掘りする（網羅は下の一覧表が担当）',
-  axis:'スキルの族（何を製造・保守・確定・執筆・抽出するか）',
+  note:'生態系の中から「人に見せたい」スキルを、呼び出し関係と内部解剖の2面で深掘りする（網羅は下の一覧表が担当）',
+  axis:'見る面（呼び出しグラフ＝繋がり／族別の解剖＝中身）',
   children:[
+
+    { cls:'dirnode', layer:'グラフ', label:'呼び出しグラフ — 誰が誰をかますか',
+      note:'番号＝呼び出しの段（①が呼ぶ側・下流ほどよく呼ばれる基盤）で、同じスキルが複数の連鎖に出るのはグラフがDAGだから（中身の家は解剖の幹）',
+      axis:'連鎖（何の仕事の呼び出し列か）',
+      children:[
+        { label:'博士製造の連鎖（最長5段）', note:'新repoの立ち上げから最深部エンジンまで一本で繋がる', axis:'呼び出しの段',
+          children:[
+            { cls:'leafnode', text:'① setup-project＝新repo鋳型（Step0.5で専属博士の要否を判定・Goは人間待ち）' },
+            { cls:'leafnode', text:'② make-hakase＝博士ファクトリー（agentの設計・監査・配置）' },
+            { cls:'leafnode', text:'③ make-canon＝正本ファクトリー（make-hakase Step3「知識基盤構築」が呼ぶ）' },
+            { cls:'leafnode', text:'④ goal-seek＝曖昧さゲートの実体（呼び手2本: make-canon Step1.0／make-hakase Step2前——依頼者と未照合の依頼はスコープを確定させてから製造に入る）' },
+            { cls:'leafnode', text:'⑤ abstract-core＝goal-seek が taskレンズとして起動する最深部' },
+          ]},
+        { label:'制作の連鎖', note:'記事・スライド等の線形制作物を作るとき', axis:'呼び出しの段',
+          children:[
+            { cls:'leafnode', text:'① structure-first＝スコープ（構成層→実装層）を注入して' },
+            { cls:'leafnode', text:'② goal-seek を逐次2回呼ぶ（Pass1で章立てFIX・Pass2で素材と文言）' },
+            { cls:'leafnode', text:'③ abstract-core（taskレンズ）が両Passの下で回る' },
+          ]},
+        { label:'分身の連鎖', note:'trainとinferenceが別の入口から同じ最深部に合流する', axis:'入口（train／inference）',
+          children:[
+            { cls:'leafnode', text:'train側: persona-interview → abstract-core（human-judgmentレンズ）→ 本人判定を経て人格データへ' },
+            { cls:'leafnode', text:'inference側: takuya-agent → goal-seek（蓄積参照先＝人格データ）→ abstract-core' },
+          ]},
+        { label:'保守・検品の連鎖', note:'構造を直す→図で見せる→独立検品', axis:'呼び出しの段',
+          children:[
+            { cls:'leafnode', text:'① structure-surgery＝執刀（before/after図の作図工程で）' },
+            { cls:'leafnode', text:'② tree-map を呼ぶ＝作図規格（さらに納品前チェックで）' },
+            { cls:'leafnode', text:'③ critic（agent）を呼ぶ＝独立コンテキストの意味検品' },
+            { cls:'leafnode', text:'※critic（agent・スキルではない）の呼び手は他にも persona-interview・make-hakase監査・takuya-agent＝生態系の横断検品役' },
+          ]},
+      ]},
+
+    { cls:'dirnode', layer:'解剖', label:'族別の内部解剖',
+      note:'呼び出し関係は上の幹が正本＝ここは中身だけを、よく呼ばれる順（抽出→問診→製造→保守→文筆）に並べる',
+      axis:'スキルの族（何を抽出・確定・製造・保守・執筆するか）',
+      children:[
+
+    { cls:'dirnode', layer:'抽出', label:'抽出族（分身プロジェクトの心臓部）— abstract-core の内部解剖',
+      note:'体制内の配役・依存方向は全体地図の幹4が正本＝ここはファイル構成の解剖だけ（FSRPを構成に適用した見本）', axis:'ファイルの軸（コア／レンズ／references）',
+      children:[
+        { label:'SKILL.md＝コア手順', note:'文脈確保→技法分岐→虚話チェック→出力の純粋ループ', axis:'純粋性の保ち方',
+          children:[
+            { cls:'leafnode', text:'クライアント（persona-interview／goal-seek／直接起動）がレンズを指定して起動する' },
+            { cls:'leafnode', text:'コアは書き込まない＝出力を返すだけ（Functional Core, Imperative Shell の Core 側）' },
+          ]},
+        { label:'adapters/＝レンズ（何の本質を探るか）', note:'1問い1レンズ・案件で複数run・統合はクライアントの仕事', axis:'レンズの対象',
+          children:[
+            { cls:'leafnode', text:'human-judgment＝人の判断・選好レンズ' },
+            { cls:'leafnode', text:'task＝タスク構造レンズ（ゴール階層・AND/OR分解・完了条件）' },
+            { cls:'leafnode', text:'ADAPTER.md＝レンズ3要素規格（入力契約／ドメインスクリプト／検証ループ）＝インターフェース定義' },
+          ]},
+        { label:'references/＝技法と界面の骨格', note:'1技法1ファイル＝どの抽象度でも1単位1責任', axis:'中の種別（掘る技法／状況で重ねる層）',
+          children:[
+            { label:'掘る技法', note:'認知科学から移植した抽出の道具（分岐で1つ選ぶ・虚話チェックのみ常時）', axis:'技法',
+              children:[
+                { cls:'leafnode', text:'cdm-protocol＝CDM（専門家の暗黙判断を掘る面接法）' },
+                { cls:'leafnode', text:'why-laddering＝why連鎖で価値観まで遡る' },
+                { cls:'leafnode', text:'confabulation-check＝後付け虚話の検出（本人の「理由の言明」をそのまま信じない）' },
+              ]},
+            { label:'状況で重ねる層', note:'レンズと分離された「聞き方・界面」の層（分離の経緯は全体地図の幹4「育ち方」）', axis:'いつ重ねるか',
+              children:[
+                { cls:'leafnode', text:'live-interview〔運用〕＝本人にライブで問えるときだけ重ねる聞き方道具箱（沈黙・行き詰まりの作法）' },
+                { cls:'leafnode', text:'intent-synthesis〔界面〕＝依頼者がいるとき人×タスクを合成する指示理解' },
+                { cls:'leafnode', text:'member-checking〔②確認〕＝照合プロトコルの正本（三点セット提示・3値判定・誤承認/誤棄却の対策）' },
+              ]},
+          ]},
+      ]},
+
+    { cls:'dirnode', layer:'問診', label:'問診族 — 走る前に意図を確定する',
+      note:'「作ってから違うと言われる」を上流で潰す族', axis:'確定する対象',
+      children:[
+        { label:'goal-seek — 問診ループの解剖', note:'ゴール・依頼・修正指示から「効く変数」を確定してから走る', axis:'ループの工程',
+          children:[
+            { cls:'leafnode', text:'受理直後にN回目チェック＝前例をretrieveして差分だけ計画（フル探索に入らない）' },
+            { cls:'leafnode', text:'taskレンズ（abstract-coreを起動）で依頼を構造分解' },
+            { cls:'leafnode', text:'効く変数を全部洗い出し→未確定を1問ずつ質問で埋める（一括アンケートにしない）' },
+            { cls:'leafnode', text:'収穫＝埋めた答えから汎用の型を抽出し、次回の前例資産にする' },
+            { cls:'leafnode', text:'純粋規律＝本体は目的抽出関数のまま保ち、使い方のパッケージ化は別スキルへ摘出（混入した時の手術記録つき）' },
+          ]},
+        { label:'structure-first', note:'記事・スライド等の線形制作物を2パスで作る＝goal-seekを構成層→実装層で2回呼ぶパターン', axis:'2パスの中身',
+          children:[
+            { cls:'leafnode', text:'Pass1＝構成層（読者の入場負荷の分解→機能要素→章への写像→照合FIX）' },
+            { cls:'leafnode', text:'Pass2＝実装層（素材・文言・図）——層をまたぐ質問を混ぜない' },
+          ]},
+      ]},
 
     { cls:'dirnode', layer:'製造', label:'ファクトリー族 — 装置を作る装置',
       note:'一番の見どころ＝スキルがスキル・agent・知識を製造する自己増殖の入口', axis:'製造物',
       children:[
         { label:'make-canon', note:'任意トピックの「引用付き正本」を製造する', axis:'工程の見どころ',
           children:[
+            { cls:'leafnode', text:'曖昧さゲート（Step1.0）＝未照合の依頼は goal-seek でスコープ確定してから着手（依頼を勝手に狭く解釈する silent な欠落を実測して条文化した対策）' },
             { cls:'leafnode', text:'観点別に複数ラウンド調査→ソースを信頼度で層化→意思決定に直結する問いで蒸留' },
             { cls:'leafnode', text:'スタート温度3モード＝コールド／追い焚き（既存ノートブックに追いラウンド）／ウォーム（既存正本を点検再利用）' },
             { cls:'leafnode', text:'〔実測逸話〕deep調査は題材の密度が高い言語圏に自動収束する（プロンプトの言語は無関係）' },
@@ -145,24 +232,6 @@ const DATA = {
           ]},
       ]},
 
-    { cls:'dirnode', layer:'問診', label:'問診族 — 走る前に意図を確定する',
-      note:'「作ってから違うと言われる」を上流で潰す族', axis:'確定する対象',
-      children:[
-        { label:'goal-seek — 問診ループの解剖', note:'ゴール・依頼・修正指示から「効く変数」を確定してから走る', axis:'ループの工程',
-          children:[
-            { cls:'leafnode', text:'受理直後にN回目チェック＝前例をretrieveして差分だけ計画（フル探索に入らない）' },
-            { cls:'leafnode', text:'taskレンズ（abstract-coreを起動）で依頼を構造分解' },
-            { cls:'leafnode', text:'効く変数を全部洗い出し→未確定を1問ずつ質問で埋める（一括アンケートにしない）' },
-            { cls:'leafnode', text:'収穫＝埋めた答えから汎用の型を抽出し、次回の前例資産にする' },
-            { cls:'leafnode', text:'純粋規律＝本体は目的抽出関数のまま保ち、使い方のパッケージ化は別スキルへ摘出（混入した時の手術記録つき）' },
-          ]},
-        { label:'structure-first', note:'記事・スライド等の線形制作物を2パスで作る＝goal-seekを構成層→実装層で2回呼ぶパターン', axis:'2パスの中身',
-          children:[
-            { cls:'leafnode', text:'Pass1＝構成層（読者の入場負荷の分解→機能要素→章への写像→照合FIX）' },
-            { cls:'leafnode', text:'Pass2＝実装層（素材・文言・図）——層をまたぐ質問を混ぜない' },
-          ]},
-      ]},
-
     { cls:'dirnode', layer:'文筆', label:'文筆族 — AIの文章を人間の文章にする',
       note:'責任を2スキルに分離（人間味／うまさ）し、推敲は craft→natural の順で natural が最終パス', axis:'責任の分担',
       children:[
@@ -179,36 +248,7 @@ const DATA = {
           ]},
       ]},
 
-    { cls:'dirnode', layer:'抽出', label:'抽出族（分身プロジェクトの心臓部）— abstract-core の内部解剖',
-      note:'体制内の配役・依存方向は全体地図の幹4が正本＝ここはファイル構成の解剖だけ（FSRPを構成に適用した見本）', axis:'ファイルの軸（コア／レンズ／references）',
-      children:[
-        { label:'SKILL.md＝コア手順', note:'文脈確保→技法分岐→虚話チェック→出力の純粋ループ', axis:'純粋性の保ち方',
-          children:[
-            { cls:'leafnode', text:'クライアント（persona-interview／goal-seek／直接起動）がレンズを指定して起動する' },
-            { cls:'leafnode', text:'コアは書き込まない＝出力を返すだけ（Functional Core, Imperative Shell の Core 側）' },
-          ]},
-        { label:'adapters/＝レンズ（何の本質を探るか）', note:'1問い1レンズ・案件で複数run・統合はクライアントの仕事', axis:'レンズの対象',
-          children:[
-            { cls:'leafnode', text:'human-judgment＝人の判断・選好レンズ' },
-            { cls:'leafnode', text:'task＝タスク構造レンズ（ゴール階層・AND/OR分解・完了条件）' },
-            { cls:'leafnode', text:'ADAPTER.md＝レンズ3要素規格（入力契約／ドメインスクリプト／検証ループ）＝インターフェース定義' },
-          ]},
-        { label:'references/＝技法と界面の骨格', note:'1技法1ファイル＝どの抽象度でも1単位1責任', axis:'中の種別（掘る技法／状況で重ねる層）',
-          children:[
-            { label:'掘る技法', note:'認知科学から移植した抽出の道具（分岐で1つ選ぶ・虚話チェックのみ常時）', axis:'技法',
-              children:[
-                { cls:'leafnode', text:'cdm-protocol＝CDM（専門家の暗黙判断を掘る面接法）' },
-                { cls:'leafnode', text:'why-laddering＝why連鎖で価値観まで遡る' },
-                { cls:'leafnode', text:'confabulation-check＝後付け虚話の検出（本人の「理由の言明」をそのまま信じない）' },
-              ]},
-            { label:'状況で重ねる層', note:'レンズと分離された「聞き方・界面」の層（分離の経緯は全体地図の幹4「育ち方」）', axis:'いつ重ねるか',
-              children:[
-                { cls:'leafnode', text:'live-interview〔運用〕＝本人にライブで問えるときだけ重ねる聞き方道具箱（沈黙・行き詰まりの作法）' },
-                { cls:'leafnode', text:'intent-synthesis〔界面〕＝依頼者がいるとき人×タスクを合成する指示理解' },
-                { cls:'leafnode', text:'member-checking〔②確認〕＝照合プロトコルの正本（三点セット提示・3値判定・誤承認/誤棄却の対策）' },
-              ]},
-          ]},
-      ]},
+    ]},
   ]
 };
 
