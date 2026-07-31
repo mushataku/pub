@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CAのためのIT職種入門 — インフラって結局なに？</title>
+<style>
+  :root{
+    --ink:#1e2a3a; --sub:#5b6b80; --line:#dfe6ef;
+    --blue:#2f6fd0; --blue-bg:#eef4fc;
+    --green:#1f9d6b; --green-bg:#eaf7f1;
+    --orange:#e07b39; --orange-bg:#fdf2e9;
+    --purple:#7b52c4; --purple-bg:#f3eefc;
+    --red:#d9534f; --red-bg:#fdeeed;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
+    color:var(--ink); margin:0; line-height:1.85;
+    background:#f7f9fc; font-size:16px;
+  }
+  .wrap{max-width:860px; margin:0 auto; padding:28px 18px 70px;}
+  header{
+    background:linear-gradient(135deg,#2f6fd0,#7b52c4);
+    color:#fff; border-radius:18px; padding:28px 26px; margin-bottom:26px;
+    box-shadow:0 6px 22px rgba(47,111,208,.22);
+  }
+  header h1{margin:0 0 8px; font-size:26px; line-height:1.4;}
+  header p{margin:0; opacity:.95; font-size:15px;}
+  .badge{
+    display:inline-block; background:rgba(255,255,255,.22); border-radius:20px;
+    padding:3px 13px; font-size:13px; margin-bottom:12px;
+  }
+  h2{
+    font-size:21px; margin:38px 0 14px; padding-left:14px;
+    border-left:6px solid var(--blue); line-height:1.5;
+  }
+  h3{font-size:17px; margin:22px 0 8px;}
+  .card{
+    background:#fff; border:1px solid var(--line); border-radius:14px;
+    padding:18px 20px; margin:14px 0; box-shadow:0 2px 8px rgba(30,42,58,.05);
+  }
+  .lead{font-size:17px; font-weight:bold; color:var(--blue); margin:0 0 10px;}
+  table{border-collapse:collapse; width:100%; margin:12px 0; font-size:15px; background:#fff;}
+  th,td{border:1px solid var(--line); padding:9px 11px; text-align:left; vertical-align:top;}
+  th{background:var(--blue-bg); white-space:nowrap; color:#25518f;}
+  .tag{
+    display:inline-block; border-radius:6px; padding:1px 9px; font-size:13px;
+    font-weight:bold; white-space:nowrap;
+  }
+  .t-dev{background:var(--purple-bg); color:var(--purple);}
+  .t-inf{background:var(--blue-bg); color:var(--blue);}
+  .t-qa{background:var(--green-bg); color:var(--green);}
+  /* 3層の階段図 */
+  .stairs{margin:16px 0;}
+  .step{
+    border-radius:12px; padding:13px 17px; margin-bottom:8px; border-left:7px solid;
+    background:#fff;
+  }
+  .step .n{font-size:13px; font-weight:bold; opacity:.75;}
+  .step .t{font-size:17px; font-weight:bold; margin:2px 0 4px;}
+  .step .d{font-size:14.5px; color:var(--sub); line-height:1.7;}
+  .s3{border-color:var(--purple); margin-left:0; background:var(--purple-bg);}
+  .s2{border-color:var(--blue); margin-left:22px; background:var(--blue-bg);}
+  .s1{border-color:var(--orange); margin-left:44px; background:var(--orange-bg);}
+  .arrow-up{text-align:center; color:var(--sub); font-size:13px; margin:4px 0;}
+  /* 表裏一体ボックス */
+  .coin{display:flex; gap:12px; flex-wrap:wrap; margin:14px 0;}
+  .coin > div{
+    flex:1 1 240px; border-radius:12px; padding:14px 16px; font-size:15px;
+  }
+  .coin .a{background:var(--green-bg); border:1px solid #b7e0cd;}
+  .coin .b{background:var(--red-bg); border:1px solid #f2c4c2;}
+  .coin b{display:block; margin-bottom:5px; font-size:15.5px;}
+  .eq{
+    text-align:center; font-weight:bold; color:var(--red); font-size:16px;
+    margin:8px 0 4px;
+  }
+  .note{
+    background:var(--orange-bg); border:1px solid #f0cfae; border-radius:12px;
+    padding:14px 17px; margin:14px 0; font-size:15px;
+  }
+  .key{
+    background:var(--green-bg); border:1px solid #b7e0cd; border-radius:12px;
+    padding:14px 17px; margin:14px 0; font-size:15.5px;
+  }
+  .word{
+    background:#fff; border:1px solid var(--line); border-radius:12px;
+    padding:13px 17px; margin:10px 0;
+  }
+  .word b{color:var(--blue); font-size:16.5px;}
+  .word .yomi{color:var(--sub); font-size:13px; margin-left:6px; font-weight:normal;}
+  ul{padding-left:22px;} li{margin-bottom:6px;}
+  .emoji{font-size:20px; margin-right:5px;}
+  footer{
+    margin-top:44px; padding-top:18px; border-top:2px solid var(--line);
+    color:var(--sub); font-size:13.5px;
+  }
+  @media(max-width:600px){
+    body{font-size:15px;} header h1{font-size:21px;}
+    h2{font-size:18px;} .s2{margin-left:12px;} .s1{margin-left:24px;}
+    table{font-size:13.5px;} th,td{padding:7px 8px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="badge">CA向け・社内学習資料</div>
+  <h1>CAのためのIT職種入門<br>「インフラって結局なに？」</h1>
+  <p>求職者に語れるようになるための、最低限の地図。専門用語ゼロから読めます。</p>
+</header>
+
+<h2><span class="emoji">🗺️</span>1. まず全体像 — 開発とインフラの違い</h2>
+
+<div class="card">
+  <p class="lead">動くものを作る＝開発。動かし続ける土台を作って守る＝インフラ。</p>
+  <p>飲食店にたとえると、<b>料理を作るのが開発</b>、<b>店舗・厨房設備・電気ガス水道を用意して止めないのがインフラ</b>。どちらが偉いという話ではなく、担当が違います。</p>
+</div>
+
+<table>
+  <tr><th>やること</th><th>職種</th></tr>
+  <tr><td>アプリの機能を作る・画面を作る</td><td><span class="tag t-dev">開発</span></td></tr>
+  <tr><td>サーバーを用意する・設定する</td><td><span class="tag t-inf">インフラ</span></td></tr>
+  <tr><td>サービスが落ちてないか見張る</td><td><span class="tag t-inf">インフラ</span></td></tr>
+  <tr><td>作ったものが仕様どおり動くか確かめる</td><td><span class="tag t-qa">QA・テスト</span></td></tr>
+</table>
+
+<h2><span class="emoji">🪜</span>2. 最重要 — インフラは「3層」に分かれる</h2>
+
+<div class="note">
+<b>ここが一番大事。</b>同じ「インフラエンジニア」でも、層が違うと中身も年収も将来性も別物。<br>
+求職者が「インフラで進みたい」と言ったとき、<b>どの層を想像しているか必ず確認する。</b>
+</div>
+
+<div class="stairs">
+  <div class="step s3">
+    <div class="n">第3層 ／ 到達点</div>
+    <div class="t">設計・SRE</div>
+    <div class="d">「このサービスは月1000万アクセスに耐える必要がある。だからこういう構成にする」と決める層。判断の仕事。<b>年収1000万超も珍しくない</b>。ただし入口ではなく、たどり着く場所。</div>
+  </div>
+  <div class="arrow-up">▲ 1〜3年で上がるのが標準ルート</div>
+  <div class="step s2">
+    <div class="n">第2層 ／ 中堅</div>
+    <div class="t">構築</div>
+    <div class="d">「新しいサーバーを立てて、こう設定して」の指示を受けて実際に作る層。手を動かす仕事。</div>
+  </div>
+  <div class="arrow-up">▲ ここを上がれるかが分かれ道</div>
+  <div class="step s1">
+    <div class="n">第1層 ／ 入口</div>
+    <div class="t">運用監視（オペレーター・NOC）</div>
+    <div class="d">アラートを見て、<b>手順書どおりに</b>対応する層。「CPUが90%超えたらこの手順、ダメなら上に報告」がマニュアル化されている。<b>夜勤シフトがあるのはここ。未経験で入れるのもほぼここ。</b></div>
+  </div>
+</div>
+
+<h2><span class="emoji">🪙</span>3. なぜ「未経験はインフラから」なのか</h2>
+
+<div class="card">
+  <p class="lead">親切だから入口が広いのではない。手順化されているから広い。</p>
+  <p>第1層の仕事は<b>手順書になっている</b>ので、未経験でも初日から戦力になります。<br>
+  逆に開発は「未経験に何をさせればいいか分からない」——コードを書かせても先輩がレビューする時間の方が高くつく。だから<b>育成コストを払える会社しか未経験開発を採らない</b>。</p>
+  <p><b>これが、紹介できる求人がインフラに偏っている構造的な理由です。</b></p>
+</div>
+
+<div class="eq">↓ そして、ここが求職者に伝えるべき本質 ↓</div>
+
+<div class="coin">
+  <div class="a"><b>😊 手順化されている</b>＝未経験でも入れる。マニュアルがあるから初日から働ける。</div>
+  <div class="b"><b>😰 手順化されている</b>＝AI・RPAで自動化しやすい。置き換えの第一候補になる。</div>
+</div>
+
+<div class="key">
+<b>「未経験でも入れる」と「自動化されやすい」は同じコインの裏表。</b><br>
+だから「インフラなら安泰」ではなく、<b>「入口で止まらず、2層・3層へ上がれるか」</b>が本当の論点。求職者にはここまでセットで伝える。
+</div>
+
+<h2><span class="emoji">💧</span>4. 開発とインフラの境界は溶けている</h2>
+
+<div class="card">
+  <p><b>昔のインフラ</b>＝データセンターに行き、サーバーの箱をラックに固定し、ケーブルを挿す。物理作業。</p>
+  <p><b>今のインフラ</b>＝「サーバー2台、DBはこれ、ネットワークはこう」を<b>コードで書く</b>と、その通りにクラウドが作ってくれる。</p>
+  <p class="lead" style="margin-top:12px;">つまり、現代のインフラエンジニアもコードを書く。</p>
+  <p>「開発＝コードを書く／インフラ＝書かない」という理解は、もう古い。求職者がこの前提で悩んでいたら、そこを解いてあげるだけで視界が変わります。</p>
+</div>
+
+<h2><span class="emoji">🔍</span>5. QA・テストという第3の職種</h2>
+
+<div class="card">
+  <p class="lead">作られたシステムが仕様どおり動くか確かめる仕事。</p>
+  <p>昔は人海戦術。「この画面でこのボタンを押して、この表示が出るか」を1項目ずつ人が手で確認していました。</p>
+  <p>今は<b>テストをプログラムに書かせて自動実行させる</b>のが主流。それを専門にやるのが <b>SET／SDET</b> という職種です。</p>
+</div>
+
+<div class="key">
+<b>SETはコードを書く仕事。</b>テストコードを書き、自動実行の仕組みを作り、テスト基盤そのものを設計する。<br>
+<b>開発スキルとQA知識の両方が要る</b>ので、<b>QA経験者がコードを書けるようになると強い</b>——「開発かインフラか」の二択の外にある選択肢として覚えておく価値があります。
+</div>
+
+<h2><span class="emoji">🤖</span>6. AIとの関係 — 職種ごとに違う</h2>
+
+<table>
+  <tr><th>職種</th><th>いま起きていること</th></tr>
+  <tr>
+    <td><span class="tag t-dev">開発</span></td>
+    <td>コードを書く作業は<b>最も自動化が進んだ領域</b>。残るのは「何を作るか決める」「AIの出力を検証する」側。</td>
+  </tr>
+  <tr>
+    <td><span class="tag t-inf">インフラ<br>第1層</span></td>
+    <td><b>自動化の第一標的。</b>手順書どおりの対応＝ロボットが最も得意な作業。AIが障害調査を自動で始める製品も登場済み。</td>
+  </tr>
+  <tr>
+    <td><span class="tag t-inf">インフラ<br>第3層</span></td>
+    <td>判断が要るので<b>残る</b>。ただし入口ではなく到達点。「インフラだから安全」ではなく「判断する側に立てれば安全」。</td>
+  </tr>
+  <tr>
+    <td><span class="tag t-qa">QA<br>（手動）</span></td>
+    <td>自動化が進行中。手で1項目ずつ確認する作業は減っていく。</td>
+  </tr>
+  <tr>
+    <td><span class="tag t-qa">SET<br>（テスト自動化）</span></td>
+    <td>「テストを書く」作業も自動化されつつある。一方で<b>「何をどう検証するか設計する」層は価値が上がっている</b>。</td>
+  </tr>
+</table>
+
+<div class="key">
+<b>共通する結論: 「どの職種か」より「どの層に立つか」。</b><br>
+手順どおりに作業する層はどの職種でも削られ、<b>決める・設計する・検証する層</b>が残る。求職者のキャリア相談では、職種名の議論に閉じないこと。
+</div>
+
+<h2><span class="emoji">📖</span>7. 用語辞典（面談で出てきたら）</h2>
+
+<div class="word"><b>SET / SDET</b><span class="yomi">エスイーティー／エスデット</span><br>
+SET＝Software Engineer in Test（Google発祥）、SDET＝Software Development Engineer in Test（Microsoft発祥）。<b>ほぼ同義</b>で、出自の会社が違うだけ。意味は「テストを専門にする開発エンジニア」。</div>
+
+<div class="word"><b>UiPath</b><span class="yomi">ユーアイパス</span><br>
+<b>RPAツール</b>の代表格。RPA＝Robotic Process Automation。人がPCでやっている定型作業（エクセルを開く→コピー→貼り付け→保存）を<b>記録してロボットに繰り返させる</b>。フローチャートを組み立てる感覚で作れるので事務職の人でも扱える。<b>国内シェア8年連続1位。</b></div>
+
+<div class="word"><b>SRE</b><span class="yomi">エスアールイー</span><br>
+Site Reliability Engineering。Googleが作った職種。「サービスを落とさないことを、人力の運用でなく<b>設計とコードで解決する</b>」という思想。インフラの最上位層。</div>
+
+<div class="word"><b>NOC</b><span class="yomi">ノック</span><br>
+Network Operations Center。<b>監視室</b>のこと。画面にアラートが並んでいて、それを見て対応する。夜勤シフトはここ。</div>
+
+<div class="word"><b>IaC</b><span class="yomi">アイエーシー</span><br>
+Infrastructure as Code。<b>サーバーの構成をコードで書く</b>やり方。手作業で設定する時代から、コードで管理する時代へ。<b>Terraform</b> がその代表的なツール。</div>
+
+<div class="word"><b>Kubernetes</b><span class="yomi">クバネティス／K8s</span><br>
+コンテナ（アプリを入れた箱）を何十個・何百個も自動で管理する仕組み。「1個落ちたら勝手に立て直す」ようなことを自動でやる。</div>
+
+<div class="word"><b>AIOps</b><span class="yomi">エーアイオプス</span><br>
+運用（Operations）をAIにやらせる流れ。アラートを受けて原因調査まで自動で行う製品が実際に登場している。</div>
+
+<div class="word"><b>回帰テスト（リグレッションテスト）</b><br>
+「機能Aを直したせいで、関係ないはずの機能Bが壊れていないか」を確認するテスト。ソフトは一箇所直すと別の場所が壊れるので毎回全部確認し直す必要がある。<b>自動化の価値が最も高い領域。</b></div>
+
+<h3 style="margin-top:26px;">資格の意味</h3>
+<table>
+  <tr><th>資格</th><th>中身</th><th>位置づけ</th></tr>
+  <tr><td>CCNA</td><td>ネットワークの基礎。データがどう届くかを体系的に学ぶ</td><td><b>インフラの登竜門</b></td></tr>
+  <tr><td>LPIC / LinuC</td><td>Linux（サーバーのOS）の操作</td><td>インフラの基礎</td></tr>
+  <tr><td>基本情報技術者</td><td>IT全般の基礎（国家資格）</td><td>入口の証明</td></tr>
+  <tr><td>応用情報技術者</td><td>ネットワーク・DB・セキュリティ・マネジメントを広く（国家資格）</td><td><b>CCNAより上位・範囲が広い</b>。未経験枠で保有者は稀</td></tr>
+</table>
+
+<div class="note">
+<b>使いどころ:</b> 未経験の求職者が応用情報を持っていたら、それは「多くの派遣会社の研修ゴール（CCNA/LPIC）を、入社前に範囲として超えている」ということ。<b>面談で必ず拾う。</b>
+</div>
+
+<h2><span class="emoji">🎯</span>8. 面談で使うなら</h2>
+
+<div class="card">
+<ul style="margin:0;">
+  <li>「インフラ志望」と言われたら → <b>どの層を想像しているか確認する</b>（監視のつもりか、設計まで見ているか）</li>
+  <li>「開発かインフラか」で悩んでいたら → <b>境界が溶けている事実を伝える</b>（インフラもコードを書く）</li>
+  <li>「AIに代替されないか」と聞かれたら → <b>職種でなく層の話に置き換える</b>（手順作業は削られ、判断は残る）</li>
+  <li>QA・テスト経験者が来たら → <b>SETという選択肢を覚えておく</b>（経験がそのまま応募要件になる稀な職種）</li>
+  <li>自動化ツール（VBA・UiPath等）の経験者が来たら → <b>社内SE・業務改善職では実績そのものになる</b></li>
+</ul>
+</div>
+
+<footer>
+Gooner人材事業部 CA向け社内資料 ／ 2026年8月<br>
+用語・職種の理解を揃えるための入門編。市場データ・AI代替の実測値は別資料にまとめています。
+</footer>
+
+</div>
+</body>
+</html>
