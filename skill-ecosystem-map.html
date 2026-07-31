@@ -1,0 +1,246 @@
+<title>スキル生態系の全体地図 — LLM環境を育てる開発体制</title>
+<style>
+:root{--bg:#faf9f7;--card:#ffffff;--ink:#1e222a;--sub:#5b6472;--line:#c9c5bd;
+  --ok:#2e7d43;--okbg:#e4f2e7;--warn:#9a6b00;--warnbg:#fbf0d2;--bad:#b3261e;--badbg:#fbe4e2;
+  --fix:#1565c0;--fixbg:#e8f1fb;--dirbg:#edece8;}
+@media (prefers-color-scheme: dark){:root{--bg:#15171c;--card:#1e2128;--ink:#e8e6e1;--sub:#a5adba;--line:#454b56;
+  --ok:#7fce93;--okbg:#20362a;--warn:#e4c05e;--warnbg:#3a331b;--bad:#f2867e;--badbg:#43231f;
+  --fix:#82b4e8;--fixbg:#1e2a38;--dirbg:#2a2e36;}}
+:root[data-theme="light"]{--bg:#faf9f7;--card:#ffffff;--ink:#1e222a;--sub:#5b6472;--line:#c9c5bd;
+  --ok:#2e7d43;--okbg:#e4f2e7;--warn:#9a6b00;--warnbg:#fbf0d2;--bad:#b3261e;--badbg:#fbe4e2;
+  --fix:#1565c0;--fixbg:#e8f1fb;--dirbg:#edece8;}
+:root[data-theme="dark"]{--bg:#15171c;--card:#1e2128;--ink:#e8e6e1;--sub:#a5adba;--line:#454b56;
+  --ok:#7fce93;--okbg:#20362a;--warn:#e4c05e;--warnbg:#3a331b;--bad:#f2867e;--badbg:#43231f;
+  --fix:#82b4e8;--fixbg:#1e2a38;--dirbg:#2a2e36;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,system-ui,sans-serif;
+  font-size:14.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+main{max-width:960px;margin:0 auto;padding:26px 20px 64px}
+h1{font-size:20px;margin:0 0 4px}
+p.lead{color:var(--sub);margin:2px 0 0;font-size:13px}
+.mapwrap{overflow-x:auto;margin-top:18px}
+.tree,.tree ul{list-style:none;margin:0;padding:0}
+.tree ul{padding-left:26px}
+.tree li{position:relative;padding:5px 0 5px 24px}
+.tree li::before{content:"";position:absolute;left:0;top:-8px;height:30px;width:17px;
+  border-left:2px solid var(--line);border-bottom:2px solid var(--line);border-bottom-left-radius:12px}
+.tree li::after{content:"";position:absolute;left:0;top:22px;bottom:-8px;border-left:2px solid var(--line)}
+.tree li:last-child::after{display:none}
+.tree > li{padding-left:0}
+.tree > li::before,.tree > li::after{display:none}
+.node{display:inline-block;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:5px 12px;max-width:100%}
+.node .row{display:flex;flex-wrap:wrap;align-items:baseline;gap:7px}
+.node b{font-size:13.5px}
+.node .note{display:block;font-size:12px;color:var(--sub);margin-top:1px;max-width:640px}
+.rootnode > .node{border-width:2px;border-color:var(--ink);padding:8px 16px;background:var(--dirbg)}
+.rootnode > .node b{font-size:15px}
+.dirnode > .node{background:var(--dirbg);border-width:1.5px}
+.leafnode .node{border-style:dashed;background:transparent;font-size:12.5px;padding:3px 10px}
+.sick > .node{border-left:4px solid var(--bad)}
+.mild > .node{border-left:4px solid var(--warn)}
+.badge{display:inline-block;font-size:10.5px;padding:0 7px;border-radius:8px;line-height:1.8;font-weight:700;white-space:nowrap}
+.b-ok{background:var(--okbg);color:var(--ok)}
+.b-warn{background:var(--warnbg);color:var(--warn)}
+.b-bad{background:var(--badbg);color:var(--bad)}
+.layer{display:inline-block;font-size:10.5px;border:1px solid var(--line);border-radius:4px;padding:0 6px;color:var(--sub);line-height:1.7;white-space:nowrap}
+.axis{font-style:normal;color:var(--fix);font-size:11.5px}
+.fix{display:block;font-size:12px;color:var(--fix);background:var(--fixbg);border-left:3px solid var(--fix);
+  border-radius:4px;padding:3px 8px;margin-top:5px;max-width:620px}
+details{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+details summary{cursor:pointer;padding:10px 16px;font-weight:600;font-size:13.5px}
+details[open] summary{border-bottom:1px solid var(--line)}
+details .inner{padding:12px 16px}
+.tbl{overflow-x:auto}
+.tbl table{border-collapse:collapse;width:100%;min-width:640px}
+.tbl td,.tbl th{padding:6px 9px;border-bottom:1px solid var(--line);font-size:13px;text-align:left;vertical-align:top}
+.tbl th{font-size:11.5px;color:var(--sub)}
+.legend{font-size:12px;color:var(--sub);margin-top:10px}
+code{font-family:Consolas,Menlo,monospace;font-size:12.3px;background:var(--dirbg);border-radius:4px;padding:0 4px}
+</style>
+
+<main>
+<h1>スキル生態系の全体地図 — LLM環境を「育てる」開発体制</h1>
+<p class="lead">幹の軸＝レイヤ（判断の原理 → 常設の資産 → 回す運用）。同梱ブループリントmdの§1〜§3と対応。2026-07-31 作成（友人環境の一般化）</p>
+
+<div class="mapwrap"><ul class="tree" id="tree"></ul></div>
+<p class="legend">凡例: <span class="axis">青字=分岐の軸（なぜ子に分けたか）</span>　破線=葉（最小粒度の命題）　🔩=決定論（機械）層・無印=確率論（LLM/人間）層——DP2Lの層は木の分岐と直交するためマークで重ねている</p>
+
+<details><summary>構築ロードマップ（この順で・飛ばさない）</summary><div class="inner tbl">
+<table><tr><th>Phase</th><th>時期の目安</th><th>作るもの</th><th>動機になる痛み</th></tr>
+<tr><td>0</td><td>初日</td><td>グローバルCLAUDE.md＋docs 5点＋読み込み表</td><td>毎回ゼロから説明している</td></tr>
+<tr><td>1</td><td>1週目</td><td>KNOWLEDGE還流の習慣＋最初のスキル1本（一番しんどい作業だけ）</td><td>同じハマり・同じ指示の繰り返し</td></tr>
+<tr><td>2</td><td>2〜4週目</td><td>正本ディレクトリ（SSOT）＋配布スクリプト＋最初のhook＋整合lint</td><td>スキルが増えて正本が散る・同じ失敗が直らない</td></tr>
+<tr><td>3</td><td>2ヶ月目〜</td><td>調査基盤＋canon＋博士agent＋critic＋メタスキル（装置を作る装置）</td><td>調査が使い捨てになっている</td></tr>
+<tr><td>4</td><td>3ヶ月目〜</td><td>構造手術の工程化＋可視化規格の固定＋定期メタレビュー</td><td>資産が増えて構造が歪む</td></tr>
+</table>
+<p class="legend">各Phaseは前Phaseの「痛み」が動機になる設計——痛みが出る前に作った装置は形骸化する。</p>
+</div></details>
+
+<details><summary>DP2L補完マップ（どこが機械保証で、どこがLLM判定か）</summary><div class="inner tbl">
+<table><tr><th>担い手</th><th>担当</th><th>実装例</th></tr>
+<tr><td>🔩機械（決定論）</td><td>保証・網羅・即時性・再現性——兆候の検知（黄色信号）まで</td><td>hooks（失敗署名の検知）／整合lint（frontmatter・配布parity）／構文チェック／図版lint（分岐に軸があるか等）</td></tr>
+<tr><td>LLM（確率論）</td><td>意味の判定——分割の妥当性・凝集・意図の解釈</td><td>スキルの自動発火（descriptionディスパッチ）／構造手術の診断／criticレビュー</td></tr>
+<tr><td>人間</td><td>最終裁定——ビジネス判断・ハードストップ3カテゴリの承認・読感</td><td>②判断の承認ゲート／文章A/Bの最終判定</td></tr>
+</table>
+<p class="legend">規律:「lint緑＝クリーン」と誤読しない（機械は兆候まで・有罪判定は意味の層）。逆に、LLMに数え上げ・網羅をやらせない。</p>
+</div></details>
+
+<details><summary>原本環境の規模感（参考値・2026-07-31時点）</summary><div class="inner tbl">
+<table><tr><th>資産</th><th>数</th><th>備考</th></tr>
+<tr><td>グローバルスキル</td><td>19本</td><td>ファクトリー型（canon製造・博士製造）／ワークフロー型（指示書→実装→報告）／相談役型ほか</td></tr>
+<tr><td>hooks</td><td>20本</td><td>すべて「初回のみ合図の自己回復型」が基本形</td></tr>
+<tr><td>agents</td><td>10種</td><td>博士×複数・critic・researcher（下位モデルにピン）ほか</td></tr>
+<tr><td>canon（引用付き正本）</td><td>10冊</td><td>各冊がNotebookLMノートブック（数十〜数百ソース）を背後に持つ</td></tr>
+<tr><td>横断ルール</td><td>6本</td><td>テスト・デプロイ・調査・モデル選択・コード構造ほか</td></tr>
+</table>
+<p class="legend">ここまで約4ヶ月。ただし最初からこの規模を目指さない（ロードマップ参照）。</p>
+</div></details>
+
+<script>
+const DATA = {
+  cls:'rootnode', label:'スキル生態系',
+  note:'LLMを「使う」のでなく、セッションを跨いで蓄積される資産群として「LLM環境を育てる」開発体制',
+  axis:'レイヤ（判断の原理 → 常設の資産 → 回す運用）',
+  children:[
+
+    { cls:'dirnode', layer:'原理', label:'思考OS（土台原理）',
+      note:'全ての設計判断がここから導出される——装置だけ真似ると形骸化する', axis:'原理ごと',
+      children:[
+        { label:'FSRP（フラクタル単一責任）',
+          note:'あらゆる単位（単語・文・章・関数・ファイル・スキル）に「存在する理由」を1つだけ要求し再帰適用する',
+          axis:'検査・裁き・予防の3則',
+          children:[
+            { cls:'leafnode', text:'検査は一問「これで伝えたいことは1つか？」' },
+            { cls:'leafnode', text:'答えが2つなら分割・答えが無ければ削除' },
+            { cls:'leafnode', text:'割ったら親を残す＝粗い発話の受け皿（過分割の実害は取りこぼし・実測済み）' },
+          ]},
+        { label:'DP2L（決定論×確率論の二層）',
+          note:'機械の決定論的判定とLLMの確率的判定を、対立でなく補完として設計する',
+          axis:'層の分担と境界',
+          children:[
+            { cls:'leafnode', text:'🔩機械＝保証・網羅・即時・再現（lint／hook／検査スクリプト）' },
+            { cls:'leafnode', text:'LLM＝意味の判定（分割の妥当性・凝集・意図）' },
+            { cls:'leafnode', text:'境界規律: 機械は兆候検知まで＝「lint緑」をクリーンと誤読しない' },
+          ]},
+        { label:'理想理論はズレ検出器',
+          note:'理想構造（原則・規約）は到達目標でなく、現実とのズレを可視化する座標系——物理の摂動論と同じ構図',
+          axis:'実務での現れ方',
+          children:[
+            { cls:'leafnode', text:'理想の型から導出できない資産＝設計の欠落として検出される' },
+            { cls:'leafnode', text:'可視化（図・診断）は納品物でなく検証装置' },
+          ]},
+      ]},
+
+    { cls:'dirnode', layer:'資産', label:'常設資産（7装置）',
+      note:'セッション開始時に「教育済みの新人」を作るための、ファイルとして残る装置群', axis:'担う機能',
+      children:[
+        { layer:'配線', label:'CLAUDE.md体系',
+          note:'案内板は魂を持たない＝正本を指すポインタ集に徹する', axis:'スコープ',
+          children:[
+            { cls:'leafnode', text:'グローバル＝接し方・自走の既定・「運用ルールの正本一覧」表' },
+            { cls:'leafnode', text:'プロジェクト＝セッション開始時の読み込み表＋固有差分のみ' },
+          ]},
+        { layer:'記録', label:'docs体系',
+          note:'PLAN→SPEC→TODO→KNOWLEDGE の順で「魂を先に作る」（いきなり実装しない）', axis:'文書の寿命',
+          children:[
+            { label:'定常の正本（5点セット）', note:'プロジェクトが続く限り育て続けるファイル群', axis:'ファイルの責任',
+              children:[
+                { cls:'leafnode', text:'PHILOSOPHY＝なぜやるか・判断軸' },
+                { cls:'leafnode', text:'PLAN＝背景・制約・やらない選択肢とその理由' },
+                { cls:'leafnode', text:'SPEC＝doneの定義・棄却済み選択肢' },
+                { cls:'leafnode', text:'TODO＝残タスクのみ（完了エントリは削除）' },
+                { cls:'leafnode', text:'KNOWLEDGE＝ハマり・棄却案の即時還流（最も価値が高い）' },
+              ]},
+            { label:'流れる作業文書', note:'1タスクごとに生まれ、前例資産として残る＝設計と実行のコンテキスト分離', axis:'工程の両端',
+              children:[
+                { cls:'leafnode', text:'instructions（実装指示書）＝設計セッションの出力・実行の入力' },
+                { cls:'leafnode', text:'reports（完了報告書）＝実行の証拠・次のN回目チェックの前例' },
+              ]},
+          ]},
+        { layer:'規律', label:'rules/（横断ルール）',
+          note:'プロジェクトを跨ぐ規律は1ドメイン1ファイルの正本にして表から指す', axis:'装置の仕様',
+          children:[
+            { cls:'leafnode', text:'1ドメイン1ファイル＝テスト・デプロイ・調査・モデル選択の各正本' },
+            { cls:'leafnode', text:'無条件ロード規約＝パス署名の無いドメイン（調査等）に条件付きロードを付けない' },
+          ]},
+        { layer:'技能', label:'skills',
+          note:'繰り返し作業の型＝descriptionによる確率的ディスパッチで発話から自動発火する', axis:'型の性格',
+          children:[
+            { cls:'leafnode', text:'ワークフロー型＝指示書作成・実装実行・報告の定型フロー' },
+            { cls:'leafnode', text:'ファクトリー型＝canon・博士agent・新repo雛形を製造する「装置を作る装置」' },
+            { cls:'leafnode', text:'相談役型＝博士agentの呼び出しラッパー' },
+          ]},
+        { layer:'反射 🔩', label:'hooks × 整合lint',
+          note:'繰り返す失敗とズレは「気をつけます」でなく機械の検知にする（DP2Lの決定論層）', axis:'検知の対象（行動の失敗／資産のズレ）',
+          children:[
+            { label:'hooks', note:'失敗の署名（失敗直前の観測可能な行動パターン）を検知して合図する', axis:'作法',
+              children:[
+                { cls:'leafnode', text:'セッション初回のみ合図する自己回復型（毎回ブロックは無効化されて終わる）' },
+                { cls:'leafnode', text:'強制ブロックは本当に危険な操作だけに絞る' },
+              ]},
+            { cls:'leafnode', text:'整合lint＝台帳と実物・正本と配布先（parity）のズレを機械検査' },
+          ]},
+        { layer:'専門家', label:'agents',
+          note:'繰り返し発生する相談・レビューを常設の役に資産化する', axis:'役の種類',
+          children:[
+            { cls:'leafnode', text:'博士＝引用付き正本に接地したドメイン相談役（記憶で答えさせない）' },
+            { cls:'leafnode', text:'critic＝作成の文脈を渡さず独立コンテキストで叩く批判役' },
+            { cls:'leafnode', text:'収集役＝下位モデルにピンした検索・要約agent（モデルティアリング）' },
+          ]},
+        { layer:'知識', label:'canon（引用付き正本）',
+          note:'調査を使い捨てず、引用付きの正本mdに蒸留して資産化する', axis:'製造と維持の規律',
+          children:[
+            { cls:'leafnode', text:'テーマ別ノートブック（NotebookLM等）を常設＝後から直接質問できる' },
+            { cls:'leafnode', text:'ソースは削除でも要約でもなく信頼度で層化（一次／体験記／事業者発信／ゴミ）' },
+            { cls:'leafnode', text:'維持＝鮮度が速い事実（料金等）は写さず外部正本を参照させる' },
+          ]},
+      ]},
+
+    { cls:'dirnode', layer:'運用', label:'運用規律',
+      note:'装置の実体は「常設資産」の幹に置き、ここには発火タイミングと防ぐ失敗だけを配置する', axis:'発火トリガー（周期／イベント）',
+      children:[
+        { label:'毎タスク', note:'着手のたびに働く規律', axis:'防ぐ失敗',
+          children:[
+            { cls:'leafnode', text:'自走既定＋ハードストップ3カテゴリ（本番書込・外部送信・金銭）＝停滞と事故を同時に防ぐ' },
+            { cls:'leafnode', text:'N回目チェック＝前例をretrieveして差分だけ計画（フル再探索の浪費を防ぐ）' },
+          ]},
+        { label:'毎セッション', note:'コンテキストの積み方の規律', axis:'防ぐ失敗',
+          children:[
+            { cls:'leafnode', text:'1タスク1セッション＝総消費はセッション長の二次（実測: 消費の9割超はコンテキスト再送）' },
+            { cls:'leafnode', text:'調査は収集役agent（常設資産）に投げ蒸留だけ受け取る＝生データをメインに積まない' },
+          ]},
+        { label:'資産を触る節目', note:'新設・分割・統合のたびに働く規律', axis:'防ぐ失敗',
+          children:[
+            { cls:'leafnode', text:'SSOT＝正本1箇所・他は要約＋ポインタ（乖離事故を防ぐ）' },
+            { cls:'leafnode', text:'2人目の消費者が現れるまで切らない（過分割＝誤発火を防ぐ）' },
+            { cls:'leafnode', text:'層A（汎用）と層B（個人特化）を分離し依存は一方向（汎用コアの汚染を防ぐ）' },
+            { cls:'leafnode', text:'受け入れテスト＝発動すべき／すべきでない／境界の3群プロンプトで採点（発火事故を防ぐ）' },
+            { cls:'leafnode', text:'違和感が出たら構造手術＝診断→切る基準1行→執刀→grep検証（歪みの蓄積を防ぐ）' },
+            { cls:'leafnode', text:'整合lint 🔩（常設資産）を回す（静かな腐敗を防ぐ）' },
+          ]},
+      ]},
+  ]
+};
+
+const _AXIS_EMPTY = s => s==='—' || s==='-' || s==='';
+function render(n){
+  if(n.text!==undefined) return `<li class="${n.cls||'leafnode'}"><div class="node">${n.text}</div></li>`;
+  const kidn = (n.children&&n.children.length) || 0;
+  if(kidn && !n.axis) console.warn('[tree-map] 分岐に axis(切る軸) が未設定:', n.label);
+  if(kidn && _AXIS_EMPTY(n.axis)) console.warn('[tree-map] axis を "—"/空 でごまかすな（軸を書くか子を畳め）:', n.label);
+  if(n.axis && !_AXIS_EMPTY(n.axis) && kidn<2) console.warn('[tree-map] 偽分岐（軸ありだが子<2）＝畳むか2子以上に割れ:', n.label);
+  if(n.note && (String(n.note).match(/。/g)||[]).length>=2) console.warn('[tree-map] note に第2メッセージの疑い（句点2つ以上）＝children へ割れ:', n.label);
+  const showAxis = n.axis && !_AXIS_EMPTY(n.axis);
+  const layer  = n.layer ? `<span class="layer">${n.layer}</span>` : '';
+  const label  = n.label ? `<b>${n.label}</b>` : '';
+  const badges = (n.badges||[]).map(b=>`<span class="badge b-${b.k}">${b.t}</span>`).join('');
+  let note = n.note || '';
+  if(showAxis) note = (note ? note+'　' : '') + `<span class="axis">分岐の軸＝${n.axis}</span>`;
+  const noteEl = note ? `<span class="note">${note}</span>` : '';
+  const kids = kidn ? `<ul>${n.children.map(render).join('')}</ul>` : '';
+  return `<li class="${n.cls||''}"><div class="node"><div class="row">${layer}${label}${badges}</div>${noteEl}</div>${kids}</li>`;
+}
+document.getElementById('tree').innerHTML = render(DATA);
+</script>
+</main>
