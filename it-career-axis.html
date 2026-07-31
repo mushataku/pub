@@ -365,26 +365,147 @@
 
 <div class="sol">
   <div class="t">① 時間で解く — 左から入って右へ移動する</div>
-  最も王道で、最も一般的。ただし<b>移動できるかは会社次第</b>なので、CAは求人票のキャリアパスと上位職の実在を確認する必要があります。「3年で上流へ」と書いてあっても、実際に上がった人がいるかは別問題。
-  <div class="ex"><b>CAの仕事:</b> 「入れる会社」でなく「上がれる会社」を選ぶ。上の表の4項目で見分ける。</div>
+  最も王道で、最も一般的。<b>ただし移動できるかは会社次第</b>。同じ「3年」を過ごしても、上がる会社と、入口に留め置かれる会社があります。
+
+<svg viewBox="0 0 690 190" role="img" aria-label="時間で解く図。上がれる会社は3年で段階的に右上へ、上がれない会社は同じ場所に留まる。">
+  <line x1="60" y1="160" x2="660" y2="160" stroke="#c9c7c0" stroke-width="1.5"/>
+  <text x="60" y="180" font-size="11.5" fill="#7c7b76">入社</text>
+  <text x="250" y="180" font-size="11.5" fill="#7c7b76" text-anchor="middle">1年</text>
+  <text x="440" y="180" font-size="11.5" fill="#7c7b76" text-anchor="middle">3年</text>
+  <text x="630" y="180" font-size="11.5" fill="#7c7b76" text-anchor="middle">5年</text>
+  <text x="14" y="30" font-size="11.5" font-weight="bold" fill="#1c5cab">手順化度</text>
+  <text x="14" y="46" font-size="11.5" font-weight="bold" fill="#1c5cab">低い（右端）</text>
+  <text x="14" y="150" font-size="11.5" font-weight="bold" fill="#0d366b">高い（入口）</text>
+  <!-- 上がる会社 -->
+  <polyline points="70,140 250,140 250,100 440,100 440,52 630,52" fill="none" stroke="#1c5cab" stroke-width="3"/>
+  <circle cx="70" cy="140" r="6" fill="#0d366b"/>
+  <circle cx="250" cy="100" r="6" fill="#1c5cab"/>
+  <circle cx="440" cy="52" r="6" fill="#3987e5"/>
+  <circle cx="630" cy="52" r="7" fill="#86b6ef" stroke="#1c5cab" stroke-width="1.5"/>
+  <text x="255" y="92" font-size="11" fill="#1c5cab">構築を任される</text>
+  <text x="445" y="44" font-size="11" fill="#1c5cab">設計に入る</text>
+  <text x="636" y="38" font-size="11.5" font-weight="bold" fill="#1c5cab" text-anchor="end">上がれる会社</text>
+  <!-- 上がらない会社 -->
+  <polyline points="70,140 630,140" fill="none" stroke="#b52d2d" stroke-width="3" stroke-dasharray="8 5"/>
+  <circle cx="630" cy="140" r="6" fill="#d63a3a"/>
+  <text x="636" y="134" font-size="11.5" font-weight="bold" fill="#b52d2d" text-anchor="end">留め置かれる会社</text>
+  <text x="350" y="132" font-size="11" fill="#b52d2d" text-anchor="middle">5年経っても同じ作業</text>
+</svg>
+<figcaption style="text-align:left;">同じ年数でも結果は分岐する。分岐を決めるのは本人の努力だけでなく、<b>会社が上げる設計を持っているか</b>。</figcaption>
+
+  <div class="ex"><b>CAの仕事:</b> 「入れる会社」でなく<b>「上がれる会社」</b>を選ぶ。求人票のキャリアパス図・継続研修・資格支援・<b>上位職に実際に人がいるか</b>の4点で見分ける。「3年で上流へ」と書いてあっても、上がった人が実在しなければ絵に描いた餅。</div>
 </div>
 
 <div class="sol">
-  <div class="t">② 掛け算で解く — 手順化しにくい「組み合わせ」を持ち込む</div>
-  1つ1つは平凡なスキルでも、<b>組み合わせは手順化しにくい</b>。「業務知識×技術」「テスト経験×コード」「現場経験×資格」のような掛け算は、マニュアル化しづらいので左端に落ちません。
-  <div class="ex"><b>CAの仕事:</b> 求職者の経歴を単品で見ずに、掛け算で見る。本人は「どれも中途半端」と思っていることが多いので、そこを構造で言語化してあげる。</div>
+  <div class="t">② 掛け算で解く — 平凡なスキルを組み合わせて希少にする</div>
+  1つ1つは「よくいる人」でも、<b>組み合わせると急に少なくなる</b>。しかも組み合わせは<b>マニュアル化できない</b>ので、左端に落ちません。
+
+<svg viewBox="0 0 690 210" role="img" aria-label="掛け算で解く図。10人に1人のスキル2つを掛け合わせると100人に1人になる。">
+  <!-- 左: 単品 -->
+  <rect x="30" y="30" width="190" height="58" rx="10" fill="#eef4fd" stroke="#bcd4f5"/>
+  <text x="125" y="54" font-size="14" font-weight="bold" fill="#123f78" text-anchor="middle">スキルA</text>
+  <text x="125" y="74" font-size="12" fill="#52514e" text-anchor="middle">例: テスト実務2年</text>
+  <text x="240" y="63" font-size="12.5" fill="#7c7b76">10人に1人</text>
+
+  <rect x="30" y="118" width="190" height="58" rx="10" fill="#eef4fd" stroke="#bcd4f5"/>
+  <text x="125" y="142" font-size="14" font-weight="bold" fill="#123f78" text-anchor="middle">スキルB</text>
+  <text x="125" y="162" font-size="12" fill="#52514e" text-anchor="middle">例: 自動化を自作した</text>
+  <text x="240" y="151" font-size="12.5" fill="#7c7b76">10人に1人</text>
+
+  <!-- 合流矢印 -->
+  <path d="M330 59 Q400 59 420 95" stroke="#1c5cab" stroke-width="2.5" fill="none"/>
+  <path d="M330 147 Q400 147 420 111" stroke="#1c5cab" stroke-width="2.5" fill="none"/>
+  <polygon points="428,103 412,96 414,110" fill="#1c5cab"/>
+  <text x="375" y="100" font-size="20" font-weight="bold" fill="#1c5cab" text-anchor="middle">×</text>
+
+  <!-- 右: 掛け算後 -->
+  <rect x="440" y="60" width="228" height="88" rx="12" fill="#0d366b"/>
+  <text x="554" y="88" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">両方を持つ人</text>
+  <text x="554" y="112" font-size="19" font-weight="bold" fill="#86b6ef" text-anchor="middle">100人に1人</text>
+  <text x="554" y="134" font-size="11.5" fill="#cde2fb" text-anchor="middle">＝手順化できない ＝右端に立てる</text>
+  <text x="554" y="176" font-size="12" fill="#52514e" text-anchor="middle">経験年数ではなく「組み合わせ」で希少性を作る</text>
+</svg>
+<figcaption style="text-align:left;">年数で勝てない求職者が、<b>掛け算なら勝てる</b>。しかも本人はたいてい「どっちも中途半端」だと思っている。</figcaption>
+
+  <div class="ex"><b>CAの仕事:</b> 経歴を<b>単品でなく掛け算で見る</b>。「業務知識×技術」「テスト経験×コード」「現場経験×資格」。本人は自分の組み合わせに気づいていないので、<b>構造で言語化して返す</b>のがCAの仕事。</div>
 </div>
 
 <div class="sol">
-  <div class="t">③ 隣接で解く — 前職のドメイン知識を持ち込む</div>
-  技術は未経験でも、<b>その業界のことを知っている</b>のは強い。金融事務の経験者が金融システムの現場に入る、製造業出身者が工場系の案件に入る、など。ドメイン知識は手順書に書けないので、これも左端に落ちません。
-  <div class="ex"><b>CAの仕事:</b> 「未経験」と「その業界を知らない」を分けて考える。前職の業界と案件の業界が重なる求人を優先的に探す。</div>
+  <div class="t">③ 隣接で解く — 前職の業界知識を持ち込む</div>
+  技術は未経験でも、<b>その業界のことを知っている</b>のは強い。しかもドメイン知識は<b>手順書に書けない</b>ので、これも左端に落ちません。
+
+<svg viewBox="0 0 690 250" role="img" aria-label="隣接で解く図。IT経験と業界知識の2次元。業界知識があれば技術未経験でも別ルートで入れる。">
+  <!-- 軸 -->
+  <line x1="90" y1="210" x2="640" y2="210" stroke="#c9c7c0" stroke-width="1.5"/>
+  <line x1="90" y1="210" x2="90" y2="26" stroke="#c9c7c0" stroke-width="1.5"/>
+  <text x="365" y="238" font-size="12.5" font-weight="bold" fill="#52514e" text-anchor="middle">IT技術の経験 ▶</text>
+  <text x="-118" y="18" font-size="12.5" font-weight="bold" fill="#52514e" transform="rotate(-90)" text-anchor="middle">前職の業界知識 ▲</text>
+  <!-- 4象限の薄い区切り -->
+  <line x1="365" y1="26" x2="365" y2="210" stroke="#e2e0da" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="90" y1="118" x2="640" y2="118" stroke="#e2e0da" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- 左下: 完全未経験 -->
+  <rect x="104" y="130" width="240" height="66" rx="10" fill="#fdeeee" stroke="#f0bcbc"/>
+  <text x="224" y="154" font-size="13" font-weight="bold" fill="#b52d2d" text-anchor="middle">完全未経験</text>
+  <text x="224" y="176" font-size="11.5" fill="#52514e" text-anchor="middle">技術も業界も知らない → 最も競争が厳しい</text>
+  <!-- 右下: 経験者 -->
+  <rect x="386" y="130" width="240" height="66" rx="10" fill="#f4f3ef" stroke="#d5d3cc"/>
+  <text x="506" y="154" font-size="13" font-weight="bold" fill="#52514e" text-anchor="middle">一般的な経験者</text>
+  <text x="506" y="176" font-size="11.5" fill="#52514e" text-anchor="middle">技術はあるが、その業界は知らない</text>
+  <!-- 左上: 狙い目 -->
+  <rect x="104" y="38" width="240" height="66" rx="10" fill="#eaf7ea" stroke="#a9d9a9" stroke-width="2"/>
+  <text x="224" y="62" font-size="13" font-weight="bold" fill="#0a7a0a" text-anchor="middle">★ ここが抜け道</text>
+  <text x="224" y="84" font-size="11.5" fill="#12100e" text-anchor="middle">技術は未経験だが、その業界を知っている</text>
+  <!-- 右上 -->
+  <rect x="386" y="38" width="240" height="66" rx="10" fill="#eef4fd" stroke="#bcd4f5"/>
+  <text x="506" y="62" font-size="13" font-weight="bold" fill="#123f78" text-anchor="middle">最強</text>
+  <text x="506" y="84" font-size="11.5" fill="#52514e" text-anchor="middle">技術も業界も分かる</text>
+  <!-- 矢印 -->
+  <path d="M348 71 L380 71" stroke="#0a7a0a" stroke-width="2.5" fill="none"/>
+  <polygon points="386,71 373,65 373,77" fill="#0a7a0a"/>
+</svg>
+<figcaption style="text-align:left;">例: 金融事務の経験者 → 金融システムの現場／製造業出身 → 工場系の案件。<b>「未経験」と「その業界を知らない」は別のこと。</b></figcaption>
+
+  <div class="ex"><b>CAの仕事:</b> 求職者の<b>前職の業界</b>と、案件の業界が重なる求人を優先的に探す。同じ「未経験可」の求人でも、通過率がまるで変わる。</div>
 </div>
 
 <div class="sol">
   <div class="t">④ 今いる場所で解く — 手順化されていない仕事を自分で作る</div>
-  今の職場で「誰も指示していないのに、自分で課題を見つけて解決した」経験は、<b>定義上、手順化されていない仕事</b>です。業務改善・自動化・マニュアル整備などがこれに当たります。
-  <div class="ex"><b>CAの仕事:</b> 転職前の求職者にこれを勧められる。また、既にやっている人の話を面談で必ず拾う——本人は「ただの業務効率化」と思っていて、書類に書いていないことが多い。</div>
+  転職しなくても、<b>今の職場の中で右に動けます</b>。「誰にも指示されていないのに、自分で課題を見つけて解決した」経験は、<b>定義上、手順化されていない仕事</b>だからです。
+
+<svg viewBox="0 0 690 210" role="img" aria-label="今いる場所で解く図。同じ職場の中に、指示された仕事と自分で見つけた仕事があり、後者は軸の右側にある。">
+  <defs>
+    <linearGradient id="ramp4" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0d366b"/><stop offset="50%" stop-color="#1c5cab"/>
+      <stop offset="100%" stop-color="#86b6ef"/>
+    </linearGradient>
+  </defs>
+  <!-- 職場の箱 -->
+  <rect x="40" y="24" width="610" height="120" rx="14" fill="none" stroke="#c9c7c0" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="52" y="18" font-size="12.5" font-weight="bold" fill="#7c7b76">同じ職場・同じ肩書きのまま</text>
+  <!-- 左: 指示された仕事 -->
+  <rect x="66" y="48" width="250" height="72" rx="10" fill="#0d366b"/>
+  <text x="191" y="76" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle">指示された仕事</text>
+  <text x="191" y="98" font-size="11.5" fill="#cde2fb" text-anchor="middle">手順が決まっている</text>
+  <text x="191" y="114" font-size="11" fill="#86b6ef" text-anchor="middle">＝評価されにくい・書類に書けない</text>
+  <!-- 右: 自分で見つけた仕事 -->
+  <rect x="374" y="48" width="250" height="72" rx="10" fill="#0ca30c"/>
+  <text x="499" y="76" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle">自分で見つけた仕事</text>
+  <text x="499" y="98" font-size="11.5" fill="#e0f5e0" text-anchor="middle">業務改善・自動化・マニュアル化</text>
+  <text x="499" y="114" font-size="11" fill="#c8ecc8" text-anchor="middle">＝手順が存在しない ＝そのまま実績になる</text>
+  <!-- 矢印 -->
+  <path d="M322 84 L366 84" stroke="#52514e" stroke-width="2.5" fill="none"/>
+  <polygon points="372,84 359,78 359,90" fill="#52514e"/>
+  <!-- 軸 -->
+  <rect x="40" y="162" width="610" height="13" rx="6.5" fill="url(#ramp4)"/>
+  <text x="40" y="156" font-size="11.5" font-weight="bold" fill="#0d366b">手順化度 高</text>
+  <text x="650" y="156" font-size="11.5" font-weight="bold" fill="#1c5cab" text-anchor="end">低</text>
+  <line x1="191" y1="144" x2="191" y2="160" stroke="#0d366b" stroke-width="2"/>
+  <line x1="499" y1="144" x2="499" y2="160" stroke="#0ca30c" stroke-width="2"/>
+  <text x="345" y="200" font-size="12.5" font-weight="bold" fill="#0a7a0a" text-anchor="middle">転職しなくても、仕事の中身を変えれば軸の上を動ける</text>
+</svg>
+<figcaption style="text-align:left;">在職中の求職者に「今からできること」として渡せる唯一の解法。しかも<b>次の転職の実績が同時に作られる</b>。</figcaption>
+
+  <div class="ex"><b>CAの仕事:</b> ①まだ動けない求職者に<b>今すぐできる打ち手</b>として勧める。②既にやっている人の話を<b>面談で必ず拾う</b>——本人は「ただの業務効率化」と思っていて、<b>書類に書いていないことがほとんど</b>。</div>
 </div>
 
 <h2><span class="emoji">🧭</span>6. 面談での使い方</h2>
