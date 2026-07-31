@@ -167,32 +167,57 @@
   <!-- 職種横断 -->
   <line x1="150" y1="392" x2="660" y2="392" stroke="#e2e0da" stroke-width="2" stroke-dasharray="3 4"/>
   <!-- フルスタック -->
-  <circle cx="556" cy="392" r="10" fill="#86b6ef" stroke="#1c5cab" stroke-width="1.5"/>
-  <text x="556" y="417" font-size="11.5" font-weight="bold" fill="#12100e" text-anchor="middle">フルスタック</text>
-  <text x="556" y="432" font-size="10" fill="#7c7b76" text-anchor="middle">技術の幅を1人で持つ</text>
-  <!-- FDE -->
-  <circle cx="628" cy="392" r="10" fill="#3987e5" stroke="#0d366b" stroke-width="1.5"/>
-  <text x="628" y="371" font-size="11.5" font-weight="bold" fill="#12100e" text-anchor="middle">FDE</text>
-  <text x="628" y="357" font-size="10" fill="#7c7b76" text-anchor="middle">顧客の現場で課題から解く</text>
-  <!-- 独立・個人事業（武者野） -->
-  <circle cx="672" cy="392" r="10" fill="#0ca30c" stroke="#0a7a0a" stroke-width="1.5"/>
-  <text x="672" y="417" font-size="11.5" font-weight="bold" fill="#0a7a0a" text-anchor="middle">独立・個人事業</text>
-  <text x="672" y="432" font-size="10" fill="#7c7b76" text-anchor="middle">武者野の現在地</text>
+  <circle cx="540" cy="392" r="10" fill="#86b6ef" stroke="#1c5cab" stroke-width="1.5"/>
+  <text x="540" y="417" font-size="11.5" font-weight="bold" fill="#12100e" text-anchor="middle">フルスタック</text>
+  <text x="540" y="432" font-size="10" fill="#7c7b76" text-anchor="middle">課題は与えられる／技術の幅で解く</text>
+  <!-- FDE・独立（同一位置＝手順化度は同じ） -->
+  <circle cx="646" cy="392" r="11" fill="#3987e5" stroke="#0d366b" stroke-width="1.5"/>
+  <text x="646" y="371" font-size="11.5" font-weight="bold" fill="#12100e" text-anchor="middle">FDE ／ 独立・個人事業</text>
+  <text x="646" y="356" font-size="10" fill="#7c7b76" text-anchor="middle">課題の定義から自分でやる（＝武者野の現在地）</text>
 </svg>
-<figcaption>職種は「点」ではなく「幅」を持つ。そして下段の働き方は<b>すべて右端＝未経験では入れない領域</b>にある。</figcaption>
+<figcaption>職種は「点」ではなく「幅」を持つ。そして下段の働き方は<b>すべて右端＝未経験では入れない領域</b>にある。<br>
+<b>FDEと独立は同じ位置</b>——どちらも「課題を自分で定義する」ので、手順化度では区別できない（違いは下表）。</figcaption>
 </figure>
 
 <div class="key">
 <b>比べるべきは職種でなく、軸のどこに立つか。</b>「開発 vs インフラ」で議論しても答えが出ないのは、両方とも左端から右端まで幅を持っているからです。
 </div>
 
-<h3>下段の3つについて</h3>
+<h3>下段の3つの違いは、手順化度では測れない</h3>
+
+<div class="card">
+  <p>フルスタックだけは少し左です（<b>何を作るかは与えられている</b>ことが多いので）。<br>
+  <b>FDEと独立は、手順化度では同じ位置</b>——どちらも課題の定義から自分でやるので、この軸では区別できません。違いは<b>別の次元</b>にあります。</p>
+</div>
+
 <table>
-  <tr><th>働き方</th><th>中身</th><th>なぜ右端か</th></tr>
-  <tr><td><b>フルスタック</b></td><td>フロント・バック・インフラを1人で通す</td><td>領域をまたぐ判断が要る。ただし<b>「何を作るか」は与えられている</b>ことが多く、FDEより少し左</td></tr>
-  <tr><td><b>FDE</b><br><small>Forward Deployed Engineer</small></td><td>顧客の現場に入り、ボトルネックを自分で見つけ、設計から実装・定着まで通す</td><td><b>課題そのものを定義する</b>ところから始まる。手順書が存在しえない</td></tr>
-  <tr><td><b>独立・個人事業</b></td><td>自分の事業の課題を、自分で見つけて自分で解く</td><td>顧客も課題も自分で決める。<b>軸の最右端</b></td></tr>
+  <tr><th>働き方</th><th>誰の課題を解くか</th><th>難しさの源泉</th><th>選べないもの</th></tr>
+  <tr>
+    <td><b>フルスタック</b></td>
+    <td>会社・PMから与えられた課題</td>
+    <td><b>技術の幅</b>（フロント・バック・インフラを1人で通す）</td>
+    <td>課題（与えられる）</td>
+  </tr>
+  <tr>
+    <td><b>FDE</b><br><small>Forward Deployed Engineer</small></td>
+    <td><b>顧客の課題</b>（顧客の現場に入って自分で見つける）</td>
+    <td><b>他者の組織を短期間で理解すること</b>＋技術。誰がキーパーソンか、なぜその非効率が放置されているかまで読む必要がある</td>
+    <td><b>状況</b>（顧客の事情は選べない）</td>
+  </tr>
+  <tr>
+    <td><b>独立・個人事業</b><br><small>武者野の現在地</small></td>
+    <td><b>自分の事業の課題</b></td>
+    <td><b>課題を自分で設定すること</b>＋事業として成立させること</td>
+    <td><b>収入</b>（自分で作る）</td>
+  </tr>
 </table>
+
+<div class="card">
+  <p class="lead">FDEと独立、どちらが難しいかは一概に言えません。</p>
+  <p><b>FDEは状況を選べません。</b>顧客から与えられた組織・制約・人間関係の中で成果を出す必要があり、他者の文脈を短期間で読む力が要ります。<br>
+  <b>独立は課題を選べます</b>が、その代わり<b>食っていく責任</b>が乗ります。難しすぎる問題を避けられる自由がある一方、そもそも解くべき課題を自分で見つけなければ仕事になりません。<br>
+  <b>手順化度という1本の軸では、この違いは表現できない</b>——軸にも守備範囲があります。</p>
+</div>
 
 <div class="note">
 <b>この3つは、多くのエンジニアが「いつかここに行きたい」と思う場所です。</b>そして<b>全部が未経験では入れない領域にあります。</b><br>
