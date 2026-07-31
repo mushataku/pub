@@ -81,7 +81,7 @@ code{font-family:Consolas,Menlo,monospace;font-size:12.3px;background:var(--dirb
 <tr><td>1</td><td>応募直後の自動メッセージ（電話予告＋メアド回収）</td><td>Indeed内</td><td>自動送信・実装済み</td></tr>
 <tr><td>2</td><td>不在フォロー（折り返し依頼＋メアド追い回収＋#3への誘導）</td><td>Indeed内</td><td>—</td></tr>
 <tr><td>3</td><td>本連絡（電話名乗り＋TR予約フォーム＋公式LINE案内）</td><td>メール</td><td>件名「選考のご案内」<b>固定</b>（#2の注記が指す先）</td></tr>
-<tr><td>4</td><td>履歴書・職務経歴書の送付依頼（非有効・メアドあり）</td><td>メール</td><td>件名「選考のご案内（{会社名}）」</td></tr>
+<tr><td>4</td><td>履歴書・職務経歴書の送付依頼（非有効・メアドあり）</td><td>メール</td><td>件名「選考のご案内（株式会社SeeD）」</td></tr>
 <tr><td>5</td><td>書類拝受＋選考クローズ</td><td>メール</td><td>件名「書類拝受のご連絡」＝#3系と区別</td></tr>
 </table>
 </div></details>
@@ -93,7 +93,7 @@ code{font-family:Consolas,Menlo,monospace;font-size:12.3px;background:var(--dirb
 <details><summary>テンプレ全文 #2: 不在フォロー（Indeed内）</summary><div class="inner">
 <pre class="tplpre">{応募者の氏名}様
 お世話になっております。
-{会社名}の採用担当です。
+株式会社SeeDの採用担当です。
 
 先程、ご登録いただきましたお電話番号にご連絡させていただきました。
 こちら選考のご案内になりますので、お手すきの際に折り返しいただけますと幸いです。
@@ -109,9 +109,9 @@ code{font-family:Consolas,Menlo,monospace;font-size:12.3px;background:var(--dirb
 
 お世話になっております。
 先程末尾○○の番号よりお電話させていただきました、
-○○株式会社の○○と申します。
+株式会社SeeDの○○と申します。
 
-このたびは、○○株式会社/○○の求人にご応募いただき、誠にありがとうございます。
+このたびは、株式会社SeeD/○○の求人にご応募いただき、誠にありがとうございます。
 
 選考に進んでいただくためのご案内でご連絡いたしました。
 お電話可能な時間につきまして、下記フォームよりご回答のほどよろしくお願いいたします！
@@ -126,15 +126,15 @@ code{font-family:Consolas,Menlo,monospace;font-size:12.3px;background:var(--dirb
 ご不明点等ございましたらお気軽にご連絡くださいませ。
 何卒よろしくお願いいたします。
 
-○○株式会社
+株式会社SeeD
 ○○</pre>
 </div></details>
 
-<details><summary>テンプレ全文 #4: 履歴書・職務経歴書の送付依頼（メール・件名「選考のご案内（{会社名}）」）</summary><div class="inner">
+<details><summary>テンプレ全文 #4: 履歴書・職務経歴書の送付依頼（メール・件名「選考のご案内（株式会社SeeD）」）</summary><div class="inner">
 <pre class="tplpre">{応募者の氏名}様
 
 お世話になっております。
-{会社名}の採用担当です。
+株式会社SeeDの採用担当です。
 
 このたびは、弊社求人にご応募いただき、誠にありがとうございます。
 また、ご連絡先のご共有もありがとうございます。
@@ -146,7 +146,7 @@ code{font-family:Consolas,Menlo,monospace;font-size:12.3px;background:var(--dirb
 ご不明点等ございましたらお気軽にご連絡くださいませ。
 何卒よろしくお願いいたします。
 
-{会社名}
+株式会社SeeD
 {担当者名}</pre>
 </div></details>
 
@@ -154,7 +154,7 @@ code{font-family:Consolas,Menlo,monospace;font-size:12.3px;background:var(--dirb
 <pre class="tplpre">{応募者の氏名}様
 
 お世話になっております。
-{会社名}の採用担当です。
+株式会社SeeDの採用担当です。
 
 書類をお送りいただき、誠にありがとうございます。
 確かに拝受いたしました。
@@ -166,7 +166,7 @@ code{font-family:Consolas,Menlo,monospace;font-size:12.3px;background:var(--dirb
 このたびはご応募いただき、ありがとうございました。
 何卒よろしくお願いいたします。
 
-{会社名}
+株式会社SeeD
 {担当者名}</pre>
 </div></details>
 
@@ -257,7 +257,7 @@ const DATA = {
               axis:'工程で分岐（依頼 → 受領後）',
               children:[
                 { label:'メール: 履歴書・職務経歴書の送付依頼（#4）', badges:[{k:'ok',t:'テンプレあり'}],
-                  note:'件名「選考のご案内（{会社名}）」',
+                  note:'件名「選考のご案内（株式会社SeeD）」',
                   axis:'文面の役割で分岐',
                   children:[
                     { cls:'leafnode', text:'書式不問・本メールへの返信で書類を依頼' },
