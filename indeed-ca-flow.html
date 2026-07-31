@@ -63,6 +63,9 @@ details .inner{padding:12px 16px}
 code{font-family:Consolas,Menlo,monospace;font-size:12.3px;background:var(--dirbg);border-radius:4px;padding:0 4px}
 .tplpre{white-space:pre-wrap;font-family:inherit;font-size:12.8px;background:var(--dirbg);border-radius:8px;padding:12px 14px;margin:0;line-height:1.7}
 .tplnote{font-size:12px;color:var(--sub);margin:0 0 8px}
+.autonode > .node{border:2px solid var(--fix);background:var(--fixbg)}
+.autonode > .node .layer{background:var(--fix);color:#fff;border-color:var(--fix);font-weight:700;font-size:11.5px}
+.manualnode > .node .layer{font-weight:700;font-size:11.5px}
 </style>
 
 <main>
@@ -70,7 +73,7 @@ code{font-family:Consolas,Menlo,monospace;font-size:12.3px;background:var(--dirb
 <p class="lead">2026-07-31 整理。幹の軸＝工程（自動の入口 → CAの対応）。メッセージ送信は5ポイント・テンプレ全てそろい。</p>
 
 <div class="mapwrap"><ul class="tree" id="tree"></ul></div>
-<p class="legend">凡例: <span class="badge b-ok">✓</span>=そろっている　<span class="badge b-warn">注意</span>=要確認・保留　黄帯=展開前に潰す穴　<span class="layer">🤖 自動</span>=機械送信（無印はCA手動）　破線=葉　<span class="axis">青字=分岐の軸</span></p>
+<p class="legend">凡例: <span class="layer" style="background:var(--fix);color:#fff;border-color:var(--fix);font-weight:700">🤖 自動送信</span>=機械が勝手にやる（<b>#1だけ</b>・青塗りノード）　<span class="layer" style="font-weight:700">👤 CA手動</span>=それ以外は全部CAの手作業　<span class="badge b-ok">✓</span>=そろっている　<span class="badge b-warn">注意</span>=要確認・保留　黄帯=展開前に潰す穴　破線=葉　<span class="axis">青字=分岐の軸</span></p>
 
 <details><summary>テンプレ台帳（5ポイント）</summary><div class="inner tbl">
 <table>
@@ -183,7 +186,7 @@ const DATA = {
   axis:'工程で分岐（自動の入口 → CAの対応）',
   children:[
 
-    { cls:'dirnode', layer:'🤖 自動', label:'入口: 応募直後のIndeed内自動メッセージ',
+    { cls:'dirnode autonode', layer:'🤖 自動送信', label:'入口: 応募直後のIndeed内自動メッセージ',
       badges:[{k:'ok',t:'#1 実装済み'}],
       note:'有効/非有効を問わず全応募に機械送信',
       axis:'メッセージの要素で分岐（役割が2つ）',
@@ -204,8 +207,8 @@ const DATA = {
           ]},
       ]},
 
-    { cls:'dirnode', label:'CAの対応',
-      note:'ここからは人が送る・かける（自動送信は入口の#1のみ）',
+    { cls:'dirnode manualnode', layer:'👤 CA手動', label:'CAの対応',
+      note:'ここから下は全部CAの手作業（自動で送られるのは入口の#1だけ）',
       axis:'応募の種別で分岐（架電するかの分水嶺）',
       children:[
 
