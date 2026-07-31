@@ -6,80 +6,53 @@
 <title>手順化度の軸 — 職種名を捨ててキャリアを測る</title>
 <style>
   :root{
-    --ink:#1c2735; --sub:#5d6d82; --line:#dde5ef;
-    --hot:#d9534f; --hot-bg:#fdeded;
-    --warm:#e08b34; --warm-bg:#fdf4e9;
-    --cool:#2f8fd0; --cool-bg:#eaf4fc;
-    --cold:#1f9d6b; --cold-bg:#e9f7f0;
-    --deep:#6b46c1; --deep-bg:#f2edfc;
+    --ink:#12100e; --sub:#52514e; --muted:#7c7b76; --line:#e2e0da;
+    --surface:#fcfcfb; --panel:#f4f3ef;
+    /* ordinal ramp: blue 250→700（検証済み: 単一色相・明度単調・光端2.06:1） */
+    --o1:#86b6ef; --o2:#3987e5; --o3:#1c5cab; --o4:#0d366b;
+    /* status（予約色・状態専用） */
+    --crit:#d63a3a; --crit-bg:#fdeeee;
+    --good:#0ca30c; --good-bg:#eaf7ea;
   }
   *{box-sizing:border-box;}
   body{
     font-family:"Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
-    color:var(--ink); margin:0; line-height:1.85; background:#f6f8fb; font-size:16px;
+    color:var(--ink); margin:0; line-height:1.85; background:var(--panel); font-size:16px;
   }
-  .wrap{max-width:900px; margin:0 auto; padding:26px 18px 70px;}
+  .wrap{max-width:920px; margin:0 auto; padding:26px 18px 70px;}
   header{
-    background:linear-gradient(120deg,#d9534f 0%,#e08b34 30%,#2f8fd0 70%,#1f9d6b 100%);
-    color:#fff; border-radius:18px; padding:28px 26px; margin-bottom:24px;
-    box-shadow:0 6px 24px rgba(40,60,90,.2);
+    background:linear-gradient(100deg,var(--o4),var(--o2)); color:#fff;
+    border-radius:18px; padding:28px 26px; margin-bottom:24px;
+    box-shadow:0 6px 24px rgba(13,54,107,.22);
   }
   header h1{margin:0 0 8px; font-size:26px; line-height:1.45;}
-  header p{margin:0; font-size:15px; opacity:.96;}
-  .badge{display:inline-block; background:rgba(255,255,255,.24); border-radius:20px; padding:3px 13px; font-size:13px; margin-bottom:11px;}
-  h2{font-size:21px; margin:38px 0 12px; padding-left:14px; border-left:6px solid var(--deep); line-height:1.5;}
+  header p{margin:0; font-size:15px; opacity:.95;}
+  .badge{display:inline-block; background:rgba(255,255,255,.22); border-radius:20px; padding:3px 13px; font-size:13px; margin-bottom:11px;}
+  h2{font-size:21px; margin:40px 0 12px; padding-left:14px; border-left:6px solid var(--o3); line-height:1.5;}
   h3{font-size:17px; margin:22px 0 7px;}
-  .card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin:14px 0; box-shadow:0 2px 8px rgba(28,39,53,.05);}
-  .lead{font-size:17.5px; font-weight:bold; color:var(--deep); margin:0 0 10px;}
-  .big{font-size:19px; font-weight:bold; text-align:center; margin:18px 0; color:var(--deep); line-height:1.6;}
-
-  /* 軸バー */
-  .axis-head{display:flex; justify-content:space-between; font-size:13.5px; font-weight:bold; margin:18px 0 5px; padding:0 3px;}
-  .axis-head .l{color:var(--hot);} .axis-head .r{color:var(--cold);}
-  .bar{height:15px; border-radius:8px; background:linear-gradient(90deg,#d9534f,#e08b34 33%,#2f8fd0 66%,#1f9d6b); margin-bottom:6px;}
-  .bar-cap{display:flex; justify-content:space-between; font-size:12.5px; color:var(--sub); margin-bottom:20px; padding:0 3px;}
-
-  /* 職種行 */
-  .row{
-    display:grid; grid-template-columns:150px 1fr; gap:0;
-    border:1px solid var(--line); border-radius:12px; overflow:hidden;
-    margin-bottom:9px; background:#fff;
-  }
-  .row .name{
-    padding:12px 13px; font-weight:bold; font-size:14.5px; line-height:1.5;
-    display:flex; flex-direction:column; justify-content:center;
-  }
-  .row .name small{font-weight:normal; font-size:12px; opacity:.8; margin-top:2px;}
-  .row .body{padding:11px 14px; font-size:14.5px; line-height:1.75; border-left:1px solid var(--line);}
-  .r-hot .name{background:var(--hot-bg); color:var(--hot);}
-  .r-warm .name{background:var(--warm-bg); color:var(--warm);}
-  .r-cool .name{background:var(--cool-bg); color:var(--cool);}
-  .r-cold .name{background:var(--cold-bg); color:var(--cold);}
-  .meta{font-size:12.5px; color:var(--sub); margin-top:4px;}
-  .meta b{color:var(--ink);}
-
-  .coin{display:flex; gap:12px; flex-wrap:wrap; margin:14px 0;}
-  .coin > div{flex:1 1 250px; border-radius:12px; padding:14px 16px; font-size:15px;}
-  .coin .a{background:var(--cold-bg); border:1px solid #b5e0cc;}
-  .coin .b{background:var(--hot-bg); border:1px solid #f3c3c2;}
-  .coin b{display:block; margin-bottom:5px;}
-
-  .key{background:var(--deep-bg); border:1px solid #cdbcf0; border-radius:12px; padding:15px 18px; margin:15px 0; font-size:15.5px;}
-  .note{background:var(--warm-bg); border:1px solid #f0d3ae; border-radius:12px; padding:14px 17px; margin:14px 0; font-size:15px;}
-  .sol{background:#fff; border:1px solid var(--line); border-left:6px solid var(--cold); border-radius:12px; padding:15px 18px; margin:12px 0;}
-  .sol .t{font-size:17px; font-weight:bold; color:var(--cold); margin-bottom:5px;}
-  .sol .ex{background:var(--cold-bg); border-radius:8px; padding:9px 12px; margin-top:9px; font-size:14px;}
-  table{border-collapse:collapse; width:100%; margin:12px 0; font-size:14.5px; background:#fff;}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin:14px 0;}
+  .lead{font-size:17.5px; font-weight:bold; color:var(--o3); margin:0 0 10px;}
+  .big{font-size:19px; font-weight:bold; text-align:center; margin:18px 0; color:var(--o4); line-height:1.6;}
+  figure{margin:18px 0; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px 14px 12px;}
+  figcaption{font-size:13px; color:var(--muted); margin-top:9px; text-align:center; line-height:1.6;}
+  svg{display:block; width:100%; height:auto;}
+  .key{background:#eef4fd; border:1px solid #bcd4f5; border-radius:12px; padding:15px 18px; margin:15px 0; font-size:15.5px;}
+  .note{background:var(--crit-bg); border:1px solid #f2c9c9; border-radius:12px; padding:14px 17px; margin:14px 0; font-size:15px;}
+  .sol{background:var(--surface); border:1px solid var(--line); border-left:6px solid var(--o2); border-radius:12px; padding:15px 18px; margin:12px 0;}
+  .sol .t{font-size:17px; font-weight:bold; color:var(--o3); margin-bottom:5px;}
+  .sol .ex{background:#eef4fd; border-radius:8px; padding:9px 12px; margin-top:9px; font-size:14px;}
+  table{border-collapse:collapse; width:100%; margin:12px 0; font-size:14.5px; background:var(--surface);}
   th,td{border:1px solid var(--line); padding:9px 11px; text-align:left; vertical-align:top;}
-  th{background:var(--deep-bg); color:#563a9e; white-space:nowrap;}
+  th{background:#eef4fd; color:#123f78; white-space:nowrap;}
   ul{padding-left:22px;} li{margin-bottom:6px;}
   .emoji{font-size:20px; margin-right:5px;}
   footer{margin-top:44px; padding-top:18px; border-top:2px solid var(--line); color:var(--sub); font-size:13.5px;}
-  a{color:var(--cool);}
+  a{color:var(--o3);}
+  .legend{display:flex; gap:16px; flex-wrap:wrap; justify-content:center; font-size:13px; color:var(--sub); margin-top:10px;}
+  .legend span{display:inline-flex; align-items:center; gap:6px;}
+  .sw{width:13px; height:13px; border-radius:3px; display:inline-block;}
   @media(max-width:620px){
     body{font-size:15px;} header h1{font-size:20px;} h2{font-size:18px;}
-    .row{grid-template-columns:1fr;} .row .body{border-left:none; border-top:1px solid var(--line);}
-    .row .name{flex-direction:row; align-items:baseline; gap:7px;}
     .big{font-size:16.5px;} table{font-size:13.5px;} th,td{padding:7px 8px;}
   }
 </style>
@@ -96,16 +69,14 @@
 <div class="card">
   <p class="lead">職種名は、キャリアの目盛りにならない。</p>
   <p>同じ「開発エンジニア」でも、言われた通りに作るだけの人と、何を作るか決める人がいます。同じ「インフラエンジニア」でも、手順書どおりに対応する人と、構成を設計する人がいる。<b>職種名は、この差をまったく表現できません。</b></p>
-  <p>代わりに使える目盛りが1本あります。</p>
 </div>
 
-<div class="big">その仕事は、どれだけ「手順化」されているか</div>
+<div class="big">代わりに使える目盛りが1本ある<br>——その仕事は、どれだけ「手順化」されているか</div>
 
 <h2><span class="emoji">📏</span>1. 手順化度とは</h2>
 
 <div class="card">
-  <p><b>手順化度が高い＝「こういう時はこうする」が事前に決められている度合いが高い。</b></p>
-  <p>測り方は簡単で、次の質問で分かります。</p>
+  <p><b>手順化度が高い＝「こういう時はこうする」が事前に決められている度合いが高い。</b>測り方は次の4つの質問で分かります。</p>
   <ul style="margin-top:9px;">
     <li>マニュアルや手順書は存在するか</li>
     <li>新人が入って、何日で戦力になるか</li>
@@ -114,105 +85,173 @@
   </ul>
 </div>
 
-<div class="axis-head"><span class="l">◀ 手順化度 高い</span><span class="r">手順化度 低い ▶</span></div>
-<div class="bar"></div>
-<div class="bar-cap"><span>決められた通りにやる</span><span>その都度、決める</span></div>
+<figure>
+<svg viewBox="0 0 720 96" role="img" aria-label="手順化度の軸。左は決められた通りにやる、右はその都度決める。">
+  <defs>
+    <linearGradient id="ramp" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0d366b"/><stop offset="33%" stop-color="#1c5cab"/>
+      <stop offset="66%" stop-color="#3987e5"/><stop offset="100%" stop-color="#86b6ef"/>
+    </linearGradient>
+  </defs>
+  <rect x="40" y="26" width="640" height="18" rx="9" fill="url(#ramp)"/>
+  <text x="40" y="19" font-size="13" font-weight="bold" fill="#0d366b">◀ 手順化度 高い</text>
+  <text x="680" y="19" font-size="13" font-weight="bold" fill="#1c5cab" text-anchor="end">手順化度 低い ▶</text>
+  <text x="40" y="62" font-size="12.5" fill="#52514e">決められた通りにやる</text>
+  <text x="680" y="62" font-size="12.5" fill="#52514e" text-anchor="end">その都度、決める</text>
+  <text x="40" y="82" font-size="12" fill="#7c7b76">マニュアルがある／新人が数日で戦力に</text>
+  <text x="680" y="82" font-size="12" fill="#7c7b76" text-anchor="end">正解が事前に無い／判断が仕事</text>
+</svg>
+</figure>
 
 <h2><span class="emoji">🔀</span>2. この軸は職種名と直交している</h2>
 
 <div class="card">
   <p class="lead">同じ職種の中に、軸の両端がある。</p>
-  <p>だから「開発 vs インフラ」で議論しても答えが出ません。<b>比べるべきは職種でなく、軸のどこに立つか。</b></p>
+  <p>下の図は、職種を縦に、手順化度を横に取ったものです。<b>インフラも開発もQAも、線が左右に伸びている</b>——どの職種を選んでも、行き先は決まりません。</p>
 </div>
 
-<div class="axis-head"><span class="l">◀ 手順化度 高い</span><span class="r">手順化度 低い ▶</span></div>
-<div class="bar"></div>
+<figure>
+<svg viewBox="0 0 720 330" role="img" aria-label="職種別の手順化度の分布図。インフラ・開発・QAはいずれも左端から右端まで幅を持つ。">
+  <!-- グリッド -->
+  <line x1="200" y1="34" x2="200" y2="292" stroke="#e2e0da" stroke-width="1"/>
+  <line x1="360" y1="34" x2="360" y2="292" stroke="#e2e0da" stroke-width="1"/>
+  <line x1="520" y1="34" x2="520" y2="292" stroke="#e2e0da" stroke-width="1"/>
+  <!-- 軸ラベル -->
+  <text x="150" y="24" font-size="12.5" font-weight="bold" fill="#0d366b">◀ 手順化度 高い</text>
+  <text x="690" y="24" font-size="12.5" font-weight="bold" fill="#1c5cab" text-anchor="end">低い ▶</text>
 
-<div class="row r-hot">
-  <div class="name">インフラ<small>運用監視・NOC</small></div>
-  <div class="body">アラートを見て手順書どおりに対応。「CPU90%超えたらこの手順、ダメなら報告」。
-  <div class="meta"><b>未経験の入口</b>／夜勤あり／<b>AI代替リスク 最大</b></div></div>
-</div>
+  <!-- インフラ -->
+  <text x="10" y="70" font-size="14" font-weight="bold" fill="#12100e">インフラ</text>
+  <line x1="150" y1="65" x2="660" y2="65" stroke="#e2e0da" stroke-width="2" stroke-dasharray="3 4"/>
+  <circle cx="175" cy="65" r="9" fill="#0d366b"/>
+  <text x="175" y="90" font-size="11.5" fill="#52514e" text-anchor="middle">運用監視</text>
+  <circle cx="360" cy="65" r="9" fill="#1c5cab"/>
+  <text x="360" y="90" font-size="11.5" fill="#52514e" text-anchor="middle">構築</text>
+  <circle cx="630" cy="65" r="9" fill="#86b6ef" stroke="#1c5cab" stroke-width="1.5"/>
+  <text x="630" y="90" font-size="11.5" fill="#52514e" text-anchor="middle">設計・SRE</text>
 
-<div class="row r-hot">
-  <div class="name">QA<small>手動テスト</small></div>
-  <div class="body">テスト仕様書の項目を1つずつ確認していく。「この画面でこのボタン→この表示が出るか」。
-  <div class="meta"><b>未経験の入口</b>／<b>AI代替リスク 最大</b>（自動化が最も進行中）</div></div>
-</div>
+  <!-- 開発 -->
+  <text x="10" y="150" font-size="14" font-weight="bold" fill="#12100e">開発</text>
+  <line x1="150" y1="145" x2="660" y2="145" stroke="#e2e0da" stroke-width="2" stroke-dasharray="3 4"/>
+  <circle cx="245" cy="145" r="9" fill="#0d366b"/>
+  <text x="245" y="170" font-size="11.5" fill="#52514e" text-anchor="middle">下流・製造</text>
+  <circle cx="600" cy="145" r="9" fill="#86b6ef" stroke="#1c5cab" stroke-width="1.5"/>
+  <text x="600" y="170" font-size="11.5" fill="#52514e" text-anchor="middle">上流・設計</text>
 
-<div class="row r-warm">
-  <div class="name">開発<small>下流・製造工程</small></div>
-  <div class="body">詳細設計書のとおりにコードを書く。何を作るかは既に決まっている。
-  <div class="meta">未経験でも入れる場合あり／<b>AI代替リスク 大</b>（生成AIが最も得意な領域）</div></div>
-</div>
+  <!-- QA -->
+  <text x="10" y="230" font-size="14" font-weight="bold" fill="#12100e">QA・テスト</text>
+  <line x1="150" y1="225" x2="660" y2="225" stroke="#e2e0da" stroke-width="2" stroke-dasharray="3 4"/>
+  <circle cx="168" cy="225" r="9" fill="#0d366b"/>
+  <text x="168" y="250" font-size="11.5" fill="#52514e" text-anchor="middle">手動テスト</text>
+  <circle cx="470" cy="225" r="9" fill="#3987e5"/>
+  <text x="470" y="250" font-size="11.5" fill="#52514e" text-anchor="middle">SET（自動化）</text>
 
-<div class="row r-warm">
-  <div class="name">インフラ<small>構築</small></div>
-  <div class="body">指示を受けてサーバーを立て、設定する。手順はあるが、環境ごとの差異に対応する必要がある。
-  <div class="meta">経験1〜3年の層／AI代替リスク 中</div></div>
-</div>
-
-<div class="row r-cool">
-  <div class="name">SET<small>テスト自動化</small></div>
-  <div class="body">テストをコードで書き、自動実行の仕組みを作る。「何をどう検証すべきか」の設計が要る。
-  <div class="meta">QA経験＋コードが要る／<b>AI代替リスク 中</b>（書く作業は自動化・設計は残る）</div></div>
-</div>
-
-<div class="row r-cool">
-  <div class="name">社内SE<small>業務改善・DX推進</small></div>
-  <div class="body">現場の困りごとを聞き出し、何を自動化すべきか決めて作る。<b>正解が事前に存在しない。</b>
-  <div class="meta">業務理解＋技術／AI代替リスク 中〜小</div></div>
-</div>
-
-<div class="row r-cold">
-  <div class="name">開発<small>上流・設計</small></div>
-  <div class="body">要件を聞き、何を作るか決める。トレードオフの判断が仕事。
-  <div class="meta">経験者の領域／<b>AI代替リスク 小</b></div></div>
-</div>
-
-<div class="row r-cold">
-  <div class="name">インフラ<small>設計・SRE</small></div>
-  <div class="body">「月1000万アクセスに耐える構成」を決める。落ちない設計を作る。
-  <div class="meta">到達点／年収1000万超も／<b>AI代替リスク 小</b></div></div>
-</div>
+  <!-- 社内SE -->
+  <text x="10" y="285" font-size="14" font-weight="bold" fill="#12100e">社内SE</text>
+  <line x1="150" y1="280" x2="660" y2="280" stroke="#e2e0da" stroke-width="2" stroke-dasharray="3 4"/>
+  <circle cx="300" cy="280" r="9" fill="#1c5cab"/>
+  <text x="300" y="305" font-size="11.5" fill="#52514e" text-anchor="middle">ヘルプデスク</text>
+  <circle cx="555" cy="280" r="9" fill="#86b6ef" stroke="#1c5cab" stroke-width="1.5"/>
+  <text x="555" y="305" font-size="11.5" fill="#52514e" text-anchor="middle">業務改善・DX</text>
+</svg>
+<figcaption>職種は「点」ではなく「幅」を持つ。だから職種名だけでは行き先が決まらない。</figcaption>
+</figure>
 
 <div class="key">
-<b>注目してほしい点:</b> インフラも開発もQAも、<b>軸の上に何度も現れます</b>。左端にも右端にもいる。<br>
-つまり<b>「どの職種を選ぶか」は、行き先を決めていない</b>。決まるのは軸のどこに立つかです。
+<b>比べるべきは職種でなく、軸のどこに立つか。</b>「開発 vs インフラ」で議論しても答えが出ないのは、両方とも左端から右端まで幅を持っているからです。
 </div>
 
-<h2><span class="emoji">🪙</span>3. 軸の左端で起きる2つのこと（同じ原因から）</h2>
+<h2><span class="emoji">🪙</span>3. 左端で起きる2つのこと（同じ原因から）</h2>
 
 <div class="card">
   <p>手順化度が高い、というたった1つの性質から、正反対に見える2つの帰結が出ます。</p>
 </div>
 
-<div class="coin">
-  <div class="a"><b>😊 未経験でも入れる</b>マニュアルがあるから初日から戦力になる。だから会社は経験を問わずに採用できる。</div>
-  <div class="b"><b>😰 自動化されやすい</b>手順が決まっている＝機械に同じ手順を踏ませられる。だから置き換えの第一候補になる。</div>
-</div>
-
-<div class="big">「未経験でも入れる」と「AIに代替されやすい」は<br>同じことを別の側から言っているだけ</div>
+<figure>
+<svg viewBox="0 0 720 250" role="img" aria-label="手順化度が高いという1つの原因から、未経験でも入れる、と、自動化されやすい、の2つの帰結が分岐する図。">
+  <!-- 原因 -->
+  <rect x="240" y="14" width="240" height="52" rx="12" fill="#0d366b"/>
+  <text x="360" y="38" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">手順化度が高い</text>
+  <text x="360" y="56" font-size="12" fill="#cde2fb" text-anchor="middle">＝手順が事前に決まっている</text>
+  <!-- 分岐線 -->
+  <path d="M330 66 L190 108" stroke="#7c7b76" stroke-width="2" fill="none"/>
+  <path d="M390 66 L530 108" stroke="#7c7b76" stroke-width="2" fill="none"/>
+  <polygon points="185,112 199,104 197,113" fill="#7c7b76"/>
+  <polygon points="535,112 521,104 523,113" fill="#7c7b76"/>
+  <!-- 左の帰結 -->
+  <rect x="24" y="114" width="312" height="106" rx="12" fill="#eaf7ea" stroke="#a9d9a9"/>
+  <text x="180" y="140" font-size="15" font-weight="bold" fill="#0a7a0a" text-anchor="middle">未経験でも入れる</text>
+  <text x="180" y="164" font-size="12.5" fill="#12100e" text-anchor="middle">マニュアルがあるから</text>
+  <text x="180" y="182" font-size="12.5" fill="#12100e" text-anchor="middle">初日から戦力になる</text>
+  <text x="180" y="205" font-size="12" fill="#52514e" text-anchor="middle">→ 会社は経験を問わずに採用できる</text>
+  <!-- 右の帰結 -->
+  <rect x="384" y="114" width="312" height="106" rx="12" fill="#fdeeee" stroke="#f0bcbc"/>
+  <text x="540" y="140" font-size="15" font-weight="bold" fill="#b52d2d" text-anchor="middle">自動化されやすい</text>
+  <text x="540" y="164" font-size="12.5" fill="#12100e" text-anchor="middle">同じ手順を機械にも</text>
+  <text x="540" y="182" font-size="12.5" fill="#12100e" text-anchor="middle">踏ませられる</text>
+  <text x="540" y="205" font-size="12" fill="#52514e" text-anchor="middle">→ 置き換えの第一候補になる</text>
+  <!-- 下線 -->
+  <text x="360" y="242" font-size="13.5" font-weight="bold" fill="#0d366b" text-anchor="middle">同じことを、別の側から言っているだけ</text>
+</svg>
+<figcaption>「未経験歓迎」と「AIに代替されやすい」は、対立ではなく同一の原因の2つの顔。</figcaption>
+</figure>
 
 <div class="note">
-<b>だからこの2つは、いつも一緒に来ます。</b>「未経験歓迎・研修充実」の求人がインフラ運用監視やテスターに集中しているのは、業界が親切だからではありません。<b>手順化されているから、その両方が成立している</b>だけです。<br>
+<b>だからこの2つは、いつも一緒に来ます。</b>「未経験歓迎・研修充実」の求人が運用監視やテスターに集中しているのは、業界が親切だからではありません。<b>手順化されているから、その両方が成立している</b>だけ。<br>
 求職者に「未経験歓迎だから安心ですよ」とだけ言うと、この構造を隠すことになります。
 </div>
 
-<h2><span class="emoji">🧗</span>4. 帰結 — 本当のリスクは「職種選び」ではない</h2>
+<h2><span class="emoji">🌊</span>4. 帰結 — 本当のリスクは「職種選び」ではない</h2>
 
 <div class="card">
   <p class="lead">リスクは、入口に留まること。</p>
-  <p>未経験の入口は、構造上ぜんぶ軸の左端にあります。そこから入ること自体は問題ではなく、<b>むしろそれ以外に道がない</b>。問題は、そこから右へ動けるかどうか。</p>
-  <p>そして<b>AIの浸透は左端から順に進みます</b>。つまり「入口に留まる」＝「置き換えの波が最初に来る場所に立ち続ける」ということ。</p>
+  <p>未経験の入口は、構造上ぜんぶ軸の左端にあります。そこから入ること自体は問題ではなく、<b>むしろ他に道がない</b>。問題は、そこから右へ動けるかどうか。<b>そしてAIの浸透も左端から進みます。</b></p>
 </div>
 
+<figure>
+<svg viewBox="0 0 720 210" role="img" aria-label="軸の左端に未経験の入口ゾーンとAI代替の波が重なっている図。波は左から右へ進む。">
+  <defs>
+    <linearGradient id="ramp2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0d366b"/><stop offset="33%" stop-color="#1c5cab"/>
+      <stop offset="66%" stop-color="#3987e5"/><stop offset="100%" stop-color="#86b6ef"/>
+    </linearGradient>
+    <linearGradient id="wave" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#d63a3a" stop-opacity="0.42"/>
+      <stop offset="55%" stop-color="#d63a3a" stop-opacity="0.13"/>
+      <stop offset="100%" stop-color="#d63a3a" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- AIの波 -->
+  <rect x="40" y="18" width="440" height="60" rx="10" fill="url(#wave)"/>
+  <text x="52" y="40" font-size="13" font-weight="bold" fill="#b52d2d">AI・自動化の波</text>
+  <text x="52" y="60" font-size="11.5" fill="#b52d2d">左端から順に進む →</text>
+  <!-- 軸 -->
+  <rect x="40" y="90" width="640" height="20" rx="10" fill="url(#ramp2)"/>
+  <text x="40" y="82" font-size="12.5" font-weight="bold" fill="#0d366b">◀ 手順化度 高い</text>
+  <text x="680" y="82" font-size="12.5" font-weight="bold" fill="#1c5cab" text-anchor="end">低い ▶</text>
+  <!-- 入口ゾーン -->
+  <rect x="40" y="122" width="200" height="46" rx="10" fill="#eaf7ea" stroke="#a9d9a9"/>
+  <text x="140" y="142" font-size="13" font-weight="bold" fill="#0a7a0a" text-anchor="middle">未経験の入口</text>
+  <text x="140" y="160" font-size="11.5" fill="#52514e" text-anchor="middle">構造上ここにしかない</text>
+  <!-- 目指す先 -->
+  <rect x="470" y="122" width="210" height="46" rx="10" fill="#eef4fd" stroke="#bcd4f5"/>
+  <text x="575" y="142" font-size="13" font-weight="bold" fill="#123f78" text-anchor="middle">残る仕事</text>
+  <text x="575" y="160" font-size="11.5" fill="#52514e" text-anchor="middle">決める・設計する・検証する</text>
+  <!-- 移動矢印 -->
+  <path d="M245 145 L462 145" stroke="#1c5cab" stroke-width="2.5" fill="none" stroke-dasharray="7 5"/>
+  <polygon points="470,145 456,138 456,152" fill="#1c5cab"/>
+  <text x="357" y="136" font-size="12.5" font-weight="bold" fill="#1c5cab" text-anchor="middle">3年でここを動けるか</text>
+  <text x="360" y="196" font-size="13.5" font-weight="bold" fill="#b52d2d" text-anchor="middle">入口に留まる＝波が最初に来る場所に立ち続ける</text>
+</svg>
+<figcaption>入口と波は同じ場所にある。だから「入れるか」でなく「動けるか」で求人を選ぶ。</figcaption>
+</figure>
+
 <div class="key">
-求職者に伝えるべき問いは <b>「開発とインフラ、どっちが安全ですか？」ではなく</b><br>
+求職者に渡すべき問いは <b>「開発とインフラ、どっちが安全ですか？」ではなく</b><br>
 <b>「その会社に入って、3年で右に動けますか？」</b>
 </div>
 
-<h3>だからCAが求人票で見るべきポイントが変わる</h3>
+<h3>だからCAが求人票で見るポイントが変わる</h3>
 <table>
   <tr><th>見るところ</th><th>何が分かるか</th></tr>
   <tr><td>キャリアパスが図で示されているか</td><td>右へ動く道が<b>設計されているか</b>。「1〜3年で運用保守→構築へ」等の明記は強いシグナル</td></tr>
@@ -225,8 +264,49 @@
 
 <div class="card">
   <p class="lead">未経験の入口は必ず左端にある。では、どうやって右に行くのか。</p>
-  <p>これが未経験キャリア支援の中心にある問いです。解き方は大きく4つあります。</p>
+  <p>これが未経験キャリア支援の中心にある問いです。解き方は大きく4つ。</p>
 </div>
+
+<figure>
+<svg viewBox="0 0 720 260" role="img" aria-label="左端から右へ移動する4つの方法を矢印で示した図。時間・掛け算・隣接・現職での実績。">
+  <defs>
+    <linearGradient id="ramp3" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0d366b"/><stop offset="50%" stop-color="#1c5cab"/>
+      <stop offset="100%" stop-color="#86b6ef"/>
+    </linearGradient>
+  </defs>
+  <rect x="40" y="12" width="640" height="14" rx="7" fill="url(#ramp3)"/>
+  <text x="40" y="6" font-size="11.5" font-weight="bold" fill="#0d366b">手順化度 高</text>
+  <text x="680" y="6" font-size="11.5" font-weight="bold" fill="#1c5cab" text-anchor="end">低</text>
+
+  <!-- ① 時間 -->
+  <path d="M70 56 L400 56" stroke="#0d366b" stroke-width="2.5" fill="none"/>
+  <polygon points="410,56 396,49 396,63" fill="#0d366b"/>
+  <text x="70" y="48" font-size="13" font-weight="bold" fill="#0d366b">① 時間で解く</text>
+  <text x="420" y="60" font-size="12" fill="#52514e">左から入って、年数で右へ</text>
+
+  <!-- ② 掛け算 -->
+  <path d="M70 110 Q240 78 400 110" stroke="#1c5cab" stroke-width="2.5" fill="none"/>
+  <polygon points="410,110 395,103 396,117" fill="#1c5cab"/>
+  <text x="70" y="102" font-size="13" font-weight="bold" fill="#1c5cab">② 掛け算で解く</text>
+  <text x="420" y="114" font-size="12" fill="#52514e">組み合わせは手順化しにくい</text>
+
+  <!-- ③ 隣接 -->
+  <path d="M70 164 Q240 132 400 164" stroke="#3987e5" stroke-width="2.5" fill="none"/>
+  <polygon points="410,164 395,157 396,171" fill="#3987e5"/>
+  <text x="70" y="156" font-size="13" font-weight="bold" fill="#3987e5">③ 隣接で解く</text>
+  <text x="420" y="168" font-size="12" fill="#52514e">業界知識は手順書に書けない</text>
+
+  <!-- ④ 現職 -->
+  <path d="M70 218 Q240 186 400 218" stroke="#0ca30c" stroke-width="2.5" fill="none"/>
+  <polygon points="410,218 395,211 396,225" fill="#0ca30c"/>
+  <text x="70" y="210" font-size="13" font-weight="bold" fill="#0a7a0a">④ 今いる場所で解く</text>
+  <text x="420" y="222" font-size="12" fill="#52514e">指示されずやった仕事＝手順外</text>
+
+  <text x="360" y="252" font-size="12.5" font-weight="bold" fill="#123f78" text-anchor="middle">②③④は「経験年数以外」で希少性を作る方法</text>
+</svg>
+<figcaption>年数で勝負できない求職者に、CAが探すべきは②③④。</figcaption>
+</figure>
 
 <div class="sol">
   <div class="t">① 時間で解く — 左から入って右へ移動する</div>
@@ -252,11 +332,6 @@
   <div class="ex"><b>CAの仕事:</b> 転職前の求職者にこれを勧められる。また、既にやっている人の話を面談で必ず拾う——本人は「ただの業務効率化」と思っていて、書類に書いていないことが多い。</div>
 </div>
 
-<div class="key">
-<b>②③④に共通するのは、「経験年数」以外の方法で希少性を作っていること。</b><br>
-未経験・第二新卒の求職者は年数で勝負できないので、CAが探すべきはここです。
-</div>
-
 <h2><span class="emoji">🧭</span>6. 面談での使い方</h2>
 
 <div class="card">
@@ -269,9 +344,18 @@
 </ul>
 </div>
 
+<div class="legend">
+  <span><span class="sw" style="background:#0d366b"></span>手順化度 高</span>
+  <span><span class="sw" style="background:#1c5cab"></span>やや高</span>
+  <span><span class="sw" style="background:#3987e5"></span>やや低</span>
+  <span><span class="sw" style="background:#86b6ef; border:1px solid #1c5cab"></span>低</span>
+  <span><span class="sw" style="background:#d63a3a"></span>AI代替の波</span>
+  <span><span class="sw" style="background:#0ca30c"></span>未経験の入口</span>
+</div>
+
 <footer>
 Gooner人材事業部 CA向け社内資料 ／ 2026年8月<br>
-入門編（職種の基礎・用語辞典）は <a href="https://mushataku.github.io/pub/it-career-basics.html">CAのためのIT職種入門</a> を参照。<br>
+入門編（職種の基礎・用語辞典）は <a href="https://mushataku.github.io/pub/it-career-basics.html">CAのためのIT職種入門</a>。<br>
 ※この資料は職種構造の整理です。AI代替の実測データ・市場動向は別途まとめます。
 </footer>
 
