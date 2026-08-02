@@ -1,0 +1,968 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>決定権の所在 — 機電を1本の軸で測る</title>
+<style>
+  :root{
+    --ink:#14120f; --sub:#4e4d4a; --muted:#76756f; --line:#e0ded8;
+    --surface:#fcfcfb; --panel:#f2f2ee;
+    /* ordinal ramp: teal 単一色相・明度単調（本文色に使うのは t3/t4 のみ） */
+    --t1:#8ecdc6; --t2:#2f9d94; --t3:#146b65; --t4:#0a423e;
+    --tint:#e9f4f2; --tint-line:#b9ddd8;
+    --crit:#c62f2f; --crit-bg:#fdeeee; --crit-line:#f0c4c4;
+    --good:#0a7a0a; --good-bg:#eaf7ea; --good-line:#a9d9a9;
+    --warn-bg:#fdf6e6; --warn-line:#e8d6a8; --warn:#8a6a10;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
+    color:var(--ink); margin:0; line-height:1.85; background:var(--panel); font-size:16px;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:940px; margin:0 auto; padding:26px 18px 70px;}
+  header.hd{
+    background:linear-gradient(100deg,var(--t4),var(--t3)); color:#fff;
+    border-radius:18px; padding:28px 26px; margin-bottom:22px;
+    box-shadow:0 6px 24px rgba(10,66,62,.22);
+  }
+  header.hd h1{margin:0 0 10px; font-size:26px; line-height:1.45;}
+  header.hd p{margin:0; font-size:15px; opacity:.96;}
+  .badge{display:inline-block; background:rgba(255,255,255,.22); border-radius:20px; padding:3px 13px; font-size:13px; margin-bottom:11px;}
+  h2{font-size:21px; margin:44px 0 12px; padding-left:14px; border-left:6px solid var(--t3); line-height:1.5;}
+  h3{font-size:17.5px; margin:26px 0 7px; line-height:1.55;}
+  h4{font-size:16px; margin:20px 0 6px;}
+  p{margin:10px 0;}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin:14px 0;}
+  .lead{font-size:17.5px; font-weight:bold; color:var(--t3); margin:0 0 10px; line-height:1.6;}
+  .big{font-size:19px; font-weight:bold; text-align:center; margin:20px 0; color:var(--t4); line-height:1.65;}
+  figure{margin:18px 0; background:#fcfcfb; border:1px solid #e0ded8; border-radius:14px; padding:16px 14px 12px;}
+  figcaption{font-size:13px; color:#6a6963; margin-top:9px; text-align:center; line-height:1.65;}
+  svg{display:block; width:100%; height:auto;}
+  .key{background:var(--tint); border:1px solid var(--tint-line); border-radius:12px; padding:15px 18px; margin:15px 0; font-size:15.5px;}
+  .note{background:var(--crit-bg); border:1px solid var(--crit-line); border-radius:12px; padding:14px 17px; margin:14px 0; font-size:15px;}
+  .warn{background:var(--warn-bg); border:1px solid var(--warn-line); border-radius:12px; padding:14px 17px; margin:14px 0; font-size:15px;}
+  .ok{background:var(--good-bg); border:1px solid var(--good-line); border-radius:12px; padding:14px 17px; margin:14px 0; font-size:15px;}
+  .sol{background:var(--surface); border:1px solid var(--line); border-left:6px solid var(--t2); border-radius:12px; padding:15px 18px; margin:12px 0;}
+  .sol .t{font-size:17px; font-weight:bold; color:var(--t3); margin-bottom:5px;}
+  .sol .ex{background:var(--tint); border-radius:8px; padding:10px 13px; margin-top:10px; font-size:14.5px;}
+  .say{background:#fff; border:1px solid var(--tint-line); border-left:5px solid var(--t2); border-radius:10px; padding:12px 15px; margin:10px 0; font-size:15.5px;}
+  .say b.who{display:block; font-size:12.5px; color:var(--t3); margin-bottom:4px; letter-spacing:.03em;}
+  .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:12px 0;}
+  table{border-collapse:collapse; width:100%; font-size:14.5px; background:var(--surface); min-width:520px;}
+  th,td{border:1px solid var(--line); padding:9px 11px; text-align:left; vertical-align:top;}
+  th{background:var(--tint); color:#0e4d48;}
+  ul,ol{padding-left:22px;} li{margin-bottom:7px;}
+  .small{font-size:13.5px; color:var(--sub); line-height:1.75;}
+  .emoji{font-size:20px; margin-right:5px;}
+  footer{margin-top:48px; padding-top:18px; border-top:2px solid var(--line); color:var(--sub); font-size:13.5px;}
+  a{color:var(--t3);}
+  /* 3層ラベル */
+  .lb{display:inline-block; font-size:12.5px; font-weight:bold; border-radius:20px; padding:2px 11px; margin:0 6px 6px 0; white-space:nowrap; line-height:1.7;}
+  .lb-all{background:var(--good-bg); color:#0a6b0a; border:1px solid var(--good-line);}
+  .lb-ex{background:var(--tint); color:#0e4d48; border:1px solid var(--tint-line);}
+  .lb-no{background:var(--crit-bg); color:#a82727; border:1px solid var(--crit-line);}
+  .lbrow{margin:6px 0 2px;}
+  .glo{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:6px 18px 12px;}
+  .glo dt{font-weight:bold; margin-top:11px; color:var(--t3); font-size:15px;}
+  .glo dd{margin:2px 0 0; font-size:14.5px; color:var(--ink);}
+  @media(max-width:620px){
+    body{font-size:15px;} .wrap{padding:18px 12px 56px;}
+    header.hd{padding:22px 18px;} header.hd h1{font-size:20px;}
+    h2{font-size:18px;} h3{font-size:16.5px;}
+    .big{font-size:16.5px;} .lead{font-size:16.5px;}
+    table{font-size:13.5px;} th,td{padding:7px 9px;}
+    .card,.key,.note,.warn,.ok,.sol{padding:13px 14px;}
+  }
+  @media(prefers-color-scheme:dark){
+    :root{
+      --ink:#f0efeb; --sub:#c2c0ba; --muted:#a3a19b; --line:#3a3d3c;
+      --surface:#1c2020; --panel:#141717;
+      --t3:#6fc4bb; --t4:#0a423e;
+      --tint:#17322f; --tint-line:#2f5a55;
+      --crit:#ff9a9a; --crit-bg:#3a1f1f; --crit-line:#6b3434;
+      --good:#8ede8e; --good-bg:#1c3320; --good-line:#3d6b40;
+      --warn-bg:#332b17; --warn-line:#5e4f24; --warn:#e5c974;
+    }
+    header.hd{background:linear-gradient(100deg,#0a423e,#12605a);}
+    th{background:#17322f; color:#c9ece8;}
+    .lb-all{background:#1c3320; color:#a5e8a5; border-color:#3d6b40;}
+    .lb-ex{background:#17322f; color:#a8ded8; border-color:#2f5a55;}
+    .lb-no{background:#3a1f1f; color:#ffb3b3; border-color:#6b3434;}
+    .say{background:#1c2020;}
+    /* 図はライトのまま保持（SVG内の色が固定のため） */
+    figure{background:#f7f7f4; border-color:#4a4d4c;}
+    figcaption{color:#4e4d4a;}
+    .sol .ex{background:#17322f;}
+  }
+  :root[data-theme="dark"]{
+    --ink:#f0efeb; --sub:#c2c0ba; --muted:#a3a19b; --line:#3a3d3c;
+    --surface:#1c2020; --panel:#141717;
+    --t3:#6fc4bb; --tint:#17322f; --tint-line:#2f5a55;
+    --crit-bg:#3a1f1f; --crit-line:#6b3434;
+    --good-bg:#1c3320; --good-line:#3d6b40;
+    --warn-bg:#332b17; --warn-line:#5e4f24;
+  }
+  :root[data-theme="dark"] header.hd{background:linear-gradient(100deg,#0a423e,#12605a);}
+  :root[data-theme="dark"] th{background:#17322f; color:#c9ece8;}
+  :root[data-theme="dark"] figure{background:#f7f7f4; border-color:#4a4d4c;}
+  :root[data-theme="dark"] figcaption{color:#4e4d4a;}
+  :root[data-theme="dark"] .say{background:#1c2020;}
+  :root[data-theme="light"]{
+    --ink:#14120f; --sub:#4e4d4a; --line:#e0ded8;
+    --surface:#fcfcfb; --panel:#f2f2ee;
+    --t3:#146b65; --tint:#e9f4f2; --tint-line:#b9ddd8;
+    --crit-bg:#fdeeee; --crit-line:#f0c4c4;
+    --good-bg:#eaf7ea; --good-line:#a9d9a9;
+    --warn-bg:#fdf6e6; --warn-line:#e8d6a8;
+  }
+  :root[data-theme="light"] header.hd{background:linear-gradient(100deg,#0a423e,#146b65);}
+  :root[data-theme="light"] th{background:#e9f4f2; color:#0e4d48;}
+  :root[data-theme="light"] figure{background:#fcfcfb; border-color:#e0ded8;}
+  :root[data-theme="light"] figcaption{color:#6a6963;}
+  @media print{
+    body{background:#fff; font-size:12.5px;}
+    header.hd{box-shadow:none;}
+    .wrap{max-width:none; padding:0;}
+    figure,table,.card,.key,.note,.sol{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hd">
+  <div class="badge">CA向け・社内学習資料 ／ 機電 応用編</div>
+  <h1>決定権の所在<br><span style="font-size:19px;">機電を、職種名でなく1本の軸で測る</span></h1>
+  <p>機械・電気の求人をどう読むかの資料です。<b>考え方の部分は担当分野を問わず使えます。</b></p>
+</header>
+
+<div class="card" style="border-left:6px solid #146b65;">
+  <p class="lead">この資料の位置づけ</p>
+  <ul style="margin:0;">
+    <li><b>① 入門編</b>「CAのための機電職種入門」（別冊）: 職種の名前と用語を知る。<b>機電の求職者を担当する人向け</b></li>
+    <li><b>② 応用編</b> この資料（約20分）: 機電を1本の軸で測る。<b>全CA向け</b></li>
+  </ul>
+  <p style="margin:10px 0 0;">IT分野には同じ構成の2本があります（応用編＝<a href="https://mushataku.github.io/pub/it-career-axis.html">手順化度の軸</a>）。<b>ただしIT版の軸をそのまま機電に当てると間違います。</b>理由は下の表の3段目です。</p>
+  <p class="small" style="margin:8px 0 0;">専門用語と職種名は、<b>初めて出てくる場所に括弧で意味を付け</b>、§0の下に一覧をまとめました。<b>入門編を読んでいなくても、この1本で読み切れます。覚えるべき略語はありません。</b></p>
+</div>
+
+<div class="card" style="border-left:6px solid #76756f;">
+  <p class="lead" style="color:var(--sub);">📌 どこが分野を問わず使えて、どこが機電固有か</p>
+  <p style="margin:0 0 8px;"><b>章の見出しの下に、その章全体の扱いをラベルで貼っています。</b>章の中で扱いが変わる1文には、その場に貼ります（例: §1の「未経験の入口」）。ラベルは次の3つです。</p>
+  <div class="tw">
+  <table style="font-size:14px;">
+    <tr>
+      <th style="width:23%; background:var(--good-bg); color:#0a6b0a;">分野を問わず使える<br><span class="small" style="color:inherit;">考え方・型</span></th>
+      <td>§1 軸の定義と5つの決定項目／§5 求人票に書いていないことは「取り方」とセットで扱う／§6 質問の作り方（区分を分けて聞く・判断者と時期を聞く）／§7「記録が見つからない」を「存在しない」と言わない規律<br>
+      <span class="small">IT・施工管理・介護・営業の面談でもそのまま使えます</span></td>
+    </tr>
+    <tr>
+      <th style="background:var(--tint); color:#0e4d48;">機電の例として読む<br><span class="small" style="color:inherit;">図・具体例・数字</span></th>
+      <td>§0の職種と未経験可否（n=92）／§1の「未経験の入口は左端に集中」の1文／§2の勤務地の分布・年収の3つの変換・待機の4区分／§3の裏づけ列と出口の記録／§4の資格の効き方<br>
+      <span class="small">他分野で同じ図を描くなら、その分野の一次データから引き直してください</span></td>
+    </tr>
+    <tr>
+      <th style="background:var(--crit-bg); color:#a82727;">そのまま持ち込むと間違う<br><span class="small" style="color:inherit;">因果・構造の主張</span></th>
+      <td>
+      <b>①「未経験歓迎が多い」の理由。</b>3分野で全部違います。IT＝仕事が手順化されているから／施工管理＝人手不足／<b>機電＝技術者派遣というビジネスモデル</b>（まとめて採用し、自社で研修し、客先へ配属し、稼働で回収する）。<b>だから「未経験歓迎の多さ」は、その仕事の性質を示す指標として使えません。</b>IT版の「未経験の入口＝手順化されている＝自動化が最初に来る」という因果を、機電の求人に当てないでください<br>
+      <b>②「何次請けですか」。</b>ITでは効く質問ですが、機電では空振ります（§5-1）<br>
+      <b>③「リモートで住む場所の制約が外れる」。</b>機電では逆に働きます。試作・実験・立ち会い・量産の立ち上げは現物の前でしかできません
+      </td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+<h2><span class="emoji">🧩</span>0. 機電では、職種名が目盛りにならない</h2>
+<div class="lbrow"><span class="lb lb-ex">機電の例として読む</span><span class="lb lb-no">n=92は1社1事業部・他分野へ持ち出さない</span></div>
+
+<div class="card">
+  <p class="lead">「機械のエンジニアになりたい」と言われて、その職種名で求人を探すと外れます。</p>
+  <p>社内の独自一次データ（提携先から共有された案件一覧 <b>n=92</b>・2026年5月時点）を、工程ごとに未経験可否で数えました。結果は<b>きれいに2つに割れます</b>。</p>
+  <div class="tw">
+  <table>
+    <tr><th style="width:34%">工程のかたまり</th><th>未経験の可否</th><th>案件の条件欄に実際に書いてある言葉</th></tr>
+    <tr>
+      <td><b>装置に張り付く仕事</b><br><span class="small">製造オペレーター／<b>マシンキーパー</b>（＝装置に張り付いて動き続けるように見ている係。材料の補充・段取り替え・異常の一次対応）／<b>製造技術</b>（＝工場で装置と製造ラインを回す側の仕事。会社によって指す範囲が大きく変わります）／<b>設備保守・保全</b>（＝点検・部品交換で壊さないようにする／壊れたら直す）／<b>装置組立</b>（＝部品を組み付けて装置に仕上げる）<br>※ いずれも案件一覧に書かれていた呼び名です。会社によって言い方が変わります</span></td>
+      <td><b>ほぼ全部「可」</b><br><span class="small">およそ75件</span></td>
+      <td>「クリーンルーム業務可能」「交代勤務可能」「4L以下」<span class="small">（＝作業服のサイズ）</span>「PC基本操作」「車必須」</td>
+    </tr>
+    <tr>
+      <td><b>図面の上の仕事</b><br><span class="small">機械設計／電気設計／<b>制御設計</b>（＝装置をどう動かすかの仕組みを設計する）／<b>回路設計</b>（＝基板・電子回路そのものを設計する）／<b>PLC開発</b>（＝装置を自動で動かす制御プログラムを書く）／<b>生産技術</b>（＝作り方そのものを設計する）／<b>プロセス技術</b>（＝半導体などで加工の条件そのものを詰める）</span></td>
+      <td><b>ほぼ全部「否」または基礎知識を要求</b><br><span class="small">およそ12件</span></td>
+      <td>「機械設計に関する基礎知識」「電気設計経験者」「PLC経験3年程」「回路設計経験3年以上」</td>
+    </tr>
+  </table>
+  </div>
+  <p class="small" style="margin-top:10px;">※ 件数は原資料の記録が概数なので、割合の形（「◯%」）では出していません。工程と未経験可否の対応、条件欄の文言は全92行を読んで確認したものです。これは<b>1社1事業部・半導体・単一時点のスナップショット</b>であって、機電全体の求人分布ではありません。</p>
+</div>
+
+<div class="note">
+<b>ここが機電のいちばん大事な非対称です。</b><br>
+未経験で開いている扉が求職者に要求しているのは、<b>クリーンルームに入れるか・交替勤務ができるか・車があるか・体格の条件を満たすか</b>という<b>生活条件</b>です。<br>
+設計側の扉が要求しているのは<b>知識と経験</b>です。<br>
+程度の差ではなく、<b>門の種類が違います</b>。だから「機械設計をやりたい」という希望は、入社の時点では1つも達成されません。達成は<b>入社した後に移れるかどうか</b>に全部乗っています。
+</div>
+
+<div class="big">職種名が使えないなら、何で測るのか。<br>機電では、これで全部説明がつきます。</div>
+
+<div class="glo">
+  <p class="lead" style="margin:12px 0 0;">この資料で使う言葉</p>
+  <dl>
+    <dt>機電</dt><dd>機械＋電気・電子・組込みをまとめて呼ぶ社内の言い方です。</dd>
+    <dt>技術者派遣</dt><dd>派遣元の会社が技術者を雇い、メーカーなどの客先に送って働かせる形。機電で「エンジニアになる」の実体は、まずここです。</dd>
+    <dt>無期雇用派遣（正社員型）</dt><dd>派遣元との雇用契約に期限が無い形。「正社員採用です」と説明されるのはこれで、<b>雇用主が派遣元である構造は変わりません</b>。</dd>
+    <dt>常駐・配属</dt><dd>派遣先の事業所に行って、そこで働くこと。どこへ行くかを決めるのは派遣元の営業と派遣先です。</dd>
+    <dt>待機</dt><dd>派遣元に雇われているが、配属先が決まっていない期間のこと。</dd>
+    <dt>稼働率</dt><dd>派遣元が公表する指標で、在籍している技術者のうち何割が配属されているかを示します。<b>ただし数え方に落とし穴があります（§2-4）。</b></dd>
+    <dt>労使協定方式</dt><dd>派遣社員の賃金の決め方の1つ。国が職種ごとに定めた金額を下回れない、という床を作る仕組みです。</dd>
+    <dt>グレード</dt><dd>派遣元の社内の等級。ここが上がって初めて給与が上がる会社があります。</dd>
+    <dt>ティア（Tier）</dt><dd>メーカーの取引の階層。完成品メーカーに直接納める会社をTier1と呼びます。</dd>
+    <dt>クリーンルーム（CR）</dt><dd>ほこりを極端に減らした部屋。半導体の製造工程で使われ、専用の服を着て入ります。</dd>
+    <dt>「4L以下」「3L以下」</dt><dd>案件の必須条件の欄に実際に書かれている、<b>作業服のサイズ</b>の条件です。</dd>
+    <dt>マシンキーパー</dt><dd>製造装置に張り付いて、動き続けるように見ている係。材料の補充、段取り替え、異常が出たときの一次対応。<b>未経験求人の代表格です。</b></dd>
+    <dt>保全／設備保守</dt><dd>装置が壊れないように点検・部品交換をする（予防保全）、壊れたら直す（事後保全）。未経験可の案件に頻出する職種名です。</dd>
+    <dt>装置組立</dt><dd>部品を組み付けて装置に仕上げる仕事。扱うのは実物です。</dd>
+    <dt>製造技術</dt><dd>工場で装置と製造ラインを回す側の仕事。<b>会社によって指す範囲が大きく変わる語なので、工程名まで降ろして確認してください。</b></dd>
+    <dt>生産技術</dt><dd>工場でモノを作る方法や設備を決めて、量産が回るようにする仕事。設計と製造の間に立ちます。</dd>
+    <dt>プロセス技術</dt><dd>半導体などで、加工の条件そのもの（温度・時間・薬液・ガスの流量など）を詰める仕事。<b>未経験では入りません。</b></dd>
+    <dt>回路設計／制御設計</dt><dd>電気・電子側の設計。回路設計＝基板・電子回路そのものを設計する。制御設計＝装置をどう動かすかの仕組みを設計する。<b>どちらも案件の必須条件に「経験3年以上」が並ぶ側です。</b></dd>
+    <dt>PLC</dt><dd>工場の装置を自動で動かすための制御装置。「PLC開発」は、その動きをプログラムする仕事です。</dd>
+    <dt>CAD</dt><dd>図面をパソコンで描くソフト。CADオペレーターは、決まった仕様に沿って図面を引く仕事です。</dd>
+  </dl>
+</div>
+
+<h2><span class="emoji">📏</span>1. 立てる軸</h2>
+<div class="lbrow"><span class="lb lb-all">分野を問わず使える</span><span class="small">（軸の考え方と、下の「5つの決定項目」の表。<b>章の中で機電固有になる1文には、その場に別のラベルを貼ります</b>）</span></div>
+
+<div class="big" style="margin-top:6px;">軸は1つ。<br>「自分の働く条件を、誰が・いつ決めているか」</div>
+
+<div class="card">
+  <p>機電では、職種名（機械設計／生産技術／製造オペレーター）で分けるより、<b>その人の働く条件の決定権が誰の手にあるか</b>で分けたほうが、起きることの説明がつきます。</p>
+  <p><b>左端</b>は、決定権がほぼ全部相手側にある状態。<b>右端</b>は、決定権が自分側に寄っている状態です。</p>
+  <p style="margin-top:14px;"><span class="lb lb-ex">機電の例として読む</span><br><b>機電では、未経験の入口は左端に集中しています。</b>§0で見た n=92 では、未経験可の案件はすべて「装置に張り付く仕事」の側でした。<br>
+  <span class="small"><b>この1文だけは、他分野へ持ち出さないでください。</b>入口の作られ方は分野ごとに違います。IT分野の応用編は、左端を経由しない入り方を4つ挙げています（掛け算・前職の業界知識を持ち込む隣接ルート・今いる場所で実績を作る等）。<b>「未経験の入口は必ず左端」は、機電で観測された形であって、軸そのものの性質ではありません。</b></span></p>
+</div>
+
+<figure>
+<svg viewBox="0 0 720 122" role="img" aria-label="決定権の軸。左端は決定権が相手側、右端は決定権が自分側。機電では未経験の入口が左端に集中する。">
+  <defs>
+    <linearGradient id="ax1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0a423e"/><stop offset="34%" stop-color="#146b65"/>
+      <stop offset="68%" stop-color="#2f9d94"/><stop offset="100%" stop-color="#8ecdc6"/>
+    </linearGradient>
+  </defs>
+  <rect x="40" y="34" width="640" height="20" rx="10" fill="url(#ax1)"/>
+  <text x="40" y="25" font-size="13" font-weight="bold" fill="#0a423e">◀ 決定権は相手側</text>
+  <text x="680" y="25" font-size="13" font-weight="bold" fill="#146b65" text-anchor="end">決定権が自分側 ▶</text>
+  <text x="40" y="76" font-size="12.5" fill="#3f3e3b">5つの条件を、全部相手が決める</text>
+  <text x="680" y="76" font-size="12.5" fill="#3f3e3b" text-anchor="end">指名される・条件を選べる・出口がある</text>
+  <text x="40" y="97" font-size="11.5" fill="#6a6963">機電では、未経験の入口はここに集中</text>
+  <text x="680" y="97" font-size="11.5" fill="#6a6963" text-anchor="end">未経験では直接は入れない</text>
+  <text x="360" y="117" font-size="12" font-weight="bold" fill="#146b65" text-anchor="middle">この軸の上を、入社後にどれだけ動けるかが全て</text>
+</svg>
+<figcaption>職種名は左右に散らばる。同じ「生産技術」でも、条件を決められている人と、決めている人がいる。</figcaption>
+</figure>
+
+<h3>測り方 ＝ 5つの決定項目</h3>
+
+<div class="card">
+  <p>「決定権」は抽象的すぎて面談では使えません。<b>次の5つに分解すると、そのまま質問になります。</b></p>
+  <div class="tw">
+  <table>
+    <tr><th style="width:22%">決まるもの</th><th style="width:39%">左端では、誰が決めているか</th><th>面談で聞く形</th></tr>
+    <tr><td><b>① 勤務地</b></td><td>工場がどこにあるか。工場は動かせない</td><td>「勤務地を絞ると、選べる仕事はどう変わりますか」</td></tr>
+    <tr><td><b>② 仕事内容</b></td><td>その時点で空いている案件</td><td>「配属される工程の名前と、それが決まる時期は」</td></tr>
+    <tr><td><b>③ 年収</b></td><td>派遣先が払う単価と、派遣元の社内グレード</td><td>「単価はどこで決まって、給与に反映されるのはいつですか」</td></tr>
+    <tr><td><b>④ 待機中の給与</b></td><td>就業規則の条文（区分によって根拠が違う）</td><td>「その待機は、どの区分の話ですか」（§2-4の4問）</td></tr>
+    <tr><td><b>⑤ 出口</b></td><td>ここだけは、本人が動かせる余地がある</td><td>「この会社から出た人は、どこへ行っていますか」</td></tr>
+  </table>
+  </div>
+  <p class="small" style="margin-top:10px;"><b>この5分解は分野を問いません。</b>施工管理でも介護でも、①〜⑤を誰が決めているかを聞けば、その求人の「左端らしさ」が測れます。</p>
+</div>
+
+<h2><span class="emoji">🔒</span>2. 左端で、何が決まっているか</h2>
+<div class="lbrow"><span class="lb lb-ex">機電の例として読む</span><span class="lb lb-all">聞き方の型は分野を問わない</span></div>
+
+<h3>2-1. 勤務地 ＝ 工場の立地が、応募より先に決めている</h3>
+
+<div class="card">
+  <p>社内の独自一次データ（案件一覧 n=92）の勤務地を全件数えました。掲載は25都道府県で、内訳の上位は<b>富山11・熊本10・愛媛8・岩手7・茨城7・長崎6・石川5</b>。</p>
+  <p class="big" style="margin:14px 0; color:var(--crit);">東京都は、92件中1件。</p>
+  <p>首都圏（東京＋神奈川）で5件、愛知は0件です。<b>この会社の半導体案件に限れば、勤務地は本人の希望ではなく工場の立地で決まっている</b>と断定できます。</p>
+  <p class="small">※ ここも1社1事業部・単一時点のデータです。「機電の勤務地は地方だ」と一般化はできません。</p>
+</div>
+
+<div class="ok">
+<b>なぜ地方なのかは、公的統計で説明がつきます。</b>内閣府の資料（経済構造実態調査を集計）によると、<b>集積回路製造業の従業者数の上位10県に、東京・神奈川・大阪が1つも入っていません</b>（三重・熊本・大分・広島・長崎など）。資料の本文にも「製造拠点は非都市部を中心に各地に立地」と書かれています。<br>
+<b>会社が不親切なのではなく、工場がそこにあるからです。</b>
+</div>
+
+<div class="warn">
+<b>ただし「4社とも転勤前提」とは言えません。</b>社内資料には回避ルートも書かれています。受け皿企業のうち1社は希望勤務地で働けて転勤なしも可能、別の1社にはエリア限定型の社員、もう1社には転勤不可の人向けの契約社員という道があります。<br>
+<b>そして回避には対価が付きます。</b>契約社員は賞与が無く想定年収を12分割する形、エリア限定はそのエリアの中での転居がありえます。<b>対価を伏せて「転勤なしも選べます」とだけ言うと、後で信頼を失います。</b>
+</div>
+
+<h3>2-2. 仕事内容 ＝ その時点で空いている案件が決めている</h3>
+
+<figure>
+<svg viewBox="0 0 720 288" role="img" aria-label="勤務地と仕事内容が決まるまでの連鎖。工場の立地、派遣先の案件、派遣元の営業、面談の順に決まり、本人の希望は営業の段階で参照されるだけ。">
+  <text x="14" y="20" font-size="13.5" font-weight="bold" fill="#0a423e">勤務地と仕事内容が決まるまで</text>
+  <!-- box1 -->
+  <rect x="20" y="42" width="150" height="66" rx="11" fill="#0a423e"/>
+  <text x="95" y="70" font-size="12.5" font-weight="bold" fill="#ffffff" text-anchor="middle">工場がどこにあるか</text>
+  <text x="95" y="90" font-size="11" fill="#a9d8d3" text-anchor="middle">（動かせない）</text>
+  <!-- arrow -->
+  <path d="M174 75 L192 75" stroke="#6a6963" stroke-width="2.5" fill="none"/>
+  <polygon points="198,75 186,69 186,81" fill="#6a6963"/>
+  <!-- box2 -->
+  <rect x="200" y="42" width="150" height="66" rx="11" fill="#146b65"/>
+  <text x="275" y="70" font-size="12.5" font-weight="bold" fill="#ffffff" text-anchor="middle">派遣先が</text>
+  <text x="275" y="90" font-size="12.5" font-weight="bold" fill="#ffffff" text-anchor="middle">案件を出す</text>
+  <!-- arrow -->
+  <path d="M354 75 L372 75" stroke="#6a6963" stroke-width="2.5" fill="none"/>
+  <polygon points="378,75 366,69 366,81" fill="#6a6963"/>
+  <!-- box3 -->
+  <rect x="380" y="42" width="170" height="66" rx="11" fill="#2f9d94"/>
+  <text x="465" y="70" font-size="12.5" font-weight="bold" fill="#ffffff" text-anchor="middle">派遣元の営業が</text>
+  <text x="465" y="90" font-size="12.5" font-weight="bold" fill="#ffffff" text-anchor="middle">案件を選んで出す</text>
+  <!-- arrow -->
+  <path d="M554 75 L572 75" stroke="#6a6963" stroke-width="2.5" fill="none"/>
+  <polygon points="578,75 566,69 566,81" fill="#6a6963"/>
+  <!-- box4 -->
+  <rect x="580" y="42" width="122" height="66" rx="11" fill="#8ecdc6" stroke="#146b65" stroke-width="1.5"/>
+  <text x="641" y="70" font-size="12.5" font-weight="bold" fill="#0a423e" text-anchor="middle">派遣先との</text>
+  <text x="641" y="90" font-size="12.5" font-weight="bold" fill="#0a423e" text-anchor="middle">面談・選考</text>
+  <!-- 本人 -->
+  <rect x="380" y="182" width="170" height="60" rx="11" fill="#ffffff" stroke="#c62f2f" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="465" y="208" font-size="12.5" font-weight="bold" fill="#a82727" text-anchor="middle">本人の希望</text>
+  <text x="465" y="228" font-size="11.5" fill="#4e4d4a" text-anchor="middle">（聞かれる）</text>
+  <path d="M465 178 L465 118" stroke="#c62f2f" stroke-width="2" fill="none" stroke-dasharray="6 4"/>
+  <polygon points="465,110 459,124 471,124" fill="#c62f2f"/>
+  <text x="704" y="152" font-size="11.5" fill="#a82727" text-anchor="end">参照はされる。決めてはいない</text>
+  <text x="14" y="272" font-size="12.5" font-weight="bold" fill="#0a423e">求職者が「選んでいる」と思っている場所と、実際に決まっている場所がずれている</text>
+</svg>
+<figcaption>希望を聞く制度があることと、希望が通ることは別のこと。</figcaption>
+</figure>
+
+<div class="card">
+  <p class="lead">当事者の記録は、こう言っています（すべて本人1人の記録です）。</p>
+  <ul>
+    <li>「希望勤務地を3つ選ぶ」制度があっても、配属は実家から離れる方向にしか出ず通らなかった／「希望地は聞かれるが、本当に聞かれるだけ」（<b>別々の会社で2件</b>）</li>
+    <li>通勤1時間程度という話だったのに、実際の配属先は車で片道4時間だった（1件）</li>
+    <li>断ると指定していた業務のある派遣先へ配属され、1週間で中止になった（1件）</li>
+    <li>「配属先を断る権利はないようです」「条件が違うという理由では断れない」（<b>別々の会社で3件</b>）</li>
+    <li>逆方向の記録として、「担当営業が勤務地と仕事内容を複数提示して、派遣先と面接して決まる。希望に合わなければ蹴ることもできる」という現職の記述が1件あります</li>
+  </ul>
+</div>
+
+<div class="note">
+<b>この論点でいちばん重要なのは、記録の出所の偏りです。</b><br>
+「勤務地は選べます」と言っている記述は、調べた範囲では<b>発信元が全部、供給側</b>でした。求人票の実績値（分母の定義が書かれていないもの）、派遣元の訴求文、社内のトークスクリプトです。<br>
+<b>エンジニア本人が「希望が通った」と書いた記録には、届いていません。</b>企業の口コミサイト・個人が書いた記事やブログ・匿名の質問サイト・匿名掲示板と、媒体を分けて探した結果としてこれです。<br>
+<b>これは「存在しない」という意味ではありません。</b>ただし、探した側が届かなかったという事実は、面談で「選べますよ」と言う前に知っておく価値があります。
+</div>
+
+<div class="key">
+<b>★勤務地の自由と、職種の希望は、交換関係にあります。</b>ある当事者は「全国転勤が可能な方は、希望の仕事が見つかるかもしれません」と書き残しています。別の記録では「転勤なしで仕事が見つからないと、自主退社に追い込まれる」。<br>
+つまり<b>①勤務地と②仕事内容は、別々に決まっているのではなく、どちらかを固定すると、もう片方の選択肢が減ります。</b>面談ではこの2つを同時に机の上に乗せてください。
+</div>
+
+<h3>2-3. 年収 ＝ スキルは、3つの変換を通ってからしか届かない</h3>
+
+<figure>
+<svg viewBox="0 0 720 268" role="img" aria-label="スキルが年収に届くまでの3つの変換。派遣先との契約単価、派遣元の社内グレード改定を通り、下には労使協定方式の下限という床がある。">
+  <text x="14" y="20" font-size="13.5" font-weight="bold" fill="#0a423e">スキルが年収に届くまで</text>
+  <!-- skill -->
+  <rect x="14" y="38" width="140" height="62" rx="11" fill="#ffffff" stroke="#146b65" stroke-width="2"/>
+  <text x="84" y="64" font-size="12.5" font-weight="bold" fill="#0a423e" text-anchor="middle">本人のスキル</text>
+  <text x="84" y="84" font-size="12.5" font-weight="bold" fill="#0a423e" text-anchor="middle">・経験</text>
+  <path d="M158 69 L176 69" stroke="#6a6963" stroke-width="2.5" fill="none"/>
+  <polygon points="182,69 170,63 170,75" fill="#6a6963"/>
+  <!-- 1 -->
+  <rect x="184" y="38" width="164" height="62" rx="11" fill="#0a423e"/>
+  <text x="266" y="62" font-size="12.5" font-weight="bold" fill="#ffffff" text-anchor="middle">① 派遣先が払う</text>
+  <text x="266" y="82" font-size="12.5" font-weight="bold" fill="#ffffff" text-anchor="middle">契約単価</text>
+  <path d="M352 69 L370 69" stroke="#6a6963" stroke-width="2.5" fill="none"/>
+  <polygon points="376,69 364,63 364,75" fill="#6a6963"/>
+  <!-- 2 -->
+  <rect x="378" y="38" width="184" height="62" rx="11" fill="#146b65"/>
+  <text x="470" y="62" font-size="12.5" font-weight="bold" fill="#ffffff" text-anchor="middle">② 派遣元の</text>
+  <text x="470" y="82" font-size="12.5" font-weight="bold" fill="#ffffff" text-anchor="middle">社内グレード改定</text>
+  <path d="M566 69 L584 69" stroke="#6a6963" stroke-width="2.5" fill="none"/>
+  <polygon points="590,69 578,63 578,75" fill="#6a6963"/>
+  <!-- 年収 -->
+  <rect x="592" y="38" width="112" height="62" rx="11" fill="#8ecdc6" stroke="#146b65" stroke-width="1.5"/>
+  <text x="648" y="76" font-size="14" font-weight="bold" fill="#0a423e" text-anchor="middle">年収</text>
+  <!-- floor -->
+  <rect x="14" y="136" width="690" height="66" rx="11" fill="#e9f4f2" stroke="#b9ddd8" stroke-width="1.5"/>
+  <text x="359" y="162" font-size="13" font-weight="bold" fill="#0e4d48" text-anchor="middle">③ 労使協定方式の一般賃金（下回れない床）</text>
+  <text x="359" y="184" font-size="11.5" fill="#3f3e3b" text-anchor="middle">職種 × 勤続年数 × 就業する事業所の都道府県 で、機械的に決まる</text>
+  <path d="M84 104 L84 132" stroke="#b9ddd8" stroke-width="2"/>
+  <path d="M470 104 L470 132" stroke="#b9ddd8" stroke-width="2"/>
+  <path d="M648 104 L648 132" stroke="#b9ddd8" stroke-width="2"/>
+  <text x="14" y="232" font-size="12.5" font-weight="bold" fill="#0a423e">スキルが上がった瞬間に年収が上がることは、制度上そもそも起きない</text>
+  <text x="14" y="254" font-size="11.5" fill="#4e4d4a">上がるとしたら、①が上がったあとに②が回ってから</text>
+</svg>
+<figcaption>①と②は、ある上場技術者派遣会社が有価証券報告書に自分で書いている。「グレード格付けの昇格は、派遣契約単価の水準や研修受講などの付与ポイント等の要件を定めています」。</figcaption>
+</figure>
+
+<div class="warn">
+<b>ここを「スキルは関係ない」と読まないでください。</b>同じ有価証券報告書には、昇格の要件に<b>研修の受講も明示されて</b>いますし、「業務経験とスキルを積み上げた結果として、契約における時間単価の上昇、そして待遇の高まりが連動している」とも書かれています。<br>
+正確な言い方はこうです。<b>スキルは年収に効く。ただし直接は届かない。①顧客がその単価を払うか、②派遣元がいつグレードに反映するか、という2つの変換を通ってからしか届かない。</b>
+</div>
+
+<div class="card">
+  <h4>③の床（労使協定方式）は、勤務地でも動きます</h4>
+  <p>国が毎年度、職種ごとの下限額を通達で示しています（令和8年度に適用される値、賃金構造基本統計調査をもとにした系統）。</p>
+  <div class="tw">
+  <table>
+    <tr><th>職種</th><th>勤続0年</th><th>勤続3年</th><th>勤続10年</th></tr>
+    <tr><td>機械技術者</td><td>1,534円/時</td><td>1,914円/時</td><td>2,189円/時</td></tr>
+    <tr><td>電気・電子・電気通信技術者</td><td>1,669円/時</td><td>2,083円/時</td><td>2,382円/時</td></tr>
+  </table>
+  </div>
+  <ul style="margin-top:10px;">
+    <li><b>この額に、就業する事業所がある都道府県の指数が掛かります。</b>東京111.4／神奈川110.1／大阪107.4／愛知104.4／静岡100.7／全国計100.0。<b>東京と静岡で約1割違います。</b>地方配属が主戦場の機電では、この掛け算はマイナス側に効きます</li>
+    <li><b>制度が用意している昇給のカーブは、緩く設計されています。</b>勤続年数に応じた調整指数は、0年100.0に対して10年142.7、<b>20年で177.4</b>です</li>
+    <li>あくまで<b>下限</b>であって相場ではありません。また会社によっては別系統の統計（職業安定業務統計）を選べて、その場合は同じ職種でも<b>2割近く下がります</b></li>
+  </ul>
+  <p class="small" style="margin-top:8px;">※ この通達は毎年度更新されます。年度を言わずに金額だけを持ち出すと、静かに古くなります。</p>
+</div>
+
+<div class="note">
+<b>入口の金額と、職種平均の金額を同じ文に置かないでください。</b><br>
+厚労省の職業情報サイトで「機械設計技術者」の平均年収は659万円ですが、これは<b>平均年齢42.3歳の、ベテランを含む全年齢の平均</b>です。同じページに載っている<b>求人賃金は月29.6万円</b>（賞与を含まない）。社内資料にある未経験入社の想定年収は<b>おおよそ250万〜450万円</b>で、これは求人票の掲載レンジであって実績の分布ではありません。<br>
+この3つを並べると、求職者は「入って数年で659万円」と読みます。<b>入口の話をするときは、月額の求人賃金か、社内の想定年収レンジだけを出してください。</b>
+</div>
+
+<h3>2-4. 待機中の給与 ＝ 「会社によって違う」のではなく「区分によって違う」</h3>
+
+<div class="card">
+  <p class="lead">当事者の証言が真っ二つに割れる論点です。</p>
+  <p>「待機期間でも月給は変化なし」という記録もあれば、「4.5か月待機して給与6割」「就業先が1年決まらないと給与100%カット、実際は3か月ごとに段階的に減額」という記録もあります。<b>同じグループの中でも、同じ会社の中でも食い違います。</b></p>
+  <p><b>割れている理由は、会社差ではありません。当事者が語っている待機の種類が違うからです。</b></p>
+</div>
+
+<figure>
+<svg viewBox="0 0 720 262" role="img" aria-label="待機の4区分。研修中、初回配属前、配属と配属の間、長期化の4つ。稼働率が捕捉しているのは初回配属より後だけ。">
+  <text x="14" y="18" font-size="13.5" font-weight="bold" fill="#0a423e">入社してから、待機は4か所で起きうる</text>
+  <!-- 稼働率の帯 -->
+  <rect x="40" y="34" width="286" height="30" rx="8" fill="#fdeeee" stroke="#f0c4c4"/>
+  <text x="183" y="54" font-size="11" font-weight="bold" fill="#a82727" text-anchor="middle">稼働率の分母に入っていない区間</text>
+  <rect x="342" y="34" width="348" height="30" rx="8" fill="#e9f4f2" stroke="#b9ddd8"/>
+  <text x="516" y="54" font-size="11" font-weight="bold" fill="#0e4d48" text-anchor="middle">稼働率が数えているのはここ（月末の断面だけ）</text>
+  <!-- 時間軸 -->
+  <line x1="40" y1="88" x2="690" y2="88" stroke="#9c9a94" stroke-width="1.5"/>
+  <text x="40" y="82" font-size="11" fill="#6a6963">入社</text>
+  <line x1="334" y1="78" x2="334" y2="152" stroke="#146b65" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="334" y="72" font-size="11.5" font-weight="bold" fill="#146b65" text-anchor="middle">初回配属</text>
+  <!-- 区分 -->
+  <rect x="40" y="98" width="136" height="54" rx="10" fill="#0a423e"/>
+  <text x="108" y="122" font-size="12.5" font-weight="bold" fill="#ffffff" text-anchor="middle">A 研修中</text>
+  <text x="108" y="141" font-size="10.5" fill="#a9d8d3" text-anchor="middle">入社直後の集合研修</text>
+  <rect x="186" y="98" width="140" height="54" rx="10" fill="#146b65"/>
+  <text x="256" y="122" font-size="12.5" font-weight="bold" fill="#ffffff" text-anchor="middle">B 初回配属前</text>
+  <text x="256" y="141" font-size="10.5" fill="#a9d8d3" text-anchor="middle">最初の常駐先待ち</text>
+  <rect x="344" y="98" width="164" height="54" rx="10" fill="#2f9d94"/>
+  <text x="426" y="122" font-size="12.5" font-weight="bold" fill="#ffffff" text-anchor="middle">C 配属と配属の間</text>
+  <text x="426" y="141" font-size="10.5" fill="#e4f4f2" text-anchor="middle">契約終了から次まで</text>
+  <rect x="518" y="98" width="172" height="54" rx="10" fill="#8ecdc6" stroke="#146b65" stroke-width="1.5"/>
+  <text x="604" y="122" font-size="12.5" font-weight="bold" fill="#0a423e" text-anchor="middle">D 長期化した待機</text>
+  <text x="604" y="141" font-size="10.5" fill="#2c4b48" text-anchor="middle">Cが数か月〜年単位に</text>
+  <!-- 注記 -->
+  <text x="14" y="190" font-size="12.5" font-weight="bold" fill="#a82727">「稼働率98%だから待機は起きない」は誤り</text>
+  <text x="14" y="212" font-size="11.5" fill="#4e4d4a">A・Bは分母に入らず、月の途中で終わった短い待機も数えられていない</text>
+  <text x="14" y="240" font-size="12.5" font-weight="bold" fill="#0a423e">だから聞くのは社名ではなく、「その待機はA〜Dのどれの話か」</text>
+</svg>
+<figcaption>証言の食い違いは、AとBとCとDを同じ言葉で呼んでいるせいで起きている。</figcaption>
+</figure>
+
+<div class="tw">
+<table>
+  <tr><th style="width:16%">区分</th><th style="width:34%">給与の根拠</th><th>実際に記録されていること</th></tr>
+  <tr>
+    <td><b>A 研修中</b></td>
+    <td>通常の賃金。労務は提供しているので休業ではない</td>
+    <td>入社後3週間、経験分野に関係なく全員がCAD中心の研修（1件）。<b>教育訓練は年8時間以上・有給・無償が派遣業の許可要件</b>なので、この期間は全社にある</td>
+  </tr>
+  <tr>
+    <td><b>B 初回配属前</b></td>
+    <td><b>会社の運用次第。</b>研修扱いにするか休業扱いにするかで根拠の条文が変わる</td>
+    <td>「入社から半年経っても就業先が決まらなかった」（1件）。<b>求職者がいちばん見落とす区分</b></td>
+  </tr>
+  <tr>
+    <td><b>C 配属と配属の間</b></td>
+    <td>就業規則が法定の下限を上回る定めを置いているかで決まる。稼働に連動した手当が落ちるかも効く</td>
+    <td>「月給は変化なし」も「4.5か月・6割」も「職務手当が出ず目減り」も、全部この区分の記録</td>
+  </tr>
+  <tr>
+    <td><b>D 長期化</b></td>
+    <td>就業規則の逓減の条項。法定の下限を割ることはできないが、手当の停止と基本給の扱いは会社ごと</td>
+    <td>「3か月ごとに段階的減額、1年で100%カット」（1件）／「40代・50代で待機に入ると営業が動かなくなり、退職を促される」（1件）</td>
+  </tr>
+</table>
+</div>
+
+<div class="key">
+<b>法が定めている最低線は1つだけです。</b>使用者の責任で休業させた場合、<b>平均賃金の60%以上</b>の休業手当を払う（労働基準法26条）。派遣業の許可基準も同じ条文をもとに書かれています。<br>
+つまり<b>「無期雇用だから待機中も給料が出る」までは言ってよい。「満額出る」も「6割しか出ない」も、どちらも断定してはいけません。</b>60%は下限であって、就業規則が上回っていればそちらが優先されます。
+</div>
+
+<div class="note">
+<b>稼働率の数字に、そのまま乗らないでください。</b><br>
+ある上場技術者派遣会社の月次開示には、稼働率の定義がこう書かれています。「派遣稼働人員数 ÷ 派遣対象在籍人員数。<b>新卒技術者等の期中入社者は、配属までは含んでおりません</b>」。<br>
+そして<b>同じ会社の同じ期間で、通期平均98.1%と91.7%（研修中の人を含む値）が並んでいます</b>。後者は4月〜5月に84%台まで落ちます。<br>
+「稼働率98%」が答えているのは<b>「配属された後、月末の時点で切れていたか」</b>だけです。初回配属前の待機は、定義上そもそも分母に入っていません。
+</div>
+
+<h3>2-5. 出口 ＝ 何を出口と数えるかを、先に決める</h3>
+
+<div class="card">
+  <p class="lead">「ずっと派遣のままですか」に答える前に、数え方を決めないと必ず水増しになります。</p>
+  <p>次の4つは、出口として数えません。</p>
+  <div class="tw">
+  <table>
+    <tr><th style="width:32%">出口に見えるもの</th><th>なぜ出口ではないか</th></tr>
+    <tr><td><b>派遣先が変わった</b></td><td>雇用主が変わっていない</td></tr>
+    <tr><td><b>グループ内の配置転換</b></td><td>同じ資本の中の移動。研修で不適正と判定されて別法人へ転籍し、待遇が大きく変わった記録がある（1件）</td></tr>
+    <tr><td><b>「派遣から正社員へ」が、派遣元の正社員化だった</b></td><td>就業先が派遣先である構造は変わらない。<b>この取り違えは求職者の目の前で実際に起きます</b>。「社員登用のチャンスは入社5年後の契約満了時にしかない」という記録がありますが、その「社員登用」が派遣先の直接雇用なのか派遣元の正社員化なのかは、書いた本人の文章からも判別できません</td></tr>
+    <tr><td><b>派遣元の中で職種を変えた</b></td><td>出口ではない。<b>ただし別の価値がある</b>（§4-3）</td></tr>
+  </table>
+  </div>
+  <p style="margin-top:10px;"><b>数えてよいのは、派遣先メーカーの直接雇用だけです。</b></p>
+</div>
+
+<figure>
+<svg viewBox="0 0 720 292" role="img" aria-label="出口の地図。派遣先の直接雇用は記録に到達していない、第三の会社への転職は記録がある、派遣元内の職種転換は出口ではない。">
+  <!-- 現在地 -->
+  <rect x="16" y="112" width="192" height="76" rx="12" fill="#0a423e"/>
+  <text x="112" y="140" font-size="12.5" font-weight="bold" fill="#ffffff" text-anchor="middle">いま立っている場所</text>
+  <text x="112" y="160" font-size="11.5" fill="#a9d8d3" text-anchor="middle">派遣元の社員として</text>
+  <text x="112" y="177" font-size="11.5" fill="#a9d8d3" text-anchor="middle">派遣先に常駐している</text>
+  <!-- arrows -->
+  <path d="M212 138 Q270 60 316 54" stroke="#9c9a94" stroke-width="2.5" fill="none" stroke-dasharray="7 5"/>
+  <polygon points="324,53 310,47 313,60" fill="#9c9a94"/>
+  <path d="M212 150 L316 150" stroke="#146b65" stroke-width="3" fill="none"/>
+  <polygon points="324,150 310,143 310,157" fill="#146b65"/>
+  <path d="M212 162 Q270 238 316 246" stroke="#2f9d94" stroke-width="2.5" fill="none"/>
+  <polygon points="324,247 310,240 313,253" fill="#2f9d94"/>
+  <!-- 出口1 -->
+  <rect x="330" y="20" width="374" height="68" rx="12" fill="#f4f4f1" stroke="#9c9a94" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <text x="517" y="46" font-size="13" font-weight="bold" fill="#4e4d4a" text-anchor="middle">派遣先メーカーの直接雇用</text>
+  <text x="517" y="68" font-size="11.5" fill="#6a6963" text-anchor="middle">機電職の本人が「なった」と書いた記録に届いていない</text>
+  <!-- 出口2 -->
+  <rect x="330" y="116" width="374" height="68" rx="12" fill="#146b65"/>
+  <text x="517" y="142" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">資格と経験を持って、第三の会社へ転職</text>
+  <text x="517" y="164" font-size="11.5" fill="#a9d8d3" text-anchor="middle">機電職の本人が完了形で書いた記録がある（いずれも1人の記録）</text>
+  <!-- 出口3 -->
+  <rect x="330" y="212" width="374" height="68" rx="12" fill="#e9f4f2" stroke="#b9ddd8" stroke-width="1.5"/>
+  <text x="517" y="238" font-size="13" font-weight="bold" fill="#0e4d48" text-anchor="middle">派遣元の中で職種を変える</text>
+  <text x="517" y="260" font-size="11.5" fill="#3f3e3b" text-anchor="middle">出口ではない。ただし装置側から設計側へ移る社内の道</text>
+</svg>
+<figcaption>この非対称が、機電のキャリア相談でいちばん効く事実。</figcaption>
+</figure>
+
+<div class="note">
+<b>調べた範囲では、機電職の本人が「派遣先の社員になった」と書いた完了形の記録に、届いていません。</b><br>
+届いたのは3層でした。<b>①打診まで</b>（回路設計の人が「派遣先から正社員になってほしいと打診があった」と書いているが、その先は会員登録の壁の内側／機械系の人が引き抜きの依頼を受けて転職を検討中）。<b>②完了しているが職種が分からないもの</b>（3件、いずれも2014〜2017年の記録）。<b>③伝聞</b>。<br>
+<b>これは「起きていない」という意味ではありません。</b>ただし面談で「3年経てば派遣先の社員になれます」と言う根拠は、少なくとも当事者の記録の側にはありません。
+</div>
+
+<div class="ok">
+<b>一方で、別の出口は実在します。</b>資格と経験を持って、第三の会社へ移った記録です（いずれも1人の記録）。
+<ul style="margin:8px 0 0;">
+  <li>製造装置の電気回路・制御設計をしていた人が、正社員型派遣で働く5年の間に<b>電験三種（電気主任技術者）を取得し、転職エージェント経由で発注の上流にあるメーカーへ移った</b>。<b>資格→エージェントという経路が明示されている数少ない記録です</b></li>
+  <li>技術者派遣に約15年勤めてメーカーの正社員へ移った人（昇給が年数による数千円にとどまること、派遣元が業務を把握できず自己評価の5〜7割しか評価されないことを理由に挙げている）</li>
+  <li>工場での業務が「完全な単純作業の繰り返し」だったため、同じ工場への再派遣の打診をきっかけに辞め、最終的に重工系メーカーの開発設計に至ったことを示唆する記録</li>
+</ul>
+<p style="margin:10px 0 0;"><b>擁護する側の説明ですら、出口に挙げているのは転職市場のほうです。</b>ある現職の社員は「2〜3年で必要な経験と資格を得てから、大手メーカーなどに正社員として転職される方も多い」と書いています（「多い」の分母は示されていないので頻度の根拠にはできませんが、<b>擁護する立場の人も「派遣先による直接雇用」を出口に挙げていない</b>点は読み取れます）。</p>
+</div>
+
+<div class="warn">
+<b>出口＝改善とは限りません。</b>機械設計の派遣からメンテナンス企業の正社員に移ったものの、転職先のサービス残業・休日の無償労働・賞与なしを理由に「派遣のままのほうが稼げた」と後悔し、戻る意向を書いている記録が1件あります。<b>「外に出れば良くなる」も同じくらい雑な話です。</b>
+</div>
+
+<h2><span class="emoji">🎯</span>3. 右端には何があるか</h2>
+<div class="lbrow"><span class="lb lb-all">分野を問わず使える</span><span class="small">（右端の定義と、5項目の枠組み。<b>2つ目の表の右2列は機電の記録です</b>）</span></div>
+
+<div class="card">
+  <p class="lead">右端 ＝ 決定権が自分側に寄っている状態。中身は3つです。</p>
+  <div class="tw">
+  <table>
+    <tr><th style="width:24%">右端の中身</th><th>何が起きているか</th><th style="width:26%">機電での具体例</th></tr>
+    <tr><td><b>① 指名される</b></td><td>案件に人を当てはめるのではなく、その人だから頼まれる。断っても次が来る</td><td>派遣先から「うちの社員に」と打診が来る／引き抜きの依頼が来る</td></tr>
+    <tr><td><b>② 条件を選べる</b></td><td>勤務地・工程・勤務形態のうち、少なくとも1つを自分で固定できる</td><td>設計側に移って交替勤務が消える／エリアを固定しても仕事がある</td></tr>
+    <tr><td><b>③ 出口を持っている</b></td><td>いまの場所を離れても行き先がある。<b>だから今の場所での交渉力も上がる</b></td><td>法的な選任義務のある資格を持っている／外部に説明できる実績がある</td></tr>
+  </table>
+  </div>
+</div>
+
+<div class="card">
+  <p class="lead">§1で立てた5つの決定項目は、右端でどうなるか</p>
+  <p>左端（§2）の解像度だけ上げても、目指す先が見えないままになります。<b>同じ5項目を、右端の側から見ます。ただし2項目は、この資料からは言えません。</b></p>
+  <div class="tw">
+  <table>
+    <tr><th style="width:18%">決定項目</th><th style="width:30%">右端では</th><th>この資料での裏づけ</th></tr>
+    <tr><td><b>① 勤務地</b></td><td>エリアを固定しても仕事がある側に回る</td><td>受け皿企業の一部にエリア限定型・転勤なしの道があります（§2-1）。<b>ただし賞与や転居範囲という対価が付くので、「選べます」だけを言わない</b></td></tr>
+    <tr><td><b>② 仕事内容</b></td><td>提示された案件を、断れる</td><td>「担当営業が勤務地と仕事内容を複数提示して、希望に合わなければ蹴ることもできる」という現職の記述が<b>1件</b>（§2-2）。逆向き（断れない）は別々の会社で<b>3件</b>。<b>件数でいえば、まだ左端側の記録のほうが多い</b></td></tr>
+    <tr><td><b>③ 年収</b></td><td>単価が上がる側に回る。<b>ただし3つの変換の順序（§2-3）は右端でも変わりません</b></td><td>有価証券報告書に「業務経験とスキルを積み上げた結果として、契約における時間単価の上昇、そして待遇の高まりが連動している」（§2-3）</td></tr>
+    <tr><td><b>④ 待機中の給与</b></td><td><b>この資料からは言えません</b></td><td>集めた待機の記録（§2-4）は、<b>本人が軸のどこに立っているかと結びついていません</b>。「右端に届けば待機しにくい」はもっともらしいですが、根拠がありません</td></tr>
+    <tr><td><b>⑤ 出口</b></td><td>資格と経験を持って、第三の会社へ移れる</td><td>完了形の記録が実在します（§2-5）。<b>一方で、派遣先メーカーの直接雇用は記録に届いていません。</b>つまり右端の中身も、機電では出口の種類が偏っています</td></tr>
+  </table>
+  </div>
+  <p class="small" style="margin-top:10px;">※ <b>5項目の枠組みは分野を問いませんが、右2列は機電の記録です。</b>他分野で同じ表を作るなら、その分野の記録から引き直してください。</p>
+</div>
+
+<div class="note">
+<b>右端に「どれくらいの人が届くか」は、分かっていません。</b><br>
+受け皿になっている企業について、社内グレードの上位職・スペシャリスト職・マネージャー職への<b>到達率の開示に、1社も届いていません</b>。社内資料も「スペシャリストやマネージャーへの昇進、営業同行、内勤など多様なキャリアが描けます」と<b>可能性だけを書いて、割合を示していません</b>。<br>
+だから線引きはここです。<br>
+<b>✅「到達した人がいます」までは言える。</b><br>
+<b>❌「到達しやすいです」は言えない。</b>事例が存在することは、確率の証拠になりません。
+</div>
+
+<h2><span class="emoji">🔧</span>4. そこから動けるか（実在する手段だけ）</h2>
+<div class="lbrow"><span class="lb lb-ex">機電の例として読む</span></div>
+
+<figure>
+<svg viewBox="0 -6 720 282" role="img" aria-label="左端から右へ動く4つの手段。法が人を要求する資格、図面が読めること、現場を知っていることの言語化、第三の会社への転職。">
+  <defs>
+    <linearGradient id="ax2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0a423e"/><stop offset="50%" stop-color="#146b65"/>
+      <stop offset="100%" stop-color="#8ecdc6"/>
+    </linearGradient>
+  </defs>
+  <rect x="40" y="20" width="640" height="14" rx="7" fill="url(#ax2)"/>
+  <text x="40" y="9" font-size="11.5" font-weight="bold" fill="#0a423e">決定権は相手側</text>
+  <text x="680" y="9" font-size="11.5" font-weight="bold" fill="#146b65" text-anchor="end">自分側</text>
+
+  <path d="M70 66 L392 66" stroke="#0a423e" stroke-width="2.5" fill="none"/>
+  <polygon points="400,66 386,59 386,73" fill="#0a423e"/>
+  <text x="70" y="58" font-size="13" font-weight="bold" fill="#0a423e">① 法が人を要求する資格を持つ</text>
+  <text x="412" y="70" font-size="11.5" fill="#3f3e3b">配属の可否に直接効く</text>
+
+  <path d="M70 120 Q230 92 392 120" stroke="#146b65" stroke-width="2.5" fill="none"/>
+  <polygon points="400,120 386,113 387,127" fill="#146b65"/>
+  <text x="70" y="112" font-size="13" font-weight="bold" fill="#146b65">② 図面が読めるようになる</text>
+  <text x="412" y="124" font-size="11.5" fill="#3f3e3b">設計側の入場条件。ここが先</text>
+
+  <path d="M70 174 Q230 146 392 174" stroke="#2f9d94" stroke-width="2.5" fill="none"/>
+  <polygon points="400,174 386,167 387,181" fill="#2f9d94"/>
+  <text x="70" y="166" font-size="13" font-weight="bold" fill="#146b65">③ 現場を知っていることを言語化する</text>
+  <text x="412" y="178" font-size="11.5" fill="#3f3e3b">差別化の材料。入場条件ではない</text>
+
+  <path d="M70 228 Q230 200 392 228" stroke="#0a7a0a" stroke-width="2.5" fill="none"/>
+  <polygon points="400,228 386,221 387,235" fill="#0a7a0a"/>
+  <text x="70" y="220" font-size="13" font-weight="bold" fill="#0a7a0a">④ 資格と経験を持って別の会社へ</text>
+  <text x="412" y="232" font-size="11.5" fill="#3f3e3b">実在する出口はこの形</text>
+
+  <text x="360" y="266" font-size="12.5" font-weight="bold" fill="#0a423e" text-anchor="middle">①②③は今いる場所で積める。④はその結果として開く</text>
+</svg>
+<figcaption>順序がある。②が無いまま③だけを押しても通らない。</figcaption>
+</figure>
+
+<div class="sol">
+  <div class="t">① 資格は「格」ではなく「法が人を要求しているか」で効く</div>
+  <p style="margin:8px 0;">これはIT分野の助言をそのまま持ち込むと、機会を落とす論点です。機電の資格は<b>4つの型</b>に割れます。</p>
+  <div class="tw">
+  <table>
+    <tr><th style="width:20%">型</th><th style="width:26%">効き方</th><th>中身</th></tr>
+    <tr>
+      <td><b>A 法令に選任・立ち会いの義務がある</b></td>
+      <td><b>配属の可否に直接効く</b></td>
+      <td><b>危険物取扱者</b>（消防法13条3項: 危険物取扱者以外の者は、甲種または乙種の立ち会いがなければ危険物を取り扱ってはならない）／<b>エネルギー管理士</b>（省エネ法11条: 第一種エネルギー管理指定工場等ごとに、免状の交付を受けている者のうちからエネルギー管理者を選任しなければならない）</td>
+    </tr>
+    <tr>
+      <td><b>B 名称独占（業務独占なし）</b></td>
+      <td>到達目標にはなるが、<b>入口では効かない</b></td>
+      <td><b>技術士</b>。技術士法57条は名称の使用を制限しているだけで、<b>業務を独占させる条文はありません</b></td>
+    </tr>
+    <tr>
+      <td><b>C 民間検定（法的な効力なし）</b></td>
+      <td>未経験でも受けられる。差別化になるかは別の話</td>
+      <td><b>機械設計技術者試験</b>／<b>CAD利用技術者試験</b></td>
+    </tr>
+    <tr>
+      <td><b>D 根拠が見つからないもの</b></td>
+      <td><b>前提から外す</b></td>
+      <td>TOEIC（下記）</td>
+    </tr>
+  </table>
+  </div>
+  <div class="ex"><b>ここから出る、一見おかしな結論:</b> <b>技術士（機械部門）より、危険物乙4</b>（＝危険物取扱者 乙種第4類。ガソリン・灯油など引火性液体を扱える区分）<b>のほうが「入口の配属」では効きうる。</b>理由は資格の格ではなく、<b>法律が「この人がいないと取り扱えない」と書いているかどうか</b>です。<br>
+  ただし選任は工場単位なので、必要な人数には上限があります。<b>求人の絶対数がどれくらいあるかは測れていません。</b></div>
+</div>
+
+<div class="warn">
+<b>★ この表に入っていないのに、この資料が2か所で名前を出している資格が1つあります。電験三種（第三種電気主任技術者）です。</b><br>
+§2-5では「実在が確認できた出口」の実例として、§6-3では求職者に渡すセリフとして出てきます。<b>勧める前に、必ず次の2つを同時に渡してください。</b><br><br>
+<b>✅ 効き方は、年収ではなく「配属できるかどうか」に出た記録があります。</b>「未経験でも入社はできるが、<b>資格が無いと配属先が見つからない</b>」と書いている当事者が<b>1人</b>います。<br>
+<b>⚠ ただし「取れば引く手あまた」とは言えません。</b>合格率は18.8%（令和5年度）→16.4%（令和6年度）→<b>13.0%（令和7年度）</b>と低下中です。そして経済産業省の資料（令和8年2月）は、外部委託を受託する保安業務従事者について「令和12年度までに不足が生じないと見込んでいる」と<b>需給を下方修正</b>しています（同じ資料の別ページには需給ギャップ拡大のおそれも書かれていて、方向は一本化していません）。<b>この下方修正を伏せて勧めるのは、不誠実にあたります。</b><br>
+<span class="small">※ 試験の回数（年2回）・科目合格制度を含む詳細は入門編8章。この資料では、電験三種が上の4型のどれに当たるかまでは判定していません（選任義務の条文を原文で確認していないため）。</span>
+</div>
+
+<div class="warn">
+<b>技術士は「入口の資格」として提示すると事実に反します。</b>第二次試験には実務経験の要件があり（技術士法6条2項）、令和7年度の統計では<b>受験申込者の10代は0人、20代は9.9%、受験者の平均年齢は43.1歳</b>です（全部門）。機械部門の第二次試験は受験884人・合格143人で<b>合格率16.2%</b>。<b>到達目標としては提示してよい資格です。</b><br><br>
+<b>未経験でも受けられる設計系の資格は実在します。機械設計技術者試験の3級は実務経験が不問です</b>（令和7年度: 受験1,678人・合格898人・53.5%）。ただし<b>年間の受験者が1,678人と小規模</b>なので、「取れば差別化になる」の裏に「そもそも保有者が少なく、採用する側が知らない可能性がある」が付きます。<b>受け皿の企業がこの資格を認識しているかは、確認できていません。</b><br><br>
+<b>「TOEICを取れば有利」は、支持する根拠が見つかりませんでした。</b>受け皿企業4社の求人票から起こしたデータの「求める人物像」欄を全部読みましたが、<b>語学・英語・TOEICの語は0件</b>です。TOEICの実施団体自身が公式資料に挙げている企業での用途も、社内の効果測定・海外出張や駐在の基準・昇進の要件であって、中途採用の選考基準は挙げられていません。<br>
+<b>ただし「効かない」とも言いません。</b>求人票を網羅的に数えたわけではないからです。正しい言い方は<b>「効くという根拠が無いので、推薦の前提から外す」</b>です。<br><br>
+<b>資格手当の金額は口に出さないでください。</b>情報源によって3倍以上ばらつきます（危険物乙4だけでも「月2,000〜5,000円」説と「月5,000〜15,000円」説が併存）。しかもどれも資格スクールや転職エージェントの自社発信です。言うなら「<b>会社の就業規則次第なので、求人票と面接で確認しましょう</b>」だけ。
+</div>
+
+<div class="sol">
+  <div class="t">② 図面が読めること ＝ 順序を間違えない</div>
+  <p style="margin:8px 0;">機械加工から機械設計の補助へ移った当事者が、はっきりこう書いています。<b>「図面が読めなければ、加工の経験は効力を発揮しない」</b>（1人の記録）。</p>
+  <div class="ex"><b>ここから出るのは、正誤の判定ではなく手順です。</b>現場経験は<b>差別化の材料</b>になる。ただし<b>入場の条件は図面のほう</b>。この順序が、実際に移った当事者の記録（1件）に書かれています。<br>
+  <b>だから求人を見るときは、「図面を読む機会が業務に入っているか」を確認してください。</b>入っていなければ、現場経験だけを積んでも設計側へは渡れない、というのがこの記録の言っていることです。<span class="small">（1人分の記録です。「現場経験があるので設計にも移りやすい」という説明そのものを否定できる数ではありません。<b>正誤で争わず、順序を確認する手順に落として使ってください。</b>）</span><br>
+  同じ書き手は移行直後の谷についても書いています。「最初の1か月は先輩から細かい指摘ばかり受けてメンタルが病みました」「2か月目からは徐々に慣れて指摘も少なくなり、環境にも慣れてくるので、自分が続けやすいかどうかで判断してもよいかと思います」。<b>1人の体験なので「谷は1か月」と一般化はできません</b>が、<b>移った直後に落ちることを事前に伝えておく</b>のは使えます。</div>
+</div>
+
+<div class="sol">
+  <div class="t">③ 現場を知っていることは、差別化になる（記録は薄い）</div>
+  <p style="margin:8px 0;">30歳で転職して設計部のマネジメントに至った人が、自分の差別化要因を<b>「現場を知っていること」</b>だと書いています。加工で困る寸法、組立で苦労する構造が分かる、という中身です（1人の記録。到達までの年数・企業規模・雇用形態は原文に書かれていません）。</p>
+  <p style="margin:8px 0;">逆側からの記録もあります。2024年12月、機械設計職の中途採用の面接官が、<b>技術者派遣出身で設計歴8年の応募者を不採用にした</b>と書いています。理由は、鉄の種類・焼入れ・表面処理・自分が描いた部品がどの機械でどう作られるかを聞いて「まったく知らない」と返ってきたこと、業務が過去モデルの寸法変更と構造解析にとどまっていたこと（採用する側の一方的な記述で、応募者本人の説明は含まれていません）。</p>
+  <div class="ex"><b>この2つを並べると、軸の言葉で説明できます。</b>派遣先で狭い反復作業に置かれた場合、<b>年数は積み上がっても、それが市場価値に変換されない</b>。だから「何年いたか」ではなく「<b>その現場で、決めた経験があるか</b>」を面談で拾ってください。<br>
+  <b>ただし、この不採用の記録がどれくらい一般的かは測れていません。</b>1件です。</div>
+</div>
+
+<div class="sol">
+  <div class="t">③′ 現場技能職から設計へ上がる道は、記録が薄い（そして薄さの理由が分かっている）</div>
+  <p style="margin:8px 0;">同じ問い（現場技能職の経験が設計・生産技術で評価されるか）を媒体別に当てたところ、<b>結果がきれいに割れました</b>。</p>
+  <div class="tw">
+  <table>
+    <tr><th style="width:42%">媒体</th><th>技能職から設計・生産技術へ移れた記録</th></tr>
+    <tr><td>企業の口コミサイト（複数）</td><td><b>ゼロ。</b>逆方向（エンジニア採用で入って製造現場に置かれた）の記録は複数取れた</td></tr>
+    <tr><td>個人が書いた記事・ブログ</td><td><b>2件</b>（機械加工→機械設計補助／加工現場→設計部長）</td></tr>
+  </table>
+  </div>
+  <div class="ex"><b>「企業口コミで見つからなかった」を「存在しない」と読んではいけません。</b>口コミサイトの設問（年収・働きやすさ・退職を考えた理由・組織体制）には、<b>「自分がどう職種を移ったか」を書く欄がありません</b>。媒体の構造による欠落です。<br>
+  <b>これは分野を問わない読み方の型です。</b>記録が見つからないとき、まず疑うのは実態ではなく<b>探した場所</b>です。</div>
+</div>
+
+<div class="sol">
+  <div class="t">④ 派遣元の中で職種を変える制度が、動き始めている</div>
+  <p style="margin:8px 0;">2026年6月の報道によれば、<b>大手技術者派遣会社の1社が、2026年秋にも派遣技術者の職種転換を後押しする制度を全国で始める</b>（対象規模2,000人）とされています。別の1社は事務や販売からの技術職への移行を支援するとのこと。狙いは「中長期の就業を促し、定着率を向上させる」ことだと報じられています。</p>
+  <div class="ex"><b>これは出口ではありません（§2-5の4型目）。</b>でも<b>§0で見た「装置に張り付く仕事」と「図面の上の仕事」の断絶を、社内で埋める経路</b>としては数えられます。しかも<b>受け皿企業の1社が含まれます</b>。<br>
+  <b>面談で使うなら「制度がある」ではなく「その制度で移った人が何人いるか」を聞いてください。</b>制度の存在と、制度が使われていることは別です。</div>
+</div>
+
+<h2><span class="emoji">📄</span>5. 求人票で、決定権の所在を読む</h2>
+<div class="lbrow"><span class="lb lb-all">読み方の型は分野を問わない</span><span class="lb lb-no">「何次請け」だけは機電で空振る</span></div>
+
+<h3>5-1. ★「何次請けですか」は、機電では空振ります</h3>
+
+<div class="note">
+<b>IT分野では、商流の位置（元請か、何次請けか）が「その会社に上流の仕事があるか」を強く予測します。この因果は機電に移りません。</b><br>
+理由は単純で、<b>二重派遣が違法だから</b>です（職業安定法44条。送り出した側だけでなく、受け入れた側も同条違反。罰則は1年以下の拘禁刑または100万円以下の罰金）。原則として<b>「派遣元1社 → 派遣先1社」の直接構造</b>にしかならず、<b>商流の階段そのものが法的に作れません</b>。<br>
+<span class="small">※ 業界の記事には「労働者派遣法24条の2が二重派遣を禁じている」と書くものがありますが、これは誤りです。条文名を出すなら職業安定法44条。／「違法だから起きていない」とも書けません。摘発や行政処分の件数には届いていないので、「違法である」ことは条文で言えても「どの程度取り締まられているか」は言えません。</span>
+</div>
+
+<div class="card">
+  <p class="lead">代わりに聞くのは、この3つです。</p>
+  <div class="tw">
+  <table>
+    <tr><th style="width:28%">聞くこと</th><th>なぜ効くか</th></tr>
+    <tr>
+      <td><b>① 契約の形は、労働者派遣か、設計請負（業務委託）か</b></td>
+      <td>請負なら、①労働力を自ら直接利用しているか ②契約の相手方から独立して処理しているか、という2つの基準が全部かかります（昭和61年労働省告示37号）。<b>誰が業務の指示を出し、誰が労働時間を管理し、設備は誰のものか</b>を聞けば、実質が派遣か請負かは求職者側でも判別できます</td>
+    </tr>
+    <tr>
+      <td><b>② 常駐先のティア</b></td>
+      <td>商流の段数が作れない代わりに、<b>どの階層の企業に常駐するか</b>が扱う工程を決めます。完成品メーカーか、Tier1か、装置メーカーか、その下か</td>
+    </tr>
+    <tr>
+      <td><b>③ 派遣元の平均単価</b></td>
+      <td>§2-3のとおり、単価がグレード＝賃金の上流にあります。<b>上場している会社なら、有価証券報告書やIR資料で稼働率・単価・退職率を確認できます</b>（技術者1人あたりの月次平均売上単価を開示している会社があります）</td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+<h3>5-2. 「研修制度が充実しています」は、差別化の情報ではありません</h3>
+
+<div class="key">
+<b>派遣事業の許可基準に、教育訓練の義務が入っています。</b>フルタイムで1年以上の雇用見込みがある派遣労働者1人あたり<b>毎年おおむね8時間以上</b>、しかも<b>有給かつ無償</b>で。対象は「その雇用する全ての派遣労働者」です。<br>
+つまり<b>「研修が充実している」は派遣元の売りではなく、許可を取るための要件です。全社が持っています。</b><br>
+<b>比べるべきは有無ではなく、時間数と中身。</b>法定の8時間ぽっきりなのか、それを超えて設計されているのか。ここを聞くと、会社の差が初めて見えます。
+</div>
+
+<h3>5-3. 求人票に載っていることと、載っていないこと</h3>
+
+<div class="card">
+  <p><b>「求人票をよく見ましょう」は指示になりません。載っている項目と、載っていない項目を分けます。</b></p>
+  <div class="tw">
+  <table>
+    <tr><th style="width:32%">載っている（先に見る順）</th><th>載っていない（だから取り方が要る）</th></tr>
+    <tr>
+      <td>
+        <b>① 勤務形態欄</b>（交替の有無・シフトのパターン・夜勤）<br>
+        <b>② 通勤</b>（最寄駅の有無・車の要否・免許）<br>
+        <b>③ 転居の可否</b><br>
+        <b>④ 年収・月額</b><br>
+        <span class="small">この順です。①〜③を飛ばして年収から入った提案は、入社後に必ず戻ってきます</span>
+      </td>
+      <td>
+        ・配属される<b>工程の名前</b>と、それが決まる<b>時期</b><br>
+        ・待機したときの給与の扱い（<b>4区分のどれの話か</b>）<br>
+        ・グレードが<b>いつ見直されるか</b><br>
+        ・上位職に<b>実際に何人いるか</b><br>
+        ・その会社から<b>外に出た人がどこへ行ったか</b><br>
+        <span class="small"><b>これらは「見ろ」と言っても見られません。§6の質問として、誰に・いつ聞くかまで決めてください</b></span>
+      </td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+<div class="warn">
+<b>勤務形態の欄で、いちばん誤解が生まれる数字があります。</b><br>
+社内の独自一次データ（n=92）には、<b>年間休日182〜185.5日</b>の案件があります。一方で<b>日勤の案件は120〜127日</b>。<br>
+<b>この182日を「休みが多くてホワイトですね」と説明してはいけません。</b>3勤3休の帰結であって、稼働日は1日12時間の拘束です（例: 9:00-21:00／21:00-9:00）。待遇の差ではなく勤務形態の差で、生活のリズムは日勤120日の仕事と別物になります。<b>言い換えた瞬間に、入社後に必ず露見します。</b><br>
+<span class="small">※ この一次データでは、交替勤務・車必須・身体条件（クリーンルーム作業、作業服のサイズ）が条件欄に入る案件が「多い」ことまでは確認できていますが、<b>件数を数えていないので「◯割が夜勤あり」とは言えません</b>。／なお交替勤務は「職種に固有」ではなく<b>「案件に固有」</b>です。同じ職種で「日勤のみ・夜勤なし・土日休」の求人も併存します。<b>求人単位で確認してください。</b></span>
+</div>
+
+<h2><span class="emoji">🗣️</span>6. 面談で、そのまま口に出せる形</h2>
+<div class="lbrow"><span class="lb lb-all">質問の作り方は分野を問わない</span></div>
+
+<div class="card">
+  <p class="lead">まず、こちら側の言葉と、求職者に使う言葉を分けます。</p>
+  <div class="tw">
+  <table>
+    <tr><th style="width:34%">こちら側の言葉（分析用）</th><th>求職者に使う言葉</th></tr>
+    <tr><td>決定権の所在</td><td>「それは誰が決めるんですか」</td></tr>
+    <tr><td>軸の左端／右端</td><td><b>使わない</b></td></tr>
+    <tr><td>待機の区分（A〜D）</td><td>「最初の配属までの間」「配属と配属の間」</td></tr>
+    <tr><td>常駐先のティア</td><td>「どういう会社の工場に行くことになりますか」</td></tr>
+    <tr><td>3つの変換</td><td>「単価」「グレード」<b>この2語は本人にも使ってよい</b>（求人票と面接で実際に出てくる言葉なので）</td></tr>
+    <tr><td>未到達</td><td>「調べた範囲では、記録に届いていません」</td></tr>
+  </table>
+  </div>
+</div>
+
+<h3>6-1. 待機を聞き分ける4問（そのまま読める形）</h3>
+
+<div class="say"><b class="who">求職者から会社へ / ①A・B区分</b>「入社してから最初の配属までの間、給与はどういう扱いになりますか。<b>研修の期間と、配属先を待っている期間を分けて</b>教えてください」</div>
+<div class="say"><b class="who">求職者から会社へ / ②C区分</b>「配属と配属の間に空きが出たときは、基本給が満額出ますか、休業手当になりますか、それとも稼働に連動した手当だけが落ちますか。<b>就業規則の何条にそう書いてあるか</b>も教えてください」</div>
+<div class="say"><b class="who">求職者から会社へ / ③D区分</b>「その待機が長引いたときに、<b>給与が段階的に下がる規定</b>はありますか。何か月でどうなりますか」</div>
+<div class="say"><b class="who">求職者から会社へ / ④配属の話</b>「待機中に紹介された案件は、<b>断れますか</b>。断ったら次の紹介や評価にどう影響しますか」</div>
+
+<div class="note">
+<b>4問目は待機の話に見えて、実は配属の話です。</b>「断れない」という記録が複数の会社にあります。待機中の給与だけを確認して安心すると、実質的には<b>「6割の待機か、希望と違う配属か」の二者択一</b>を、後から突きつけられることになります。
+</div>
+
+<h3>6-2. 決定権の所在を確かめる、その他のセリフ</h3>
+
+<div class="tw">
+<table>
+  <tr><th style="width:26%">確かめること</th><th>そのまま口に出せる形</th></tr>
+  <tr>
+    <td><b>配属される工程</b><br><span class="small">「エンジニア職」では上段と下段を区別できない</span></td>
+    <td>（求職者から会社へ）「内定のときに、<b>実際に配属される工程の名前</b>（オペレーション／保全／組立／設計）と、<b>それが決まる時期</b>を、書面で確認できますか」</td>
+  </tr>
+  <tr>
+    <td><b>設計へ移れるか</b><br><span class="small">「中長期的に目指せます」は可能性の記述にすぎない</span></td>
+    <td>（求職者から会社へ）「<b>設計に行けるのは何年目からで、その判断は誰がしますか</b>」<br><span class="small">判断者と時期を聞くと、制度なのか運用なのかが分かれます</span></td>
+  </tr>
+  <tr>
+    <td><b>年収の上がり方</b></td>
+    <td>（求職者から会社へ）「<b>単価はどこで決まって、それが給与に反映されるのはいつですか。グレードが上がる条件は何ですか</b>」</td>
+  </tr>
+  <tr>
+    <td><b>勤務地と職種の交換</b></td>
+    <td>（求職者から会社へ）「<b>勤務地を絞る場合、選べる職種はどう変わりますか。</b>エリア限定や契約社員という選択肢があるなら、<b>給与と職種の条件がどう変わるかを並べて</b>教えてください」</td>
+  </tr>
+  <tr>
+    <td><b>出口</b></td>
+    <td>（求職者から会社へ）「<b>この会社から外に出た人は、どこへ行っていますか。</b>派遣先の社員になった人と、別の会社へ転職した人と、どちらの例が多いですか」</td>
+  </tr>
+  <tr>
+    <td><b>到達率</b></td>
+    <td>（求職者から会社へ）「<b>スペシャリストやマネージャーになった人は、同期の中で何人いますか</b>」<br><span class="small">「なれます」への答えは、割合でしか返ってきません</span></td>
+  </tr>
+  <tr>
+    <td><b>年齢の先</b><br><span class="small">CAが年齢で振り分けるためではなく、本人にこの問いを持たせるため</span></td>
+    <td>（求職者から会社へ）「<b>5年後、10年後に、この会社で何歳まで案件が回ってくると聞いていますか</b>」<br><span class="small">案件の条件に年齢の指定が実在するので、根拠のある問いです</span></td>
+  </tr>
+  <tr>
+    <td><b>評価の経路</b></td>
+    <td>（求職者から会社へ）「<b>常駐先での評価は誰がつけますか。派遣元の上長とは、月に何回、どこで会いますか</b>」<br><span class="small">接触の頻度を数で聞くと、運用の実態が出ます</span></td>
+  </tr>
+</table>
+</div>
+
+<h3>6-3. CAから求職者へ（不安な事実は、必ず打ち手とセットで）</h3>
+
+<div class="say"><b class="who">勤務地について</b>「勤務地が地方に寄っているのは、会社が不親切だからではありません。<b>工場そのものが都市部の外にあって、工場は動かせないので、そこで働く人が動く</b>という構造です。だから『勤務地を選べますか』ではなく『<b>選べる箱がどれだけありますか</b>』で考えたほうが、実態に近いです。まず、転居ができるかどうかから決めましょう」</div>
+
+<div class="say"><b class="who">未経験の入口について</b>「未経験で開いているのは、<b>装置に張り付く仕事</b>です。設計は入口が別で、案件の条件にも経験や基礎知識が書かれています。<b>そこから入ること自体は問題ないんですが、大事なのは入った後に設計側へ移れるかどうか</b>。だから求人を選ぶときに、<b>誰がいつ判断するのか</b>を一緒に確認しましょう」</div>
+
+<div class="say"><b class="who">年収について</b>「スキルが上がった瞬間に給与が上がる仕組みではないんです。<b>まず派遣先が払う単価が上がって、その次に会社の中でグレードが見直されて、そこで初めて給与に届きます。</b>なので聞くのは2つです。<b>何を身につけると単価が上がるのか</b>と、<b>グレードはいつ見直されるのか</b>」</div>
+
+<div class="say"><b class="who">出口について</b>「『派遣先の社員になれます』とは言えません。<b>調べた範囲では、機電の人がそうなったという本人の記録に届いていないんです。</b>一方で、<b>資格を取って別の会社へ移った人の記録は実在します</b>（電気主任技術者を取ってエージェント経由で移った例など）。<b>ただし『電験を取れば引く手あまた』とも言えません。</b>合格率はここ3年で18.8%→16.4%→13.0%と下がっていますし、経産省の資料は保安の人手の不足見通しをむしろ下方修正しています。効き方の記録として出てきたのは<b>『資格が無いと配属先が見つからなかった』</b>と書いている方が1人、という形です。だから出口を作るなら、<b>資格と、外に説明できる経験</b>の2つを先に用意しましょう」</div>
+
+<div class="say"><b class="who">「正社員採用です」と言われた求職者へ</b>「その『正社員』は、<b>派遣元との雇用契約に期限が無い</b>という意味です。<b>働く場所が派遣先である構造は変わりません。</b>ここは分けて理解しておくと、後で話が食い違わずに済みます」</div>
+
+<div class="say"><b class="who">「AIに奪われませんか」と聞かれたとき</b>「『奪われません』とも『奪われます』とも、私は言えません。研究でも結論が割れているからです。<b>ただ、線引きなら言えます。</b>設計ソフトを作っている会社自身が、公式の説明に<b>『条件を決めるのは人間の入力です』</b>と書いているんですね。何を作るか、どんな荷重がかかるか、どの材料でどう加工するか。ここを決める工程はツールの外にあります。だから見るべきは『AIができるかどうか』ではなくて、<b>『その仕事は、条件を決める側か、決められた条件で動く側か』</b>です。<span class="small">（＝この資料の軸そのものです。詳しくは入門編7章）</span>」</div>
+
+<div class="say"><b class="who">年間休日182日の求人を見た求職者へ</b>「これは3勤3休の帰結で、<b>1日12時間の勤務とセットの数字</b>です。休みの日数と、1日の拘束時間は、セットでしか意味を持ちません。日勤の案件だと年間120日前後になります。どちらの生活リズムが自分に合うかで見ましょう」</div>
+
+<h3>6-4. ★訂正できる誤情報が1つあります</h3>
+
+<div class="ok">
+<b>「無期雇用だと、期間満了で退職して派遣先に直接雇用される形が取れない。派遣先が引き抜くと派遣法33条に引っかかる」</b>という説明が、匿名Q&Aのベストアンサーとして流通しています。<br><br>
+<b>これは条文の趣旨が反転しています。</b>労働者派遣法33条（派遣労働者に係る雇用制限の禁止）は<b>派遣元事業主を規制する条文</b>で、<b>雇用関係が終わった後に派遣先に雇用されることを禁ずるような契約を結ぶことを、派遣元に対して禁じています</b>。労働者側の直接雇用や、派遣先の採用を制限するものではありません。<br><br>
+<b>CAはここを訂正できる立場にあります。</b>（ただし、この誤った説明がどれだけ広く流通しているかは数えていません。）
+</div>
+
+<div class="warn">
+<b>ついでに、こちらも法の定めです。</b>無期雇用派遣には3年の期間制限が適用されません（派遣法40条の2第1項1号）。だから<b>「3年経てば派遣先の社員になれる」は制度上、根拠がありません</b>。むしろ<b>「3年で受け入れが終わる」という直接雇用を検討するきっかけ自体が生じにくくなります</b>。<br>
+<span class="small">※ 後半の「だから直接雇用の道が閉ざされやすくなる」は、当事者の解釈であって、法がそう定めているわけではありません。断定形では言わないでください。</span>
+</div>
+
+<h2><span class="emoji">🕳️</span>7. この資料が「分かっていない」と言っている場所</h2>
+<div class="lbrow"><span class="lb lb-all">この扱い方は分野を問わない</span></div>
+
+<div class="card">
+  <p class="lead">軸をきれいに見せるために、ここを埋めていません。</p>
+  <p><b>「見つからなかった」と「存在しない」は違います。</b>下のどれかを面談で聞かれたら、<b>「そこは分かっていません」と答えてください。</b>推測で埋めると、その1回で信頼が終わります。</p>
+  <div class="tw">
+  <table>
+    <tr><th style="width:44%">届いていないもの</th><th>だから言えなくなっていること</th></tr>
+    <tr><td>機電職の本人が「派遣先メーカーの直接雇用に至った」と書いた完了形の記録</td><td><b>出口の実在を、機電で断定できない</b></td></tr>
+    <tr><td>直近（2023〜2026年）の引き抜き・転籍の完了事例</td><td>「近年は引き抜きが減った」とも「変わらず起きている」とも言えない</td></tr>
+    <tr><td>受け皿企業のキャリアパス到達率（分母）</td><td><b>「到達しやすい」が原理的に言えない</b></td></tr>
+    <tr><td>待機の記録と、本人の立ち位置（軸のどこにいるか）を結びつけたもの</td><td><b>「右端に届けば待機しにくい」が言えない</b>（§3の④）。待機は区分（A〜D）でしか語れない</td></tr>
+    <tr><td>現場技能職から設計・生産技術へ移った成否の記録</td><td>上り経路が「実在する」以上には語れない</td></tr>
+    <tr><td>職種別の派遣契約期間の統計</td><td><b>「機械系は案件が1年以上で長い」を、検証も反証もできない。面談で口に出さない</b></td></tr>
+    <tr><td>年齢と採否を紐づけた統計</td><td>「30歳が壁です」とは言えない。言えるのは「<b>案件ごとに年齢の条件が付くことがある</b>」まで</td></tr>
+    <tr><td>適性・職業興味と定着の相関（メタ分析の本文に到達できていない）</td><td><b>「向き・不向き」を断定形で語れない</b></td></tr>
+    <tr><td>資格手当の独立した統計</td><td>金額を言えない。「就業規則次第なので求人票と面接で確認」まで</td></tr>
+    <tr><td>「未経験の入口が広い理由」の内訳（技術者派遣というビジネスモデルと、現場の人手需要と、どちらがより効いているか）</td><td>理由の分解ができていない。ただし<b>「手順化されているから」ではない</b>ことは言える</td></tr>
+  </table>
+  </div>
+</div>
+
+<div class="key">
+<b>この資料の数字の読み方（4段階）</b>
+<ul style="margin:8px 0 0;">
+  <li><b>官公庁・法令・公的統計</b>（労働基準法26条、職業安定法44条、局長通達の一般賃金、厚労省の職業情報サイト、内閣府の立地統計、試験実施団体の公式統計）＝<b>そのまま断定してよい</b></li>
+  <li><b>社内の独自一次データ</b>（提携先から共有された案件一覧 n=92 を全件読んだもの）＝<b>数え方は最も強い。ただし射程は「この1社のこの事業部の、この時点ではこうだった」まで</b></li>
+  <li><b>当事者の記録</b>（企業の口コミサイト・個人が書いた記事やブログ・匿名の質問サイト）＝<b>n数を書いた。ほとんど1人の記録で、頻度は測れていない</b>。「そういうことが起きた記録がある」までが射程</li>
+  <li><b>上場企業の任意の開示</b>（決算説明資料・月次のKPI）＝法定でも監査対象でもなく、定義も各社バラバラ。<b>出典と年度を言わずに引かない。会社をまたいで平均を取らない</b></li>
+</ul>
+</div>
+
+<div class="big" style="margin-top:34px;">求職者に渡すべき問いは<br>「機械と電気、どっちが将来性ありますか？」ではなく<br><span style="color:var(--crit);">「その会社に入って、5つの条件のうち、いくつを自分で決められるようになりますか？」</span></div>
+
+<footer>
+Gooner人材事業部 CA向け社内資料 ／ 2026年8月<br>
+入門編（機電の職種と用語）は別冊です。IT分野の応用編は <a href="https://mushataku.github.io/pub/it-career-axis.html">手順化度の軸</a>。<br>
+※ この資料は、機電のキャリアを1本の軸で整理したものです。数字は出所と確度を確認したうえで載せていますが、<b>「分かっていない」と書いてある箇所を推測で埋めないでください</b>。
+</footer>
+
+</div>
+</body>
+</html>

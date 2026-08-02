@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>立ち位置の軸 — 施工管理を1本の軸で測る</title>
+<style>
+  :root{
+    --ink:#12100e; --sub:#52514e; --muted:#7c7b76; --line:#e2e0da;
+    --surface:#fcfcfb; --panel:#f4f3ef;
+    /* ordinal ramp: teal 単一色相・明度単調（暗端 13:1／明端は面のみ） */
+    --t1:#7cc0c4; --t2:#2e8f96; --t3:#1a6167; --t4:#0c3b40;
+    --tint:#e7f2f3; --tint-line:#b6dcdf;
+    --th-bg:#e7f2f3; --th-ink:#12474d;
+    --crit:#b52d2d; --crit-bg:#fdeeee; --crit-line:#f0bcbc;
+    --good:#0a7a0a; --good-bg:#eaf7ea; --good-line:#a9d9a9;
+    --warn-bg:#fdf6e6; --warn-line:#e8d29a; --warn-ink:#7a5605;
+    --shadow:rgba(12,59,64,.20);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#eceae6; --sub:#b6b3ad; --muted:#8e8b85; --line:#33373a;
+      --surface:#1a1d1f; --panel:#111416;
+      --tint:#123336; --tint-line:#2b565b;
+      --th-bg:#123338; --th-ink:#9fd8dd;
+      --crit:#ff9d9d; --crit-bg:#33191a; --crit-line:#63302f;
+      --good:#8ed98e; --good-bg:#162c17; --good-line:#2f5730;
+      --warn-bg:#2e2513; --warn-line:#5c4a1e; --warn-ink:#e6c477;
+      --shadow:rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#eceae6; --sub:#b6b3ad; --muted:#8e8b85; --line:#33373a;
+    --surface:#1a1d1f; --panel:#111416;
+    --tint:#123336; --tint-line:#2b565b;
+    --th-bg:#123338; --th-ink:#9fd8dd;
+    --crit:#ff9d9d; --crit-bg:#33191a; --crit-line:#63302f;
+    --good:#8ed98e; --good-bg:#162c17; --good-line:#2f5730;
+    --warn-bg:#2e2513; --warn-line:#5c4a1e; --warn-ink:#e6c477;
+    --shadow:rgba(0,0,0,.5);
+  }
+  :root[data-theme="light"]{
+    --ink:#12100e; --sub:#52514e; --muted:#7c7b76; --line:#e2e0da;
+    --surface:#fcfcfb; --panel:#f4f3ef;
+    --tint:#e7f2f3; --tint-line:#b6dcdf;
+    --th-bg:#e7f2f3; --th-ink:#12474d;
+    --crit:#b52d2d; --crit-bg:#fdeeee; --crit-line:#f0bcbc;
+    --good:#0a7a0a; --good-bg:#eaf7ea; --good-line:#a9d9a9;
+    --warn-bg:#fdf6e6; --warn-line:#e8d29a; --warn-ink:#7a5605;
+    --shadow:rgba(12,59,64,.20);
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
+    color:var(--ink); margin:0; line-height:1.85; background:var(--panel); font-size:16px;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:26px 18px 70px;}
+  header.hd{
+    background:linear-gradient(100deg,#0c3b40,#1a6167); color:#fff;
+    border-radius:18px; padding:28px 26px; margin-bottom:24px;
+    box-shadow:0 6px 24px var(--shadow);
+  }
+  header.hd h1{margin:0 0 8px; font-size:26px; line-height:1.45;}
+  header.hd p{margin:0; font-size:15px; color:#e2f1f2;}
+  .badge{display:inline-block; background:rgba(255,255,255,.20); border-radius:20px; padding:3px 13px; font-size:13px; margin-bottom:11px;}
+  h2{font-size:21px; margin:42px 0 12px; padding-left:14px; border-left:6px solid var(--t2); line-height:1.5;}
+  h3{font-size:17px; margin:24px 0 7px;}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin:14px 0;}
+  .lead{font-size:17.5px; font-weight:bold; color:var(--t2); margin:0 0 10px;}
+  .big{font-size:20px; font-weight:bold; text-align:center; margin:20px 0; color:var(--t2); line-height:1.6;}
+  .axis-claim{background:var(--t4); color:#fff; border-radius:14px; padding:20px 22px; margin:18px 0; text-align:center;}
+  .axis-claim .q{font-size:13px; color:#a9d5d8; margin-bottom:6px;}
+  .axis-claim .a{font-size:21px; font-weight:bold; line-height:1.55;}
+  /* 図は常に明るい面（SVGの色を固定するため、ダークでも反転させない） */
+  figure{margin:18px 0; background:#fbfcfc; border:1px solid #d5dcdd; border-radius:14px; padding:16px 14px 12px;}
+  figcaption{font-size:13px; color:#5a5f60; margin-top:9px; text-align:center; line-height:1.65;}
+  figure{overflow-x:auto;}
+  svg{display:block; width:100%; min-width:520px; height:auto;}
+  .key{background:var(--tint); border:1px solid var(--tint-line); border-radius:12px; padding:15px 18px; margin:15px 0; font-size:15.5px;}
+  .note{background:var(--crit-bg); border:1px solid var(--crit-line); border-radius:12px; padding:14px 17px; margin:14px 0; font-size:15px;}
+  .warn{background:var(--warn-bg); border:1px solid var(--warn-line); border-radius:12px; padding:14px 17px; margin:14px 0; font-size:15px;}
+  .say{background:var(--surface); border:1px solid var(--line); border-left:6px solid var(--t2); border-radius:12px; padding:14px 17px; margin:12px 0; font-size:15.5px;}
+  .say b.who{display:block; font-size:13px; color:var(--muted); font-weight:normal; margin-bottom:4px;}
+  .tw{overflow-x:auto; margin:12px 0;}
+  table{border-collapse:collapse; width:100%; font-size:14.5px; background:var(--surface);}
+  th,td{border:1px solid var(--line); padding:9px 11px; text-align:left; vertical-align:top;}
+  th{background:var(--th-bg); color:var(--th-ink); white-space:nowrap;}
+  td.wrapok, th.wrapok{white-space:normal;}
+  ul{padding-left:22px;} li{margin-bottom:6px;}
+  .small{font-size:13px; color:var(--sub);}
+  .emoji{font-size:20px; margin-right:5px;}
+  .tag{display:inline-block; font-size:11.5px; border-radius:5px; padding:1px 7px; margin-right:5px; vertical-align:1px; white-space:nowrap;}
+  .tag.v{background:var(--good-bg); color:var(--good); border:1px solid var(--good-line);}
+  .tag.p{background:var(--warn-bg); color:var(--warn-ink); border:1px solid var(--warn-line);}
+  .tag.n1{background:var(--tint); color:var(--th-ink); border:1px solid var(--tint-line);}
+  .tag.x{background:var(--crit-bg); color:var(--crit); border:1px solid var(--crit-line);}
+  /* 3層ラベル（他3本と同じ方式: h2・h3 の直下に必ず1行） */
+  .lb{display:inline-block; font-size:12.5px; font-weight:bold; border-radius:20px; padding:2px 11px; margin:0 6px 6px 0; white-space:normal; line-height:1.7;}
+  .lb-all{background:var(--good-bg); color:var(--good); border:1px solid var(--good-line);}
+  .lb-ex{background:var(--tint); color:var(--th-ink); border:1px solid var(--tint-line);}
+  .lb-no{background:var(--crit-bg); color:var(--crit); border:1px solid var(--crit-line);}
+  .lbrow{margin:6px 0 2px;}
+  footer{margin-top:46px; padding-top:18px; border-top:2px solid var(--line); color:var(--sub); font-size:13.5px;}
+  a{color:var(--t2);}
+  .legend{display:flex; gap:16px; flex-wrap:wrap; justify-content:center; font-size:13px; color:#5a5f60; margin-top:10px;}
+  .legend span{display:inline-flex; align-items:center; gap:6px;}
+  .sw{width:13px; height:13px; border-radius:3px; display:inline-block;}
+  @media(max-width:620px){
+    body{font-size:15px;} header.hd h1{font-size:20px;} h2{font-size:18px;}
+    .big{font-size:16.5px;} .axis-claim .a{font-size:17.5px;} table{font-size:13.5px;} th,td{padding:7px 8px;}
+  }
+  @media print{
+    body{background:#fff;} .wrap{max-width:none;} figure{break-inside:avoid;} table{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hd">
+  <div class="badge">CA向け・社内学習資料 ／ 応用編（施工管理）</div>
+  <h1>立ち位置の軸<br><span style="font-size:19px;">「施工管理」という職種名を捨てて、1本の軸で測る</span></h1>
+  <p>同じ職種名でも、労働時間も仕事の中身も責任も全部違う。その差を1本で表せる目盛りがあります。<b>担当分野を問わず読めます。</b>専門用語は、出てきたところでその都度説明します。</p>
+</header>
+
+<div class="card" style="border-left:6px solid #1a6167;">
+  <p class="lead">📚 施工管理は2本で1セット。これは②です</p>
+  <ul style="margin:0;">
+    <li><b>① 入門編</b> <a href="https://mushataku.github.io/pub/sekou-career-basics.html">CAのための施工管理職種入門</a>（約15分）— 仕事の中身・資格・法律・求人票に出る言葉。<b>施工管理を初めて担当する人向け</b></li>
+    <li><b>② 応用編＝この資料</b> 立ち位置の軸（約15分）— ①の「立ち位置で別の仕事になる」だけを取り出して1本の軸にし、面談で口に出せる形まで畳んだもの。<b>①を読んだ人向け</b></li>
+  </ul>
+  <p style="margin:10px 0 0;"><b>読む順は①→②。</b>②は①の「立ち位置」の章を軸にして畳んだ話です。用語（元請・協力会社・技術者派遣・4週8閉所など）はこの資料でも初出のところで短く補いますが、体系的な説明は①にあります。<br>
+  <span class="small">他分野の同型資料（IT版・機電版）へのリンクは、比較の軸が混ざるのでこのカードには入れず、ページ末尾に置いています。</span></p>
+</div>
+
+<div class="card" style="border-left:6px solid #7c7b76;">
+  <p class="lead" style="color:var(--sub);">📌 どこがどこまで使えるか（先に頭に入れてください）</p>
+  <p class="small" style="margin:-4px 0 6px;"><b>この表は全体の見取り図です。実際の判定は、本文の見出しの下に貼ってある同じ色のラベルで行ってください。</b>§まるごとが緑になることはありません（同じ§の中に、持ち出せる型と建設固有の事実が混ざっています）。</p>
+  <div class="lbrow" style="margin-bottom:10px;"><span class="lb lb-all">分野を問わず使える</span><span class="lb lb-ex">施工管理の例として読む</span><span class="lb lb-no">持ち込むと間違う</span></div>
+  <div class="tw">
+  <table style="font-size:14px;">
+    <tr><th class="wrapok" style="width:24%; background:var(--good-bg); color:var(--good);">分野を問わず<br>使える</th>
+        <td>「1つの変数で決めない」という軸の組み立て（§1）／「その平均の分母に、目の前の人が入っているか」を確認する型（§2-1）／求人票で読めることと読めないことを分け、誰にいつ何と聞くかまで決める作り方（§5）／軸の守備範囲を先に決めること（§7）<br>
+        <span class="small">IT・機電・通信・介護・販売の面談でもそのまま使えます。<b>緑はこの4つの型だけで、その周りの数字と団体名は緑ではありません</b></span></td></tr>
+    <tr><th class="wrapok" style="background:var(--th-bg); color:var(--th-ink);">施工管理の例<br>として読む</th>
+        <td>元請・協力会社・技術者派遣という言葉／4週8閉所／現場代理人・主任技術者・監理技術者・技士補／発注者が公共か民間か／配属先という最大の分散源<br>
+        <span class="small">他分野には同じ言葉がありません。自分の担当分野の言葉に置き換える作業が要ります</span></td></tr>
+    <tr><th class="wrapok" style="background:var(--crit-bg); color:var(--crit);">そのまま他分野に<br>持ち込むと間違う</th>
+        <td><b>①「未経験枠が広い＝手順化されている＝自動化されやすい」という因果（IT版§3・§4）。</b>施工管理では成立しません。未経験枠が多いのは<b>人手不足</b>が理由で、現場は毎日条件が変わり、教え方も手順書ではなく先輩について覚える形です。<br>
+        <b>②「立ち位置で全部変わる」ことの仕組みそのもの。</b>これは建設業に固有の3つが噛み合って起きています（1つの現場に何社も同時に入る重層構造／現場の直接作業には派遣を使えないという法律／派遣社員が統計上サービス業に分類されること）。<b>他分野で立ち位置を軸にするなら、その分野なりの仕組みを自分で確かめてから使ってください。</b></td></tr>
+  </table>
+  </div>
+</div>
+
+<div class="card" style="border-left:6px solid #2e8f96;">
+  <p class="lead">🏷 数字に付いている確度タグの読み方（最初の図から出てきます）</p>
+  <ul style="margin:0;">
+    <li><span class="tag v">検証済み</span>官公庁・法令・公的統計・社内の一次データで原本を確認済み。<b>断定して使えます</b></li>
+    <li><span class="tag p">限定付き</span>業界団体や事業者の<b>自己調査</b>。数字が限定的という意味ではありません。<b>「〜の調査によれば」の形でのみ使えます</b></li>
+    <li><span class="tag n1">n=1</span>1人分の記録。<b>「そういう方の記録があります」まで。割合にしないでください</b></li>
+  </ul>
+  <p class="small" style="margin:10px 0 0;">本資料で「到達できていない」と書いた箇所は、探して見つからなかったという意味であって、存在しないという意味ではありません。</p>
+</div>
+
+<h2><span class="emoji">📉</span>0. 職種名は、キャリアの目盛りにならない</h2>
+<div class="lbrow"><span class="lb lb-ex">施工管理の例として読む（数字も出所も建設固有）</span></div>
+
+<div class="card">
+  <p class="lead">同じ2025年の「施工管理の残業時間」が、3倍違う。</p>
+  <p>求職者に一番よく聞かれるのは「残業どのくらいですか」です。ところが数字を探すと、こうなります。</p>
+</div>
+
+<figure>
+<svg viewBox="0 0 720 210" role="img" aria-label="同じ2025年の施工管理の残業時間が、月12.8時間・29.2時間・41.0時間の3通りに分かれる図。数えている集団が違う。">
+  <rect x="14" y="16" width="214" height="118" rx="12" fill="#eef6f7" stroke="#b6dcdf"/>
+  <rect x="253" y="16" width="214" height="118" rx="12" fill="#eef6f7" stroke="#b6dcdf"/>
+  <rect x="492" y="16" width="214" height="118" rx="12" fill="#eef6f7" stroke="#b6dcdf"/>
+
+  <text x="26" y="36" font-size="12" font-weight="bold" fill="#2e8f96">①</text>
+  <text x="265" y="36" font-size="12" font-weight="bold" fill="#2e8f96">②</text>
+  <text x="504" y="36" font-size="12" font-weight="bold" fill="#2e8f96">③</text>
+
+  <text x="121" y="70" font-size="25" font-weight="bold" fill="#0c3b40" text-anchor="middle">月12.8時間</text>
+  <text x="360" y="70" font-size="25" font-weight="bold" fill="#0c3b40" text-anchor="middle">月29.2時間</text>
+  <text x="599" y="70" font-size="25" font-weight="bold" fill="#0c3b40" text-anchor="middle">月41.0時間</text>
+
+  <text x="121" y="98" font-size="11.5" fill="#1a6167" text-anchor="middle">建設業ぜんぶ・5人以上</text>
+  <text x="121" y="117" font-size="11.5" fill="#5a5f60" text-anchor="middle">技能者・事務を含む産業統計</text>
+  <text x="360" y="98" font-size="11.5" fill="#1a6167" text-anchor="middle">大手ゼネコンの組合員</text>
+  <text x="360" y="117" font-size="11.5" fill="#5a5f60" text-anchor="middle">技術者・内勤 約18,000人</text>
+  <text x="599" y="98" font-size="11.5" fill="#1a6167" text-anchor="middle">そのうち外勤の建築だけ</text>
+  <text x="599" y="117" font-size="11.5" fill="#5a5f60" text-anchor="middle">②と同じ調査の内訳</text>
+
+  <text x="360" y="152" font-size="11" fill="#5a5f60" text-anchor="middle">①厚生労働省 毎月勤労統計 2025年分（所定外労働時間）</text>
+  <text x="360" y="168" font-size="11" fill="#5a5f60" text-anchor="middle">②③大手ゼネコンの労働組合（日建協）2025時短アンケート・2025年11月調査</text>
+  <text x="360" y="196" font-size="16" font-weight="bold" fill="#0c3b40" text-anchor="middle">3つとも正しい。数えている人が違うだけ。</text>
+</svg>
+<figcaption>①は<span class="tag v">検証済み</span>、②③は<b>大手ゼネコンの労働組合</b>の自己調査<span class="tag p">「大手ゼネコンの労働組合の調査では」と付けて使う</span>。<br><b>この3つを同じ文に並べてはいけません。</b>母集団が違うので、並べた瞬間に読み手を誤誘導します。</figcaption>
+</figure>
+
+<div class="key">
+「職種名で答えられない」のではなく、<b>職種名で答えると必ずどれかを外す</b>のがこの分野です。<br>
+では何が3つを分けているのか。<b>数えている人が誰か</b>、つまり<b>その人がどこに立っているか</b>です。
+</div>
+
+<h2><span class="emoji">📏</span>1. 軸は1本。これだけです</h2>
+<div class="lbrow"><span class="lb lb-all">「1つの変数で決めない」という軸の組み立ては分野を問わない</span><span class="lb lb-ex">元請・協力会社・技術者派遣という中身は施工管理の例</span></div>
+
+<div class="axis-claim">
+  <div class="q">施工管理を測る軸</div>
+  <div class="a">その現場で、自分が<br>誰の名前を背負って立っているか。</div>
+</div>
+
+<div class="card">
+  <p>この軸の目盛りは、<b>2つの質問の掛け合わせ</b>で読みます。どちらか片方では決まりません。</p>
+  <ul style="margin-top:8px;">
+    <li><b>① 誰と雇用契約を結んでいるか</b>（その会社の正社員か、技術者派遣として派遣元の社員か）</li>
+    <li><b>② その現場で、自分の会社は元請か、協力会社（下請）か</b></li>
+  </ul>
+  <p class="small" style="margin:8px 0 0;">用語: <b>元請</b>＝発注者（施主・役所）と直接契約している会社。<b>協力会社・下請</b>＝元請から仕事を請けて同じ現場に入る会社。<b>技術者派遣</b>＝派遣元の社員のまま、他社の現場で施工管理の仕事をする形（多くは無期雇用＝派遣元の正社員）。</p>
+</div>
+
+<figure>
+<svg viewBox="0 0 700 272" role="img" aria-label="雇用形態と現場での自社の立場の2x2。派遣かつ協力会社が左端、正社員かつ元請が右端、残り2つは中間帯。">
+  <text x="6" y="14" font-size="11.5" font-weight="bold" fill="#5a5f60">▼ 雇用</text>
+  <text x="270" y="14" font-size="11.5" font-weight="bold" fill="#5a5f60" text-anchor="middle">現場での自社の立場 ▶</text>
+
+  <text x="270" y="30" font-size="13" font-weight="bold" fill="#12474d" text-anchor="middle">元請（発注者と直接契約）</text>
+  <text x="550" y="30" font-size="13" font-weight="bold" fill="#12474d" text-anchor="middle">協力会社・下請</text>
+
+  <text x="10" y="76" font-size="12.5" font-weight="bold" fill="#12100e">その会社の</text>
+  <text x="10" y="94" font-size="12.5" font-weight="bold" fill="#12100e">正社員</text>
+  <text x="10" y="186" font-size="12.5" font-weight="bold" fill="#12100e">技術者派遣</text>
+  <text x="10" y="204" font-size="12.5" font-weight="bold" fill="#12100e">（派遣元の</text>
+  <text x="10" y="222" font-size="12.5" font-weight="bold" fill="#12100e">社員）</text>
+
+  <rect x="134" y="40" width="272" height="94" rx="11" fill="#dcecee" stroke="#8dc4c8"/>
+  <circle cx="156" cy="62" r="8" fill="#0c3b40"/>
+  <text x="270" y="76" font-size="14" font-weight="bold" fill="#0c3b40" text-anchor="middle">自社の名前で立つ</text>
+  <text x="270" y="99" font-size="12" fill="#1a6167" text-anchor="middle">決める側にいる。書類に名前が載る</text>
+  <text x="270" y="120" font-size="11.5" font-weight="bold" fill="#12474d" text-anchor="middle">＝軸の右端</text>
+
+  <rect x="414" y="40" width="272" height="94" rx="11" fill="#e9f3f4" stroke="#a9d2d5"/>
+  <circle cx="436" cy="62" r="8" fill="#1a6167"/>
+  <text x="550" y="76" font-size="14" font-weight="bold" fill="#0c3b40" text-anchor="middle">自社の名前は背負う</text>
+  <text x="550" y="99" font-size="12" fill="#1a6167" text-anchor="middle">ただし工期と段取りは元請が決める</text>
+  <text x="550" y="120" font-size="11.5" font-weight="bold" fill="#12474d" text-anchor="middle">＝中間帯</text>
+
+  <rect x="134" y="146" width="272" height="94" rx="11" fill="#eef6f7" stroke="#b6dcdf"/>
+  <circle cx="156" cy="168" r="8" fill="#2e8f96"/>
+  <text x="270" y="182" font-size="14" font-weight="bold" fill="#0c3b40" text-anchor="middle">外部の人間として立つ</text>
+  <text x="270" y="205" font-size="12" fill="#1a6167" text-anchor="middle">大手の現場だが、自分は社外の扱い</text>
+  <text x="270" y="226" font-size="11.5" font-weight="bold" fill="#12474d" text-anchor="middle">＝中間帯</text>
+
+  <rect x="414" y="146" width="272" height="94" rx="11" fill="#f5fafa" stroke="#c9e3e5"/>
+  <circle cx="436" cy="168" r="8" fill="#7cc0c4" stroke="#1a6167" stroke-width="1.5"/>
+  <text x="550" y="182" font-size="14" font-weight="bold" fill="#0c3b40" text-anchor="middle">他人の名前で立つ</text>
+  <text x="550" y="205" font-size="12" fill="#1a6167" text-anchor="middle">決定にも自社の看板にも遠い位置</text>
+  <text x="550" y="226" font-size="11.5" font-weight="bold" fill="#12474d" text-anchor="middle">＝軸の左端</text>
+
+  <text x="350" y="262" font-size="11.5" fill="#5a5f60" text-anchor="middle">※中間帯の2つは、どちらがより右かを1本の軸では決められません（軸の限界。§7）</text>
+</svg>
+<figcaption>雇用形態だけでも、元請か下請かだけでも決まりません。<b>掛け合わせて初めて位置が出ます。</b></figcaption>
+</figure>
+
+<figure>
+<svg viewBox="0 0 720 196" role="img" aria-label="立ち位置の軸。左端は技術者派遣で協力会社の現場、中間帯は派遣で元請の現場と協力会社の正社員、右端は元請の正社員。">
+  <defs>
+    <linearGradient id="ramp" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7cc0c4"/><stop offset="40%" stop-color="#2e8f96"/>
+      <stop offset="75%" stop-color="#1a6167"/><stop offset="100%" stop-color="#0c3b40"/>
+    </linearGradient>
+  </defs>
+  <rect x="248" y="44" width="252" height="90" fill="#0c3b40" opacity="0.05" rx="8"/>
+  <text x="40" y="38" font-size="13" font-weight="bold" fill="#1a6167">◀ 他人の名前で立つ</text>
+  <text x="680" y="38" font-size="13" font-weight="bold" fill="#0c3b40" text-anchor="end">自分（自社）の名前で立つ ▶</text>
+  <rect x="40" y="52" width="640" height="20" rx="10" fill="url(#ramp)"/>
+
+  <circle cx="110" cy="62" r="10" fill="#7cc0c4" stroke="#1a6167" stroke-width="2"/>
+  <circle cx="620" cy="62" r="10" fill="#0c3b40"/>
+  <circle cx="330" cy="62" r="8" fill="#2e8f96"/>
+  <circle cx="430" cy="62" r="8" fill="#1a6167"/>
+
+  <text x="110" y="94" font-size="12" font-weight="bold" fill="#12100e" text-anchor="middle">技術者派遣で</text>
+  <text x="110" y="111" font-size="12" font-weight="bold" fill="#12100e" text-anchor="middle">協力会社の現場へ</text>
+
+  <text x="374" y="94" font-size="11.5" font-weight="bold" fill="#5a5f60" text-anchor="middle">中間帯（順位はつけられない）</text>
+  <text x="374" y="112" font-size="12" fill="#12100e" text-anchor="middle">技術者派遣で元請の現場へ</text>
+  <text x="374" y="129" font-size="12" fill="#12100e" text-anchor="middle">協力会社・下請の正社員</text>
+
+  <text x="620" y="94" font-size="12" font-weight="bold" fill="#12100e" text-anchor="middle">元請の正社員として立つ</text>
+  <text x="620" y="111" font-size="12" font-weight="bold" fill="#12100e" text-anchor="middle">現場代理人・監理技術者</text>
+
+  <text x="360" y="162" font-size="13.5" font-weight="bold" fill="#0c3b40" text-anchor="middle">右へ行くほど「背負うもの」が増える、という図です</text>
+  <text x="360" y="184" font-size="11.5" fill="#5a5f60" text-anchor="middle">左端の利点を語った記録は1件だけ（§3）。「左端にも利点があります」とCAが断定はできません</text>
+</svg>
+<figcaption>右へ行くほど偉い、という図ではありません。右へ行くほど<b>背負うものが増える</b>という図です。<br><b>ただし「左端にも利点がある」の根拠は、n=1の記録が1件だけです（§3）。</b>CAが言い切る形では渡さず、両方を並べて<b>どちらを重く見るかを本人に聞く</b>形でだけ使ってください。</figcaption>
+</figure>
+
+<h2><span class="emoji">🔀</span>2. 両端で、何が変わるか</h2>
+<div class="lbrow"><span class="lb lb-ex">施工管理の例として読む</span></div>
+
+<h3>2-1. まず、自分を数えた数字が存在するかが変わる</h3>
+<div class="lbrow"><span class="lb lb-ex">団体名・調査名・派遣の分類は建設固有</span><span class="lb lb-all">緑はこの節で1文だけ:「その平均の分母に、目の前の人が入っているか」</span></div>
+
+<div class="card">
+  <p class="lead">これがこの分野で一番の落とし穴です。</p>
+  <p>世に出ている「施工管理の労働時間」の数字は、ほとんどが<b>軸の右側にいる人を数えたもの</b>です。左側に立つ人は、そもそも調査の分母に入っていません。</p>
+</div>
+
+<figure>
+<svg viewBox="0 0 720 320" role="img" aria-label="主要な調査がそれぞれ軸のどの範囲を数えているかを示す図。派遣で働く施工管理員はどの調査にも数えられていない。">
+  <defs>
+    <linearGradient id="ramp2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7cc0c4"/><stop offset="40%" stop-color="#2e8f96"/>
+      <stop offset="75%" stop-color="#1a6167"/><stop offset="100%" stop-color="#0c3b40"/>
+    </linearGradient>
+  </defs>
+  <text x="6" y="16" font-size="11.5" font-weight="bold" fill="#5a5f60">調査（誰が調べたか）</text>
+  <text x="440" y="16" font-size="11.5" font-weight="bold" fill="#5a5f60" text-anchor="middle">数えている範囲</text>
+
+  <text x="6" y="40" font-size="11.5" font-weight="bold" fill="#12100e">厚労省 毎月勤労統計</text>
+  <text x="6" y="55" font-size="11" fill="#5a5f60">国が毎月とっている統計</text>
+  <rect x="182" y="26" width="518" height="30" rx="6" fill="#1a6167"/>
+  <text x="441" y="46" font-size="11.5" fill="#ffffff" text-anchor="middle">建設業ぜんぶ。ただし技能者・事務込み／5人以上の事業所のみ</text>
+
+  <text x="6" y="74" font-size="11.5" font-weight="bold" fill="#12100e">全国建設業協会</text>
+  <text x="6" y="89" font-size="11" fill="#5a5f60">n=1,958（地域の中小元請）</text>
+  <rect x="300" y="60" width="290" height="30" rx="6" fill="#2e8f96"/>
+  <text x="445" y="80" font-size="11.5" fill="#ffffff" text-anchor="middle">地方の中小元請が中心</text>
+
+  <text x="6" y="108" font-size="11.5" font-weight="bold" fill="#12100e">建設産業専門団体連合会</text>
+  <text x="6" y="123" font-size="11" fill="#5a5f60">n=834（下請・専門工事業）</text>
+  <rect x="230" y="94" width="250" height="30" rx="6" fill="#2e8f96"/>
+  <text x="355" y="114" font-size="11.5" fill="#ffffff" text-anchor="middle">下請・専門工事業</text>
+
+  <text x="6" y="142" font-size="11.5" font-weight="bold" fill="#12100e">大手ゼネコンの労働組合</text>
+  <text x="6" y="157" font-size="11" fill="#5a5f60">組合員 約18,000人</text>
+  <rect x="470" y="128" width="230" height="30" rx="6" fill="#0c3b40"/>
+  <text x="585" y="148" font-size="11.5" fill="#ffffff" text-anchor="middle">大手・準大手の組合員</text>
+
+  <text x="6" y="176" font-size="11.5" font-weight="bold" fill="#12100e">大手ゼネコン中心の</text>
+  <text x="6" y="191" font-size="11" fill="#5a5f60">業界団体・回答95〜96社</text>
+  <rect x="510" y="162" width="190" height="30" rx="6" fill="#0c3b40"/>
+  <text x="605" y="182" font-size="11.5" fill="#ffffff" text-anchor="middle">大手元請の作業所</text>
+
+  <text x="6" y="212" font-size="11.5" font-weight="bold" fill="#b52d2d">技術者派遣で働く</text>
+  <text x="6" y="227" font-size="11.5" font-weight="bold" fill="#b52d2d">施工管理員</text>
+  <rect x="182" y="198" width="298" height="32" rx="6" fill="#fdeeee" stroke="#d98080" stroke-width="1.5" stroke-dasharray="7 4"/>
+  <text x="331" y="219" font-size="11.5" font-weight="bold" fill="#b52d2d" text-anchor="middle">どの業界調査にも数えられていない</text>
+
+  <rect x="182" y="256" width="518" height="16" rx="8" fill="url(#ramp2)"/>
+  <text x="182" y="250" font-size="11.5" font-weight="bold" fill="#1a6167">◀ 他人の名前で立つ</text>
+  <text x="700" y="250" font-size="11.5" font-weight="bold" fill="#0c3b40" text-anchor="end">自分の名前で立つ ▶</text>
+
+  <text x="441" y="296" font-size="13" font-weight="bold" fill="#b52d2d" text-anchor="middle">左に立つ人ほど、自分を測った数字が無い</text>
+  <text x="441" y="314" font-size="11" fill="#5a5f60" text-anchor="middle">※範囲の幅は各調査の説明からの概略で、正確な境界線ではありません</text>
+</svg>
+<figcaption>「業界の平均」を求職者に渡す前に、<b>その平均の分母にその人が入っているか</b>を確認してください。</figcaption>
+</figure>
+
+<div class="key">
+<b>これは推測ではなく、業界団体が自分でそう書いています。</b>
+<ul style="margin:8px 0 0;">
+  <li><b>大手ゼネコン中心の業界団体（日建連）</b>は長期ビジョンで「<b>禁止対象ではない施工管理員の多くは派遣で担われている</b>」と明記しています。<span class="tag p">団体の言明として引用</span></li>
+  <li>同じビジョンは<b>2035年の技術者の需給予測を断念</b>しています。理由は「<b>派遣社員はサービス業に分類され、建設業の従事者数として把握できない</b>」から。</li>
+  <li>同団体が2025年12月に出したロードマップでは、<b>2026〜2030年度の取り組み項目に「派遣社員の実態把握」</b>が入りました。<b>つまり2026年の今も把握できていません。</b></li>
+  <li>同団体が出す「作業所勤務社員の4週8休以上 89.4%」という数字は、報告書自身が<b>派遣社員を除外していると書いています</b>。</li>
+</ul>
+</div>
+
+<div class="note">
+<b>だから「業界の平均は◯時間です」を、左端に行く求職者に渡してはいけません。</b>その平均はその人を測っていません。<br>
+<b>代わりに渡すもの:</b>「平均は出せるんですが、正直あまり役に立ちません」と先に言って、§5の確認リストに切り替えます。セリフは§6にあります。
+</div>
+
+<h3>2-2. 休みと時間が変わる（元請が休むと、下請が休めない）</h3>
+<div class="lbrow"><span class="lb lb-ex">施工管理の例として読む（4週8閉所は建設固有の言葉）</span></div>
+
+<div class="card">
+  <p>下請・専門工事業を対象にした調査（建設産業専門団体連合会・令和6年度・有効回答834件）では、<b>就業規則で「4週8休以上」を定めている企業が27.5%あるのに対し、実際に取得できているのは10.3%</b>でした。<span class="tag p">団体の自己調査</span>制度と実態が17ポイント離れています。</p>
+  <p style="margin-top:8px;">同じ調査の自由記述に、その仕組みが書かれています。</p>
+</div>
+
+<figure>
+<svg viewBox="0 0 700 190" role="img" aria-label="元請社員が交代で休んでも工期が変わらないため、下請の職人が交代で休めなくなる連鎖の図。">
+  <rect x="14" y="30" width="196" height="86" rx="12" fill="#dcecee" stroke="#8dc4c8"/>
+  <text x="112" y="58" font-size="13.5" font-weight="bold" fill="#0c3b40" text-anchor="middle">元請の社員は</text>
+  <text x="112" y="78" font-size="13.5" font-weight="bold" fill="#0c3b40" text-anchor="middle">交代で週休2日を取る</text>
+  <text x="112" y="100" font-size="11.5" fill="#1a6167" text-anchor="middle">現場は閉めない日もある</text>
+
+  <path d="M218 73 L246 73" stroke="#5a5f60" stroke-width="2.5" fill="none"/>
+  <polygon points="254,73 240,66 240,80" fill="#5a5f60"/>
+
+  <rect x="256" y="30" width="180" height="86" rx="12" fill="#f4f3ef" stroke="#c9c7c0"/>
+  <text x="346" y="66" font-size="13.5" font-weight="bold" fill="#12100e" text-anchor="middle">でも工期は</text>
+  <text x="346" y="86" font-size="13.5" font-weight="bold" fill="#12100e" text-anchor="middle">変わらない</text>
+
+  <path d="M444 73 L472 73" stroke="#5a5f60" stroke-width="2.5" fill="none"/>
+  <polygon points="480,73 466,66 466,80" fill="#5a5f60"/>
+
+  <rect x="482" y="30" width="204" height="86" rx="12" fill="#fdeeee" stroke="#f0bcbc"/>
+  <text x="584" y="58" font-size="13.5" font-weight="bold" fill="#b52d2d" text-anchor="middle">下請・協力会社は</text>
+  <text x="584" y="78" font-size="13.5" font-weight="bold" fill="#b52d2d" text-anchor="middle">交代で休めない</text>
+  <text x="584" y="100" font-size="11.5" fill="#8a4141" text-anchor="middle">就業規則27.5% ／ 実取得10.3%</text>
+
+  <text x="350" y="146" font-size="12.5" fill="#5a5f60" text-anchor="middle">さらに、元請ごとに4週8閉所・7閉所・6閉所の現場が混在するため</text>
+  <text x="350" y="168" font-size="13" font-weight="bold" fill="#0c3b40" text-anchor="middle">複数の元請を掛け持ちする会社は、構造的に4週8休にできない</text>
+</svg>
+<figcaption>出典は建設産業専門団体連合会「令和6年度 働き方改革に関する調査」<span class="tag p">団体の自己調査</span>。自由記述に「<b>4週8休は大手ゼネコンだけ</b>」という記述があります。<br><span class="small">※自由記述は「そう書いた人がいる」という記録で、何社がそう答えたかは集計されていません。割合として使わないでください。</span></figcaption>
+</figure>
+
+<div class="card">
+  <p><b>用語:</b> <b>4週8閉所</b>＝4週間のうち8日、現場そのものを閉める運用のこと。<b>4週8休</b>＝社員個人が4週間で8日休めたかどうか。<b>この2つは別物です。</b>大手元請の団体調査では、作業所の4週8閉所が61.0%（2024年度通期）なのに対し、社員個人の4週8休は89.4%と出ます。<b>取り違えると実態を28ポイント過大評価します。</b><span class="tag p">団体の自己調査</span></p>
+  <p style="margin-top:8px;">しかも<b>「閉所」は「全員休み」ではありません。</b>メンテナンスだけ・材料の搬出入だけ・保安担当だけ出勤する日も閉所日に数えます。求職者が「4週8閉所」から想像するもの（自分が8日休める）とは違います。</p>
+</div>
+
+<div class="card">
+  <p class="lead">立ち位置の一部として「誰が発注者か」も効きます。</p>
+  <p>国土交通省の調査（令和5年5月31日公表・上限規制の施行前）では、4週8休以上を取れている技術者の割合が<b>公共工事がほとんどの区分で25.3%、民間工事がほとんどの区分で9.5%</b>でした。<span class="tag v">検証済み</span>資料自身の総括は「<b>4週6休程度が最多</b>」です。</p>
+  <p class="small" style="margin-top:6px;">※これは施行前の値です。施行後の同種調査は、この資料では原本を確認できていません。<b>「今もこうです」とは言わないでください。</b></p>
+</div>
+
+<h3>2-3. 仕事の中身が変わる（職種名と実務がずれる）</h3>
+<div class="lbrow"><span class="lb lb-ex">施工管理の例として読む（すべてn=1の記録）</span></div>
+
+<div class="card">
+  <p>求人票に「施工管理」と書いてあっても、配属先で実際にやることは変わります。当事者の記録として、次のような例があります。<b>どれも1人ずつの記録（n=1）です。何割で起きるかは分かりません。</b></p>
+  <ul style="margin-top:8px;">
+    <li>施工管理として採用されたのに、配属先で<b>職人の作業</b>をさせられた <span class="tag n1">n=1</span></li>
+    <li>「施工管理職でありながらも<b>事務がメイン</b>」 <span class="tag n1">n=1</span></li>
+    <li>「派遣だから何もできない」と現場に言われ、研修もなく<b>現場見学だけの日々</b> <span class="tag n1">n=1</span></li>
+    <li>逆方向もあります。異業種から無期雇用派遣で入り、<b>事務寄りの施工管理</b>になって土日祝休み・ほぼ定時に落ち着いた例 <span class="tag n1">n=1</span></li>
+  </ul>
+  <p style="margin-top:10px;"><b>ずれは会社単位ではなく配属先単位で起きます。</b>同じ会社でも現場によって違う。そして<b>ずれる方向は両側にあります</b>（本人にとって良い方向にずれた記録も実在します）。</p>
+</div>
+
+<div class="warn">
+<b>ここは、辞めた理由として当事者が実際に挙げているところです。</b><br>
+新卒でゼネコンの施工管理に入り<b>半年</b>で辞めた人が挙げた理由は、労働時間ではなく<b>職務内容</b>でした<span class="tag n1">n=1</span>。土木施工管理を<b>3年</b>で辞めた人が挙げたのは<b>配属先の地理</b>でした<span class="tag n1">n=1</span>。<br>
+<b>打ち手:</b> 面接で「<b>直近に未経験で入られた方は、いま実際にどんな作業をされていますか</b>」を聞く（§6にセリフ）。求人票の職種名では絶対に分かりません。
+</div>
+
+<h3>2-4. 責任と決定権が変わる</h3>
+<div class="lbrow"><span class="lb lb-ex">施工管理の例として読む（中身は§3）</span></div>
+
+<div class="card">
+  <p>ここは§3で単独に扱います。この軸で<b>一番誤解されやすく、一番フェアに渡さないといけない</b>ところだからです。</p>
+</div>
+
+<h3>2-5. 現場の当たり外れの引き方が変わる</h3>
+<div class="lbrow"><span class="lb lb-ex">施工管理の例として読む（「現場ガチャ」は建設の当事者語彙・すべてn=1）</span></div>
+
+<div class="card">
+  <p>当事者が実際に使う言葉は「<b>現場ガチャ</b>」です。記録として取れているのは次のとおりで、<b>すべて1人ずつの記録です</b>。</p>
+  <ul style="margin-top:8px;">
+    <li>配属先は会社の方針で決まり、希望条件を細かく通すのは難しい <span class="tag n1">n=1</span></li>
+    <li><b>配属を続けるかを決めるのは派遣先</b>。切られない限り自動更新で、外れた現場から自分で降りる手段がない <span class="tag n1">n=1</span></li>
+    <li>配属変更を求めたときの返答が「もうちょっと頑張ってみようよ」「動いてくれない」「最初はそんなもの」<span class="tag n1">3社で各n=1</span><br>
+    <span class="small">3社で各1件は「業態として定型化している」の根拠になりません。<b>「そういう記録がある」まで</b>です。</span></li>
+  </ul>
+</div>
+
+<div class="note">
+<b>口コミサイトの平均値は、この分散を隠します。</b>ある技術者派遣会社の口コミ集計は「月平均残業20.8時間」ですが、同じ会社の当事者記述は「配属先次第で天国にも地獄にも」です。<br>
+<b>平均を「この会社は残業20時間」と読ませない。</b>左端の会社ほど、平均値は無意味に近づきます。
+</div>
+
+<h3>2-6. デジタルの当たり方まで変わる</h3>
+<div class="lbrow"><span class="lb lb-ex">施工管理の例として読む（ICT施工・BIM/CIMの数字は建設固有）</span></div>
+
+<div class="card">
+  <p>「施工管理はIT化が進んでいる」というのは事実ですが、<b>どれだけ当たるかは立ち位置と発注者で決まります。</b></p>
+  <p class="small" style="margin:6px 0 0;"><b>用語:</b> <b>ICT施工</b>＝ドローンやGPS付きの建設機械を使って、測量から施工・出来形の確認までをデジタルで回すやり方。<b>BIM／CIM</b>＝建物（BIM＝建築）や構造物（CIM＝土木）を3次元のモデルで作り、そこに材料や工程の情報も持たせる仕組み。</p>
+  <div class="tw">
+  <table>
+    <tr><th class="wrapok">何が</th><th class="wrapok">どのくらい</th><th class="wrapok">確度</th></tr>
+    <tr><td>ICT施工の実施率（国土交通省が発注した土木工事）</td><td><b>87%</b>（2023年度）</td><td><span class="tag v">検証済み</span></td></tr>
+    <tr><td>同（都道府県・政令市が発注した土工）</td><td><b>23%</b>（2023年度）</td><td><span class="tag v">検証済み</span></td></tr>
+    <tr><td>建築工事</td><td><b>そもそも対象外</b>（集計は土木工事）</td><td><span class="tag v">検証済み</span></td></tr>
+    <tr><td>地域の中小元請が最も多く導入しているデジタル施策＝施工管理アプリ（写真管理アプリ含む）</td><td><b>63.3%</b></td><td><span class="tag p">限定付き</span></td></tr>
+    <tr><td>同・CIM（土木）の活用実績あり</td><td><b>14.7%</b></td><td><span class="tag p">限定付き</span></td></tr>
+    <tr><td>同・BIM（建築）の活用実績あり</td><td><b>3.5%</b></td><td><span class="tag p">限定付き</span></td></tr>
+  </table>
+  </div>
+  <p class="small" style="margin-top:8px;">上3行＝国土交通省「ICT施工に関する状況報告」。下3行＝全国建設業協会 令和7年度調査（47都道府県の会員企業・回答1,958件）＝<b>業界団体の自己調査なので「全国建設業協会の調査では」を付けて使ってください</b>。<br>※実施率は「ICT活用工事として公告した件数に対する割合」で、全工事に対する割合ではありません。より新しい年度の値もありますが、この資料では公表原本まで確認できたところ（2023年度）を載せています。</p>
+</div>
+
+<div class="warn">
+<b>「IT化が進んでいるからITに興味がある人に向く」は、そのまま言わないでください。</b><br>
+現場に来たデジタル化は、<b>ドローンで測る・タブレットで写真と検査を入力する・3Dモデルを見て段取りを組む</b>という<b>道具を使う側</b>の話です。ソフトを作る側の仕事ではありません。電子カルテを使う看護師が、医療システムのエンジニアに近づいたわけではないのと同じです。<br>
+<b>そのまま言える形:</b>「現場のデジタル化は本当に進んでいます。ドローンで測量して、タブレットで写真と検査を入力して、3Dモデルを見ながら段取りを組む。<b>そういう道具を使う仕事</b>です。<b>ソフトを作る側の仕事ではありません。</b>そこは分けてお伝えしておきますね」
+</div>
+
+<h2><span class="emoji">⚖️</span>3. 「最終責任がない」は、同じ根から出る2つの顔</h2>
+<div class="lbrow"><span class="lb lb-ex">施工管理の例として読む</span><span class="lb lb-no">根拠はn=1が1件。「左端にも利点がある」をCAが断定する形では使えない</span></div>
+
+<div class="card">
+  <p class="lead">左端の不満と、左端の利点は、同じところから出ています。</p>
+  <p>元請の正社員から技術者派遣に<b>移った</b>当事者が1名、自分の待遇（年収ベース約760万円・時給約5,000円・残業代年約120万円）を公開したうえで、派遣の位置をこう整理しています。「派遣なので外部の人間・重要な判断には入れない・<b>責任は重くない</b>・でも仕事は普通にある」。そしてその核を「<b>それは最終責任がない ということ</b>」と書いています。</p>
+  <p class="small" style="margin-top:6px;"><span class="tag n1">n=1</span>同一人物の同一記事です。2つの独立した証拠ではありません。記事の末尾に本人が所属する派遣会社の紹介があるので、完全に独立した発信とは言い切れません。</p>
+</div>
+
+<figure>
+<svg viewBox="0 0 720 284" role="img" aria-label="最終責任を負わない位置から、不満として語られる顔と利点として語られる顔が同時に出る図。利点の側の根拠は1件だけ。">
+  <rect x="236" y="12" width="248" height="58" rx="12" fill="#0c3b40"/>
+  <text x="360" y="36" font-size="14.5" font-weight="bold" fill="#ffffff" text-anchor="middle">最終責任を負わない</text>
+  <text x="360" y="57" font-size="14.5" font-weight="bold" fill="#ffffff" text-anchor="middle">位置に立っている</text>
+
+  <path d="M320 70 L182 108" stroke="#5a5f60" stroke-width="2" fill="none"/>
+  <path d="M400 70 L538 108" stroke="#5a5f60" stroke-width="2" fill="none"/>
+  <polygon points="176,110 187.5,114.1 183.7,100.7" fill="#5a5f60"/>
+  <polygon points="544,110 532.5,114.1 536.3,100.6" fill="#5a5f60"/>
+
+  <rect x="20" y="114" width="320" height="108" rx="12" fill="#fdeeee" stroke="#f0bcbc"/>
+  <text x="180" y="140" font-size="14.5" font-weight="bold" fill="#b52d2d" text-anchor="middle">不満として語られる顔</text>
+  <text x="180" y="166" font-size="12.5" fill="#12100e" text-anchor="middle">重要な判断に入れてもらえない</text>
+  <text x="180" y="188" font-size="12.5" fill="#12100e" text-anchor="middle">立場が弱い／現場を自分で選べない</text>
+  <text x="180" y="210" font-size="12.5" fill="#12100e" text-anchor="middle">統括の経験が積みにくい</text>
+
+  <rect x="380" y="114" width="320" height="108" rx="12" fill="#eaf7ea" stroke="#a9d9a9"/>
+  <text x="540" y="140" font-size="14.5" font-weight="bold" fill="#0a7a0a" text-anchor="middle">利点として語られる顔</text>
+  <text x="540" y="166" font-size="12.5" fill="#12100e" text-anchor="middle">最終的な責任を背負わなくていい</text>
+  <text x="540" y="188" font-size="12.5" fill="#12100e" text-anchor="middle">それでも仕事は普通にある</text>
+  <text x="540" y="210" font-size="12.5" fill="#12100e" text-anchor="middle">残業代が時間どおり出る会社もある</text>
+
+  <text x="540" y="240" font-size="11" fill="#8a4141" text-anchor="middle">※この面の根拠は1件だけ（同一人物・同一記事）</text>
+  <text x="360" y="270" font-size="14" font-weight="bold" fill="#0c3b40" text-anchor="middle">同じ位置から出ている。どちらを重く見るかは、本人が決める。</text>
+</svg>
+<figcaption>片方だけ渡すと、どちらの向きにも誤誘導になります。<b>両方を並べて本人に選ばせるのがCAの仕事です。</b><br><b>ただし左右は同じ重さの証拠ではありません。</b>右（利点）を語った記録は<span class="tag n1">n=1</span>が1件だけで、しかも記事の末尾に本人の所属先の紹介があります。<b>「利点もあります」と先に言い切る形では使えません。</b></figcaption>
+</figure>
+
+<div class="key">
+<b>面談での使い方はシンプルです。</b>「重要な判断に入れてもらえない」を重く見る人には左端は向きません。「最終責任を背負わなくていい」を重く見る人には向きます。<b>CAが決めない。並べて聞く。</b>セリフは§6にあります。<br>
+<b>言い方の線を引いておきます。</b>「左端にも利点があります」は、根拠がこのn=1・1件（しかもポジショントークの疑いを排除できない記録）なので、<b>CAが断定する形では渡せません</b>。使えるのは<b>「そう言っている方の記録があります。〇〇さんはどちらが気になりますか」と本人に聞く形だけ</b>です。<br>
+<span class="small">※賞与・退職金の有無は「派遣だから無い」と一般化しないでください。社内の独自一次データ（提携先から共有された求人票5社分）では、賞与なしは1社だけで、他4社には賞与があり、退職金も4社にありました。<b>求人票で個別に確認する項目です。</b></span>
+</div>
+
+<h2><span class="emoji">🚪</span>4. そこから動けるのか</h2>
+<div class="lbrow"><span class="lb lb-ex">施工管理の例として読む（資格制度・建設テックの求人は建設固有）</span></div>
+
+<div class="note">
+<b>先に、こちらに不利な事実から言います。</b><br>
+<b>左から右へ実際に移った当事者の一次記録には、到達できていません。</b>個人の発信・企業口コミ・Q&amp;A・業界メディアの4経路を当たった調査でも、見つかりませんでした。<br>
+これは「そういう人が存在しない」という意味ではありません。<b>施工管理職は文章を書いて公開する習慣が薄い層で、記録が残りにくい</b>という説明で十分つきます。ただし<b>「よくある道です」と言える根拠は、いま手元にありません。</b>面談でそう言わないでください。
+</div>
+
+<div class="card">
+  <p class="lead">では、何なら言えるのか。3つあります。</p>
+</div>
+
+<h3>4-1. 逆方向（右から左）の記録は、はっきりあります</h3>
+<div class="lbrow"><span class="lb lb-ex">施工管理の例として読む（§3と同じn=1の1件）</span></div>
+
+<div class="card">
+  <p>§3で引いた1名は、<b>元請の正社員から技術者派遣へ移った</b>人です<span class="tag n1">n=1</span>。<b>立ち位置は左にも動きます。</b>そしてそれは失敗ではなく、本人が理由を持って選んだ移動として書かれています。</p>
+  <p style="margin-top:8px;"><b>面談での意味:</b> 「まず右端を目指すべき」という前提を、CAが勝手に置かないでください。求職者が何を重く見るか次第です。</p>
+</div>
+
+<h3>4-2. 資格は、立ち位置に関係なく個人に付きます</h3>
+<div class="lbrow"><span class="lb lb-ex">施工管理の例として読む（施工管理技士の受検資格そのもの）</span></div>
+
+<div class="card">
+  <p>これはこの軸を動かせる、はっきりした梃子です。<b>資格は会社のものではなく本人のものになり、辞めても残ります。</b></p>
+</div>
+
+<figure>
+<svg viewBox="0 0 720 226" role="img" aria-label="第一次検定は年齢だけで受けられ、技士補になり、第二次検定には実務経験が要るという3段の階段。立ち位置が効くのは第二次の実務経験。">
+  <rect x="18" y="124" width="200" height="76" rx="12" fill="#eef6f7" stroke="#b6dcdf"/>
+  <text x="118" y="150" font-size="14" font-weight="bold" fill="#0c3b40" text-anchor="middle">第一次検定</text>
+  <text x="118" y="171" font-size="11.5" fill="#1a6167" text-anchor="middle">年齢だけで受けられる</text>
+  <text x="118" y="190" font-size="11.5" fill="#1a6167" text-anchor="middle">1級19歳以上・2級17歳以上</text>
+
+  <path d="M226 150 L252 128" stroke="#2e8f96" stroke-width="2.5" fill="none"/>
+  <polygon points="259,122 254.5,133.7 246.7,124.5" fill="#2e8f96"/>
+
+  <rect x="262" y="78" width="180" height="76" rx="12" fill="#dcecee" stroke="#8dc4c8"/>
+  <text x="352" y="106" font-size="14" font-weight="bold" fill="#0c3b40" text-anchor="middle">技士補</text>
+  <text x="352" y="128" font-size="11.5" fill="#1a6167" text-anchor="middle">第一次に受かれば名乗れる</text>
+
+  <path d="M450 104 L476 80" stroke="#2e8f96" stroke-width="2.5" fill="none"/>
+  <polygon points="483,74 479,85.9 470.8,77.1" fill="#2e8f96"/>
+
+  <rect x="486" y="26" width="216" height="82" rx="12" fill="#0c3b40"/>
+  <text x="594" y="52" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">第二次検定</text>
+  <text x="594" y="74" font-size="11.5" fill="#a9d5d8" text-anchor="middle">第一次合格後1〜5年の</text>
+  <text x="594" y="92" font-size="11.5" fill="#a9d5d8" text-anchor="middle">実務経験が要る</text>
+
+  <line x1="486" y1="112" x2="486" y2="128" stroke="#b52d2d" stroke-width="2"/>
+  <text x="700" y="146" font-size="12.5" font-weight="bold" fill="#b52d2d" text-anchor="end">立ち位置が効くのはここ</text>
+  <text x="700" y="166" font-size="11.5" fill="#8a4141" text-anchor="end">どんな仕事を任されていたかが実務経験の中身になる</text>
+  <text x="700" y="192" font-size="11.5" fill="#5a5f60" text-anchor="end">合格後: 2級＝主任技術者／1級＝監理技術者になれる</text>
+</svg>
+<figcaption>2024年度の受検資格改正で、<b>第一次検定は学歴・実務経験の要件が撤廃され、年齢だけで受けられる</b>ようになりました<span class="tag v">検証済み</span>（令和10年度まで新旧選択の経過措置あり）。</figcaption>
+</figure>
+
+<div class="warn">
+<b>ここは正直に限界を言います。</b>「補佐的な業務ばかりだと第二次検定の実務経験として認められない」とは、<b>この資料では確認していません。</b>何が実務経験として認められるかは試験の要件そのものなので、<b>受検の手引きで確認してください。</b><br>
+確認できているのは「<b>第一次は立ち位置に関係なく受けられる／第二次には実務経験が要る</b>」までです。ここを混ぜて「派遣だと資格が取れません」と言うと嘘になります。
+</div>
+
+<div class="card">
+  <p class="lead">用語（求人票で毎日見る言葉）</p>
+  <div class="tw">
+  <table>
+    <tr><th class="wrapok">言葉</th><th class="wrapok">意味</th></tr>
+    <tr><td><b>主任技術者</b></td><td>全ての現場に配置が義務づけられる技術者。2級施工管理技士がこの要件になります</td></tr>
+    <tr><td><b>監理技術者</b></td><td>大規模な工事に置く技術者。1級施工管理技士がこの要件になります</td></tr>
+    <tr><td><b>技士補</b></td><td>第一次検定に合格した段階で名乗れる呼称</td></tr>
+    <tr><td><b>現場代理人</b></td><td>請負契約上、その現場で会社を代表する人。<b>書類に名前が載ります</b></td></tr>
+    <tr><td><b>常用型（無期雇用）派遣</b></td><td>派遣元の正社員として雇われ、配属先が変わる形。派遣先が決まっていない期間も雇用は続きます</td></tr>
+    <tr><td><b>4週8閉所</b></td><td>4週間で8日、現場そのものを閉めること（社員個人の休みとは別物）</td></tr>
+  </table>
+  </div>
+  <p class="small" style="margin-top:8px;">資格体系・4大管理・派遣の適用範囲・職種の平均年収は、社内の別資料（CA用の基礎知識ベース）が正本です。</p>
+</div>
+
+<h3>4-3. 在職しながら出口を設計している記録はあります（達成記録ではありません）</h3>
+<div class="lbrow"><span class="lb lb-ex">施工管理の例として読む（n=1・目標であって到達記録ではない）</span></div>
+
+<div class="card">
+  <p>都内の施工管理2年目の人が、プロフィールに「<b>一生現場は続けない。5〜6年目で発注者側へ行くのが目標</b>」と書いています<span class="tag n1">n=1</span>。<b>これは目標であって、到達した記録ではありません。</b>「発注者側へ移れます」と言う根拠には使えません。</p>
+  <p style="margin-top:8px;"><b>使える形はここまで:</b>「<b>在職しながら次の立ち位置を設計している方の記録はあります。</b>ただ、実際に移った人の記録までは私も見つけられていないので、『できます』とは言いません。一緒に条件を確認しながら決めましょう」</p>
+</div>
+
+<h3>4-4. 「施工管理 → CAD/BIM → 建設DX」は面談で使わないでください</h3>
+<div class="lbrow"><span class="lb lb-ex">施工管理の例として読む（BIM・建設テックは建設固有）</span></div>
+
+<div class="card">
+  <p>この3段を実際に通った当事者の一次記録には<b>到達できていません</b>。到達できたのは次の4つです。</p>
+  <ul style="margin-top:8px;">
+    <li>施工管理経験のある一級建築士が、<b>会社都合で</b>BIM担当に配置された記録<span class="tag n1">n=1</span>。本人が望んで登った階段としては書かれていません</li>
+    <li>ゼネコンのBIM推進室にいるのは<b>設計出身者</b>という記録<span class="tag n1">n=1</span></li>
+    <li>建築士会の実務者向け資料は、現場とBIM推進部門の関係を「<b>期間限定で本社に勤務して、また現場に戻るローテーション</b>」と書いています。<b>片道のキャリアパスとしては描かれていません</b></li>
+    <li>建設テック企業が施工管理経験者を採る枠は<b>実在します</b>。ただし公開されている職務内容は<b>現場での撮影・品質検査の立会い・協力会社の導入支援・仕様への現場の声の反映</b>で、開発職ではありません（確認できたのは公開求人1件・想定年収400〜800万円）</li>
+  </ul>
+  <div class="say" style="margin-top:12px;">
+    <b class="who">そのまま言える形（求職者へ）</b>
+    「建設テックの会社が、<b>施工管理の経験がある人を採る枠</b>は実在します。ただ募集されているのは<b>現場のことが分かる人としての役割</b>で、開発の仕事ではありません。私が確認できたのは1社の公開求人で、想定年収は400万から800万でした。<b>この道を実際に通った方の記録は、私が探した範囲では見つけられませんでした</b>ので、『よくある道です』とは言いません」
+  </div>
+</div>
+
+<h2><span class="emoji">🔍</span>5. 立ち位置を、どう確認するか</h2>
+<div class="lbrow"><span class="lb lb-all">「求人票で読めること／読めないこと」を分け、誰にいつ何と聞くかまで決める作り方は分野を問わない</span></div>
+
+<div class="card">
+  <p class="lead">求人票で分かることと、分からないことを先に分けます。</p>
+  <p><b>求人票に書いていないことを「見ろ」と言っても意味がありません。</b>分からないものは、誰にいつ聞くかまで決めます。</p>
+</div>
+
+<h3>5-1. 求人票で読めること</h3>
+<div class="lbrow"><span class="lb lb-ex">項目の並びは施工管理の求人票のもの</span></div>
+
+<div class="card">
+  <ul style="margin:0;">
+    <li><b>雇用形態</b>（正社員か、無期雇用派遣か）</li>
+    <li><b>就業場所の書き方</b>（特定の事業所名か、「各プロジェクト先」「配属先による」か）。後者なら左寄りの可能性が高い</li>
+    <li><b>固定残業代・みなし残業代の時間数と金額</b>（月給の内訳）</li>
+    <li><b>年間休日</b>と残業の自己申告値</li>
+    <li><b>賞与・退職金の有無</b></li>
+  </ul>
+  <p class="small" style="margin-top:10px;">※求人票の数字は<b>募集要項であって労働条件通知ではありません</b>（求人票の末尾にもそう書いてあります）。社内の独自一次データ（提携先から共有された求人票5社分）を読み込んだところ、<b>同じ1枚のPDFの中で年間休日が120日と125日以上、賞与が年2回と年1回、従業員数が2種類</b>と食い違っている例が3件ありました。<b>最終確定は内定通知書・労働条件通知書です。</b></p>
+</div>
+
+<h3>5-2. 求人票では分からないこと（誰に・いつ・何と聞くか）</h3>
+<div class="lbrow"><span class="lb lb-ex">確認したい項目そのものは施工管理固有</span><span class="lb lb-all">「誰に・いつ・そのまま言えるセリフ」を1行ずつ埋める表の作り方は分野を問わない</span></div>
+
+<div class="tw">
+<table>
+  <tr><th class="wrapok" style="width:22%;">確認したいこと</th><th class="wrapok" style="width:20%;">誰に・いつ</th><th class="wrapok">そのまま言えるセリフ</th></tr>
+  <tr>
+    <td><b>元請か、協力会社か、派遣か</b></td>
+    <td>CAが提携先の担当へ。<b>紹介する前</b></td>
+    <td>「<b>御社は元請ですか、協力会社として入りますか。技術者派遣という形もありますが、どれになりますか</b>」</td>
+  </tr>
+  <tr>
+    <td><b>配属先が決まっているか</b></td>
+    <td>同上。決まっていなければ求職者が一次面接で</td>
+    <td>「<b>配属先はもう決まっていますか。決まっていない場合、いつ、誰が決めますか</b>」</td>
+  </tr>
+  <tr>
+    <td><b>合わなかったときの出口</b></td>
+    <td>求職者が一次面接で</td>
+    <td>「<b>配属先が合わなかったとき、変更の希望はどこに、どんな手順で出せばいいですか</b>」</td>
+  </tr>
+  <tr>
+    <td><b>待機中の給与</b><br><span class="small">3つに分けて聞く</span></td>
+    <td>求職者が一次面接で。<b>内定通知書でも確認</b></td>
+    <td>「<b>研修中、初回の配属が決まるまで、配属と配属の間。この3つで給与の扱いはそれぞれどうなりますか</b>」<br>
+    <span class="small"><b>法が定めている床は1つだけです。</b>会社の責任で休ませる場合は<b>平均賃金の60%以上</b>の休業手当（労働基準法26条）。<span class="tag v">検証済み</span>ただし<b>研修扱いか休業扱いかで根拠の条文が変わる</b>ので、区分ごとに聞きます。<br>
+    → <b>「無期雇用だから待機中も給料が出る」までは言ってよい。「満額出る」とも「6割しか出ない」とも断定しない。</b>60%は下限で、就業規則が上回っていればそちらが優先されます。<br>
+    ※同じ会社の口コミで「6割支給」と「全く出ない」が正反対に割れています。<b>どちらも、どの区分の話か特定できていない記録です</b>（研修中の話か、初回配属前か、配属と配属の間かが書かれていない）。<b>会社名で覚えると外します。区分で聞いてください。</b></span></td>
+  </tr>
+  <tr>
+    <td><b>待機中の副業</b></td>
+    <td>同上</td>
+    <td>「<b>待機の期間、副業はできますか</b>」<br><span class="small">上の行のとおり待機中の給与は区分で変わります。<b>収入が落ちる期間があって、そこで副業も禁止だと生活が持ちません。</b>内定を全辞退した理由にこれを挙げた記録があります<span class="tag n1">n=1</span></span></td>
+  </tr>
+  <tr>
+    <td><b>実務の中身</b></td>
+    <td>求職者が一次面接で</td>
+    <td>「<b>直近に未経験で入られた方は、いま実際にどんな作業をされていますか</b>」</td>
+  </tr>
+  <tr>
+    <td><b>残業の実績</b></td>
+    <td>同上</td>
+    <td>「<b>私が配属される可能性のあるポジションで、直近3ヶ月の残業実績を、平均ではなく幅で教えていただけますか</b>」</td>
+  </tr>
+  <tr>
+    <td><b>発注者と休みの実態</b></td>
+    <td>同上</td>
+    <td>「<b>発注者は公共ですか、民間ですか</b>」「<b>土曜は現場が閉まりますか。閉まる日は完全に誰も出ないですか、当番がありますか</b>」</td>
+  </tr>
+  <tr>
+    <td><b>右へ動く道があるか</b></td>
+    <td>同上</td>
+    <td>「<b>書類に名前が載る役割、現場代理人や主任技術者を任される可能性はありますか。あるとしたら何年目くらいからですか</b>」</td>
+  </tr>
+  <tr>
+    <td><b>月給の内訳</b></td>
+    <td>求職者が一次面接で。<b>確定は内定通知書</b></td>
+    <td>「<b>固定残業代は何時間分でいくらですか。超えた分は1分単位で出ますか</b>」「<b>賞与の算定基礎は基本給ですか、月給の総額ですか</b>」</td>
+  </tr>
+  <tr>
+    <td><b>研修費・資格取得費の返還条項</b></td>
+    <td>求職者が一次面接で。<b>書面で受け取る</b></td>
+    <td>「<b>研修費や資格取得費について、一定期間内に辞めた場合の返還の定めはありますか。ある場合、金額・免除される勤務年数・貸付なのかどうかを、書面で見せていただけますか</b>」</td>
+  </tr>
+</table>
+</div>
+
+<div class="key">
+<b>月給25万円は基本給ではありません。</b>社内の独自一次データ（提携先から共有された求人票5社分のうち、基本給が判明する4社）では、<b>基本給は20.5万円〜23万円</b>でした。25万〜30万に届くのは、手当と固定残業代を足した後の数字です。<span class="tag v">検証済み</span><br>
+<b>賞与が基本給ベースで計算される会社では、この差がそのまま賞与の差になります。</b>だから上の表の「賞与の算定基礎」を聞きます。
+</div>
+
+<h2><span class="emoji">🗣</span>6. 面談でそのまま口に出せる形</h2>
+<div class="lbrow"><span class="lb lb-ex">セリフの中身は施工管理向け（数字も団体名もそのまま他分野で使えません）</span></div>
+
+<div class="card">
+  <p class="lead">まず、こちら側の言葉と、求職者に使う言葉を分けます。</p>
+  <div class="tw">
+  <table>
+    <tr><th class="wrapok" style="width:34%;">こちら側の言葉（分析用）</th><th class="wrapok">求職者に使う言葉</th></tr>
+    <tr><td>立ち位置／軸</td><td>その現場でどの立場に立つか</td></tr>
+    <tr><td>重層下請構造／商流</td><td>元請か、協力会社か</td></tr>
+    <tr><td>統括経験</td><td>現場をまとめる側の仕事</td></tr>
+    <tr><td>母集団</td><td>どういう人を数えた数字か</td></tr>
+    <tr><td>期待値調整</td><td>先に確認しておきましょう</td></tr>
+    <tr><td>生存バイアス</td><td>（求職者には使いません）</td></tr>
+  </table>
+  </div>
+  <p class="small" style="margin:8px 0 0;">「立ち位置」「軸」「母集団」は求職者が知らない言葉です。<b>そのまま面談で使わないでください。</b></p>
+</div>
+
+<div class="say">
+  <b class="who">① 職種の希望を聞いたあと、立ち位置まで聞く</b>
+  「『施工管理』って求人票に書いてあっても、中身がけっこう違うんです。一番効いてくるのは、<b>その現場で〇〇さんがどの立場で立つか</b>。元請の社員として立つのか、協力会社として入るのか、派遣という形で入るのか。ここで<b>休みも、任される仕事も、書類に名前が載るかどうかも変わります</b>。まずそこから一緒に見ていきましょう」
+</div>
+
+<div class="say">
+  <b class="who">② 「残業どのくらいですか」に平均で答えない</b>
+  「平均は出せるんですけど、正直あまり役に立たないです。同じ2025年の数字でも、<b>国の統計で建設業ぜんぶだと月12.8時間、大手ゼネコンの労働組合の調査だと29.2時間、その中の外勤の建築だけだと41時間</b>。3倍違うんです。どれも嘘じゃなくて、<b>数えている人が違うだけ</b>。だから平均じゃなくて、<b>〇〇さんが行く現場がどれに当たるか</b>を一緒に確認しましょう」
+</div>
+
+<div class="say">
+  <b class="who">③ 派遣という形を、上下でなく選択として渡す</b>
+  「派遣という形について、<b>最終的な責任は元請が持つので、そのぶん背負うものが軽い</b>、という言い方をされている方の記録があります。<b>私が見つけられたのは1人分だけ</b>なので、みんなそう感じます、とは言えません。ただ<b>同じ理由で、重要な判断には入れてもらえない</b>という話も同じ方が書いています。この2つは同じところから出ているので、<b>どっちを重く見るかで向き不向きが分かれます</b>。〇〇さんはどっちが気になりますか」
+</div>
+
+<div class="say">
+  <b class="who">④ 配属先が最大の分かれ目だと先に置く</b>
+  「配属先がどう決まるかは、こちらから聞いておきます。<b>決まるのが入社後なら、そこが一番の分かれ目になる</b>ので。辞めた方が理由に挙げているのは、実は労働時間より<b>『思っていた仕事と違った』と『配属先がどこになったか』</b>なんです。だから先に潰しておきましょう」
+</div>
+
+<div class="say">
+  <b class="who">⑤ 資格を、会社に依存しない資産として渡す</b>
+  「<b>資格は会社のものじゃなくて〇〇さんのものです。辞めても残ります。</b>2024年度から、第一次検定は<b>年齢だけで受けられる</b>ようになりました。2級なら17歳以上、1級なら19歳以上です。ただし<b>第二次検定には実務経験が要る</b>ので、そこで『どんな仕事を任されていたか』が効いてきます。何が実務経験として認められるかは受検の手引きで一緒に確認しましょう」
+</div>
+
+<div class="say">
+  <b class="who">⑥ AIの話を振られたとき（煽らない・突き放さない）</b>
+  「<b>AIで無くならない仕事です、とは言いません。</b>経済産業省の推計だと、AIやロボットで代替できる労働時間の割合は、<b>伸び幅でいうと事務型より現場型のほうが大きい</b>と見積もられています。国土交通省も2026年をAI活用の年と位置づけていて、たとえば海底測量のデータ処理は約1週間から1時間程度になりました。ただし<b>自動施工は全国で年9件</b>という段階なので、5年10年で現場から人がいなくなる話ではない、というのが数字の実際です」
+</div>
+
+<h3>不安な事実は、必ず打ち手とセットで渡す</h3>
+<div class="lbrow"><span class="lb lb-ex">施工管理の例として読む（並べ方は真似できますが、事実と打ち手は建設のもの）</span></div>
+
+<div class="tw">
+<table>
+  <tr><th class="wrapok" style="width:42%;">不安な事実</th><th class="wrapok">セットで渡す打ち手</th></tr>
+  <tr><td>左端に立つと、自分を測った統計が存在しない §2-1</td><td>「平均は役に立ちません」と先に言い切り、§5の確認リストに切り替える。<b>平均の代わりに、配属先1つ分の事実を取りに行く</b></td></tr>
+  <tr><td>元請が休むと下請が休めない（就業規則27.5%／実取得10.3%）§2-2</td><td>「御社は元請ですか、協力会社ですか、派遣ですか」を必ず聞く。<b>答えで期待値が変わる</b>ことを求職者に先に伝える</td></tr>
+  <tr><td>職種名と実務がずれる（職人仕事寄り／事務寄り）§2-3</td><td>「直近に未経験で入られた方は、いま実際にどんな作業をされていますか」を面接で聞く。配属変更の申し出先と手順も入社前に確認</td></tr>
+  <tr><td>待機中の給与の証言が同じ会社の中でも割れている §5-2</td><td><b>法定の床（会社都合の休業なら平均賃金の60%以上）を頭に置いたうえで</b>、<b>待機の3区分</b>（研修中／初回配属前／配属間）を別々に、<b>副業の可否とセットで</b>確認。<b>「満額出る」とも「6割しか出ない」とも言わない</b></td></tr>
+  <tr><td>左から右へ移った記録に到達できていない §4</td><td>「よくある道です」と言わない。代わりに<b>資格は個人に付く</b>という確実な梃子と、§5-2の「右へ動く道があるか」の質問を渡す</td></tr>
+  <tr><td>月給25万は基本給ではない（基本給は20.5〜23万）§5-2</td><td>内定通知書で<b>基本給・固定残業の時間数と金額・賞与の算定基礎</b>の3点を確認する。CAが一緒に読む</td></tr>
+  <tr><td>研修費・資格取得費の返還条項がありうる</td><td>「返還の定めはありますか。あれば金額・免除年数・貸付かどうかを書面で」の一言を渡す。<b>必ず無効でも、必ず払うでもありません</b>。分岐は「貸し借りの形になっているか」「その資格が辞めた後も本人に残るか」「金額と期間が実費・常識の範囲か」の3点です</td></tr>
+</table>
+</div>
+
+<h2><span class="emoji">🧭</span>7. この軸で測れないもの</h2>
+<div class="lbrow"><span class="lb lb-all">「軸の守備範囲を先に決める」という作業そのものは分野を問わない</span><span class="lb lb-ex">表に並ぶ具体例は施工管理</span></div>
+
+<div class="card">
+  <p class="lead">軸には守備範囲があります。先に決めておかないと、万能の物差しとして誤用します。</p>
+  <div class="tw">
+  <table>
+    <tr><th class="wrapok" style="width:32%;">測れないもの</th><th class="wrapok">なぜ</th></tr>
+    <tr><td><b>きつさ・楽さ</b></td><td><b>右へ行けば楽になる、という図ではありません。</b>大手ゼネコンの組合員調査では所定外が月29.2時間（外勤の建築は41.0時間）で、これは国の統計の建設業全体（月12.8時間）より大きい数字です。<b>母集団が違うので直接比較はできません</b>が、少なくとも「右が楽」と読める根拠はどこにもありません</td></tr>
+    <tr><td><b>会社の教育の質</b></td><td>左端でも教育が手厚い会社はあり、右端でも放置される現場はあります。軸の位置と別に、§5-2で個別に確認します</td></tr>
+    <tr><td><b>本人の適性・体力・人間関係</b></td><td>軸は環境の側だけを測ります。合う・合わないは別の会話です</td></tr>
+    <tr><td><b>中間帯の2つの順位</b></td><td>「派遣で元請の現場」と「協力会社の正社員」は、1本の軸ではどちらが右か決められません（§1の図）。<b>決められないことを決めた顔で言わない</b></td></tr>
+    <tr><td><b>何割で起きるか</b></td><td>§2-3・§2-5の当事者記録は<b>すべて1人ずつ</b>です。足して割合にした瞬間に嘘になります</td></tr>
+  </table>
+  </div>
+</div>
+
+<div class="key">
+<b>この資料で一番持ち帰ってほしいのは、施工管理の知識ではありません。</b><br>
+<b>「この数字は、目の前の人を数えたものか」を毎回確認する</b>という習慣です。これは担当分野を問わず効きます。<br>
+そして<b>分からないことを「分かりません」と言い、代わりに聞き方を渡す</b>。求職者がCAを信用するのはそこです。
+</div>
+
+<div class="legend">
+  <span><span class="sw" style="background:#7cc0c4; border:1px solid #1a6167"></span>他人の名前で立つ</span>
+  <span><span class="sw" style="background:#2e8f96"></span>中間帯</span>
+  <span><span class="sw" style="background:#1a6167"></span>中間帯</span>
+  <span><span class="sw" style="background:#0c3b40"></span>自分の名前で立つ</span>
+</div>
+
+<footer>
+Gooner人材事業部 CA向け社内資料 ／ 2026年8月<br>
+<b>対になる入門編:</b> <a href="https://mushataku.github.io/pub/sekou-career-basics.html">CAのための施工管理職種入門</a>（先に読む①）。<br>
+<b>他分野の同型資料:</b> IT版＝<a href="https://mushataku.github.io/pub/it-career-basics.html">入門編</a>／<a href="https://mushataku.github.io/pub/it-career-axis.html">応用編・手順化度の軸</a>。機電版＝<a href="https://mushataku.github.io/pub/kiden-career-basics.html">入門編</a>／<a href="https://mushataku.github.io/pub/kiden-career-axis.html">応用編・決定権の所在</a>。<b>軸は分野ごとに別物です。IT版の軸を施工管理に持ち込むと壊れます</b>（理由は冒頭の表の3行目）。<br>
+<b>数字の確度タグの意味は、冒頭のカードにあります。</b>本資料で「到達できていない」と書いた箇所は、探して見つからなかったという意味であって、存在しないという意味ではありません。
+</footer>
+
+</div>
+</body>
+</html>
