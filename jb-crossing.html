@@ -1,0 +1,514 @@
+<title>ジョホールバル越境プラン</title>
+<style>
+  :root {
+    --ground:      #F4F6F3;
+    --surface:     #FFFFFF;
+    --surface-alt: #EAEFEA;
+    --ink:         #14201D;
+    --ink-soft:    #4A5A55;
+    --ink-faint:   #77857F;
+    --rule:        #D3DBD5;
+    --accent:      #06695E;
+    --accent-soft: #DCEBE6;
+    --alert:       #A32B20;
+    --alert-soft:  #F7E4E0;
+    --gold:        #7E6212;
+    --gold-soft:   #F2EBD4;
+
+    --serif: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", "Songti SC", serif;
+    --sans:  "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
+    --mono:  ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:      #0E1513;
+      --surface:     #17201D;
+      --surface-alt: #1E2825;
+      --ink:         #E6EDE9;
+      --ink-soft:    #A9B8B2;
+      --ink-faint:   #7C8C86;
+      --rule:        #2C3835;
+      --accent:      #4FCFB6;
+      --accent-soft: #16302B;
+      --alert:       #FF9282;
+      --alert-soft:  #33201C;
+      --gold:        #D9B95E;
+      --gold-soft:   #2B2617;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:      #0E1513;
+    --surface:     #17201D;
+    --surface-alt: #1E2825;
+    --ink:         #E6EDE9;
+    --ink-soft:    #A9B8B2;
+    --ink-faint:   #7C8C86;
+    --rule:        #2C3835;
+    --accent:      #4FCFB6;
+    --accent-soft: #16302B;
+    --alert:       #FF9282;
+    --alert-soft:  #33201C;
+    --gold:        #D9B95E;
+    --gold-soft:   #2B2617;
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 50rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.25rem;
+  }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  .masthead { display: flex; flex-direction: column; gap: .75rem; }
+  .stamp {
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 6vw, 2.9rem);
+    line-height: 1.2;
+    font-weight: 600;
+    text-wrap: balance;
+    margin: 0;
+  }
+  .standfirst { color: var(--ink-soft); font-size: 1.05rem; max-width: 42ch; }
+
+  .verdict {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem 1.5rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: .9rem;
+  }
+  .verdict h2 {
+    font-family: var(--mono);
+    font-size: .74rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+    font-weight: 600;
+  }
+  .verdict p { margin: 0; }
+  .verdict .lede { font-family: var(--serif); font-size: 1.35rem; line-height: 1.55; text-wrap: balance; }
+  .verdict .why { color: var(--ink-soft); font-size: .95rem; }
+
+  section { display: flex; flex-direction: column; gap: 1.1rem; }
+  h2.sec {
+    font-family: var(--serif);
+    font-size: 1.55rem;
+    font-weight: 600;
+    margin: 0;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: baseline;
+    gap: .7rem;
+  }
+  h2.sec .num {
+    font-family: var(--mono);
+    font-size: .8rem;
+    color: var(--ink-faint);
+    letter-spacing: .08em;
+  }
+  h3 {
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: .01em;
+  }
+  p { margin: 0; }
+  .note { color: var(--ink-soft); font-size: .93rem; }
+
+  .tonight {
+    background: var(--alert-soft);
+    border: 1px solid var(--alert);
+    padding: 1.4rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+  }
+  .tonight .hdr { display: flex; flex-wrap: wrap; align-items: baseline; gap: .6rem; }
+  .tonight .hdr strong { font-family: var(--serif); font-size: 1.3rem; color: var(--alert); }
+  .tonight .hdr span { font-family: var(--mono); font-size: .78rem; color: var(--ink-soft); }
+  .task { display: flex; flex-direction: column; gap: .35rem; padding-top: 1rem; border-top: 1px dashed var(--rule); }
+  .task:first-of-type { border-top: none; padding-top: 0; }
+  .task .top { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem; }
+  .task .top strong { font-size: 1rem; }
+  .pill {
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: .15rem .5rem;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .pill.must { color: var(--alert); }
+  .pill.opt  { color: var(--gold); }
+  .task p { font-size: .93rem; color: var(--ink-soft); }
+  .task .url { font-family: var(--mono); font-size: .85rem; word-break: break-all; }
+
+  .scroller { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; min-width: 44rem; font-size: .9rem; }
+  th, td { text-align: left; padding: .8rem .9rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  thead th {
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    background: var(--surface-alt);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  td.route { white-space: nowrap; }
+  td.route b { font-family: var(--mono); font-size: .95rem; letter-spacing: .02em; }
+  td.route i { display: block; font-style: normal; font-size: .78rem; color: var(--ink-faint); }
+  td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  tr.pick { background: var(--accent-soft); }
+  tr.pick td.route b { color: var(--accent); }
+
+  .timeline { display: flex; flex-direction: column; }
+  .leg {
+    display: grid;
+    grid-template-columns: 4.6rem 1fr;
+    gap: 1rem;
+    padding: .85rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .leg:last-child { border-bottom: none; }
+  .leg time {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: .95rem;
+    color: var(--accent);
+    font-weight: 600;
+    padding-top: .12rem;
+  }
+  .leg .body { display: flex; flex-direction: column; gap: .2rem; }
+  .leg .body b { font-weight: 700; }
+  .leg .body span { font-size: .9rem; color: var(--ink-soft); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 1.2rem 1.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+  .card.warn { border-color: var(--gold); background: var(--gold-soft); }
+  .card.hot  { border-color: var(--alert); background: var(--alert-soft); }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
+
+  ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: .4rem; }
+  li { font-size: .95rem; }
+  li::marker { color: var(--ink-faint); }
+
+  code {
+    font-family: var(--mono);
+    font-size: .88em;
+    background: var(--surface-alt);
+    padding: .1rem .35rem;
+    border-radius: 2px;
+  }
+
+  .flag {
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .06em;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 0 .3rem;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .fixed {
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .06em;
+    color: var(--alert);
+    border: 1px solid var(--alert);
+    padding: 0 .3rem;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .sources { display: flex; flex-direction: column; gap: 1.4rem; }
+  .srcgroup { display: flex; flex-direction: column; gap: .45rem; }
+  .srcgroup h3 { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); font-weight: 600; }
+  .srcgroup ol { margin: 0; padding-left: 1.3rem; display: flex; flex-direction: column; gap: .35rem; }
+  .srcgroup li { font-size: .88rem; }
+  .srcgroup .d { font-family: var(--mono); font-size: .78rem; color: var(--ink-faint); }
+
+  footer { border-top: 1px solid var(--rule); padding-top: 1.25rem; color: var(--ink-faint); font-size: .82rem; display: flex; flex-direction: column; gap: .5rem; }
+
+  @media (max-width: 30rem) {
+    .leg { grid-template-columns: 1fr; gap: .2rem; }
+    .leg time { padding-top: 0; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="stamp">Singapore → Johor Bahru ／ 2026-08-16 (Sun)</div>
+    <h1>ジョホールバル越境プラン</h1>
+    <p class="standfirst">Hotel Boss（500 Jalan Sultan）発・日帰り。全項目に出典リンクと確認日付き。<b>2026年8月15日 検証済み。</b></p>
+  </header>
+
+  <div class="verdict">
+    <h2>結論</h2>
+    <p class="lede">Ban San Street（Queen Street バスターミナル）から <b>Causeway Link CW2</b>（S$4.80・24時間運行）に乗る。ホテルから徒歩12分、出入国込みで JB シティスクエアまで約2時間。</p>
+    <p class="why">理由は3つ。①Hotel Boss から歩ける唯一のジョホール行き乗り場がここ ②CW2 は24時間・昼は15〜20分間隔なので、時刻表に自分を合わせなくていい ③JB CIQ で降りればシティスクエアまで徒歩5分。<br>鉄道（KTM シャトル）は乗車5分と速いが、<b>切符の発売窓が30日前＝7月17日にとっくに開いて閉じている</b>うえ、乗り場の Woodlands Train Checkpoint が市街から1時間半。今回は選べない。</p>
+  </div>
+
+  <section>
+    <div class="tonight">
+      <div class="hdr">
+        <strong>今夜のうちにやること</strong>
+        <span>現在 8/15(土) 23:30 SGT</span>
+      </div>
+
+      <div class="task">
+        <div class="top"><strong>MDAC（マレーシア電子入国カード）を提出</strong><span class="pill must">必須</span></div>
+        <p>日本国籍は陸路でも提出義務あり。免除は7カテゴリ（マレーシア/シンガポール国民、外交旅券、ブルネイ・タイ・インドネシアの国境パス等）のみで日本人は入らない。到着の <b>3日前以内</b>、<b>完全無料</b>。</p>
+        <p class="url"><a href="https://imigresen-online.imi.gov.my/mdac/main">imigresen-online.imi.gov.my/mdac/main</a></p>
+        <p><b style="color:var(--alert)">課金してくる MDAC サイトは全部偽物。</b>マレーシア移民局が2025年1月に公式警告を出し、2026年2月には RM145 を騙し取られた実例が報道された。検索広告の上位に偽サイトが並ぶので、上のURLを直接開くこと。</p>
+      </div>
+
+      <div class="task">
+        <div class="top"><strong>SGAC（シンガポール入国カード）を提出</strong><span class="pill must">必須</span></div>
+        <p>盲点。<b>シンガポールに戻るのにも要る</b>。ICA 公式の免除対象は「シンガポール国民・PR・長期パス保持者」だけで、日本国籍の短期滞在者は陸路の再入国でも提出が必要。到着日を含む3日前以内。無料。</p>
+        <p class="url"><a href="https://eservices.ica.gov.sg/sgarrivalcard">eservices.ica.gov.sg/sgarrivalcard</a></p>
+        <p>1回の提出で最大3トリップまでまとめて申告できるとされる <span class="flag">中確信</span> が、<b>確実を取るなら 8/16 の再入国分を単独で出す</b>。<br><b style="color:var(--alert)">ICA は有償の偽SGAC代行サイトを61件、名指しで公示している。</b>正規は上のURLと MyICA アプリだけ。</p>
+      </div>
+
+      <div class="task">
+        <div class="top"><strong>楽をしたいなら越境 Grab を今すぐ予約</strong><span class="pill opt">任意・時間切れ注意</span></div>
+        <p><code>GrabCar Cross-Border SG-JB</code> は <b>乗車6時間前〜7日前</b> の事前予約制で、<b>当日その場での配車は不可</b>。朝7時発を取るなら今夜1時までに予約。入管は<b>車に乗ったまま</b>通過（降車・行列なし）。</p>
+        <p>基準料金は4人乗り S$80／6人乗り S$120。ただし距離次第で割引後でも S$100 を超えた実測例がある。<b>30%キャンペーンは2026年6月28日で終了済み</b>なので、5〜6月の体験記の金額をそのまま当てにしないこと。<b>7〜8月の稼働・料金を確かめた一次情報は取れなかった</b> <span class="flag">未確認</span> ので、これ1本に賭けずバスを保険に置く。</p>
+        <p class="url"><a href="https://www.grab.com/sg/press/others/grab-receives-the-first-cross-border-ride-hail-service-operator-licence-and-will-soon-pilot-a-new-cross-border-taxi-booking-service/">Grab 公式発表</a></p>
+      </div>
+
+      <div class="task">
+        <div class="top"><strong>持ち物</strong><span class="pill must">必須</span></div>
+        <p>パスポート（<b>往復とも</b>残存6ヶ月以上。マレーシア入国だけでなくシンガポール再入国も短期訪問者の審査）／マレーシアリンギット現金は少額でよい（JB CIQ 出てすぐに両替所がある）／モバイルバッテリー。<b>MDAC・SGAC の控えはスクショで持つ</b>——国境で圏外になると開けない。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec"><span class="num">01</span>ルート4案</h2>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>手段</th><th>運賃</th><th>ドア to ドア</th><th>乗り場</th><th>判定</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="pick">
+            <td class="route"><b>CW2</b><i>Causeway Link バス</i></td>
+            <td class="num">S$4.80</td>
+            <td class="num">約2時間</td>
+            <td>Ban San St ターミナル<br><span class="note">ホテルから徒歩12分・850m</span></td>
+            <td><b>これが本命。</b>24時間運行。昼15〜20分間隔、ピーク（4-8時/17-22時）は約5分、深夜23時〜早朝は30〜45分。現金／EZ-Link／タッチ決済可（<b>EZ-Link と NETS は 23:30–06:30 使用不可</b>）。JB CIQ 下車でシティスクエア徒歩5分</td>
+          </tr>
+          <tr>
+            <td class="route"><b>170</b><i>SBS Transit バス</i></td>
+            <td class="num">S$3.20<br><span class="note">現金／カード 2.57</span></td>
+            <td class="num">約2〜2.5時間</td>
+            <td>同上（Ban San St）</td>
+            <td>最安。始発 05:20・終発 00:10、週末は20分間隔。終点は Larkin だが JB CIQ でも降りられる。<b>Larkin から乗る場合はターミナル利用料 RM2 が別途</b>（2026年7月値上げ）</td>
+          </tr>
+          <tr>
+            <td class="route"><b>KTM</b><i>Shuttle Tebrau 鉄道</i></td>
+            <td class="num">S$5.00</td>
+            <td class="num">約2.5時間</td>
+            <td>Woodlands Train Checkpoint<br><span class="note">市街から1時間半</span></td>
+            <td><b>今回は無理。</b>切符は30日前解禁＝8/16 分は7月17日に売り出され、日曜便は通常すぐ完売する。加えて Woodlands 発は<b>始発が 08:30</b>（JB 発は05:00台からあるのに片方向だけ朝が薄い）</td>
+          </tr>
+          <tr>
+            <td class="route"><b>Grab</b><i>越境配車／越境タクシー</i></td>
+            <td class="num">S$80〜<br><span class="note">実測100超も</span></td>
+            <td class="num">約1〜1.5時間</td>
+            <td>ホテル前でOK</td>
+            <td>最速・最楽。降車なしで入管通過。要6時間〜7日前予約。流しの越境タクシーなら Ban San St ターミナルで S$80／台〜、相乗り S$15/人 <span class="flag">要現地確認</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">※ Second Link（Tuas 経由・CW3/CW6/CW7）は乗り場が Jurong East／Boon Lay／Tuas Link と西部にあり、Lavender からは行くだけで割に合わない。目的地が Legoland や Johor Premium Outlets なら話は別。<br>※ 帰りにそのままチャンギ空港へ抜けるなら <code>WTS9</code>（JB↔Changi、S$11、2026年6月19日運行開始）という新路線がある。今回の日帰りには不要。</p>
+  </section>
+
+  <section>
+    <h2 class="sec"><span class="num">02</span>当日のタイムライン（CW2 想定）</h2>
+    <div class="card">
+      <div class="timeline">
+        <div class="leg"><time>06:45</time><div class="body"><b>起床・出発準備</b><span>パスポート、MDAC/SGAC の控えはスクショで</span></div></div>
+        <div class="leg"><time>07:10</time><div class="body"><b>Hotel Boss を出る</b><span>徒歩12分。<b>目印は「Ban San Street」</b>——道路としての Queen Street は2024年9月に工事で恒久閉鎖されており、地図で Queen Street を目指すと迷う。ターミナルの住所は 50 Ban San Street</span></div></div>
+        <div class="leg"><time>07:25</time><div class="body"><b>CW2 に乗車</b><span>現金なら<b>紙のチケットを絶対に捨てない</b>。この後の再乗車に使う</span></div></div>
+        <div class="leg"><time>07:55</time><div class="body"><b>Woodlands Checkpoint：全員降車</b><span>荷物を全部持ってバスを降り、徒歩でシンガポール出国審査</span></div></div>
+        <div class="leg"><time>08:25</time><div class="body"><b>同じチケットで“次に来た CW 便”に乗る</b><span>元のバスを待つ必要はない。CW1／CW2／CW5 のどれでも乗れる。追加料金なし</span></div></div>
+        <div class="leg"><time>08:40</time><div class="body"><b>JB CIQ：また全員降車 → マレーシア入国審査</b><span>マレーシア初入国なら<b>有人カウンター</b>。下の「自動ゲートを当てにしない」参照</span></div></div>
+        <div class="leg"><time>09:15</time><div class="body"><b>CIQ 出口 → シティスクエア</b><span>連絡通路と歩道橋で約250m・徒歩5〜10分。JB Sentral も同じ塊の中</span></div></div>
+        <div class="leg"><time>〜14:00</time><div class="body"><b>ここまでに JB CIQ へ戻り始める</b><span>日曜夕方の帰り方向は詰まる。次節が今回いちばん効く判断</span></div></div>
+      </div>
+    </div>
+    <p class="note">所要は入管の行列次第で±40分は動く。上の刻みは「混んでいる前提」で組んである。</p>
+  </section>
+
+  <section>
+    <h2 class="sec"><span class="num">03</span>時間設計 ─ 日曜は帰りが本番</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>行き（SG → JB）</h3>
+        <p class="note">日曜午前は比較的流れる。<b>9時前に国境へ入れば穏当</b>。深夜2〜4時は15分未満で通過できるが、そこまで振る必要はない。</p>
+      </div>
+      <div class="card hot">
+        <h3>帰り（JB → SG）</h3>
+        <p class="note"><b>日曜 15:00〜21:00 が最悪帯。</b>シンガポール居住者が一斉に戻る時間で、金曜夕方の逆流より酷いこともある。<b>14時までに戻る</b>か、<b>22時以降まで粘る</b>かの二択。</p>
+      </div>
+    </div>
+    <div class="card warn">
+      <h3>ジョホール側も日曜は休み ── 2025年に変わった</h3>
+      <p class="note">ジョホール州の週末は長らく<b>金・土</b>だったが、<b>2025年1月1日に土・日へ戻った</b>。「日曜のJBは平日だから空いている」という数年前までの定説はもう通用しない。シティスクエアも Mid Valley Southkey も<b>日曜は普通に混む</b>。開店直後（10時前後）を狙うのが賢い。</p>
+    </div>
+    <div class="card">
+      <h3>出る前に混雑を見るなら</h3>
+      <ul>
+        <li>LTA 公式ライブカメラ（約1分更新・シンガポール側）── <a href="https://onemotoring.lta.gov.sg/content/onemotoring/home/driving/traffic_information/traffic-cameras/woodlands.html">onemotoring.lta.gov.sg</a></li>
+        <li>Google マップ／Waze の渋滞表示（ユーザー投稿ベース・公式データではない）</li>
+      </ul>
+      <p class="note">マレーシア側に公式の待ち時間APIは見当たらず、出回っている待ち時間サイトはいずれも非公式の集計。<span class="flag">未確認</span><br>朗報として、Woodlands Road には<b>2026年6月11日からバス専用レーン</b>が入っている。バスは車より有利。</p>
+    </div>
+    <div class="card">
+      <h3>この週末のローカル事情</h3>
+      <p class="note">祝日はない（シンガポール建国記念日は8/9で終了、マレーシアの Merdeka は8/31、学校休暇は8/29から）。ただし <b>Singapore Indoor Stadium で 8/14〜16 にコンサート（F-Forever 2026）</b>があり、<b>Kallang 一帯が夜間混む</b>。Hotel Boss は目と鼻の先なので、日曜の夜遅くに戻る動線を組むならここだけ頭に入れておく。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec"><span class="num">04</span>国境で戸惑いやすい2点</h2>
+    <div class="card">
+      <h3>バスは「乗り継ぎ」ではなく「乗り捨て・再乗車」</h3>
+      <p class="note">チェックポイントごとに全員が荷物を持って降ろされ、審査を抜けたら<b>同じ会社の次に来た便に乗り直す</b>。自分が乗ってきたバスを待つ人がいるが、待たなくていい。Causeway Link 系（CW1/CW2/CW5）は相互に乗車可、SBS 系（160/170/170X/950）も同様に列が統合される。ただし<b>両グループをまたぐ乗車の可否は公式に明記されていない</b> <span class="flag">未確認</span> ので、乗ってきた会社に揃えるのが安全。</p>
+    </div>
+    <div class="card warn">
+      <h3>自動ゲートを当てにしない</h3>
+      <p class="note">マレーシアは2024年6月から日本を含む63カ国に入国自動ゲートを開放しているが、<b>初回は有人カウンターで生体登録</b>が要る。パスポートレス通関の <code>MyNIISe</code> は2025年9月〜2026年2月にジョホール検問所で試験運用されたものの、<b>その後 JB 陸路で外国人が継続して使えるのかを示す発表は見つけられなかった</b> <span class="flag">未確認</span>。<br>加えて<b>2026年1月にジョホール検問所で自動ゲートの大規模障害が起き、外国人が立ち往生した</b>実績がある。<b>有人カウンター前提で時間を見積もる。</b>シンガポール側もQRクリアランスが全面導入されているが、初回訪問者は物理パスポート提示が要る——結局、<b>パスポートは手に持っておく</b>のが唯一壊れない前提。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec"><span class="num">05</span>向こうでの実務</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>お金</h3>
+        <p class="note">1 SGD ≒ <b>3.19 MYR</b>（8月中旬）。JB では SGD 直払いは基本不可、受けてくれる店もレートが悪くお釣りは MYR。シティスクエア内・Jalan Wong Ah Fook 沿いに両替所が並ぶ。モールはカードが通る、屋台は現金。</p>
+      </div>
+      <div class="card">
+        <h3>Grab（JB 市内）</h3>
+        <p class="note">シンガポールで使っている Grab アカウントのまま、現地では自動でマレーシア料金に切り替わる。<b>マレーシアの電話番号が要るかは公式に確認できず</b> <span class="flag">未確認</span> ── ホテルの Wi-Fi があるうちにアプリを一度開いて挙動を見ておくと安全。</p>
+      </div>
+      <div class="card">
+        <h3>通信</h3>
+        <p class="note">日帰りなら eSIM 1GB（Airalo 等、約 US$2〜）で足りる。<b>渡航前の今夜のうちに入れておく</b>のが吉。国境で圏外になると MDAC の控えも Grab も開けない。</p>
+      </div>
+      <div class="card">
+        <h3>時差</h3>
+        <p class="note">シンガポールもマレーシアも <b>UTC+8 で同一</b>。時計はいじらなくていい。日本との差は1時間（JST = SGT + 1）。</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3>行き先の距離感</h3>
+      <ul>
+        <li><b>シティスクエア／JB Sentral</b> ── CIQ から徒歩5〜10分。日帰りの主戦場</li>
+        <li><b>KSL City Mall</b> ── 徒歩は無理。Grab で10〜15分、またはシャトルバス <code>BAS.MY J100</code>（15分間隔・RM1.50）</li>
+        <li><b>Johor Premium Outlets</b> ── 車で45〜60分。ここを狙うなら丸1日の主目的にする覚悟が要る</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec"><span class="num">06</span>出典</h2>
+
+    <div class="sources">
+      <div class="srcgroup">
+        <h3>公式（一次）</h3>
+        <ol>
+          <li><a href="https://imigresen-online.imi.gov.my/mdac/main">MDAC 公式提出ポータル</a> ／ <a href="https://www.imi.gov.my/index.php/en/pengumuman/malaysia-digital-arrival-card-mdac/">マレーシア移民局 MDAC 告知</a></li>
+          <li><a href="https://www.ica.gov.sg/enter-transit-depart/entering-singapore/sg-arrival-card">ICA — SG Arrival Card</a>（免除対象と3日前規定の原文）／<a href="https://www.ica.gov.sg/public-education/public-advisory-on-the-submission-of-sg-arrival-card-(sgac)">ICA — 偽SGACサイト61件の公示</a> <span class="d">更新 2026-03-17</span></li>
+          <li><a href="https://www.lta.gov.sg/content/dam/ltagov/img/map/bus/fare-table.pdf">LTA — バス運賃表（2025年12月27日改定）</a> <span class="d">170番の運賃根拠</span></li>
+          <li><a href="https://www.causewaylink.com.my/cw2/">Causeway Link — CW2 公式ページ</a>（S$4.80）</li>
+          <li><a href="https://www.lta.gov.sg/content/ltagov/en/getting_around/point_to_point_transport_and_cross_border_services/cross-border-services.html">LTA — 越境交通サービス一覧</a> <span class="d">更新 2026-06-04</span></li>
+          <li><a href="https://www.ica.gov.sg/enter-transit-depart/at-our-checkpoints/use-of-qr-code-for-immigration-clearance-at-woodlands-and-tuas-checkpoints">ICA — Woodlands/Tuas のQRクリアランス</a>（初回訪問者は旅券提示）</li>
+          <li><a href="https://www.grab.com/sg/press/others/grab-receives-the-first-cross-border-ride-hail-service-operator-licence-and-will-soon-pilot-a-new-cross-border-taxi-booking-service/">Grab — 越境配車ライセンス取得の公式発表</a></li>
+          <li><a href="https://online.ktmb.com.my/Home/ShuttleFAQ">KTMB — Shuttle Tebrau FAQ</a>（当日券は出発20分前まで／ゲート40分前開放）</li>
+          <li><a href="https://onemotoring.lta.gov.sg/content/onemotoring/home/driving/traffic_information/traffic-cameras/woodlands.html">LTA OneMotoring — Woodlands / Tuas ライブカメラ</a></li>
+        </ol>
+      </div>
+
+      <div class="srcgroup">
+        <h3>運賃・時刻・手続きの実務</h3>
+        <ol>
+          <li><a href="https://landtransportguru.net/jbbuscw2/">Land Transport Guru — CW2</a> <span class="d">更新 2026-07-09</span></li>
+          <li><a href="https://landtransportguru.net/bus170/">Land Transport Guru — バス170</a> <span class="d">更新 2026-07-12</span>（始発05:20・Larkin利用料RM2）</li>
+          <li><a href="https://thesmartlocal.com/read/causeway-link-bus-guide/">The Smart Local — Causeway Link 全路線</a> <span class="d">更新 2026-07-21</span></li>
+          <li><a href="https://thesmartlocal.com/read/ktm-shuttle-guide/">The Smart Local — KTM シャトル攻略</a> <span class="d">更新 2026-05-22</span>（30日前解禁・週末完売）</li>
+          <li><a href="https://www.asiaone.com/singapore/grab-updates-cross-border-taxi-ride-hail-service-app-discounts">AsiaOne — Grab 越境、予約は6時間前に短縮</a> <span class="d">2026-05-29</span></li>
+          <li><a href="https://thesmartlocal.com/read/grab-cross-border-taxis-sg-jb/">The Smart Local — 越境 Grab 実乗車レポート</a> <span class="d">更新 2026-06-03</span></li>
+          <li><a href="https://landtransportguru.net/buswts9/">Land Transport Guru — WTS9（JB↔チャンギ空港）</a> <span class="d">2026-06-19 運行開始</span></li>
+        </ol>
+      </div>
+
+      <div class="srcgroup">
+        <h3>混雑・制度変更・詐欺</h3>
+        <ol>
+          <li><a href="https://www.nst.com.my/news/nation/2024/12/1154163/last-working-sunday-johor-state-reverts-saturday-sunday-weekend">NST — ジョホール州の週末が土日に戻る</a> <span class="d">2025-01-01 施行</span></li>
+          <li><a href="https://jumppy.com.sg/causeway-peak-hours-guide/">Jumppy — コーズウェイのピーク時間</a>（日曜15〜21時の帰り方向）</li>
+          <li><a href="https://www.asiaone.com/singapore/new-bus-lane-woodlands-road-woodlands-checkpoint">AsiaOne — Woodlands Road のバス専用レーン</a> <span class="d">2026-06-11 導入</span></li>
+          <li><a href="https://www.malaymail.com/news/malaysia/2026/01/10/foreign-travellers-stranded-at-johor-checkpoints-after-major-immigration-autogate-failure/204929">Malay Mail — ジョホール検問所で自動ゲート大規模障害</a> <span class="d">2026-01-10</span></li>
+          <li><a href="https://www.malaymail.com/news/malaysia/2026/05/08/malaysia-to-roll-out-myniise-to-reduce-congestion-at-johor-singapore-checkpoint-from-2027/219171">Malay Mail — MyNIISe の本格稼働は2027年から</a> <span class="d">2026-05-08</span></li>
+          <li><a href="https://www.malaymail.com/news/malaysia/2025/01/04/immigration-dept-warns-tourists-of-fake-mdac-website/162040">Malay Mail — 偽 MDAC サイトへの公式警告</a> ／ <a href="https://soyacincau.com/2026/02/13/mdac-malaysia-digital-arrival-card-immigration-scam-tourist/">SoyaCincau — RM145 被害の実例</a> <span class="d">2026-02-13</span></li>
+          <li><a href="https://publicholidays.com.my/johor/">ジョホール州の祝日 2026</a>（Merdeka は8/31、Maulidur Rasul は8/25）</li>
+          <li><a href="https://www.lta.gov.sg/content/ltagov/en/upcoming_projects/rail_expansion/JB-Singapore_RTS_link.html">LTA — RTS Link</a>（2026年12月〜2027年初 開業予定＝当日は未開業）</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div><b>検証日：2026年8月15日（シンガポール時間）。</b>旅行情報は日付のない瞬間から静かに嘘になる。運賃・制度は年単位でひっくり返る——実際このページも初稿では170番の運賃が2025年12月の改定前の数字（S$2.80）のままだった。</div>
+    <div><b>出発前に再確認する3つ：</b>MDAC の提出状況／SGAC の提出状況／Grab 予約の生存。この3つだけは当日朝にもう一度見る。</div>
+    <div><span class="flag">未確認</span> は複数ソースで裏が取れなかった項目。<span class="flag">中確信</span> は一次情報にたどり着けず二次情報の一致で判断した項目。</div>
+  </footer>
+
+</div>
