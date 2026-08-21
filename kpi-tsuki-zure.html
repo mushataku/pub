@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="歩留まり管理シートで「1ヶ月」の範囲が場所ごとに違っている点の整理と、該当セルへのリンク集。">
+<meta name="description" content="歩留まり管理シートの「1ヶ月」の範囲について、決着した内容・これからやること・確認が要ることの整理と、該当セルへのリンク集。">
 </head>
 <body>
 <title>KPIの月ズレ</title>
@@ -379,56 +379,53 @@ code {
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
-
 <div class="wrap">
 
   <header class="mast">
     <span class="eyebrow">歩留まり管理シート / 期間の確認メモ</span>
     <h1>KPIの月ズレ</h1>
     <p class="standfirst">
-      「今月は20日から翌月扱い」と伺いました。あらためてシートを見てみたところ、
-      「1ヶ月」の範囲がいくつかの場所で違っているようだったので、
-      どれに合わせればよいか整理しました。数字が合わないと感じたときに開いて、
-      該当箇所のリンクをそのまま見ていただくためのページです。
+      「1ヶ月」の範囲が場所ごとに違っていた件です。8月21日にご確認いただき、
+      <strong>2件が決着してシートを作り直す方針</strong>になりました。
+      残り4件はまだ確認させていただきたいところです。
+      数字が合わないと感じたときに開いて、該当箇所のリンクをそのまま見ていただくためのページです。
     </p>
     <div class="meta">
       <span>2026-08-21 時点</span>
-      <span>歩留まり管理シート</span>
-      <span>確認したいこと 6件</span>
+      <span>決着 2件</span>
+      <span>これからやること 2件</span>
+      <span>要確認 4件</span>
     </div>
   </header>
 
-  <!-- ── まず結論 ── -->
   <section class="summary">
-    <h2>まず3行で</h2>
+    <h2>決着したこと</h2>
     <ol class="points">
-      <li><b>01</b><span>8月のKPIは、伺ったとおり <strong>8/20〜9/19</strong> で数えるようにしました。</span></li>
-      <li><b>02</b><span>ただしシートの <code>8月MS</code> タブは <strong>7/23〜8/22</strong> で組まれています。</span></li>
-      <li><b>03</b><span>そのため同じ新規面談数が <span class="hit">3件</span> と <span class="hit">10件</span> に分かれます。目標の22は7/23〜8/22に対する数字です。</span></li>
+      <li><b>A</b><span><strong>MSの期間は可変</strong>。「毎月20日固定」ではない。
+        ただし<strong>何が正しい規則かはまだ分からない</strong>ので、そこは引き続き確認したい（下の1番）。</span></li>
+      <li><b>B</b><span>今月は <strong>8/20 からが「9月」</strong>。
+        シートの <code>8月MS</code> タブ（7/23〜8/22）は、こちらが規則を知らないまま仮で作ったもので、正ではない。</span></li>
     </ol>
+    <div class="note">
+      <p><strong>今日（8月21日）の扱い</strong>：9月MSの2日目。
+      武者野の実績は 新規面談設定数1／新規面談数3／提案数1（8/20〜8/21）。
+      <strong>目標は「－」で出しています</strong>——9月MSのシートがまだ無いためで、
+      前月の目標（22）は流用していません。</p>
+    </div>
   </section>
 
-  <!-- ── 図 ── -->
   <section class="chart">
-    <h2 class="chart-title">「2026年8月」が指している範囲、3通り</h2>
+    <h2 class="chart-title">「8月」と「9月」の境目</h2>
 
     <div class="chart-frame">
       <div class="track-list">
 
         <div class="track">
           <div class="track-label">
-            <span class="track-name">伺った定義（20日始まり）</span>
-            <span class="track-range">8/20 → 9/19</span>
+            <span class="track-name">9月（確定）</span>
+            <span class="track-range">8/20 → 終了日は未確定</span>
           </div>
           <div class="rail"><div class="bar stated" style="left:50.0%; width:45.5%"></div></div>
-        </div>
-
-        <div class="track">
-          <div class="track-label">
-            <span class="track-name">8月MS タブ</span>
-            <span class="track-range">7/23 → 8/22</span>
-          </div>
-          <div class="rail"><div class="bar sheet" style="left:7.6%; width:45.5%"></div></div>
         </div>
 
         <div class="track">
@@ -437,6 +434,14 @@ code {
             <span class="track-range">7/21 → 8/19</span>
           </div>
           <div class="rail"><div class="bar dash" style="left:4.5%; width:43.9%"></div></div>
+        </div>
+
+        <div class="track">
+          <div class="track-label">
+            <span class="track-name">8月MS タブ（仮で作られたもの・作り直し予定）</span>
+            <span class="track-range">7/23 → 8/22</span>
+          </div>
+          <div class="rail"><div class="bar sheet" style="left:7.6%; width:45.5%"></div></div>
         </div>
 
       </div>
@@ -453,23 +458,18 @@ code {
     </div>
 
     <p class="read-it">
-      横軸が7月20日から9月19日まで、3本の帯がそれぞれの「8月」です。
-      縦の線が<b>今日（8月21日）</b>。伺った定義では始まったばかりの2日目、
-      8月MSタブでは終わりかけの30日目にあたります。
-      同じ1日が「月初」にも「月末」にもなるので、実績の数え方でここまで差が出ます。
+      横軸が7月20日から9月19日まで。縦の線が<b>今日（8月21日）</b>で、
+      9月に入って2日目にあたります。
+      3本目の <code>8月MS</code> タブだけが 8/22 まで伸びていて、9月と10日ぶん重なっています。
+      ここが作り直しの対象です。
     </p>
   </section>
 
-  <div class="note">
-    <p><strong>いまの運用</strong>：朝のToDoに出しているKPIは、伺った定義（毎月20日始まり）で数えています。
-    シート側の期間との差は手元に毎朝出るようにしてあるので、取り違えたまま進むことはありません。</p>
-    <p>正式にどちらかへ決まったら、このページとツールの設定を合わせます。</p>
-  </div>
-
   <div>
-    <h2 class="section-lead">確認させていただきたいこと</h2>
+    <h2 class="section-lead">これからやること</h2>
     <p class="section-sub">
-      影響の大きい順に6件です。各項目に、シートの該当セルが開くリンクと、聞き方の例を添えました。
+      ご依頼いただいた作業が2つあります。どちらも本番シートへの書き込みなので、
+      実行前に内容を確認いただいてから進めます。
     </p>
 
     <div class="entries">
@@ -477,138 +477,137 @@ code {
       <article class="entry">
         <div class="entry-head">
           <span class="rank">1</span>
-          <h3 class="entry-title">伺った「20日から」と、MSタブの期間が違う</h3>
+          <h3 class="entry-title">8月MSタブを正しい期間で作り直す</h3>
         </div>
         <p>
-          伺った2026年8月分は <span class="hit">8/20 → 9/19</span>、
-          シートの <code>8月MS</code> タブは <span class="hit">7/23 → 8/22</span> で、重なるのは3日ぶんです。
+          終了日は <span class="hit">8/19</span> で確定です。
+          開始日は、7月MSの終わりが 7/22 なので <span class="hit">7/23</span> でよいか確認させてください。
+        </p>
+        <div class="note">
+          <p><strong>先に決めておきたいこと</strong>：MSタブは<strong>日付の列に実績がぶら下がっています</strong>。
+          日付だけ差し替えると、入っている実績が別の日に付け替わります。
+          5人ぶんのデータが載っているので、<strong>列の対応を保ったまま直す</strong>か、
+          <strong>新しいタブを作って移す</strong>かを決めてから触ります。</p>
+        </div>
+        <div class="links">
+          <a class="cell" href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=943934355&range=A3:BL3">8月MSの期間（日付の行）を開く</a>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="entry-head">
+          <span class="rank">2</span>
+          <h3 class="entry-title">9月MSのシートを新しく作る</h3>
+        </div>
+        <p>
+          開始日は <span class="hit">8/20</span> で確定です。終了日と、各メンバーの目標値を確認させてください。
+        </p>
+        <p class="ask">
+          <span class="ask-label">聞き方の例</span>
+          <q>9月MSのシートを作るにあたって、終了日はいつになりますでしょうか。あと各メンバーの月間MSの目標値は、こちらで枠だけ用意しておけばよいか、目標まで入れるかも教えていただけると助かります。</q>
+        </p>
+      </article>
+
+    </div>
+  </div>
+
+  <div>
+    <h2 class="section-lead">まだ確認させていただきたいこと</h2>
+    <p class="section-sub">影響の大きい順に4件です。</p>
+
+    <div class="entries">
+
+      <article class="entry">
+        <div class="entry-head">
+          <span class="rank">1</span>
+          <h3 class="entry-title">MSの期間は、何を基準に決まっているか</h3>
+        </div>
+        <p>
+          「可変」までは伺いましたが、何で可変なのかが分からず、
+          毎月の開始日をこちらで出せない状態です。参考までに、シートに入っている過去6ヶ月です。
         </p>
 
         <div class="tbl-scroll">
           <table>
-            <caption>武者野・新規面談数（2026-08-21 時点・同じ日次タブから集計）</caption>
+            <caption>タブ名がリンクです</caption>
             <thead>
-              <tr><th>数え方</th><th class="num">期間</th><th class="num">日数</th><th class="num">実績</th></tr>
+              <tr><th>タブ</th><th class="num">期間</th><th class="num">日数</th><th class="num">開始日</th></tr>
             </thead>
             <tbody>
-              <tr><td>伺った定義</td><td class="num">8/20 〜 8/21</td><td class="num">2</td><td class="big v-stated">3</td></tr>
-              <tr><td>シートの 8月MS</td><td class="num">7/23 〜 8/21</td><td class="num">30</td><td class="big v-sheet">10</td></tr>
+              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=943934355&range=A3:BL3">8月MS</a> <span class="hit">仮で作成</span></td><td class="num">2026/07/23 〜 08/22</td><td class="num">31</td><td class="num">23</td></tr>
+              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=1169275723&range=A3:BL3">7月MS</a></td><td class="num">2026/06/22 〜 07/22</td><td class="num">31</td><td class="num">22</td></tr>
+              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=797953403&range=A3:BN3">6月MS</a></td><td class="num">2026/05/21 〜 06/21</td><td class="num">32</td><td class="num">21</td></tr>
+              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=2017278237&range=A3:BJ3">5月MS</a></td><td class="num">2026/04/21 〜 05/20</td><td class="num">30</td><td class="num">21</td></tr>
+              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=1043123195&range=A3:BN3">4月MS</a></td><td class="num">2026/03/20 〜 04/20</td><td class="num">32</td><td class="num">20</td></tr>
+              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=981462741&range=A3:BJ3">3月MS</a></td><td class="num">2026/02/18 〜 03/19</td><td class="num">30</td><td class="num">18</td></tr>
             </tbody>
           </table>
         </div>
 
-        <div class="links">
-          <a class="cell" href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=943934355&range=A3:BL3">8月MSの期間（日付の行）を開く</a>
-          <a class="cell" href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=594433572&range=A1:A12">日別の内訳を開く</a>
-        </div>
+        <p>
+          ただ、8月MS以外もこちらで作ったものだとすると、この表自体が規則の手がかりになりません。
+          <strong>どのタブがMKさん基準で、どれがこちらで作ったものか</strong>も併せて分かると助かります。
+        </p>
 
         <p class="ask">
           <span class="ask-label">聞き方の例</span>
-          <q>8月のKPIは 8/20〜9/19 で数える認識で合っていますでしょうか。シートの8月MSタブが 7/23〜8/22 で組まれていて、どちらで数えるかで新規面談数が3件と10件に変わってしまうので、そろえておきたく…！</q>
+          <q>MSの期間は何を基準に決まっていますか（営業日で区切っている等）。毎月の開始日をこちらでも出せるようにしておきたいので、規則を教えていただけると助かります。</q>
         </p>
       </article>
 
       <article class="entry">
         <div class="entry-head">
           <span class="rank">2</span>
-          <h3 class="entry-title">目標が前の期間のままになっている</h3>
+          <h3 class="entry-title">9月MSの目標値は誰がいつ決めるか</h3>
         </div>
         <p>
-          <code>8月MS</code> の月間MS（目標）は、7/23〜8/22 に対して置かれた数字です。
-          期間が 8/20〜9/19 に変わると、目標も引き直しになりそうです。
+          シートを作っても、各メンバーの月間MS（目標）が入らないと達成率が出せません。
+          いまの朝のToDoでも、目標の欄は「－」のまま出しています。
         </p>
-        <p>
-          いまは <strong>目標＝シートの22／実績＝伺った定義の3</strong> という形で出しています。
-          目標をこちらで勝手に作り直さないための形ですが、この2つでは達成率が出せません。
-        </p>
-
         <div class="links">
-          <a class="cell" href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=943934355&range=A3:C40">8月MSの目標列を開く</a>
+          <a class="cell" href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=943934355&range=A3:C40">8月MSの目標列（参考）を開く</a>
         </div>
-
-        <p class="ask">
-          <span class="ask-label">聞き方の例</span>
-          <q>期間が 8/20 始まりになる場合、月間MSの目標も引き直しになりますでしょうか。いまは目標と実績で見ている期間が違うので、達成率がお出しできず…</q>
-        </p>
       </article>
 
       <article class="entry">
         <div class="entry-head">
           <span class="rank">3</span>
-          <h3 class="entry-title">KPIの締めと売上の締めが3日違う</h3>
+          <h3 class="entry-title">MSと売上とで、月の呼び方が1つずれている</h3>
         </div>
 
         <div class="tbl-scroll">
           <table>
-            <thead><tr><th>タブ</th><th>表示している「月」</th><th class="num">期間</th></tr></thead>
+            <thead><tr><th>タブ</th><th>名乗っている「月」</th><th class="num">期間</th></tr></thead>
             <tbody>
-              <tr><td><code>8月MS</code></td><td>8月</td><td class="num">7/23 〜 <strong>8/22</strong></td></tr>
               <tr><td><code>ダッシュボード_全体</code></td><td>2026年07月</td><td class="num">7/21 〜 <strong>8/19</strong></td></tr>
+              <tr><td>（伺った定義）</td><td>8月</td><td class="num">〜 <strong>8/19</strong></td></tr>
             </tbody>
           </table>
         </div>
 
         <p>
-          面談や推薦の数と、売上とで「同じ1ヶ月」の範囲が3日ずれます。
-          月次で突き合わせるときに、面談は今月ぶん・売上は先月枠、という組み合わせが起きます。
+          ダッシュボードの終わりが 8/19 で、伺った「8/20からが9月」と<strong>きれいに揃っています</strong>。
+          つまりダッシュボード側が正しく、MSタブだけが仮だったのだと思います。
         </p>
         <p>
-          なお <code>ダッシュボード_全体</code> の 7/21〜8/19 が、伺った「20日から」に
-          <strong>1日違いで一番近い</strong>です。もしかするとこちらが元になっているのかもしれません。
+          ただダッシュボードは同じ期間を「2026年07月」と呼んでいるので、
+          <strong>月の呼び方が1つずれている</strong>ように見えます。
+          月次で突き合わせるときの読み替えを知っておきたいです。
         </p>
 
         <div class="links">
           <a class="cell" href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=1464586065&range=B4:F7">ダッシュボードの期間を開く</a>
-          <a class="cell" href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=943934355&range=A3:BL3">8月MSの期間を開く</a>
         </div>
 
         <p class="ask">
           <span class="ask-label">聞き方の例</span>
-          <q>KPIの締めが 8/22、売上の締めが 8/19 になっているようなのですが、これはそういうものでしょうか。月次で突き合わせると3日ぶんずれるので、念のため確認させてください。</q>
+          <q>ダッシュボードが「2026年07月／7/21〜8/19」となっていて、MSの月の呼び方と1つずれているように見えるのですが、これはそういうものでしょうか。月次で突き合わせるときの読み替えを知っておきたいです。</q>
         </p>
       </article>
 
       <article class="entry">
         <div class="entry-head">
           <span class="rank">4</span>
-          <h3 class="entry-title">MSの開始日が月ごとに変わっている</h3>
-        </div>
-
-        <div class="tbl-scroll">
-          <table>
-            <caption>過去6ヶ月・シートに入っている日付（タブ名がリンクです）</caption>
-            <thead>
-              <tr><th>タブ</th><th class="num">期間</th><th class="num">日数</th><th class="num">開始日</th></tr>
-            </thead>
-            <tbody>
-              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=943934355&range=A3:BL3">8月MS</a></td><td class="num">2026/07/23 〜 08/22</td><td class="num">31</td><td class="num"><strong>23</strong></td></tr>
-              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=1169275723&range=A3:BL3">7月MS</a></td><td class="num">2026/06/22 〜 07/22</td><td class="num">31</td><td class="num"><strong>22</strong></td></tr>
-              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=797953403&range=A3:BN3">6月MS</a></td><td class="num">2026/05/21 〜 06/21</td><td class="num">32</td><td class="num"><strong>21</strong></td></tr>
-              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=2017278237&range=A3:BJ3">5月MS</a></td><td class="num">2026/04/21 〜 05/20</td><td class="num">30</td><td class="num"><strong>21</strong></td></tr>
-              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=1043123195&range=A3:BN3">4月MS</a></td><td class="num">2026/03/20 〜 04/20</td><td class="num">32</td><td class="num"><strong>20</strong></td></tr>
-              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=981462741&range=A3:BJ3">3月MS</a></td><td class="num">2026/02/18 〜 03/19</td><td class="num">30</td><td class="num"><strong>18</strong></td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p>
-          開始日が <span class="hit">18・20・21・21・22・23</span> と動いていて、日数も30〜32日です。
-          営業日で区切っているのかもしれません。
-        </p>
-        <p>
-          そうだとすると「毎月20日」と覚えると少しずつずれていくので、
-          ツール側はシートに入っている日付を読む形にしてあります。
-        </p>
-
-        <p class="ask">
-          <span class="ask-label">聞き方の例</span>
-          <q>MSの期間は毎月20日固定でしょうか、それとも営業日で区切っていますか。過去6ヶ月だと開始日が18〜23日に散っているようなので、どちらで覚えればよいか教えていただけると助かります。</q>
-        </p>
-      </article>
-
-      <article class="entry">
-        <div class="entry-head">
-          <span class="rank">5</span>
           <h3 class="entry-title">月別歩留のタブが、見出しは8月・中の期間は3月</h3>
         </div>
 
@@ -638,31 +637,27 @@ code {
         </p>
       </article>
 
-      <article class="entry">
-        <div class="entry-head">
-          <span class="rank">6</span>
-          <h3 class="entry-title">日次タブには期間が書かれていない（こちらの自戒）</h3>
-        </div>
-        <p>
-          <code>daily_</code> で始まる日次のタブは、1年ぶんの日付が横に並んでいるだけで、
-          どこからどこまでを1ヶ月とするかは書かれていません。合計する側が決める形です。
-        </p>
-        <p>
-          つまり <strong>「実績◯件」と言うときは、どの期間で数えたかもセットで言う</strong>必要があります。
-          同じタブから、切り方だけで <span class="hit">3件</span> にも <span class="hit">10件</span> にもなるので。
-        </p>
+    </div>
+  </div>
 
+  <div>
+    <h2 class="section-lead">こちらの反省</h2>
+    <div class="entries">
+      <article class="entry">
+        <p>
+          日次の <code>daily_</code> タブは1年ぶんの日付が横に並んでいるだけで、
+          どこからどこまでを1ヶ月とするかは書かれていません。合計する側が決める形です。
+          つまり<strong>「実績◯件」と言うときは、どの期間で数えたかもセットで言う</strong>必要があります。
+        </p>
+        <p>
+          実際に一度間違えています。8月21日の朝、暦どおりの8月（8/1〜8/21）で数えた実績を
+          MSの目標と並べて投稿しました。たまたま7/23〜7/31が0件で数字が一致したため表には出ませんでしたが、
+          期間が合っていたわけではありません。以後は数え方をそろえた形でしか出せないようにしています。
+        </p>
         <div class="links">
           <a class="cell" href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=594433572&range=A1:BZ1">日次タブの日付の行を開く</a>
         </div>
-
-        <div class="note">
-          <p>実際にこちらで一度間違えています。8月21日の朝、暦どおりの8月（8/1〜8/21）で数えた実績を
-          MSの目標と並べて投稿しました。たまたま7/23〜7/31が0件で数字が一致したため表には出ませんでしたが、
-          期間が合っていたわけではありません。以後は数え方をそろえた形でしか出せないようにしています。</p>
-        </div>
       </article>
-
     </div>
   </div>
 
@@ -671,7 +666,7 @@ code {
       <h3>このページの使い方</h3>
       <ul>
         <li>数字が合わないと感じたときに開く。該当項目のリンクを共有すれば、口で説明しなくても現物を見てもらえます</li>
-        <li>期間が正式に決まったら、このページを「決まった内容」に書き換え、ツール側の設定も合わせます</li>
+        <li>期間が確定したら、ツール側の期間表に1行足します（計算式は置きません。可変なので）</li>
         <li>数字は2026年8月21日時点のものです</li>
       </ul>
     </div>
@@ -679,7 +674,7 @@ code {
       <h3>関連</h3>
       <ul>
         <li><code>docs/kpi_period_conflicts.md</code> — このページの元データ</li>
-        <li><code>scripts/morning_todo.py</code> — 朝のToDo。KPIの期間をここの内容に合わせています</li>
+        <li><code>scripts/morning_todo.py</code> — 朝のToDo。確定した期間だけを持っています</li>
         <li><code>docs/KPI_GLOSSARY.md</code> — 新規面談数・提案数・推薦数の数え方</li>
       </ul>
     </div>
