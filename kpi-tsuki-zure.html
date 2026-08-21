@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="歩留まり管理シートで「1ヶ月」の範囲が場所ごとに違っている点の整理と、該当セルへのリンク集。">
+</head>
+<body>
+<title>KPIの月ズレ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+/* ── ledger tokens: greenbar accounting paper ── */
+:root {
+  --paper:      #EFF2EC;
+  --card:       #FAFBF7;
+  --band:       #E4EBDF;
+  --rule:       #C9D3C4;
+  --rule-soft:  #DCE3D7;
+  --ink:        #17231D;
+  --ink-2:      #465248;
+  --ink-3:      #6E7A70;
+  --sheet:      #3C5A7A;
+  --sheet-bg:   #DFE7EF;
+  --stated:     #8A6414;
+  --stated-bg:  #F0E8D4;
+  --mark:       #A2503F;
+  --focus:      #3C5A7A;
+
+  --display: "Zilla Slab", "Zen Kaku Gothic New", Georgia, serif;
+  --body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+  --measure: 68ch;
+  --r: 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:      #12170F;
+    --card:       #1A2018;
+    --band:       #222A1F;
+    --rule:       #38412F;
+    --rule-soft:  #2A3224;
+    --ink:        #E8EDE3;
+    --ink-2:      #B3BCAF;
+    --ink-3:      #8A9486;
+    --sheet:      #8FB4D6;
+    --sheet-bg:   #1E2A36;
+    --stated:     #D9B45E;
+    --stated-bg:  #2E2717;
+    --mark:       #E0917E;
+    --focus:      #8FB4D6;
+  }
+}
+:root[data-theme="dark"] {
+  --paper:      #12170F;
+  --card:       #1A2018;
+  --band:       #222A1F;
+  --rule:       #38412F;
+  --rule-soft:  #2A3224;
+  --ink:        #E8EDE3;
+  --ink-2:      #B3BCAF;
+  --ink-3:      #8A9486;
+  --sheet:      #8FB4D6;
+  --sheet-bg:   #1E2A36;
+  --stated:     #D9B45E;
+  --stated-bg:  #2E2717;
+  --mark:       #E0917E;
+  --focus:      #8FB4D6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 78ch;
+  margin: 0 auto;
+  padding: clamp(1.75rem, 5vw, 4rem) clamp(1.1rem, 4vw, 2rem) 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* ── masthead ── */
+.mast { display: flex; flex-direction: column; gap: .9rem; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -.01em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.standfirst {
+  margin: 0;
+  max-width: var(--measure);
+  font-size: 1.06rem;
+  color: var(--ink-2);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem 1.4rem;
+  font-family: var(--mono);
+  font-size: .78rem;
+  color: var(--ink-3);
+  border-top: 1px solid var(--rule);
+  padding-top: .8rem;
+}
+
+/* ── まず結論 ── */
+.summary {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: clamp(1.2rem, 3vw, 1.7rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.summary h2 {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  padding-bottom: .7rem;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.points { display: flex; flex-direction: column; gap: .9rem; margin: 0; padding: 0; list-style: none; }
+.points li {
+  display: grid;
+  grid-template-columns: 1.6rem 1fr;
+  gap: .7rem;
+  align-items: baseline;
+}
+.points b {
+  font-family: var(--mono);
+  font-size: .85rem;
+  color: var(--sheet);
+  font-weight: 600;
+}
+.points span { max-width: var(--measure); }
+
+/* ── timeline ── */
+.chart {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 1.4rem clamp(1rem, 3vw, 1.6rem) 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.chart-title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin: 0;
+}
+.track-list { display: flex; flex-direction: column; gap: .9rem; }
+.track { display: grid; grid-template-columns: 1fr; gap: .3rem; }
+.track-label {
+  display: flex;
+  align-items: baseline;
+  gap: .55rem;
+  flex-wrap: wrap;
+  font-size: .85rem;
+}
+.track-name { font-weight: 700; }
+.track-range {
+  font-family: var(--mono);
+  font-size: .78rem;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.rail {
+  position: relative;
+  height: 22px;
+  background: var(--band);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.bar { position: absolute; top: 0; bottom: 0; border-radius: 2px; }
+.bar.stated { background: var(--stated); }
+.bar.sheet  { background: var(--sheet); }
+.bar.dash   { background: var(--ink-3); }
+
+.axis {
+  position: relative;
+  height: 1.5rem;
+  border-top: 1px solid var(--rule);
+  margin-top: .1rem;
+}
+.tick {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--ink-3);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.today { position: absolute; top: -.35rem; bottom: -.1rem; width: 2px; background: var(--mark); z-index: 3; }
+.chart-frame { position: relative; }
+
+.read-it {
+  margin: 0;
+  font-size: .92rem;
+  color: var(--ink-2);
+  border-top: 1px solid var(--rule-soft);
+  padding-top: 1rem;
+}
+.read-it b { color: var(--mark); }
+
+/* ── running note ── */
+.note {
+  border-left: 3px solid var(--sheet);
+  background: var(--sheet-bg);
+  padding: .95rem 1.15rem;
+  border-radius: 0 var(--r) var(--r) 0;
+  font-size: .93rem;
+}
+.note p { margin: 0; max-width: var(--measure); }
+.note p + p { margin-top: .5rem; }
+
+/* ── entries ── */
+.section-lead {
+  font-family: var(--display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 .4rem;
+}
+.section-sub { margin: 0 0 1.8rem; color: var(--ink-2); font-size: .95rem; max-width: var(--measure); }
+
+.entries { display: flex; flex-direction: column; gap: 2.6rem; }
+.entry { display: flex; flex-direction: column; gap: .95rem; }
+
+.entry-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .9rem;
+  align-items: baseline;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: .5rem;
+}
+.rank {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--sheet);
+  font-variant-numeric: tabular-nums;
+}
+h3.entry-title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.1rem, 3.3vw, 1.32rem);
+  line-height: 1.4;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.entry p { margin: 0; max-width: var(--measure); }
+.entry p + p { margin-top: .7rem; }
+
+.hit {
+  font-family: var(--mono);
+  font-size: .82rem;
+  color: var(--stated);
+  background: var(--stated-bg);
+  padding: .1rem .45rem;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+/* tables — greenbar stripes */
+.tbl-scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 26rem; font-size: .88rem; }
+caption { text-align: left; font-size: .8rem; color: var(--ink-3); padding-bottom: .45rem; }
+th, td { text-align: left; padding: .5rem .7rem; border-bottom: 1px solid var(--rule-soft); }
+thead th {
+  font-family: var(--mono);
+  font-size: .74rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border-bottom: 1px solid var(--rule);
+  font-weight: 500;
+}
+tbody tr:nth-child(odd) { background: var(--band); }
+td.num, th.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+td.big { font-family: var(--mono); font-weight: 600; font-size: 1.05rem; }
+.v-stated { color: var(--stated); }
+.v-sheet  { color: var(--sheet); }
+table a { color: var(--sheet); }
+
+/* sheet links */
+.links { display: flex; flex-wrap: wrap; gap: .5rem; }
+a.cell {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  font-size: .84rem;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: .42rem .75rem;
+  transition: border-color .12s ease, background .12s ease;
+}
+a.cell::before { content: "▸"; color: var(--sheet); }
+a.cell:hover { border-color: var(--sheet); background: var(--sheet-bg); }
+a.cell:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* 聞き方の例 */
+.ask {
+  margin: 0;
+  border-left: 3px solid var(--stated);
+  background: var(--stated-bg);
+  padding: .9rem 1.15rem;
+  border-radius: 0 var(--r) var(--r) 0;
+}
+.ask-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: .7rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--stated);
+  margin-bottom: .35rem;
+}
+.ask q { font-size: .95rem; quotes: "「" "」"; }
+
+/* footer */
+footer {
+  border-top: 1px solid var(--rule);
+  padding-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  font-size: .9rem;
+  color: var(--ink-2);
+}
+footer h3 { font-family: var(--display); font-size: .95rem; margin: 0 0 .4rem; color: var(--ink); }
+footer ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: .35rem; }
+code {
+  font-family: var(--mono);
+  font-size: .86em;
+  background: var(--band);
+  padding: .08rem .32rem;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <span class="eyebrow">歩留まり管理シート / 期間の確認メモ</span>
+    <h1>KPIの月ズレ</h1>
+    <p class="standfirst">
+      「今月は20日から翌月扱い」と伺いました。あらためてシートを見てみたところ、
+      「1ヶ月」の範囲がいくつかの場所で違っているようだったので、
+      どれに合わせればよいか整理しました。数字が合わないと感じたときに開いて、
+      該当箇所のリンクをそのまま見ていただくためのページです。
+    </p>
+    <div class="meta">
+      <span>2026-08-21 時点</span>
+      <span>歩留まり管理シート</span>
+      <span>確認したいこと 6件</span>
+    </div>
+  </header>
+
+  <!-- ── まず結論 ── -->
+  <section class="summary">
+    <h2>まず3行で</h2>
+    <ol class="points">
+      <li><b>01</b><span>8月のKPIは、伺ったとおり <strong>8/20〜9/19</strong> で数えるようにしました。</span></li>
+      <li><b>02</b><span>ただしシートの <code>8月MS</code> タブは <strong>7/23〜8/22</strong> で組まれています。</span></li>
+      <li><b>03</b><span>そのため同じ新規面談数が <span class="hit">3件</span> と <span class="hit">10件</span> に分かれます。目標の22は7/23〜8/22に対する数字です。</span></li>
+    </ol>
+  </section>
+
+  <!-- ── 図 ── -->
+  <section class="chart">
+    <h2 class="chart-title">「2026年8月」が指している範囲、3通り</h2>
+
+    <div class="chart-frame">
+      <div class="track-list">
+
+        <div class="track">
+          <div class="track-label">
+            <span class="track-name">伺った定義（20日始まり）</span>
+            <span class="track-range">8/20 → 9/19</span>
+          </div>
+          <div class="rail"><div class="bar stated" style="left:50.0%; width:45.5%"></div></div>
+        </div>
+
+        <div class="track">
+          <div class="track-label">
+            <span class="track-name">8月MS タブ</span>
+            <span class="track-range">7/23 → 8/22</span>
+          </div>
+          <div class="rail"><div class="bar sheet" style="left:7.6%; width:45.5%"></div></div>
+        </div>
+
+        <div class="track">
+          <div class="track-label">
+            <span class="track-name">ダッシュボード_全体「2026年07月」</span>
+            <span class="track-range">7/21 → 8/19</span>
+          </div>
+          <div class="rail"><div class="bar dash" style="left:4.5%; width:43.9%"></div></div>
+        </div>
+
+      </div>
+
+      <div class="axis">
+        <span class="tick" style="left:3.0%">7/20</span>
+        <span class="tick" style="left:21.2%">8/1</span>
+        <span class="tick" style="left:51.5%">8/21</span>
+        <span class="tick" style="left:68.2%">9/1</span>
+        <span class="tick" style="left:95.5%">9/19</span>
+      </div>
+
+      <div class="today" style="left:51.5%"></div>
+    </div>
+
+    <p class="read-it">
+      横軸が7月20日から9月19日まで、3本の帯がそれぞれの「8月」です。
+      縦の線が<b>今日（8月21日）</b>。伺った定義では始まったばかりの2日目、
+      8月MSタブでは終わりかけの30日目にあたります。
+      同じ1日が「月初」にも「月末」にもなるので、実績の数え方でここまで差が出ます。
+    </p>
+  </section>
+
+  <div class="note">
+    <p><strong>いまの運用</strong>：朝のToDoに出しているKPIは、伺った定義（毎月20日始まり）で数えています。
+    シート側の期間との差は手元に毎朝出るようにしてあるので、取り違えたまま進むことはありません。</p>
+    <p>正式にどちらかへ決まったら、このページとツールの設定を合わせます。</p>
+  </div>
+
+  <div>
+    <h2 class="section-lead">確認させていただきたいこと</h2>
+    <p class="section-sub">
+      影響の大きい順に6件です。各項目に、シートの該当セルが開くリンクと、聞き方の例を添えました。
+    </p>
+
+    <div class="entries">
+
+      <article class="entry">
+        <div class="entry-head">
+          <span class="rank">1</span>
+          <h3 class="entry-title">伺った「20日から」と、MSタブの期間が違う</h3>
+        </div>
+        <p>
+          伺った2026年8月分は <span class="hit">8/20 → 9/19</span>、
+          シートの <code>8月MS</code> タブは <span class="hit">7/23 → 8/22</span> で、重なるのは3日ぶんです。
+        </p>
+
+        <div class="tbl-scroll">
+          <table>
+            <caption>武者野・新規面談数（2026-08-21 時点・同じ日次タブから集計）</caption>
+            <thead>
+              <tr><th>数え方</th><th class="num">期間</th><th class="num">日数</th><th class="num">実績</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>伺った定義</td><td class="num">8/20 〜 8/21</td><td class="num">2</td><td class="big v-stated">3</td></tr>
+              <tr><td>シートの 8月MS</td><td class="num">7/23 〜 8/21</td><td class="num">30</td><td class="big v-sheet">10</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="links">
+          <a class="cell" href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=943934355&range=A3:BL3">8月MSの期間（日付の行）を開く</a>
+          <a class="cell" href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=594433572&range=A1:A12">日別の内訳を開く</a>
+        </div>
+
+        <p class="ask">
+          <span class="ask-label">聞き方の例</span>
+          <q>8月のKPIは 8/20〜9/19 で数える認識で合っていますでしょうか。シートの8月MSタブが 7/23〜8/22 で組まれていて、どちらで数えるかで新規面談数が3件と10件に変わってしまうので、そろえておきたく…！</q>
+        </p>
+      </article>
+
+      <article class="entry">
+        <div class="entry-head">
+          <span class="rank">2</span>
+          <h3 class="entry-title">目標が前の期間のままになっている</h3>
+        </div>
+        <p>
+          <code>8月MS</code> の月間MS（目標）は、7/23〜8/22 に対して置かれた数字です。
+          期間が 8/20〜9/19 に変わると、目標も引き直しになりそうです。
+        </p>
+        <p>
+          いまは <strong>目標＝シートの22／実績＝伺った定義の3</strong> という形で出しています。
+          目標をこちらで勝手に作り直さないための形ですが、この2つでは達成率が出せません。
+        </p>
+
+        <div class="links">
+          <a class="cell" href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=943934355&range=A3:C40">8月MSの目標列を開く</a>
+        </div>
+
+        <p class="ask">
+          <span class="ask-label">聞き方の例</span>
+          <q>期間が 8/20 始まりになる場合、月間MSの目標も引き直しになりますでしょうか。いまは目標と実績で見ている期間が違うので、達成率がお出しできず…</q>
+        </p>
+      </article>
+
+      <article class="entry">
+        <div class="entry-head">
+          <span class="rank">3</span>
+          <h3 class="entry-title">KPIの締めと売上の締めが3日違う</h3>
+        </div>
+
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr><th>タブ</th><th>表示している「月」</th><th class="num">期間</th></tr></thead>
+            <tbody>
+              <tr><td><code>8月MS</code></td><td>8月</td><td class="num">7/23 〜 <strong>8/22</strong></td></tr>
+              <tr><td><code>ダッシュボード_全体</code></td><td>2026年07月</td><td class="num">7/21 〜 <strong>8/19</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          面談や推薦の数と、売上とで「同じ1ヶ月」の範囲が3日ずれます。
+          月次で突き合わせるときに、面談は今月ぶん・売上は先月枠、という組み合わせが起きます。
+        </p>
+        <p>
+          なお <code>ダッシュボード_全体</code> の 7/21〜8/19 が、伺った「20日から」に
+          <strong>1日違いで一番近い</strong>です。もしかするとこちらが元になっているのかもしれません。
+        </p>
+
+        <div class="links">
+          <a class="cell" href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=1464586065&range=B4:F7">ダッシュボードの期間を開く</a>
+          <a class="cell" href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=943934355&range=A3:BL3">8月MSの期間を開く</a>
+        </div>
+
+        <p class="ask">
+          <span class="ask-label">聞き方の例</span>
+          <q>KPIの締めが 8/22、売上の締めが 8/19 になっているようなのですが、これはそういうものでしょうか。月次で突き合わせると3日ぶんずれるので、念のため確認させてください。</q>
+        </p>
+      </article>
+
+      <article class="entry">
+        <div class="entry-head">
+          <span class="rank">4</span>
+          <h3 class="entry-title">MSの開始日が月ごとに変わっている</h3>
+        </div>
+
+        <div class="tbl-scroll">
+          <table>
+            <caption>過去6ヶ月・シートに入っている日付（タブ名がリンクです）</caption>
+            <thead>
+              <tr><th>タブ</th><th class="num">期間</th><th class="num">日数</th><th class="num">開始日</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=943934355&range=A3:BL3">8月MS</a></td><td class="num">2026/07/23 〜 08/22</td><td class="num">31</td><td class="num"><strong>23</strong></td></tr>
+              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=1169275723&range=A3:BL3">7月MS</a></td><td class="num">2026/06/22 〜 07/22</td><td class="num">31</td><td class="num"><strong>22</strong></td></tr>
+              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=797953403&range=A3:BN3">6月MS</a></td><td class="num">2026/05/21 〜 06/21</td><td class="num">32</td><td class="num"><strong>21</strong></td></tr>
+              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=2017278237&range=A3:BJ3">5月MS</a></td><td class="num">2026/04/21 〜 05/20</td><td class="num">30</td><td class="num"><strong>21</strong></td></tr>
+              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=1043123195&range=A3:BN3">4月MS</a></td><td class="num">2026/03/20 〜 04/20</td><td class="num">32</td><td class="num"><strong>20</strong></td></tr>
+              <tr><td><a href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=981462741&range=A3:BJ3">3月MS</a></td><td class="num">2026/02/18 〜 03/19</td><td class="num">30</td><td class="num"><strong>18</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          開始日が <span class="hit">18・20・21・21・22・23</span> と動いていて、日数も30〜32日です。
+          営業日で区切っているのかもしれません。
+        </p>
+        <p>
+          そうだとすると「毎月20日」と覚えると少しずつずれていくので、
+          ツール側はシートに入っている日付を読む形にしてあります。
+        </p>
+
+        <p class="ask">
+          <span class="ask-label">聞き方の例</span>
+          <q>MSの期間は毎月20日固定でしょうか、それとも営業日で区切っていますか。過去6ヶ月だと開始日が18〜23日に散っているようなので、どちらで覚えればよいか教えていただけると助かります。</q>
+        </p>
+      </article>
+
+      <article class="entry">
+        <div class="entry-head">
+          <span class="rank">5</span>
+          <h3 class="entry-title">月別歩留のタブが、見出しは8月・中の期間は3月</h3>
+        </div>
+
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr><th class="num">場所</th><th>入っている値</th></tr></thead>
+            <tbody>
+              <tr><td class="num">見出し</td><td>2026年08月　統計シート</td></tr>
+              <tr><td class="num">期間</td><td class="num">2026/03/01 〜 2026/03/31</td></tr>
+              <tr><td class="num">売上・目標</td><td class="num">0</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          タブ名が <code>月別歩留_〇〇</code> なので、ひな形として置いてあるものかもしれません。
+          ただ見出しだけ8月に見えるので、事情を知らない人が開くと3月の枠で8月の数字を読んでしまいそうです。
+        </p>
+
+        <div class="links">
+          <a class="cell" href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=229967030&range=B4:F13">月別歩留のタブを開く</a>
+        </div>
+
+        <p class="ask">
+          <span class="ask-label">聞き方の例</span>
+          <q>月別歩留_〇〇 はひな形用のタブでしょうか。見出しが「2026年08月」で中の期間が3月になっているので、念のため確認させてください。</q>
+        </p>
+      </article>
+
+      <article class="entry">
+        <div class="entry-head">
+          <span class="rank">6</span>
+          <h3 class="entry-title">日次タブには期間が書かれていない（こちらの自戒）</h3>
+        </div>
+        <p>
+          <code>daily_</code> で始まる日次のタブは、1年ぶんの日付が横に並んでいるだけで、
+          どこからどこまでを1ヶ月とするかは書かれていません。合計する側が決める形です。
+        </p>
+        <p>
+          つまり <strong>「実績◯件」と言うときは、どの期間で数えたかもセットで言う</strong>必要があります。
+          同じタブから、切り方だけで <span class="hit">3件</span> にも <span class="hit">10件</span> にもなるので。
+        </p>
+
+        <div class="links">
+          <a class="cell" href="https://docs.google.com/spreadsheets/d/1KBz22dXYY_dk12Pbidv02YFnUmrQfLuu-RnadtrR-ag/edit#gid=594433572&range=A1:BZ1">日次タブの日付の行を開く</a>
+        </div>
+
+        <div class="note">
+          <p>実際にこちらで一度間違えています。8月21日の朝、暦どおりの8月（8/1〜8/21）で数えた実績を
+          MSの目標と並べて投稿しました。たまたま7/23〜7/31が0件で数字が一致したため表には出ませんでしたが、
+          期間が合っていたわけではありません。以後は数え方をそろえた形でしか出せないようにしています。</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <h3>このページの使い方</h3>
+      <ul>
+        <li>数字が合わないと感じたときに開く。該当項目のリンクを共有すれば、口で説明しなくても現物を見てもらえます</li>
+        <li>期間が正式に決まったら、このページを「決まった内容」に書き換え、ツール側の設定も合わせます</li>
+        <li>数字は2026年8月21日時点のものです</li>
+      </ul>
+    </div>
+    <div>
+      <h3>関連</h3>
+      <ul>
+        <li><code>docs/kpi_period_conflicts.md</code> — このページの元データ</li>
+        <li><code>scripts/morning_todo.py</code> — 朝のToDo。KPIの期間をここの内容に合わせています</li>
+        <li><code>docs/KPI_GLOSSARY.md</code> — 新規面談数・提案数・推薦数の数え方</li>
+      </ul>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
