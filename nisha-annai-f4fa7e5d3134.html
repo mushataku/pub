@@ -1,0 +1,364 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>2社のご案内</title>
+<style>
+  :root {
+    --ground: #F5F6F8; --panel: #FFFFFF; --ink: #1D2126; --muted: #6E757F;
+    --dim: #A3AAB3; --rule: #D6DAE0; --accent: #17696E; --accent-soft: #E2EDEC;
+    --warn: #A9642B; --warn-soft: #F4EBE1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --ground: #14161A; --panel: #1B1E23; --ink: #E7EAEE; --muted: #9199A3;
+      --dim: #626A74; --rule: #2E333A; --accent: #4FB3B8; --accent-soft: #1B3234;
+      --warn: #D9A26A; --warn-soft: #2C2419; }
+  }
+  :root[data-theme="dark"] {
+    --ground: #14161A; --panel: #1B1E23; --ink: #E7EAEE; --muted: #9199A3;
+    --dim: #626A74; --rule: #2E333A; --accent: #4FB3B8; --accent-soft: #1B3234;
+    --warn: #D9A26A; --warn-soft: #2C2419;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body { background: var(--ground); color: var(--ink);
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic Medium", "Yu Gothic", "Noto Sans JP", "Meiryo", sans-serif;
+    line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  .deck { height: 100vh; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+  .slide { min-height: 100vh; scroll-snap-align: start; scroll-snap-stop: always;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: clamp(2rem, 6vh, 4rem) clamp(1.2rem, 6vw, 4rem) clamp(3.5rem, 8vh, 5rem);
+    position: relative; border-bottom: 1px solid var(--rule); }
+  .inner { width: 100%; max-width: 980px; margin: 0 auto; }
+  .num { position: absolute; bottom: clamp(1.2rem, 3vh, 2rem); right: clamp(1.2rem, 6vw, 4rem);
+    font-family: ui-monospace, Consolas, monospace; font-size: 0.72rem; letter-spacing: 0.14em; color: var(--dim); }
+  .eyebrow { font-family: ui-monospace, Consolas, monospace; font-size: 0.72rem; letter-spacing: 0.16em; color: var(--muted); margin: 0 0 0.7rem; }
+  h1 { margin: 0; font-size: clamp(2rem, 7vw, 3.4rem); font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
+  h2 { margin: 0 0 clamp(1.2rem, 3vh, 2rem); font-size: clamp(1.35rem, 4.6vw, 2.3rem); font-weight: 700; line-height: 1.4; text-wrap: balance; }
+  h3 { margin: 0 0 0.6rem; font-size: 1.05rem; }
+  .sub { margin: 1rem 0 0; color: var(--muted); font-size: clamp(0.9rem, 2.6vw, 1.05rem); }
+  .fin { margin: clamp(1.2rem, 3vh, 1.8rem) 0 0; font-size: clamp(1rem, 3vw, 1.25rem); font-weight: 700; text-wrap: balance; }
+  .fin.soft { font-weight: 400; color: var(--muted); font-size: 0.95rem; }
+  p { margin: 0 0 0.8rem; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-soft); }
+  a:hover { border-bottom-color: var(--accent); }
+  .src { font-size: 0.78rem; color: var(--muted); }
+  .src a { color: var(--muted); }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.8rem; margin: 1rem 0; }
+  .stat { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 0.9rem 1rem; }
+  .stat-n { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+  .stat-l { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+  .card { background: var(--panel); border: 1px solid var(--rule); border-radius: 12px; padding: 1.1rem 1.25rem; }
+  .card.accent { border-color: var(--accent); background: var(--accent-soft); }
+  .card.warn { border-color: var(--warn); background: var(--warn-soft); }
+  .tag { display: inline-block; font-size: 0.7rem; letter-spacing: 0.08em; padding: 0.15rem 0.5rem; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent); font-weight: 700; margin-bottom: 0.5rem; }
+  .tag.w { background: var(--warn-soft); color: var(--warn); }
+  ul { margin: 0.3rem 0 0.8rem 1.1rem; padding: 0; }
+  li { margin: 0.25rem 0; }
+  .tbl { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: 0.82rem; }
+  tr:last-child td { border-bottom: none; }
+  .flow { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin: 0.6rem 0 1rem; }
+  .flow .step { background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 0.45rem 0.8rem; font-size: 0.88rem; }
+  .flow .step b { display: block; font-size: 0.72rem; color: var(--muted); font-weight: 400; }
+  .flow .arrow { color: var(--dim); }
+  .quote { border-left: 3px solid var(--accent); padding: 0.3rem 0 0.3rem 1rem; color: var(--ink); margin: 0.8rem 0; font-size: 0.95rem; }
+  .hint { position: fixed; bottom: 0.8rem; left: 50%; transform: translateX(-50%); font-size: 0.72rem; color: var(--dim); letter-spacing: 0.1em; }
+</style>
+
+<div class="deck" data-skeleton="none">
+
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">2026年8月21日（金）　ご本人へ</p>
+    <h1>2社のご案内</h1>
+    <p class="sub">前回の2社と同じ「未経験・育成枠」ですが、こちらは<b>人から教わる仕組み</b>を会社が前面に出している2社です。</p>
+    <p class="fin soft">スクロール（↓キー）で1画面ずつ進みます。出典はすべて公開ページで、青い文字から飛べます。</p>
+  </div>
+  <div class="num">01</div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">前回からの整理</p>
+    <h2>落ちた理由は、書類ではなく「当て先」でした</h2>
+    <p>前回の2社は、どちらも<b>「実務でプログラミング言語に触れている人」や「今すぐ配属できる案件がある地域」</b>を前提に人を見ていました。書類の出来が原因ではない、という回答を先方から得ています。</p>
+    <div class="cards">
+      <div class="card">
+        <span class="tag">いま持っている札</span>
+        <ul>
+          <li>品質保証の実務 1年9ヶ月（金融システム）</li>
+          <li>応用情報技術者（独学で合格）</li>
+          <li>VBA／生成AIで 目視1,000件→50件 の自動化</li>
+          <li>GitHubに公開した制作物2点（Python・個人サイト）</li>
+          <li>8月20日以降、すぐ動ける</li>
+        </ul>
+      </div>
+      <div class="card accent">
+        <span class="tag">今回の2社が見ているもの</span>
+        <ul>
+          <li>経歴・言語経験は問わず、<b>学ぶ姿勢と論理性</b>で採る</li>
+          <li>入社後に<b>研修→資格→配属</b>の順で育てる</li>
+          <li>資格を持っている人を<b>給与に反映</b>する制度がある</li>
+        </ul>
+        <p class="fin" style="margin-top:0.6rem;font-size:1rem">「独学がしんどい、人から教わりたい」に、制度で答える2社です。</p>
+      </div>
+    </div>
+  </div>
+  <div class="num">02</div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">1社目</p>
+    <h2>オープンアップITエンジニア<br><span style="font-size:0.7em;color:var(--muted);font-weight:400">ITインフラ特化・国内最大級の育成型エンジニア会社</span></h2>
+    <div class="stats">
+      <div class="stat"><div class="stat-n">5,448<span style="font-size:0.9rem">人</span></div><div class="stat-l">従業員数（2026年6月）</div></div>
+      <div class="stat"><div class="stat-n">約800<span style="font-size:0.9rem">社</span></div><div class="stat-l">取引先企業</div></div>
+      <div class="stat"><div class="stat-n">6,544<span style="font-size:0.9rem">件</span></div><div class="stat-l">社員の資格取得 累計</div></div>
+      <div class="stat"><div class="stat-n">96<span style="font-size:0.9rem">%</span></div><div class="stat-l">資格取得率（研修受講者）</div></div>
+      <div class="stat"><div class="stat-n">30.0<span style="font-size:0.9rem">歳</span></div><div class="stat-l">エンジニア平均年齢</div></div>
+      <div class="stat"><div class="stat-n">4.3<span style="font-size:0.9rem">/5</span></div><div class="stat-l">研修満足度</div></div>
+    </div>
+    <p class="src">出典: 公式 <a href="https://www.openupitengineer.co.jp/data/">数字でみるオープンアップITエンジニア</a>／<a href="https://www.openupitengineer.co.jp/company/overview/">会社概要</a>。1998年設立・東証プライム上場「オープンアップグループ」の100%子会社（<a href="https://www.openupitengineer.co.jp/company/history/">沿革</a>）。</p>
+    <p class="quote">会社の方針は「<b>Act for Engineer First</b>」＝エンジニアのキャリアと成長を行動の起点にする、と掲げています（会社説明資料より）。</p>
+  </div>
+  <div class="num">03</div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">オープンアップIT　①学ぶ仕組み</p>
+    <h2>入社してから、学校のように学びます</h2>
+    <div class="flow">
+      <div class="step"><b>入社直後</b>基礎研修（約1ヶ月・通学）</div><span class="arrow">→</span>
+      <div class="step"><b>コース</b>CCNA ／ LPIC（サーバ・クラウド）</div><span class="arrow">→</span>
+      <div class="step"><b>配属</b>現場デビュー</div><span class="arrow">→</span>
+      <div class="step"><b>2〜3年後</b>高度研修（AWS・Azure・Security など）</div>
+    </div>
+    <ul>
+      <li>研修は<b>同期と一緒に教室形式</b>。メンター・テクニカルアドバイザーが付きます（会社説明より）</li>
+      <li>公式の研修体系は「ITfundamentals → Essentials（CCNA／LPIC／社内SE）→ Advanced（AWS／Azure／Server／Network／Security）」の3段（<a href="https://www.openupitengineer.co.jp/recruit/training/">研修制度</a>）</li>
+      <li>「入社後1か月以内に必ず面談を行い」と明記＝放置されない設計（同ページ）</li>
+      <li><b>資格を取ると受験料補助＋一時金または手当</b>（資格の難易度でS〜Eランク・同ページ）。<b>応用情報を既に持っているここで最初から有利</b>です</li>
+    </ul>
+    <p class="fin">「問1が解けないと問2に進めない」を一人で抱えた日々の、反対側にある環境です。</p>
+  </div>
+  <div class="num">04</div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">オープンアップIT　②その先</p>
+    <h2>上流の案件が半分以上ある、が売り文句</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>案件の内訳（会社説明）</h3>
+        <ul>
+          <li>分野: ネットワーク40%／クラウド31%／アプリ・PM他</li>
+          <li>難易度: <b>詳細設計・構築40%</b>／保守運用45%／要件定義ほか</li>
+        </ul>
+        <p class="src">「他社は保守運用が8〜9割」は先方の言い分で、比較数字は未公開。そのまま鵜呑みにはしません。</p>
+      </div>
+      <div class="card">
+        <h3>給与の上がり方（公式）</h3>
+        <ul>
+          <li>7月に年次昇給</li>
+          <li>資格取得で給与増</li>
+          <li>キャリアレベル（T1〜T10→S／M）で昇給</li>
+          <li>取引先の評価・業務難易度で増える独自制度</li>
+        </ul>
+        <p class="src"><a href="https://www.openupitengineer.co.jp/recruit/mid-career/career/">キャリアと報酬</a></p>
+      </div>
+      <div class="card">
+        <h3>働き方（会社説明）</h3>
+        <ul>
+          <li>年間休日122日／平均残業 月7.5時間／有給取得率76%</li>
+          <li>賞与年2回（6月・12月）／昇給年1回</li>
+          <li>エンジニアの女性比率31%（<a href="https://www.openupitengineer.co.jp/data/">公式</a>）</li>
+        </ul>
+      </div>
+    </div>
+    <p class="fin soft">※「上流40%」「残業7.5h」「有給76%」は会社説明資料の数字で、公式サイトには未掲載。面接で「未経験入社の人が詳細設計へ移るまで平均何年か」を聞く材料にします。</p>
+  </div>
+  <div class="num">05</div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">オープンアップIT　③勤務地と入社時期</p>
+    <h2>勤務地は3つから選べて、選び方は合否に影響しない</h2>
+    <div class="cards">
+      <div class="card"><span class="tag">全国転勤</span><p>転居が出た場合の費用は会社負担。</p></div>
+      <div class="card"><span class="tag">地域限定</span><p>関東（1都3県）など、エリアを限定。</p></div>
+      <div class="card"><span class="tag">通勤限定</span><p>現住所から<b>90分圏内</b>。東京駅・新宿駅に90分で行けるかが目安。</p></div>
+    </div>
+    <p style="margin-top:1rem">先方から<b>「どの区分を選んでも採用基準は変わらない」</b>と明言を得ています（会社説明）。</p>
+    <div class="card warn" style="margin-top:0.8rem">
+      <span class="tag w">正直に書きます</span>
+      <p>以前この会社を候補から外したのは、口コミに「<b>希望勤務地を絞ると案件が少なく、入社が最短でも半年後と言われた</b>」「研修後に配属待ちが数ヶ月」という声があったからです（<a href="https://jobtalk.jp/companies/30407">転職会議</a> など複数）。</p>
+      <p>状況が2つ変わりました。①あなたは<b>8月20日以降すぐ動ける</b>＝入社時期の交渉で強い。②<b>地域限定（関東）</b>にすれば、案件が絞られる問題は小さくなります。<b>「通勤限定だと最短いつ入社できるか／地域限定だとどう変わるか」を先方に先に聞きます。</b></p>
+    </div>
+  </div>
+  <div class="num">06</div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">2社目</p>
+    <h2>Ascent Business Consulting（ABC）<br><span style="font-size:0.7em;color:var(--muted);font-weight:400">コンサル会社の中にある、未経験エンジニア育成枠</span></h2>
+    <div class="stats">
+      <div class="stat"><div class="stat-n">164<span style="font-size:0.9rem">名</span></div><div class="stat-l">従業員数</div></div>
+      <div class="stat"><div class="stat-n">33<span style="font-size:0.9rem">歳</span></div><div class="stat-l">平均年齢</div></div>
+      <div class="stat"><div class="stat-n">新橋<span style="font-size:0.9rem">徒歩1分</span></div><div class="stat-l">本社</div></div>
+      <div class="stat"><div class="stat-n">3<span style="font-size:0.9rem">ヶ月</span></div><div class="stat-l">入社後の研修期間（実務なし）</div></div>
+      <div class="stat"><div class="stat-n">83<span style="font-size:0.9rem">%</span></div><div class="stat-l">定着率（2025年採用・法定開示）</div></div>
+      <div class="stat"><div class="stat-n">最短2<span style="font-size:0.9rem">週間</span></div><div class="stat-l">内定までの目安（公式）</div></div>
+    </div>
+    <p class="src">出典: 公式 <a href="https://ascent-biz.com/recruit/">採用情報</a>／<a href="https://ascent-biz.com/company/">会社概要</a>／<a href="https://job.mynavi.jp/27/pc/search/corp264025/outline.html">マイナビ 会社概要（定着率・平均勤続）</a></p>
+    <p class="quote">募集要項の言葉そのまま: 「<b>経歴・スキルは問いません！ 若手層の育成枠のため、ポテンシャルを重視した採用になります。</b>」（<a href="https://ascent-biz.com/recruit/">公式採用ページ</a>）</p>
+    <p>仕事の中身は<b>インフラエンジニア</b>。大手通信キャリアのバックボーン、金融機関の全国ネットワークなどの<b>設計・構築・テスト</b>（同ページ）。日立でやっていた「テストで品質を担保する」経験がそのまま効きます。</p>
+  </div>
+  <div class="num">07</div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">ABC　①学ぶ仕組み</p>
+    <h2>研修3ヶ月。マンツーマンで、実機を触って覚える</h2>
+    <div class="flow">
+      <div class="step"><b>1ヶ月目</b>集中研修（ロジカルシンキング・役員プレゼン・新規事業立案）</div><span class="arrow">→</span>
+      <div class="step"><b>2〜3ヶ月目</b>ITインフラ研修（実機でサーバー構築・NW構築演習・模擬プロジェクト）</div><span class="arrow">→</span>
+      <div class="step"><b>配属後</b>6ヶ月〜1年かけて独り立ち</div>
+    </div>
+    <ul>
+      <li>ITインフラ研修は、この会社が<b>法人向けに販売している研修を社員が無料で受ける</b>形。「経験豊富なプロ講師が、座学と実践でマンツーマン指導します」（<a href="https://ascent-biz.com/recruit/">公式</a>）</li>
+      <li>「未経験でも現場でイチから教えるので、6ヶ月〜1年程度かけて独り立ちできるようサポートします」（同）</li>
+      <li>資格を取ると<b>資格取得金</b>を支給。社員の声「資格を取れば案件の単価も上がり、それが自分の評価や給与にも反映される」（公式note）</li>
+      <li>年4回のフィードバック面談／自分で手を挙げて昇格を申請する<b>プロモーション申請制度</b>（<a href="https://ascent-biz.com/recruit/faq/">採用FAQ</a>）</li>
+    </ul>
+    <p class="quote">元社員（ネットワーク運用・20代）「想定よりもしっかり丁寧に教育していただいた」「手を挙げれば大体のことをやらせてもらえる環境」（<a href="https://jobtalk.jp/companies/8236397">転職会議</a>・1件の声）</p>
+  </div>
+  <div class="num">08</div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">ABC　②お金と働き方（ここは数字で）</p>
+    <h2>入口の年収は336万円前後。3つの別ルートで一致しています</h2>
+    <div class="tbl"><table>
+      <tr><th>出どころ</th><th>数字</th></tr>
+      <tr><td>新卒募集要項（エンジニア職）</td><td>月給 280,000円（基本給204,800＋みなし残業45時間分75,200）＝年 336万円。試用期間6.5ヶ月は月給266,700円 <span class="src"><a href="https://job.mynavi.jp/27/pc/corpinfo/displayRecruitingCourseList/index?corpId=264025">マイナビ2027</a></span></td></tr>
+      <tr><td>中途求人票（初級エンジニア）</td><td>336万〜400万円</td></tr>
+      <tr><td>在籍社員の口コミ（中途・インフラ・3年未満）</td><td>「年収336万円、月給25万円、残業代7万円、賞与36万円」 <span class="src"><a href="https://en-hyouban.com/company/10200242275/salary/">エン カイシャの評判</a></span></td></tr>
+    </table></div>
+    <div class="cards" style="margin-top:1rem">
+      <div class="card">
+        <h3>働き方（会社の公表値）</h3>
+        <ul>
+          <li>土日祝休み・年末年始／有給初年度10日</li>
+          <li>平均残業 月18〜20時間（会社紹介資料・法定開示）</li>
+          <li>勤務地: 本社（新橋）または都内のプロジェクト先</li>
+          <li>関東ITソフトウェア健保／資格取得補助／コワーキング使い放題</li>
+        </ul>
+      </div>
+      <div class="card warn">
+        <span class="tag w">先に知っておくこと</span>
+        <ul>
+          <li>給与に<b>みなし残業45時間分</b>が含まれます（実残業は20時間前後＝差額分は実質上乗せ、とも読めます）</li>
+          <li>平均勤続は3年（法定開示）。長く居る人が少ない会社です</li>
+          <li>口コミの全体評価は「人は良い／待遇と長期育成は弱い」が一貫（<a href="https://www.openwork.jp/company.php?m_id=a0C1000000vvHLR">OpenWork</a> 平均年収473万・n=12）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="num">09</div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">ABC　③選考</p>
+    <h2>速い。ただし「面接3回」の前に2段あります</h2>
+    <div class="flow">
+      <div class="step">説明会</div><span class="arrow">→</span>
+      <div class="step">書類選考</div><span class="arrow">→</span>
+      <div class="step">Web適性検査</div><span class="arrow">→</span>
+      <div class="step">一次面接</div><span class="arrow">→</span>
+      <div class="step">二次面接</div><span class="arrow">→</span>
+      <div class="step">最終面接</div>
+    </div>
+    <ul>
+      <li>公式の目安は<b>「最短2週間で内定」</b>。1day選考会→最終面接、という短縮ルートも募集媒体に実在します（<a href="https://ascent-biz.com/recruit/">公式</a>）</li>
+      <li>採用基準は「<b>マインドフィット</b>」＝論理的思考・主体性・カルチャーマッチ。<b>応用情報は歓迎要件（資格保有）に正面から当たります</b></li>
+      <li>面接練習で作ってきた「独学がしんどいから人から教わりたい」の原体験は、<b>この会社の研修設計そのものへの志望動機</b>になります</li>
+    </ul>
+    <p class="fin">コンサル会社なので、面接で見られるのは技術より「考え方を言葉にできるか」。あなたが2回の練習で一番伸びた部分です。</p>
+  </div>
+  <div class="num">10</div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">並べると</p>
+    <h2>役割が違う2社です</h2>
+    <div class="tbl"><table>
+      <tr><th></th><th>オープンアップITエンジニア</th><th>ABC</th></tr>
+      <tr><td>会社の形</td><td>大手（5,448人）・エンジニアを育てて現場へ送る会社</td><td>164人・コンサル会社の中のエンジニア部門</td></tr>
+      <tr><td>研修</td><td>約1ヶ月（CCNA／LPIC）＋2〜3年後に高度研修</td><td>3ヶ月（ビジネス基礎1＋インフラ2・マンツーマン）</td></tr>
+      <tr><td>仕事</td><td>インフラ（ネットワーク・クラウド中心）</td><td>インフラ（通信キャリア・金融のNW／サーバー）</td></tr>
+      <tr><td>給与の見え方</td><td>資格・等級・取引先評価で段階的に上がる（金額は非公開）</td><td>入口336万前後が公開情報で確認できる</td></tr>
+      <tr><td>勤務地</td><td>3区分から選択・選択は合否に無関係</td><td>新橋本社または都内</td></tr>
+      <tr><td>選考</td><td>面接 基本1回（速い）</td><td>書類→適性→面接3回（最短2週間）</td></tr>
+      <tr><td>気をつける点</td><td>配属までの待機期間（地域限定で緩和）</td><td>みなし残業45h・平均勤続3年</td></tr>
+    </table></div>
+    <p class="fin">規模で安心を取るならオープンアップ、少人数で手厚く教わるならABC。どちらも「人から教わって、資格で上がる」道です。</p>
+  </div>
+  <div class="num">11</div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">こちらから確かめること</p>
+    <h2>出す前に、先方へ聞いておきます</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>オープンアップIT</h3>
+        <ul>
+          <li>通勤限定／地域限定それぞれで、<b>最短の入社日と配属までの期間</b></li>
+          <li>研修コース（CCNA／LPIC）は誰がどう決めるのか</li>
+          <li>未経験入社の人が詳細設計・構築へ移るまで平均何年か</li>
+          <li>夜勤・休日出勤の希望は制度として通るのか</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>ABC</h3>
+        <ul>
+          <li>中途未経験の場合の<b>基本給と固定残業時間</b>（新卒は28万／45hと公開済み）</li>
+          <li>賞与は固定分と業績分の内訳</li>
+          <li>入社後の配属は請負チーム側か、別ルートか。その割合</li>
+          <li>エンジニアから将来「開発」へ動く道があるか（公式の転向先はPM／ITコンサル）</li>
+        </ul>
+      </div>
+    </div>
+    <p class="fin soft">ご本人から追加で聞きたいことがあれば、この2社については一緒にまとめて投げます。</p>
+  </div>
+  <div class="num">12</div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">次の一手</p>
+    <h2>書類はできています。あとは出す先を決めるだけ</h2>
+    <ul>
+      <li>職務経歴書は<b>GitHubの制作物を載せた最新版</b>が準備済み（今日お見せしているもの）</li>
+      <li>2社とも出すなら、今日中に先方へ推薦の連絡を入れます。片方だけでも構いません</li>
+      <li>面接日程は、あなたが<b>8月20日以降いつでも</b>なので、最短で来週に入る可能性があります</li>
+    </ul>
+    <p class="fin">前回は「書類で見てもらえない」場所に出してしまいました。今回は、持っている札をそのまま評価する場所に出します。</p>
+  </div>
+  <div class="num">13</div>
+</section>
+
+</div>
+<div class="hint">↓ キーで進む</div>
+</body></html>
