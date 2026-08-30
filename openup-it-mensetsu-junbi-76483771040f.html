@@ -356,6 +356,16 @@ ul.bul li::before { content: ""; position: absolute; left: 2px; top: 13px; width
 
 /* 5件のNGは1枚に収める（割れると下に空の帯が残る） */
 .ng { break-inside: avoid; page-break-inside: avoid; }
+
+/* 「その他」は要件定義＝最上流なので、上流側の色に寄せる */
+.cmp-seg.etc2 { background: var(--indigo-soft); color: var(--indigo); font-weight: 700; }
+/* 行動喚起の1行（枠の中で一番強い） */
+.mega .cta {
+  display: block; margin-top: 16px; padding: 13px 16px;
+  background: var(--indigo); color: var(--card);
+  font-family: var(--f-head); font-weight: 700;
+  font-size: 21px; line-height: 1.5; text-align: center;
+}
 </style>
 </head>
 <body>
@@ -422,7 +432,7 @@ ul.bul li::before { content: ""; position: absolute; left: 2px; top: 13px; width
 
   <div class="mega">
     <span class="tag">この会社を受ける理由</span>
-    <h4>ふつうは9割が保守・運用。<br>この会社は、上流が約半分あります。</h4>
+    <h4>ふつうは9割が保守・運用。<br>この会社は、半分以上が上流です。</h4>
     <div class="cmp">
       <div class="cmp-row">
         <p class="cmp-name">よくある同業他社<b>（目安）</b></p>
@@ -436,11 +446,11 @@ ul.bul li::before { content: ""; position: absolute; left: 2px; top: 13px; width
         <div class="cmp-bar">
           <div class="cmp-seg hoshu" style="flex:0 0 45%">保守・運用 45%</div>
           <div class="cmp-seg joryu" style="flex:0 0 40%">詳細設計・構築 40%</div>
-          <div class="cmp-seg etc" style="flex:0 0 15%">その他</div>
+          <div class="cmp-seg etc2" style="flex:0 0 15%">要件定義など</div>
         </div>
       </div>
     </div>
-    <p class="cmp-note">上段は業界の一般的な構成の目安。下段はこの会社が示している案件の内訳。</p>
+    <p class="cmp-note">上段は業界の一般的な構成の目安。下段はこの会社が示している案件の内訳。<b>要件定義は最上流の仕事</b>なので、詳細設計・構築40%と合わせて<b>上流が55%</b>です。</p>
   </div>
 
   <ul class="bul">
@@ -452,15 +462,17 @@ ul.bul li::before { content: ""; position: absolute; left: 2px; top: 13px; width
   <h3 id="c01-2">入ってからの分かれ道</h3>
 
   <div class="mega">
-    <span class="tag">ここで差がつく</span>
-    <h4>基礎研修で上位25〜30%に入る。</h4>
-    <div class="big">1〜3<small>年早い</small></div>
-    <p><b>同じ会社に同じ日に入って、ここで道が分かれます。</b>上位に入れば選抜制の「高度研修」へ進み、構築・設計の補助から仕事を始められます。入れなければ保守・運用から、同じ場所へ数年かけて向かうことになります。</p>
+    <span class="tag">ここで道が分かれます</span>
+    <h4>コード研修に入れるかどうか。<br>それだけで、この先が変わります。</h4>
+    <div class="big">出世が1年早い</div>
+    <p>基礎研修の成績で<b>上位25〜30%</b>に入ると、選抜制の<b>コード研修</b>（会社の制度名は「高度研修」）へ進めます。修了すると<b>現場経験がなくてもミドルレベルの案件から始められる</b>と会社は説明しています。入れなければ保守・運用から、同じ場所へ数年かけて向かうことになります。</p>
+    <p><b>同じ会社に、同じ日に入って、ここで道が分かれます。</b></p>
+    <span class="cta">だから、コード研修に入りましょう。</span>
   </div>
 
   <figure class="diagram">
     <svg viewBox="0 0 700 190" role="img" aria-labelledby="dg2-title">
-      <title id="dg2-title">基礎研修1ヶ月のあと、上位25〜30%は高度研修を経て構築・設計補助へ、それ以外は保守・運用から始めて数年かけて上流の仕事へ向かう。</title>
+      <title id="dg2-title">基礎研修1ヶ月のあと、上位25〜30%はコード研修を経て構築・設計補助へ、それ以外は保守・運用から始めて数年かけて上流の仕事へ向かう。</title>
       <defs>
         <marker id="dg2-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"></path>
@@ -482,12 +494,12 @@ ul.bul li::before { content: ""; position: absolute; left: 2px; top: 13px; width
         <text x="75" y="110" text-anchor="middle" style="fill:var(--muted);font-size:13px">1ヶ月</text>
 
         <rect x="210" y="15" width="140" height="50" rx="4" style="fill:var(--indigo-soft);stroke:var(--indigo);stroke-width:1.5"></rect>
-        <text x="280" y="36" text-anchor="middle" style="fill:var(--ink);font-size:15px;font-weight:700">高度研修</text>
+        <text x="280" y="36" text-anchor="middle" style="fill:var(--ink);font-size:15px;font-weight:700">コード研修</text>
         <text x="280" y="56" text-anchor="middle" style="fill:var(--indigo);font-size:12.5px;font-weight:700">上位25〜30%</text>
 
         <rect x="390" y="15" width="170" height="50" rx="4" style="fill:var(--indigo);stroke:var(--indigo);stroke-width:2"></rect>
         <text x="475" y="36" text-anchor="middle" style="fill:var(--card);font-size:15px;font-weight:700">構築・設計補助へ</text>
-        <text x="475" y="56" text-anchor="middle" style="fill:var(--card);font-size:12.5px;font-weight:700">同期より1〜3年早い</text>
+        <text x="475" y="56" text-anchor="middle" style="fill:var(--card);font-size:12.5px;font-weight:700">同期より1年早い</text>
 
         <rect x="210" y="140" width="140" height="50" rx="4" style="fill:var(--card-2);stroke:var(--rule-2);stroke-width:1.5"></rect>
         <text x="280" y="161" text-anchor="middle" style="fill:var(--ink-2);font-size:15px;font-weight:700">保守・運用</text>
@@ -513,7 +525,7 @@ ul.bul li::before { content: ""; position: absolute; left: 2px; top: 13px; width
   </ul>
 
   <div class="mega hot">
-    <h4>ここに入るために、面接を通ります。<br>02章から、その準備です。</h4>
+    <h4>ここまでが、この会社を受ける理由。<br>ここからは、通るための準備です。</h4>
   </div>
 </section>
 
@@ -587,7 +599,11 @@ ul.bul li::before { content: ""; position: absolute; left: 2px; top: 13px; width
 
 <section id="c03">
   <h2><span class="n">03</span>案内が届いたら、すぐ動くもの</h2>
-  <p><b>期限や日数の縛りがあるものが混ざっています。</b>後回しにすると間に合いません。</p>
+  <div class="mega hot">
+    <span class="tag">後回しにすると間に合わない</span>
+    <h4>期限があるのは2つ。<br>これだけは、今日のうちに。</h4>
+    <p>面接受付票のフォームは<b>面接日の2営業日前</b>が期限。まなびっとは<b>登録完了まで2〜3営業日</b>かかります。<b>この2つだけは、他より先に片付けてください。</b>残りは後から間に合います。</p>
+  </div>
 
   <h3 id="c03-1">期限つき（先に片付ける）</h3>
   <ul class="check">
@@ -643,8 +659,8 @@ ul.bul li::before { content: ""; position: absolute; left: 2px; top: 13px; width
 
   <div class="qbox">
     <p class="qh">なぜこの会社なのですか</p>
-    <p class="qb"><b>01章の2つを、必ず両方出してください。</b>①上流の案件を会社が実際に持っている ②そこへ早く行くための高度研修がある。片方だけだと弱いです。</p>
-    <p class="qb">「調べたら上流の案件が約半分ありました。ほとんどが保守・運用という会社が多いなかで珍しいと思っています。頑張った先に行き先がある。だから高度研修に入るつもりで勉強して、そこへ早く行きたい」</p>
+    <p class="qb"><b>01章の2つを、必ず両方出してください。</b>①上流の案件を会社が実際に持っている ②そこへ早く行くための<b>コード研修</b>がある。片方だけだと弱いです。</p>
+    <p class="qb">「調べたら上流の案件が約半分ありました。ほとんどが保守・運用という会社が多いなかで珍しいと思っています。頑張った先に行き先がある。だからコード研修に入るつもりで勉強して、そこへ早く行きたい」</p>
     <p class="prep"><b>▷ 用意するもの</b>：上の言い方を、自分の言葉に置き換える。</p>
   </div>
 
@@ -657,15 +673,20 @@ ul.bul li::before { content: ""; position: absolute; left: 2px; top: 13px; width
 
   <div class="qbox">
     <p class="qh">今後どうなっていきたいですか</p>
-    <p class="qb"><b>ここも01章に繋げてください。</b>「まず高度研修に入れる位置まで行って、そこから構築・設計に関わりたい」。<span class="mk">一般論の「成長したい」で終わらせない。</span></p>
+    <p class="qb"><b>ここも01章に繋げてください。</b>「まずコード研修に入れる位置まで行って、そこから構築・設計に関わりたい」。<span class="mk">一般論の「成長したい」で終わらせない。</span></p>
     <p class="prep"><b>▷ 用意するもの</b>：3年後と5年後の姿を、それぞれ一文で。</p>
   </div>
 
   <div class="qbox">
     <p class="qh">いま、自己研鑽はしていますか</p>
     <p class="qb">やっていることを<b>いつ始めて、どこまで進んだか</b>まで言えるように。資格の勉強、書籍、まなびっと、何でも構いません。</p>
-    <p class="qb"><em>「仕事が忙しくて何もしていません」は言わないでください。</em>これから学び続ける仕事なので、いちばん引っかかる答えです。</p>
     <p class="prep"><b>▷ 用意するもの</b>：やっていること1つ＋開始時期＋進み具合。</p>
+  </div>
+
+  <div class="mega hot">
+    <span class="tag">絶対に言わない</span>
+    <h4>「仕事が忙しくて、<br>何もしていません」</h4>
+    <p>これから学び続ける仕事です。<b>この一言がいちばん引っかかります。</b>小さくて構いません。何か1つ、始めてから面接に行ってください。</p>
   </div>
 
   <div class="qbox">
@@ -677,7 +698,7 @@ ul.bul li::before { content: ""; position: absolute; left: 2px; top: 13px; width
   <ul class="plain">
     <li><b>未経験で入社された方が、構築や設計の仕事に移るまで、平均でどのくらいかかりますか</b></li>
     <li><b>入社直後の研修コースは、どういう基準で決まりますか</b></li>
-    <li><b>高度研修に進まれた方は、研修中どんな勉強の仕方をされていましたか</b></li>
+    <li><b>コード研修（高度研修）に進まれた方は、研修中どんな勉強の仕方をされていましたか</b></li>
   </ul>
   <p>返ってきた答えに「それは、たとえばどういうことですか」と一歩踏み込めば時間は埋まります。</p>
   <div class="pull warn">
@@ -700,8 +721,11 @@ ul.bul li::before { content: ""; position: absolute; left: 2px; top: 13px; width
     <li><div><b>終わったら担当に一報</b><span class="sub">覚えているうちに共有いただけると、この先の選考にそのまま活きます。</span></div></li>
   </ol>
 
-  <h3 id="c05-2">これで落ちた人がいます</h3>
-  <p>企業から共有されている見送り理由5つ。<b>どれも能力の問題ではありません。</b></p>
+  <h3 id="c05-2">落ちる5つ</h3>
+  <div class="mega hot">
+    <h4>これで落ちた人がいます。</h4>
+    <p>企業から共有されている見送り理由が5つ。<b>どれも能力の問題ではありません。知っていれば避けられます。</b></p>
+  </div>
   <div class="ng">
     <div><h4>話をさえぎる</h4><p>面接官が話している途中で答え始める。一呼吸おいてから。</p></div>
     <div><h4>口調がくだけすぎる</h4><p>話しやすい雰囲気につられがち。最後まで敬語を。</p></div>
