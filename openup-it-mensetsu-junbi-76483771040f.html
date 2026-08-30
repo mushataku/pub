@@ -322,6 +322,40 @@ footer {
   .toc { display: none !important; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* ★色の役割を2本に分ける: indigo=会社の魅力（01章）／red=面接の技術（02・04・05章） */
+:root { --red: #b3261e; --red-soft: #fbecea; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --red: #f0948c; --red-soft: #2e1c1a; }
+}
+:root[data-theme="dark"] { --red: #f0948c; --red-soft: #2e1c1a; }
+
+.mega.hot { border-color: var(--red); background: var(--red-soft); }
+.mega.hot .tag { background: var(--red); }
+.mega.hot .big { color: var(--red); }
+.mega .prep-in {
+  border-top: 1px dashed var(--rule-2);
+  padding-top: 10px; margin-top: 12px;
+  font-size: 14px;
+}
+
+/* 本文中の「ここを読め」＝赤（使いすぎない） */
+.mk { color: var(--red); font-weight: 700; }
+
+/* 補足は短い箇条書きで（文章で流さない） */
+ul.bul { list-style: none; margin: 18px 0 0; padding: 0; }
+ul.bul li { position: relative; padding-left: 20px; margin-bottom: 10px; max-width: 62ch; color: var(--ink-2); }
+ul.bul li::before { content: ""; position: absolute; left: 2px; top: 13px; width: 9px; height: 2px; background: var(--indigo); }
+
+/* 自己紹介の型＝チップで視覚化 */
+.steps { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 12px; }
+.steps span {
+  background: var(--card); border: 1.5px solid var(--red); color: var(--ink);
+  font-size: 13px; font-weight: 700; padding: 6px 11px;
+}
+
+/* 5件のNGは1枚に収める（割れると下に空の帯が残る） */
+.ng { break-inside: avoid; page-break-inside: avoid; }
 </style>
 </head>
 <body>
@@ -330,42 +364,38 @@ footer {
 <nav class="toc" aria-label="目次">
   <p class="toc-h">目次</p>
   <ol>
-    <li><a href="#c01">01 どういう場か</a>
+    <li><a href="#c01">01 どういう会社か</a>
       <ul>
-        <li><a href="#c01-1">進み方</a></li>
-        <li><a href="#c01-2">適性検査</a></li>
-        <li><a href="#c01-3">見られている2つ</a></li>
-        <li><a href="#c01-4">雰囲気</a></li>
+        <li><a href="#c01-1">上流が半分</a></li>
+        <li><a href="#c01-2">分かれ道</a></li>
+        <li><a href="#c01-3">働き方・勤務地</a></li>
       </ul>
     </li>
-    <li><a href="#c02">02 案内が届いたら</a>
+    <li><a href="#c02">02 どういう面接か</a>
       <ul>
-        <li><a href="#c02-1">準備の流れ</a></li>
-        <li><a href="#c02-2">期限つきの提出物</a></li>
-        <li><a href="#c02-3">視聴して仕込む材料</a></li>
-        <li><a href="#c02-4">最終チェック</a></li>
+        <li><a href="#c02-1">当日の流れ</a></li>
+        <li><a href="#c02-2">適性検査</a></li>
+        <li><a href="#c02-3">見られている2つ</a></li>
       </ul>
     </li>
-    <li><a href="#c03">03 会社について</a>
+    <li><a href="#c03">03 すぐ動くもの</a>
       <ul>
-        <li><a href="#c03-1">働き方</a></li>
-        <li><a href="#c03-2">上流の案件が多い</a></li>
-        <li><a href="#c03-3">研修と分かれ道</a></li>
-        <li><a href="#c03-4">勤務地</a></li>
+        <li><a href="#c03-1">期限つき</a></li>
+        <li><a href="#c03-2">見ておく</a></li>
+        <li><a href="#c03-3">前日まで</a></li>
       </ul>
     </li>
     <li><a href="#c04">04 答えを用意する</a>
       <ul>
-        <li><a href="#c04-1">よく聞かれる6問</a></li>
-        <li><a href="#c04-2">逆質問</a></li>
-        <li><a href="#c04-3">書き出したら送る</a></li>
+        <li><a href="#c04-1">話し方の型</a></li>
+        <li><a href="#c04-2">よく聞かれる6問</a></li>
+        <li><a href="#c04-3">逆質問</a></li>
       </ul>
     </li>
     <li><a href="#c05">05 当日</a>
       <ul>
         <li><a href="#c05-1">当日の流れ</a></li>
-        <li><a href="#c05-2">内容以前で落ちない</a></li>
-        <li><a href="#c05-3">練習の仕方</a></li>
+        <li><a href="#c05-2">落ちる5つ</a></li>
       </ul>
     </li>
   </ol>
@@ -374,136 +404,12 @@ footer {
 <header>
   <p class="eyebrow">株式会社オープンアップITエンジニア</p>
   <h1>面接の準備</h1>
-  <p>書類選考の通過、おめでとうございます。ここから面接当日までにやることを、この1本にまとめました。</p>
-  <p>章は準備の順に並んでいます。上から進めてください。読み終えたときに「当日まで何をするか」が自分の言葉で言えれば、準備の半分は終わっています。最後の章「当日」だけは、前日にもう一度開いてください。</p>
+  <p>書類選考の通過、おめでとうございます。</p>
+  <p>まず<b>この会社がどういうところか</b>を01章で押さえてください。そのうえで、通るための準備を02章から順にやります。</p>
 </header>
 
 <section id="c01">
-  <h2><span class="n">01</span>この面接は、どういう場か</h2>
-
-  <h3 id="c01-1">進み方</h3>
-  <div class="facts">
-    <dl class="fact"><dt>面接ツール</dt><dd>Microsoft Teams<small>アカウント登録は不要。URLから参加できます</small></dd></dl>
-    <dl class="fact"><dt>所要時間</dt><dd>60〜75分<small>会社説明と個別面接を合わせて</small></dd></dl>
-    <dl class="fact"><dt>進み方</dt><dd>会社説明 → 個別面接<small>個別パートが中心。最後に逆質問の時間があります</small></dd></dl>
-    <dl class="fact"><dt>服装</dt><dd>スーツ・ネクタイ<small>Web面接でも対面と同じです</small></dd></dl>
-  </div>
-  <figure class="diagram">
-    <svg viewBox="0 0 700 120" role="img" aria-labelledby="dg1-title">
-      <title id="dg1-title">当日の流れ。入室待機のあと会社説明はカメラオフ、個別面接からカメラオン、逆質問のあと終了。</title>
-      <defs>
-        <marker id="dg1-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"></path>
-        </marker>
-      </defs>
-      <g style="stroke:var(--muted);stroke-width:1.6">
-        <path d="M128,54 L142,54" marker-end="url(#dg1-arrow)"></path>
-        <path d="M262,54 L276,54" marker-end="url(#dg1-arrow)"></path>
-        <path d="M396,54 L410,54" marker-end="url(#dg1-arrow)"></path>
-        <path d="M530,54 L544,54" marker-end="url(#dg1-arrow)"></path>
-      </g>
-      <g style="font-family:var(--f-body)">
-        <rect x="10" y="24" width="118" height="60" rx="4" style="fill:var(--card);stroke:var(--rule-2);stroke-width:1.5"></rect>
-        <text x="69" y="50" text-anchor="middle" style="fill:var(--ink);font-size:13px;font-weight:700">入室待機</text>
-        <text x="69" y="68" text-anchor="middle" style="fill:var(--muted);font-size:11px">5分前</text>
-
-        <rect x="144" y="24" width="118" height="60" rx="4" style="fill:var(--card-2);stroke:var(--rule-2);stroke-width:1.5"></rect>
-        <text x="203" y="50" text-anchor="middle" style="fill:var(--ink-2);font-size:13px;font-weight:700">会社説明</text>
-        <text x="203" y="68" text-anchor="middle" style="fill:var(--muted);font-size:11px">複数名・OFF</text>
-
-        <rect x="278" y="24" width="118" height="60" rx="4" style="fill:var(--indigo-soft);stroke:var(--indigo);stroke-width:2"></rect>
-        <text x="337" y="50" text-anchor="middle" style="fill:var(--ink);font-size:13px;font-weight:700">個別面接</text>
-        <text x="337" y="68" text-anchor="middle" style="fill:var(--indigo);font-size:11px">カメラON</text>
-
-        <rect x="412" y="24" width="118" height="60" rx="4" style="fill:var(--indigo-soft);stroke:var(--indigo);stroke-width:1.5"></rect>
-        <text x="471" y="50" text-anchor="middle" style="fill:var(--ink);font-size:13px;font-weight:700">逆質問</text>
-        <text x="471" y="68" text-anchor="middle" style="fill:var(--muted);font-size:11px">15分ほど</text>
-
-        <rect x="546" y="24" width="118" height="60" rx="4" style="fill:var(--card);stroke:var(--rule-2);stroke-width:1.5"></rect>
-        <text x="605" y="50" text-anchor="middle" style="fill:var(--ink);font-size:13px;font-weight:700">終了</text>
-        <text x="605" y="68" text-anchor="middle" style="fill:var(--muted);font-size:11px">担当へ一報</text>
-      </g>
-      <text x="270" y="108" text-anchor="middle" style="fill:var(--muted);font-size:11.5px">ここでカメラがOFFからONに切り替わります</text>
-    </svg>
-    <p class="cap">横軸は当日の時間の流れです。会社説明まではカメラOFF、個別面接からカメラONになります。</p>
-  </figure>
-  <p>個別のパートは、経歴や志望についての会話が中心です。</p>
-
-  <h3 id="c01-2">適性検査</h3>
-  <p>選考には適性検査もあります。中身は算数の計算問題です。「計算なら大丈夫」と流さないでください。<b>正解した数がそのまま合否に響く方式</b>なので、油断が一番の敵です。実施のタイミングは案内によって変わります。事前のフォームに含まれていても、当日に出てきても、慌てないでください。</p>
-
-  <h3 id="c01-3">見られている2つ</h3>
-  <p>面接で見られているのは、難しい技術知識ではありません。<b>話がきちんと通じるか。ITの仕事で伸びていく意欲があるか。</b>この2つです。どちらも才能ではなく、準備で作れます。この資料の残りは全部そのための準備です。</p>
-
-  <h3 id="c01-4">雰囲気</h3>
-  <div class="pull">
-    <p>雰囲気は、穏やかです。圧迫面接ではありません。企業の資料にも「お話しやすい雰囲気」とあり、これまで受けた方からもそう聞いています。ただ、その穏やかさは面接官が合わせてくれているものであって、評価が緩いという意味ではありません。実際に見送りになった理由として共有されているのは、「つられて口調が緩んだ」「姿勢が崩れた」といった、<b>内容以前のこと</b>ばかりです。ここは最後の章でまとめて書きます。</p>
-  </div>
-</section>
-
-<section id="c02">
-  <h2><span class="n">02</span>案内が届いたら、すぐ動くもの</h2>
-
-  <h3 id="c02-1">準備の流れ</h3>
-  <p>面接の案内には、やることがいくつか同封されています。どれも作業自体は軽いのですが、<b>期限や日数の縛りがあるものが混ざっている</b>ので、後回しにすると間に合わなくなります。</p>
-  <figure class="diagram">
-    <svg viewBox="0 0 700 120" role="img" aria-labelledby="dg3-title">
-      <title id="dg3-title">準備の時系列。案内到着、数日かけて準備、前日に最終確認、当日。</title>
-      <defs>
-        <marker id="dg3-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"></path>
-        </marker>
-      </defs>
-      <g style="stroke:var(--muted);stroke-width:1.6">
-        <path d="M170,54 L188,54" marker-end="url(#dg3-arrow)"></path>
-        <path d="M340,54 L358,54" marker-end="url(#dg3-arrow)"></path>
-        <path d="M510,54 L528,54" marker-end="url(#dg3-arrow)"></path>
-      </g>
-      <g style="font-family:var(--f-body)">
-        <rect x="20" y="24" width="150" height="60" rx="4" style="fill:var(--card);stroke:var(--rule-2);stroke-width:1.5"></rect>
-        <text x="95" y="50" text-anchor="middle" style="fill:var(--ink);font-size:13px;font-weight:700">案内が届いたら</text>
-        <text x="95" y="68" text-anchor="middle" style="fill:var(--muted);font-size:11px">フォーム・動画・登録</text>
-
-        <rect x="190" y="24" width="150" height="60" rx="4" style="fill:var(--card);stroke:var(--rule-2);stroke-width:1.5"></rect>
-        <text x="265" y="50" text-anchor="middle" style="fill:var(--ink);font-size:13px;font-weight:700">数日かけて</text>
-        <text x="265" y="68" text-anchor="middle" style="fill:var(--muted);font-size:11px">会社を知る・答えを作る</text>
-
-        <rect x="360" y="24" width="150" height="60" rx="4" style="fill:var(--card-2);stroke:var(--rule-2);stroke-width:1.5"></rect>
-        <text x="435" y="50" text-anchor="middle" style="fill:var(--ink-2);font-size:13px;font-weight:700">前日</text>
-        <text x="435" y="68" text-anchor="middle" style="fill:var(--muted);font-size:11px">機器テスト・05章再読</text>
-
-        <rect x="530" y="24" width="150" height="60" rx="4" style="fill:var(--indigo-soft);stroke:var(--indigo);stroke-width:2"></rect>
-        <text x="605" y="50" text-anchor="middle" style="fill:var(--ink);font-size:13px;font-weight:700">当日</text>
-        <text x="605" y="68" text-anchor="middle" style="fill:var(--indigo);font-size:11px">05章のとおりに</text>
-      </g>
-    </svg>
-    <p class="cap">横軸は案内が届いてから当日までの時間の流れです。</p>
-  </figure>
-
-  <h3 id="c02-2">期限つきの提出物</h3>
-  <ul class="check">
-    <li><div><b>面接受付票のフォームに回答する</b><span class="sub">提出期限は面接日の2営業日前。いちばん先に片付けてください。ただし、もしフォームに計算問題が含まれていたら、その場の勢いで解き始めず、静かな環境で紙とペンを用意してから回答を。</span></div></li>
-    <li><div><b>無料学習ツール「まなびっと」に登録する</b><span class="sub">公式サイトから登録できる動画学習ツールです。登録完了まで2〜3営業日かかるので、これも早めに。研修の中身が体験でき、進めた分がそのまま面接で話せる材料になります。</span></div></li>
-  </ul>
-
-  <h3 id="c02-3">視聴して仕込む材料</h3>
-  <ul class="check">
-    <li><div><b>会社案内の動画を見る</b><span class="sub">パスワード付きのURLで届きます。視聴できる期間が決まっているので、届いたら早めに。ここで聞いた内容は、04章の志望動機と逆質問の材料になります。</span></div></li>
-    <li><div><b>紹介動画（5分程度）を見る</b><span class="sub">YouTubeのリンクで届きます。短いので動画2本は同じ日に見てしまうのが楽です。</span></div></li>
-    <li><div><b>AI面接練習（案内があった場合）</b><span class="sub">任意ですが、使えるのは1回だけです。答えを用意する前に使うともったいないので、04章まで済ませてから使ってください。</span></div></li>
-  </ul>
-
-  <h3 id="c02-4">最終チェック</h3>
-  <ul class="check">
-    <li><div><b>計算の感覚を戻しておく</b><span class="sub">適性検査に向けて、紙とペンで基本的な計算問題を何問か解いておいてください。検査そのものの対策というより、久しぶりの筆算で焦らないためです。</span></div></li>
-    <li><div><b>カメラ・マイク・接続を一度テストする</b><span class="sub">パソコンならTeamsアプリ、またはEdge / Chrome。SafariとFirefoxは正常に動かないと企業から案内が出ています。スマートフォンならTeamsアプリが必須です。イヤホンがあると聞き取りやすくなります。</span></div></li>
-    <li><div><b>スーツ・シャツを出しておく</b><span class="sub">男性はネクタイを締めて第一ボタンまで、女性はビジネススーツで大丈夫です。当日の朝ではなく、前日までに手元に揃えておくと安心です。</span></div></li>
-  </ul>
-</section>
-
-<section id="c03">
-  <h2><span class="n">03</span>会社について、これだけ押さえる</h2>
-  <p>面接では「自分なりに調べてきたか」を見られます。数字を暗記する必要はありません。ゴールは、<b>この会社が他とどう違うのかを一言で言える</b>ことです。公式サイト（<a href="https://www.ouen.ne.jp/">ouen.ne.jp</a>）に目を通したうえで、この章の4点を押さえてください。</p>
+  <h2><span class="n">01</span>どういう会社か</h2>
 
   <div class="facts">
     <dl class="fact"><dt>設立</dt><dd>1998年</dd></dl>
@@ -512,12 +418,8 @@ footer {
     <dl class="fact"><dt>未経験スタート</dt><dd>約8割</dd></dl>
   </div>
 
-  <h3 id="c03-1">働き方は「雇用はこの会社、仕事は取引先の現場で」</h3>
-  <p>この会社に雇用されて、実際の仕事は取引先企業の現場で行う働き方です。入社直後の研修が終わると、取引先の仕事（<b>案件</b>と呼ばれます）に配属されて、そこで経験を積んでいきます。取引先が900社以上あるというのは、配属先の候補がそれだけある、という意味です。</p>
-  <p>この仕組みを理解しているかは、面接でも確認されることがあります。「御社で研修を受けて、取引先の現場で経験を積んでいく形だと理解しています」と自分の言葉で言えるようにしておいてください。</p>
+  <h3 id="c01-1">いちばんの違い</h3>
 
-  <h3 id="c03-2">違いは「上流の案件が多い」こと</h3>
-  <p>ITの仕事は大きく分けると、動いているシステムを見守る<b>保守・運用</b>（下流と呼ばれます）と、新しく作る<b>構築・設計</b>（上流）があります。未経験で入った人は、ふつう保守・運用からスタートします。</p>
   <div class="mega">
     <span class="tag">この会社を受ける理由</span>
     <h4>ふつうは9割が保守・運用。<br>この会社は、上流が約半分あります。</h4>
@@ -538,18 +440,24 @@ footer {
         </div>
       </div>
     </div>
-    <p class="cmp-note">上段は業界の一般的な構成の目安です。下段はこの会社が示している案件の内訳（残りは要件定義など）。</p>
-    <p style="margin-top:12px">多くの会社は、上流の仕事が<b>そもそも社内にありません</b>。行き先が無いのだから、本人がどれだけ頑張っても上流には移れません。この会社は<b>詳細設計・構築が40%</b>。「その先の仕事」を会社が実際に持っている、ということです。</p>
-    <p><b>面接で「なぜ当社か」と聞かれたら、この話をしてください。</b>ここを外すと、どの会社にも当てはまる志望動機になります。</p>
+    <p class="cmp-note">上段は業界の一般的な構成の目安。下段はこの会社が示している案件の内訳。</p>
   </div>
 
-  <p>技術分野は、ネットワークが40%、クラウド（インターネット経由で使うサーバー環境）が31%。大手企業の案件が多いのも特徴です。</p>
-  <div class="pull warn">
-    <p>ひとつ気をつけてください。<b>40%は「会社が抱えている案件の内訳」であって、「自分が上流に行ける確率」ではありません。</b>だからこそ、04章の逆質問で「未経験で入社された方が構築・設計に移るまで平均どのくらいか」を必ず聞いてください。ここを聞けるかどうかで、面接官から見た本気度が変わります。</p>
+  <ul class="bul">
+    <li><b>上流</b>＝新しく作る（構築・設計）。<b>保守・運用</b>＝動いているものを見守る。未経験はふつう保守・運用から始めます。</li>
+    <li>多くの会社は上流の仕事が<b>そもそも社内にありません</b>。行き先が無いので、頑張っても移れません。</li>
+    <li>この会社は<b>その先の仕事を実際に持っている</b>。ネットワーク40%・クラウド31%、大手企業の案件が中心です。</li>
+  </ul>
+
+  <h3 id="c01-2">入ってからの分かれ道</h3>
+
+  <div class="mega">
+    <span class="tag">ここで差がつく</span>
+    <h4>基礎研修で上位25〜30%に入る。</h4>
+    <div class="big">1〜3<small>年早い</small></div>
+    <p><b>同じ会社に同じ日に入って、ここで道が分かれます。</b>上位に入れば選抜制の「高度研修」へ進み、構築・設計の補助から仕事を始められます。入れなければ保守・運用から、同じ場所へ数年かけて向かうことになります。</p>
   </div>
 
-  <h3 id="c03-3">研修と、その先の分かれ道</h3>
-  <p>入社直後に<b>1ヶ月の通学研修</b>があります。学校の授業のような形式で、同期と一緒に、ネットワークやサーバーの基礎資格（CCNAやLPICなど）の取得を目指します。メンターやアドバイザーも付きます。</p>
   <figure class="diagram">
     <svg viewBox="0 0 700 190" role="img" aria-labelledby="dg2-title">
       <title id="dg2-title">基礎研修1ヶ月のあと、上位25〜30%は高度研修を経て構築・設計補助へ、それ以外は保守・運用から始めて数年かけて上流の仕事へ向かう。</title>
@@ -590,81 +498,194 @@ footer {
         <text x="555" y="181" text-anchor="middle" style="fill:var(--muted);font-size:12.5px">上流の仕事へ</text>
       </g>
     </svg>
-    <p class="cap">横軸は入社からの時間の流れです。上のルートほど早く構築・設計の仕事に届きます。</p>
+    <p class="cap">横軸は入社からの時間の流れです。</p>
   </figure>
-  <div class="mega">
-    <span class="tag">入ってからの分かれ道</span>
-    <h4>基礎研修で上位25〜30%に入る。<br>それだけで、上流に届くのが早くなります。</h4>
-    <div class="big">1〜3<small>年早い</small></div>
-    <p>基礎研修の成績で上位25〜30%に入ると、選抜制の<b>「高度研修」</b>に進む道があります。図の上のルートです。ここに乗れた人は構築・設計の補助から仕事を始められます。乗れなかった人は保守・運用からスタートして、同じ場所へ数年かけて向かうことになります。<b>同じ会社に同じ日に入って、ここで道が分かれます。</b></p>
-    <p><b>「入社してからどう伸びたいか」を聞かれたら、必ずこの話に繋げてください。</b>繋げずに答えると、他のどの会社にも出せる志望動機になります。04章の答えも、全部この軸で組み立てます。</p>
+
+  <div class="pull warn">
+    <p><b>40%は「会社が抱えている案件の内訳」で、「自分が上流に行ける確率」ではありません。</b>だから04章の逆質問で「未経験入社の方が構築・設計に移るまで平均どのくらいか」を必ず聞いてください。</p>
   </div>
 
-  <h3 id="c03-4">勤務地は3つから選べる</h3>
-  <p>全国転勤／地域限定／通勤限定の3区分があり、<b>どれを選んでも選考の通りやすさは変わらない</b>とされています。通勤限定を選ぶ場合は、主要駅まで90分以内が目安です（関東なら渋谷・新宿から90分圏）。面接で勤務地の希望を聞かれたら、正直に答えて大丈夫です。</p>
+  <h3 id="c01-3">働き方と勤務地</h3>
+  <ul class="bul">
+    <li><b>雇用はこの会社、仕事は取引先の現場で。</b>研修のあと取引先の仕事（<b>案件</b>）に配属されます。取引先900社以上＝配属先の候補がそれだけある、という意味です。</li>
+    <li>面接で確認されることがあります。<span class="mk">「御社で研修を受けて、取引先の現場で経験を積んでいく形だと理解しています」</span>と言えるように。</li>
+    <li>勤務地は<b>全国転勤／地域限定／通勤限定</b>の3つ。<b>どれを選んでも選考の通りやすさは変わりません。</b>通勤限定は主要駅まで90分以内が目安（関東なら渋谷・新宿から90分圏）。正直に答えて大丈夫です。</li>
+  </ul>
+
+  <div class="mega hot">
+    <h4>ここに入るために、面接を通ります。<br>02章から、その準備です。</h4>
+  </div>
+</section>
+
+<section id="c02">
+  <h2><span class="n">02</span>どういう面接か</h2>
+
+  <div class="facts">
+    <dl class="fact"><dt>面接ツール</dt><dd>Microsoft Teams<small>登録不要・URLから参加</small></dd></dl>
+    <dl class="fact"><dt>所要時間</dt><dd>60〜75分</dd></dl>
+    <dl class="fact"><dt>進み方</dt><dd>会社説明 → 個別面接<small>最後に逆質問</small></dd></dl>
+    <dl class="fact"><dt>服装</dt><dd>スーツ・ネクタイ<small>Webでも対面と同じ</small></dd></dl>
+  </div>
+
+  <h3 id="c02-1">当日の流れ</h3>
+  <figure class="diagram">
+    <svg viewBox="0 0 700 120" role="img" aria-labelledby="dg1-title">
+      <title id="dg1-title">当日の流れ。入室待機のあと会社説明はカメラオフ、個別面接からカメラオン、逆質問のあと終了。</title>
+      <defs>
+        <marker id="dg1-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"></path>
+        </marker>
+      </defs>
+      <g style="stroke:var(--muted);stroke-width:1.6">
+        <path d="M128,54 L142,54" marker-end="url(#dg1-arrow)"></path>
+        <path d="M262,54 L276,54" marker-end="url(#dg1-arrow)"></path>
+        <path d="M396,54 L410,54" marker-end="url(#dg1-arrow)"></path>
+        <path d="M530,54 L544,54" marker-end="url(#dg1-arrow)"></path>
+      </g>
+      <g style="font-family:var(--f-body)">
+        <rect x="10" y="24" width="118" height="60" rx="4" style="fill:var(--card);stroke:var(--rule-2);stroke-width:1.5"></rect>
+        <text x="69" y="49" text-anchor="middle" style="fill:var(--ink);font-size:15px;font-weight:700">入室待機</text>
+        <text x="69" y="69" text-anchor="middle" style="fill:var(--muted);font-size:12.5px">5分前</text>
+
+        <rect x="144" y="24" width="118" height="60" rx="4" style="fill:var(--card-2);stroke:var(--rule-2);stroke-width:1.5"></rect>
+        <text x="203" y="49" text-anchor="middle" style="fill:var(--ink-2);font-size:15px;font-weight:700">会社説明</text>
+        <text x="203" y="69" text-anchor="middle" style="fill:var(--muted);font-size:12.5px">カメラOFF</text>
+
+        <rect x="278" y="24" width="118" height="60" rx="4" style="fill:var(--indigo);stroke:var(--indigo);stroke-width:2"></rect>
+        <text x="337" y="49" text-anchor="middle" style="fill:var(--card);font-size:15px;font-weight:700">個別面接</text>
+        <text x="337" y="69" text-anchor="middle" style="fill:var(--card);font-size:12.5px;font-weight:700">カメラON</text>
+
+        <rect x="412" y="24" width="118" height="60" rx="4" style="fill:var(--indigo-soft);stroke:var(--indigo);stroke-width:1.5"></rect>
+        <text x="471" y="49" text-anchor="middle" style="fill:var(--ink);font-size:15px;font-weight:700">逆質問</text>
+        <text x="471" y="69" text-anchor="middle" style="fill:var(--muted);font-size:12.5px">15分ほど</text>
+
+        <rect x="546" y="24" width="118" height="60" rx="4" style="fill:var(--card);stroke:var(--rule-2);stroke-width:1.5"></rect>
+        <text x="605" y="49" text-anchor="middle" style="fill:var(--ink);font-size:15px;font-weight:700">終了</text>
+        <text x="605" y="69" text-anchor="middle" style="fill:var(--muted);font-size:12.5px">担当へ一報</text>
+      </g>
+      <text x="270" y="108" text-anchor="middle" style="fill:var(--muted);font-size:12.5px">ここでカメラがOFFからONに切り替わります</text>
+    </svg>
+  </figure>
+
+  <h3 id="c02-2">適性検査</h3>
+  <div class="mega hot">
+    <span class="tag">油断が一番の敵</span>
+    <h4>算数の計算問題。<br>正解した数が、そのまま合否に響きます。</h4>
+    <p>「計算なら大丈夫」で流さないでください。実施のタイミングは案内によって変わります（事前フォームに含まれることも、当日出てくることも）。<b>紙とペンを用意して、静かな環境で。</b></p>
+  </div>
+
+  <h3 id="c02-3">見られている2つ</h3>
+  <div class="mega hot">
+    <h4>① 話がきちんと通じるか<br>② 伸びていく意欲があるか</h4>
+    <p>難しい技術知識は見られていません。<b>どちらも才能ではなく、準備で作れます。</b>この資料の残りは全部そのための準備です。</p>
+  </div>
+
+  <div class="pull">
+    <p>雰囲気は<b>穏やか</b>で、圧迫面接ではありません。ただし穏やかさは面接官が合わせてくれているだけで、評価が緩いわけではありません。実際の見送り理由は<span class="mk">内容以前のこと</span>ばかりです（05章）。</p>
+  </div>
+</section>
+
+<section id="c03">
+  <h2><span class="n">03</span>案内が届いたら、すぐ動くもの</h2>
+  <p><b>期限や日数の縛りがあるものが混ざっています。</b>後回しにすると間に合いません。</p>
+
+  <h3 id="c03-1">期限つき（先に片付ける）</h3>
+  <ul class="check">
+    <li><div><b>面接受付票のフォームに回答</b><span class="sub"><span class="mk">面接日の2営業日前が期限。</span>計算問題が含まれていたら、その場の勢いで解かず紙とペンを用意してから。</span></div></li>
+    <li><div><b>学習ツール「まなびっと」に登録</b><span class="sub"><span class="mk">登録完了まで2〜3営業日。</span>研修の中身が体験でき、進めた分がそのまま面接の材料になります。</span></div></li>
+  </ul>
+
+  <h3 id="c03-2">見ておく（04章の材料になる）</h3>
+  <ul class="check">
+    <li><div><b>会社案内の動画</b><span class="sub">パスワード付きURL。視聴期間が決まっているので届いたら早めに。</span></div></li>
+    <li><div><b>紹介動画（5分程度）</b><span class="sub">YouTubeリンク。動画2本は同じ日に見てしまうのが楽です。</span></div></li>
+    <li><div><b>AI面接練習（案内があった場合）</b><span class="sub"><b>使えるのは1回だけ。</b>04章まで済ませてから使ってください。</span></div></li>
+  </ul>
+
+  <h3 id="c03-3">前日まで</h3>
+  <ul class="check">
+    <li><div><b>計算の感覚を戻す</b><span class="sub">紙とペンで何問か。久しぶりの筆算で焦らないためです。</span></div></li>
+    <li><div><b>カメラ・マイク・接続をテスト</b><span class="sub">PCはTeamsアプリ／Edge・Chrome。<span class="mk">SafariとFirefoxは動きません。</span>スマホはTeamsアプリ必須。イヤホンがあると聞き取りやすい。</span></div></li>
+    <li><div><b>スーツ・シャツを出しておく</b><span class="sub">男性はネクタイを締めて第一ボタンまで。女性はビジネススーツ。</span></div></li>
+  </ul>
 </section>
 
 <section id="c04">
   <h2><span class="n">04</span>聞かれることに、答えを用意する</h2>
-  <p>聞かれることは、ほぼ決まっています。全部に共通するコツは1つだけ。<b>結論を先に言って、理由をあとに短く足す。</b>背景から話し始めて結論が見えないのは、それだけで見送り理由に挙がっています。</p>
 
-  <h3 id="c04-1">よく聞かれる6問</h3>
-  <div class="qbox">
-    <p class="qh">自己紹介をお願いします（最初に必ず聞かれます）</p>
-    <p class="qb">1分にまとめます。順番はこの型で固定してください。<b>氏名 → 年齢 → 学歴（結論だけ）→ 職歴（結論だけ）→ 直近の仕事内容を少し具体的に → 「現在に至ります。本日はよろしくお願いいたします」</b></p>
-    <p class="qb">詳しい経緯は、聞かれてから答えれば十分です。最初に全部話そうとすると必ず長くなります。</p>
-    <p class="prep"><b>▷ 用意するもの</b>：この型に自分の経歴を当てはめて、声に出して1分で収まるか測る。</p>
+  <h3 id="c04-1">話し方の型（全部の質問に効きます）</h3>
+
+  <div class="mega hot">
+    <span class="tag">これだけは必ず</span>
+    <h4>結論を先に言う。<br>理由はあとから、短く足す。</h4>
+    <p>背景から話し始めて結論が見えないのは、<b>それだけで見送り理由に挙がっています。</b></p>
   </div>
+
+  <div class="mega hot">
+    <span class="tag">最初に必ず聞かれる</span>
+    <h4>自己紹介は、1分。</h4>
+    <div class="steps">
+      <span>氏名</span><span>年齢</span><span>学歴</span><span>職歴</span><span>直近の仕事だけ具体的に</span><span>現在に至ります</span>
+    </div>
+    <p>この順番で固定してください。詳しい経緯は聞かれてから答えれば十分です。<b>最初に全部話そうとすると必ず長くなります。</b></p>
+    <p class="prep-in"><b>▷ 用意するもの</b>：この型に自分の経歴を当てはめ、声に出して<b>1分で収まるか測る</b>。</p>
+  </div>
+
+  <h3 id="c04-2">よく聞かれる6問</h3>
 
   <div class="qbox">
     <p class="qh">なぜITエンジニアになりたいのですか</p>
-    <p class="qb">見られているのは志望の熱さではなく、<b>自分の言葉になっているか</b>です。<em>「流行っているから」「勧められたから」「なんとなく」は、ここでほぼ決まってしまう</em>ので避けてください。</p>
-    <p class="qb">代わりに、<b>自分が実際に触れたもの</b>を1つ入れます。前の職場で触った仕組み、自分で使っているツール、調べていて面白いと思った技術。「これに触れて、こう考えるようになった」の順で話すと、あなたにしか言えない話になります。逆に、触れた事実がないまま「向いていると思っています」だけを言うと、調べていない印象になります。</p>
-    <p class="qb">1つ注意があります。この求人は<b>インフラエンジニア</b>（システムが動く土台を支える仕事）の募集です。「開発がやりたい」「プログラムを書いて作る側になりたい」という話をすると、求人と噛み合っていないと受け取られます。</p>
-    <p class="prep"><b>▷ 用意するもの</b>：自分が実際に触れたITの体験を1つ。</p>
+    <p class="qb">見られているのは熱さではなく<b>自分の言葉になっているか</b>。<em>「流行っているから」「勧められたから」はここでほぼ決まってしまいます。</em></p>
+    <p class="qb"><b>自分が実際に触れたものを1つ入れる。</b>前職で触った仕組み、使っているツール、面白いと思った技術。「これに触れて、こう考えるようになった」の順で。</p>
+    <p class="qb"><span class="mk">この求人はインフラエンジニア（システムが動く土台）の募集です。</span>「開発がやりたい」と言うと噛み合いません。</p>
+    <p class="prep"><b>▷ 用意するもの</b>：実際に触れたITの体験を1つ。</p>
   </div>
 
   <div class="qbox">
     <p class="qh">なぜこの会社なのですか</p>
-    <p class="qb">「研修制度が整っているから」だけだと弱いです。研修のある会社は他にもあります。<b>制度そのものではなく、その先に何があるか</b>まで話してください。</p>
-    <p class="qb"><b>答えの軸は、03章の2つです。①上流（構築・設計）の案件を会社が実際に持っていること。②その上流へ早く行くための高度研修があること。</b>この2つは繋がっています。片方だけだと弱いので、必ず両方を出してください。</p>
-    <p class="qb">「調べたら、上流の案件が約半分ありました。ほとんどが保守・運用という会社が多いなかで、これは珍しいと思っています。頑張った先に行き先がある。だから高度研修に入るつもりで勉強して、そこへ早く行きたい。それができる環境が御社だと思いました」。ここまで繋がっていると、説得力が変わります。</p>
-    <p class="prep"><b>▷ 用意するもの</b>：「この会社が他と違う点」を自分の言葉で一言。</p>
+    <p class="qb"><b>01章の2つを、必ず両方出してください。</b>①上流の案件を会社が実際に持っている ②そこへ早く行くための高度研修がある。片方だけだと弱いです。</p>
+    <p class="qb">「調べたら上流の案件が約半分ありました。ほとんどが保守・運用という会社が多いなかで珍しいと思っています。頑張った先に行き先がある。だから高度研修に入るつもりで勉強して、そこへ早く行きたい」</p>
+    <p class="prep"><b>▷ 用意するもの</b>：上の言い方を、自分の言葉に置き換える。</p>
   </div>
 
   <div class="qbox">
     <p class="qh">転職を考えた理由を教えてください</p>
-    <p class="qb"><em>会社や環境のせいにする言い方は避けてください。</em>同じ事実でも、「〜が嫌だった」ではなく「〜がしたいと思った」の側から話します。嘘をつくのではなく、事実のうちどちらの面を前に出すかを選ぶ、ということです。</p>
-    <p class="qb">経歴に説明しづらい部分（中退・転職の多さ・ブランクなど）がある場合は、2つをセットで話します。<b>①その期間に何を目指して、何をやったか ②いま振り返って反省している点。</b>②が抜けると「勢いで決める人」という印象になり、長く続くのかを疑われます。</p>
+    <p class="qb"><em>会社や環境のせいにしない。</em>同じ事実でも「〜が嫌だった」ではなく<b>「〜がしたいと思った」</b>の側から話します。</p>
+    <p class="qb">説明しづらい経歴（中退・転職の多さ・ブランク）は<b>2つセットで</b>。①その期間に何を目指して何をやったか ②いま振り返って反省している点。<span class="mk">②が抜けると「勢いで決める人」に見えます。</span></p>
     <p class="prep"><b>▷ 用意するもの</b>：説明しづらい経歴があれば、①と②を1つずつ。</p>
   </div>
 
   <div class="qbox">
     <p class="qh">今後どうなっていきたいですか</p>
-    <p class="qb">「まず一人のエンジニアとして自立して、その先はより大きなプロジェクトを任される側になりたい」。この方向で、自分の言葉に置き換えてください。<b>期限を入れる</b>（3年で〜、5年で〜）と具体性が出ます。</p>
-    <p class="qb"><b>ここでも03章に繋げてください。</b>「まず高度研修に入れる位置まで行って、そこから構築・設計に関わりたい」と言えると、この会社の中での道筋として具体的になります。一般論の「成長したい」で終わらせないでください。</p>
-    <p class="prep"><b>▷ 用意するもの</b>：3年後と5年後の姿を、それぞれ一文で。<b>どちらにも高度研修と上流の話を入れる。</b></p>
+    <p class="qb"><b>ここも01章に繋げてください。</b>「まず高度研修に入れる位置まで行って、そこから構築・設計に関わりたい」。<span class="mk">一般論の「成長したい」で終わらせない。</span></p>
+    <p class="prep"><b>▷ 用意するもの</b>：3年後と5年後の姿を、それぞれ一文で。</p>
   </div>
 
   <div class="qbox">
     <p class="qh">いま、自己研鑽はしていますか</p>
-    <p class="qb">やっていることを、<b>いつ始めて、どこまで進んだか</b>まで言えるようにしてください。資格の勉強、書籍、まなびっと、何でも構いません。</p>
-    <p class="qb"><em>絶対に言ってはいけない答えが1つだけあります。「仕事が忙しくて進んでいません」です。</em>この業界では資格が免許のようなもので、取るほどできる仕事が増えます。入社後も働きながら資格を取っていくことになるので、この一言は「自分にはそれができません」と伝えているのと同じに聞こえます。少ししか進んでいなくても、<b>進んだ分と、これからの計画</b>を話してください。</p>
-    <p class="prep"><b>▷ 用意するもの</b>：「いつから・何を・どこまで」の3点。まだ何もしていなければ、今日まなびっとの登録から始めてください。「今週始めて、ここまで進める予定です」と話せれば、それで成立します。</p>
+    <p class="qb">やっていることを<b>いつ始めて、どこまで進んだか</b>まで言えるように。資格の勉強、書籍、まなびっと、何でも構いません。</p>
+    <p class="qb"><em>「仕事が忙しくて何もしていません」は言わないでください。</em>これから学び続ける仕事なので、いちばん引っかかる答えです。</p>
+    <p class="prep"><b>▷ 用意するもの</b>：やっていること1つ＋開始時期＋進み具合。</p>
   </div>
 
-  <h3 id="c04-2">逆質問（「最後に何か質問はありますか」）</h3>
-  <p>面接の終盤に、こちらから質問する時間が15分ほどあります。<b>2〜3個用意しておけば十分</b>です。返ってきた答えに「それは、たとえばどういうことですか」と一歩踏み込めば、時間は自然に埋まります。不安なら予備をもう1つ。そのまま使える形で置いておきます。</p>
-  <ul class="plain">
-    <li><b>未経験で入社された方が、構築や設計の仕事に移るまで、平均でどのくらいかかりますか</b><span style="color:var(--muted)">。先を見て働く姿勢が伝わり、返ってきた答えは入社を決めるときの材料にもなります</span></li>
-    <li><b>入社直後の研修コースは、どういう基準で決まりますか</b></li>
-    <li><b>高度研修に進まれた方は、研修中どんな勉強の仕方をされていましたか</b><span style="color:var(--muted)">。「自分も上位に入るつもりだ」という意思表示になります</span></li>
-  </ul>
-  <p>給料・休み・福利厚生の質問は、この場では出さないでください。面接の場で聞くと「仕事より条件が先」という印象だけが残ります。条件面で確認したいことがあれば、担当経由でいつでも確認できます。</p>
+  <div class="qbox">
+    <p class="qh">自己紹介をお願いします</p>
+    <p class="qb">04-1の型のとおりに。<b>1分。</b></p>
+  </div>
 
-  <h3 id="c04-3">書き出したら送る</h3>
+  <h3 id="c04-3">逆質問（15分あります・2〜3個で十分）</h3>
+  <ul class="plain">
+    <li><b>未経験で入社された方が、構築や設計の仕事に移るまで、平均でどのくらいかかりますか</b></li>
+    <li><b>入社直後の研修コースは、どういう基準で決まりますか</b></li>
+    <li><b>高度研修に進まれた方は、研修中どんな勉強の仕方をされていましたか</b></li>
+  </ul>
+  <p>返ってきた答えに「それは、たとえばどういうことですか」と一歩踏み込めば時間は埋まります。</p>
+  <div class="pull warn">
+    <p><b>給料・休み・福利厚生はこの場で聞かない。</b>「仕事より条件が先」という印象だけが残ります。条件面は担当経由でいつでも確認できます。</p>
+  </div>
+
   <div class="pull">
-    <p>この章の答えを書き出したら、担当に送ってください。<b>面接官がどう受け取るかの目線で、一緒に直します。</b>一言一句の暗記は要りません。丸暗記すると、一箇所飛んだときに全部飛びます。大枠と順番だけ頭に入れてください。</p>
+    <p><b>答えを書き出したら、担当に送ってください。</b>面接官がどう受け取るかの目線で一緒に直します。一言一句の暗記は要りません（一箇所飛ぶと全部飛びます）。大枠と順番だけ。</p>
   </div>
 </section>
 
@@ -672,42 +693,27 @@ footer {
   <h2><span class="n">05</span>当日</h2>
   <h3 id="c05-1">当日の流れ</h3>
   <ol class="flow">
-    <li><div><b>開始5分前に入室する</b><span class="sub">担当の方が参加を許可するまで、待機画面のまま待ちます。早すぎても問題ありません。もしURLが開かない・時間になっても許可されない・回線が切れた、となったら、慌てずすぐ担当に連絡してください。企業への連絡はこちらから入れられます。</span></div></li>
-    <li><div><b>参加するときの名前はカタカナにする</b><span class="sub">「オープン　タロウ」のように、姓名をカタカナで。英字やニックネームのままだと、誰か分かってもらえません。</span></div></li>
-    <li><div><b>会社説明のパートは、カメラ・マイクをOFFにして聞く</b><span class="sub">他の候補者の方と一緒に聞くパートです。カメラがOFFの間、表情や画面が見られることはありません。ただし聞き流さないでください。ここで説明された内容は、後の面接の受け答えと逆質問の材料になります。それと、自分のマイクが本当にミュートになっているかは最初に確認を。生活音は思ったより入ります。</span></div></li>
-    <li><div><b>個別面接のパートでカメラ・マイクをON</b><span class="sub">ここからが本番です。ONに切り替わった瞬間の映り方が第一印象になるので、会社説明の間に姿勢と身だしなみを整え直しておきます。品質向上のため録画される場合がある、と案内が出ています。</span></div></li>
-    <li><div><b>終わったら、担当に一報ください</b><span class="sub">聞かれたこと・答えたことを覚えているうちに共有いただけると、この先の選考にそのまま活きます。選考結果も担当経由でお伝えします。</span></div></li>
+    <li><div><b>開始5分前に入室する</b><span class="sub">許可されるまで待機画面のまま。URLが開かない・許可されない・回線が切れたら、すぐ担当に連絡してください（企業への連絡はこちらから入れます）。</span></div></li>
+    <li><div><b>名前はカタカナで</b><span class="sub">「オープン　タロウ」のように。英字やニックネームだと誰か分かってもらえません。</span></div></li>
+    <li><div><b>会社説明はカメラ・マイクOFF</b><span class="sub">他の候補者と一緒に聞くパート。<span class="mk">聞き流さないでください</span>（後の受け答えと逆質問の材料）。ミュートは最初に確認を。生活音は思ったより入ります。</span></div></li>
+    <li><div><b>個別面接でカメラ・マイクON</b><span class="sub">ONに切り替わった瞬間の映り方が第一印象です。会社説明の間に姿勢と身だしなみを整え直しておく。録画される場合があります。</span></div></li>
+    <li><div><b>終わったら担当に一報</b><span class="sub">覚えているうちに共有いただけると、この先の選考にそのまま活きます。</span></div></li>
   </ol>
 
-  <h3 id="c05-2">内容以前のところで落ちないために</h3>
-  <p>01章に書いた「穏やかな雰囲気」の話の続きです。実際にこれで見送りになった方がいる、と企業から共有されているものが5つあります。どれも能力の問題ではなく、知っていれば避けられるものです。</p>
-
+  <h3 id="c05-2">これで落ちた人がいます</h3>
+  <p>企業から共有されている見送り理由5つ。<b>どれも能力の問題ではありません。</b></p>
   <div class="ng">
-    <div>
-      <h4>話をさえぎってしまう</h4>
-      <p>面接官が話している途中で答え始めてしまうケースが増えている、と指摘されています。一呼吸おいてから話し始めてください。</p>
-    </div>
-    <div>
-      <h4>口調がくだけすぎる</h4>
-      <p>話しやすい雰囲気で進むぶん、つられて友達と話すような口調になりがちです。最後まで敬語を保ってください。</p>
-    </div>
-    <div>
-      <h4>うつむいて、ぼそぼそ話す</h4>
-      <p>画面越しだと、対面よりも声が小さく・暗く伝わります。カメラを見て、普段より少しはっきり話すくらいでちょうどいいです。</p>
-    </div>
-    <div>
-      <h4>姿勢が崩れる</h4>
-      <p>肘をつく、椅子にもたれる。オンラインでは上半身しか映らないぶん、姿勢の崩れはかえって目立ちます。</p>
-    </div>
-    <div>
-      <h4>話が長くなる</h4>
-      <p>背景の説明が長くて結論が分からない、というのが見送り理由に挙がっています。結論を先に。</p>
-    </div>
+    <div><h4>話をさえぎる</h4><p>面接官が話している途中で答え始める。一呼吸おいてから。</p></div>
+    <div><h4>口調がくだけすぎる</h4><p>話しやすい雰囲気につられがち。最後まで敬語を。</p></div>
+    <div><h4>うつむいて、ぼそぼそ</h4><p>画面越しは声が小さく暗く伝わります。カメラを見て、普段よりはっきり。</p></div>
+    <div><h4>姿勢が崩れる</h4><p>肘をつく、もたれる。上半身しか映らないぶん、かえって目立ちます。</p></div>
+    <div><h4>話が長い</h4><p>背景が長くて結論が分からない。<b>結論を先に。</b></p></div>
   </div>
 
-  <h3 id="c05-3">練習の仕方</h3>
-  <div class="pull warn">
-    <p><b>練習は、本番と同じくWebでやってください。</b>対面で話せる人でも、画面越しだと声量・目線・姿勢の印象がまるで変わります。企業側も「面接対策はWebで行うことを勧めます」と案内しています。スマートフォンでもいいので、一度カメラの前で自己紹介を録って、自分で見てみてください。直す場所が一目で分かります。</p>
+  <div class="mega hot">
+    <span class="tag">練習の仕方</span>
+    <h4>練習は、本番と同じくWebで。</h4>
+    <p>対面で話せる人でも、画面越しだと声量・目線・姿勢の印象がまるで変わります。企業側も「面接対策はWebで行うことを勧めます」と案内しています。<b>スマホでいいので、一度カメラの前で自己紹介を録って自分で見てください。</b>直す場所が一目で分かります。</p>
   </div>
 </section>
 
@@ -718,6 +724,7 @@ footer {
 </footer>
 
 </div>
+
 
 <script>
 (function () {
