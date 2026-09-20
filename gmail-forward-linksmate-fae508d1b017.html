@@ -1,0 +1,539 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex, nofollow">
+<title>LinksMateメールの転送設定</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap">
+<style>
+  :root{
+    --paper:#F3F5F4;
+    --surface:#FFFFFF;
+    --ink:#16211E;
+    --ink-2:#56655F;
+    --line:#DCE3E0;
+    --accent:#1F6F5C;
+    --accent-soft:#E4EFEA;
+    --warn:#9E4426;
+    --warn-soft:#F9E9E2;
+    --baton:#2B5B88;
+    --baton-soft:#E2EDF6;
+    --chip:#EDF1EF;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#121715;
+      --surface:#1A211E;
+      --ink:#E8EEEB;
+      --ink-2:#9BADA6;
+      --line:#2C3733;
+      --accent:#63C4A6;
+      --accent-soft:#1B2E28;
+      --warn:#E4977E;
+      --warn-soft:#33221C;
+      --baton:#83B5E2;
+      --baton-soft:#1B2833;
+      --chip:#232D29;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#121715;
+    --surface:#1A211E;
+    --ink:#E8EEEB;
+    --ink-2:#9BADA6;
+    --line:#2C3733;
+    --accent:#63C4A6;
+    --accent-soft:#1B2E28;
+    --warn:#E4977E;
+    --warn-soft:#33221C;
+    --baton:#83B5E2;
+    --baton-soft:#1B2833;
+    --chip:#232D29;
+  }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Sans JP", system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    font-size:16px;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:44rem;
+    margin:0 auto;
+    padding-left:20px;
+    padding-right:20px;
+    padding-block:40px 64px;
+  }
+  h1,h2,h3{
+    font-family:"Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+    text-wrap:balance;
+    line-height:1.45;
+    margin:0;
+  }
+  p{margin:0}
+
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:.14em;
+    font-weight:700;
+    color:var(--accent);
+    margin-bottom:12px;
+  }
+  h1{font-size:29px;font-weight:700;letter-spacing:-.01em}
+  .lede{
+    margin-top:16px;
+    color:var(--ink-2);
+    font-size:15px;
+  }
+  header{
+    padding-bottom:28px;
+    border-bottom:2px solid var(--ink);
+    margin-bottom:32px;
+  }
+
+  .stack{display:flex;flex-direction:column;gap:14px}
+
+  a{color:var(--accent);text-underline-offset:3px}
+  a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+  /* 分かれ道の2択 */
+  .opts{display:flex;flex-direction:column;gap:12px}
+  .opt{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:16px 18px;
+  }
+  .opt.a{border-left:4px solid var(--accent)}
+  .opt.b{border-left:4px solid var(--baton)}
+  .opt .opt-head{
+    font-family:"Zen Kaku Gothic New","Noto Sans JP",sans-serif;
+    font-weight:700;
+    font-size:15px;
+    margin-bottom:8px;
+    display:flex;
+    gap:9px;
+    align-items:baseline;
+    flex-wrap:wrap;
+  }
+  .opt.a .opt-head .tag{color:var(--accent)}
+  .opt.b .opt-head .tag{color:var(--baton)}
+  .opt .tag{font-size:12px;letter-spacing:.1em}
+  .opt p{font-size:14.5px}
+  .opt ul{margin:8px 0 0;padding-left:1.15em;font-size:14.5px;display:flex;flex-direction:column;gap:6px}
+
+  /* 起きること / 起きないこと */
+  .effects{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));
+    gap:14px;
+    margin-bottom:34px;
+  }
+  .effect{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:18px 20px;
+  }
+  .effect.yes{border-left:4px solid var(--accent)}
+  .effect.no{border-left:4px solid var(--line)}
+  .effect h3{
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  .effect.yes h3{color:var(--accent)}
+  .effect.no h3{color:var(--ink-2)}
+  .effect ul{margin:0;padding-left:1.1em;font-size:14.5px;color:var(--ink)}
+  .effect li{margin-bottom:6px}
+  .effect li:last-child{margin-bottom:0}
+
+  /* 注意ブロック */
+  .note{
+    border-radius:4px;
+    padding:16px 20px;
+    font-size:14.5px;
+  }
+  .note strong{font-weight:700}
+  .note.warn{background:var(--warn-soft);color:var(--ink);border-left:4px solid var(--warn)}
+  .note.warn .label{color:var(--warn)}
+  .note.baton{background:var(--baton-soft);color:var(--ink);border-left:4px solid var(--baton)}
+  .note.baton .label{color:var(--baton)}
+  .note .label{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.08em;
+    margin-bottom:6px;
+    font-family:"Zen Kaku Gothic New","Noto Sans JP",sans-serif;
+  }
+
+  h2.section{
+    font-size:19px;
+    font-weight:700;
+    margin-top:48px;
+    margin-bottom:6px;
+  }
+  .section-sub{
+    color:var(--ink-2);
+    font-size:14px;
+    margin-bottom:20px;
+  }
+
+  /* ステップ */
+  ol.steps{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+  ol.steps > li{
+    position:relative;
+    padding-left:54px;
+    padding-bottom:30px;
+  }
+  ol.steps > li:last-child{padding-bottom:0}
+  ol.steps > li::before{
+    content:attr(data-n);
+    position:absolute;
+    left:0;
+    top:0;
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:"Zen Kaku Gothic New","Noto Sans JP",sans-serif;
+    font-weight:700;
+    font-size:15px;
+    background:var(--accent);
+    color:var(--surface);
+    font-variant-numeric:tabular-nums;
+  }
+  ol.steps > li::after{
+    content:"";
+    position:absolute;
+    left:17px;
+    top:38px;
+    bottom:-4px;
+    width:2px;
+    background:var(--line);
+  }
+  ol.steps > li:last-child::after{display:none}
+  ol.steps > li.baton::before{background:var(--baton)}
+  ol.steps > li.hold::before{background:var(--warn)}
+  ol.steps > li.fork::before{background:var(--ink)}
+  ol.steps > li.optional .step-title .only{
+    display:inline-block;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:.06em;
+    color:var(--accent);
+    background:var(--accent-soft);
+    border-radius:3px;
+    padding:2px 8px;
+    margin-left:8px;
+    vertical-align:middle;
+  }
+
+  .step-title{
+    font-family:"Zen Kaku Gothic New","Noto Sans JP",sans-serif;
+    font-weight:700;
+    font-size:17px;
+    line-height:1.5;
+    margin-bottom:10px;
+    padding-top:3px;
+  }
+  .step-body{display:flex;flex-direction:column;gap:12px;font-size:15px}
+  .step-body ul{margin:0;padding-left:1.15em;display:flex;flex-direction:column;gap:6px}
+
+  /* Gmail の画面上の文字 */
+  .ui{
+    display:inline-block;
+    background:var(--chip);
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:1px 7px;
+    font-size:13.5px;
+    font-weight:500;
+    white-space:nowrap;
+    line-height:1.7;
+  }
+  .path{color:var(--ink-2);font-size:13px;padding:0 3px}
+
+  /* コピー欄 */
+  .copybox{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:10px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:12px 14px;
+  }
+  .copybox code{
+    font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size:15px;
+    font-weight:500;
+    color:var(--ink);
+    user-select:all;
+    word-break:break-all;
+  }
+  .copybox button{
+    margin-left:auto;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:500;
+    color:var(--surface);
+    background:var(--accent);
+    border:none;
+    border-radius:3px;
+    padding:6px 14px;
+    cursor:pointer;
+  }
+  .copybox button:hover{opacity:.88}
+  .copybox button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+  /* FAQ */
+  .faq{display:flex;flex-direction:column;gap:0}
+  .faq > div{
+    border-top:1px solid var(--line);
+    padding:18px 0;
+  }
+  .faq > div:last-child{border-bottom:1px solid var(--line)}
+  .faq h3{
+    font-size:15.5px;
+    font-weight:700;
+    margin-bottom:8px;
+  }
+  .faq p{font-size:14.5px;color:var(--ink-2)}
+  .faq p strong{color:var(--ink);font-weight:500}
+
+  footer{
+    margin-top:56px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    color:var(--ink-2);
+    font-size:13px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 20px;
+  }
+
+  @media (max-width:420px){
+    h1{font-size:25px}
+    ol.steps > li{padding-left:46px}
+    ol.steps > li::before{width:30px;height:30px;font-size:14px}
+    ol.steps > li::after{left:15px;top:34px}
+  }
+</style>
+<style>
+  :root{
+    color-scheme: light;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  body{ margin:0; font: 14px system-ui, -apple-system, sans-serif; }
+  img{ max-width:100%; }
+  [hidden]{ display:none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">GMAIL の設定（5分・パソコンから）</p>
+    <h1>リンクスメイトからのメールだけ<br>転送する設定</h1>
+    <p class="lede">
+      リンクスメイト（LinksMate）から届く連絡を、拓也のアドレスにも同時に届くようにします。
+      設定するのは <strong>リンクスメイトからのメールだけ</strong>で、ほかのメールには一切さわりません。
+    </p>
+    <p class="lede">
+      ただし、<strong>全部のメールが転送されても気にならないなら、絞らなくて大丈夫です</strong>。
+      そのほうが手順が2つ短くて済みます（<a href="#fork">手順 4</a> で分かれます）。好きなほうを選んでください。
+    </p>
+  </header>
+
+  <div class="effects">
+    <div class="effect yes">
+      <h3>この設定でこうなる</h3>
+      <ul>
+        <li><code>@linksmate.jp</code> から届いたメールの<strong>コピー</strong>が、拓也のアドレスにも届く</li>
+        <li>元のメールは、これまでどおりあなたの受信トレイに残る</li>
+      </ul>
+    </div>
+    <div class="effect no">
+      <h3>これは起きない</h3>
+      <ul>
+        <li>リンクスメイト以外のメールは、1通も転送されません（<a href="#fork">手順 4</a> で A を選んだ場合）</li>
+        <li>過去に届いたメールは転送されません（設定後に届く分だけ）</li>
+        <li>いつでも自分で解除できます（最後の項目に手順あり）</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="stack">
+    <div class="note warn">
+      <span class="label">さきに1つだけ</span>
+      この設定は<strong>パソコンのブラウザからしかできません</strong>。スマホの Gmail アプリには、この項目そのものがありません。
+      スマホしかない場合は、Chrome で Gmail を開いて、右上の「︙」から <span class="ui">PC 版サイト</span> にチェックを入れてください（画面は小さいですが同じ手順で進められます）。
+    </div>
+    <div class="note baton">
+      <span class="label">途中で1回、拓也の操作を待ちます</span>
+      手順 <strong>3</strong> で、拓也側に確認メールが届きます。拓也がそれを承認するまで先に進めません。
+      その場で連絡できるタイミングでやると、止まらずに終わります。
+    </div>
+  </div>
+
+  <h2 class="section">転送先のアドレス</h2>
+  <p class="section-sub">手順 2 で入力します。1文字でも違うと確認メールが届きません。</p>
+  <div class="copybox">
+    <code id="addr">mushik750@gmail.com</code>
+    <button id="copy" type="button">コピー</button>
+  </div>
+
+  <h2 class="section">手順</h2>
+  <p class="section-sub">上から順に。手順4で分かれて、B なら4つ・A なら6つで終わります。</p>
+
+  <ol class="steps">
+
+    <li data-n="1">
+      <div class="step-title">Gmail の設定画面を開く</div>
+      <div class="step-body">
+        <p>パソコンで Gmail を開き、画面の右上にある<strong>歯車のアイコン</strong>を押します。小さなパネルが出るので、その一番上の <span class="ui">すべての設定を表示</span> を押してください。</p>
+      </div>
+    </li>
+
+    <li data-n="2">
+      <div class="step-title">転送先として拓也のアドレスを登録する</div>
+      <div class="step-body">
+        <p>上に並んでいるタブから <span class="ui">メール転送と POP/IMAP</span> を選び、<span class="ui">転送先アドレスを追加</span> を押します。</p>
+        <ul>
+          <li>出てきた欄に <code>mushik750@gmail.com</code> を入力して <span class="ui">次へ</span></li>
+          <li>確認の小窓が出たら <span class="ui">続行</span> <span class="path">→</span> <span class="ui">OK</span></li>
+        </ul>
+        <p>「確認コードを送信しました」と表示されれば、ここは成功です。</p>
+      </div>
+    </li>
+
+    <li data-n="3" class="baton">
+      <div class="step-title">拓也に連絡して、承認してもらう</div>
+      <div class="step-body">
+        <p>いま送られた確認メールは、<strong>あなたではなく拓也のところに届きます</strong>。「転送の確認メール送ったよ」と連絡してください。拓也がメール内のリンクを押せば承認完了です。</p>
+        <p>拓也から「OK」と返事が来たら、<strong>Gmail の画面を再読み込み</strong>（F5 キー）してから次へ進みます。</p>
+      </div>
+    </li>
+
+    <li data-n="4" class="fork" id="fork">
+      <div class="step-title">ここで2つに分かれます</div>
+      <div class="step-body">
+        <p>再読み込みすると、同じ画面に選択肢が2つ出ています。<strong>どちらを選んでも構いません</strong>。手間が少ないのは B です。</p>
+        <div class="opts">
+          <div class="opt b">
+            <div class="opt-head"><span class="tag">B</span><span>全部転送されても気にしない</span></div>
+            <p><span class="ui">受信メールを mushik750@gmail.com に転送する</span> を選んで、画面の一番下の <span class="ui">変更を保存</span> を押します。<strong>これで終わりです</strong>（手順5・6はやらなくて大丈夫）。</p>
+            <p style="margin-top:8px;color:var(--ink-2);font-size:13.5px">拓也としてはこれで何も困りません。わざわざリンクスメイトだけに絞る必要がなければ、こちらでどうぞ。</p>
+          </div>
+          <div class="opt a">
+            <div class="opt-head"><span class="tag">A</span><span>リンクスメイトのメールだけにしたい</span></div>
+            <p><strong>受信メールを転送しない</strong> を選んだまま、何も保存せずに次の手順5へ進みます。リンクスメイトの分だけを届ける条件を、次で作ります。</p>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li data-n="5" class="optional">
+      <div class="step-title">リンクスメイトのメールだけを選ぶ条件を作る<span class="only">A を選んだ人だけ</span></div>
+      <div class="step-body">
+        <p>同じ設定画面の上のタブから <span class="ui">フィルタとブロック中のアドレス</span> を選び、<span class="ui">新しいフィルタを作成</span> を押します。</p>
+        <ul>
+          <li><span class="ui">From</span> の欄に <code>@linksmate.jp</code> と入力（ほかの欄は空のまま）</li>
+          <li>右下の <span class="ui">フィルタを作成</span> を押す</li>
+          <li>次の画面で <span class="ui">次のアドレスに転送する</span> にチェックを入れ、となりのリストから <code>mushik750@gmail.com</code> を選ぶ</li>
+          <li>もう一度 <span class="ui">フィルタを作成</span> を押す</li>
+        </ul>
+      </div>
+    </li>
+
+    <li data-n="6" class="optional">
+      <div class="step-title">できているか見て、拓也に伝える<span class="only">A を選んだ人だけ</span></div>
+      <div class="step-body">
+        <p>フィルタの一覧に、こんな1行が増えていれば完了です。</p>
+        <ul>
+          <li><strong>一致するメール:</strong> from:(@linksmate.jp)</li>
+          <li><strong>操作:</strong> mushik750@gmail.com に転送する</li>
+        </ul>
+        <p>次にリンクスメイトからメールが届いたときから、両方に届きます。「設定できた」と拓也に伝えてください。届いたかどうかは拓也が確認します。</p>
+      </div>
+    </li>
+
+  </ol>
+
+  <h2 class="section">うまくいかないとき</h2>
+  <p class="section-sub">よくあるのは最初の2つです。</p>
+
+  <div class="faq">
+    <div>
+      <h3>手順5で、転送先のリストに拓也のアドレスが出てこない</h3>
+      <p><strong>手順3の承認がまだです。</strong>拓也がまだ確認メールのリンクを押していないか、確認メールが迷惑メールに入っています。拓也に催促してから、画面を再読み込みしてやり直してください。</p>
+    </div>
+    <div>
+      <h3>設定したのに、リンクスメイトのメールが転送されない</h3>
+      <p>転送されるのは<strong>設定したあとに届いたメール</strong>だけです。また、実際の送信元が <code>@linksmate.jp</code> 以外のこともあります。届いたメールの送信者アドレス（<code>◯◯@……</code> の部分）をそのまま拓也に送ってください。条件を足します。</p>
+    </div>
+    <div>
+      <h3>やっぱりやめたい</h3>
+      <p>いつでも1分で戻せます。<strong>A で設定した場合</strong>は <span class="ui">設定</span> <span class="path">→</span> <span class="ui">フィルタとブロック中のアドレス</span> を開いて、手順6で確認した行の右端の <span class="ui">削除</span> を押すだけ。<strong>B の場合</strong>は <span class="ui">メール転送と POP/IMAP</span> で <span class="ui">受信メールを転送しない</span> に戻して保存するだけです。どちらも即座に止まります。ひとこと拓也に伝えてもらえると助かります。</p>
+    </div>
+    <div>
+      <h3>そもそも自分のメールを見られるのでは、と不安</h3>
+      <p>気になる場合は <a href="#fork">手順 4</a> で <strong>A</strong> を選んでください。転送されるのは <code>@linksmate.jp</code> から届いたメールだけになり、それ以外は拓也側からは見えません。条件は手順5でご自分の目で入力したものがすべてで、あとから勝手に増えることはありません。</p>
+    </div>
+  </div>
+
+  <footer>
+    <span>この設定はご本人の Google アカウントへのログイン（パスワードと2段階認証）が必要なため、拓也の側から代行できません。お手数ですがお願いします。</span>
+    <span>作成 2026年9月20日（日）</span>
+    <span>わからないところは、この画面のどこで止まったかを拓也に伝えてください</span>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    var btn = document.getElementById('copy');
+    var addr = document.getElementById('addr');
+    if(!btn || !addr) return;
+    btn.addEventListener('click', function(){
+      var text = addr.textContent.trim();
+      var done = function(msg){
+        btn.textContent = msg;
+        setTimeout(function(){ btn.textContent = 'コピー'; }, 2400);
+      };
+      var fallback = function(){
+        try{
+          var r = document.createRange();
+          r.selectNodeContents(addr);
+          var s = window.getSelection();
+          s.removeAllRanges();
+          s.addRange(r);
+          done('選択しました → Ctrl+C');
+        }catch(e){
+          done('手で選んでください');
+        }
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){
+          done('コピーしました');
+        }, fallback);
+      }else{
+        fallback();
+      }
+    });
+  })();
+</script>
+</body></html>
