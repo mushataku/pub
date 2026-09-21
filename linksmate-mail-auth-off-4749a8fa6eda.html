@@ -1,0 +1,239 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex, nofollow">
+<title>LinksMateメール認証オフ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap">
+<style>
+  :root{
+    --paper:#F3F5F4; --surface:#FFFFFF; --ink:#16211E; --ink-2:#56655F; --line:#DCE3E0;
+    --accent:#1F6F5C; --accent-soft:#E4EFEA; --warn:#9E4426; --warn-soft:#F9E9E2;
+    --wait:#2B5B88; --wait-soft:#E2EDF6; --chip:#EDF1EF; --mark:#E5484D;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#121715; --surface:#1A211E; --ink:#E8EEEB; --ink-2:#9BADA6; --line:#2C3733;
+      --accent:#63C4A6; --accent-soft:#1B2E28; --warn:#E4977E; --warn-soft:#33221C;
+      --wait:#83B5E2; --wait-soft:#1B2833; --chip:#232D29; --mark:#FF6B70;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#121715; --surface:#1A211E; --ink:#E8EEEB; --ink-2:#9BADA6; --line:#2C3733;
+    --accent:#63C4A6; --accent-soft:#1B2E28; --warn:#E4977E; --warn-soft:#33221C;
+    --wait:#83B5E2; --wait-soft:#1B2833; --chip:#232D29; --mark:#FF6B70;
+  }
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:"Noto Sans JP", system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    font-size:16px; line-height:1.8; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:46rem; margin:0 auto; padding-left:20px; padding-right:20px; padding-block:36px 64px}
+  h1,h2,h3{font-family:"Zen Kaku Gothic New","Noto Sans JP",sans-serif; text-wrap:balance; line-height:1.45; margin:0}
+  p{margin:0}
+  a{color:var(--accent); text-underline-offset:3px}
+  :focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+  code{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:.95em}
+
+  header{padding-bottom:24px; border-bottom:2px solid var(--ink); margin-bottom:28px}
+  .eyebrow{font-size:12px; letter-spacing:.14em; font-weight:700; color:var(--accent); margin-bottom:10px}
+  h1{font-size:28px; font-weight:700}
+  .lede{margin-top:14px; color:var(--ink-2); font-size:15px}
+  .lede strong{color:var(--ink)}
+
+  .flow{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:0 0 28px; list-style:none; padding:0}
+  .flow li{background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:12px 14px; font-size:14px; line-height:1.6}
+  .flow b{display:block; font-family:"Zen Kaku Gothic New","Noto Sans JP",sans-serif; font-size:15px}
+  .flow .who{color:var(--ink-2); font-size:12.5px}
+  .flow li.auto{background:var(--wait-soft); border-color:transparent}
+  @media (max-width:560px){ .flow{grid-template-columns:1fr} }
+
+  .copybox{display:flex; flex-wrap:wrap; align-items:center; gap:10px; background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:12px 14px}
+  .copybox .lbl{font-size:13px; color:var(--ink-2); width:100%}
+  .copybox code{font-size:17px; font-weight:500; color:var(--ink); user-select:all; word-break:break-all}
+  .copybox button, .copy-inline{
+    margin-left:auto; font-family:inherit; font-size:13px; font-weight:500; color:var(--surface);
+    background:var(--accent); border:none; border-radius:4px; padding:7px 14px; cursor:pointer
+  }
+  .copy-inline{margin-left:6px; padding:3px 10px; font-size:12.5px; vertical-align:middle}
+  button:hover{opacity:.88}
+
+  .note{border-radius:6px; padding:14px 18px; font-size:14.5px}
+  .note .label{display:block; font-size:12px; font-weight:700; letter-spacing:.08em; margin-bottom:4px; font-family:"Zen Kaku Gothic New","Noto Sans JP",sans-serif}
+  .note.warn{background:var(--warn-soft); border-left:4px solid var(--warn)}
+  .note.warn .label{color:var(--warn)}
+  .stack{display:flex; flex-direction:column; gap:12px}
+
+  .phase{display:flex; align-items:baseline; gap:12px; margin-top:44px; margin-bottom:18px; padding-bottom:8px; border-bottom:1px solid var(--line)}
+  .phase .tag{font-size:12px; font-weight:700; letter-spacing:.12em; color:var(--accent); white-space:nowrap}
+  .phase h2{font-size:20px; font-weight:700}
+  .phase.auto .tag{color:var(--wait)}
+
+  ol.steps{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:30px}
+  ol.steps > li{position:relative; padding-left:50px}
+  ol.steps > li::before{
+    content:attr(data-n); position:absolute; left:0; top:0; width:34px; height:34px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-family:"Zen Kaku Gothic New","Noto Sans JP",sans-serif;
+    font-weight:700; font-size:15px; background:var(--accent); color:var(--surface); font-variant-numeric:tabular-nums
+  }
+  ol.steps > li.wait::before{background:var(--wait)}
+  .step-title{font-family:"Zen Kaku Gothic New","Noto Sans JP",sans-serif; font-weight:700; font-size:17px; line-height:1.5; margin-bottom:8px; padding-top:3px}
+  .step-body{display:flex; flex-direction:column; gap:10px; font-size:15px}
+  .step-body ul{margin:0; padding-left:1.2em; font-size:14px; color:var(--ink-2); display:flex; flex-direction:column; gap:4px}
+  .ui{display:inline-block; background:var(--chip); border:1px solid var(--line); border-radius:3px; padding:0 7px; font-size:13.5px; font-weight:500; white-space:nowrap; line-height:1.75}
+
+  figure{margin:2px 0 0; background:var(--surface); border:1px solid var(--line); border-radius:6px; overflow:hidden}
+  figure .shot{overflow-x:auto}
+  figure img{display:block; width:100%; max-width:100%; height:auto; cursor:zoom-in}
+  figure.zoom img{width:auto; max-width:none; cursor:zoom-out}
+  figure.small img{width:auto; max-width:100%}
+  figcaption{font-size:12.5px; color:var(--ink-2); padding:7px 12px; border-top:1px solid var(--line)}
+
+  .trap{background:var(--warn-soft); border-radius:6px; padding:12px 16px; font-size:14.5px}
+  .trap strong{color:var(--warn)}
+
+  h2.section{font-size:19px; font-weight:700; margin-top:52px; margin-bottom:14px}
+  details{border-top:1px solid var(--line); padding:14px 0}
+  details:last-of-type{border-bottom:1px solid var(--line)}
+  summary{cursor:pointer; font-weight:700; font-size:15.5px; font-family:"Zen Kaku Gothic New","Noto Sans JP",sans-serif}
+  details .body{margin-top:10px; font-size:14.5px; color:var(--ink-2); display:flex; flex-direction:column; gap:8px}
+  details .body strong{color:var(--ink); font-weight:500}
+  details ol{margin:0; padding-left:1.3em; display:flex; flex-direction:column; gap:5px}
+
+  footer{margin-top:52px; padding-top:18px; border-top:1px solid var(--line); color:var(--ink-2); font-size:13px; display:flex; flex-direction:column; gap:6px}
+
+  @media (max-width:420px){
+    h1{font-size:24px}
+    ol.steps > li{padding-left:0}
+    ol.steps > li::before{position:static; margin-bottom:8px}
+  }
+  .flow.flow-2{grid-template-columns:repeat(2,1fr)}
+  @media (max-width:560px){ .flow.flow-2{grid-template-columns:1fr} }
+</style>
+<style>
+  :root{
+    color-scheme: light;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  body{ margin:0; }
+  img{ max-width:100%; }
+  [hidden]{ display:none !important; }
+</style>
+</head>
+<body>
+<!-- 人の手が要る理由: 無効化の前のログインで、お客様本人のメールに届くワンタイムの認証コードが要る（弊社は受け取れない＝転送が無い状態からの唯一の入口）。無効化そのものは弊社でも CLI 1本で撃てる（account_setup.py set-mail-verification --off） -->
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">LINKSMATE の設定 ・ スマートフォンで 3 分</p>
+    <h1>リンクスメイトの<br>「メール認証」をオフにする設定</h1>
+    <p class="lede">
+      リンクスメイト（LinksMate）にログインするたびにメールで届く<strong>「認証コード」</strong>を、なくす設定です。
+      これにより、弊社でお手続きを進めるときに、コードをその都度お知らせいただく必要がなくなります。
+    </p>
+    <p class="lede">Gmail などメールの設定は要りません。リンクスメイトのマイページで<strong>ボタンを1つ押すだけ</strong>です。</p>
+  </header>
+
+  <ol class="flow flow-2">
+    <li><b>① 認証をオフにする</b><span class="who">お客様 ・ 手順 1〜4</span></li>
+    <li><b>② ログイン情報を伝える</b><span class="who">お客様 ・ 手順 5</span></li>
+  </ol>
+
+  <div class="stack">
+    <div class="note warn">
+      <span class="label">変わること（正直にお伝えします）</span>
+      オフにすると、ログインのときのメール確認がなくなり、<strong>ログインID（メールアドレス）とパスワードだけで入れるようになります</strong>。パスワードは担当者以外には伝えないでください。設定はいつでもお客様ご自身で元に戻せます（ページ下部）。
+    </div>
+  </div>
+
+  <div class="phase"><span class="tag">① お客様</span><h2>メール認証をオフにする</h2></div>
+  <ol class="steps">
+
+    <li data-n="1">
+      <div class="step-title">マイページにログイン</div>
+      <div class="step-body">
+        <p><a href="https://linksmate.jp/mypage/" target="_blank" rel="noopener">linksmate.jp/mypage/</a> を開き、いつものログインID（メールアドレス）とパスワードでログインします。</p>
+        <p>いつもどおりメールに認証コードが届くので、入れてください（<strong>これが最後の1回</strong>です）。</p>
+      </div>
+    </li>
+
+    <li data-n="2">
+      <div class="step-title">右上の「メニュー」</div>
+      <div class="step-body">
+        <p>画面の右上の <span class="ui">メニュー</span> を押します。</p>
+        <figure class="small"><div class="shot"><img src="linksmate-mail-auth-off/01_mypage.jpg" alt="マイページ右上の「メニュー」ボタンに赤枠" width="390" height="100"></div>
+          <figcaption>その下の画面の内容は、お客様ごとに違います</figcaption></figure>
+      </div>
+    </li>
+
+    <li data-n="3">
+      <div class="step-title">「ご契約者・ご利用者について」→「ご登録情報の確認・変更」</div>
+      <div class="step-body">
+        <p>メニューの中の <span class="ui">ご契約者・ご利用者について</span> を押して開き、すぐ下の <span class="ui">ご登録情報の確認・変更</span> を押します。</p>
+        <figure class="small"><div class="shot"><img src="linksmate-mail-auth-off/02_menu.jpg" alt="メニューを開き「ご契約者・ご利用者について」を広げた状態。「ご登録情報の確認・変更」の下に赤線" width="390" height="500"></div>
+          <figcaption>赤線のすぐ上の行です（お名前の部分は伏せています）</figcaption></figure>
+      </div>
+    </li>
+
+    <li data-n="4">
+      <div class="step-title">「メールアドレス認証設定」の「無効にする」</div>
+      <div class="step-body">
+        <p>「ログイン情報」の3つめ、<strong>メールアドレス認証設定</strong>の下にある <span class="ui">無効にする</span> を押します。</p>
+        <figure class="small"><div class="shot"><img src="linksmate-mail-auth-off/03_reginfo.jpg" alt="ご登録情報の「メールアドレス認証設定：有効」と、その下の「無効にする」ボタンに赤枠" width="390" height="455"></div>
+          <figcaption>ログインIDなどは伏せています</figcaption></figure>
+        <p>「メールアドレス認証を無効にしました」と出たら <span class="ui">OK</span>。</p>
+        <figure class="small"><div class="shot"><img src="linksmate-mail-auth-off/04_modal.jpg" alt="「メールアドレス認証を無効にしました」の小窓と OK ボタン" width="390" height="500"></div></figure>
+        <p>メールアドレス認証設定が<strong>「無効」</strong>になり、ボタンが <span class="ui">有効にする</span> に変わっていれば完了です。</p>
+        <figure class="small"><div class="shot"><img src="linksmate-mail-auth-off/05_after.jpg" alt="メールアドレス認証設定が「無効」になり、ボタンが「有効にする」に変わった状態に赤枠" width="390" height="500"></div></figure>
+      </div>
+    </li>
+  </ol>
+
+  <div class="phase"><span class="tag">② お客様</span><h2>ログイン情報を伝える</h2></div>
+  <ol class="steps">
+    <li data-n="5">
+      <div class="step-title">ログインIDとパスワードを担当者へ</div>
+      <div class="step-body">
+        <p>リンクスメイトの<strong>ログインID（メールアドレス）</strong>と<strong>パスワード</strong>を担当者にお伝えください。伝え方は担当者の案内に従ってください。</p>
+        <ul>
+          <li>あとでパスワードを変えた場合も、担当者までお知らせください（弊社でログインできなくなるため）。</li>
+        </ul>
+      </div>
+    </li>
+  </ol>
+
+  <h2 class="section">うまくいかないとき</h2>
+
+  <details>
+    <summary>「メールアドレス認証設定」の行や「無効にする」ボタンが見当たらない</summary>
+    <div class="body">
+      <p>画面が変わった可能性があります。担当者までご連絡ください。代わりに、<a href="gmail-forward-linksmate-fae508d1b017.html">認証コードのメールを弊社へ転送する設定</a>でもお手続きを進められます。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>元に戻したい（メール認証をオンにしたい）</summary>
+    <div class="body">
+      <p>同じ「ご登録情報の確認・変更」で <span class="ui">有効にする</span> を押すと、その場で元に戻ります。戻した場合は担当者までお知らせください（以降のお手続きでは、また認証コードが必要になるため）。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>パソコンで操作したい</summary>
+    <div class="body">
+      <p>パソコンでも同じです。マイページのメニューから <span class="ui">ご登録情報の確認・変更</span> を開き、手順 4 から行ってください。</p>
+    </div>
+  </details>
+
+  <footer>
+    <span>掲載している画面は 2026年9月22日（火）時点のリンクスメイトのマイページ（スマートフォン表示）です。</span>
+    <span>ご不明な点は、何番の手順で止まったかを添えて担当者までお問い合わせください。</span>
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.addEventListener('click', function(){ img.closest('figure').classList.toggle('zoom'); });
+  });
+</script>
+
+</body></html>
