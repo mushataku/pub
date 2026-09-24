@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>サーバまわりの地図｜何が PC で、何が Google Cloud で動いているか</title>
+<style>
+:root{
+  --ink:#1f2328; --sub:#57606a; --line:#d0d7de; --bg:#ffffff; --soft:#f6f8fa;
+  --dc:#5865f2; --dc-bg:#eef0fe;   /* Discord */
+  --pc:#b35900; --pc-bg:#fff4e6;   /* 拓也の PC */
+  --gc:#0b63c9; --gc-bg:#e8f1fc;   /* Google Cloud */
+  --lm:#2f7d32; --lm-bg:#ebf6ec;   /* LinksMate のサイト */
+  --bad:#c62828; --ok:#2f7d32; --wait:#8a6d00;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic UI","Meiryo",sans-serif;
+  font-size:16px;line-height:1.75;overflow-wrap:anywhere}
+main{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.45rem;line-height:1.4;margin:.2em 0 .3em}
+h2{font-size:1.2rem;margin:2.2em 0 .6em;padding-bottom:.25em;border-bottom:2px solid var(--line)}
+h3{font-size:1.02rem;margin:1.4em 0 .4em}
+p{margin:.5em 0}
+.meta{color:var(--sub);font-size:.88rem}
+.lead{background:var(--soft);border-left:4px solid var(--gc);padding:12px 14px;border-radius:6px;margin:14px 0}
+.lead ol{margin:.3em 0 .1em;padding-left:1.4em}
+.lead li{margin:.25em 0}
+figure{margin:16px 0 8px}
+figure svg{display:block;width:100%;max-width:540px;height:auto;margin:0 auto}
+figcaption{color:var(--sub);font-size:.9rem;margin-top:6px}
+.toc{font-size:.95rem;padding-left:1.3em}
+.tag{display:inline-block;font-size:.78rem;font-weight:700;padding:0 .5em;border-radius:4px;margin-right:.3em;white-space:nowrap}
+.t-dc{background:var(--dc-bg);color:var(--dc)} .t-pc{background:var(--pc-bg);color:var(--pc)}
+.t-gc{background:var(--gc-bg);color:var(--gc)} .t-gh{background:#eee;color:#444} .t-lm{background:var(--lm-bg);color:var(--lm)}
+.flow{list-style:none;padding:0;margin:10px 0;counter-reset:s}
+.flow li{position:relative;padding:8px 10px 8px 44px;border-left:3px solid var(--line);margin-left:14px}
+.flow li::before{counter-increment:s;content:counter(s);position:absolute;left:-15px;top:8px;width:26px;height:26px;border-radius:50%;
+  background:var(--ink);color:#fff;font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.flow li b{display:block}
+.note{font-size:.92rem;background:#fffbe6;border:1px solid #f0d77a;border-radius:6px;padding:8px 12px;margin:10px 0}
+.card{border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:12px 0}
+.card h3{margin-top:.2em}
+.card dl{margin:.3em 0}
+.card dt{font-weight:700;font-size:.9rem;color:var(--sub);margin-top:.5em}
+.card dd{margin:0 0 0 .2em}
+.card ul{margin:.2em 0;padding-left:1.2em}
+.mk{display:inline-flex;width:22px;height:22px;border-radius:50%;background:var(--bad);color:#fff;font-weight:700;font-size:.8rem;
+  align-items:center;justify-content:center;margin-right:.3em;vertical-align:2px}
+table{width:100%;border-collapse:collapse;font-size:.92rem;margin:8px 0;table-layout:fixed}
+th,td{border:1px solid var(--line);padding:6px 8px;vertical-align:top;text-align:left}
+th{background:var(--soft)}
+.st-ok{color:var(--ok);font-weight:700} .st-wait{color:var(--wait);font-weight:700} .st-no{color:var(--bad);font-weight:700}
+.gloss dt{font-weight:700;margin-top:.8em}
+.gloss dd{margin:0 0 0 1em}
+.physics{font-size:.9rem;color:var(--sub);border-top:1px dashed var(--line);padding-top:6px;margin-top:10px}
+footer{margin-top:40px;color:var(--sub);font-size:.85rem;border-top:1px solid var(--line);padding-top:10px}
+</style>
+</head>
+<body>
+<main>
+
+<h1>サーバまわりの地図</h1>
+<p class="meta">何が PC で、何が Google Cloud で、何が Discord で動いているか ／ 2026年9月25日（金）時点 ／ 読む人: 拓也・ゆうと</p>
+
+<div class="lead">
+<b>先に3行で</b>
+<ol>
+<li>ゆうとが押す <b>LinksMate コンソール（操作画面）は Google Cloud で動いている</b>。拓也の PC は通らない。</li>
+<li>ゆうとの依頼を拾って直すのは、<b>拓也の PC の上で動く Claude</b>。</li>
+<li>だから「<b>混み合っています</b>」は Google Cloud 側の話、「<b>返事が来ない</b>」は PC 側の話。直す場所が違う。</li>
+</ol>
+</div>
+
+<ol class="toc">
+<li><a href="#map">全体の地図</a></li>
+<li><a href="#flow">ゆうとの依頼が直るまでの流れ</a></li>
+<li><a href="#incidents">9月24日の3つの出来事を地図の上で</a></li>
+<li><a href="#options">打ち手の違い（混み合い・PC が止まったとき）</a></li>
+<li><a href="#money">お金の流れ</a></li>
+<li><a href="#glossary">用語集</a></li>
+</ol>
+
+<!-- ============================================================ -->
+<h2 id="map">1. 全体の地図</h2>
+<p>色の付いた枠が「動いている場所」、矢印が「誰が誰に何を頼むか」。</p>
+
+<figure>
+<svg viewBox="0 0 360 720" role="img" aria-label="全体の地図: ゆうと、Discord、拓也のPC、Google Cloud、LinksMateのサイトと、その間の頼みごとの矢印">
+<defs>
+  <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2328"/></marker>
+  <marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c62828"/></marker>
+</defs>
+<style>
+  .z{stroke-width:2;rx:10}
+  .b{fill:#fff;stroke-width:1.2;rx:6}
+  .zt{font-size:13px;font-weight:700}
+  .bt{font-size:12px;font-weight:700;fill:#1f2328}
+  .bs{font-size:10.5px;fill:#57606a}
+  .al{font-size:11px;fill:#1f2328}
+  .ar{stroke:#1f2328;stroke-width:1.6;fill:none;marker-end:url(#ah)}
+  .rr{stroke:#c62828;stroke-width:1.8;fill:none;marker-end:url(#ahr)}
+  .rl{font-size:11px;fill:#c62828;font-weight:700}
+</style>
+
+<!-- ゆうと -->
+<rect x="95" y="8" width="150" height="46" rx="23" fill="#fff" stroke="#1f2328" stroke-width="1.5"/>
+<text x="170" y="29" text-anchor="middle" class="bt">ゆうと</text>
+<text x="170" y="45" text-anchor="middle" class="bs">スマホから</text>
+
+<!-- ゆうと → Discord -->
+<path class="ar" d="M150,54 V96"/>
+<text x="156" y="80" class="al">不具合・要望を書く</text>
+
+<!-- Discord -->
+<rect class="z" x="10" y="98" width="312" height="104" fill="#eef0fe" stroke="#5865f2"/>
+<text x="22" y="118" class="zt" fill="#5865f2">Discord「仕事部屋」</text>
+<text x="310" y="118" text-anchor="end" class="bs">Discord 社のサーバ・無料</text>
+<rect class="b" x="22" y="128" width="150" height="46" stroke="#5865f2"/>
+<text x="97" y="148" text-anchor="middle" class="bt">仕様フォーラム</text>
+<text x="97" y="164" text-anchor="middle" class="bs">依頼を書く掲示板</text>
+<rect class="b" x="182" y="128" width="128" height="46" stroke="#5865f2"/>
+<text x="246" y="148" text-anchor="middle" class="bt">Bot</text>
+<text x="246" y="164" text-anchor="middle" class="bs">Claude が書き込む口</text>
+<text x="22" y="192" class="bs">ほかに「お金」「通知」の部屋もある</text>
+
+<!-- PC → Discord の矢印 -->
+<path class="ar" d="M40,256 V206"/>
+<text x="48" y="236" class="al">5分ごとに見に行く</text>
+<path class="ar" d="M296,256 V206"/>
+<text x="290" y="236" text-anchor="end" class="al">返信する</text>
+
+<!-- 拓也の PC -->
+<rect class="z" x="10" y="258" width="312" height="172" fill="#fff4e6" stroke="#b35900"/>
+<text x="60" y="278" class="zt" fill="#b35900">拓也の PC（家に1台）</text>
+<rect class="b" x="22" y="290" width="124" height="50" stroke="#b35900"/>
+<text x="84" y="311" text-anchor="middle" class="bt">見回り係</text>
+<text x="84" y="328" text-anchor="middle" class="bs">spec_watch</text>
+<path class="ar" d="M146,315 H190"/>
+<text x="168" y="307" text-anchor="middle" class="al">起こす</text>
+<rect class="b" x="192" y="290" width="118" height="50" stroke="#b35900"/>
+<text x="251" y="311" text-anchor="middle" class="bt">Claude</text>
+<text x="251" y="328" text-anchor="middle" class="bs">調べて直す係</text>
+<rect class="b" x="22" y="354" width="90" height="62" stroke="#b35900"/>
+<text x="67" y="378" text-anchor="middle" class="bt">Pixel</text>
+<text x="67" y="396" text-anchor="middle" class="bs">実機のスマホ</text>
+<rect class="b" x="120" y="354" width="92" height="62" stroke="#b35900"/>
+<text x="166" y="378" text-anchor="middle" class="bt">手元の Chrome</text>
+<text x="166" y="396" text-anchor="middle" class="bs">拓也がログイン</text>
+<rect class="b" x="220" y="354" width="90" height="62" stroke="#b35900"/>
+<text x="265" y="378" text-anchor="middle" class="bt">鍵の引き出し</text>
+<text x="265" y="396" text-anchor="middle" class="bs">PC 内の秘密</text>
+
+<!-- PC → Google Cloud -->
+<path class="ar" d="M251,432 V482" marker-start="url(#ah)"/>
+<text x="244" y="452" text-anchor="end" class="al">↓ 直した版を置く（デプロイ）</text>
+<text x="244" y="468" text-anchor="end" class="al">↑ ログ・写しを読む</text>
+
+<!-- Google Cloud -->
+<rect class="z" x="10" y="484" width="312" height="160" fill="#e8f1fc" stroke="#0b63c9"/>
+<text x="22" y="504" class="zt" fill="#0b63c9">Google Cloud（借りているサーバ）</text>
+<rect class="b" x="22" y="514" width="288" height="56" stroke="#0b63c9"/>
+<text x="166" y="536" text-anchor="middle" class="bt">LinksMate コンソール（Cloud Run）</text>
+<text x="166" y="554" text-anchor="middle" class="bs">押す画面＋ブラウザの自動操作・1台・CPU 1個</text>
+<rect class="b" x="22" y="580" width="90" height="54" stroke="#0b63c9"/>
+<text x="67" y="602" text-anchor="middle" class="bt">写し</text>
+<text x="67" y="620" text-anchor="middle" class="bs">口座の今の状態</text>
+<rect class="b" x="120" y="580" width="92" height="54" stroke="#0b63c9"/>
+<text x="166" y="602" text-anchor="middle" class="bt">鍵の金庫</text>
+<text x="166" y="620" text-anchor="middle" class="bs">パスワード類</text>
+<rect class="b" x="220" y="580" width="90" height="54" stroke="#0b63c9"/>
+<text x="265" y="602" text-anchor="middle" class="bt">ログ</text>
+<text x="265" y="620" text-anchor="middle" class="bs">何が起きたかの記録</text>
+
+<!-- ゆうと → コンソール（PC を通らない） -->
+<path class="rr" d="M245,31 H342 V542 H312"/>
+<text x="292" y="22" text-anchor="middle" class="rl">画面を開いて押す</text>
+<text x="338" y="468" text-anchor="end" class="rl" transform="rotate(-90 338 468)">PC は通らない</text>
+
+<!-- コンソール → LinksMate -->
+<path class="ar" d="M166,646 V676"/>
+<text x="174" y="666" class="al">ブラウザを自動で動かして申し込む</text>
+
+<!-- LinksMate -->
+<rect class="z" x="10" y="678" width="312" height="36" fill="#ebf6ec" stroke="#2f7d32"/>
+<text x="166" y="701" text-anchor="middle" class="zt" fill="#2f7d32">LinksMate のサイト（本物の申込画面）</text>
+</svg>
+<figcaption>赤い矢印に注目: ゆうとがボタンを押すとき、PC は通らない。PC が止まっても画面は使える。止まるのは「依頼を拾って直す・返信する」側だけ。</figcaption>
+</figure>
+
+<h3>それぞれの場所の役</h3>
+<table>
+<colgroup><col style="width:30%"><col></colgroup>
+<tr><th>場所</th><th>ここにあるもの</th></tr>
+<tr><td><span class="tag t-dc">Discord</span></td><td>連絡の場所。依頼の掲示板（仕様フォーラム）と、Claude が書き込むための Bot。Discord 社のサーバで動く。</td></tr>
+<tr><td><span class="tag t-pc">拓也の PC</span></td><td>見回り係（5分ごとに掲示板を見る）、Claude（調べて直す）、Pixel（実機のスマホ）、手元の Chrome、鍵の引き出し。<b>PC が止まると、ここにあるもの全部が止まる</b>。</td></tr>
+<tr><td><span class="tag t-gc">Google Cloud</span></td><td>ゆうとが押す操作画面（LinksMate コンソール）と、その周り（口座の状態の写し・パスワードの金庫・ログ）。いまは<b>1台・CPU 1個</b>（CPU＝計算する係。4章のたとえでは「店員」）。</td></tr>
+<tr><td><span class="tag t-lm">LinksMate</span></td><td>本物の申込画面。コンソールがブラウザを自動で動かして、ここで申し込む・解約する。</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="flow">2. ゆうとの依頼が直るまでの流れ</h2>
+
+<ol class="flow">
+<li><span class="tag t-dc">Discord</span><b>ゆうとが仕様フォーラムに書く</b>「不具合です」「こうしたい」。</li>
+<li><span class="tag t-pc">PC</span><b>見回り係が5分ごとに見に来る</b>最後の発言が人（Bot ではない）の投稿を「返事待ち」として見つける。</li>
+<li><span class="tag t-pc">PC</span><span class="tag t-dc">Discord</span><b>拾い手の Claude を起こす</b>起きた Claude は「拾いました」と返信し、投稿の札を「対応中」にする。</li>
+<li><span class="tag t-pc">PC</span><span class="tag t-gc">Google Cloud</span><b>事実を集めて直す</b>ログや写しを読んで原因を確かめてから直す。大きい修正は別の Claude に渡し、終わるまで見届ける。</li>
+<li><span class="tag t-gh">GitHub</span><b>着地</b>直したコードを、共有の本棚（GitHub）の本線に載せる。</li>
+<li><span class="tag t-gc">Google Cloud</span><b>デプロイ</b>新しい版を Google Cloud に置いて切り替える。作業中の口座があれば、終わるまで待ってから切り替える。</li>
+<li><span class="tag t-dc">Discord</span><b>ゆうとに返信</b>何が起きていて、何を直したかを、ゆうとに分かる言葉で書く。</li>
+<li><span class="tag t-dc">Discord</span><b>札を「済」に</b>ゆうとが続きを書けば、見回り係がまた拾う（1 に戻る）。</li>
+</ol>
+<p class="note">2〜4 は PC の上で起きる。<b>PC が止まると、この流れは 2 で止まる</b>（9月24日の出来事 A）。</p>
+
+<!-- ============================================================ -->
+<h2 id="incidents">3. 9月24日（水）の3つの出来事を地図の上で</h2>
+
+<figure>
+<svg viewBox="0 0 360 330" role="img" aria-label="9月24日の3つの出来事の場所: A PC、B コンソールの版の切り替え、C コンソールの入口">
+<defs>
+  <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2328"/></marker>
+</defs>
+<style>
+  .z2{stroke-width:2}
+  .b2{fill:#fff;stroke-width:1.2}
+  .t2{font-size:12px;font-weight:700;fill:#1f2328}
+  .s2{font-size:10.5px;fill:#57606a}
+  .a2{stroke:#1f2328;stroke-width:1.5;fill:none;marker-end:url(#ah2)}
+  .m{fill:#c62828}
+  .mt{font-size:13px;font-weight:700;fill:#fff}
+  .ml{font-size:11px;font-weight:700;fill:#c62828}
+</style>
+<rect x="120" y="6" width="120" height="34" rx="17" fill="#fff" stroke="#1f2328" stroke-width="1.5"/>
+<text x="180" y="28" text-anchor="middle" class="t2">ゆうと</text>
+<path class="a2" d="M180,40 V62"/>
+<rect class="z2" x="30" y="64" width="300" height="44" rx="10" fill="#eef0fe" stroke="#5865f2"/>
+<text x="46" y="91" class="t2" fill="#5865f2">Discord（依頼の掲示板）</text>
+<path class="a2" d="M110,136 V110"/>
+<rect class="z2" x="30" y="138" width="300" height="70" rx="10" fill="#fff4e6" stroke="#b35900"/>
+<text x="46" y="158" class="t2" fill="#b35900">拓也の PC</text>
+<rect class="b2" x="46" y="166" width="100" height="32" rx="6" stroke="#b35900"/>
+<text x="96" y="187" text-anchor="middle" class="s2">見回り係</text>
+<rect class="b2" x="160" y="166" width="100" height="32" rx="6" stroke="#b35900"/>
+<text x="210" y="187" text-anchor="middle" class="s2">Claude</text>
+<circle class="m" cx="300" cy="170" r="13"/><text x="300" y="175" text-anchor="middle" class="mt">A</text>
+<text x="300" y="200" text-anchor="middle" class="ml">固まった</text>
+<path class="a2" d="M210,210 V236"/>
+<rect class="z2" x="30" y="238" width="300" height="86" rx="10" fill="#e8f1fc" stroke="#0b63c9"/>
+<text x="46" y="258" class="t2" fill="#0b63c9">Google Cloud</text>
+<rect class="b2" x="46" y="268" width="62" height="46" rx="6" stroke="#0b63c9"/>
+<text x="77" y="295" text-anchor="middle" class="s2">入口</text>
+<rect class="b2" x="120" y="268" width="196" height="46" rx="6" stroke="#0b63c9"/>
+<text x="218" y="288" text-anchor="middle" class="s2">コンソール</text>
+<text x="218" y="304" text-anchor="middle" class="s2">1台・CPU 1個</text>
+<circle class="m" cx="77" cy="266" r="13"/><text x="77" y="271" text-anchor="middle" class="mt">C</text>
+<circle class="m" cx="300" cy="266" r="13"/><text x="300" y="271" text-anchor="middle" class="mt">B</text>
+<path d="M14,23 H120" stroke="#c62828" stroke-width="1.6" fill="none"/>
+<path d="M14,23 V291 H44" stroke="#c62828" stroke-width="1.6" fill="none" marker-end="url(#ah2)"/>
+<text x="20" y="130" class="ml" transform="rotate(-90 20 130)">ゆうとが押す</text>
+</svg>
+<figcaption>A は PC、B と C は Google Cloud のコンソールで起きた。場所が違うので、直し方も違う。</figcaption>
+</figure>
+<p class="meta">起きた順は C（17:07〜）→ B（17:39）→ A（18:47〜）。下は影響の大きい順に A から書いた。</p>
+
+<div class="card">
+<h3><span class="mk">A</span>PC が固まった（18:47〜23:00）</h3>
+<dl>
+<dt>地図のどこで</dt><dd><span class="tag t-pc">拓也の PC</span></dd>
+<dt>何が起きた</dt>
+<dd>PC が固まって再起動し、見回り係も一緒に止まった。19:33 のゆうとの投稿を拾うのが約3時間半遅れた。止まる直前に拾った Claude は「拾いました」とだけ返して落ち、その投稿には5時間半返事がなかった。<br>このあいだも<b>コンソールは動いていた</b>（Google Cloud 側なので）。</dd>
+<dt>何を直した</dt>
+<dd><ul>
+<li>「拾いました」の一言だけで落ちた担当を、見回り係が見つけて拾い直す（着地済み）</li>
+<li>電源が戻ったら PC が自分で起動する設定を入れた（ただし今回は停電ではなく「固まり」だったので、この設定では救えない）</li>
+<li>PC の外の控え（クラウドの代打）を作って、寝かせてある（4 章）</li>
+</ul></dd>
+<dt>まだ残っていること</dt><dd>固まったときに戻す手（未設計）／ログオンしなくても見回り係が動くか（実測待ち）／代打を起こす承認</dd>
+</dl>
+</div>
+
+<div class="card">
+<h3><span class="mk">B</span>版の切り替えがジョブの途中に当たった（17:39）</h3>
+<dl>
+<dt>地図のどこで</dt><dd><span class="tag t-gc">Google Cloud</span> のコンソール</dd>
+<dt>何が起きた</dt>
+<dd>17:36 に、ある口座で「回線を4本追加」を始めた。17:39 に、直前の不具合を直した新しい版へ切り替えた。新しい版は古い版の作業を知らないので、画面は「0/4本 で中止」と出した。<br>実際は<b>古い版が裏で作業を続けていて、3本申し込んでいた</b>（4本目は、古い版が止まったときに消えた）。</dd>
+<dt>何を直した</dt>
+<dd><ul>
+<li>切り替えの前に、全部の口座の作業が終わるのを待つ</li>
+<li>待っている間は新しい注文を断る（受付停止＝画面に「更新のため数分お待ちください」）</li>
+<li>どの版で作業が走っているかの目印を写しに置き、古い版の作業中は押せなくする</li>
+<li>作業を見失ったら「中止」と言わず、「見えなくなりました。サイトから読み直して」と正直に出す</li>
+<li>本線に載っていない古いコードから版を作らせない門</li>
+</ul></dd>
+</dl>
+</div>
+
+<div class="card">
+<h3><span class="mk">C</span>混み合い「429」（17:07〜17:36 に26回）</h3>
+<dl>
+<dt>地図のどこで</dt><dd><span class="tag t-gc">Google Cloud</span> のコンソールの入口</dd>
+<dt>何が起きた</dt>
+<dd>ブラウザの自動操作を起動するたびに、1個しかない CPU が埋まった。そのあいだ入口が「混み合っています（429）」を返した（長いときで約1分）。<br>断られた操作は中まで届いていないので、二重の申込にはならない。<b>PC や Claude のアカウントは関係ない</b>。</dd>
+<dt>何を直した</dt>
+<dd>画面が最長約65秒、自動でやり直して待つ（「押し直さなくて大丈夫です」と出る）。</dd>
+<dt>まだ残っていること</dt><dd>根っこは「CPU 1個」。打ち手は次の章。</dd>
+</dl>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="options">4. 打ち手の違い</h2>
+
+<h3>混み合い: 店員1人のお店で考える</h3>
+<table>
+<colgroup><col style="width:42%"><col></colgroup>
+<tr><th>お店</th><th>コンソール</th></tr>
+<tr><td>店員</td><td>CPU（いま1人）</td></tr>
+<tr><td>レジ（お客さんに返事する）</td><td>画面の応答（押したら返事する）</td></tr>
+<tr><td>調理（時間がかかる）</td><td>ブラウザの自動操作（申込・解約）</td></tr>
+<tr><td>注文メモ</td><td>どの口座で何が進行中か</td></tr>
+<tr><td>伝票ボード</td><td>キュー（順番待ちの列）。いまは無い。③で置く</td></tr>
+</table>
+
+<figure>
+<svg viewBox="0 0 360 600" role="img" aria-label="店のたとえ: 今、①大きくする、②台数を増やす、③係を分ける の4つの絵">
+<style>
+  .sh{fill:#fff;stroke:#57606a;stroke-width:1.5}
+  .ttl{font-size:13px;font-weight:700;fill:#1f2328}
+  .lb{font-size:10.5px;fill:#1f2328}
+  .sm{font-size:10px;fill:#57606a}
+  .reg{fill:#e8f1fc;stroke:#0b63c9;stroke-width:1.2}
+  .kit{fill:#fff4e6;stroke:#b35900;stroke-width:1.2}
+  .memo{fill:#fffbe6;stroke:#c9a400;stroke-width:1.2}
+  .clk{fill:#1f2328}
+  .cus{fill:#8c959f}
+  .bad{font-size:10.5px;fill:#c62828;font-weight:700}
+  .good{font-size:10.5px;fill:#2f7d32;font-weight:700}
+  .dl{stroke:#1f2328;stroke-width:1.2;fill:none}
+</style>
+
+<!-- 今 -->
+<text x="8" y="16" class="ttl">いま: 店員1人がレジと調理を兼ねる</text>
+<rect class="sh" x="60" y="24" width="292" height="100" rx="8"/>
+<circle class="cus" cx="18" cy="74" r="6"/><circle class="cus" cx="34" cy="74" r="6"/><circle class="cus" cx="50" cy="74" r="6"/>
+<text x="4" y="100" class="bad">混んで</text><text x="4" y="113" class="bad">ます</text><text x="4" y="126" class="bad">(429)</text>
+<rect class="reg" x="70" y="50" width="70" height="46" rx="4"/><text x="105" y="70" text-anchor="middle" class="lb">レジ</text><text x="105" y="86" text-anchor="middle" class="sm">画面の応答</text>
+<rect class="kit" x="262" y="40" width="82" height="70" rx="4"/><text x="303" y="70" text-anchor="middle" class="lb">調理</text><text x="303" y="86" text-anchor="middle" class="sm">ブラウザ操作</text>
+<rect class="memo" x="176" y="30" width="54" height="20" rx="2"/><text x="203" y="44" text-anchor="middle" class="sm">注文メモ</text>
+<circle class="clk" cx="203" cy="80" r="8"/>
+<path class="dl" d="M190,80 H146 M216,80 H256"/>
+<text x="203" y="108" text-anchor="middle" class="sm">店員1人（CPU 1個）</text>
+
+<!-- ① -->
+<text x="8" y="156" class="ttl">① 大きくする: 同じ店で店員を2人に</text>
+<rect class="sh" x="60" y="164" width="292" height="100" rx="8"/>
+<rect class="reg" x="70" y="190" width="70" height="46" rx="4"/><text x="105" y="210" text-anchor="middle" class="lb">レジ</text>
+<rect class="kit" x="262" y="180" width="82" height="70" rx="4"/><text x="303" y="210" text-anchor="middle" class="lb">調理</text>
+<rect class="memo" x="176" y="170" width="54" height="20" rx="2"/><text x="203" y="184" text-anchor="middle" class="sm">注文メモ</text>
+<circle class="clk" cx="160" cy="220" r="8"/><circle class="clk" cx="240" cy="220" r="8"/>
+<text x="180" y="259" text-anchor="middle" class="sm">店員2人（CPU 2個）・メモは1枚のまま</text>
+<text x="8" y="282" class="good">すぐできる・安全。ただ調理が2つ同時だと、また2人とも厨房に入る</text>
+
+<!-- ② -->
+<text x="8" y="312" class="ttl">② 台数を増やす: 店を2軒に</text>
+<text x="352" y="312" text-anchor="end" class="bad">✕ いまはやらない</text>
+<rect class="sh" x="20" y="320" width="150" height="82" rx="8"/>
+<rect class="sh" x="190" y="320" width="150" height="82" rx="8"/>
+<rect class="memo" x="68" y="328" width="54" height="20" rx="2"/><text x="95" y="342" text-anchor="middle" class="sm">メモA</text>
+<rect class="memo" x="238" y="328" width="54" height="20" rx="2"/><text x="265" y="342" text-anchor="middle" class="sm">メモB</text>
+<circle class="clk" cx="95" cy="374" r="8"/><circle class="clk" cx="265" cy="374" r="8"/>
+<text x="95" y="396" text-anchor="middle" class="sm">1軒目</text><text x="265" y="396" text-anchor="middle" class="sm">2軒目</text>
+<text x="8" y="420" class="bad">メモが2枚に割れる → 同じ口座に2軒から申し込む危険。いまはできない</text>
+
+<!-- ③ -->
+<text x="8" y="450" class="ttl">③ 係を分ける: レジ係と調理係＋伝票ボード</text>
+<rect class="sh" x="8" y="458" width="120" height="96" rx="8"/>
+<rect class="reg" x="18" y="476" width="64" height="44" rx="4"/><text x="50" y="502" text-anchor="middle" class="lb">レジ</text>
+<circle class="clk" cx="104" cy="498" r="8"/>
+<text x="68" y="542" text-anchor="middle" class="sm">レジ係はいつでも即答</text>
+<rect class="memo" x="140" y="470" width="80" height="70" rx="3"/>
+<text x="180" y="490" text-anchor="middle" class="lb">伝票ボード</text>
+<text x="180" y="506" text-anchor="middle" class="sm">（キュー）</text>
+<text x="180" y="524" text-anchor="middle" class="sm">＋注文メモ</text>
+<path class="dl" d="M128,505 H138 M222,505 H232"/>
+<rect class="sh" x="232" y="458" width="120" height="96" rx="8"/>
+<rect class="kit" x="276" y="470" width="68" height="60" rx="4"/><text x="310" y="504" text-anchor="middle" class="lb">調理</text>
+<circle class="clk" cx="254" cy="498" r="8"/>
+<text x="292" y="546" text-anchor="middle" class="sm">調理係は順番に作る</text>
+<text x="8" y="574" class="good">レジが詰まらない。メモが外に出るので、あとで②もできるようになる</text>
+<text x="8" y="590" class="sm">そのかわり作り直しが大きい（何段かに分けて進める）</text>
+</svg>
+<figcaption>429 は「店員が厨房にいる間、レジに誰もいない」状態。① は店員を増やす、③ はレジと厨房を別の人の持ち場にする。</figcaption>
+</figure>
+
+<h3>PC が止まったとき</h3>
+<figure>
+<svg viewBox="0 0 360 250" role="img" aria-label="PCが止まったときの打ち手: ①自動復帰、③クラウドの代打（心拍と見張り）">
+<defs>
+  <marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2328"/></marker>
+</defs>
+<style>
+  .p3{font-size:12px;font-weight:700;fill:#1f2328}
+  .s3{font-size:10.5px;fill:#57606a}
+  .a3{stroke:#1f2328;stroke-width:1.5;fill:none;marker-end:url(#ah3)}
+  .d3{stroke:#c62828;stroke-width:1.5;fill:none;stroke-dasharray:4 3}
+  .r3{font-size:10.5px;fill:#c62828;font-weight:700}
+</style>
+<rect x="10" y="10" width="140" height="70" rx="10" fill="#fff4e6" stroke="#b35900" stroke-width="2"/>
+<text x="80" y="34" text-anchor="middle" class="p3">拓也の PC</text>
+<text x="80" y="52" text-anchor="middle" class="s3">見回り係が5分ごとに</text>
+<text x="80" y="67" text-anchor="middle" class="s3">「生きてるよ」を出す</text>
+<text x="80" y="100" text-anchor="middle" class="p3">① 自動復帰</text>
+<text x="80" y="116" text-anchor="middle" class="s3">止まっても自分で</text>
+<text x="80" y="130" text-anchor="middle" class="s3">起き上がる</text>
+<path class="a3" d="M150,45 H206"/>
+<text x="178" y="38" text-anchor="middle" class="s3">心拍</text>
+<rect x="208" y="10" width="142" height="70" rx="10" fill="#e8f1fc" stroke="#0b63c9" stroke-width="2"/>
+<text x="279" y="34" text-anchor="middle" class="p3">見張り</text>
+<text x="279" y="52" text-anchor="middle" class="s3">Google Cloud・5分ごと</text>
+<text x="279" y="67" text-anchor="middle" class="s3">心拍が15分来ない？</text>
+<path class="a3" d="M279,80 V150"/>
+<text x="272" y="118" text-anchor="end" class="r3">来ない</text>
+<text x="272" y="132" text-anchor="end" class="r3">＝PC が止まった</text>
+<rect x="190" y="152" width="160" height="88" rx="10" fill="#e8f1fc" stroke="#0b63c9" stroke-width="2"/>
+<text x="270" y="174" text-anchor="middle" class="p3">③ 代打の Claude</text>
+<text x="270" y="192" text-anchor="middle" class="s3">クラウドで動く</text>
+<text x="270" y="208" text-anchor="middle" class="s3">返事待ちの投稿を拾う</text>
+<text x="270" y="224" text-anchor="middle" class="s3">PC の道具が要るものは PC 待ち</text>
+<rect x="10" y="176" width="140" height="44" rx="10" fill="#eef0fe" stroke="#5865f2" stroke-width="2"/>
+<text x="80" y="203" text-anchor="middle" class="p3">Discord</text>
+<path class="a3" d="M190,198 H152"/>
+</svg>
+<figcaption>① は PC そのものを早く戻す手。③ は PC が戻るまでの穴を、PC の外で埋める手。どちらか一方では足りないので両方やる（番号は拓也との相談のときの番号のまま）。</figcaption>
+</figure>
+
+<div class="note"><b>PC が止まっている間、ゆうとは</b><br>
+できる: コンソールで申込・解約を押す／Discord に書く<br>
+できない: 依頼を拾ってもらう・直してもらう・返信をもらう（③の代打を起こせば、PC の道具が要らない依頼は拾えるようになる）</div>
+
+<h3>拓也の裁定と、いま進んでいる票</h3>
+<p>2つの話で、それぞれ別の番号の付いた手がある。</p>
+<ul>
+<li><b>混み合い</b>（①大きくする ②台数を増やす ③係を分ける）→ 拓也の裁定は「<b>①と③をやる</b>」（9月25日 02:54）</li>
+<li><b>PC が止まったとき</b>（①自動復帰 ③クラウドの代打）→ 拓也の裁定は「<b>①と③をやる</b>」（9月25日 01:23）</li>
+</ul>
+<table>
+<colgroup><col style="width:38%"><col></colgroup>
+<tr><th>打ち手</th><th>いまの状態（9月25日 03:50）</th></tr>
+<tr><td>混み合い ① CPU を2個に</td><td><span class="st-wait">進行中</span>。設定を変えて、その後1週間「429」の回数を数えて効いたか確かめる（数えるのは機械が予約する）</td></tr>
+<tr><td>混み合い ② 台数を増やす</td><td><span class="st-no">やらない</span>。③で注文メモを外に出した後なら、できるようになる</td></tr>
+<tr><td>混み合い ③ 係を分ける</td><td><span class="st-wait">設計中</span>。設計書と、最初の段の作業の票を作っている。本番はまだ変えない</td></tr>
+<tr><td>PC停止 ① 自動復帰</td><td><span class="st-wait">途中</span>。電源が戻ったら起動する設定は済み。固まったときに戻す手は未設計。ログオンなしで見回り係を動かせるかは実測待ち</td></tr>
+<tr><td>PC停止 ③ クラウドの代打</td><td><span class="st-ok">作って寝かせてある</span>。起こすには、月約180円の承認と、拓也の web での設定（代打の Claude の登録）が要る</td></tr>
+</table>
+<p class="physics">拓也向けの一言: 律速段階は「CPU 1個をレジと調理で取り合う」ところ。① はその段の速度を上げる、③ は経路を2本に分けて取り合いそのものを消す。② は並列につなぐ手だが、注文メモ（状態）が各経路で別々に数えられて二重になる。</p>
+
+<!-- ============================================================ -->
+<h2 id="money">5. お金の流れ</h2>
+
+<figure>
+<svg viewBox="0 0 360 300" role="img" aria-label="お金の流れ: Google Cloud の使った分が、請求アカウント bot-lab（ゆうと）を通ってゆうとのカードへ。12月21日ごろまではトライアルのクレジットから出る">
+<defs>
+  <marker id="ah4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2328"/></marker>
+</defs>
+<style>
+  .p4{font-size:12px;font-weight:700;fill:#1f2328}
+  .s4{font-size:10.5px;fill:#57606a}
+  .a4{stroke:#1f2328;stroke-width:1.5;fill:none;marker-end:url(#ah4)}
+</style>
+<rect x="10" y="8" width="340" height="76" rx="10" fill="#e8f1fc" stroke="#0b63c9" stroke-width="2"/>
+<text x="180" y="30" text-anchor="middle" class="p4">Google Cloud で使った分</text>
+<text x="180" y="50" text-anchor="middle" class="s4">コンソール・写し・金庫・ログ</text>
+<text x="180" y="66" text-anchor="middle" class="s4">ほかに経費の画面・練習用のサーバ など</text>
+<path class="a4" d="M180,84 V112"/>
+<rect x="60" y="114" width="240" height="46" rx="10" fill="#fff" stroke="#1f2328" stroke-width="1.5"/>
+<text x="180" y="134" text-anchor="middle" class="p4">請求アカウント「bot-lab（ゆうと）」</text>
+<text x="180" y="150" text-anchor="middle" class="s4">9月22日から（それまでは拓也の個人の請求）</text>
+<path class="a4" d="M130,160 V196"/>
+<path class="a4" d="M230,160 V196"/>
+<text x="124" y="182" text-anchor="end" class="s4">12月21日ごろまで</text>
+<text x="236" y="182" class="s4">そのあと</text>
+<rect x="10" y="198" width="160" height="60" rx="10" fill="#ebf6ec" stroke="#2f7d32" stroke-width="1.5"/>
+<text x="90" y="220" text-anchor="middle" class="p4">トライアルの</text>
+<text x="90" y="236" text-anchor="middle" class="p4">クレジット</text>
+<text x="90" y="251" text-anchor="middle" class="s4">¥47,813 から減る</text>
+<rect x="190" y="198" width="160" height="60" rx="10" fill="#fff4e6" stroke="#b35900" stroke-width="1.5"/>
+<text x="270" y="224" text-anchor="middle" class="p4">ゆうとのカード</text>
+<text x="270" y="242" text-anchor="middle" class="s4">有料への切り替えが要る</text>
+<text x="180" y="286" text-anchor="middle" class="s4">切り替えないとトライアル終了でサーバが止まる</text>
+</svg>
+<figcaption>トライアルが終わる12月21日ごろ（正確な日付は Google Cloud の請求の画面に出る）より前に、有料の請求へ切り替える必要がある。</figcaption>
+</figure>
+<div class="note"><b>12月までにゆうとがやること: 1つだけ</b><br>
+12月に入ったら、ゆうとの Google アカウントで Google Cloud の請求の画面を開き、「有料アカウントに切り替え」を押す。ゆうとにしかできない操作（本人のログインが要る）なので、時期が来たら Claude から Discord の「決済のお願い」で頼む。</div>
+
+<table>
+<colgroup><col style="width:34%"><col style="width:30%"><col></colgroup>
+<tr><th>何に</th><th>誰の請求</th><th>いくら</th></tr>
+<tr><td>Google Cloud（コンソールなど全部）</td><td>ゆうとの請求アカウント（いまはクレジットから）</td><td><b>実額は未確認</b>。9月25日にこの資料を作ったとき、請求の明細の読み出しが返ってこなかった。CPU を2個にする作業の中で、明細を読み直して実額を出す</td></tr>
+<tr><td>└ CPU を2個にした分</td><td>同上</td><td>見積り 月に約1,300〜1,700円増（1日に何時間動くかで変わる）</td></tr>
+<tr><td>└ PC停止時の見張り（まだ起こしていない）</td><td>同上</td><td>見積り 月に約180円（承認待ち）</td></tr>
+<tr><td>Claude のセッション</td><td>拓也の Claude の定額プラン</td><td>定額（使った分だけ増える請求ではない）</td></tr>
+<tr><td>Discord</td><td>—</td><td>無料</td></tr>
+<tr><td>LinksMate の回線・ポイント</td><td>各口座</td><td>この資料の外（お金が動く操作は別の門で守っている）</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="glossary">6. 用語集</h2>
+<dl class="gloss">
+<dt>Cloud Run</dt><dd>Google が貸してくれる「呼ばれたときだけ起きるサーバ」。コンソールはここで動いている。</dd>
+<dt>インスタンス</dt><dd>そのサーバの1台ぶん。いまは1台だけ（お店1軒）。</dd>
+<dt>CPU</dt><dd>計算をする係。お店でいう店員。いまは1個（1人）。</dd>
+<dt>デプロイ</dt><dd>直した版をサーバに置いて、切り替えること。お店でいう改装。</dd>
+<dt>版（リビジョン）</dt><dd>デプロイのたびにできる、番号付きの版。まずかったら前の版に戻せる。</dd>
+<dt>429</dt><dd>「混み合っているので受け付けられません」という返事の番号。入口で断られていて、中には届いていない。</dd>
+<dt>キュー</dt><dd>順番待ちの列。お店でいう伝票ボード。</dd>
+<dt>心拍</dt><dd>「生きてるよ」と決まった間隔で出す合図。途絶えたら止まったと分かる。</dd>
+<dt>見張り</dt><dd>Google Cloud で5分ごとに PC の心拍を確かめる小さなプログラム。心拍が15分来なければ代打を起こす（まだ寝かせてある）。PC の「見回り係」とは別物。</dd>
+<dt>フェイルオーバー</dt><dd>いつもの係が止まったら、控えが代わりに動くこと。野球の代打。</dd>
+<dt>受付停止</dt><dd>デプロイの前に新しい注文だけを止めて、作りかけは最後まで作らせること。</dd>
+<dt>写し</dt><dd>口座ごとの今の状態を、Google Cloud の保管庫に置いたもの。画面を開いた瞬間にこれを出す。</dd>
+<dt>鍵の金庫</dt><dd>パスワード類をしまっておく Google Cloud の金庫（Google での呼び名は Secret Manager）。</dd>
+<dt>見回り係（spec_watch）</dt><dd>拓也の PC で5分ごとに仕様フォーラムを見回るプログラム。</dd>
+<dt>着地</dt><dd>直したコードを、共有の本棚（GitHub）の本線に載せること。デプロイはその後。</dd>
+</dl>
+
+<footer>
+出典: bot-lab の仕様書・作業の報告書（2026年9月24日〜25日）。分からなかったところは「未確認」と書いた。<br>
+公開ページなので、サーバの住所・ID・メールアドレス・鍵の名前は載せていない（構成の形だけ）。
+</footer>
+
+</main>
+</body>
+</html>
