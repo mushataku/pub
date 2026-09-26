@@ -202,6 +202,7 @@ section h2{font-size:clamp(21px,4.4vw,27px); font-weight:900}
 .fl-op{align-self:center; font-weight:900; font-size:18px; color:var(--muted); padding-inline:2px}
 .how{margin:0; padding-left:1.2em; display:grid; gap:6px; font-size:14.5px; color:var(--ink-2)}
 .how b{color:var(--ink)}
+.how a{color:var(--ink)}
 .basis .row{grid-template-columns:14em 1fr 5.5em}
 .pkg{gap:5px}
 .pkg .row .lab{font-size:13.5px}
@@ -392,6 +393,43 @@ a:focus-visible{outline:2px solid var(--us); outline-offset:2px}
   <p class="callout">作ったあとも、LinksMate の画面が変わるたびに直す<b>保守が月10〜30万円</b>かかります。</p>
 </section>
 
+<section aria-labelledby="s2b">
+  <p class="sec-no">AI時代だと？</p>
+  <h2 id="s2b">1人あたりの単価は下がっていない。下がりうるのは工数</h2>
+  <div class="fig">
+    <p class="fig-title">AI をどれだけ使う業者かで、金額はこう変わる（税抜、目盛りは500万円ごと）</p>
+    <div class="chart" style="--tick:25%">
+      <div class="row">
+        <div class="lab">今ふつうに見積りを取ると<small>人の手で書く前提の工数</small></div>
+        <div class="track" title="今ふつうに見積りを取ると: 1,300〜1,600万円"><div class="bar solid join out" style="width:65%"></div><div class="bar rng out" style="left:65%;width:15%"></div></div>
+        <div class="val">1,300〜1,600万</div>
+      </div>
+      <div class="row">
+        <div class="lab">AI で工数3割減の業者<small>14 → 約10人月（仮定）</small></div>
+        <div class="track" title="工数3割減: 900〜1,100万円"><div class="bar solid join out" style="width:45%"></div><div class="bar rng out" style="left:45%;width:10%"></div></div>
+        <div class="val">900〜1,100万</div>
+      </div>
+      <div class="row">
+        <div class="lab">AI を使いこなす業者<small>14 → 4〜7人月（仮定）</small></div>
+        <div class="track" title="工数5〜7割減: 約400〜650万円"><div class="bar solid join out" style="width:20%"></div><div class="bar rng out" style="left:20%;width:12.5%"></div></div>
+        <div class="val">約400〜650万</div>
+      </div>
+      <div class="row axis" aria-hidden="true">
+        <div class="lab"></div>
+        <div class="track"><span class="t first" style="left:0">0</span><span class="t minor" style="left:25%">500万</span><span class="t" style="left:50%">1,000万</span><span class="t minor" style="left:75%">1,500万</span><span class="t last" style="left:100%">2,000万</span></div>
+        <div class="val"></div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:10px">計算: 約10人月（9.8）× 80万円 × 上乗せ1.15〜1.4 ＝ 902〜1,098万円／4.2〜7人月 × 80万円 × 1.15 ＝ 386〜644万円。工数の減り方は仮定です。</p>
+  </div>
+  <ul class="how">
+    <li><b>単価は下がっていない</b>：フリーランスの平均月単価は80.8万円（2026年1月の調査・265人）。コードの半分以上を AI で書く人は、そうでない人より月10万円ほど<b>高い</b>（<a href="https://freelance.findy-code.io/articles/market-report_202603" target="_blank" rel="noopener">Findy Freelance</a>・事業者の調査）。</li>
+    <li><b>それでも見積りはなかなか下がらない</b>：「AI で生産性が上がった」は81.9%なのに、それを単価に結びつけられた人は約4割（同じ調査）。人月×単価で売る商売では、速く終わるほど売上が減るからです（<a href="https://zenn.dev/keisukee/articles/20250613_ccf53a0f90e3d6" target="_blank" rel="noopener">受託エンジニアの体験記</a>）。「AI で○割安く」を料金表に出している国内の会社は、今回の調べでは見つかりませんでした。</li>
+    <li><b>AI でも縮みにくい部分がある</b>：実際の口座で動かして落とし穴を見つける、受け入れを確かめる、といった部分です。うちが11日で済んだのは、コードを書く速さに加えて、拓也がその場で本物の口座を押して確かめ、すぐ直せたからです。</li>
+  </ul>
+  <p class="callout">つまり「ふつうの業者に頼めば今も1,000万円を超える」は本当です。ただし AI を使いこなす業者・個人に当たれば、数百万円まで下がりえます。</p>
+</section>
+
 <section aria-labelledby="s3">
   <p class="sec-no">中身</p>
   <h2 id="s3">目に見える画面は、全体の15%だけ</h2>
@@ -475,7 +513,7 @@ a:focus-visible{outline:2px solid var(--us); outline-offset:2px}
   <div class="pitch">
     <span class="k">営業でそのまま使える一言</span>
     <q>外注なら半年・1,000万円超、しかも受けてもらいにくい。うちは11日で作った。</q>
-    <p>ここまでの数字は「同じものを買い直すときの原価」で、売るときの値段ではありません。値段の根拠ではなく、比べる物差しとして使えます。</p>
+    <p>ここまでの数字は「同じものを買い直すときの原価」で、売るときの値段ではありません。AI を使いこなす相手なら数百万円まで下がりうるので、値段だけでなく「速さ」と「本番で落とし穴をつぶした状態で渡せること」で比べてもらうのが強い。値付けも人月ではなく、成果や固定の値段で（人月だと速いほど損をする）。</p>
   </div>
 </section>
 
