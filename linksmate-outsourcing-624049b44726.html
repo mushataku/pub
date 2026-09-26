@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>LinksMate外注見積り</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<style>
+:root{
+  --bg:#f5f6f8; --surface:#ffffff; --ink:#14181f; --ink-2:#4a5260; --muted:#737b89;
+  --line:#e1e4ea; --axis:#c5cad3; --ring:rgba(20,24,31,.10);
+  --us:#2a78d6; --out:#eb6834;
+  --c1:#1baf7a; --c2:#eda100; --c3:#e87ba4; --c4:#008300;
+  --us-soft:#e6f0fc; --out-soft:#fdeee7; --stamp:#c8412c;
+  --shadow:0 1px 2px rgba(20,24,31,.05),0 6px 24px rgba(20,24,31,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0e1116; --surface:#161a21; --ink:#f1f3f7; --ink-2:#bcc3cf; --muted:#8a93a1;
+    --line:#262c36; --axis:#3a424f; --ring:rgba(255,255,255,.10);
+    --us:#3987e5; --out:#d95926;
+    --c1:#199e70; --c2:#c98500; --c3:#d55181; --c4:#008300;
+    --us-soft:#16263b; --out-soft:#35201a; --stamp:#e2604a;
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0e1116; --surface:#161a21; --ink:#f1f3f7; --ink-2:#bcc3cf; --muted:#8a93a1;
+  --line:#262c36; --axis:#3a424f; --ring:rgba(255,255,255,.10);
+  --us:#3987e5; --out:#d95926;
+  --c1:#199e70; --c2:#c98500; --c3:#d55181; --c4:#008300;
+  --us-soft:#16263b; --out-soft:#35201a; --stamp:#e2604a;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif;
+  font-size:16px; line-height:1.75;
+  padding-inline:16px; padding-block:28px 56px;
+}
+.wrap{max-width:760px; margin-inline:auto; display:grid; gap:44px}
+h1,h2,h3{text-wrap:balance; margin:0; line-height:1.35}
+p{margin:0}
+.lead{color:var(--ink-2)}
+.num{font-variant-numeric:tabular-nums}
+
+/* ── hero ── */
+.hero{display:grid; gap:20px}
+.eyebrow{font-size:13px; letter-spacing:.08em; color:var(--muted); font-weight:500}
+.hero h1{font-size:clamp(28px,6vw,42px); font-weight:900; letter-spacing:.01em}
+.mk{white-space:nowrap; background:linear-gradient(transparent 62%, var(--mk) 62%); padding-inline:2px}
+.mk.out{--mk:var(--out-soft)} .mk.us{--mk:var(--us-soft)}
+.hero-grid{display:grid; grid-template-columns:1.25fr 1fr; gap:14px; align-items:stretch}
+.estimate{
+  position:relative; background:var(--surface); border-radius:10px; box-shadow:var(--shadow);
+  border:1px solid var(--ring); padding:18px 20px 16px;
+}
+.estimate .head{
+  display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap;
+  border-bottom:3px double var(--axis); padding-bottom:8px; margin-bottom:10px;
+}
+.estimate .head b{font-size:17px; letter-spacing:.15em}
+.estimate .head span{font-size:12px; color:var(--muted)}
+.estimate dl{display:grid; grid-template-columns:auto 1fr; gap:6px 14px; margin:0; font-size:14px}
+.estimate dt{color:var(--muted)}
+.estimate dd{margin:0}
+.estimate .total{border-top:1px solid var(--line); padding-top:8px; margin-top:4px; font-size:22px; font-weight:900}
+.estimate .total small{font-size:12px; font-weight:500; color:var(--muted); margin-left:4px}
+.stamp{
+  position:absolute; right:14px; bottom:14px; width:54px; height:54px; border-radius:50%;
+  border:2px solid var(--stamp); color:var(--stamp); display:grid; place-items:center;
+  font-weight:900; font-size:14px; transform:rotate(-12deg); opacity:.85;
+}
+.actual{
+  background:var(--us-soft); border-radius:10px; padding:18px 20px; display:grid; align-content:center; gap:4px;
+}
+.actual .k{font-size:13px; color:var(--ink-2)}
+.actual .v{font-size:44px; font-weight:900; line-height:1.1}
+.actual .v small{font-size:18px}
+.actual .s{font-size:13px; color:var(--ink-2)}
+.twoai{
+  display:grid; grid-template-columns:1fr auto 1fr; gap:10px; align-items:center;
+  background:var(--surface); border:1px solid var(--ring); border-radius:10px; padding:12px 16px; font-size:14px;
+}
+.twoai .ai b{display:block; font-size:12px; color:var(--muted); font-weight:500; letter-spacing:.06em}
+.twoai .eq{font-weight:900; color:var(--muted); font-size:13px; text-align:center; line-height:1.3}
+.twoai-note{grid-column:1 / -1; order:4; font-size:12.5px; color:var(--muted); border-top:1px solid var(--line); padding-top:8px; line-height:1.55}
+.est-note{margin-top:8px; padding-right:64px}
+.actual .s2{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.5}
+
+/* ── section ── */
+section{display:grid; gap:14px}
+.sec-no{font-size:12px; color:var(--muted); letter-spacing:.12em; font-weight:700}
+section h2{font-size:clamp(21px,4.4vw,27px); font-weight:900}
+.fig{background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:18px 18px 14px; box-shadow:var(--shadow)}
+.fig-title{font-size:13px; color:var(--ink-2); font-weight:700; margin-bottom:12px}
+.note{font-size:13px; color:var(--muted); line-height:1.6}
+
+/* ── bar charts ── */
+.chart{display:grid; gap:9px}
+.row{display:grid; grid-template-columns:9.5em 1fr 7.6em; gap:10px; align-items:center}
+.row .lab{font-size:14px; line-height:1.3}
+.row .lab small{display:block; font-size:11.5px; color:var(--muted)}
+.row .val{font-size:14px; font-weight:700; text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+.track{position:relative; height:26px;
+  background:linear-gradient(to right,var(--line) 1px,transparent 1px) 0 0/var(--tick) 100% repeat-x;
+  border-right:1px solid var(--line);
+}
+.track::before{content:""; position:absolute; left:0; top:0; bottom:0; width:1px; background:var(--axis)}
+.bar{position:absolute; top:5px; height:16px}
+.bar.solid{left:0; border-radius:0 4px 4px 0}
+.bar.solid.join{border-radius:0}
+.bar.rng{border-radius:0 4px 4px 0; opacity:.38; margin-left:2px}
+.bar.us{background:var(--us)} .bar.out{background:var(--out)}
+.row.us-row .lab{font-weight:700}
+.row.us-row .val{color:var(--ink)}
+.axis .track{height:18px; background:none; border-right:0}
+.axis .track::before{display:none}
+.axis .t{position:absolute; top:0; font-size:11.5px; color:var(--muted); transform:translateX(-50%); white-space:nowrap; font-variant-numeric:tabular-nums}
+.axis .t.first{transform:none} .axis .t.last{transform:translateX(-100%)}
+.legend{display:flex; flex-wrap:wrap; gap:6px 16px; font-size:12.5px; color:var(--ink-2); margin-top:12px}
+.legend i{display:inline-block; width:12px; height:12px; border-radius:3px; vertical-align:-1px; margin-right:6px}
+.legend i.fade{opacity:.38}
+.callout{
+  font-size:14px; border-radius:8px; padding:10px 14px; background:var(--us-soft); color:var(--ink);
+}
+
+/* ── breakdown ── */
+.stackwrap{position:relative; padding-top:34px}
+.pin{
+  position:absolute; top:0; transform:translateX(-50%); font-size:12.5px; font-weight:700; white-space:nowrap;
+  background:var(--ink); color:var(--surface); padding:3px 9px; border-radius:6px;
+}
+.pin::after{content:""; position:absolute; left:50%; bottom:-6px; transform:translateX(-50%);
+  border:6px solid transparent; border-bottom:0; border-top-color:var(--ink)}
+.stack{display:flex; gap:2px; height:40px}
+.stack div{height:100%}
+.stack div:first-child{border-radius:4px 0 0 4px} .stack div:last-child{border-radius:0 4px 4px 0}
+.seg-scr{outline:2px solid var(--ink); outline-offset:2px; position:relative; z-index:1}
+.bd-list{display:grid; gap:10px; margin-top:16px}
+.bd{display:grid; grid-template-columns:14px 1fr auto; gap:4px 10px; align-items:baseline}
+.bd i{width:14px; height:14px; border-radius:3px; align-self:center}
+.bd .nm{font-size:14.5px; font-weight:700}
+.bd .nm small{display:block; font-weight:400; font-size:12.5px; color:var(--muted)}
+.bd .q{font-size:14px; font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap}
+.bd .q b{font-size:16px}
+.bd.hl .nm em{font-style:normal; text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:4px}
+.bd-total{border-top:1px solid var(--line); padding-top:10px; display:flex; justify-content:space-between; font-size:14px; font-weight:700}
+
+/* ── flows ── */
+.flows{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+.flow{border-radius:12px; padding:16px; display:grid; gap:10px; align-content:start}
+.flow.out{background:var(--out-soft)} .flow.us{background:var(--us-soft)}
+.flow h3{font-size:16px; font-weight:900; display:flex; align-items:center; gap:8px}
+.flow h3 i{width:12px; height:12px; border-radius:3px; display:inline-block}
+.steps{list-style:none; margin:0; padding:0; display:grid; gap:22px}
+.steps li{
+  background:var(--surface); border:1px solid var(--ring); border-radius:8px; padding:8px 12px;
+  font-size:14.5px; font-weight:700; position:relative; line-height:1.45;
+}
+.steps li small{display:block; font-weight:400; font-size:12.5px; color:var(--muted)}
+.steps li:not(:last-child)::after{
+  content:"↓"; position:absolute; left:50%; bottom:-21px; transform:translateX(-50%);
+  font-size:15px; color:var(--muted); font-weight:700; line-height:1;
+}
+.steps li.bad{border:2px solid var(--out)}
+.loopbox{border:2px dashed var(--us); border-radius:12px; padding:12px; display:grid; gap:10px}
+.loopbadge{
+  justify-self:center; background:var(--us); color:#fff; font-weight:900; font-size:14px;
+  padding:5px 14px; border-radius:999px; text-align:center; line-height:1.4;
+}
+.loopbadge small{display:block; font-weight:500; font-size:11.5px; opacity:.9}
+.traps{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+.trap{background:var(--surface); border:1px solid var(--ring); border-radius:10px; padding:12px 14px; font-size:14px; line-height:1.55}
+.trap b{display:block; font-size:12px; color:var(--muted); font-weight:700; margin-bottom:4px; letter-spacing:.05em}
+.trap-sub{display:block; font-size:12px; color:var(--muted); margin-top:4px}
+
+/* ── refuse diagram ── */
+.refuse{display:grid; grid-template-columns:1fr 34px 1fr; gap:10px; align-items:center}
+.reasons{display:grid; gap:8px}
+.reason{background:var(--surface); border:1px solid var(--ring); border-radius:8px; padding:9px 12px; font-size:14px; line-height:1.45}
+.reason small{display:block; font-size:12px; color:var(--muted)}
+.arrow{font-size:26px; color:var(--muted); text-align:center; font-weight:700}
+.reacts{display:grid; gap:8px}
+.react{border-radius:8px; padding:10px 14px; font-size:14.5px; font-weight:700; background:var(--out-soft); line-height:1.45}
+.react small{display:block; font-weight:400; font-size:12.5px; color:var(--ink-2)}
+
+/* ── basis ── */
+.basis h3.sub{font-size:17px; font-weight:900; margin-top:14px; padding-left:10px; border-left:4px solid var(--axis)}
+.flowline{display:flex; flex-wrap:wrap; align-items:stretch; gap:6px}
+.fl-step{flex:1 1 7.5em; background:var(--surface); border:1px solid var(--ring); border-radius:8px; padding:8px 10px; display:grid; gap:2px}
+.fl-step b{font-size:15px}
+.fl-step span{font-size:12px; color:var(--muted); line-height:1.4}
+.fl-step.fl-end{background:var(--out-soft); border-color:transparent}
+.fl-op{align-self:center; font-weight:900; font-size:18px; color:var(--muted); padding-inline:2px}
+.how{margin:0; padding-left:1.2em; display:grid; gap:6px; font-size:14.5px; color:var(--ink-2)}
+.how b{color:var(--ink)}
+.basis .row{grid-template-columns:14em 1fr 5.5em}
+.pkg{gap:5px}
+.pkg .row .lab{font-size:13.5px}
+.pkg .track{height:20px}
+.pkg .bar{top:3px; height:14px}
+.formulas{display:grid; gap:10px}
+.fcard{background:var(--surface); border:1px solid var(--ring); border-radius:10px; padding:12px 16px; display:grid; gap:6px}
+.fc-name{font-weight:900; font-size:15px}
+.fc-eq{display:flex; flex-wrap:wrap; align-items:center; gap:6px; font-size:14px}
+.fc-eq span{background:var(--bg); border-radius:6px; padding:2px 8px}
+.fc-eq i{font-style:normal; font-weight:900; color:var(--muted)}
+.fc-eq b{background:var(--out-soft); border-radius:6px; padding:2px 8px; font-size:15px}
+.fc-note{font-size:13px; color:var(--ink-2); line-height:1.65}
+.certainty{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.cert{border-radius:10px; padding:12px 16px; font-size:13.5px; line-height:1.65}
+.cert.ok{background:var(--us-soft)} .cert.guess{background:var(--surface); border:1px dashed var(--axis)}
+.cert-h{font-weight:900; font-size:14px; margin-bottom:6px}
+.cert ul{margin:0; padding-left:1.1em; display:grid; gap:4px}
+.cert a{color:var(--ink)}
+table.cmp{min-width:560px}
+table.cmp td:last-child{white-space:normal; color:var(--ink-2)}
+
+/* ── closing ── */
+.pitch{
+  background:var(--ink); color:var(--surface); border-radius:14px; padding:22px 22px; display:grid; gap:10px;
+}
+.pitch .k{font-size:12px; letter-spacing:.12em; opacity:.7; font-weight:700}
+.pitch q{font-size:clamp(19px,4vw,24px); font-weight:900; line-height:1.5; quotes:"「" "」"}
+.pitch p{font-size:13.5px; opacity:.8}
+
+details{background:var(--surface); border:1px solid var(--ring); border-radius:10px; padding:12px 16px}
+summary{cursor:pointer; font-weight:700; font-size:14px}
+summary:focus-visible{outline:2px solid var(--us); outline-offset:3px; border-radius:4px}
+.tblwrap{overflow-x:auto; margin-top:10px}
+table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:520px}
+th,td{padding:7px 10px; border-bottom:1px solid var(--line); text-align:left; white-space:nowrap}
+th{color:var(--muted); font-weight:700; font-size:12px}
+td.r,th.r{text-align:right; font-variant-numeric:tabular-nums}
+footer{font-size:12.5px; color:var(--muted); line-height:1.7; display:grid; gap:6px}
+footer a{color:var(--ink-2)}
+a:focus-visible{outline:2px solid var(--us); outline-offset:2px}
+
+@media (max-width:620px){
+  .hero-grid{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr auto; gap:2px 10px}
+  .row .lab{grid-column:1; grid-row:1}
+  .row .val{grid-column:2; grid-row:1; align-self:end}
+  .row .track{grid-column:1 / -1; grid-row:2}
+  .axis .lab,.axis .val{display:none}
+  .axis .track{grid-row:1}
+  .axis .t.minor{display:none}
+  .flows{grid-template-columns:1fr}
+  .traps{grid-template-columns:1fr}
+  .refuse{grid-template-columns:1fr}
+  .arrow{transform:rotate(90deg)}
+  .basis .row{grid-template-columns:1fr auto}
+  .certainty{grid-template-columns:1fr}
+  table.cmp{min-width:0}
+  table.cmp thead{display:none}
+  table.cmp tr{display:grid; grid-template-columns:1fr 1fr; gap:2px 10px; padding:10px 0; border-bottom:1px solid var(--line)}
+  table.cmp td{border:0; padding:0; white-space:normal; text-align:left}
+  table.cmp td:first-child{grid-column:1 / -1; font-weight:700}
+  table.cmp td:nth-child(2)::before{content:"Opus "; color:var(--muted); font-size:12px}
+  table.cmp td:nth-child(3)::before{content:"Fable "; color:var(--muted); font-size:12px}
+  table.cmp td:last-child{grid-column:1 / -1; font-size:12.5px}
+  table.cmp td:last-child::before{content:"採った方："; color:var(--muted)}
+  .flowline{flex-direction:column; gap:2px}
+  .fl-step{flex:none}
+  .fl-op{padding-inline:0; line-height:1.2}
+  .twoai{grid-template-columns:1fr 1fr}
+  .twoai .eq{grid-column:1 / -1; order:3}
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">LinksMate 回線操作コンソール ／ 外注していたら？</p>
+  <h1>外注なら <span class="mk out">約6ヶ月・約1,300万円</span>。<br>うちは <span class="mk us">11日</span> で作った。</h1>
+
+  <div class="hero-grid">
+    <div class="estimate" aria-label="外注した場合の見積りの目安">
+      <div class="head"><b>御見積（目安）</b><span>外注した場合・2026年9月27日</span></div>
+      <dl>
+        <dt>件名</dt><dd>LinksMate 回線操作コンソール一式</dd>
+        <dt>工数</dt><dd class="num">約14人月<br><span class="note">＝1人がフルで働いて14ヶ月分</span></dd>
+        <dt>期間</dt><dd class="num">約6ヶ月（国内の開発会社に頼んだ場合）</dd>
+      </dl>
+      <div class="total num">約1,300万円<small>税抜・保守は別</small></div>
+      <p class="note est-note">※実際に発注したわけではありません。AI がコードを読んで出した目安です。</p>
+      <div class="stamp" aria-hidden="true">目安</div>
+    </div>
+    <div class="actual">
+      <span class="k">うちの実績（Claudeと）</span>
+      <span class="v num">11<small>日</small></span>
+      <span class="s num">9月17日〜9月27日<br>138回の変更・本体とテスト各1.5万行</span>
+      <span class="s2">※Claude の月額と拓也の時間は、ここでは数えていません</span>
+    </div>
+  </div>
+
+  <div class="twoai num" aria-label="2つのAIの見積り">
+    <div class="ai"><b>Opus の見積り</b>約6ヶ月・約1,500万円</div>
+    <div class="eq">国内の開発会社なら<br>ほぼ一致</div>
+    <div class="ai"><b>Fable の見積り</b>約6ヶ月・約1,300万円</div>
+    <p class="twoai-note">Opus も Fable も Claude です（中身のモデルが違うだけ）。別々に見積もらせて突き合わせました。</p>
+  </div>
+</header>
+
+<section aria-labelledby="s1">
+  <p class="sec-no">期間</p>
+  <h2 id="s1">外注だと、約16倍の時間がかかる</h2>
+  <div class="fig">
+    <p class="fig-title">できあがるまでの期間（日数、目盛りは3ヶ月ごと）</p>
+    <div class="chart" style="--tick:calc(100% / 3)">
+      <div class="row us-row">
+        <div class="lab">うち（Claudeと）</div>
+        <div class="track" title="うち（Claudeと）: 11日"><div class="bar solid us" style="width:4.07%"></div></div>
+        <div class="val">11日</div>
+      </div>
+      <div class="row">
+        <div class="lab">フリーランス2人<small>個人のエンジニア</small></div>
+        <div class="track" title="フリーランス2人: 5〜6ヶ月（150〜180日）"><div class="bar solid join out" style="width:55.56%"></div><div class="bar rng out" style="left:55.56%;width:11.11%"></div></div>
+        <div class="val">5〜6ヶ月</div>
+      </div>
+      <div class="row">
+        <div class="lab">国内の開発会社<small>開発を請け負う会社</small></div>
+        <div class="track" title="国内の開発会社: 6〜7ヶ月（180〜210日）"><div class="bar solid join out" style="width:66.67%"></div><div class="bar rng out" style="left:66.67%;width:11.11%"></div></div>
+        <div class="val">6〜7ヶ月</div>
+      </div>
+      <div class="row">
+        <div class="lab">海外のチーム<small>ベトナム等（オフショア）</small></div>
+        <div class="track" title="海外のチーム: 7〜9ヶ月（210〜270日）"><div class="bar solid join out" style="width:77.78%"></div><div class="bar rng out" style="left:77.78%;width:22.22%"></div></div>
+        <div class="val">7〜9ヶ月</div>
+      </div>
+      <div class="row">
+        <div class="lab">大きめの会社<small>完成保証つきの契約</small></div>
+        <div class="track" title="大きめの会社・完成保証つき: 約8ヶ月（240日）"><div class="bar solid out" style="width:88.89%"></div></div>
+        <div class="val">約8ヶ月</div>
+      </div>
+      <div class="row axis" aria-hidden="true">
+        <div class="lab"></div>
+        <div class="track"><span class="t first" style="left:0">0</span><span class="t" style="left:33.33%">3ヶ月</span><span class="t" style="left:66.67%">6ヶ月</span><span class="t last" style="left:100%">9ヶ月</span></div>
+        <div class="val"></div>
+      </div>
+    </div>
+    <div class="legend"><span><i style="background:var(--us)"></i>うち</span><span><i style="background:var(--out)"></i>外注</span><span><i class="fade" style="background:var(--out)"></i>薄い部分＝見積りの幅</span></div>
+  </div>
+  <p class="lead">約6ヶ月（180日）÷ 11日 ≒ 16倍です。外注の期間には、最初に「何を作るか」を決める1〜1.5ヶ月が入っています。うちは動かしながら決めたので、その期間がありません。</p>
+</section>
+
+<section aria-labelledby="s2">
+  <p class="sec-no">金額</p>
+  <h2 id="s2">ふつうに頼むと1,300万円から。フリーランス2人でも700万円台</h2>
+  <div class="fig">
+    <p class="fig-title">外注した場合の金額（税抜、目盛りは500万円ごと）</p>
+    <div class="chart" style="--tick:25%">
+      <div class="row">
+        <div class="lab">フリーランス2人<small>個人のエンジニア</small></div>
+        <div class="track" title="フリーランス2人: 720〜1,100万円"><div class="bar solid join out" style="width:36%"></div><div class="bar rng out" style="left:36%;width:19%"></div></div>
+        <div class="val">720〜1,100万</div>
+      </div>
+      <div class="row">
+        <div class="lab">国内の開発会社<small>開発を請け負う会社</small></div>
+        <div class="track" title="国内の開発会社: 1,300〜1,600万円"><div class="bar solid join out" style="width:65%"></div><div class="bar rng out" style="left:65%;width:15%"></div></div>
+        <div class="val">1,300〜1,600万</div>
+      </div>
+      <div class="row">
+        <div class="lab">海外のチーム<small>ベトナム等（オフショア）</small></div>
+        <div class="track" title="海外のチーム: 920〜1,020万円"><div class="bar solid join out" style="width:46%"></div><div class="bar rng out" style="left:46%;width:5%"></div></div>
+        <div class="val">920〜1,020万</div>
+      </div>
+      <div class="row">
+        <div class="lab">大きめの会社<small>完成保証つきの契約</small></div>
+        <div class="track" title="大きめの会社・完成保証つき: 約1,900万円"><div class="bar solid out" style="width:95%"></div></div>
+        <div class="val">約1,900万</div>
+      </div>
+      <div class="row axis" aria-hidden="true">
+        <div class="lab"></div>
+        <div class="track"><span class="t first" style="left:0">0</span><span class="t minor" style="left:25%">500万</span><span class="t" style="left:50%">1,000万</span><span class="t minor" style="left:75%">1,500万</span><span class="t last" style="left:100%">2,000万</span></div>
+        <div class="val"></div>
+      </div>
+    </div>
+    <div class="legend"><span><i style="background:var(--out)"></i>外注</span><span><i class="fade" style="background:var(--out)"></i>薄い部分＝見積りの幅</span></div>
+  </div>
+  <p class="lead">「ふつう」は、国内の開発会社に頼む場合です。海外のチームは1人あたりの月額が約45万円と国内の半分ほどですが、合計はフリーランスとほぼ同じで、安くなりません。日本語のサイトを実際の口座で試す作業は日本側でしかできず、その管理の費用が乗るからです。</p>
+  <p class="callout">作ったあとも、LinksMate の画面が変わるたびに直す<b>保守が月10〜30万円</b>かかります。</p>
+</section>
+
+<section aria-labelledby="s3">
+  <p class="sec-no">中身</p>
+  <h2 id="s3">目に見える画面は、全体の15%だけ</h2>
+  <div class="fig">
+    <p class="fig-title">外注の見積り（277人日）が何に使われるか</p>
+    <div class="stackwrap">
+      <span class="pin" style="left:68.95%">スマホの画面はここだけ</span>
+      <div class="stack" role="img" aria-label="準備と管理25%、サイトの自動操作36%、スマホの画面15%、裏方とテスト23%">
+        <div style="flex-basis:25.27%;background:var(--c1)" title="準備と管理: 70人日（25%）"></div>
+        <div style="flex-basis:36.10%;background:var(--c2)" title="サイトの自動操作: 100人日（36%）"></div>
+        <div class="seg-scr" style="flex-basis:15.16%;background:var(--c3)" title="スマホの画面: 42人日（15%）"></div>
+        <div style="flex-basis:23.47%;background:var(--c4)" title="裏方とテスト: 65人日（23%）"></div>
+      </div>
+    </div>
+    <div class="bd-list">
+      <div class="bd"><i style="background:var(--c1)"></i><span class="nm">準備と管理<small>サイトを実際に触って調べる・設計・進行管理</small></span><span class="q"><b>25%</b>　70人日</span></div>
+      <div class="bd"><i style="background:var(--c2)"></i><span class="nm">サイトの自動操作<small>ログイン・回線の追加と削除・MNP・新しいアカウント・転送の承認・eSIM</small></span><span class="q"><b>36%</b>　100人日</span></div>
+      <div class="bd hl"><i style="background:var(--c3)"></i><span class="nm"><em>スマホの画面</em><small>コンソールとして目に見えている部分</small></span><span class="q"><b>15%</b>　42人日</span></div>
+      <div class="bd"><i style="background:var(--c4)"></i><span class="nm">裏方とテスト<small>クラウドでずっと動かす仕組み・テスト</small></span><span class="q"><b>23%</b>　65人日</span></div>
+      <div class="bd-total num"><span>合計</span><span>277人日 ≒ 約14人月</span></div>
+    </div>
+  </div>
+  <p class="lead">「コンソール」と呼んでいますが、中身の大半は画面の裏で LinksMate のサイトを自動で操作する部分です。外注の見積りでも、いちばんお金がかかるのはそこです。</p>
+</section>
+
+<section aria-labelledby="s4">
+  <p class="sec-no">なぜ</p>
+  <h2 id="s4">お金を積んでも、同じものは買えない</h2>
+  <div class="fig">
+    <p class="fig-title">作り方の違い</p>
+    <div class="flows">
+      <div class="flow out">
+        <h3><i style="background:var(--out)"></i>外注の進め方</h3>
+        <ol class="steps">
+          <li>何を作るか決める<small>1〜1.5ヶ月</small></li>
+          <li>作る</li>
+          <li>納品</li>
+          <li class="bad">実際に動かすと、落とし穴が出る<small>そのたびに追加の見積りと契約の変更</small></li>
+        </ol>
+      </div>
+      <div class="flow us">
+        <h3><i style="background:var(--us)"></i>うちの進め方</h3>
+        <div class="loopbox">
+          <ol class="steps">
+            <li>作る</li>
+            <li>実際の口座で動かす</li>
+            <li>落とし穴を見つける</li>
+            <li>その場で直す</li>
+          </ol>
+          <div class="loopbadge">↻ 11日で138回まわした<small>（変更を保存した回数）</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="lead">作業の記録の半分近くは、動かして初めて分かった落とし穴への対応です。たとえば次のようなもので、最初に「何を作るか」を決める段階では書けません。</p>
+  <div class="traps">
+    <div class="trap"><b>落とし穴 1</b>「完了」の画面が出ても、まだお金は払われていない（支払いが2段階）</div>
+    <div class="trap"><b>落とし穴 2</b>同意のチェック18個のうち6個は、書面を開かないと押せない</div>
+    <div class="trap"><b>落とし穴 3</b>申し込みの途中で0時をまたぐと、日割りの料金が1日分下がって見積りと合わなくなり、金額チェックで止まる<small class="trap-sub">921LP → 916LP（LP は LinksMate の支払いポイント）</small></div>
+  </div>
+
+  <div class="fig">
+    <p class="fig-title">そもそも業者が受けたがらない理由</p>
+    <div class="refuse">
+      <div class="reasons">
+        <div class="reason">規約と法律（機械での操作・MNP代行）</div>
+        <div class="reason">お客さんのIDとパスワードを預かる</div>
+        <div class="reason">お金が動く・取り消せない操作</div>
+      </div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="reacts">
+        <div class="react">大きめの会社はまず断る</div>
+        <div class="react">受けても「できなくても、かかった時間分は払う」契約</div>
+        <div class="react">完成を約束させるなら 3〜5割 上乗せ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-label="使いどころ">
+  <div class="pitch">
+    <span class="k">営業でそのまま使える一言</span>
+    <q>外注なら半年・1,000万円超、しかも受けてもらいにくい。うちは11日で作った。</q>
+    <p>ここまでの数字は「同じものを買い直すときの原価」で、売るときの値段ではありません。値段の根拠ではなく、比べる物差しとして使えます。</p>
+  </div>
+</section>
+
+<section class="basis" aria-labelledby="s5">
+  <p class="sec-no">見積りの根拠</p>
+  <h2 id="s5">どうやって見積もったか</h2>
+  <div class="flowline" aria-label="見積りの手順">
+    <div class="fl-step"><b>① 工数</b><span>何人日かかるか</span></div>
+    <div class="fl-op">×</div>
+    <div class="fl-step"><b>② 単価</b><span>1人月いくらか</span></div>
+    <div class="fl-op">＋</div>
+    <div class="fl-step"><b>③ 上乗せ</b><span>決まっていない分・リスク</span></div>
+    <div class="fl-op">＝</div>
+    <div class="fl-step fl-end"><b>金額</b><span>期間は ① ÷ 人数</span></div>
+  </div>
+  <p class="lead">ここから先は根拠の詳細です（読み飛ばしてもかまいません）。外注の見積りの定番の出し方で、単位は <b>人日</b>（1人が1日働く量）と <b>人月</b>（＝20人日、1人が1ヶ月働く量）。</p>
+
+  <h3 class="sub">① 工数：3つの物差しで測って、同じ所に集まるか見た</h3>
+  <div class="fig">
+    <p class="fig-title">工数（人日、目盛りは100人日ごと）</p>
+    <div class="chart" style="--tick:25%">
+      <div class="row">
+        <div class="lab">作業の単位から<small>Opus：72単位 × 2〜3人日 × 1.4</small></div>
+        <div class="track" title="作業の単位から: 200〜300人日"><div class="bar solid join out" style="width:50%"></div><div class="bar rng out" style="left:50%;width:25%"></div></div>
+        <div class="val">200〜300</div>
+      </div>
+      <div class="row">
+        <div class="lab">コードの量から<small>Fable：1.5万行 ÷ 1日100〜150行 × 2</small></div>
+        <div class="track" title="コードの量から: 200〜300人日"><div class="bar solid join out" style="width:50%"></div><div class="bar rng out" style="left:50%;width:25%"></div></div>
+        <div class="val">200〜300</div>
+      </div>
+      <div class="row">
+        <div class="lab">機能ごとの積み上げ<small>Fable：15項目の合計（下の図）</small></div>
+        <div class="track" title="機能ごとの積み上げ: 277人日"><div class="bar solid out" style="width:69.25%"></div></div>
+        <div class="val">277</div>
+      </div>
+      <div class="row axis" aria-hidden="true">
+        <div class="lab"></div>
+        <div class="track"><span class="t first" style="left:0">0</span><span class="t minor" style="left:25%">100</span><span class="t" style="left:50%">200</span><span class="t minor" style="left:75%">300</span><span class="t last" style="left:100%">400</span></div>
+        <div class="val"></div>
+      </div>
+    </div>
+    <div class="legend"><span><i style="background:var(--out)"></i>見積もった工数</span><span><i class="fade" style="background:var(--out)"></i>薄い部分＝幅</span></div>
+  </div>
+  <ul class="how">
+    <li><b>作業の単位から</b>：完了報告書は82本。続きの回（10本）を除くと72の作業単位。人が手でやれば1単位2〜3日と見て145〜215人日。そこに調査・テスト・進行管理を4割足した。</li>
+    <li><b>コードの量から</b>：国内の開発会社では「1人1日100〜150行」がよく使われる目安。本体1.5万行なら書くだけで100〜150人日、設計・テスト・管理でその2倍前後になる。</li>
+    <li><b>機能ごとの積み上げ</b>：見積書に載る単位（15項目）に分けて1つずつ見積もった。これを採用した（277人日 ≒ <b>約14人月</b>）。</li>
+  </ul>
+  <p class="lead">やり方の違う3つがどれも200〜300人日（10〜15人月）に収まったので、桁は外していないと判断しました。</p>
+  <p class="callout">ただし3つとも、できあがったもの（コード・報告書・機能の一覧）を測っています。確かめられるのは「完成品の大きさ」までです。業者が作る前に出す見積りは、落とし穴を知らない分、これより上に振れやすくなります。</p>
+
+  <div class="fig">
+    <p class="fig-title">機能ごとの積み上げ（15項目・277人日、目盛りは10人日ごと）</p>
+    <div class="chart pkg" style="--tick:25%">
+      <div class="row"><div class="lab">最初の調査<small>各手順を実際に通して落とし穴を探す</small></div><div class="track" title="最初の調査: 25人日"><div class="bar solid" style="width:62.5%;background:var(--c1)"></div></div><div class="val">25</div></div>
+      <div class="row"><div class="lab">設計</div><div class="track" title="設計: 20人日"><div class="bar solid" style="width:50%;background:var(--c1)"></div></div><div class="val">20</div></div>
+      <div class="row"><div class="lab">進行管理・手順書</div><div class="track" title="進行管理・手順書: 25人日"><div class="bar solid" style="width:62.5%;background:var(--c1)"></div></div><div class="val">25</div></div>
+      <div class="row"><div class="lab">回線の追加<small>申込・2段階の支払い・日またぎ</small></div><div class="track" title="回線の追加: 25人日"><div class="bar solid" style="width:62.5%;background:var(--c2)"></div></div><div class="val">25</div></div>
+      <div class="row"><div class="lab">ログインと共通部分<small>認証コードの自動取得・複数口座</small></div><div class="track" title="ログインと共通部分: 18人日"><div class="bar solid" style="width:45%;background:var(--c2)"></div></div><div class="val">18</div></div>
+      <div class="row"><div class="lab">新しいアカウントの受け入れ</div><div class="track" title="新しいアカウントの受け入れ: 15人日"><div class="bar solid" style="width:37.5%;background:var(--c2)"></div></div><div class="val">15</div></div>
+      <div class="row"><div class="lab">回線の削除</div><div class="track" title="回線の削除: 12人日"><div class="bar solid" style="width:30%;background:var(--c2)"></div></div><div class="val">12</div></div>
+      <div class="row"><div class="lab">転送の承認を自動化</div><div class="track" title="転送の承認を自動化: 12人日"><div class="bar solid" style="width:30%;background:var(--c2)"></div></div><div class="val">12</div></div>
+      <div class="row"><div class="lab">MNP予約番号・お客さん情報</div><div class="track" title="MNP予約番号・お客さん情報: 10人日"><div class="bar solid" style="width:25%;background:var(--c2)"></div></div><div class="val">10</div></div>
+      <div class="row"><div class="lab">eSIMの書き込み（Pixel）</div><div class="track" title="eSIMの書き込み: 8人日"><div class="bar solid" style="width:20%;background:var(--c2)"></div></div><div class="val">8</div></div>
+      <div class="row"><div class="lab">スマホの画面<small>LP購入の案内・ゆうとへの依頼まで</small></div><div class="track" title="スマホの画面: 38人日"><div class="bar solid" style="width:95%;background:var(--c3)"></div></div><div class="val">38</div></div>
+      <div class="row"><div class="lab">PCから操作する口</div><div class="track" title="PCから操作する口: 4人日"><div class="bar solid" style="width:10%;background:var(--c3)"></div></div><div class="val">4</div></div>
+      <div class="row"><div class="lab">テスト</div><div class="track" title="テスト: 35人日"><div class="bar solid" style="width:87.5%;background:var(--c4)"></div></div><div class="val">35</div></div>
+      <div class="row"><div class="lab">画面と作業の分離<small>裏で長い作業を走らせる仕組み</small></div><div class="track" title="画面と作業の分離: 20人日"><div class="bar solid" style="width:50%;background:var(--c4)"></div></div><div class="val">20</div></div>
+      <div class="row"><div class="lab">クラウドの準備</div><div class="track" title="クラウドの準備: 10人日"><div class="bar solid" style="width:25%;background:var(--c4)"></div></div><div class="val">10</div></div>
+      <div class="row axis" aria-hidden="true">
+        <div class="lab"></div>
+        <div class="track"><span class="t first" style="left:0">0</span><span class="t" style="left:25%">10</span><span class="t" style="left:50%">20</span><span class="t" style="left:75%">30</span><span class="t last" style="left:100%">40</span></div>
+        <div class="val"></div>
+      </div>
+    </div>
+    <div class="legend"><span><i style="background:var(--c1)"></i>準備と管理 70</span><span><i style="background:var(--c2)"></i>サイトの自動操作 100</span><span><i style="background:var(--c3)"></i>スマホの画面 42</span><span><i style="background:var(--c4)"></i>裏方とテスト 65</span></div>
+  </div>
+
+  <h3 class="sub">② 単価と ③ 上乗せ：頼み先ごとの計算式</h3>
+  <div class="formulas">
+    <div class="fcard">
+      <p class="fc-name">国内の開発会社</p>
+      <p class="fc-eq num"><span>14人月</span><i>×</i><span>80万円</span><i>＝</i><span>1,120万円</span><i>×</i><span>1.15〜1.4</span><i>＝</i><span>1,288〜1,568万円</span><i>≒</i><b>1,300〜1,600万円</b></p>
+      <p class="fc-eq num"><span>14人月 ÷ 3.3人</span><i>＝</i><span>4.2ヶ月</span></p>
+      <p class="fc-eq num"><span>（4.2ヶ月 ＋ 最初の調査 1〜1.5ヶ月）</span><i>×</i><span>1.15〜1.25</span><i>＝</i><span>6.0〜7.1ヶ月</span><i>≒</i><b>6〜7ヶ月</b></p>
+      <p class="fc-note">上乗せ（×1.15〜1.4）は「作りながら仕様が変わる分」と「サイトの画面が変わるリスク」。期間にも仕様変更の余裕（×1.15〜1.25）を掛けた。3.3人＝管理0.3・設計1・実装1.5・テスト0.5。</p>
+    </div>
+    <div class="fcard">
+      <p class="fc-name">フリーランス2人</p>
+      <p class="fc-eq num"><span>9〜11人月</span><i>×</i><span>80〜100万円</span><i>＝</i><b>720〜1,100万円</b></p>
+      <p class="fc-eq num"><span>9〜11人月 ÷ 2人</span><i>＝</i><span>4.5〜5.5ヶ月</span><i>×</i><span>1.1</span><i>≒</i><b>5〜6ヶ月</b></p>
+      <p class="fc-note">会社の管理や書類がないぶん工数が減る（14 → 11人月）。9人月は最初のリリースに要る分だけ作った場合。単価の80万円は相場の平均の上の方、100万円は自動操作とクラウドの両方ができる人（推測）。</p>
+    </div>
+    <div class="fcard">
+      <p class="fc-name">海外のチーム（ベトナム等）</p>
+      <p class="fc-eq num"><span>16人月</span><i>×</i><span>45万円</span><i>＝</i><span>720万円</span><i>＋</i><span>日本側の管理 2〜3人月 × 100万円</span><i>＝</i><b>920〜1,020万円</b></p>
+      <p class="fc-note">言葉のやり取りで工数が1〜2割増える（14 → 16人月）。日本語サイトの調査と受け入れ確認は日本側でしかできない。期間の7〜9ヶ月は式ではなく Fable の見立て（日本側の調査を待ってから始まり、やり取りに時間がかかる分、国内より長い）。</p>
+    </div>
+    <div class="fcard">
+      <p class="fc-name">大きめの会社（完成保証つき）</p>
+      <p class="fc-eq num"><span>1,300万円</span><i>×</i><span>1.4〜1.45</span><i>＋</i><span>法務の確認 20〜50万円</span><i>＝</i><span>1,840〜1,935万円</span><i>≒</i><b>約1,900万円</b></p>
+      <p class="fc-note">国内の開発会社の額に、完成を約束する分の上乗せ（3〜5割の範囲）。画面が変わって作り直すリスクを先に乗せてくる。期間の約8ヶ月も見立て。</p>
+    </div>
+    <div class="fcard">
+      <p class="fc-name">保守（作ったあと・毎月）</p>
+      <p class="fc-eq num"><span>見守りの定額 0.2〜0.4人月</span><i>×</i><span>50〜80万円</span><i>＝</i><span>月10〜32万円</span><i>≒</i><b>月10〜30万円</b></p>
+      <p class="fc-note">LinksMate の画面が変わって壊れるのは年2〜4回、1回の修理は2〜5人日と見て、この定額の枠に収まる。クラウド代そのものは月数千円。</p>
+    </div>
+  </div>
+
+  <h3 class="sub">どの数字が確かで、どれが推測か</h3>
+  <div class="certainty">
+    <div class="cert ok">
+      <p class="cert-h">相場記事で確かめた</p>
+      <ul>
+        <li>国内の開発会社：設計する人 65〜110万円、書く人 60〜70万円、管理する人 70〜130万円（<a href="https://www.pasona.co.jp/clients/service/xtech/column/column163/" target="_blank" rel="noopener">パソナ</a>・<a href="https://lassic.co.jp/media/column/ses-price/" target="_blank" rel="noopener">LASSIC</a>）→ 混ぜて約80万円</li>
+        <li>フリーランス：平均70〜80万円、Python は約76万円（<a href="https://freelance.levtech.jp/guide/detail/875/" target="_blank" rel="noopener">レバテック</a>・<a href="https://www.seraku.co.jp/tectec-note/freelance/bp_engineer_rate_market/" target="_blank" rel="noopener">セラク</a>）</li>
+        <li>ベトナム：書く人 約34万円、橋渡し役 50〜70万円（<a href="https://www.offshore-kaihatsu.com/faq/tanka.php" target="_blank" rel="noopener">オフショア開発.com</a>・<a href="https://enlyt.co.jp/blog/offshore-rate-2026" target="_blank" rel="noopener">enlyt</a>）→ 混ぜて約45万円</li>
+      </ul>
+    </div>
+    <div class="cert guess">
+      <p class="cert-h">推測（Claude の判断）</p>
+      <ul>
+        <li>工数（3つの物差しで桁だけは確かめた）</li>
+        <li>自動操作とクラウドの両方ができるフリーランスは 85〜100万円</li>
+        <li>日本側の管理は1人月100万円、保守の見守りは1人月50〜80万円</li>
+        <li>上乗せの幅・チームの人数・壊れる頻度</li>
+        <li>できあがったコードを見て出した見積り。落とし穴を知らずに手探りで作る業者なら、さらに増えうる</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">2つの AI の見積りの違い</h3>
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th></th><th class="r">Opus</th><th class="r">Fable</th><th>採った方</th></tr></thead>
+      <tbody>
+        <tr><td>工数</td><td class="r">10〜15人月</td><td class="r">14人月</td><td>Fable（15項目に分けてある）</td></tr>
+        <tr><td>国内の開発会社</td><td class="r">1,400〜1,800万円</td><td class="r">1,300〜1,600万円</td><td>Fable（単価を相場で確認）</td></tr>
+        <tr><td>フリーランス2人</td><td class="r">650〜800万円</td><td class="r">850〜1,100万円</td><td>Fable（下限は最初のリリース分だけ作る案の720万円）</td></tr>
+        <tr><td>海外のチーム</td><td class="r">約700万円・向かない</td><td class="r">900〜1,100万円</td><td>Fable の式（720＋200〜300＝920〜1,020万円）</td></tr>
+        <tr><td>保守</td><td class="r">月10〜30万円</td><td class="r">月8〜30万円</td><td>ほぼ同じ</td></tr>
+        <tr><td>1点で言うなら</td><td class="r">6ヶ月・約1,500万円</td><td class="r">6ヶ月・約1,300万円</td><td>冒頭の「ほぼ一致」はこの行</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">互いの答えを見せずに、それぞれコードと仕様を読ませて出させました。Fable は相場を Web で調べ、出典を付けています。いちばん割れたのは海外のチームで、Opus は日本側の管理費を数えずに安く出していました。</p>
+</section>
+
+<details>
+  <summary>数字を表で見る</summary>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>作る人</th><th class="r">期間</th><th class="r">金額（税抜）</th><th class="r">1人月の単価</th></tr></thead>
+      <tbody>
+        <tr><td>うち（Claudeと）</td><td class="r">11日</td><td class="r">—</td><td class="r">—</td></tr>
+        <tr><td>フリーランス2人</td><td class="r">5〜6ヶ月</td><td class="r">720〜1,100万円</td><td class="r">約80〜100万円</td></tr>
+        <tr><td>国内の開発会社</td><td class="r">6〜7ヶ月</td><td class="r">1,300〜1,600万円</td><td class="r">約75〜85万円</td></tr>
+        <tr><td>海外のチーム（ベトナム等）</td><td class="r">7〜9ヶ月</td><td class="r">920〜1,020万円</td><td class="r">約45万円＋日本側の管理</td></tr>
+        <tr><td>大きめの会社（完成保証つき）</td><td class="r">約8ヶ月</td><td class="r">約1,900万円</td><td class="r">—</td></tr>
+        <tr><td>保守（作ったあと）</td><td class="r">毎月</td><td class="r">10〜30万円</td><td class="r">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</details>
+
+<footer>
+  <p>見積りの出し方と単価の出典は「どうやって見積もったか」の節に書いた。</p>
+  <p>うちの数字は git の記録から（2026年9月17日〜27日・138コミット・本体約1.5万行＋テスト約1.5万行）。うちの費用（Claude の月額と拓也の時間）はここでは数えていない。</p>
+</footer>
+
+</div>
+
+</body>
+</html>
