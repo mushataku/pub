@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>本物と偽物の住所は、どう作っているか</title>
+<style>
+  :root { --ink:#1f2933; --sub:#5b6b7a; --line:#d9e0e6; --bg:#f6f8fa; --accent:#2b6cb0; --real:#2f855a; --fake:#c05621; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:#fff; color:var(--ink); line-height:1.8; font-size:16px;
+         font-family:"Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif; }
+  main { max-width:720px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { font-size:1.55rem; line-height:1.4; margin:8px 0 12px; }
+  h2 { font-size:1.25rem; margin:44px 0 8px; padding-left:10px; border-left:5px solid var(--accent); line-height:1.4; }
+  h3 { font-size:1.05rem; margin:24px 0 4px; }
+  p { margin:8px 0; }
+  .lead { font-size:1.05rem; background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:14px 16px; }
+  .lead b.real { color:var(--real); } .lead b.fake { color:var(--fake); }
+  .words { border:1px solid var(--line); border-radius:8px; padding:8px 16px; margin:16px 0; font-size:.95rem; }
+  .words dt { font-weight:700; margin-top:8px; } .words dd { margin:0 0 4px; color:var(--sub); }
+  figure { margin:20px 0; padding:0; }
+  figcaption { font-size:.88rem; color:var(--sub); margin-top:6px; }
+  .fig-svg { display:block; margin:0 auto; width:100%; max-width:420px; height:auto; }
+  table { border-collapse:collapse; width:100%; font-size:.84rem; table-layout:fixed; }
+  th, td { border:1px solid var(--line); padding:6px 3px; text-align:center; vertical-align:middle; word-break:break-all; }
+  th { background:var(--bg); font-weight:700; }
+  td.name { text-align:left; font-weight:700; width:4.6em; word-break:keep-all; padding-left:6px; }
+  td.how { text-align:left; color:var(--ink); font-size:.82rem; padding:6px 6px; }
+  .ok { background:#e6f4ea; color:var(--real); font-weight:700; }
+  .ng { background:#fdebd8; color:var(--fake); font-weight:700; }
+  .mid { background:#fff8db; color:#8a6d00; font-weight:700; }
+  ol.steps, ul.plain { padding-left:1.3em; } ol.steps li, ul.plain li { margin:6px 0; }
+  .note { border-left:4px solid var(--line); padding:2px 12px; color:var(--sub); font-size:.93rem; margin:14px 0; }
+  .note b { color:var(--ink); }
+  code { background:var(--bg); border:1px solid var(--line); border-radius:4px; padding:0 4px; font-size:.9em; }
+  footer { margin-top:44px; color:var(--sub); font-size:.85rem; border-top:1px solid var(--line); padding-top:12px; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>本物と偽物の住所は、どう作っているか</h1>
+
+<p class="lead"><b class="real">本物</b>は、国勢調査の人口の比で全国から引いた<b>実在の住所</b>。
+<b class="fake">偽物</b>は、本物に似せて、<b>段ごとに手口を変えて作った住所</b>です。
+この資料は、その作り方と、勉強用のスプレッドシートの見方を説明します。</p>
+
+<h3>この資料が出てくる試験</h3>
+<p>「住所の真贋ブラインド試験」では、本物の住所と偽物の住所を混ぜた名簿を作ります。判定する側（人や機械）が、どの行が偽物らしいかを行ごとに採点して、当たり具合を測ります。
+渡したスプレッドシートは、<b>その試験の「本物」がどんな住所かを知るための勉強用</b>です（試験に出す本物とは別の住所で、被りはありません）。</p>
+
+<dl class="words">
+  <dt>町字（ちょうあざ）</dt><dd>住所の「町名」の単位。「〇〇1丁目」「大字〇〇」など。市区町村の「〇〇町」とは別で、その下の単位。この資料の「町」は全部この意味。</dd>
+  <dt>国勢調査2020</dt><dd>総務省が5年ごとにやる、全国の人口の調査。県ごと・町字ごとの人口が出ている。</dd>
+  <dt>ABR（住所データ）</dt><dd>国（デジタル庁）が公開している、実在する住所の一覧。「この町字に、この番号は実在する」が分かる。</dd>
+  <dt>番号の付け方は2種類</dt><dd><b>住居表示</b>（区画と家に番号を振る。主に市街地。例: <code>1丁目2-3</code>）と、<b>地番</b>（土地の登記の番号をそのまま使う。主に郊外や地方。例: <code>123-4</code>）。この資料では、番号の前半（<code>2-3</code> の 2、<code>123-4</code> の 123）と後半（3、4）と呼ぶ。</dd>
+  <dt>F0〜F6（段）</dt><dd>偽物の作り方の種類。F は Fake。数字が大きいほど手強い、という並びではない（②で説明）。</dd>
+</dl>
+
+<h2>1. 本物の作り方 — 実在する住所を、人口の比で引く</h2>
+<p>本物は「日本に住んでいる人の住所を、ランダムに1つ選ぶ」に近づけたものです。人が多い所ほど当たりやすく、少ない所は当たりにくくなります。3ステップで引きます。</p>
+
+<figure>
+<svg class="fig-svg" viewBox="0 0 360 450" role="img" aria-label="本物の住所を引く3ステップの流れ図: 県の人口の比でくじを引く、町字の人口の比でくじを引く、その町字に実在する番号から1つ選ぶ">
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5b6b7a"/></marker></defs>
+  <g font-family="Hiragino Sans, Yu Gothic UI, Meiryo, sans-serif" text-anchor="middle">
+    <rect x="20" y="8" width="320" height="92" rx="10" fill="#ebf4ff" stroke="#2b6cb0"/>
+    <text x="180" y="34" font-size="15" font-weight="700" fill="#1f2933">ステップ1　県を選ぶ</text>
+    <text x="180" y="58" font-size="13" fill="#1f2933">県の人口の比を当たりやすさにして、</text>
+    <text x="180" y="78" font-size="13" fill="#1f2933">1件ずつ県をくじ引き</text>
+    <text x="180" y="94" font-size="11.5" fill="#5b6b7a">東京は約11%、鳥取は約0.4%の確率</text>
+    <line x1="180" y1="102" x2="180" y2="128" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ar)"/>
+    <rect x="20" y="132" width="320" height="86" rx="10" fill="#ebf4ff" stroke="#2b6cb0"/>
+    <text x="180" y="158" font-size="15" font-weight="700" fill="#1f2933">ステップ2　県の中で町字を選ぶ</text>
+    <text x="180" y="182" font-size="13" fill="#1f2933">町字の人口の比でくじ引き</text>
+    <text x="180" y="204" font-size="12" fill="#5b6b7a">人口の多い町字ほど当たりやすい</text>
+    <line x1="180" y1="220" x2="180" y2="246" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ar)"/>
+    <rect x="20" y="250" width="320" height="86" rx="10" fill="#ebf4ff" stroke="#2b6cb0"/>
+    <text x="180" y="276" font-size="15" font-weight="700" fill="#1f2933">ステップ3　その町字の住所を1つ選ぶ</text>
+    <text x="180" y="300" font-size="13" fill="#1f2933">その町字に実在する番号から、</text>
+    <text x="180" y="320" font-size="13" fill="#1f2933">どれも同じ確率で1つ</text>
+    <line x1="180" y1="338" x2="180" y2="364" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ar)"/>
+    <rect x="20" y="368" width="320" height="72" rx="10" fill="#e6f4ea" stroke="#2f855a" stroke-width="2"/>
+    <text x="180" y="396" font-size="15" font-weight="700" fill="#2f855a">実在する住所 1件</text>
+    <text x="180" y="420" font-size="12" fill="#1f2933">同じ住所は2回出さない</text>
+  </g>
+</svg>
+<figcaption>図1　本物の引き方。上から順に3回、くじを引く。県と町字の人口は国勢調査2020、番号が実在するかは ABR による。</figcaption>
+</figure>
+
+<ol class="steps">
+  <li><b>ステップ1（県）</b>：県の人口の比を当たりやすさにして、1件ずつくじで県を決めます。くじなので、県ごとの件数は人口の比から少し揺れます（揺れは、くじで普通に出る大きさに収まっていました）。今回は全国で1万5000件を実際に引きました。</li>
+  <li><b>ステップ2（町字）</b>：県の中では、町字の人口の比でくじを引きます。ただし、人口が分からない町字、郵便番号が分からない町字、表示できる住所が1つも無い町字は引けません。全国 727,404 町字のうち、引けるのは 139,066 町字で、全国の人口の約 84% がそこに住んでいます（引ける割合は県で違います）。</li>
+  <li><b>ステップ3（番号）</b>：選んだ町字に実在する番号を1つ選びます。郵便番号はその町字のものが付きます。番号が4つ続く住所（枝番つき）と、建物名・部屋番号は出てきません。</li>
+</ol>
+<p class="note">名前・生年月日・性別は、住所とは関係なく機械が作った<b>合成のデータ</b>です。実在の人ではありません。</p>
+
+<h2>2. 偽物の作り方 — 段ごとに「どこまで本物に似せるか」を変える</h2>
+<p>偽物には F0〜F6 の段があります。<b>段ごとに、住所のどの部分が実在で、どの部分が作り物か</b>、そして<b>町字をどう選ぶか</b>が違います。県名は全段で実在します。</p>
+
+<h3>F0〜F2：住所の一部が、実在しない</h3>
+<figure>
+<table>
+  <thead><tr><th style="width:4.6em">段</th><th>市区町村</th><th>町字</th><th>郵便番号</th><th>番号 前半</th><th>番号 後半</th></tr></thead>
+  <tbody>
+    <tr><td class="name">本物</td><td class="ok">○</td><td class="ok">○</td><td class="ok">○</td><td class="ok">○</td><td class="ok">○</td></tr>
+    <tr><td class="name">F0-a</td><td class="ng">×</td><td class="ng">×</td><td class="ng">×</td><td class="ng">×</td><td class="ng">×</td></tr>
+    <tr><td class="name">F0-b</td><td class="ok">○</td><td class="ng">×</td><td class="mid">△</td><td class="ng">×</td><td class="ng">×</td></tr>
+    <tr><td class="name">F0-c</td><td class="ok">○</td><td class="ok">○</td><td class="ng">×</td><td class="ng">×</td><td class="ng">×</td></tr>
+    <tr><td class="name">F1</td><td class="ok">○</td><td class="ok">○</td><td class="ok">○</td><td class="mid">△</td><td class="ng">×</td></tr>
+    <tr><td class="name">F2</td><td class="ok">○</td><td class="ok">○</td><td class="ok">○</td><td class="ok">○</td><td class="ng">×</td></tr>
+  </tbody>
+</table>
+<figcaption>図2　○＝その住所として実在する／×＝実在しない・合っていない／△＝一部だけ合っている（F0-b の郵便番号は市までは合う。F1 の番号は前半だけなら実在することが多いが、前半と後半の組み合わせは実在しない）。</figcaption>
+</figure>
+<ul class="plain">
+  <li><b>F0-a</b>　県名だけ実在。市区町村も町字も作り物（存在しない名前）。</li>
+  <li><b>F0-b</b>　県と市区町村は実在。その市に存在しない町字を作る（郵便番号はその市のもの）。</li>
+  <li><b>F0-c</b>　県・市区町村・町字は実在。郵便番号だけ、同じ県の別の町字のものを付ける（県の頭の数字は合うので、町字まで照らさないと気づけない）。</li>
+  <li><b>F1</b>　町字と郵便番号まで実在。番号は「実在しない組み合わせ」を作る（乱数で作り、実在するものは捨てる）。</li>
+  <li><b>F2</b>　番号の前半までは実在。後半だけ実在しない番号にする。</li>
+</ul>
+<p class="note">F0〜F2 は、1行だけ見て「この住所は無い」と分かることがあります。F1〜F3 は町字を「人口を見ずに、どの町字も同じ確率で」選びます。県の件数も町字の数で配るので、<b>町字が細かく分かれている県が、本物より多く出ます</b>。</p>
+
+<h3>F3〜F6：住所はぜんぶ実在する。違うのは「町字の選び方」</h3>
+<figure>
+<table>
+  <thead><tr><th style="width:4.6em">段</th><th>住所</th><th>町字の選び方</th></tr></thead>
+  <tbody>
+    <tr><td class="name">本物</td><td class="ok">全部○</td><td class="how">町字の人口の比</td></tr>
+    <tr><td class="name">F3</td><td class="ok">全部○</td><td class="how">人口を見ず、どの町字も同じ確率（人口の少ない町字が本物より多く出る）</td></tr>
+    <tr><td class="name">F4</td><td class="ok">全部○</td><td class="how">町字の人口の比（本物とほぼ同じ。細かい所がわずかに違う）</td></tr>
+    <tr><td class="name">F5</td><td class="ok">全部○</td><td class="how">F4と同じように引いて、番号の1つを ±1〜3 ずらす（ずらした先も実在）</td></tr>
+    <tr><td class="name">F6</td><td class="ok">全部○</td><td class="how">町字にある住所の数の比（人口の比と少し違う癖がつく）</td></tr>
+  </tbody>
+</table>
+<figcaption>図3　F3〜F6 は、住所そのものは全部実在する。F0〜F3 は下の段ほど本物に近いが、F4〜F6 は難しさの順ではなく、別々の手口。</figcaption>
+</figure>
+<p class="note">ここで言う「偽物」は、<b>住所が嘘という意味ではなく、本物とは別の作り方で作った行</b>のことです。F3・F6 の偽物は、1行だけ見ても分かりません。何十行も並べたときの偏り（人口の少ない町字が多すぎる、など）でしか見抜けません。
+<b>F4</b> は本物とほぼ同じ作り方なので、見抜けないのが正解です。見抜けないはずのものまで「偽物」と言いすぎていないかを確かめる物差しとして入れてあります。<b>F5</b> は「本物を少しいじって作る手口」を見張る仕掛けを試すための段で、住所は実在するので、中身は F4 とほとんど変わりません。</p>
+
+<h2>3. このデータで何を勉強するか</h2>
+<p>渡したスプレッドシートには、<b>本物の住所だけ</b>が1万件入っています（偽物は入っていません）。全国で引いた1万5000件を県ごとに3分の1ずつ試験用（5000件）に取り、残りの1万件を勉強用にしました。同じくじで引いた住所なので、試験の「本物」と同じ性質をしています。重複はありません。</p>
+
+<h3>スプレッドシートの見方</h3>
+<ul class="plain">
+  <li><b>タブ「本物10000」</b>　1行が実在の住所1件。県ごとにまとまらないよう、行の順はランダムに混ぜてあります。
+    列は 番号（行の通し番号。住所とは関係ない）／姓・名・セイ・メイ・生年月日・性別（合成）／郵便番号／都道府県／市区町村／番地以降／建物名等／地図。</li>
+  <li><b>タブ「県の分布」</b>　47都道府県ごとに、件数・その割合・国勢調査2020の県人口の割合・その差を並べた表。
+    本物の県の割合が、人口の比とどのくらい違うかの基準になります。1万件のくじなので、東京で ±0.6 ポイント、鳥取のような小さい県で ±0.13 ポイントくらいの揺れは普通です。これより大きくずれるのは、作り方がおかしいサインです（偽物の F1〜F3 は県の件数も町字の数で配るので、ここで覚えた「本物の県の割合」から外れます）。</li>
+</ul>
+
+<h3>どう勉強するか</h3>
+<ol class="steps">
+  <li>「県の分布」で、割合と人口の割合がほぼ同じことを確かめる。</li>
+  <li>「本物10000」で県を1つフィルタし、上から50行の<b>番地以降の書き方の型</b>を数える。型は3つ：<code>1丁目2-3</code> のような丁目つき／丁目を書かない地番 <code>123-4</code>／末尾が仮名の地番。東京と地方の県（たとえば秋田）で、型の割合を比べる。</li>
+  <li>気づいたことを3つ、Discord に書く。</li>
+</ol>
+<p class="note"><b>知っておくこと</b>：丁目のある町字なのに、丁目を書かず地番で <code>123-4</code> と書く本物もあります（怪しくありません）。「地図」のリンクは、その住所の周り（住宅地か、田畑か、事業所が多いか）を見るためのものです。地図にピンが立っても、その住所が実在する証拠にはなりません（地図は、無い番号でも近くにピンを立てます）。この資料の「実在」は、ABR に載っているという意味です。</p>
+<p class="note">住所は実在します。この資料とスプレッドシートは、仕事の仲間の中だけで使い、外に共有しないでください。</p>
+
+<footer>
+  出典：国勢調査2020（総務省統計局）／ABR（デジタル庁 アドレス・ベース・レジストリ）。数字は 2026年9月29日 の生成結果。<br>
+  作り方の詳しい記録は開発チーム内の報告書にあります。
+</footer>
+
+</main>
+</body>
+</html>
