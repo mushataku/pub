@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>お仕事のご紹介</title>
+<style>
+:root {
+  --bg: #f6f7f9;
+  --paper: #ffffff;
+  --ink: #1d2433;
+  --sub: #5a6478;
+  --line: #e1e5ec;
+  --accent: #1f6feb;
+  --accent-soft: #e8f0fe;
+  --good: #1a7f4b;
+  --good-soft: #e6f4ec;
+  --note: #8a5a00;
+  --note-soft: #fff6e0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11151c; --paper: #1a202b; --ink: #e8ecf3; --sub: #a3adbf; --line: #2c3444;
+    --accent: #6ea8ff; --accent-soft: #1c2a44; --good: #5cc98f; --good-soft: #17301f;
+    --note: #f0c060; --note-soft: #33290f;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11151c; --paper: #1a202b; --ink: #e8ecf3; --sub: #a3adbf; --line: #2c3444;
+  --accent: #6ea8ff; --accent-soft: #1c2a44; --good: #5cc98f; --good-soft: #17301f;
+  --note: #f0c060; --note-soft: #33290f;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  font-size: 17px; line-height: 1.7;
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding: 32px 16px 48px; }
+header h1 { font-size: 30px; margin: 0 0 4px; letter-spacing: .02em; }
+header { position: relative; }
+header .date { color: var(--sub); margin: 0 0 20px; }
+td small.pr { color: var(--good); }
+.deck-mini {
+  display: inline-block; font-size: 13.5px; font-weight: 600; color: var(--accent);
+  text-decoration: none; white-space: nowrap;
+}
+.deck-mini:hover { text-decoration: underline; }
+.deck-mini:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.card .deck-mini {
+  align-self: flex-start; margin-top: 12px; padding: 4px 14px;
+  border: 1px solid var(--accent); border-radius: 999px;
+}
+.card .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
+td.co .deck-mini { display: block; margin-top: 4px; }
+.axis {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px;
+  padding: 14px 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+}
+.axis .label { font-weight: 700; margin-right: 4px; align-self: center; }
+.chip {
+  display: inline-block; padding: 3px 12px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 15px;
+}
+h2 { font-size: 22px; margin: 36px 0 6px; }
+h2 + .lead { margin: 0 0 14px; color: var(--sub); }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 14px;
+  padding: 18px 18px 16px; display: flex; flex-direction: column;
+}
+.card h3 { margin: 0 0 2px; font-size: 20px; }
+.card .what { margin: 0 0 12px; color: var(--sub); font-size: 15px; }
+.card dl { margin: 0 0 12px; display: grid; grid-template-columns: 4.2em 1fr; gap: 4px 8px; font-size: 15.5px; }
+.card dt { color: var(--sub); }
+.card dd { margin: 0; }
+.card .point {
+  margin-top: auto; padding: 10px 12px; border-radius: 10px;
+  background: var(--good-soft); color: var(--ink); font-size: 15px;
+}
+.card .point b { color: var(--good); }
+.card .caution {
+  margin-top: 8px; padding: 8px 12px; border-radius: 10px;
+  background: var(--note-soft); color: var(--ink); font-size: 14px;
+}
+.chosen {
+  display: inline-block; margin-left: 8px; padding: 2px 10px; border-radius: 999px;
+  background: var(--good-soft); color: var(--good); font-size: 12.5px; font-weight: 700;
+  vertical-align: middle; white-space: nowrap;
+}
+td small { display: block; color: var(--sub); font-size: 14px; }
+.tech td.num { white-space: normal; }
+.table-wrap { overflow-x: auto; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 15.5px; }
+th, td { text-align: left; vertical-align: top; padding: 11px 14px; border-bottom: 1px solid var(--line); }
+th { color: var(--sub); font-weight: 600; font-size: 14px; background: var(--bg); }
+tr:last-child td { border-bottom: none; }
+td.co { font-weight: 700; white-space: nowrap; }
+td.num { white-space: nowrap; }
+td.num small { white-space: normal; }
+.also {
+  margin: 12px 0 0; padding: 10px 14px; border-radius: 10px;
+  background: var(--note-soft); color: var(--ink); font-size: 15px;
+}
+.videos { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.videos li { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.videos a { font-weight: 700; color: var(--accent); text-decoration: none; }
+.videos a:hover { text-decoration: underline; }
+.videos .meta { display: block; color: var(--sub); font-size: 14px; margin-top: 2px; }
+.videos .why { display: block; margin-top: 6px; font-size: 15px; }
+footer { margin-top: 32px; color: var(--sub); font-size: 14px; }
+@media (max-width: 860px) {
+  .cards { grid-template-columns: 1fr; }
+  header h1 { font-size: 24px; }
+}
+@media (max-width: 620px) {
+  table { min-width: 0; }
+  .tech td { width: auto !important; }
+  thead { display: none; }
+  tr { display: block; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  tr:last-child { border-bottom: none; }
+  td { display: block; border: none; padding: 1px 0; white-space: normal; }
+  td.co { font-size: 17px; margin-bottom: 2px; }
+  td:nth-child(3)::before { content: "勤務地\3000"; color: var(--sub); }
+  td:nth-child(4)::before { content: "月給\3000"; color: var(--sub); }
+  td:nth-child(5)::before { content: "休日\3000"; color: var(--sub); }
+  td.num br { display: none; }
+}
+@media print {
+  body { background: #fff; }
+  .card, .table-wrap, .axis { break-inside: avoid; }
+}
+.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+#documents .deck-mini { padding: 4px 14px; border: 1px solid var(--accent); border-radius: 999px; }
+#documents .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
+.card .links .deck-mini { margin-top: 0; }
+.thanks { margin: 0 0 20px; padding: 16px 18px; border-radius: 14px; background: var(--good-soft); border: 1px solid var(--line); }
+.thanks p { margin: 0 0 6px; }
+.thanks p:last-child { margin: 0; }
+.flow-box { margin: 0 0 24px; padding: 14px 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+.flow-box h3 { margin: 0 0 6px; font-size: 18px; }
+.flow-box ol { margin: 0; padding-left: 1.4em; }
+.flow-box li { margin: 4px 0; }
+.page-nav { margin: 0 0 24px; }
+.page-nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; }
+.page-nav a {
+  display: inline-block; padding: 6px 14px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); font-weight: 600;
+  font-size: 14.5px; text-decoration: none;
+}
+.page-nav a:hover { text-decoration: underline; }
+.page-nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+section[id] { scroll-margin-top: 16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>三嶽さんにご紹介したいお仕事</h1>
+  <p class="date">2026年9月29日（火）</p>
+</header>
+
+<section class="thanks">
+<p><b>本日（9月29日）はお時間をいただきありがとうございました。</b></p>
+  <p>面談で伺った内容から、まずは以下の会社をご紹介します。</p>
+</section>
+<div class="flow-box">
+  <h3>これからの進め方</h3>
+  <ol><li>このページの会社と資料を見て、気になった会社・もっと知りたいことをLINEで教えてください</li><li>次回の面談で、進む方向と受ける会社を一緒に決めます</li></ol>
+</div>
+<nav class="page-nav" aria-label="ページ内リンク"><ul><li><a href="#companies">ご紹介した会社</a></li><li><a href="#documents">あなたの書類</a></li><li><a href="#industry">業界の説明資料</a></li></ul></nav>
+
+<section id="companies" data-section="companies">
+<h2>ご紹介した会社</h2>
+<div class="axis">
+  <span class="label">伺ったこと</span>
+  <span class="chip">完全週休二日（土日祝）</span>
+  <span class="chip">未経験から教えてもらえる</span>
+  <span class="chip">事務職</span>
+  
+</div>
+
+<h2>まずはこの3社</h2>
+<p class="lead">面談で伺った希望（完全週休二日・未経験から教えてもらえること）から選びました。</p>
+
+<div class="cards">
+  <article class="card">
+    <h3>スタッフサービス ミラエール推進部</h3>
+    <p class="what">一般事務（人事・総務・経理・貿易・金融・英文事務・受付・データ入力など、案件により内容が変わる）</p>
+    <dl>
+      <dt>勤務地</dt><dd>転勤なし・自宅から90分以内の配属先（東京・神奈川・埼玉・千葉・大阪・京都・滋賀・広島・愛知・兵庫）</dd><dt>月給</dt><dd>270万〜330万円ほど（地域別の月給・エリアにより異なる）</dd><dt>休日</dt><dd>土日祝・完全週休2日・年間休日125日（祝日は配属先により異なる）・残業月10時間以下</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　スタッフサービスの、事務の入口です。完全週休二日制・年間休日125日と、休みの確約がいちばん強い枠です。職種未経験でも、学生時代のアルバイト経験があれば応募でき、一から教えてもらえます。</p>
+    <p class="caution">雇用形態は無期雇用派遣です（スタッフサービスに無期雇用の正社員として雇われ、配属先の企業で働く形）。 配属先・仕事内容は選べない（人事・総務・経理・受付・データ入力など案件により変わる）。</p>
+    <div class="links"><a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a></div>
+  </article>
+  <article class="card">
+    <h3>キッカケクリエイション</h3>
+    <p class="what">役員秘書（経営者のスケジュール調整・書類作成・社内外の調整など）</p>
+    <dl>
+      <dt>勤務地</dt><dd>東京（渋谷駅徒歩7分）・転勤なし</dd><dt>条件</dt><dd>応募には専門卒以上の学歴が必要（高卒不可）。</dd><dt>月給</dt><dd>420万〜700万円ほど</dd><dt>休日</dt><dd>土日祝休み・年間休日120日</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　美術商で社長のスケジュール調整・請求書対応・展覧会の設営をしていたご経験が、そのまま活きる仕事です。土日祝休み・年間休日120日。経営者の近くで、様々な業務を任せてもらえます。</p>
+    <p class="caution">選考は書類→対面面接＋適性検査の1回のみで、短い選考機会で合否が決まる。</p>
+    <div class="links"><a class="deck-mini" href="https://kikkakecreation.com/" target="_blank" rel="noopener" aria-label="キッカケクリエイションのホームページ">会社のHP →</a></div>
+  </article>
+  <article class="card">
+    <h3>スタッフサービス・エンジニアリング（IT）</h3>
+    <p class="what">ITエンジニア（未経験可）。バックエンド／フロントエンド／インフラ（サーバー・ネットワーク）／運用保守・ヘルプデスクなど、案件に応じて配属される。</p>
+    <dl>
+      <dt>勤務地</dt><dd>全国46都道府県（居住エリアでの就業率92%）</dd><dt>条件</dt><dd>理系（学部・学科卒／工業・高専含む）は経験不問。文系未経験は転居可能・夜勤対応可であることが実質の条件になるが、総合判断のため必須ではない。</dd><dt>月給</dt><dd>月給23万円〜23.5万円ほど（エリアにより異なる・想定年収258万〜480万円）。残業代は全額・1分単位（固定残業の設定なし）。</dd><dt>休日</dt><dd>年間休日125日・有給取得実績 年12日ほど・月平均残業10時間程度</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　スタッフサービスの、ITの入口です（上のミラエールと同じ会社の別部署）。研修から入り、教わりながら少しずつ仕事を広げていける環境です。年間休日125日。</p>
+    <p class="caution">雇用形態は「正社員」だが、実際はスタッフサービスに雇用され就業先企業で働く「無期雇用派遣」。就業先が決まるまでの待機期間中も給与は支給されるが、1か月以上の待機で有給休暇が消滅することがある。 会社は「案件を選べる」「待機中も給与が出る」と説明しているが、当事者の声には「実際は派遣に近い」「案件を断りづらい」というものもある。 転勤は「無い」とする記載と「可能性はあるが最大限考慮する」という記載が同じ求人票内にあり、言い切れない。 賞与は全社の募集要項に項目が無く、求人ごとに書き方が違う（年1回とする説明と、年2回・7月/12月支給と書く求人がある）。</p>
+    <div class="links"><a class="deck-mini" href="https://www.staffservice-engineering.jp/" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）のホームページ">会社のHP →</a></div>
+  </article>
+</div>
+
+<h2>建築・施工管理の会社</h2>
+<p class="lead">事務の入口とあわせて、建築の現場を支える施工管理の仕事もご紹介します。</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
+  <tbody>
+    <tr><td class="co">レバキャリ<a class="deck-mini" href="https://lc.lline-group.co.jp/" target="_blank" rel="noopener" aria-label="レバキャリのホームページ">会社のHP →</a></td><td>施工管理・CADオペレーター<small>入社後2週間の研修</small><small>紹介予定派遣のため、半年後に入社するか他を探すかを決める必要がある。</small><small>勤務地の記載が資料間で揺れており「現在は首都圏のみでの募集」という補足がある。</small></td><td class="num">関東ほか（東海・関西・九州は求人がクローズすることがある）</td><td class="num">23万円〜</td><td class="num">完全週休2日・年間休日125日</td></tr>
+  </tbody>
+</table>
+</div>
+
+</section>
+<section id="documents" data-section="documents">
+<h2>あなたの書類</h2>
+<p class="lead">フォルダの中には、編集できる形式（Word/Google Docs）もあります。</p>
+<div class="links">
+    <a class="deck-mini" href="https://drive.google.com/drive/folders/1RxEKFkjYIOHIqytuCCaYaFXoFln8WBoa" target="_blank" rel="noopener">書類フォルダを開く →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1-ccmZogez03FfhT8R9pJ3M_u8hPNBY9r/view" target="_blank" rel="noopener">履歴書（PDF） →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1AHjwk9oKnSbbZn6DA-HWHL2UHom5AW0U/view" target="_blank" rel="noopener">職務経歴書（PDF） →</a>
+</div>
+</section>
+<section id="industry" data-section="industry">
+<h2>業界の説明資料</h2>
+<ul class="videos">
+  <li><a href="https://drive.google.com/file/d/1rMe1E4_EpphASnW63x9ubO1gtUm55174/view" target="_blank" rel="noopener">インフラエンジニアの仕事</a>
+    <span class="meta">インフラエンジニアの仕事内容と将来性をまとめた資料</span></li>
+  <li><a href="https://drive.google.com/file/d/1aaqbrGWGHvvOBhfCRVNETd7fdiUqzovh/view" target="_blank" rel="noopener">機械系エンジニアの仕事</a>
+    <span class="meta">機械系エンジニア（開発設計・組み込み・ものづくり）の仕事内容と将来性をまとめた資料</span></li>
+  <li><a href="https://drive.google.com/file/d/1hH4k9m57BCrY0_OQTSqg1CsMrRuFJVHK/view" target="_blank" rel="noopener">営業の仕事</a>
+    <span class="meta">営業の仕事内容と将来性をまとめた資料</span></li>
+</ul>
+</section>
+
+<footer>※条件は各社の求人票・会社資料（2026年9月時点）に書かれている内容です。月給の幅は、これまでの経験と選考での評価で決まります。<br>※「会社のHP →」は各社の公式ホームページに、「会社の資料 →」は会社説明の資料（PDF）につながります。</footer>
+
+</div>
+</body>
+</html>
