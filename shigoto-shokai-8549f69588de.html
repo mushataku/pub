@@ -152,6 +152,26 @@ footer { margin-top: 32px; color: var(--sub); font-size: 14px; }
 .page-nav a:hover { text-decoration: underline; }
 .page-nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 section[id] { scroll-margin-top: 16px; }
+/* おすすめの順番（2026-09-29 追加） */
+.decision {
+  margin: 0 0 32px; padding: 16px 18px; background: var(--paper);
+  border: 1px solid var(--line); border-radius: 14px;
+}
+.decision h2 { margin: 0 0 10px; font-size: 20px; }
+.decision ul.tier { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.decision ul.tier li { padding: 4px 12px; border-radius: 999px; background: var(--good-soft); color: var(--ink); font-size: 15px; }
+.decision ul.tier li b { color: var(--good); }
+.decision ul.t-next li { background: var(--accent-soft); }
+.decision ul.t-next li b { color: var(--accent); }
+.decision ul.t-later li { background: var(--note-soft); }
+.decision ul.t-later li b { color: var(--note); }
+.decision h3.tier-h { margin: 16px 0 6px; font-size: 16px; }
+.decision h3.tier-h.t-sent { color: var(--good); }
+.decision h3.tier-h.t-next { color: var(--accent); }
+.decision h3.tier-h.t-later { color: var(--note); }
+.decision p.tier-note { margin: 0 0 6px; color: var(--sub); font-size: 14.5px; }
+.decision p.yardstick { color: var(--sub); font-size: 14.5px; }
+.decision p.lead-p { margin: 0 0 10px; }
 </style>
 </head>
 <body>
@@ -162,15 +182,38 @@ section[id] { scroll-margin-top: 16px; }
   <p class="date">2026年9月29日（火）</p>
 </header>
 
+<section class="decision" id="decision">
+  <h2>おすすめの順番（9月29日（火）時点）</h2>
+  <p class="lead-p">面談で伺った内容から、CAとして「まずご案内したい順」に会社を並べました。まだ面談前なので、これは今回の書類提出先ではなく、次回の面談で一緒に決めるための叩き台です。気になる会社があれば、順番に関わらずいつでも聞いてください。</p>
+  <h3 class="tier-h t-sent">① まずおすすめしたい4社</h3>
+  <ul class="tier t-sent">
+    <li><b>レバキャリ</b>（施工管理）</li>
+    <li><b>エール</b>（施工管理）</li>
+    <li><b>オープンアップコンストラクション</b>（施工管理）</li>
+    <li><b>ウィルオブ・コンストラクション</b>（アクティブ事務・建設業界）</li>
+  </ul>
+  <h3 class="tier-h t-next">② 次の候補</h3>
+  <ul class="tier t-next">
+    <li><b>スタッフサービス ミラエール推進部</b>（事務）</li>
+    <li><b>DYMキャリア</b>（事務・派遣）</li>
+    <li><b>キッカケクリエイション</b>（役員秘書）</li>
+  </ul>
+  <h3 class="tier-h t-later">③ その次</h3>
+  <ul class="tier t-later">
+    <li><b>スタッフサービス・エンジニアリング（IT）</b></li>
+  </ul>
+  <p class="yardstick">照らし合わせた基準：完全週休二日・休みの確約／未経験から教えてもらえる研修体制／美術商での作品管理・展覧会設営のご経験（段取り・工程・書類管理）が活きるか。①は施工管理とその現場を支える事務、②は事務、③はITの入口です。「業界は問わない」と伺ったので、事務・施工管理以外の道もご案内しています。</p>
+</section>
+
 <section class="thanks">
 <p><b>本日（9月29日）はお時間をいただきありがとうございました。</b></p>
-  <p>面談で伺った内容から、まずは以下の会社をご紹介します。</p>
+  <p>面談で伺った内容から、まずは以下の会社をご紹介します。美術商での作品管理・展覧会設営のご経験は、施工管理の「段取り・工程・書類の管理」に直結すると考え、今回は施工管理を中心にご案内します。</p>
 </section>
 <div class="flow-box">
   <h3>これからの進め方</h3>
   <ol><li>このページの会社と資料を見て、気になった会社・もっと知りたいことをLINEで教えてください</li><li>次回の面談で、進む方向と受ける会社を一緒に決めます</li></ol>
 </div>
-<nav class="page-nav" aria-label="ページ内リンク"><ul><li><a href="#companies">ご紹介した会社</a></li><li><a href="#documents">あなたの書類</a></li><li><a href="#industry">業界の説明資料</a></li></ul></nav>
+<nav class="page-nav" aria-label="ページ内リンク"><ul><li><a href="#decision">おすすめの順番</a></li><li><a href="#companies">ご紹介した会社</a></li><li><a href="#documents">あなたの書類</a></li><li><a href="#industry">業界の説明資料</a></li></ul></nav>
 
 <section id="companies" data-section="companies">
 <h2>ご紹介した会社</h2>
@@ -179,56 +222,92 @@ section[id] { scroll-margin-top: 16px; }
   <span class="chip">完全週休二日（土日祝）</span>
   <span class="chip">未経験から教えてもらえる</span>
   <span class="chip">事務職</span>
+  <span class="chip">業界は問わない</span>
   
 </div>
 
-<h2>まずはこの3社</h2>
-<p class="lead">面談で伺った希望（完全週休二日・未経験から教えてもらえること）から選びました。</p>
+<h2>施工管理の3社</h2>
+<p class="lead">美術品100〜200点のリスト管理・保管場所の把握や、展覧会の設営でのスケジュール調整のご経験は、現場の段取り・工程・書類を管理する施工管理の仕事にそのまま活きると考えました。休みの確約（完全週休2日）を重視して選んでいます。</p>
 
 <div class="cards">
   <article class="card">
-    <h3>スタッフサービス ミラエール推進部</h3>
-    <p class="what">一般事務（人事・総務・経理・貿易・金融・英文事務・受付・データ入力など、案件により内容が変わる）</p>
+    <h3>レバキャリ</h3>
+    <p class="what">施工管理・CADオペレーター</p>
     <dl>
-      <dt>勤務地</dt><dd>転勤なし・自宅から90分以内の配属先（東京・神奈川・埼玉・千葉・大阪・京都・滋賀・広島・愛知・兵庫）</dd><dt>月給</dt><dd>270万〜330万円ほど（地域別の月給・エリアにより異なる）</dd><dt>休日</dt><dd>土日祝・完全週休2日・年間休日125日（祝日は配属先により異なる）・残業月10時間以下</dd>
+      <dt>勤務地</dt><dd>関東ほか（東海・関西・九州は求人がクローズすることがある）</dd><dt>月給</dt><dd>23万円〜</dd><dt>休日</dt><dd>完全週休2日・年間休日125日</dd>
     </dl>
-    <p class="point"><b>ここが合う</b>　スタッフサービスの、事務の入口です。完全週休二日制・年間休日125日と、休みの確約がいちばん強い枠です。職種未経験でも、学生時代のアルバイト経験があれば応募でき、一から教えてもらえます。</p>
-    <p class="caution">雇用形態は無期雇用派遣です（スタッフサービスに無期雇用の正社員として雇われ、配属先の企業で働く形）。 配属先・仕事内容は選べない（人事・総務・経理・受付・データ入力など案件により変わる）。</p>
-    <div class="links"><a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a></div>
+    <p class="point"><b>ここが合う</b>　美術商で社長のスケジュールを調整し、作品100〜200点を4か所の保管場所に分けて管理していたご経験は、そのまま工程・書類の管理に活きます。完全週休2日・年間休日125日で、資格の受験費用は合否を問わず全額会社負担、選考も1回です。</p>
+    <p class="caution">紹介予定派遣のため、半年後に入社するか他を探すかを決める必要がある。 勤務地の記載が資料間で揺れており「現在は首都圏のみでの募集」という補足がある。</p>
+    <div class="links"><a class="deck-mini" href="https://lc.lline-group.co.jp/" target="_blank" rel="noopener" aria-label="レバキャリのホームページ">会社のHP →</a></div>
   </article>
   <article class="card">
-    <h3>キッカケクリエイション</h3>
-    <p class="what">役員秘書（経営者のスケジュール調整・書類作成・社内外の調整など）</p>
+    <h3>エール</h3>
+    <p class="what">施工管理（アシスタントから始めて現場の管理へ）</p>
     <dl>
-      <dt>勤務地</dt><dd>東京（渋谷駅徒歩7分）・転勤なし</dd><dt>条件</dt><dd>応募には専門卒以上の学歴が必要（高卒不可）。</dd><dt>月給</dt><dd>420万〜700万円ほど</dd><dt>休日</dt><dd>土日祝休み・年間休日120日</dd>
+      <dt>勤務地</dt><dd>関東（転勤なし）</dd><dt>月給</dt><dd>22.6万〜25.3万円</dd><dt>休日</dt><dd>完全週休2日・年間休日128日（2026年度カレンダー）</dd>
     </dl>
-    <p class="point"><b>ここが合う</b>　美術商で社長のスケジュール調整・請求書対応・展覧会の設営をしていたご経験が、そのまま活きる仕事です。土日祝休み・年間休日120日。経営者の近くで、様々な業務を任せてもらえます。</p>
-    <p class="caution">選考は書類→対面面接＋適性検査の1回のみで、短い選考機会で合否が決まる。</p>
-    <div class="links"><a class="deck-mini" href="https://kikkakecreation.com/" target="_blank" rel="noopener" aria-label="キッカケクリエイションのホームページ">会社のHP →</a></div>
+    <p class="point"><b>ここが合う</b>　完全週休2日・年間休日128日と、休みの確約がいちばん強い会社です。入社後1か月の研修（座学＋現場）から始められ、資格を取れば長く続けられる「手に職」になります。</p>
+    <p class="caution">月給には固定残業代が含まれる求人票がある（例: 月給25.3万円のうち4.8万円が月30時間分の固定残業代）。 実際の残業時間は口コミで幅がある（会社側は月10h以内を主張するが、口コミ集計では最大月38hという値もある）。</p>
+    <div class="links"><a class="deck-mini" href="https://www.yell-inc.com/" target="_blank" rel="noopener" aria-label="エールのホームページ">会社のHP →</a></div>
   </article>
   <article class="card">
-    <h3>スタッフサービス・エンジニアリング（IT）</h3>
-    <p class="what">ITエンジニア（未経験可）。バックエンド／フロントエンド／インフラ（サーバー・ネットワーク）／運用保守・ヘルプデスクなど、案件に応じて配属される。</p>
+    <h3>オープンアップコンストラクション</h3>
+    <p class="what">施工管理（書類・図面づくりと安全・品質の管理）</p>
     <dl>
-      <dt>勤務地</dt><dd>全国46都道府県（居住エリアでの就業率92%）</dd><dt>条件</dt><dd>理系（学部・学科卒／工業・高専含む）は経験不問。文系未経験は転居可能・夜勤対応可であることが実質の条件になるが、総合判断のため必須ではない。</dd><dt>月給</dt><dd>月給23万円〜23.5万円ほど（エリアにより異なる・想定年収258万〜480万円）。残業代は全額・1分単位（固定残業の設定なし）。</dd><dt>休日</dt><dd>年間休日125日・有給取得実績 年12日ほど・月平均残業10時間程度</dd>
+      <dt>勤務地</dt><dd>関東ほか</dd><dt>月給</dt><dd>25万〜36万円（みなし残業20時間分を含む）</dd><dt>休日</dt><dd>週休2日・年間休日120日</dd>
     </dl>
-    <p class="point"><b>ここが合う</b>　スタッフサービスの、ITの入口です（上のミラエールと同じ会社の別部署）。研修から入り、教わりながら少しずつ仕事を広げていける環境です。年間休日125日。</p>
-    <p class="caution">雇用形態は「正社員」だが、実際はスタッフサービスに雇用され就業先企業で働く「無期雇用派遣」。就業先が決まるまでの待機期間中も給与は支給されるが、1か月以上の待機で有給休暇が消滅することがある。 会社は「案件を選べる」「待機中も給与が出る」と説明しているが、当事者の声には「実際は派遣に近い」「案件を断りづらい」というものもある。 転勤は「無い」とする記載と「可能性はあるが最大限考慮する」という記載が同じ求人票内にあり、言い切れない。 賞与は全社の募集要項に項目が無く、求人ごとに書き方が違う（年1回とする説明と、年2回・7月/12月支給と書く求人がある）。</p>
-    <div class="links"><a class="deck-mini" href="https://www.staffservice-engineering.jp/" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）のホームページ">会社のHP →</a></div>
+    <p class="point"><b>ここが合う</b>　実技研修施設「夢トレ」で現場を疑似体験してから配属されるので、現場のイメージを掴んでから始められます。書類・図面づくりと安全・品質管理が中心で、展覧会設営での段取り力が活きる仕事です。</p>
+    <p class="caution">賞与の有無は求人により記載が分かれている。 配属先は「現場ガチャ」と呼ばれることがある（口コミで複数言及）。</p>
+    <div class="links"><a class="deck-mini" href="https://www.openup-construction.co.jp/" target="_blank" rel="noopener" aria-label="オープンアップコンストラクションのホームページ">会社のHP →</a></div>
   </article>
 </div>
 
-<h2>建築・施工管理の会社</h2>
-<p class="lead">事務の入口とあわせて、建築の現場を支える施工管理の仕事もご紹介します。</p>
+<h2>現場を支える事務（建設業界）</h2>
+<p class="lead">現場に出るのではなく、建設プロジェクトの書類・スケジュールを管理する事務の仕事です。施工管理とあわせてご案内します。</p>
 
 <div class="table-wrap">
 <table>
   <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
   <tbody>
-    <tr><td class="co">レバキャリ<a class="deck-mini" href="https://lc.lline-group.co.jp/" target="_blank" rel="noopener" aria-label="レバキャリのホームページ">会社のHP →</a></td><td>施工管理・CADオペレーター<small>入社後2週間の研修</small><small>紹介予定派遣のため、半年後に入社するか他を探すかを決める必要がある。</small><small>勤務地の記載が資料間で揺れており「現在は首都圏のみでの募集」という補足がある。</small></td><td class="num">関東ほか（東海・関西・九州は求人がクローズすることがある）</td><td class="num">23万円〜</td><td class="num">完全週休2日・年間休日125日</td></tr>
+    <tr><td class="co">ウィルオブ・コンストラクション<a class="deck-mini" href="https://willof-construction.co.jp/" target="_blank" rel="noopener" aria-label="ウィルオブ・コンストラクションのホームページ">会社のHP →</a></td><td>建設プロジェクトを支える管理・事務業務（アクティブ事務／施工管理サポート。スタッフの労務管理、書類・図面・資料の整理作成保管、日報や報告書の作成支援、データ入力・電話応対等の営業サポート、プロジェクト全体の進捗管理）<small>配属前3週間のオンライン座学研修（建設業の基礎・AutoCAD・PCスキル・ビジネスマナー等）＋配属後6か月間のフォロー研修（専任担当者が対応）</small><small>月給には固定残業代（30時間分・地域により月3.9万〜5.5万円）が含まれる。</small><small>転勤の可能性は「あるが最大限考慮する」とされており、ゼロではない。</small><small>通勤限定エリア（東京・神奈川・埼玉・千葉・愛知・大阪・福岡・沖縄）以外は、配属先までの出張が生じうる。</small><small>賞与は年2回とされているが、昨年度の支給額は求人票に記載がない。</small></td><td class="num">全国（北海道〜沖縄）。うち東京・神奈川・埼玉・千葉・愛知・大阪・福岡・沖縄は自宅からの通勤圏内のみでの就業も可（それ以外のエリアはエリア内出張の可能性あり）<small>年齢20〜35歳（長期キャリア形成のため）。</small><small>通勤限定を希望する場合は運転免許が必須（ペーパードライバー不可）。</small></td><td class="num">月給21万〜30万円（地域により下限が異なる。固定残業代〈30時間分・地域により月3.9万〜5.5万円〉を含む）・想定年収270万〜500万円</td><td class="num">土日祝休み・年間休日120日（昨年度実績121日）・有給休暇取得実績 平均8.2日</td></tr>
   </tbody>
 </table>
 </div>
+
+<h2>事務の会社</h2>
+<p class="lead">施工管理以外に、事務としての選択肢もあわせてご案内します。</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
+  <tbody>
+    <tr><td class="co">スタッフサービス ミラエール推進部<a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a></td><td>一般事務（人事・総務・経理・貿易・金融・英文事務・受付・データ入力など、案件により内容が変わる）<small>雇用形態は無期雇用派遣です（スタッフサービスに無期雇用の正社員として雇われ、配属先の企業で働く形）。</small><small>配属先・仕事内容は選べない（人事・総務・経理・受付・データ入力など案件により変わる）。</small></td><td class="num">転勤なし・自宅から90分以内の配属先（東京・神奈川・埼玉・千葉・大阪・京都・滋賀・広島・愛知・兵庫）</td><td class="num">270万〜330万円ほど（地域別の月給・エリアにより異なる）</td><td class="num">土日祝・完全週休2日・年間休日125日（祝日は配属先により異なる）・残業月10時間以下</td></tr>
+<tr><td class="co">キッカケクリエイション<a class="deck-mini" href="https://kikkakecreation.com/" target="_blank" rel="noopener" aria-label="キッカケクリエイションのホームページ">会社のHP →</a></td><td>役員秘書（経営者のスケジュール調整・書類作成・社内外の調整など）<small>選考は書類→対面面接＋適性検査の1回のみで、短い選考機会で合否が決まる。</small></td><td class="num">東京（渋谷駅徒歩7分）・転勤なし<small>応募には専門卒以上の学歴が必要（高卒不可）。</small></td><td class="num">420万〜700万円ほど</td><td class="num">土日祝休み・年間休日120日</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>ITの入口</h2>
+<p class="lead">業界は問わないとのことでしたので、事務・施工管理以外の選択肢として、ITの入口もご案内します。</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
+  <tbody>
+    <tr><td class="co">スタッフサービス・エンジニアリング（IT）<a class="deck-mini" href="https://www.staffservice-engineering.jp/" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）のホームページ">会社のHP →</a></td><td>ITエンジニア（未経験可）。バックエンド／フロントエンド／インフラ（サーバー・ネットワーク）／運用保守・ヘルプデスクなど、案件に応じて配属される。<small>入社直後の研修（ヒューマンスキル・ITパスポート・信頼性・Excel・ビジネスメール等）。経験の浅い人にはチームのベテランエンジニアがサポートに付く。</small><small>雇用形態は「正社員」だが、実際はスタッフサービスに雇用され就業先企業で働く「無期雇用派遣」。就業先が決まるまでの待機期間中も給与は支給されるが、1か月以上の待機で有給休暇が消滅することがある。</small><small>会社は「案件を選べる」「待機中も給与が出る」と説明しているが、当事者の声には「実際は派遣に近い」「案件を断りづらい」というものもある。</small><small>転勤は「無い」とする記載と「可能性はあるが最大限考慮する」という記載が同じ求人票内にあり、言い切れない。</small><small>賞与は全社の募集要項に項目が無く、求人ごとに書き方が違う（年1回とする説明と、年2回・7月/12月支給と書く求人がある）。</small></td><td class="num">全国46都道府県（居住エリアでの就業率92%）<small>理系（学部・学科卒／工業・高専含む）は経験不問。文系未経験は転居可能・夜勤対応可であることが実質の条件になるが、総合判断のため必須ではない。</small></td><td class="num">月給23万円〜23.5万円ほど（エリアにより異なる・想定年収258万〜480万円）。残業代は全額・1分単位（固定残業の設定なし）。</td><td class="num">年間休日125日・有給取得実績 年12日ほど・月平均残業10時間程度</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>施工管理の仕事がわかる動画</h2>
+<ul class="videos">
+  <li><a href="https://www.youtube.com/watch?v=mv8y_vXB4nY" target="_blank" rel="noopener">【セコカン】建設現場に1日密着！</a>
+    <span class="meta">東亜建設工業（公式）・約10分</span>
+    <span class="why">入社2年目の担当者に密着した動画です。朝礼や測量など、現場の1日の流れがわかります。</span></li>
+  <li><a href="https://www.youtube.com/watch?v=Gqfev6SWkpY" target="_blank" rel="noopener">工事現場に密着！ ～施工管理の魅力～</a>
+    <span class="meta">日本リーテック（公式）・約8分</span>
+    <span class="why">工事現場で指揮をとる施工管理職の1日に密着しています。</span></li>
+</ul>
 
 </section>
 <section id="documents" data-section="documents">
@@ -245,10 +324,6 @@ section[id] { scroll-margin-top: 16px; }
 <ul class="videos">
   <li><a href="https://drive.google.com/file/d/1rMe1E4_EpphASnW63x9ubO1gtUm55174/view" target="_blank" rel="noopener">インフラエンジニアの仕事</a>
     <span class="meta">インフラエンジニアの仕事内容と将来性をまとめた資料</span></li>
-  <li><a href="https://drive.google.com/file/d/1aaqbrGWGHvvOBhfCRVNETd7fdiUqzovh/view" target="_blank" rel="noopener">機械系エンジニアの仕事</a>
-    <span class="meta">機械系エンジニア（開発設計・組み込み・ものづくり）の仕事内容と将来性をまとめた資料</span></li>
-  <li><a href="https://drive.google.com/file/d/1hH4k9m57BCrY0_OQTSqg1CsMrRuFJVHK/view" target="_blank" rel="noopener">営業の仕事</a>
-    <span class="meta">営業の仕事内容と将来性をまとめた資料</span></li>
 </ul>
 </section>
 
