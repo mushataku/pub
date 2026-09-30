@@ -92,7 +92,6 @@ h2 + .lead { margin: 0 0 14px; color: var(--sub); }
   vertical-align: middle; white-space: nowrap;
 }
 td small { display: block; color: var(--sub); font-size: 14px; }
-.tech td.num { white-space: normal; }
 .table-wrap { overflow-x: auto; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
 table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 15.5px; }
 th, td { text-align: left; vertical-align: top; padding: 11px 14px; border-bottom: 1px solid var(--line); }
@@ -100,14 +99,7 @@ th { color: var(--sub); font-weight: 600; font-size: 14px; background: var(--bg)
 tr:last-child td { border-bottom: none; }
 td.co { font-weight: 700; }
 td.num { white-space: normal; }
-td.num small { white-space: normal; }
-@media (min-width: 621px) {
-  .table-wrap > table > thead th:nth-child(1) { width: 16%; }
-  .table-wrap > table > thead th:nth-child(2) { width: 34%; }
-  .table-wrap > table > thead th:nth-child(3) { width: 18%; }
-  .table-wrap > table > thead th:nth-child(4) { width: 16%; }
-  .table-wrap > table > thead th:nth-child(5) { width: 16%; }
-}
+@media (min-width: 621px) { .table-wrap thead th:nth-child(1) { width: 16%; } .table-wrap thead th:nth-child(2) { width: 34%; } .table-wrap thead th:nth-child(3) { width: 18%; } }
 .also {
   margin: 12px 0 0; padding: 10px 14px; border-radius: 10px;
   background: var(--note-soft); color: var(--ink); font-size: 15px;
@@ -256,7 +248,8 @@ tr.verdict-row td { padding-top: 0; }
     <p class="point"><b>ここが合う</b>　第一希望の「事務」にそのまま応える会社です。職種未経験でも応募でき、ホテルで作っていた請求書・日報・団体予約の料金明細表が事務の実績として活きます。土日祝休み・年間休日125日で、配属はご自宅から90分以内・転勤なしです。</p>
     <p class="caution">雇用形態は無期雇用派遣です（スタッフサービスに無期雇用の正社員として雇われ、配属先の企業で働く形）。 配属先・仕事内容は選べない（人事・総務・経理・受付・データ入力など案件により変わる）。</p>
     
-    <div class="links"><a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a></div>
+    <div class="links"><a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1o31QH1qaAuheG_WwoFBcrVvgKVDLC1iP/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料">会社の資料 →</a></div>
   </article>
   <article class="card">
     <h3>BREXA Communications</h3>
@@ -295,13 +288,18 @@ tr.verdict-row td { padding-top: 0; }
 </div>
 
 <h2>未経験から始めるITエンジニア</h2>
-<p class="lead">テクノプロとあわせて、未経験から入社研修を受けて始められるITの会社もご案内します。</p>
+<p class="lead">テクノプロとあわせて、未経験から入社研修を受けて始められるITの会社もご案内します。各社の「会社資料」から、会社の説明資料（PDF）も開けます。</p>
 
 <div class="table-wrap">
 <table>
   <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
   <tbody>
-    <tr><td class="co">スタッフサービス・エンジニアリング（IT）<a class="deck-mini" href="https://www.staffservice-engineering.jp/" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）のホームページ">会社のHP →</a></td><td>ITエンジニア（未経験可）。バックエンド／フロントエンド／インフラ（サーバー・ネットワーク）／運用保守・ヘルプデスクなど、案件に応じて配属される。<small>入社直後の研修（ヒューマンスキル・ITパスポート・信頼性・Excel・ビジネスメール等）。経験の浅い人にはチームのベテランエンジニアがサポートに付く。</small><small>雇用形態は「正社員」だが、実際はスタッフサービスに雇用され就業先企業で働く「無期雇用派遣」。就業先が決まるまでの待機期間中も給与は支給されるが、1か月以上の待機で有給休暇が消滅することがある。</small><small>会社は「案件を選べる」「待機中も給与が出る」と説明しているが、当事者の声には「実際は派遣に近い」「案件を断りづらい」というものもある。</small><small>転勤は「無い」とする記載と「可能性はあるが最大限考慮する」という記載が同じ求人票内にあり、言い切れない。</small><small>賞与は全社の募集要項に項目が無く、求人ごとに書き方が違う（年1回とする説明と、年2回・7月/12月支給と書く求人がある）。</small></td><td class="num">全国46都道府県（居住エリアでの就業率92%）<small>理系（学部・学科卒／工業・高専含む）は経験不問。文系未経験は転居可能・夜勤対応可であることが実質の条件になるが、総合判断のため必須ではない。</small></td><td class="num">月給23万円〜23.5万円ほど（エリアにより異なる・想定年収258万〜480万円）。残業代は全額・1分単位（固定残業の設定なし）。</td><td class="num">年間休日125日・有給取得実績 年12日ほど・月平均残業10時間程度</td></tr>
+    <tr><td class="co">スタッフサービス・エンジニアリング（IT）<a class="deck-mini" href="https://www.staffservice-engineering.jp/" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1mvmhuABSzSJRxpq6TI5Bn3TNaD2u9u0L/view" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）の資料">会社の資料 →</a></td><td>ITエンジニア（未経験可）。バックエンド／フロントエンド／インフラ（サーバー・ネットワーク）／運用保守・ヘルプデスクなど、案件に応じて配属される。<small>入社直後の研修（ヒューマンスキル・ITパスポート・信頼性・Excel・ビジネスメール等）。経験の浅い人にはチームのベテランエンジニアがサポートに付く。</small><small>雇用形態は「正社員」だが、実際はスタッフサービスに雇用され就業先企業で働く「無期雇用派遣」。就業先が決まるまでの待機期間中も給与は支給されるが、1か月以上の待機で有給休暇が消滅することがある。</small><small>会社は「案件を選べる」「待機中も給与が出る」と説明しているが、当事者の声には「実際は派遣に近い」「案件を断りづらい」というものもある。</small><small>転勤は「無い」とする記載と「可能性はあるが最大限考慮する」という記載が同じ求人票内にあり、言い切れない。</small><small>賞与は全社の募集要項に項目が無く、求人ごとに書き方が違う（年1回とする説明と、年2回・7月/12月支給と書く求人がある）。</small></td><td class="num">全国46都道府県（居住エリアでの就業率92%）<small>理系（学部・学科卒／工業・高専含む）は経験不問。文系未経験は転居可能・夜勤対応可であることが実質の条件になるが、総合判断のため必須ではない。</small></td><td class="num">月給23万円〜23.5万円ほど（エリアにより異なる・想定年収258万〜480万円）。残業代は全額・1分単位（固定残業の設定なし）。</td><td class="num">年間休日125日・有給取得実績 年12日ほど・月平均残業10時間程度</td></tr>
+<tr><td class="co">オープンアップITエンジニア<a class="deck-mini" href="https://www.openupitengineer.co.jp/" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1x8gG4uYKRJOoAtqBFKcwQCnnUVe7zdNb/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料">会社の資料 →</a></td><td>ITエンジニア（未経験から、インフラ・開発など）<small>「通勤限定」を選ぶと案件の母数が細り、配属までの待機が伸びる傾向がある（採用の可否には影響しない）。</small><small>契約上の「変更の範囲」は会社の定める全場所＝地域限定・通勤限定を選んでも契約上は全国異動の可能性が排除されていない。</small></td><td class="num">全国（全国／地域限定／通勤限定から選べる）<small>勤務地区分（全国転勤／地域限定／通勤限定）は書類選考の通りやすさを変えない。</small></td><td class="num">22万円〜（スタート年収 264万円〜）</td><td class="num">年間休日122日</td></tr>
+<tr><td class="co">BREXA Technology（IT）<a class="deck-mini" href="https://technology.brexa.com/" target="_blank" rel="noopener" aria-label="BREXA Technology（IT）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1E1HBnL3nMlnez3_0Ge2ldE3_xedu9r9w/view" target="_blank" rel="noopener" aria-label="BREXA Technology（IT）の資料">会社の資料 →</a></td><td>サーバー運用・インフラから始めて、開発へ<small>導入研修1か月＋専門スクールでの技術研修</small><small>会社自身は雇用形態を「無期雇用派遣」と説明している（正社員として雇われて客先へ派遣される形）。</small><small>求人票の経験者欄には「開発職：テスト工程以上1年以上」の記載があるが、表看板の求人票はインフラエンジニアのみ＝開発職そのものの求人票は無い。</small><small>賞与は会社の実績提示（昨年度2.6か月分）と、社員の証言（0.6〜1.5か月分）に幅があり、金額は確定していない。</small></td><td class="num">東京・神奈川ほか全国</td><td class="num">20.5万円〜（想定年収 270万〜400万円）</td><td class="num">土日祝休み・年間休日120日以上</td></tr>
   </tbody>
 </table>
 </div>
