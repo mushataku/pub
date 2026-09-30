@@ -98,9 +98,16 @@ table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 15.
 th, td { text-align: left; vertical-align: top; padding: 11px 14px; border-bottom: 1px solid var(--line); }
 th { color: var(--sub); font-weight: 600; font-size: 14px; background: var(--bg); }
 tr:last-child td { border-bottom: none; }
-td.co { font-weight: 700; white-space: nowrap; }
-td.num { white-space: nowrap; }
+td.co { font-weight: 700; }
+td.num { white-space: normal; }
 td.num small { white-space: normal; }
+@media (min-width: 621px) {
+  .table-wrap > table > thead th:nth-child(1) { width: 16%; }
+  .table-wrap > table > thead th:nth-child(2) { width: 34%; }
+  .table-wrap > table > thead th:nth-child(3) { width: 18%; }
+  .table-wrap > table > thead th:nth-child(4) { width: 16%; }
+  .table-wrap > table > thead th:nth-child(5) { width: 16%; }
+}
 .also {
   margin: 12px 0 0; padding: 10px 14px; border-radius: 10px;
   background: var(--note-soft); color: var(--ink); font-size: 15px;
