@@ -1,0 +1,29 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><title>ローチケ容器ログインの当たり率（2026-10-02）</title>
+<style>body{font-family:sans-serif;max-width:860px;margin:2em auto;line-height:1.7}td,th{border:1px solid #999;padding:4px 10px}table{border-collapse:collapse}.n{color:#b00}</style>
+<h1>ローチケ容器ログインの当たり率</h1>
+<p><b>結論</b>: 容器から撃てた3件のうち2件は送信後にサイトが『システムエラーが発生しました』で切った（PCへ戻る率 2/3 = 67%、SE 27%）。基準（20%以下かつ切られ方0件）を満たさないため、許可リストから <code>ltike</code> を外した。</p>
+<h2>図1　顧客ごとの結果（横軸=顧客、縦軸=読みの回数。棒の色=結果）</h2>
+<p>17顧客に1回ずつ票を積んだ。容器で実際にログインまで行けたのは c001・c003・c011 の3件。残り14件は「初回の窓（同じ社の初回ログインは1顧客ずつ）」で約253秒待たされ、容器は何もせず終了→票は期限切れか PC の係が引き取った。</p>
+<svg viewBox="0 0 760 260" width="760"><line x1="40" y1="220" x2="750" y2="220" stroke="#000"/><line x1="40" y1="20" x2="40" y2="220" stroke="#000"/>
+<text x="4" y="30" font-size="11">読み(回)</text><text x="14" y="120" font-size="11">1</text><text x="14" y="220" font-size="11">0</text><text x="14" y="25" font-size="11">2</text>
+<g font-size="10" text-anchor="middle">
+<rect x="60" y="120" width="30" height="100" fill="#c33"/><text x="75" y="236">c001</text>
+<rect x="110" y="220" width="30" height="0"/><text x="125" y="236">c002</text>
+<rect x="150" y="120" width="30" height="100" fill="#c33"/><text x="165" y="236">c003</text>
+<text x="195" y="236">c004</text><text x="235" y="236">c005</text><text x="275" y="236">c006</text><text x="315" y="236">c007</text><text x="355" y="236">c008</text><text x="395" y="236">c009</text><text x="435" y="236">c010</text>
+<rect x="465" y="214" width="30" height="6" fill="#e90"/><text x="480" y="236">c011</text>
+<text x="525" y="236">c012</text><text x="565" y="236">c013</text><text x="605" y="236">c014</text><text x="645" y="236">c015</text><text x="685" y="236">c016</text><text x="725" y="236">c017</text></g>
+<text x="60" y="252" font-size="11" fill="#c33">■ システムエラーで切られ（PCへ戻し）</text><text x="300" y="252" font-size="11" fill="#e90">■ 入口で接続エラー</text><text x="480" y="252" font-size="11" fill="#666">空欄=初回の窓待ちで未測定（14件）</text></svg>
+<h2>表</h2>
+<table><tr><th>顧客</th><th>rc</th><th>秒</th><th>読み（見送り/送った）</th><th>確信度</th><th>サイトの判定</th><th>PC戻り理由</th></tr>
+<tr><td>c001</td><td>2</td><td>92.4</td><td>0 / 1（8y7h4）</td><td>0.93</td><td class=n>『システムエラー』で切られた</td><td>system_error</td></tr>
+<tr><td>c003</td><td>2</td><td>98.8</td><td>0 / 1（bhhwy）</td><td>0.97</td><td class=n>『システムエラー』で切られた</td><td>system_error</td></tr>
+<tr><td>c011</td><td>1</td><td>8.2</td><td>0 / 0</td><td>—</td><td>入口で chrome-error（接続エラー）→仮の遮断の印</td><td>—（表に載らず）</td></tr>
+<tr><td>他14件</td><td colspan=6>初回の窓待ち（253秒）で容器は未実行。「枠」「電話」で断られた顧客は無し</td></tr></table>
+<h2>図2　集計</h2>
+<table><tr><th>指標</th><th>値</th><th>SE</th></tr>
+<tr><td>PCへ戻る率（容器で走れた3件）</td><td>2/3 = 67%</td><td>27%</td></tr>
+<tr><td>5文字一致率（送った読みのうちサイトが通した割合）</td><td>算出不能（送った2件はどちらも判定前にサイトが切った）</td><td>—</td></tr>
+<tr><td>切られ方</td><td>2件（『システムエラー』= 切り・読み誤りとは別）</td><td>—</td></tr></table>
+<p>注意: 10-01 のダミーID実験（3回とも切られず）と c003 の実地1回（通った）とは食い違う。今回の c003 は同じ顧客・同じ読み手で切られた＝切られるかは時間や回線の運しだい（n が小さい）で、許可リストに残す根拠にはならない。</p>
+</html>
