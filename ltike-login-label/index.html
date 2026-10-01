@@ -51,6 +51,14 @@
   #gate { position:fixed; inset:0; z-index:20; background:rgba(246,247,249,.97); display:flex; flex-direction:column;
           align-items:center; justify-content:center; gap:14px; padding:20px; text-align:center; }
   #gate .btn { font-size:20px; min-width:220px; padding:14px; }
+  #decidedBox { margin:10px 12px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:8px 12px; }
+  #decidedBox summary { cursor:pointer; font-size:14px; }
+  #decidedList { display:grid; gap:8px; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); margin-top:8px; }
+  #decidedList .row { display:flex; gap:8px; align-items:center; border:1px solid var(--line); border-radius:8px; padding:6px; }
+  #decidedList img { width:110px; height:auto; border:1px solid var(--line); border-radius:4px; }
+  #decidedList .lab { flex:1; font:600 18px/1.2 ui-monospace,Consolas,monospace; letter-spacing:.2em; }
+  #decidedList .lab small { display:block; font:12px system-ui,sans-serif; letter-spacing:0; color:var(--mute); }
+  #remoteNote { color:var(--bad); }
   .empty { text-align:center; color:var(--mute); padding:30px; }
   [hidden] { display:none !important; }
   @media (max-width:640px) { main { grid-template-columns:1fr; } .card input { font-size:24px; } }
@@ -71,9 +79,9 @@
       <button type="button" data-pick="takuya" aria-pressed="false">拓也</button>
       <button type="button" data-pick="yuto" aria-pressed="false">ゆうと</button>
     </span>
-    <span class="stat">確認済み <b id="nDone">0</b> / <b id="nTotal">0</b> 枚（読めない <b id="nUnread">0</b>）</span>
+    <span class="stat">入力済み <b id="nDone">0</b> / 残り <b id="nTotal">0</b> 枚（読めない <b id="nUnread">0</b>）・決定済み <b id="nDecided">0</b> 枚</span>
     <button type="button" class="btn" id="jumpTodo">未確認の先頭へ ▶</button>
-    <label><input type="checkbox" id="onlyTodo"> 未確認だけ表示</label>
+    <label><input type="checkbox" id="onlyTodo"> 未入力だけ表示</label>
   </div>
 </header>
 
@@ -81,12 +89,19 @@
   画像の<b>5文字</b>を打ちます。欄には<b>AIの読みが先に入っています</b>（合っていれば <b>Enter</b> か「合ってる」）。違えばそのまま打ち直して Enter。
   文字は <b>1〜8 と a〜z</b> だけで、<b>g・i・j・l・o・q は出ません</b>（0 や 9 もありません）。
   どうしても読めない画像は「読めない」。<b>確信が低い画像ほど上にあります</b>（上の方は難しくて当然です）。
-  答えは自動でも送られます（下の状態を見てください）。途中で閉じても、同じ端末で開き直せば続きから出来ます。
-  <span id="buildInfo">盤の生成: 10/01 15:25</span>
+  打ち終わったら下の<b>「回答決定」</b>を押すと、入力済みの答えがまとめて送られ、その画像は盤から消えます（<b>決定するまでは何も送られません</b>・「やり直す」で直せます）。
+  決定のあとに間違いに気づいたら、下の「<b>決定済みを直す</b>」から戻して打ち直し、もう一度「回答決定」を押してください（あとの答えが優先されます）。
+  途中で閉じても、同じ端末で開き直せば続きから出来ます。<span id="remoteNote"></span>
+  <span id="buildInfo">盤の生成: 10/01 19:14</span>
 </div>
 
 <main id="queue"></main>
 <p class="empty" id="emptyNote" hidden>この人が答える画像は、いまありません。</p>
+
+<details id="decidedBox">
+  <summary>決定済みを直す（<span id="nDecidedBox">0</span> 枚）</summary>
+  <div id="decidedList"></div>
+</details>
 
 <div id="fallback" hidden>
   <p><b>送信できませんでした。</b>下の文を全部コピーして、拓也かゆうとに送ってください（端末に答えは残っています）。</p>
@@ -97,7 +112,7 @@
 <div class="sendbar">
   <button type="button" class="btn" id="bulkConfirm">この画面の残りは全部合ってる</button>
   <button type="button" class="btn" id="bulkUndo" hidden>取り消す</button>
-  <button type="button" class="btn primary" id="sendBtn">回答を送る</button>
+  <button type="button" class="btn primary" id="decideBtn">回答決定</button>
   <span class="grow" id="sendStatus" data-state="">まだ答えがありません</span>
 </div>
 
@@ -109,8 +124,8 @@
   var INBOX_URL = "https://pia-answers-inbox-trpn7kfx7q-an.a.run.app/ltike";
   var ALL = JSON.parse(document.getElementById("DATA").textContent);
   var NAMES = {takuya: "拓也", yuto: "ゆうと"};
-  var who = "", state = {}, sent = {}, cells = {}, items = [], lastBulk = [];
-  var sending = false, sendAgain = false, sendTimer = null, lastError = "";
+  var who = "", state = {}, decided = {}, fix = {}, remote = {}, cells = {}, items = [], lastBulk = [];
+  var sending = false, lastError = "";
   var $ = function(id){ return document.getElementById(id); };
   var queue = $("queue");
 
@@ -119,6 +134,7 @@
   function load(suffix){ try { return JSON.parse(localStorage.getItem(key(suffix)) || "{}"); } catch(e){ return {}; } }
   function save(suffix, obj){ try { localStorage.setItem(key(suffix), JSON.stringify(obj)); } catch(e){} }
   function persist(){ save("state", state); }
+  function persistDecided(){ save("decided", decided); save("fix", fix); }
 
   // ---------- 入力の正規化 ----------
   // 全角→半角・大文字→小文字。字母の外の字は捨てて、捨てた字を返す（打った字が消えたと分かるように）
@@ -138,11 +154,11 @@
   function isAnswered(id){ var s = state[id]; return !!(s && (s.unreadable || s.label)); }
   function confirm_(it, label, flag){
     state[it.id] = {label: label, unreadable: false, how: flag || how(it, {label: label}), t: Date.now()};
-    persist(); paint(it.id); tally(); scheduleSend();
+    persist(); paint(it.id); tally();
   }
   function markUnreadable(it){
     state[it.id] = {label: "", unreadable: true, how: "", t: Date.now()};
-    persist(); paint(it.id); tally(); scheduleSend();
+    persist(); paint(it.id); tally();
   }
   function reopen(it){
     var c = cells[it.id], was = state[it.id];
@@ -216,8 +232,8 @@
     c.querySelector(".un").hidden = status !== "todo";
     c.querySelector(".re").hidden = status === "todo";
     var n = c.querySelector(".note");
-    if (status === "done") { n.textContent = "✔ 確認済み" + (s.how === "pre" ? "（AIの読みのまま）" : "（打ち直し）") + (sent[id] ? "・送信済み" : ""); n.className = "note"; }
-    else if (status === "unreadable") { n.textContent = "読めない、にしました" + (sent[id] ? "（送信済み）" : ""); n.className = "note"; }
+    if (status === "done") { n.textContent = "✔ 入力済み" + (s.how === "pre" ? "（AIの読みのまま）" : "（打ち直し）") + "・「回答決定」で送ります"; n.className = "note"; }
+    else if (status === "unreadable") { n.textContent = "読めない、にしました（「回答決定」で送ります）"; n.className = "note"; }
     else { n.textContent = it.pre ? "" : "AIは読めませんでした。自分で打ってください"; n.className = "note"; inp.setAttribute("aria-invalid", "false"); }
     if (status === "todo" && !inp.value) inp.placeholder = "?????".slice(0, N);
     applyFilter(c);
@@ -238,6 +254,7 @@
     var done = 0, unread = 0;
     items.forEach(function(it){ var s = state[it.id]; if (s) { if (s.unreadable) unread++; else done++; } });
     $("nDone").textContent = done + unread; $("nUnread").textContent = unread; $("nTotal").textContent = items.length;
+    var nd = hiddenItems().length; $("nDecided").textContent = nd; $("nDecidedBox").textContent = nd;
     renderSend(); updateBulk();
   }
   function visibleTargets(){
@@ -263,32 +280,43 @@
       state[it.id] = {label: label, unreadable: false, how: how(it, {label: label}), t: Date.now()};
       paint(it.id);
     });
-    persist(); tally(); scheduleSend(); $("bulkUndo").hidden = false;
+    persist(); tally(); $("bulkUndo").hidden = false;
   });
   $("bulkUndo").addEventListener("click", function(){
     lastBulk.forEach(function(id){ delete state[id]; paint(id); });
     lastBulk = []; persist(); tally(); $("bulkUndo").hidden = true;
   });
 
-  // ---------- 送信（受け口 /ltike・GitHub ログイン不要） ----------
+  // ---------- 回答決定（受け口 /ltike・GitHub ログイン不要） ----------
+  // 「入力済み」(state) は端末の中だけ。「回答決定」を押して受け口に届いた画像だけが「決定済み」(decided)になり盤から消える。
   function sig(s){ return s.unreadable ? "U" : s.label + "|" + s.how; }
   function answeredIds(){ return items.filter(function(it){ return isAnswered(it.id); }).map(function(it){ return it.id; }); }
-  function pendingIds(){ return answeredIds().filter(function(id){ return sent[id] !== sig(state[id]); }); }
   function line(id){ var s = state[id]; return id + " " + (s.unreadable ? "unreadable" : s.label + " " + (s.how || "edit")); }
   function chunks(ids){ var out = []; for (var i = 0; i < ids.length; i += 500) out.push(ids.slice(i, i + 500)); return out; }
   function bodyOf(ids){ return "ltike\nwho: " + who + "\n" + ids.map(line).join("\n") + "\n"; }
   function renderSend(){
-    var total = answeredIds().length, pending = pendingIds().length, el = $("sendStatus"), st = "", text = "";
+    var n = answeredIds().length, el = $("sendStatus"), st = "", text = "";
     if (sending) text = "送信中…";
-    else if (lastError) { text = "送れませんでした（" + lastError + "）・答えはこの端末に残っています"; st = "err"; }
-    else if (!total) text = "まだ答えがありません";
-    else if (!pending) { text = "✔ 全部送信済み（" + total + " 枚）"; st = "ok"; }
-    else text = "未送信 " + pending + " 枚（自動で送ります／「回答を送る」でも送れます）";
-    el.textContent = text; el.dataset.state = st; $("sendBtn").disabled = sending || !pending;
+    else if (lastError) { text = "送れませんでした（" + lastError + "）・答えはこの端末に残っています。もう一度「回答決定」を押せます"; st = "err"; }
+    else if (!n) text = "まだ入力済みの答えがありません";
+    else text = "入力済み " + n + " 枚（「回答決定」で送って盤から消します）";
+    el.textContent = text; el.dataset.state = st;
+    $("decideBtn").disabled = sending || !n;
+    $("decideBtn").textContent = n ? "回答決定（" + n + "枚）" : "回答決定";
   }
-  function scheduleSend(){ clearTimeout(sendTimer); sendTimer = setTimeout(sendNow, 2500); }
+  function commit(ids, sigs){
+    ids.forEach(function(id){
+      var s = state[id];
+      if (!s || sig(s) !== sigs[id]) return;          // 送信中に直された札は決定にしない（次の「回答決定」で送る）
+      decided[id] = s; delete state[id]; delete fix[id];
+      var who_ = remote[id] || []; if (who_.indexOf(who) < 0) remote[id] = who_.concat([who]);
+      if (cells[id]) { cells[id].remove(); delete cells[id]; }
+      items = items.filter(function(it){ return it.id !== id; });
+    });
+    persist(); persistDecided();
+  }
   function postOne(ids){
-    var body = bodyOf(ids), sigs = {}; ids.forEach(function(id){ sigs[id] = sig(state[id]); });
+    var body = bodyOf(ids), sigs = {}, sender = who; ids.forEach(function(id){ sigs[id] = sig(state[id]); });
     var ctl = (typeof AbortController === "function") ? new AbortController() : null;
     var timer = ctl ? setTimeout(function(){ ctl.abort(); }, 15000) : null;
     return fetch(INBOX_URL, {method: "POST", headers: {"Content-Type": "text/plain;charset=UTF-8"}, body: body,
@@ -296,57 +324,108 @@
       .then(function(r){ return r.json().catch(function(){ return null; }).then(function(j){ return {status: r.status, json: j}; }); })
       .then(function(res){
         if (timer) clearTimeout(timer);
-        if (res.status === 200 && res.json && res.json.ok) { ids.forEach(function(id){ sent[id] = sigs[id]; }); return null; }
+        if (res.status === 200 && res.json && res.json.ok) { if (who === sender) commit(ids, sigs); return null; }   // 送信中に人を切り替えたら、前の人の送信で今の人の札を決定にしない
         return {body: body, error: (res.json && res.json.error) ? res.json.error : "HTTP " + res.status};
       }, function(e){
         if (timer) clearTimeout(timer);
         return {body: body, error: (e && e.name === "AbortError") ? "時間切れ" : "通信できません"};
       });
   }
-  function sendNow(){
-    clearTimeout(sendTimer);
-    if (sending) { sendAgain = true; return; }
-    var ids = pendingIds(); if (!ids.length) { renderSend(); return; }
+  function decide(){
+    if (sending) return;                                // 二度押し・連打は1回だけ
+    var ids = answeredIds(); if (!ids.length) return;
     sending = true; lastError = ""; renderSend();
     var failed = null;
-    chunks(answeredIds().filter(function(id){ return ids.indexOf(id) >= 0; })).reduce(function(p, ch){
+    chunks(ids).reduce(function(p, ch){
       return p.then(function(){ if (failed) return; return postOne(ch).then(function(f){ if (f) failed = f; }); });
     }, Promise.resolve()).then(function(){
-      save("sent", sent);
       if (failed) { lastError = failed.error; $("fallbackText").value = failed.body; $("fallback").hidden = false; }
       else $("fallback").hidden = true;
-      sending = false;
-      items.forEach(function(it){ paint(it.id); }); renderSend();
-      if (sendAgain) { sendAgain = false; scheduleSend(); }
+      sending = false; lastBulk = []; $("bulkUndo").hidden = true;
+      $("emptyNote").hidden = !!items.length;
+      tally(); renderDecided(); updateBulk();
     });
   }
-  $("sendBtn").addEventListener("click", sendNow);
+  $("decideBtn").addEventListener("click", decide);
   $("fallbackCopy").addEventListener("click", function(){
     var t = $("fallbackText"); t.focus(); t.select();
     try { document.execCommand("copy"); } catch(e){}
   });
 
+  // ---------- 決定済みを直す ----------
+  function laneMine(it){ return it.lane === "both" || it.lane === who; }
+  function visible(it){
+    if (state[it.id] || fix[it.id]) return true;
+    if (decided[it.id]) return false;
+    var r = remote[it.id]; if (!r || !r.length) return true;
+    return it.lane === "both" ? r.indexOf(who) < 0 : false;   // 2人とも答える札は、答えた本人の盤からだけ消える
+  }
+  function hiddenItems(){ return ALL.filter(function(it){ return laneMine(it) && !visible(it); }); }
+  function renderDecided(){
+    var box = $("decidedList"); if (!$("decidedBox").open) return;
+    box.textContent = "";
+    hiddenItems().forEach(function(it){
+      var d = decided[it.id], row = document.createElement("div"); row.className = "row";
+      var img = document.createElement("img"); img.src = it.img; img.loading = "lazy"; img.alt = "決定済みの画像";
+      var lab = document.createElement("div"); lab.className = "lab";
+      lab.textContent = d ? (d.unreadable ? "読めない" : d.label) : "？";
+      var sm = document.createElement("small"); sm.textContent = d ? "この端末で決定" : "別の端末で決定（答えはここでは不明）"; lab.appendChild(sm);
+      var b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.textContent = "直す";
+      b.addEventListener("click", function(){ reopenDecided(it.id); });
+      row.appendChild(img); row.appendChild(lab); row.appendChild(b); box.appendChild(row);
+    });
+  }
+  function reopenDecided(id){
+    fix[id] = 1;
+    if (decided[id]) { state[id] = decided[id]; delete decided[id]; }   // 決定した答えを戻す（打ち直せる・そのまま再決定も出来る）
+    persist(); persistDecided();
+    var it = ALL.filter(function(x){ return x.id === id; })[0];
+    if (it && !cells[id]) {                              // 全部を作り直さない（他の札に打ちかけの字があっても消さない）
+      items.push(it); items.sort(function(a, b){ return a.rank - b.rank; });
+      var c0 = buildCell(it); c0._it = it; cells[id] = c0;
+      c0.querySelector("input").addEventListener("input", function(){ this._edited = true; updateBulk(); });
+      var next = items[items.indexOf(it) + 1];
+      queue.insertBefore(c0, next && cells[next.id] ? cells[next.id] : null);
+      paint(id); $("emptyNote").hidden = true;
+    }
+    tally(); renderDecided();
+    var c = cells[id]; if (c) { c.scrollIntoView({block: "center"}); }
+  }
+  $("decidedBox").addEventListener("toggle", renderDecided);
+
   // ---------- 人の切り替え・起動 ----------
-  function start(pick){
-    clearTimeout(sendTimer); who = pick; try { localStorage.setItem("ltike-label-v1:who", who); } catch(e){}
-    state = load("state"); sent = load("sent"); cells = {}; lastBulk = []; lastError = ""; sending = false;
-    queue.textContent = "";
-    items = ALL.filter(function(it){ return it.lane === "both" || it.lane === who; });
+  function rebuild(){
+    cells = {}; queue.textContent = "";
+    items = ALL.filter(function(it){ return laneMine(it) && visible(it); });
     items.forEach(function(it){
       var c = buildCell(it); c._it = it; cells[it.id] = c; queue.appendChild(c);
       c.querySelector("input").addEventListener("input", function(){ this._edited = true; updateBulk(); });
     });
     items.forEach(function(it){ paint(it.id); });
-    $("emptyNote").hidden = !!items.length; $("bulkUndo").hidden = true; $("fallback").hidden = true;
+    $("emptyNote").hidden = !!items.length; tally();
+  }
+  function start(pick){
+    who = pick; try { localStorage.setItem("ltike-label-v1:who", who); } catch(e){}
+    state = load("state"); decided = load("decided"); fix = load("fix"); lastBulk = []; lastError = ""; sending = false;
+    rebuild(); $("bulkUndo").hidden = true; $("fallback").hidden = true;
     Array.prototype.forEach.call(document.querySelectorAll("#whoSwitch button"), function(b){
       b.setAttribute("aria-pressed", String(b.dataset.pick === who));
     });
     document.title = "ローチケ 文字認証（" + NAMES[who] + "）";
-    $("gate").hidden = true; tally();
-    if (pendingIds().length) scheduleSend();
+    $("gate").hidden = true; renderDecided();
   }
+  // 決定済みの一覧は受け口から取る（誰かが決定した画像は、次に開いたときにも出さない）。取れなくても盤は使える
+  var remoteReady = (function(){
+    var ctl = (typeof AbortController === "function") ? new AbortController() : null;
+    var timer = ctl ? setTimeout(function(){ ctl.abort(); }, 8000) : null;
+    return fetch(INBOX_URL + "/answered", {signal: ctl ? ctl.signal : undefined})
+      .then(function(r){ return r.json(); })
+      .then(function(j){ if (timer) clearTimeout(timer); if (j && j.ok) remote = j.answered || {}; else throw new Error("bad"); })
+      .catch(function(){ $("remoteNote").textContent = "（決定済みの確認ができなかったので、決定済みの画像も出ています）"; });
+  })();
+  function begin(pick){ remoteReady.then(function(){ start(pick); }); }
   Array.prototype.forEach.call(document.querySelectorAll("[data-pick]"), function(b){
-    b.addEventListener("click", function(){ if (b.dataset.pick !== who) start(b.dataset.pick); else $("gate").hidden = true; });
+    b.addEventListener("click", function(){ if (b.dataset.pick !== who) begin(b.dataset.pick); else $("gate").hidden = true; });
   });
   $("onlyTodo").addEventListener("change", function(){ items.forEach(function(it){ applyFilter(cells[it.id]); }); updateBulk(); });
   $("jumpTodo").addEventListener("click", function(){
@@ -361,7 +440,7 @@
 
   var saved = ""; try { saved = localStorage.getItem("ltike-label-v1:who") || ""; } catch(e){}
   var q = /[?&]who=(takuya|yuto)\b/.exec(location.search);
-  if (q) start(q[1]); else if (saved === "takuya" || saved === "yuto") start(saved);
+  if (q) begin(q[1]); else if (saved === "takuya" || saved === "yuto") begin(saved);
 })();
 </script>
 </body>
