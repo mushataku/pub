@@ -14,10 +14,14 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"H
 main{max-width:720px;margin:0 auto;padding:20px 16px 48px}
 h1{font-size:1.35rem;margin:0 0 4px}
 .lead{color:var(--sub);font-size:.9rem;margin:0 0 16px}
-.sum{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 20px}
-.sum div{flex:1 1 140px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
-.sum b{display:block;font-size:1.5rem}
-.sum span{color:var(--sub);font-size:.8rem}
+.total{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin:0 0 20px}
+.tl span{display:block;color:var(--sub);font-size:.8rem}
+.tl b{font-size:2rem;line-height:1.1;color:var(--accent)}
+.eq,.plus{color:var(--sub);font-size:1.2rem;font-weight:700}
+.parts{display:flex;align-items:center;gap:8px}
+.parts > div:not(.plus){text-align:center}
+.parts b{display:block;font-size:1.3rem;line-height:1.2}
+.parts span{color:var(--sub);font-size:.75rem;white-space:nowrap}
 h2{font-size:1.05rem;margin:28px 0 10px;border-left:4px solid var(--accent);padding-left:8px}
 .show{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:0 0 14px}
 .when{font-size:1.25rem;font-weight:700}
@@ -32,18 +36,25 @@ th{color:var(--sub);font-weight:500;font-size:.8rem}
 ul{padding-left:1.2em;margin:6px 0}
 li{margin:3px 0}
 a{color:var(--accent)}
+.qr{display:inline-block;margin-top:4px;font-size:.8rem;font-weight:700;font-family:inherit;padding:3px 10px;border-radius:8px;border:1px solid var(--accent);text-decoration:none;white-space:nowrap}
 .foot{color:var(--sub);font-size:.8rem;margin-top:28px}
 </style>
 </head>
 <body>
 <main>
 <h1>まどマギ 手持ちチケット</h1>
-<p class="lead">劇場版 魔法少女まどか☆マギカ〈ワルプルギスの廻天〉・<b>10月4日（日）</b>／2026年10月2日（金）0:55 時点（購入完了メールと完了画面から作成）</p>
+<p class="lead">劇場版 魔法少女まどか☆マギカ〈ワルプルギスの廻天〉・<b>10月4日（日）</b>／2026年10月2日（金）0:55 時点（購入完了メールと完了画面から作成・01:05 QR追加）</p>
 
-<div class="sum">
-  <div><b>22席</b><span>3回・2劇場の合計</span></div>
-  <div><b>16席</b><span>新宿 MX4D（8席×2回）</span></div>
-  <div><b>6席</b><span>錦糸町 通常版</span></div>
+<div class="total">
+  <div class="tl"><span>合計</span><b>22席</b></div>
+  <div class="eq">=</div>
+  <div class="parts">
+    <div><b>6</b><span>錦糸町 8:35</span></div>
+    <div class="plus">+</div>
+    <div><b>8</b><span>新宿 12:00</span></div>
+    <div class="plus">+</div>
+    <div><b>8</b><span>新宿 14:35</span></div>
+  </div>
 </div>
 
 <h2>1. 錦糸町 8:35（通常版）</h2>
@@ -54,7 +65,7 @@ a{color:var(--accent)}
     <tr><th>座席</th><th>購入番号</th><th>券種・名義</th></tr>
     <tr><td class="seat">I-6 〜 I-11（6席並び）</td><td class="no">9657</td><td>TCチケット6枚・0円<br>しながわゆうと名義（saki471253）</td></tr>
   </table>
-  <p class="note">発券：自動発券機に購入番号 9657＋登録電話番号（末尾 8274）</p>
+  <p class="note">QRは saki471253 宛の購入完了メールに届いている（こちらからは開けない）。自動発券機なら購入番号 9657＋登録電話番号（末尾 8274）で紙チケットが出る。</p>
 </div>
 
 <h2>2. 新宿 12:00（MX4D）<span class="badge">MX4D</span></h2>
@@ -63,10 +74,10 @@ a{color:var(--accent)}
   <div class="where">TOHOシネマズ新宿・スクリーン2</div>
   <table>
     <tr><th>座席</th><th>購入番号</th><th>支払い</th></tr>
-    <tr><td class="seat">B-10 〜 B-15（6席並び）</td><td class="no">7673</td><td>21,000円</td></tr>
-    <tr><td class="seat">C-10・C-11（2席）</td><td class="no">7162</td><td>7,000円</td></tr>
+    <tr><td class="seat">B-10 〜 B-15（6席並び）</td><td class="no">7673<br><a class="qr" href="https://hlo.tohotheater.jp/net/ticket/076/TNPI2090J01.do?d=2DTC2zzNdfo5V%2FbqpPXm%2FjJY9Rps4bowu6k3eW3xaEz6DhbI%3D0760220261004" target="_blank" rel="noopener">QRを表示</a></td><td>21,000円</td></tr>
+    <tr><td class="seat">C-10・C-11（2席）</td><td class="no">7162<br><a class="qr" href="https://hlo.tohotheater.jp/net/ticket/076/TNPI2090J01.do?d=2DTC22kyJE9i52VB9kIJRR0xXoy69tSd4vb74ID88aZbx87s%3D0760220261004" target="_blank" rel="noopener">QRを表示</a></td><td>7,000円</td></tr>
   </table>
-  <p class="note">B列とC列は前後に並んだ位置。発券：購入番号＋登録電話番号（末尾 5444）・拓也の会員名義</p>
+  <p class="note">B列とC列は前後に並んだ位置。入場は「QRを表示」の2次元コードを入場ゲートにかざす（購入者のQRで同行者分もまとめて通る）。紙で欲しければ自動発券機に購入番号＋登録電話番号（末尾 5444）。拓也の会員名義。</p>
 </div>
 
 <h2>3. 新宿 14:35（MX4D）<span class="badge">MX4D</span></h2>
@@ -75,10 +86,10 @@ a{color:var(--accent)}
   <div class="where">TOHOシネマズ新宿・スクリーン2</div>
   <table>
     <tr><th>座席</th><th>購入番号</th><th>支払い</th></tr>
-    <tr><td class="seat">E-10 〜 E-15（6席並び）</td><td class="no">9996</td><td>21,000円</td></tr>
-    <tr><td class="seat">F-12・F-13（2席）</td><td class="no">3060</td><td>2,600円（TC2枚＋MX4D加算）</td></tr>
+    <tr><td class="seat">E-10 〜 E-15（6席並び）</td><td class="no">9996<br><a class="qr" href="https://hlo.tohotheater.jp/net/ticket/076/TNPI2090J01.do?d=2DTC2bdARioIrrM7qTZlRJloe%2BAHkwZVExWno4farfe4wF0Y%3D0760220261004" target="_blank" rel="noopener">QRを表示</a></td><td>21,000円</td></tr>
+    <tr><td class="seat">F-12・F-13（2席）</td><td class="no">3060<br><a class="qr" href="https://hlo.tohotheater.jp/net/ticket/076/TNPI2090J01.do?d=2DTC2YsSUxqQ9J90KuNBlFcvaeDL4iE8%2B3xz89xkkPW9geVk%3D0760220261004" target="_blank" rel="noopener">QRを表示</a></td><td>2,600円（TC2枚＋MX4D加算）</td></tr>
   </table>
-  <p class="note">発券：購入番号＋登録電話番号（末尾 5444）・拓也の会員名義</p>
+  <p class="note">入場は「QRを表示」の2次元コードを入場ゲートにかざす（購入者のQRで同行者分もまとめて通る）。紙で欲しければ自動発券機に購入番号＋登録電話番号（末尾 5444）。拓也の会員名義。</p>
 </div>
 
 <h2>4. 当日のこと</h2>
@@ -92,8 +103,7 @@ a{color:var(--accent)}
 <div class="show">
   <table>
     <tr><th>区分</th><th>枚数</th><th>期限</th></tr>
-    <tr><td>すぐネット予約に使える（番号＋暗証番号あり）</td><td><b>7枚</b></td><td>10/11 3:59</td></tr>
-    <tr><td>暗証番号が分からない</td><td>2枚</td><td>10/11 3:59</td></tr>
+    <tr><td>ネット予約に使える（番号＋暗証番号あり・不明だった2枚も判明）</td><td><b>9枚</b></td><td>10/11 3:59</td></tr>
   </table>
   <p class="note">番号と暗証番号はこのページに載せていません（手元の控えファイルにあります）。</p>
 </div>
