@@ -3,17 +3,19 @@
 <h1>ローチケ偽IDでイメージ退行と並走を切り分け</h1>
 <p><b>結論</b>: 存在しない ID・データセンターの出口（DC）・容器の register 経路で、<b>6発すべて門を通過した</b>（サイトは通常の「ログインに失敗」を返し、「システムエラーが発生しました」も chrome-error も出なかった）。通過のイメージ <code>abe52760</code> でも、10-02 01:05 に実アカウントが切られたイメージ <code>36abf94b</code> でも、2本同時に撃っても同じ。<b>この条件ではイメージの退行も並走も再現しない</b>。残る候補は、住宅IP（経路）か、端末の見覚え（偽IDでは再現しない）か、Cloud Build と Job の条件差。</p>
 
+<p><b>追記（10-02 親裁定・住宅IPの腕）</b>: 36abf94b を<b>住宅IP</b>（顧客と共有の Secret・親が明示許可）で偽 ID に撃った。サイトに届いた送信は2回で、<b>2回とも門を通過</b>（偽 ID は再送を1回に絞った）。<b>住宅IPでも偽 ID は切られない＝本番の経路（住宅IP×使い捨て文脈）そのものは原因ではなく、実アカウントでだけ切られた側（アカウントに紐づく）が残る</b>。次は DC で本物1回（親が決める）。</p>
 <h2>図1　セルごとの門の通過率（横軸=セル、縦軸=門の通過率。n は各セルの発数）</h2>
 <p>1発＝容器で register を1回走らせたもの（文字認証の読み直しで1発の中に送信が複数回ある）。「門の通過」＝文字認証まで進んで送れ、サイトが通常のログイン失敗を返したこと。</p>
-<svg viewBox="0 0 640 300" width="640">
-<line x1="60" y1="250" x2="620" y2="250" stroke="#000"/><line x1="60" y1="30" x2="60" y2="250" stroke="#000"/>
+<svg viewBox="0 0 800 300" width="800">
+<line x1="60" y1="250" x2="780" y2="250" stroke="#000"/><line x1="60" y1="30" x2="60" y2="250" stroke="#000"/>
 <g font-size="11"><text x="8" y="254">0%</text><text x="8" y="144">50%</text><text x="4" y="38">100%</text>
 <text x="2" y="18">門の通過率</text></g>
-<line x1="60" y1="140" x2="620" y2="140" stroke="#ccc" stroke-dasharray="4"/>
+<line x1="60" y1="140" x2="780" y2="140" stroke="#ccc" stroke-dasharray="4"/>
 <g font-size="12" text-anchor="middle">
 <rect x="110" y="30" width="90" height="220" fill="#3a7"/><text x="155" y="22">2/2</text><text x="155" y="270">S1 abe52760</text><text x="155" y="286" class="n">DC・単独（n=2）</text>
 <rect x="270" y="30" width="90" height="220" fill="#3a7"/><text x="315" y="22">2/2</text><text x="315" y="270">S2 36abf94b</text><text x="315" y="286" class="n">DC・単独（n=2）</text>
 <rect x="430" y="30" width="90" height="220" fill="#3a7"/><text x="475" y="22">2/2</text><text x="475" y="270">S3 36abf94b</text><text x="475" y="286" class="n">DC・2本同時（n=2）</text>
+<rect x="590" y="30" width="90" height="220" fill="#37a"/><text x="635" y="22">2/2</text><text x="635" y="270">R1 36abf94b</text><text x="635" y="286" class="n">住宅IP・単独（送信 n=2）</text>
 </g></svg>
 <p class="n">n=2 のセルなので、「通過率100%」は「少なくとも半分は切られる」を除ける程度の強さ（2/2 で切られ率の上側 95% 限界は約78%）。1/2 のセルは無く、指示書の「翌日に同じセルで2発足す」枝には入らない。</p>
 
@@ -26,15 +28,18 @@
 <tr><td>S2</td><td>36abf94b</td><td>dc</td><td>既定</td><td>なし</td><td>2</td><td>門を通過</td><td>185</td><td>2</td></tr>
 <tr><td>S3</td><td>36abf94b</td><td>dc</td><td>既定</td><td>2本同時（開始が2秒差）</td><td>1</td><td>門を通過</td><td>213</td><td>1</td></tr>
 <tr><td>S3</td><td>36abf94b</td><td>dc</td><td>既定</td><td>2本同時（開始が2秒差）</td><td>1</td><td>門を通過</td><td>236</td><td>3</td></tr>
+<tr><td>R1</td><td>36abf94b</td><td>residential</td><td>既定</td><td>なし</td><td>1</td><td>門を通過</td><td>118</td><td>1</td></tr>
+<tr><td>R1</td><td>36abf94b</td><td>residential</td><td>既定</td><td>なし</td><td>2</td><td>送らず（読みの確信度が足りず・数えない）</td><td>95</td><td>0</td></tr>
+<tr><td>R1'</td><td>36abf94b</td><td>residential</td><td>既定</td><td>なし</td><td>1</td><td>門を通過</td><td>158</td><td>1</td></tr>
 </table>
-<p class="n">サイトに届いた送信は合計 11 回（6発 × 読み直し）。文字認証の足切りで送らなかった読みは数えていない。</p>
+<p class="n">DC の6発は初日の旧い数え方（1発で最大3回送る）で、サイトに届いた送信は合計 11 回（6発 × 読み直し）。住宅IPの腕は再送を1回に絞り、送信は計2回。文字認証の足切りで送らなかった読みは数えていない。</p>
 
 <h2>読みの注意（記録）</h2>
 <ul>
 <li><b>S2 の最初の実行は無効</b>: 新しいイメージ <code>36abf94b</code> は入口の門（回数枠の同期が止まっていると実ログインを撃たない）が働き、<code>[COOLDOWN]</code> で何も送らず退出した（サイトへは0回・予算に数えず）。Cloud Build の probe 自身の印（<code>CLOUD_PROBE=1</code>・<code>TICKETING_CLOUD_LEDGER_REBUILT=1</code>・<code>cloud_login_probe</code> と同じ）を渡して撃ち直した。この印は古いイメージが読まない環境変数＝変数はイメージだけに保たれる。</li>
 <li><b>「ログインに失敗」は register のログでは「サイトが通さなかった（文字認証）」と出る</b>: 文字認証の誤りも ID の誤りも同じ文言のため。偽 ID なので ID の誤りとして門を通過したと読む。</li>
-<li><b>経路は DC だけ</b>: 住宅IPでの再現は撃っていない（共有の住宅IP Secret を使わない約束）。</li>
+<li><b>経路</b>: 初日は DC だけ。住宅IPは10-02 親（1f8f07ba）が共有 Secret の使用を明示許可した2送信だけ撃った。</li>
 </ul>
-<h2>次の枝</h2>
-<p>指示書の「全部通る」枝: DC×偽ID では再現しない。次は住宅IPの腕、または偽顧客の Job での再現（Cloud Build と Job は条件が違う）。どちらも親（司令塔）の判断。</p>
+<h2>次の枝（住宅IPの結果を受けて）</h2>
+<p>住宅IPでも門を通った＝「偽 ID では再現しない＝アカウントに紐づく」の枝。次は DC で本物1回を撃つかどうかを親が決める。</p>
 </html>
