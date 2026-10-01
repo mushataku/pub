@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>通信で働く</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Inter:wght@800;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--paper:#f4f2ee;--blue:#0038ff;--sub:#5a5a5a;--line:#0a0a0a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Zen Kaku Gothic New",sans-serif;line-height:1.7}
+section{min-height:100vh;padding:7vh 7vw;position:relative;border-bottom:3px solid var(--ink);display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.no{position:absolute;right:4vw;top:2vh;font-family:Inter,sans-serif;font-weight:900;font-size:22vh;line-height:1;color:transparent;-webkit-text-stroke:2px var(--ink);opacity:.12}
+.label{display:inline-block;background:var(--ink);color:var(--paper);font-weight:700;font-size:14px;letter-spacing:.2em;padding:6px 14px;margin-bottom:22px;align-self:flex-start}
+h1{font-size:clamp(44px,8vw,120px);line-height:1.08;margin:0;font-weight:900;letter-spacing:-.02em}
+h2{font-size:clamp(34px,5.4vw,76px);line-height:1.15;margin:0 0 30px;font-weight:900;letter-spacing:-.01em}
+.blue{color:var(--blue)}
+.mark{background:linear-gradient(transparent 62%,#c9d6ff 62%)}
+p.lead{font-size:clamp(18px,1.9vw,26px);font-weight:700;max-width:34em;margin:0}
+.sub{color:var(--sub);font-weight:500}
+/* signal bars */
+.sig{display:flex;gap:10px;align-items:flex-end;height:120px;margin-top:40px}
+.sig i{display:block;width:26px;background:var(--blue)}
+.sig i:nth-child(1){height:25%}.sig i:nth-child(2){height:50%}.sig i:nth-child(3){height:75%}.sig i:nth-child(4){height:100%}
+.cover-foot{margin-top:6vh;font-weight:700;font-size:18px;border-top:3px solid var(--ink);padding-top:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+/* big stat */
+.stat{display:flex;gap:6vw;flex-wrap:wrap;margin-top:10px}
+.stat div b{display:block;font-family:Inter,sans-serif;font-weight:900;font-size:clamp(60px,10vw,150px);line-height:1;letter-spacing:-.04em}
+.stat div span{font-weight:700;font-size:18px}
+/* rows */
+.rows{border-top:3px solid var(--ink)}
+.row{display:grid;grid-template-columns:minmax(120px,22%) 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--ink);align-items:baseline}
+.row b{font-size:clamp(20px,2.2vw,30px);font-weight:900}
+.row p{margin:0;font-size:clamp(16px,1.6vw,21px);font-weight:500}
+.row .k{font-family:Inter,sans-serif;font-weight:900;color:var(--blue);font-size:15px;letter-spacing:.1em}
+.quote{font-size:clamp(24px,3vw,42px);font-weight:900;line-height:1.45;border-left:10px solid var(--blue);padding-left:28px;margin-top:36px;max-width:26em}
+.quote small{display:block;font-size:16px;color:var(--sub);font-weight:500;margin-top:10px}
+/* path */
+.path{display:flex;flex-wrap:wrap;gap:0;margin-top:10px}
+.path div{flex:1 1 180px;border:3px solid var(--ink);margin:-1.5px;padding:24px;font-weight:900;font-size:clamp(20px,2.4vw,32px)}
+.path div.now{background:var(--blue);color:#fff;border-color:var(--blue)}
+.path div small{display:block;font-size:14px;font-weight:700;opacity:.7}
+.blank{border-bottom:2px dashed var(--ink);height:40px;margin-top:6px}
+ul.todo{list-style:none;padding:0;margin:0;border-top:3px solid var(--ink)}
+ul.todo li{padding:18px 0;border-bottom:1px solid var(--ink);font-size:clamp(17px,1.8vw,23px);font-weight:700;display:flex;gap:18px}
+ul.todo li::before{content:"";flex:0 0 22px;height:22px;border:3px solid var(--ink);margin-top:5px}
+.src{font-size:13px;color:var(--sub);margin-top:24px;font-weight:500}
+</style>
+</head>
+<body>
+
+<section>
+  <div class="label">10月7日（水）の面接に向けて ／ 豊田 悠さん</div>
+  <h1>日本中の<br>ポケットの中に、<br><span class="blue">あなたの仕事がある。</span></h1>
+  <div class="sig"><i></i><i></i><i></i><i></i></div>
+  <div class="cover-foot"><span>通信の店頭で働くということ</span><span>面接対策 ／ 2026年10月1日（木）</span></div>
+</section>
+
+<section>
+  <div class="no">01</div>
+  <div class="label">通信は、生活の土台</div>
+  <h2>連絡も、支払いも、地図も、仕事も。<br><span class="mark">ぜんぶスマホが入口</span>になった。</h2>
+  <p class="lead">電波が止まると、生活が止まる。通信はもう「便利なもの」ではなく、電気や水道と同じ側にあります。<br><span class="sub">その入口でつまずいた人を、真正面で受け止めるのが店頭の仕事です。</span><br><span class="sub">楽天はこれを「通信の民主化」と呼んでいます（面接で、自分の言葉で言い直せると強い）。</span></p>
+</section>
+
+<section>
+  <div class="no">02</div>
+  <div class="label">お店でやること</div>
+  <h2>「よく分からない」を、<br><span class="blue">「これで使える」</span>に変える。</h2>
+  <div class="rows">
+    <div class="row"><span class="k">01 聞く</span><p>「料金が高い気がする」「なんか重い」──まず困りごとを全部聞く</p></div>
+    <div class="row"><span class="k">02 訳す</span><p>専門用語を、その人の生活の言葉に置き換える</p></div>
+    <div class="row"><span class="k">03 選ぶ</span><p>使い方に合うプラン・機種を、一緒に決める</p></div>
+    <div class="row"><span class="k">04 渡す</span><p>設定や移行まで手伝って、「これで使える」で帰ってもらう</p></div>
+  </div>
+  <p class="lead" style="margin-top:28px">分かる側にいて、分からない人の隣に立てる人が要る。<br><span class="sub">ITの言葉が分かるのは、そのための道具。</span></p>
+</section>
+
+<section>
+  <div class="no">03</div>
+  <div class="label">豊田さんの経験</div>
+  <h2>もう、やってきたこと。</h2>
+  <div class="rows">
+    <div class="row"><b>家族・バイト先</b><p>身近な人の困りごとを、Excel やプログラムで解決して喜ばれた</p></div>
+    <div class="row"><b>研修</b><p>早く終わった後、遅れている同期に答えでなくヒントを渡した</p></div>
+    <div class="row"><b>コンビニ</b><p>お客様に聞かれたことは、解決するまで丁寧に対応してきた</p></div>
+  </div>
+  <div class="quote">「扱い方が分からないとか、どうしたらいいの？っていう方々に寄り添うだけだったら、いくらでもできると思う」<small>── 豊田さん（9月17日の面談・一部）</small></div>
+</section>
+
+<section>
+  <div class="no">04</div>
+  <div class="label">「嘘が苦手」について</div>
+  <h2>「嘘が苦手」は、<br><span class="blue">この仕事では武器</span>になる。</h2>
+  <p class="lead">面接官が見るのは、押しの強さではなく寄り添えるかどうか。<br>お店には月の目標があります。<br>ただ、それを嘘で取りにいく会社ではないことは、国の調査の数字が示しています。</p>
+  <div class="stat" style="margin-top:34px">
+    <div><b>23.3<span style="font-size:.4em">%</span></b><span>2021年度</span></div>
+    <div><b class="blue">1.0<span style="font-size:.4em">%</span></b><span>2023年度</span></div>
+  </div>
+  <div class="src">総務省の覆面調査で、楽天モバイルの店頭で不適切な説明があった割合（2022年度 1.3%）。2年連続で調査対象の中で最も低い水準。</div>
+</section>
+
+<section>
+  <div class="no">05</div>
+  <div class="label">先に、全部言っておく</div>
+  <h2>「聞いていた話と違う」を、<br>今回は起こさない。</h2>
+  <div class="rows">
+    <div class="row"><b>勤務地</b><p>エリア採用＝異動は兵庫県内だけ。通勤は原則90分以内。今回の募集は垂水エリア</p></div>
+    <div class="row"><b>休み</b><p>シフト制・月8日休み・年間休日111日。<b>土日休みではない</b>（面接で必ず聞かれる）</p></div>
+    <div class="row"><b>目標</b><p>店の月目標と、個人の目標がある</p></div>
+    <div class="row"><b>雇い主</b><p>代理店ではなく、楽天グループの会社が直接雇う直営店</p></div>
+    <div class="row"><b>研修</b><p>座学5日＋お店での実地研修3週間ほど。未経験から始める前提</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="no">06</div>
+  <div class="label">その先</div>
+  <h2>お店から、始める。</h2>
+  <div class="path">
+    <div class="now"><small>入口</small>R CREW</div>
+    <div><small>次</small>店長</div>
+    <div><small>その先</small>エリアの運営へ</div>
+  </div>
+  <p class="lead" style="margin-top:28px">会社の資料では、お店から本部社員に移った人が1年で17名。<br><span class="sub">楽天市場・楽天カードまでサービスが広い会社＝覚えることが多いぶん、伸びしろも大きい。</span></p>
+</section>
+
+<section>
+  <div class="no">07</div>
+  <div class="label">今日ここを埋める</div>
+  <h2>聞かれると分かっている質問は、<br>先に自分の言葉にしておく。</h2>
+  <div class="rows">
+    <div class="row"><span class="k">Q1</span><p><b>「こういう場面なら、どう達成しますか？」</b><br><span class="sub">型＝結論1文 → 手段2〜3つ → お客様目線の理由</span><span class="blank" style="display:block"></span></p></div>
+    <div class="row"><span class="k">Q2</span><p><b>自分で立てた目標と、そのためにやったこと</b><span class="blank" style="display:block"></span></p></div>
+    <div class="row"><span class="k">Q3</span><p><b>なぜ楽天か</b><span class="blank" style="display:block"></span></p></div>
+    <div class="row"><span class="k">Q4</span><p><b>なぜ接客か</b><span class="blank" style="display:block"></span></p></div>
+  </div>
+</section>
+
+<section>
+  <div class="no">08</div>
+  <div class="label">10月7日（水）までに</div>
+  <h2>あと6日。</h2>
+  <ul class="todo">
+    <li>楽天モバイルのお店に一度行く。いちばん困っていそうなお客さんを1人見つけて、「自分ならどう声をかけるか」を帰り道に考える</li>
+    <li>自分が使ったことのある楽天のサービスを1つ思い出す（「なぜ楽天か」の材料）</li>
+    <li>逆質問を1つ決める：「お客様に合った提案をするために、店舗で大切にされていることは何ですか」</li>
+    <li>コンプライアンスチェック（back check）を完了する</li>
+    <li>WEB適性検査を受ける ／ 採用アンケートが「完了」か確認する</li>
+  </ul>
+</section>
+
+</body>
+</html>
