@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>9月KPIまとめ</title>
+<style>
+:root {
+  --bg: #f7f7f5; --surface: #ffffff; --text: #1d1d1f; --muted: #66666c;
+  --line: #e2e2de; --good: #1f7a4d; --bad: #b3261e;
+  --warn-bg: #fff6e0; --warn-line: #e8c46a; --head: #f0f0ec;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151517; --surface: #1f1f22; --text: #ececee; --muted: #a4a4ac;
+    --line: #34343a; --good: #6fd19f; --bad: #ff8a80;
+    --warn-bg: #2e2716; --warn-line: #8a7230; --head: #27272b;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #151517; --surface: #1f1f22; --text: #ececee; --muted: #a4a4ac;
+  --line: #34343a; --good: #6fd19f; --bad: #ff8a80;
+  --warn-bg: #2e2716; --warn-line: #8a7230; --head: #27272b;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic UI", "Meiryo", sans-serif;
+  line-height: 1.7; font-size: 15px;
+}
+main { max-width: 760px; margin: 0 auto; padding: 28px 16px 64px; }
+h1 { font-size: 24px; margin: 0 0 4px; }
+h2 { font-size: 18px; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 2px solid var(--line); }
+.sub { color: var(--muted); font-size: 13px; margin: 6px 0 16px; }
+.lead { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.lead p { margin: 0 0 8px; }
+.lead p:last-child { margin-bottom: 0; }
+.scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; position: sticky; left: 0; background: var(--surface); box-shadow: 2px 0 0 var(--line); }
+th small { display: block; color: var(--muted); font-size: 11px; font-weight: 400; line-height: 1.3; }
+thead th { background: var(--head); font-weight: 600; font-size: 13px; }
+thead th:first-child { background: var(--head); }
+tbody tr:last-child td { border-bottom: none; }
+@media (max-width: 380px) { th, td { padding: 8px 6px; } }
+tr.total td { font-weight: 700; border-top: 2px solid var(--line); }
+td { font-variant-numeric: tabular-nums; }
+td small { display: block; color: var(--muted); font-size: 12px; line-height: 1.3; }
+.big { font-weight: 700; font-size: 16px; }
+.good { color: var(--good); font-weight: 600; }
+.bad { color: var(--bad); font-weight: 700; }
+.callout { background: var(--warn-bg); border: 1px solid var(--warn-line); border-radius: 10px; padding: 12px 16px; margin: 16px 0; }
+ul { padding-left: 20px; margin: 8px 0; }
+li { margin: 6px 0; }
+.foot { color: var(--muted); font-size: 12px; margin-top: 40px; }
+</style>
+</head>
+<body>
+<main>
+<h1>9月 KPI まとめ</h1>
+<p class="sub">人材事業部・全CA ／ 9月の期間はすべて締まっています（最後は 9/30）。値は 2026年10月2日（金）19時時点の歩留まり管理シートで、後からの追記で動くことがあります</p>
+
+<div class="lead">
+  <p><strong>9月の承諾（KGI）は 1人。</strong></p>
+  <p>いちばん大きく漏れたのは<strong class="bad">提案→推薦</strong>です。53人に提案して、期間内に推薦まで進んだのは19人（35.8%）。率で見ると、MKの通過率（62.0%）なら33人で、<strong>14人分の差</strong>があります。</p>
+  <p>もう1つは<strong class="bad">内定後のリリース</strong>です。9月に内定が出た8人を10/2まで追うと、承諾2人・<strong>リリース/見送り4人</strong>・返事待ち1人（9/30内定）・未特定1人でした。</p>
+</div>
+
+<h2>1. ファネル（部全体）</h2>
+<div class="scroll"><table>
+<thead><tr><th>段<br><small>期間</small></th><th>人数</th><th>通過率</th><th>MKの率</th></tr></thead>
+<tbody>
+<tr><td>有効応募<small>8/18〜9/16</small></td><td class="big">325</td><td>—</td><td>—</td></tr>
+<tr><td>新規面談<small>8/20〜9/17</small></td><td class="big">79</td><td>24.3%</td><td>—</td></tr>
+<tr><td>提案<small>8/20〜9/17</small></td><td class="big">53</td><td class="good">67.1%</td><td>64.6%</td></tr>
+<tr><td>推薦<small>8/20〜9/17</small></td><td class="big">19</td><td class="bad">35.8%</td><td>62.0%</td></tr>
+<tr><td>面接設定<small>8/21〜9/18</small></td><td class="big">19</td><td>—</td><td>70.5%</td></tr>
+<tr><td>面接実施<small>9/1〜9/30</small></td><td class="big">17</td><td class="good">89.5%</td><td>74.2%</td></tr>
+<tr><td>内定<small>9/1〜9/30</small></td><td class="big">8</td><td class="bad">47.1%</td><td>69.6%</td></tr>
+<tr><td>承諾（KGI）<small>9/1〜9/30</small></td><td class="big">1</td><td class="bad">12.5%</td><td>81.3%</td></tr>
+</tbody></table></div>
+<ul class="sub">
+  <li>通過率＝その段の人数 ÷ 1つ上の段の人数。分子と分母はそれぞれの期間で取っています。</li>
+  <li>面接設定は期間がずれていて、8月以前に推薦した人も含むため率を出していません（計算上は100%になる）。</li>
+  <li>MKの率は 8/21 の1on1で共有された値です。6段とも整数の比に小数2桁まで一致する（最小の組で 110→71→44→31→23→16→13人）ので、<strong>目標ではなくMKの実績値</strong>とみられます（未確認）。</li>
+  <li>有効応募の内訳: SeeD 228・求人BOX 97（Indeed の Gooner 名義はアカウント停止で0）。総応募は494。</li>
+  <li>事業部目標として共有されたのは新規面談148（期間・母集団は未確認）。他の段の目標件数は148にMKの率を掛けた値なので載せていません。</li>
+</ul>
+
+<h2>2. CA別</h2>
+<p class="sub">面談〜推薦（3つとも同じ期間 8/20〜9/17 なので率を取れます）</p>
+<div class="scroll"><table>
+<thead><tr><th>CA</th><th>新規面談</th><th>提案</th><th>推薦</th><th>提案率</th><th>推薦率</th></tr></thead>
+<tbody>
+<tr><td>中原</td><td>21</td><td>15</td><td>6</td><td>71%</td><td>40%</td></tr>
+<tr><td>齋藤</td><td>15</td><td>13</td><td>5</td><td>87%</td><td>38%</td></tr>
+<tr><td>佐藤</td><td>0</td><td>1</td><td>2</td><td>—</td><td>—</td></tr>
+<tr><td>横尾</td><td>15</td><td>5</td><td>1</td><td>33%</td><td class="bad">20%</td></tr>
+<tr><td>武者野</td><td>28</td><td>19</td><td>5</td><td>68%</td><td class="bad">26%</td></tr>
+<tr><td>小野</td><td>0</td><td>0</td><td>0</td><td>—</td><td>—</td></tr>
+<tr class="total"><td>計</td><td>79</td><td>53</td><td>19</td><td>67%</td><td>36%</td></tr>
+</tbody></table></div>
+<p class="sub">推薦率が低いのは横尾（20%）と武者野（26%）。武者野は提案19人に対し、期間内に推薦まで進んだのは5人です（期間の翌日以降に推薦した人は10月に入ります）。佐藤の推薦2が提案1より多いのは、期間より前に提案した人を期間内に推薦したためとみられます（未確認）。</p>
+
+<p class="sub">面接〜承諾（列ごとに期間が違うので、横に並べて率を取らないでください）</p>
+<div class="scroll"><table>
+<thead><tr><th>CA</th><th>面接設定<br><small>8/21〜9/18</small></th><th>面接実施<br><small>9月</small></th><th>内定<br><small>9月</small></th><th>承諾<br><small>9月</small></th></tr></thead>
+<tbody>
+<tr><td>中原</td><td>5</td><td>6</td><td>2</td><td>0</td></tr>
+<tr><td>齋藤</td><td>6</td><td>2</td><td>2</td><td>1</td></tr>
+<tr><td>佐藤</td><td>2</td><td>2</td><td>1</td><td>0</td></tr>
+<tr><td>横尾</td><td>0</td><td>2</td><td>1</td><td>0</td></tr>
+<tr><td>武者野</td><td>6</td><td>5</td><td>2</td><td>0</td></tr>
+<tr><td>小野</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr class="total"><td>計</td><td>19</td><td>17</td><td>8</td><td>1</td></tr>
+</tbody></table></div>
+<p class="sub">参考: 新規面談設定数（架電した人に付くので、上の新規面談＝面談した人とは母集団が違います）は 中原30・齋藤22・佐藤25・横尾16・武者野26・小野2、計121。</p>
+
+<div class="callout">
+  <strong>佐藤さんに確認したいこと</strong>: 新規面談設定25人に対して新規面談0人です。架電を担当して面談は他のCAに付いている（役割どおり）のか、新規面談数の入力漏れなのか、シートからは区別できません。
+</div>
+
+<h2>3. 数字の確かさ</h2>
+<ul>
+  <li><strong>推薦数</strong>: 武者野分の初回推薦2人がシートに入っていなかったため、10/2 に追記しました（武者野 3→5・部全体 17→19）。</li>
+  <li><strong>承諾数</strong>: MKリスト由来の選考記録と一致（1人）。Firestore 側の素の集計は14人と出ますが、うち13人は 9/3 にMKリストを初めて取り込んだときの過去分です。</li>
+  <li><strong>内定数</strong>: シート8人・MKリスト7人。差の1人は武者野の 9/9 分で、まだ特定できていません。9/8 の人の二重計上（その場合は部全体 8→7）か、MKリストに無い内定のどちらかです。</li>
+  <li><strong>内定後の追跡</strong>: 上の「承諾2・リリース/見送り4」は MKリスト由来の選考記録を1人ずつ追ったものです。「リリース」が本人の辞退か企業側かは、記録の語からは区別できません。</li>
+  <li><strong>武者野の新規面談</strong>: シート28人・面談記録24人分。シートが多い理由（録画の無い面談か、同じ人が別日に計上されたか）は未検証です。</li>
+  <li><strong>他のCAの新規面談〜面接設定</strong>: 突き合わせる記録が無いため、シートの値をそのまま載せています。</li>
+</ul>
+
+<p class="foot">
+数え方: すべて人数（1人を何社に出しても1）。期間の正本は docs/KPI_GLOSSARY.md「KPIの集計期間」。<br>
+出典: 歩留まり管理シート daily_各CA（新規面談〜承諾）／Slack の応募リスト（有効応募）／MKリスト由来の選考記録（内定・承諾の照合）。
+</p>
+</main>
+</body>
+</html>
