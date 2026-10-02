@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>自動SMSの成果 5週</title>
+<style>
+/* 前例（第1弾 2026-08-28）のトークンを引き継ぐ。old=導入前(灰) / new=導入後(青) / 2系列目=青緑 */
+:root{--bg:#faf9f7;--card:#fff;--ink:#1e222a;--sub:#5b6472;--line:#d3cfc7;--soft:#efeee9;
+ --old:#8a94a6;--oldbg:#eceef2;--new:#1565c0;--newbg:#e8f1fb;--teal:#c25e00;
+ --ok:#2e7d43;--okbg:#e4f2e7;--warn:#9a6b00;--warnbg:#fbf0d2;--bad:#b3261e;--badbg:#fbe4e2;--grid:#e3e0d9;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15171c;--card:#1e2128;--ink:#e8e6e1;--sub:#a5adba;--line:#454b56;--soft:#262a32;
+ --old:#7c8798;--oldbg:#2a2f38;--new:#82b4e8;--newbg:#1e2a38;--teal:#f0a35e;
+ --ok:#7fce93;--okbg:#20362a;--warn:#e4c05e;--warnbg:#3a331b;--bad:#f2867e;--badbg:#43231f;--grid:#323843;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15171c;--card:#1e2128;--ink:#e8e6e1;--sub:#a5adba;--line:#454b56;--soft:#262a32;
+ --old:#7c8798;--oldbg:#2a2f38;--new:#82b4e8;--newbg:#1e2a38;--teal:#f0a35e;
+ --ok:#7fce93;--okbg:#20362a;--warn:#e4c05e;--warnbg:#3a331b;--bad:#f2867e;--badbg:#43231f;--grid:#323843;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+ font-family:"Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,system-ui,sans-serif;
+ font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+main{max-width:860px;margin:0 auto;padding:28px 16px 70px}
+h1{font-size:23px;margin:0 0 6px;letter-spacing:.01em;text-wrap:balance}
+h2{font-size:17px;margin:42px 0 4px;padding-bottom:6px;border-bottom:2px solid var(--ink);text-wrap:balance}
+h2 .tagx{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:99px;margin-left:8px;vertical-align:2px;letter-spacing:.04em}
+.t-ok{background:var(--okbg);color:var(--ok)} .t-new{background:var(--newbg);color:var(--new)} .t-warn{background:var(--warnbg);color:var(--warn)}
+p{margin:8px 0}
+.lead{color:var(--sub);font-size:13px;margin:0}
+.claim{background:var(--newbg);border-left:5px solid var(--new);border-radius:0 10px 10px 0;
+ padding:14px 18px;margin:18px 0 0;font-size:17px;font-weight:700;line-height:1.55}
+.claim small{display:block;font-weight:400;font-size:13px;color:var(--sub);margin-top:6px}
+.sub{color:var(--sub);font-size:12.5px;margin:6px 0 0}
+.src{color:var(--sub);font-size:11.5px;margin:8px 0 0}
+.layers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.layers div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 13px;min-width:0}
+.layers b{display:block;font-size:12px;letter-spacing:.04em}
+.layers .l1 b{color:var(--ok)} .layers .l2 b{color:var(--new)} .layers .l3 b{color:var(--warn)}
+.layers span{font-size:13px}
+.words ul{margin:4px 0 0;padding-left:18px}.words li{margin:3px 0}
+.words{margin-top:14px;font-size:12.5px;color:var(--sub);background:var(--soft);border-radius:8px;padding:9px 13px}
+.words b{color:var(--ink)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:16px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px;min-width:0}
+.tile .k{font-size:12px;color:var(--sub);font-weight:700}
+.tile .v{display:flex;align-items:baseline;gap:9px;margin-top:5px;flex-wrap:wrap}
+.tile .before{font-size:16px;color:var(--old);text-decoration:line-through;text-decoration-thickness:1.5px}
+.tile .to{color:var(--sub);font-size:13px}
+.tile .after{font-size:26px;font-weight:800;color:var(--new);line-height:1.1}
+.tile .n{font-size:11.5px;color:var(--sub);margin-top:4px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px;margin-top:14px;min-width:0}
+.panel h3{font-size:13px;margin:0 0 8px;color:var(--ink)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--sub);margin:0 0 6px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-2px}
+.bar{display:grid;grid-template-columns:118px 1fr 74px;align-items:center;gap:8px;margin:6px 0}
+.bar .lbl{font-size:12.5px;color:var(--sub);text-align:right;line-height:1.35}
+.bar .track{background:var(--soft);border-radius:5px;height:16px;overflow:hidden}
+.bar .fill{display:block;height:100%;border-radius:0 4px 4px 0}
+.bar .fill.old{background:var(--old)} .bar .fill.new{background:var(--new)} .bar .fill.ok{background:var(--ok)} .bar .fill.bad{background:var(--bad)} .bar .fill.warn{background:var(--warn)}
+.bar .val{font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums}
+.bar.pair{margin:3px 0}
+.grp{font-size:12.5px;font-weight:700;margin:12px 0 2px}
+.grp:first-of-type{margin-top:2px}
+.none{color:var(--sub);font-weight:400;font-size:12px}
+svg{display:block;width:100%;height:auto;max-width:520px;margin:0 auto}
+.legend svg{display:inline-block;max-width:none;margin:0}
+svg text{fill:var(--ink);font-family:inherit;paint-order:stroke;stroke:var(--card);stroke-width:3px;stroke-linejoin:round}
+svg .m{fill:var(--sub)}
+.note{border-left:4px solid var(--warn);background:var(--warnbg);border-radius:0 8px 8px 0;padding:11px 15px;margin-top:14px;font-size:13px}
+.note b{color:var(--warn)}
+.note ul{margin:6px 0 0;padding-left:18px} .note li{margin:3px 0}
+.good{border-left:4px solid var(--ok);background:var(--okbg);border-radius:0 8px 8px 0;padding:11px 15px;margin-top:14px;font-size:13px}
+.good b{color:var(--ok)}
+table{border-collapse:collapse;width:100%;margin-top:12px;background:var(--card);border:1px solid var(--line)}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);font-size:12.5px;text-align:left}
+th{background:var(--soft);font-size:11.5px;color:var(--sub);font-weight:700}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+.scroll{overflow-x:auto}
+ol.next{margin:8px 0 0;padding-left:20px;font-size:13.5px} ol.next li{margin:6px 0}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--sub)}
+code{font-family:Consolas,Menlo,monospace;font-size:12px;background:var(--soft);border-radius:4px;padding:0 4px;word-break:break-all}
+@media(min-width:641px){.bar.wide{grid-template-columns:230px 1fr 56px}}
+@media(max-width:640px){.bar.wide{grid-template-columns:1fr 56px}.bar.wide .lbl{grid-column:1/-1;text-align:left;margin-bottom:-2px}.bar.wide .track{grid-column:1}.layers{grid-template-columns:1fr}.bar{grid-template-columns:104px 1fr 62px}}
+</style>
+</head>
+<body>
+<main>
+
+<h1>自動SMSの成果 5週</h1>
+<p class="lead">gooner 人材事業部／2026-10-02 時点・武者野　　導入 2026-08-26 11:53〜（第1弾は 08-28 の導入1.5日時点）</p>
+
+<div class="claim">
+  接触は速くなり、漏れが減り、LINEにつながった。面談確定率も有意に上がった。
+  <small>応募から最初の接触までの中央値は 9.5時間 → 5分。着座率の上昇はまだ断定できない。</small>
+</div>
+
+<div class="layers">
+  <div class="l1"><b>確実</b><span>速さ・連絡漏れ・LINE到達</span></div>
+  <div class="l2"><b>有意</b><span>面談確定率 +8.1pt（p=0.012）</span></div>
+  <div class="l3"><b>未確定</b><span>着座率 +3.3pt（p=0.272）。媒体別では約+5pt</span></div>
+</div>
+
+<div class="words">
+  <b>用語</b>
+  <ul>
+    <li><b>有効応募</b>＝条件外・重複・テストなどを除いた、連絡する対象の応募。自動SMSもこれだけに送る。</li>
+    <li><b>導入前</b>＝2026-06-01〜08-26 11:53（有効応募761件）／<b>導入後</b>＝08-26 11:53〜10-02（352件）。</li>
+    <li><b>成熟14日</b>＝応募から14日以上たった人だけを分母にする（面談・着座は応募から時間がかかるため）。§2〜§4 の分母は導入前761件・導入後230件（導入前は10/2時点で全件が14日以上たっているため、761件のまま減らない）。</li>
+    <li><b>着座</b>＝面談に実際に出席。<b>pt</b>＝パーセントポイント。<b>p90</b>＝遅いほうから10%の人の値。</li>
+  </ul>
+</div>
+
+<!-- ============ 1 ============ -->
+<h2>1　速さ・漏れ・LINE到達<span class="tagx t-ok">確実</span></h2>
+<p>有効応募の全件が対象。差が大きく、件数を足しても結論は動かない。</p>
+
+<div class="tiles">
+  <div class="tile"><div class="k">応募 → 初回接触（中央値）</div>
+    <div class="v"><span class="before">9.5時間</span><span class="to">→</span><span class="after">5分</span></div><div class="n">遅い側（p90）も 2.3日 → 9.1時間</div></div>
+  <div class="tile"><div class="k">応募 → LINE登録（中央値）</div>
+    <div class="v"><span class="before">3.5日</span><span class="to">→</span><span class="after">16.4時間</span></div><div class="n">登録した人だけの所要時間</div></div>
+</div>
+
+<div class="panel">
+  <h3>割合の変化（横軸 0〜100%・ゼロ起点）</h3>
+  <div class="legend"><span><i style="background:var(--old)"></i>導入前</span><span><i style="background:var(--new)"></i>導入後</span></div>
+  <div class="grp">応募当日に接触できた率（高いほどよい）</div>
+  <div class="bar pair"><span class="lbl">導入前</span><span class="track"><span class="fill old" style="width:31.5%"></span></span><span class="val">31.5%</span></div>
+  <div class="bar pair"><span class="lbl">導入後</span><span class="track"><span class="fill new" style="width:79%"></span></span><span class="val">79.0%</span></div>
+  <div class="grp">一度も接触されず終わった率（低いほどよい）</div>
+  <div class="bar pair"><span class="lbl">導入前</span><span class="track"><span class="fill old" style="width:43.9%"></span></span><span class="val">43.9%</span></div>
+  <div class="bar pair"><span class="lbl">導入後</span><span class="track"><span class="fill new" style="width:11.4%"></span></span><span class="val">11.4%</span></div>
+  <div class="grp">公式LINE登録率（高いほどよい）</div>
+  <div class="bar pair"><span class="lbl">導入前</span><span class="track"><span class="fill old" style="width:21.6%"></span></span><span class="val">21.6%</span></div>
+  <div class="bar pair"><span class="lbl">導入後</span><span class="track"><span class="fill new" style="width:38.6%"></span></span><span class="val">38.6%</span></div>
+</div>
+<p class="sub">「一度も接触されず」の導入後 11.4%（40件）のうち17件は、応募から3日未満でまだ処理の途中。最終的にはさらに下がる見込み。</p>
+
+<!-- ============ 2 ============ -->
+<h2>2　面談確定率は有意に上がった<span class="tagx t-new">有意</span></h2>
+<p>成熟14日で比べる。まず率の変化、次にその差が偶然でないかを図で見る。</p>
+<div class="tiles">
+  <div class="tile"><div class="k">面談確定率</div>
+    <div class="v"><span class="before">22.3%</span><span class="to">→</span><span class="after">30.4%</span></div><div class="n">170/761 → 70/230</div></div>
+  <div class="tile"><div class="k">着座率（主指標）</div>
+    <div class="v"><span class="before">19.7%</span><span class="to">→</span><span class="after" style="color:var(--ink)">23.0%</span></div><div class="n">150/761 → 53/230</div></div>
+</div>
+<p>下の図は「導入後 − 導入前」の差と、その95%信頼区間（本当の差が入ると考えてよい範囲）。区間が0の線をまたがなければ有意。</p>
+
+<p class="sub">塗りの点＝有意／白抜きの点＝有意でない。</p>
+<div class="panel" style="margin-top:6px">
+  <svg viewBox="0 0 340 168" role="img" aria-label="導入後と導入前の差と95%信頼区間。面談確定率は+8.1ptで区間が0をまたがず有意。着座率は+3.3ptで区間が0をまたぐ。">
+    <!-- x: -5..+16pt  -> 20 + (v+5)/21*300 -->
+    <g stroke="var(--grid)" stroke-width="1">
+      <line x1="20" y1="22" x2="20" y2="132"/><line x1="91.4" y1="22" x2="91.4" y2="132" stroke="var(--sub)" stroke-width="1.5"/>
+      <line x1="162.9" y1="22" x2="162.9" y2="132"/><line x1="234.3" y1="22" x2="234.3" y2="132"/><line x1="305.7" y1="22" x2="305.7" y2="132"/>
+    </g>
+    <g class="m" font-size="10.5" text-anchor="middle">
+      <text x="20" y="147">−5</text><text x="91.4" y="147">0</text><text x="162.9" y="147">+5</text><text x="234.3" y="147">+10</text><text x="305.7" y="147">+15pt</text>
+    </g>
+    <text x="91.4" y="14" font-size="10.5" text-anchor="middle" class="m">差なし</text>
+    <!-- 面談確定: 1.5..14.7, 8.1 -->
+    <text x="20" y="40" font-size="11.5" font-weight="700">面談確定率　+8.1pt（p=0.012）</text>
+    <line x1="112.9" y1="54" x2="207.2" y2="54" stroke="var(--new)" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="150.2" cy="54" r="6" fill="var(--new)" stroke="var(--card)" stroke-width="2"/>
+    <text x="112.9" y="73" font-size="10.5" class="m" text-anchor="middle">+1.5</text><text x="207.2" y="73" font-size="10.5" class="m" text-anchor="middle">+14.7</text>
+    <!-- 着座: -2.8..9.5, 3.3 -->
+    <text x="20" y="98" font-size="11.5" font-weight="700">着座率　+3.3pt（p=0.272）</text>
+    <line x1="52" y1="112" x2="140" y2="112" stroke="var(--new)" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="103.5" cy="112" r="6" fill="var(--card)" stroke="var(--new)" stroke-width="3"/>
+    <text x="52" y="128" font-size="10.5" class="m" text-anchor="middle">−2.8</text><text x="140" y="128" font-size="10.5" class="m" text-anchor="middle">+9.5</text>
+  </svg>
+</div>
+
+<p>面談確定率は、区間が下限 +1.5pt でも0を超える。着座率の区間は0をまたぐため、「差がある」とも「差がない」とも言えない。</p>
+<p class="src">p値＝本当は差がないのに、これだけの差が偶然で出る確率の目安。0.05 を下回ると有意とする。</p>
+
+<!-- ============ 3 ============ -->
+<h2>3　着座率は媒体をそろえると +5.2pt<span class="tagx t-warn">未確定</span></h2>
+<p>全体比較で差が薄まる理由は、導入前の6月が Indeed の応募だけで、その着座率が 35.1% と突出しているため。導入後は Indeed の応募が0件。媒体ごとに比べると、どの媒体でも導入後のほうが高い。</p>
+
+<div class="panel">
+  <h3>着座率（横軸 0〜40%・ゼロ起点）</h3>
+  <div class="legend"><span><i style="background:var(--old)"></i>導入前</span><span><i style="background:var(--new)"></i>導入後</span></div>
+  <div class="grp">SeeD</div>
+  <div class="bar pair"><span class="lbl">導入前 69/357</span><span class="track"><span class="fill old" style="width:48.3%"></span></span><span class="val">19.3%</span></div>
+  <div class="bar pair"><span class="lbl">導入後 44/178</span><span class="track"><span class="fill new" style="width:61.8%"></span></span><span class="val">24.7%</span></div>
+  <div class="grp">求人ボックス</div>
+  <div class="bar pair"><span class="lbl">導入前 34/270</span><span class="track"><span class="fill old" style="width:31.5%"></span></span><span class="val">12.6%</span></div>
+  <div class="bar pair"><span class="lbl">導入後 9/52</span><span class="track"><span class="fill new" style="width:43.3%"></span></span><span class="val">17.3%</span></div>
+  <div class="grp">Indeed</div>
+  <div class="bar pair"><span class="lbl">導入前 47/134</span><span class="track"><span class="fill old" style="width:87.8%"></span></span><span class="val">35.1%</span></div>
+  <div class="bar pair"><span class="lbl">導入後</span><span class="track"></span><span class="val none">応募0件</span></div>
+</div>
+
+<div class="panel">
+  <h3>面談確定率（横軸 0〜40%・ゼロ起点）</h3>
+  <div class="grp">SeeD</div>
+  <div class="bar pair"><span class="lbl">導入前 87/357</span><span class="track"><span class="fill old" style="width:61%"></span></span><span class="val">24.4%</span></div>
+  <div class="bar pair"><span class="lbl">導入後 57/178</span><span class="track"><span class="fill new" style="width:80%"></span></span><span class="val">32.0%</span></div>
+  <div class="grp">求人ボックス</div>
+  <div class="bar pair"><span class="lbl">導入前 44/270</span><span class="track"><span class="fill old" style="width:40.8%"></span></span><span class="val">16.3%</span></div>
+  <div class="bar pair"><span class="lbl">導入後 13/52</span><span class="track"><span class="fill new" style="width:62.5%"></span></span><span class="val">25.0%</span></div>
+</div>
+
+<p>媒体の構成をそろえて合算する方法（Mantel-Haenszel。媒体ごとに差を出して平均する方法）では、着座は <b>+5.2pt・p=0.090</b>。5%水準にあと少し届かない。面談確定は <b>p=0.018</b> で有意。</p>
+<p class="sub">主指標は「全体の着座率」のまま変えていない。データを見たあとで指標を差し替えると、都合のよい比較選びと区別できなくなるため。媒体別は参考として併記している。</p>
+
+<!-- ============ 4 ============ -->
+<h2>4　月別の推移（成熟14日）</h2>
+<p>導入前の7月から8月にかけて、すでに上昇の気配がある。上昇の全部を自動SMSの成果とは言い切れない。</p>
+
+<div class="panel">
+  <div class="legend"><span><svg width="22" height="10" viewBox="0 0 22 10" style="display:inline-block;width:22px;vertical-align:-1px"><line x1="0" y1="5" x2="22" y2="5" stroke="var(--teal)" stroke-width="2.5"/><circle cx="11" cy="5" r="3.5" fill="var(--teal)"/></svg> 面談確定率</span>
+    <span><svg width="22" height="10" viewBox="0 0 22 10" style="display:inline-block;width:22px;vertical-align:-1px"><line x1="0" y1="5" x2="22" y2="5" stroke="var(--new)" stroke-width="2.5"/><rect x="7.5" y="1.5" width="7" height="7" fill="var(--new)"/></svg> 着座率</span></div>
+  <svg viewBox="0 0 340 236" role="img" aria-label="月別の面談確定率と着座率。6月は着座35.1%、7月14.4%、8月導入前18.4%、8月導入後25.8%、9月22.0%。面談確定は29.1、20.9、20.9、32.3、29.8%。">
+    <!-- y: 0..40 -> 170 - v/40*140 ; plot y 30..170 -->
+    <g stroke="var(--grid)" stroke-width="1">
+      <line x1="34" y1="170" x2="330" y2="170"/><line x1="34" y1="135" x2="330" y2="135"/><line x1="34" y1="100" x2="330" y2="100"/><line x1="34" y1="65" x2="330" y2="65"/><line x1="34" y1="30" x2="330" y2="30"/>
+    </g>
+    <g class="m" font-size="10.5" text-anchor="end"><text x="28" y="174">0</text><text x="28" y="139">10</text><text x="28" y="104">20</text><text x="28" y="69">30</text><text x="28" y="34">40%</text></g>
+    <!-- 導入線 between idx2 (x=186) and idx3 (x=250) => 218 -->
+    <rect x="218" y="26" width="112" height="144" fill="var(--newbg)" opacity=".7"/>
+    <line x1="218" y1="26" x2="218" y2="170" stroke="var(--new)" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="224" y="162" font-size="10.5" font-weight="700" fill="var(--new)" style="fill:var(--new)">導入（8/26）</text>
+    <!-- x: 58,122,186,250,314 -->
+    <!-- 面談確定: 29.1,20.9,20.9,32.3,29.8 -> y: 170-v*3.5 = 68.2,96.9,96.9,56.9,65.7 -->
+    <polyline points="58,68.2 122,96.9 186,96.9 250,56.9 314,65.7" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linejoin="round"/>
+    <!-- 着座: 35.1,14.4,18.4,25.8,22.0 -> 47.2,119.6,105.6,79.7,93 -->
+    <polyline points="58,47.2 122,119.6 186,105.6 250,79.7 314,93" fill="none" stroke="var(--new)" stroke-width="2.5" stroke-linejoin="round"/>
+    <g fill="var(--teal)" stroke="var(--card)" stroke-width="2">
+      <circle cx="58" cy="68.2" r="4.5"/><circle cx="122" cy="96.9" r="4.5"/><circle cx="186" cy="96.9" r="4.5"/><circle cx="250" cy="56.9" r="4.5"/><circle cx="314" cy="65.7" r="4.5"/>
+    </g>
+    <g fill="var(--new)" stroke="var(--card)" stroke-width="2">
+      <rect x="53.5" y="42.7" width="9" height="9"/><rect x="117.5" y="115.1" width="9" height="9"/><rect x="181.5" y="101.1" width="9" height="9"/><rect x="245.5" y="75.2" width="9" height="9"/><rect x="309.5" y="88.5" width="9" height="9"/>
+    </g>
+    <g font-size="10.5" font-weight="700" text-anchor="middle">
+      <!-- 面談確定の値（6月のみ下側＝着座が上） -->
+      <text x="58" y="86" style="fill:var(--teal)">29.1</text>
+      <text x="122" y="88" style="fill:var(--teal)">20.9</text>
+      <text x="186" y="88" style="fill:var(--teal)">20.9</text>
+      <text x="250" y="47" style="fill:var(--teal)">32.3</text>
+      <text x="314" y="54" style="fill:var(--teal)">29.8</text>
+      <!-- 着座の値 -->
+      <text x="58" y="38" style="fill:var(--new)">35.1</text>
+      <text x="122" y="138" style="fill:var(--new)">14.4</text>
+      <text x="186" y="124" style="fill:var(--new)">18.4</text>
+      <text x="250" y="102" style="fill:var(--new)">25.8</text>
+      <text x="314" y="112" style="fill:var(--new)">22.0</text>
+    </g>
+    <g font-size="10.5" text-anchor="middle" class="m">
+      <text x="58" y="188">6月</text><text x="122" y="188">7月</text><text x="186" y="188">8月前半</text><text x="250" y="188">8月後</text><text x="314" y="188">9月</text>
+      <text x="58" y="202" font-size="9.5">導入前</text><text x="122" y="202" font-size="9.5">導入前</text><text x="186" y="202" font-size="9.5">導入前</text><text x="250" y="202" font-size="9.5">導入後</text><text x="314" y="202" font-size="9.5">導入後</text>
+      <text x="58" y="217" font-size="9.5">n=134</text><text x="122" y="217" font-size="9.5">306</text><text x="186" y="217" font-size="9.5">321</text><text x="250" y="217" font-size="9.5">62</text><text x="314" y="217" font-size="9.5">168</text>
+    </g>
+  </svg>
+  <p class="sub" style="margin-top:2px">「8月前半」は導入前の8月の応募（8/26 11:53 まで）、「8月後」は導入後の8月の応募。</p>
+</div>
+
+<div class="note">
+  <b>数字の読み方の注意</b>
+  <ul>
+    <li>6月は Indeed の応募だけ。7月以降は SeeD と求人ボックスが中心で、構成がちがう。</li>
+    <li>7月から8月前半（導入前）で、着座率はすでに上向いている（14.4% → 18.4%）。面談確定率は横ばい（20.9%）。</li>
+    <li>同じ期間に入った他の変更は分離していない。文面の推敲、LINE登録済みの人には送らないガード（9/24〜）、日本人氏名の確度ガード（9/7〜。氏名から日本の方と判断しきれない応募は、送らずに保留する仕組み）。まとめて「自動SMSの仕組み」として扱っている。</li>
+    <li>「有効応募」の判定は後から見直される。導入前の有効応募は、第1弾（8/28）の1,002件から今は761件に減った。前後とも今の判定で数えているので、今回の比較は同じ物差し。<b>第1弾の率と今回の率は並べない。</b></li>
+  </ul>
+</div>
+
+<!-- ============ 5 ============ -->
+<h2>5　接触が速いと着座が上がる、と考える根拠</h2>
+<p><b>ここは導入前後の比較ではなく、導入前だけの比較。</b>導入前の81日を「応募当日の接触率」で2つに分けた。同じ有効応募でも、架電が追いついた日は着座率が約2倍。応募が多い日ほど架電が追いつかない。</p>
+
+<div class="panel">
+  <h3>導入前の着座率（横軸 0〜30%・ゼロ起点）</h3>
+  <div class="bar wide"><span class="lbl">架電が追いついた日<br><span style="font-size:11px">383件・応募 中央値7件/日</span></span><span class="track"><span class="fill ok" style="width:87%"></span></span><span class="val">26.1%</span></div>
+  <div class="bar wide"><span class="lbl">追いつかなかった日<br><span style="font-size:11px">378件・応募 中央値9件/日</span></span><span class="track"><span class="fill bad" style="width:44%"></span></span><span class="val">13.2%</span></div>
+</div>
+<p class="sub">導入前のデータだけで作った根拠。日ごとの比較なので、応募の多い日は応募の質もちがう可能性が残る。因果の証明ではなく、「接触の遅れと着座率の低さが同じ向きに動く」という一貫性として読む。</p>
+
+<!-- ============ 6 ============ -->
+<h2>6　SMSが送られなかった55件の内訳<span class="tagx t-ok">取りこぼしなし</span></h2>
+<p>有効応募352件のうち297件（84%）に送信済み。未送信の55件は、送信の予約（ジョブ）はあったが送れなかった5件（失敗2・停止1・期限切れ1・重複1）と、ジョブ自体が無い50件。後者を1件ずつ突合した。「心リスト」は応募の管理リスト、「確度ガード」は、氏名から日本の方と判断しきれない応募を送らずに保留する仕組み。</p>
+
+<div class="panel">
+  <h3>予約（ジョブ）自体が無かった50件の理由（件数・横軸 0〜25件）</h3>
+  <div class="bar wide"><span class="lbl">転記（応募をリストへ写す処理）が応募から24時間以上遅れた</span><span class="track"><span class="fill warn" style="width:84%"></span></span><span class="val">21件</span></div>
+  <div class="bar wide"><span class="lbl">重複応募（直近に同じ番号へ送信済み）</span><span class="track"><span class="fill old" style="width:40%"></span></span><span class="val">10件</span></div>
+  <div class="bar wide"><span class="lbl">心リストの作り直しで突合が外れた（計測側の都合）</span><span class="track"><span class="fill old" style="width:36%"></span></span><span class="val">9件</span></div>
+  <div class="bar wide"><span class="lbl">日本人氏名の確度ガードで保留</span><span class="track"><span class="fill old" style="width:24%"></span></span><span class="val">6件</span></div>
+  <div class="bar wide"><span class="lbl">理由不明</span><span class="track"><span class="fill old" style="width:8%"></span></span><span class="val">2件</span></div>
+  <div class="bar wide"><span class="lbl">電話番号の形式不正</span><span class="track"><span class="fill old" style="width:4%"></span></span><span class="val">1件</span></div>
+  <div class="bar wide"><span class="lbl">応募時点でLINE登録済み（送らない仕様）</span><span class="track"><span class="fill old" style="width:4%"></span></span><span class="val">1件</span></div>
+</div>
+
+<div class="good"><b>バグ由来の取りこぼしは見つからなかった。</b>理由不明の2件のうち1件は 10/2 15:21 の応募で、集計時点で処理中の可能性がある。</div>
+<div class="note"><b>ただし課題は残る。</b>「転記の遅れ」21件（有効応募の6%）は、SMSでは救えない上流の遅延。</div>
+
+<!-- ============ 7 ============ -->
+<h2>7　これから</h2>
+<p>数字から見て、自動SMSを止める理由は出ていない。確定待ちの間も、速さ・漏れ・LINE到達の改善は動かない。</p>
+<ol class="next">
+  <li><b>着座率の差を確定できる見込みは 2027年2月10日。</b>有効応募の流入が、8月末の1日14件から直近2週間で6.5件に半減したため、判定までの時間が延びた。</li>
+  <li>毎朝の自動集計が続いている。確定ラインに届いた日に、一度だけ拓也へ通知が来る。</li>
+  <li>転記の遅れ（§6の21件）は、SMSでは救えない別の課題として残る。</li>
+  <li>未送信理由の自動記録と、媒体別比較の自動化は、指示書を起票済み。次回からは手で突合しない。</li>
+</ol>
+
+<footer>
+生成 2026-10-02 ／ 数字の再現コマンド <code>C:\Python313\python.exe scripts/sms_impact_baseline.py --seated</code>（読み取り専用・本番データを書き換えない）<br>
+個人情報（氏名・電話番号・個別の応募日時）はこの資料に一切含まない。集計値のみ。
+</footer>
+
+</main>
+</body>
+</html>
