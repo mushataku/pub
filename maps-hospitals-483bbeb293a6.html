@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>病院リストの作り方</title>
+<style>
+:root{
+  --bg:#f7f6f2; --card:#ffffff; --ink:#1f2328; --sub:#5b6370; --line:#d9d6cc;
+  --hosp:#2f6fdb; --hosp-soft:#dbe7fb; --clinic:#1f9d74; --clinic-soft:#d5f0e6;
+  --pin:#c7792b; --pin-soft:#f6e5d2; --ok:#1f9d74; --warn:#c7792b;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181c; --card:#1f2228; --ink:#e8e6e1; --sub:#a3a9b3; --line:#363a42;
+    --hosp:#7aa7f0; --hosp-soft:#1f2e48; --clinic:#5cc9a2; --clinic-soft:#183a2f;
+    --pin:#e0a466; --pin-soft:#3d2c1b; --ok:#5cc9a2; --warn:#e0a466;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181c; --card:#1f2228; --ink:#e8e6e1; --sub:#a3a9b3; --line:#363a42;
+  --hosp:#7aa7f0; --hosp-soft:#1f2e48; --clinic:#5cc9a2; --clinic-soft:#183a2f;
+  --pin:#e0a466; --pin-soft:#3d2c1b; --ok:#5cc9a2; --warn:#e0a466;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",system-ui,sans-serif;line-height:1.75;font-size:16px}
+main{max-width:860px;margin:0 auto;padding:28px 16px 64px}
+h1{font-size:1.6rem;line-height:1.35;margin:0 0 6px}
+.lead{color:var(--sub);margin:0 0 24px}
+h2{font-size:1.2rem;margin:40px 0 12px;padding-left:10px;border-left:4px solid var(--hosp)}
+h3{font-size:1rem;margin:20px 0 8px}
+p{margin:8px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.kpi b{display:block;font-size:1.9rem;line-height:1.2}
+.kpi span{color:var(--sub);font-size:.85rem}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:12px 0}
+.step{flex:1 1 170px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.92rem}
+.step .no{display:inline-block;width:22px;height:22px;border-radius:50%;background:var(--hosp);color:#fff;
+  text-align:center;line-height:22px;font-size:.8rem;margin-right:6px}
+.arrow{align-self:center;color:var(--sub);font-size:1.2rem}
+@media (max-width:620px){.arrow{display:none}}
+.bars .row{display:grid;grid-template-columns:4.2em 1fr 3em;gap:8px;align-items:center;margin:6px 0;font-size:.92rem}
+.bar{display:flex;height:22px;border-radius:6px;overflow:hidden;background:var(--line)}
+.bar i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:var(--sub);margin-top:6px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{color:var(--sub);font-weight:600}
+.tag{display:inline-block;border-radius:999px;padding:0 8px;font-size:.78rem;line-height:1.7}
+.t-h{background:var(--hosp-soft);color:var(--hosp)}
+.t-c{background:var(--clinic-soft);color:var(--clinic)}
+.t-p{background:var(--pin-soft);color:var(--pin)}
+svg{display:block;width:100%;height:auto}
+.card{overflow-x:auto}
+@media (max-width:620px){.card>svg{min-width:600px}}
+svg text{fill:var(--ink);font-family:inherit}
+.note{color:var(--sub);font-size:.88rem}
+code{font-family:ui-monospace,Consolas,monospace;font-size:.85em;background:var(--line);padding:1px 5px;border-radius:4px}
+.scroll{overflow-x:auto}
+footer{margin-top:40px;color:var(--sub);font-size:.82rem}
+</style>
+</head>
+<body>
+<main>
+
+<h1>新宿・渋谷・中野の病院と在宅クリニックを「病院」リストへ</h1>
+<p class="lead">2026年10月4日（日）／依頼：「病院、地域連携をしてくれるクリニックを病院マークに入れて欲しい」（訪問看護の営業回り用）</p>
+
+<div class="kpis">
+  <div class="kpi"><b id="k-total">200</b><span>リストに入れる対象</span></div>
+  <div class="kpi"><b style="color:var(--hosp)">35</b><span>病院（3区の全部）</span></div>
+  <div class="kpi"><b style="color:var(--clinic)">165</b><span>在宅療養支援診療所（病院と重ならない分）</span></div>
+  <div class="kpi"><b id="k-saved">199</b><span>「病院」リストに入った場所</span></div>
+</div>
+
+<h2>0. 結果</h2>
+<div class="card">
+  <p>200件のうち199か所がリストに入りました。残りの1件は、同じ電話番号の系列クリニックと地図上で同じ場所だったため、1つにまとまっています（赤心堂訪問診療クリニック → 赤心堂クリニック）。</p>
+  <div class="bar" style="height:30px;margin:12px 0 6px" aria-label="施設192・住所ピン7・重複1">
+    <i style="width:96%;background:var(--hosp)"></i><i style="width:3.5%;background:var(--pin)"></i><i style="width:.5%;background:var(--sub)"></i>
+  </div>
+  <div class="legend">
+    <span><i style="background:var(--hosp)"></i>施設として保存 192（地図に名前がそのまま出る）</span>
+    <span><i style="background:var(--pin)"></i>住所ピン＋メモ 7</span>
+    <span><i style="background:var(--sub)"></i>同じ場所 1</span>
+  </div>
+</div>
+<div class="card scroll">
+  <h3 style="margin-top:0">住所ピンになった7件</h3>
+  <p class="note">Googleマップに施設として載っていないか、載っていても住所が名簿と違う（移転前の古い登録など）もの。名簿の住所にピンを立て、メモに名前を入れた。</p>
+  <table>
+    <tr><th>区</th><th>名前</th><th>理由</th></tr>
+    <tr><td>新宿</td><td>おおくぼ戸山診療所</td><td>施設の登録なし</td></tr>
+    <tr><td>新宿</td><td>もりクリニック</td><td>施設の登録なし</td></tr>
+    <tr><td>新宿</td><td>Sunnyクリニック</td><td>施設の登録なし</td></tr>
+    <tr><td>渋谷</td><td>西新宿5丁目内山クリニック</td><td>Googleの住所が名簿と違う</td></tr>
+    <tr><td>渋谷</td><td>ゆみのハートクリニック渋谷</td><td>Googleの住所が名簿と違う</td></tr>
+    <tr><td>中野</td><td>橋本医院</td><td>施設の登録なし</td></tr>
+    <tr><td>中野</td><td>クリニック芳賀</td><td>施設の登録なし</td></tr>
+  </table>
+</div>
+<div class="card">
+  <h3 style="margin-top:0">照合の手がかり</h3>
+  <p>名簿に電話番号が載っているので、ほとんどは<b>電話番号の一致</b>で施設を特定できました。電話番号で当たらなかった十数件は「名前＋町名＋番地」が揃ったものだけを採り、全件を目で確かめています。</p>
+</div>
+
+<h2>途中で見つけて直したこと</h2>
+<div class="card">
+  <p><b>候補が複数出る場所で、施設ではなく住所ピンに逃げていた。</b>大病院は「中央病棟」「東病棟」などが並んで候補一覧になりやすく、東京女子医大病院で気づいた。候補を開いた後も一覧が画面の裏に残るため、プログラムが「まだ一覧のまま」と読み違えていた。直したうえで、ピンで入ってしまった2件（東京女子医大病院・江戸川橋診療所）は施設に入れ替えた。</p>
+  <p class="note">9月の居宅・就労でも同じことが起きていた可能性がある。ピンにはメモで名前が入っているので、実害は小さい。</p>
+</div>
+
+<h2>1. どうやって「全部」を集めたか</h2>
+<p>Googleマップで「病院」と検索して拾っていくと、検索に出てこないところが必ず漏れます。そこで、国に届け出られた名簿をそのまま使いました。</p>
+
+<div class="flow">
+  <div class="step"><span class="no">1</span><b>厚生局の名簿</b><br>関東信越厚生局が毎月出している「届出受理医療機関名簿」。保険診療をしている医療機関が全部載っている（東京都で10万行）</div>
+  <div class="arrow">→</div>
+  <div class="step"><span class="no">2</span><b>3区で絞る</b><br>新宿・渋谷・中野の1,503機関</div>
+  <div class="arrow">→</div>
+  <div class="step"><span class="no">3</span><b>条件で選ぶ</b><br><span class="tag t-h">病院</span> 病床20以上<br><span class="tag t-c">在宅クリニック</span> 在支診の届出あり</div>
+  <div class="arrow">→</div>
+  <div class="step"><span class="no">4</span><b>地図で探して保存</b><br>電話番号 → 名前＋住所の順で照合し「病院」リストへ</div>
+</div>
+
+<div class="card">
+<svg viewBox="0 0 800 250" role="img" aria-label="1503機関から200件に絞り込む図">
+  <rect x="20" y="20" width="760" height="44" rx="8" fill="var(--line)"/>
+  <text x="400" y="48" text-anchor="middle" font-size="17">3区の保険医療機関　1,503</text>
+  <path d="M120 64 L680 64 L560 120 L240 120 Z" fill="var(--line)" opacity=".55"/>
+  <rect x="240" y="120" width="320" height="44" rx="8" fill="var(--card)" stroke="var(--ink)" stroke-width="1.5"/>
+  <text x="400" y="148" text-anchor="middle" font-size="17" font-weight="700">リストに入れる　200</text>
+  <rect x="240" y="180" width="56" height="44" rx="8" fill="var(--hosp)"/>
+  <text x="268" y="208" text-anchor="middle" font-size="15" fill="#fff" style="fill:#fff">35</text>
+  <rect x="300" y="180" width="260" height="44" rx="8" fill="var(--clinic)"/>
+  <text x="430" y="208" text-anchor="middle" font-size="15" style="fill:#fff">165</text>
+  <text x="232" y="208" text-anchor="end" font-size="14">病院</text>
+  <text x="568" y="208" font-size="14">在宅療養支援診療所</text>
+</svg>
+<p class="note">残りの約1,300は、病床の無い普通のクリニック（在宅の届出なし）・歯科・有床診療所など。</p>
+</div>
+
+<h2>2. 「地域連携してくれるクリニック」＝在宅療養支援診療所</h2>
+<p>依頼の「在宅と連携の取れるクリニック」には、業界の決まった呼び名があります。<b>在宅療養支援診療所</b>（略して在支診）です。</p>
+<div class="card">
+  <p>在支診として届け出るには、次のような条件を満たす必要があります。</p>
+  <ul>
+    <li>24時間いつでも連絡がつき、往診できる</li>
+    <li>24時間の訪問看護を、自院か連携先の訪問看護ステーションで出せる</li>
+    <li>入院が要るときの受け入れ先を確保している</li>
+  </ul>
+  <p>つまり<b>訪問看護ステーションと組むことが前提になっているクリニック</b>です。営業先としてはそのまま当たりになります。病院が同じ届出をしたものは「在宅療養支援病院」と呼び、3区に7つあります（下の図の重なり）。</p>
+</div>
+
+<div class="card">
+<svg viewBox="0 0 800 260" role="img" aria-label="病院35と在支診172の重なり7">
+  <circle cx="300" cy="130" r="95" fill="var(--hosp)" opacity=".28" stroke="var(--hosp)" stroke-width="2"/>
+  <circle cx="470" cy="130" r="115" fill="var(--clinic)" opacity=".28" stroke="var(--clinic)" stroke-width="2"/>
+  <text x="250" y="125" text-anchor="middle" font-size="16" font-weight="700">病院</text>
+  <text x="250" y="150" text-anchor="middle" font-size="22" font-weight="700">28</text>
+  <text x="372" y="125" text-anchor="middle" font-size="13">在宅療養</text>
+  <text x="372" y="142" text-anchor="middle" font-size="13">支援病院</text>
+  <text x="372" y="166" text-anchor="middle" font-size="22" font-weight="700">7</text>
+  <text x="520" y="125" text-anchor="middle" font-size="16" font-weight="700">在支診</text>
+  <text x="520" y="150" text-anchor="middle" font-size="22" font-weight="700">165</text>
+  <text x="680" y="40" font-size="13" text-anchor="end">病院 35 ＋ 在支診 165 ＝ 200</text>
+</svg>
+</div>
+
+<h3>在支診の中にも種類がある</h3>
+<div class="card scroll">
+<table>
+  <tr><th>種類（届出の記号）</th><th>中身</th><th>3区の数</th></tr>
+  <tr><td>機能強化型・単独（支援診1）</td><td>自院だけで医師3人以上・看取りや緊急往診の実績が多い</td><td>1</td></tr>
+  <tr><td>機能強化型・連携（支援診2）</td><td>複数の医療機関で組んで、上と同じ水準を満たす</td><td>68</td></tr>
+  <tr><td>ふつうの在支診（支援診3）</td><td>上の実績要件までは無い在支診</td><td>96</td></tr>
+  <tr><td>在宅療養支援病院（支援病2・3）</td><td>病院が在支の届出をしたもの（病院の35件に含む）</td><td>7</td></tr>
+</table>
+<p class="note">機能強化型ほど在宅の患者を多く抱えていて、訪問看護の依頼も多い見込み。営業の優先順位を付けるならここが手がかりになる。地図のメモに種類を入れることもできる。</p>
+</div>
+
+<h2>3. 区ごとの内訳</h2>
+<div class="card bars">
+  <div class="row"><span>新宿区</span><div class="bar"><i style="width:18.1%;background:var(--hosp)"></i><i style="width:81.9%;background:var(--clinic)"></i></div><b>72</b></div>
+  <div class="row"><span>渋谷区</span><div class="bar"><i style="width:19.4%;background:var(--hosp)"></i><i style="width:63.9%;background:var(--clinic)"></i></div><b>60</b></div>
+  <div class="row"><span>中野区</span><div class="bar"><i style="width:11.1%;background:var(--hosp)"></i><i style="width:83.3%;background:var(--clinic)"></i></div><b>68</b></div>
+  <div class="legend"><span><i style="background:var(--hosp)"></i>病院（13 / 14 / 8）</span><span><i style="background:var(--clinic)"></i>在支診（59 / 46 / 60）</span></div>
+  <p class="note">棒の長さは新宿区の72件を100%として揃えている。</p>
+</div>
+
+<h2>4. 漏れていないかの検算</h2>
+<div class="card">
+<svg viewBox="0 0 800 170" role="img" aria-label="厚生局の名簿と医療情報ネットの病院数が一致">
+  <rect x="20" y="30" width="300" height="100" rx="12" fill="var(--hosp-soft)" stroke="var(--hosp)"/>
+  <text x="170" y="65" text-anchor="middle" font-size="15">関東信越厚生局の届出名簿</text>
+  <text x="170" y="105" text-anchor="middle" font-size="26" font-weight="700">病院 35</text>
+  <rect x="480" y="30" width="300" height="100" rx="12" fill="var(--hosp-soft)" stroke="var(--hosp)"/>
+  <text x="630" y="65" text-anchor="middle" font-size="15">厚労省「医療情報ネット」</text>
+  <text x="630" y="105" text-anchor="middle" font-size="26" font-weight="700">病院 35</text>
+  <circle cx="400" cy="80" r="30" fill="var(--ok)"/>
+  <path d="M386 80 l10 10 l18 -20" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <text x="400" y="150" text-anchor="middle" font-size="14">別々に作られた2つの公式データで、3区の病院が同じ35件になった</text>
+</svg>
+</div>
+
+<h2>5. 地図にはどう入るか</h2>
+<div class="card">
+<svg viewBox="0 0 800 300" role="img" aria-label="照合の順番">
+  <rect x="20" y="20" width="230" height="56" rx="10" fill="var(--card)" stroke="var(--ink)"/>
+  <text x="135" y="45" text-anchor="middle" font-size="15">「名前＋住所」で検索</text>
+  <text x="135" y="65" text-anchor="middle" font-size="12" style="fill:var(--sub)">候補は電話番号で選ぶ・無ければ電話で再検索</text>
+  <path d="M250 48 H300" stroke="var(--sub)" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="300" y="20" width="200" height="56" rx="10" fill="var(--card)" stroke="var(--ink)"/>
+  <text x="400" y="45" text-anchor="middle" font-size="15">見つかった場所の住所が</text>
+  <text x="400" y="65" text-anchor="middle" font-size="15">番地まで一致？</text>
+  <path d="M500 48 H550" stroke="var(--sub)" stroke-width="2" marker-end="url(#a)"/>
+  <text x="525" y="38" text-anchor="middle" font-size="12">はい</text>
+  <rect x="550" y="20" width="230" height="56" rx="10" fill="var(--hosp-soft)" stroke="var(--hosp)"/>
+  <text x="665" y="45" text-anchor="middle" font-size="15" font-weight="700">お店（施設）として保存</text>
+  <text x="665" y="65" text-anchor="middle" font-size="12">地図に名前がそのまま出る</text>
+  <path d="M400 76 V150" stroke="var(--sub)" stroke-width="2" marker-end="url(#a)"/>
+  <text x="414" y="118" font-size="12">いいえ・見つからない</text>
+  <rect x="300" y="150" width="200" height="56" rx="10" fill="var(--card)" stroke="var(--ink)"/>
+  <text x="400" y="175" text-anchor="middle" font-size="15">名簿の住所で検索</text>
+  <text x="400" y="195" text-anchor="middle" font-size="12" style="fill:var(--sub)">（番地まで → 建物名込みの順）</text>
+  <path d="M500 178 H550" stroke="var(--sub)" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="550" y="150" width="230" height="56" rx="10" fill="var(--pin-soft)" stroke="var(--pin)"/>
+  <text x="665" y="175" text-anchor="middle" font-size="15" font-weight="700">住所ピン＋メモに名前</text>
+  <text x="665" y="195" text-anchor="middle" font-size="12">これまで手で入れていた形と同じ</text>
+  <text x="400" y="260" text-anchor="middle" font-size="13" style="fill:var(--sub)">保存ボタンは押すたびにオン/オフが切り替わるので、同じ場所は二度押さない作りにしてある</text>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--sub)"/></marker></defs>
+</svg>
+</div>
+
+<h2>6. 次に広げるなら</h2>
+<div class="card">
+<table>
+  <tr><th>広げ方</th><th>同じ名簿の何を使うか</th><th>手間</th></tr>
+  <tr><td>訪問診療をしているクリニックまで広げる</td><td>「在宅時医学総合管理料」の届出（在支診より広い）</td><td>条件を1つ足すだけ</td></tr>
+  <tr><td>ほかの区へ広げる</td><td>区の名前を足すだけ（東京都の全区が名簿に入っている）</td><td>コマンド1行</td></tr>
+  <tr><td>歯科・薬局</td><td>同じページに歯科・薬局の名簿がある</td><td>読み込みを少し足す</td></tr>
+  <tr><td>名簿の更新を取り込む</td><td>厚生局が毎月出し直す。新しく届け出たところだけ足せる</td><td>取り直して流すだけ（入れ済みは飛ばす）</td></tr>
+</table>
+</div>
+
+<h2>7. 使った言葉（業界の呼び方）</h2>
+<div class="card">
+<table>
+  <tr><th>言葉</th><th>意味</th></tr>
+  <tr><td>地域連携室</td><td>大きい病院にある、退院後の在宅医療や訪問看護への引き継ぎを担当する部署。病院への営業の窓口</td></tr>
+  <tr><td>在宅療養支援診療所（在支診）</td><td>24時間の往診と訪問看護との連携を条件に、厚生局へ届け出たクリニック</td></tr>
+  <tr><td>施設基準の届出</td><td>診療報酬の加算を取るために医療機関が厚生局へ出す届出。受理された一覧が毎月公開される</td></tr>
+  <tr><td>病院／診療所</td><td>病床が20以上なら病院、19以下（または無し）なら診療所。法律上の区分</td></tr>
+</table>
+</div>
+
+<footer>
+出典：関東信越厚生局「施設基準の届出受理状況」届出受理医療機関名簿（医科・東京都・令和8年8月1日現在）／厚生労働省「医療情報ネット」オープンデータ 病院の施設票（2026年6月1日時点・CC BY 4.0）。<br>
+道具：<code>_general/tools/fukunavi-maps/hospital_fetch.py</code>（名簿 → CSV）・<code>maps_save.py</code>（CSV → Googleマップの保存リスト）。
+</footer>
+</main>
+</body>
+</html>
