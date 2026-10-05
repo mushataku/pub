@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>LinksMate 新規申込のご依頼フォーム</title>
+<style>
+  :root{
+    --paper:#F3F5F4; --surface:#FFFFFF; --ink:#16211E; --ink-2:#56655F; --line:#C9D3CF;
+    --accent:#1F6F5C; --accent-ink:#FFFFFF; --warn:#B3261E; --warn-soft:#FBE9E7; --soft:#E4EFEA;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;
+    font-size:18px; line-height:1.7;
+  }
+  .wrap{max-width:40rem; margin:0 auto; padding:24px 18px 64px}
+  h1{font-size:24px; line-height:1.4; margin:0 0 8px}
+  p{margin:0 0 12px}
+  .lede{color:var(--ink-2); font-size:16px}
+  .notes{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:12px 16px 4px; margin:16px 0 24px; font-size:16px}
+  .notes ul{margin:0 0 8px; padding-left:1.2em}
+  .notes li{margin-bottom:4px}
+  fieldset{border:0; padding:0; margin:0 0 22px}
+  label.field, legend{display:block; font-weight:700; margin-bottom:6px; padding:0}
+  .req{color:var(--warn); font-size:14px; margin-left:6px}
+  .hint{display:block; font-weight:400; color:var(--ink-2); font-size:15px}
+  input[type=text], input[type=tel]{
+    width:100%; font:inherit; font-size:20px; padding:12px 14px; min-height:52px;
+    border:2px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink);
+  }
+  input[aria-invalid=true]{border-color:var(--warn); background:var(--warn-soft)}
+  .opt, .chk{
+    display:flex; align-items:flex-start; gap:12px; min-height:52px; padding:12px 14px; margin-bottom:8px;
+    background:var(--surface); border:2px solid var(--line); border-radius:8px; cursor:pointer;
+  }
+  .opt input, .chk input{width:26px; height:26px; margin:2px 0 0; flex:none; accent-color:var(--accent)}
+  .chk{font-weight:400}
+  button, a.btn{
+    display:block; width:100%; text-align:center; text-decoration:none; font:inherit; font-size:19px; font-weight:700;
+    padding:14px 16px; min-height:56px; border-radius:10px; border:2px solid var(--accent);
+    background:var(--accent); color:var(--accent-ink); cursor:pointer; margin-bottom:10px;
+  }
+  button.sub, a.btn.sub{background:var(--surface); color:var(--accent)}
+  button:focus-visible, a.btn:focus-visible, input:focus-visible{outline:3px solid #1b4f8a; outline-offset:2px}
+  #errors{display:none; background:var(--warn-soft); border:2px solid var(--warn); color:#7a1510; border-radius:8px; padding:12px 16px; margin-bottom:18px; font-weight:700}
+  #errors ul{margin:6px 0 0; padding-left:1.2em; font-weight:400}
+  #result{display:none; margin-top:26px; padding-top:20px; border-top:3px solid var(--ink)}
+  #result h2{font-size:20px; margin:0 0 8px}
+  #msg{width:100%; font:inherit; font-size:16px; line-height:1.6; min-height:11em; padding:12px; border:2px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink); resize:vertical; margin-bottom:12px}
+  #status{min-height:1.7em; font-weight:700; color:var(--accent); margin-bottom:8px}
+  .after{background:var(--soft); border-radius:8px; padding:12px 16px; font-size:16px; margin:8px 0 16px}
+  .small{font-size:14px; color:var(--ink-2)}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>LinksMate 新規申込のご依頼</h1>
+  <p class="lede">名義人さんの情報を入れて、LINE でこちらに送ってください。名義人さん1人につき1回です。</p>
+
+  <div class="notes">
+    <ul>
+      <li>本人確認（書類の撮影と顔の撮影）は、<b>名義人ご本人</b>がスマホで行います。書類を手元にご用意ください。</li>
+      <li>本人確認のURLは、名義人さんの準備ができたら<b>個別にお送りします</b>（届いてから約90分有効・切れても送り直せます）。</li>
+      <li>料金はお見積りです。</li>
+      <li>名義の用意と、本人確認の代行はしていません。</li>
+      <li>メールアドレスとパスワード、プランや支払い方法は、こちらで用意・決めます。ここでは聞きません。</li>
+    </ul>
+  </div>
+
+  <div id="errors" role="alert" tabindex="-1"></div>
+
+  <form id="f" novalidate autocomplete="off">
+    <fieldset>
+      <label class="field" for="client">ご依頼者（会社名・担当者名）<span class="req">必須</span>
+        <span class="hint">次の方からは入れ直さなくて済むよう、この欄だけ端末に残ります</span></label>
+      <input type="text" id="client" name="client" autocomplete="organization" enterkeyhint="next">
+    </fieldset>
+
+    <fieldset>
+      <label class="field" for="name">名義人のお名前（漢字）<span class="req">必須</span>
+        <span class="hint">本人確認の書類と同じ表記で</span></label>
+      <input type="text" id="name" name="name" autocomplete="off" enterkeyhint="next">
+    </fieldset>
+
+    <fieldset>
+      <label class="field" for="postal">名義人の郵便番号<span class="req">必須</span>
+        <span class="hint">7桁。ハイフンや全角でも大丈夫です</span></label>
+      <input type="tel" id="postal" name="postal" inputmode="numeric" autocomplete="off" enterkeyhint="done">
+    </fieldset>
+
+    <fieldset id="docset">
+      <legend>本人確認に使う書類（1つ）<span class="req">必須</span></legend>
+      <label class="opt"><input type="radio" name="doc" value="マイナンバーカード"> マイナンバーカード</label>
+      <label class="opt"><input type="radio" name="doc" value="運転免許証"> 運転免許証</label>
+      <label class="opt"><input type="radio" name="doc" value="在留カード"> 在留カード</label>
+      <label class="opt"><input type="radio" name="doc" value="特別永住者証明書"> 特別永住者証明書</label>
+    </fieldset>
+
+    <fieldset id="agreeset">
+      <legend>名義人さんの承諾（両方にチェック）<span class="req">必須</span></legend>
+      <label class="chk"><input type="checkbox" id="agree1"> 名義人ご本人が、ご自身の名義での申込と、こちらが申込の事務を代わりに行うことに同意しています</label>
+      <label class="chk"><input type="checkbox" id="agree2"> 本人確認（スマホでの書類の撮影と顔の撮影）は名義人ご本人が行います</label>
+    </fieldset>
+
+    <button type="submit" id="confirm">内容を確認する</button>
+  </form>
+
+  <section id="result" aria-live="polite">
+    <h2>送る内容</h2>
+    <textarea id="msg" readonly aria-label="送る内容"></textarea>
+    <a class="btn" id="line" href="#" target="_blank" rel="noopener noreferrer">LINEで送る</a>
+    <button type="button" class="sub" id="copy">内容をコピー</button>
+    <div id="status" role="status"></div>
+    <p class="small">スマホでは LINE が開きます。パソコンでは LINE の Web 画面が開くため、うまく開かないときは「内容をコピー」を使ってください。送る相手は、開いた画面で選びます。</p>
+    <div class="after">LINE で送れたら、続けてもう1人入れる場合は下のボタンを押してください。ご依頼者はそのまま残ります。</div>
+    <button type="button" class="sub" id="again">続けてもう1人</button>
+  </section>
+</main>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var KEY = 'typeb_client';
+
+  // 依頼者欄だけ端末に残す（他の値は保存しない）
+  try { var saved = localStorage.getItem(KEY); if (saved) $('client').value = saved; } catch(e) {}
+
+  // 全角英数→半角、空白と改行を1つの半角空白にまとめる
+  function oneLine(s){ return String(s).normalize('NFKC').replace(/[\r\n\t\u0085\u2028\u2029\s]+/g, ' ').trim(); }
+  function normPostal(s){
+    return String(s).normalize('NFKC').replace(/[\s\u002d\u2010-\u2015\u2212\u30fc\uff0d]/g, '');
+  }
+
+  function collect(){
+    var docEl = document.querySelector('input[name=doc]:checked');
+    return {
+      client: oneLine($('client').value),
+      name: oneLine($('name').value),
+      postalRaw: $('postal').value,
+      postal: normPostal($('postal').value),
+      doc: docEl ? docEl.value : '',
+      a1: $('agree1').checked,
+      a2: $('agree2').checked
+    };
+  }
+
+  function validate(v){
+    var errs = [];
+    if (!v.client) errs.push({id:'client', t:'ご依頼者（会社名・担当者名）が空です'});
+    if (!v.name) errs.push({id:'name', t:'名義人のお名前が空です'});
+    if (!v.postal) errs.push({id:'postal', t:'郵便番号が空です'});
+    else if (!/^[0-9]{7}$/.test(v.postal)) errs.push({id:'postal', t:'郵便番号は7桁の数字で入れてください（いまは ' + v.postal.length + ' 桁・数字以外が混ざっている場合もあります）'});
+    if (!v.doc) errs.push({id:'docset', t:'本人確認に使う書類を1つ選んでください'});
+    if (!v.a1 || !v.a2) errs.push({id:'agreeset', t:'名義人さんの承諾は、2つともチェックが必要です' + (v.a1 !== v.a2 ? '（' + (v.a1 ? '2つ目' : '1つ目') + 'が未チェック）' : '')});
+    return errs;
+  }
+
+  function buildMessage(v){
+    return [
+      '【LinksMate 新規申込の依頼】',
+      'ご依頼者: ' + v.client,
+      '名義人のお名前: ' + v.name,
+      '郵便番号: ' + v.postal,
+      '本人確認の書類: ' + v.doc,
+      '同意: はい'
+    ].join('\n');
+  }
+
+  function clearErrors(){
+    $('errors').style.display = 'none'; $('errors').innerHTML = '';
+    ['client','name','postal'].forEach(function(id){ $(id).removeAttribute('aria-invalid'); });
+  }
+  function hideResult(){ $('result').style.display = 'none'; $('status').textContent = ''; }
+
+  function showErrors(errs){
+    var box = $('errors');
+    box.innerHTML = '';
+    var h = document.createElement('div'); h.textContent = '次の項目を直してください'; box.appendChild(h);
+    var ul = document.createElement('ul');
+    errs.forEach(function(e){
+      var li = document.createElement('li'); li.textContent = e.t; ul.appendChild(li);
+      if (e.id === 'client' || e.id === 'name' || e.id === 'postal') $(e.id).setAttribute('aria-invalid', 'true');
+    });
+    box.appendChild(ul);
+    box.style.display = 'block';
+    box.focus();
+    box.scrollIntoView({block:'start', behavior:'smooth'});
+  }
+
+  $('f').addEventListener('submit', function(ev){
+    ev.preventDefault();
+    clearErrors();
+    var v = collect();
+    var errs = validate(v);
+    if (errs.length){ hideResult(); showErrors(errs); return; }
+    // 郵便番号は半角7桁に揃えて入れ直す
+    $('postal').value = v.postal;
+    try { localStorage.setItem(KEY, v.client); } catch(e) {}
+    var msg = buildMessage(v);
+    $('msg').value = msg;
+    $('line').href = 'https://line.me/R/share?text=' + encodeURIComponent(msg);
+    $('status').textContent = '';
+    $('result').style.display = 'block';
+    $('result').scrollIntoView({block:'start', behavior:'smooth'});
+  });
+
+  // 入力を変えたら古い「送る内容」は隠す（直す前の内容を送らないため）
+  ['input','change'].forEach(function(t){
+    $('f').addEventListener(t, function(){ hideResult(); });
+  });
+
+  $('copy').addEventListener('click', function(){
+    var text = $('msg').value;
+    function fallback(){
+      var ta = $('msg');
+      ta.focus(); ta.select(); ta.setSelectionRange(0, text.length);
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch(e) {}
+      $('status').textContent = ok ? 'コピーしました' : '内容を選択しました。長押しして「コピー」を選んでください';
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ $('status').textContent = 'コピーしました'; }, fallback);
+    } else { fallback(); }
+  });
+
+  $('again').addEventListener('click', function(){
+    $('name').value = ''; $('postal').value = '';
+    var d = document.querySelector('input[name=doc]:checked'); if (d) d.checked = false;
+    $('agree1').checked = false; $('agree2').checked = false;
+    $('msg').value = ''; $('line').href = '#';
+    clearErrors(); hideResult();
+    window.scrollTo({top:0, behavior:'smooth'});
+    $('name').focus();
+  });
+})();
+</script>
+</body>
+</html>
