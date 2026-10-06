@@ -100,6 +100,13 @@
       <label class="opt"><input type="radio" name="doc" value="特別永住者証明書"> 特別永住者証明書</label>
     </fieldset>
 
+    <fieldset id="sexset">
+      <legend>名義人の性別<span class="req">必須</span>
+        <span class="hint">免許証・在留カードの IC には性別が入っていないため、こちらで伺います</span></legend>
+      <label class="opt"><input type="radio" name="sex" value="男性"> 男性</label>
+      <label class="opt"><input type="radio" name="sex" value="女性"> 女性</label>
+    </fieldset>
+
     <fieldset id="agreeset">
       <legend>名義人さんの承諾（両方にチェック）<span class="req">必須</span></legend>
       <label class="chk"><input type="checkbox" id="agree1"> 名義人ご本人が、ご自身の名義での申込と、こちらが申込の事務を代わりに行うことに同意しています</label>
@@ -132,17 +139,19 @@
   // 全角英数→半角、空白と改行を1つの半角空白にまとめる
   function oneLine(s){ return String(s).normalize('NFKC').replace(/[\r\n\t\u0085\u2028\u2029\s]+/g, ' ').trim(); }
   function normPostal(s){
-    return String(s).normalize('NFKC').replace(/[\s\u002d\u2010-\u2015\u2212\u30fc\uff0d]/g, '');
+    return String(s).normalize('NFKC').replace(/[\s\u3012\u002d\u2010-\u2015\u2212\u30fc\uff0d]/g, '');
   }
 
   function collect(){
     var docEl = document.querySelector('input[name=doc]:checked');
+    var sexEl = document.querySelector('input[name=sex]:checked');
     return {
       client: oneLine($('client').value),
       name: oneLine($('name').value),
       postalRaw: $('postal').value,
       postal: normPostal($('postal').value),
       doc: docEl ? docEl.value : '',
+      sex: sexEl ? sexEl.value : '',
       a1: $('agree1').checked,
       a2: $('agree2').checked
     };
@@ -155,6 +164,7 @@
     if (!v.postal) errs.push({id:'postal', t:'郵便番号が空です'});
     else if (!/^[0-9]{7}$/.test(v.postal)) errs.push({id:'postal', t:'郵便番号は7桁の数字で入れてください（いまは ' + v.postal.length + ' 桁・数字以外が混ざっている場合もあります）'});
     if (!v.doc) errs.push({id:'docset', t:'本人確認に使う書類を1つ選んでください'});
+    if (!v.sex) errs.push({id:'sexset', t:'名義人の性別を選んでください'});
     if (!v.a1 || !v.a2) errs.push({id:'agreeset', t:'名義人さんの承諾は、2つともチェックが必要です' + (v.a1 !== v.a2 ? '（' + (v.a1 ? '2つ目' : '1つ目') + 'が未チェック）' : '')});
     return errs;
   }
@@ -166,6 +176,7 @@
       '名義人のお名前: ' + v.name,
       '郵便番号: ' + v.postal,
       '本人確認の書類: ' + v.doc,
+      '性別: ' + v.sex,
       '名義人の同意（名義での申込と事務の代行）: はい',
       '本人確認は名義人本人が行う: はい'
     ].join('\n');
@@ -231,6 +242,7 @@
   $('again').addEventListener('click', function(){
     $('name').value = ''; $('postal').value = '';
     var d = document.querySelector('input[name=doc]:checked'); if (d) d.checked = false;
+    var sx = document.querySelector('input[name=sex]:checked'); if (sx) sx.checked = false;
     $('agree1').checked = false; $('agree2').checked = false;
     $('msg').value = ''; $('line').href = '#';
     clearErrors(); hideResult();
