@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- 人に振る理由: 配布先は社長本人の PC の Chrome（別の物理 PC・こちらから操作できる口が無い）。拡張の読み込みは本人の Chrome でしかできない -->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shopify の注文をクリックポストに入れる道具（入れ方・使い方）</title>
+<style>
+  body { max-width: 760px; margin: 0 auto; padding: 16px; font: 16px/1.8 "Yu Gothic UI", Meiryo, sans-serif; color: #222; }
+  h1 { font-size: 22px; } h2 { font-size: 18px; border-left: 6px solid #2a6ad8; padding-left: 8px; margin-top: 32px; }
+  .box { background: #f3f7ff; border-radius: 8px; padding: 10px 14px; }
+  .warn { background: #fff4d6; border-radius: 8px; padding: 10px 14px; }
+  ol li { margin: 8px 0; } code { background: #eee; padding: 1px 5px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<h1>Shopify の注文を、クリックポストに入れる道具</h1>
+<p class="box">Shopify からエクスポートした注文のファイルを、クリックポストの「まとめ申込」の画面にドロップするだけで、宛名が入ります。手で打ち直す必要はありません。<br>
+お客さんの住所は、このパソコンの外には出ません（インターネットには送りません）。</p>
+
+<h2>① 最初に1回だけ: 道具をパソコンに入れる</h2>
+<ol>
+  <li>受け取った <code>clickpost-shopify-extension.zip</code> を、右クリック →「すべて展開」で開きます。<code>clickpost-shopify-extension</code> というフォルダができます。このフォルダは、消さずに置いておいてください（デスクトップなどで大丈夫です）。</li>
+  <li>Chrome を開き、いちばん上の入力欄に <code>chrome://extensions</code> と入れて Enter。</li>
+  <li>右上の「デベロッパー モード」のスイッチをオンにします。</li>
+  <li>左上に出てくる「パッケージ化されていない拡張機能を読み込む」を押し、①で開いた <code>clickpost-shopify-extension</code> フォルダを選びます。</li>
+  <li>一覧に「Shopify 注文 → クリックポスト まとめ申込」が出れば完了です。Chrome 右上のパズルのマーク → ピンのマークを押すと、いつでも出せるようになります。</li>
+</ol>
+<p class="warn">Chrome を開くたびに「デベロッパー モードの拡張機能を無効にしますか？」と出ることがあります。そのときは「キャンセル」（または×）で閉じてください。「無効にする」を押すと道具が止まります。</p>
+
+<h2>② 使うたび: 注文をクリックポストに入れる</h2>
+<ol>
+  <li><b>Shopify で、発送する注文のファイルを出します。</b> 注文の一覧で発送する注文にチェックを入れ →「エクスポート」→ 形式は CSV → 出てきたファイルを保存します。</li>
+  <li><b>クリックポストを開き、いつものようにログイン</b>して、マイページの「まとめ申込」ボタンを押します。</li>
+  <li>画面の右下に、青い枠の「Shopify の注文 → まとめ申込」が出ます。ここに、①で保存した CSV ファイルを<b>ドラッグして落とします</b>（枠をクリックして、ファイルを選んでも同じです）。</li>
+  <li>宛名がクリックポストに入り、自動で「次へ」が押されます。「内容確認」の画面で、宛名や件数を見てください。</li>
+  <li><b>お支払いは、ご自分で押してください。</b>「お支払い手続きへ」などのボタンは、この道具は押しません。</li>
+</ol>
+
+<h2>こんなとき</h2>
+<ul>
+  <li><b>注文が40件より多いとき</b>: クリックポストは1回に40件までです。最初の40件だけを入れ、残りは別のファイルとして自動で保存します（ダウンロードのフォルダに入ります）。今回の申し込みが終わったら、もう一度「まとめ申込」を開き、残りのファイルを「ファイルを選択」で選んでください。画面にもそう案内が出ます。</li>
+  <li><b>「入れなかった注文」が出たとき</b>: 住所や郵便番号が足りない、海外宛て、使えない文字（絵文字など）がある注文です。理由が一覧に出るので、Shopify で直してからもう一度やってください。それ以外の注文は先に進められます。</li>
+  <li><b>内容品を変えたいとき</b>: 枠の中の「内容品」の欄を書き換えます（初期は「衣類」・全角15文字まで）。「敬称」は「様」か「御中」を選べます。一度変えると、次からもそのままです。</li>
+  <li><b>枠が出ない／ファイルが入らないとき</b>: Chrome 右上の道具のマークを押すと、CSV から「クリックポスト用のファイル」を作ってダウンロードできます。それをクリックポストの「ファイルを選択」で選べば、同じことになります。</li>
+  <li>Excel（.xlsx）のファイルは使えません。Shopify の「エクスポート」で出した CSV を、そのまま使ってください。</li>
+</ul>
+</body>
+</html>
