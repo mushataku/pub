@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>MNP 依頼コンソールの使い方（1枚）</title>
+<style>
+  :root{--ink:#16211e;--ink-2:#56655f;--line:#c9d3cf;--accent:#1f6f5c;--paper:#f3f5f4;--soft:#e4efea}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.75 system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif}
+  .wrap{max-width:40rem;margin:0 auto;padding:24px 18px 64px}
+  h1{font-size:23px;line-height:1.4;margin:0 0 8px}
+  h2{font-size:18px;margin:28px 0 8px;padding-top:12px;border-top:2px solid var(--ink)}
+  p{margin:0 0 12px}
+  .lede{color:var(--ink-2)}
+  ol.flow{list-style:none;padding:0;margin:12px 0;display:flex;flex-wrap:wrap;gap:6px}
+  ol.flow li{background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px}
+  .box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0}
+  .tip{background:var(--soft);border-radius:10px;padding:10px 14px;font-size:15px;margin:10px 0}
+  ul{margin:0 0 12px;padding-left:1.3em}
+  li{margin-bottom:4px}
+  code{background:#fff;border:1px solid var(--line);border-radius:4px;padding:0 5px;word-break:break-all}
+  .small{font-size:14px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>MNP 依頼コンソールの使い方</h1>
+  <p class="lede">依頼を出して、本人確認の URL を受け取るまでの流れです。1 枚で終わります。</p>
+
+  <ol class="flow" aria-label="状態の流れ">
+    <li>受付</li><li>本人確認URL送信済み</li><li>本人確認済み</li><li>申込完了</li><li>予約番号発行済み</li>
+  </ol>
+
+  <h2>1. 開く</h2>
+  <div class="box">
+    <p>ご案内した URL を開き、<b>ご案内を受けた Gmail の Google アカウント</b>でログインします。</p>
+    <p class="small">登録されていないアカウントでは「登録されていません」と出ます。別のアカウントで開いている場合は、アカウントを切り替えてください。</p>
+  </div>
+
+  <h2>2. 依頼を出す（「新しい依頼」）</h2>
+  <div class="box">
+    <ul>
+      <li>名義人さんの<b>お名前（漢字）・フリガナ・性別・郵便番号・連絡先の電話</b>を入れる</li>
+      <li>本人確認に使う<b>書類を1つ</b>選ぶ</li>
+      <li><b>承諾の2つにチェック</b>（名義人さん本人の同意と、本人確認は本人が行うこと）</li>
+      <li>「この内容で依頼する」を押す</li>
+    </ul>
+    <p class="tip">書類の写真は送りません（ここでは受け取りません）。全角の数字やハイフン付きの郵便番号でも大丈夫です。足りない項目は赤く表示されます。二度押ししても依頼は1件です。</p>
+  </div>
+
+  <h2>3. 状態を見る（「依頼の一覧」）</h2>
+  <div class="box">
+    <p>依頼ごとに、いまどこまで進んだかが出ます。画面は 30 秒ごとに読み直します。</p>
+    <p>名義人さんのお名前は一覧には出ません。依頼の見分けは「受付番号」（例 <code>xx-1006a</code>）で行います。</p>
+  </div>
+
+  <h2>4. 本人確認の URL を名義人さんへ渡す</h2>
+  <div class="box">
+    <ul>
+      <li>URL が届くと一覧に出ます（依頼してから数分〜）。「URL をコピー」で名義人さんに送ってください</li>
+      <li><b>有効期限は約90分</b>です。期限は「M月D日（曜）H時M分まで」と表示されます</li>
+      <li>本人確認（書類の撮影と顔の撮影）は<b>名義人さん本人</b>がスマホで行います</li>
+    </ul>
+  </div>
+
+  <h2>5. 期限が切れたら「送り直す」</h2>
+  <div class="box">
+    <p>期限が切れると URL は消えます。「本人確認の URL を送り直す」を押すと、新しい URL を用意します（押したあとは「受付済み」と出て、押せなくなります）。新しい URL が届くと一覧が変わります。</p>
+    <p class="small">本人確認が済んだ依頼では、このボタンは出ません。</p>
+  </div>
+
+  <p class="small">困ったときは、受付番号を添えてご連絡ください。</p>
+</main>
+</body>
+</html>
