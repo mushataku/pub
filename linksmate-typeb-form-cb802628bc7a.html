@@ -128,7 +128,7 @@
 
     <fieldset>
       <label class="field" for="lines">回線数<span class="req">必須</span>
-        <span class="hint">この名義人さんで申し込む回線の数（1〜10）</span></label>
+        <span class="hint">この名義人さんで申し込む回線の数（1〜5。1つの口座に5回線まで）</span></label>
       <input type="text" id="lines" name="lines" value="1" inputmode="numeric" autocomplete="off" maxlength="6" enterkeyhint="next">
     </fieldset>
 
@@ -203,12 +203,12 @@
     if (y < 1900 || y > 2100) return null;
     return ('000' + y).slice(-4) + ('0' + mo).slice(-2) + ('0' + d).slice(-2);
   }
-  // 回線数: 全角→半角・前後の空白を除き、1〜10 の整数だけ。読めなければ null
+  // 回線数: 全角→半角・前後の空白を除き、1〜5 の整数だけ（LinksMate は1口座5回線まで）。読めなければ null
   function normLines(s){
     s = String(s || '').normalize('NFKC').trim();
     if (!/^[0-9]+$/.test(s)) return null;
     var n = +s;
-    return n >= 1 && n <= 10 ? n : null;
+    return n >= 1 && n <= 5 ? n : null;
   }
   function todayYmd(){
     var n = new Date();
@@ -266,7 +266,7 @@
     var ep = eidProblem(v.eid);
     if (ep) errs.push({id:'eid', t:ep});
     if (!oneLine(v.linesRaw)) errs.push({id:'lines', t:'回線数が空です'});
-    else if (!v.lines) errs.push({id:'lines', t:'回線数は1〜10の整数で入れてください'});
+    else if (!v.lines) errs.push({id:'lines', t: /^[0-9]+$/.test(String(v.linesRaw).normalize('NFKC').trim()) ? '回線数は1〜5です（1つの口座に5回線まで）' : '回線数は1〜5の数字で入れてください'});
     if (!v.doc) errs.push({id:'docset', t:'本人確認に使う書類を1つ選んでください'});
     if (!v.a1 || !v.a2) errs.push({id:'agreeset', t:'名義人さんの承諾は、2つともチェックが必要です' + (v.a1 !== v.a2 ? '（' + (v.a1 ? '2つ目' : '1つ目') + 'が未チェック）' : '')});
     return errs;
