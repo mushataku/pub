@@ -31,7 +31,10 @@
   .flow{margin:16px 0 24px; background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:10px 8px 6px}
   .flow svg{display:block; width:100%; max-width:420px; height:auto; margin:0 auto}
   .flow text{font-family:inherit; font-size:17px; font-weight:700; fill:var(--ink)}
-  .flow .num{fill:var(--ink-2); font-size:15px}
+  .flow .sub{fill:var(--ink-2); font-size:13px; font-weight:400}
+  .flow .day{fill:var(--ink-2); font-size:14px}
+  .flow .tl{fill:none; stroke:var(--line); stroke-width:3}
+  .flow .dot{fill:var(--ink-2)}
   .flow rect{stroke-width:2}
   .flow .arw{fill:none; stroke:var(--ink-2); stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
   .a-v{fill:var(--v-soft); stroke:var(--v)}
@@ -79,35 +82,41 @@
 
   <figure class="flow">
     <ul class="legend"><li class="a-v">業者さん</li><li class="a-k">こちら</li><li class="a-n">名義人さん</li></ul>
-    <svg viewBox="0 0 360 388" role="img" aria-labelledby="flow-t">
-      <title id="flow-t">送ったあとの流れ</title>
-      <rect class="a-v" x="40" y="6" width="280" height="40" rx="10"/>
-      <text x="52" y="32" class="num">1</text>
-      <text x="80" y="32">依頼を送る</text>
-      <path class="arw" d="M180 48v10m-4 -4l4 4l4 -4"/>
-      <rect class="a-k" x="40" y="62" width="280" height="40" rx="10"/>
-      <text x="52" y="88" class="num">2</text>
-      <text x="80" y="88">本人確認の案内</text>
-      <path class="arw" d="M180 104v10m-4 -4l4 4l4 -4"/>
-      <rect class="a-v" x="40" y="118" width="280" height="40" rx="10"/>
-      <text x="52" y="144" class="num">3</text>
-      <text x="80" y="144">名義人さんにリンクを回す</text>
-      <path class="arw" d="M180 160v10m-4 -4l4 4l4 -4"/>
-      <rect class="a-n" x="40" y="174" width="280" height="40" rx="10"/>
-      <text x="52" y="200" class="num">4</text>
-      <text x="80" y="200">本人確認</text>
-      <path class="arw" d="M180 216v10m-4 -4l4 4l4 -4"/>
-      <rect class="a-k" x="40" y="230" width="280" height="40" rx="10"/>
-      <text x="52" y="256" class="num">5</text>
-      <text x="80" y="256">申込・決済</text>
-      <path class="arw" d="M180 272v10m-4 -4l4 4l4 -4"/>
-      <rect class="a-v" x="40" y="286" width="280" height="40" rx="10"/>
-      <text x="52" y="312" class="num">6</text>
-      <text x="80" y="312">予約番号の合図</text>
-      <path class="arw" d="M180 328v10m-4 -4l4 4l4 -4"/>
-      <rect class="a-k" x="40" y="342" width="280" height="40" rx="10"/>
-      <text x="52" y="368" class="num">7</text>
-      <text x="80" y="368">予約番号</text>
+    <svg viewBox="0 0 360 494" role="img" aria-labelledby="flow-t">
+      <title id="flow-t">送ったあとの流れ（当日と翌日）</title>
+      <path class="tl" d="M20 48V461"/>
+      <circle class="dot" cx="20" cy="48" r="5"/>
+      <circle class="dot" cx="20" cy="111" r="5"/>
+      <circle class="dot" cx="20" cy="174" r="5"/>
+      <circle class="dot" cx="20" cy="237" r="5"/>
+      <circle class="dot" cx="20" cy="300" r="5"/>
+      <circle class="dot" cx="20" cy="363" r="5"/>
+      <circle class="dot" cx="20" cy="461" r="5"/>
+      <text class="day" x="40" y="18">当日</text>
+      <rect class="a-v" x="40" y="28" width="300" height="40" rx="10"/>
+      <text x="54" y="54">依頼を送る</text>
+      <path class="arw" d="M180 70v10m-4 -4l4 4l4 -4"/>
+      <rect class="a-k" x="40" y="84" width="300" height="54" rx="10"/>
+      <text x="54" y="107">本人確認の案内</text>
+      <text class="sub" x="54" y="127">数分</text>
+      <path class="arw" d="M180 140v10m-4 -4l4 4l4 -4"/>
+      <rect class="a-v" x="40" y="154" width="300" height="40" rx="10"/>
+      <text x="54" y="180">名義人さんにリンクを回す</text>
+      <path class="arw" d="M180 196v10m-4 -4l4 4l4 -4"/>
+      <rect class="a-n" x="40" y="210" width="300" height="54" rx="10"/>
+      <text x="54" y="233">本人確認</text>
+      <text class="sub" x="54" y="253">名義人さん次第・URL は90分ごとに自動で新しく</text>
+      <path class="arw" d="M180 266v10m-4 -4l4 4l4 -4"/>
+      <rect class="a-k" x="40" y="280" width="300" height="40" rx="10"/>
+      <text x="54" y="306">申込・決済</text>
+      <path class="arw" d="M180 322v10m-4 -4l4 4l4 -4"/>
+      <rect class="a-k" x="40" y="336" width="300" height="54" rx="10"/>
+      <text x="54" y="359">電話番号</text>
+      <text class="sub" x="54" y="379">数分〜1時間超（EID 登録）</text>
+      <text class="day" x="40" y="424">翌日</text>
+      <rect class="a-k" x="40" y="434" width="300" height="54" rx="10"/>
+      <text x="54" y="457">予約番号</text>
+      <text class="sub" x="54" y="477">業者へ届く</text>
     </svg>
   </figure>
 
