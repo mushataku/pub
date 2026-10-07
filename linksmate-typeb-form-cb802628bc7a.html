@@ -8,7 +8,15 @@
 <style>
   :root{
     --paper:#F3F5F4; --surface:#FFFFFF; --ink:#16211E; --ink-2:#56655F; --line:#C9D3CF;
-    --accent:#1F6F5C; --accent-ink:#FFFFFF; --warn:#B3261E; --warn-soft:#FBE9E7; --soft:#E4EFEA;
+    --accent:#1F6F5C; --accent-ink:#FFFFFF; --warn:#B3261E; --warn-soft:#FBE9E7; --soft:#E4EFEA; --err-ink:#7a1510;
+    --v:#e8590c; --v-soft:#fff1e6; --k:#5b6b66; --k-soft:#edf0ef; --n:#1f6feb; --n-soft:#eaf2ff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#10171a; --surface:#182226; --ink:#e8eeec; --ink-2:#a3b2ad; --line:#3a4a45;
+      --accent:#4fb89c; --accent-ink:#0b1512; --warn:#ff8a80; --warn-soft:#3a1a18; --soft:#1f3a32; --err-ink:#ffd2cd;
+      --v:#ff9a57; --v-soft:#3a2415; --k:#8fa19b; --k-soft:#243035; --n:#7fb0ff; --n-soft:#17283f;
+    }
   }
   *{box-sizing:border-box}
   body{
@@ -20,9 +28,18 @@
   h1{font-size:24px; line-height:1.4; margin:0 0 8px}
   p{margin:0 0 12px}
   .lede{color:var(--ink-2); font-size:16px}
-  .notes{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:12px 16px 4px; margin:16px 0 24px; font-size:16px}
-  .notes ul{margin:0 0 8px; padding-left:1.2em}
-  .notes li{margin-bottom:4px}
+  .flow{margin:16px 0 24px; background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:10px 8px 6px}
+  .flow svg{display:block; width:100%; max-width:420px; height:auto; margin:0 auto}
+  .flow text{font-family:inherit; font-size:17px; font-weight:700; fill:var(--ink)}
+  .flow .num{fill:var(--ink-2); font-size:15px}
+  .flow rect{stroke-width:2}
+  .flow .arw{fill:none; stroke:var(--ink-2); stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+  .a-v{fill:var(--v-soft); stroke:var(--v)}
+  .a-k{fill:var(--k-soft); stroke:var(--k)}
+  .a-n{fill:var(--n-soft); stroke:var(--n)}
+  .legend{display:flex; flex-wrap:wrap; gap:8px; list-style:none; margin:0 0 8px; padding:0 4px; font-size:14px; font-weight:700}
+  .legend li{padding:2px 12px; border-radius:999px; border:2px solid; background:var(--surface)}
+  .legend .a-v{border-color:var(--v); background:var(--v-soft)} .legend .a-k{border-color:var(--k); background:var(--k-soft)} .legend .a-n{border-color:var(--n); background:var(--n-soft)}
   fieldset{border:0; padding:0; margin:0 0 22px}
   label.field, legend{display:block; font-weight:700; margin-bottom:6px; padding:0}
   .req{color:var(--warn); font-size:14px; margin-left:6px}
@@ -45,7 +62,7 @@
   }
   button.sub, a.btn.sub{background:var(--surface); color:var(--accent)}
   button:focus-visible, a.btn:focus-visible, input:focus-visible{outline:3px solid #1b4f8a; outline-offset:2px}
-  #errors{display:none; background:var(--warn-soft); border:2px solid var(--warn); color:#7a1510; border-radius:8px; padding:12px 16px; margin-bottom:18px; font-weight:700}
+  #errors{display:none; background:var(--warn-soft); border:2px solid var(--warn); color:var(--err-ink); border-radius:8px; padding:12px 16px; margin-bottom:18px; font-weight:700}
   #errors ul{margin:6px 0 0; padding-left:1.2em; font-weight:400}
   #result{display:none; margin-top:26px; padding-top:20px; border-top:3px solid var(--ink)}
   #result h2{font-size:20px; margin:0 0 8px}
@@ -60,16 +77,39 @@
   <h1>LinksMate 新規申込のご依頼</h1>
   <p class="lede">名義人さんの情報を入れて、LINE でこちらに送ってください。名義人さん1人につき1回です。</p>
 
-  <div class="notes">
-    <ul>
-      <li>本人確認（書類の撮影と顔の撮影）は、<b>名義人ご本人</b>がスマホで行います。書類を手元にご用意ください。</li>
-      <li>本人確認のURLは、名義人さんの準備ができたら<b>個別にお送りします</b>（届いてから約90分有効・切れても送り直せます）。</li>
-      <li>名義人さんのフリガナ・生年月日・性別・連絡先の電話番号は、<b>申込の前にここで</b>お聞きします（本人確認のあとに聞き直しません）。フリガナは本人確認で名義人さんが入れるカナと照合します。生年月日は、名義人さんのページでご本人かどうかの確かめに使います。</li>
-      <li>料金はお見積りです。</li>
-      <li>名義の用意と、本人確認の代行はしていません。</li>
-      <li>メールアドレスとパスワード、プランや支払い方法は、こちらで用意・決めます。ここでは聞きません。</li>
-    </ul>
-  </div>
+  <figure class="flow">
+    <ul class="legend"><li class="a-v">業者さん</li><li class="a-k">こちら</li><li class="a-n">名義人さん</li></ul>
+    <svg viewBox="0 0 360 388" role="img" aria-labelledby="flow-t">
+      <title id="flow-t">送ったあとの流れ</title>
+      <rect class="a-v" x="40" y="6" width="280" height="40" rx="10"/>
+      <text x="52" y="32" class="num">1</text>
+      <text x="80" y="32">依頼を送る</text>
+      <path class="arw" d="M180 48v10m-4 -4l4 4l4 -4"/>
+      <rect class="a-k" x="40" y="62" width="280" height="40" rx="10"/>
+      <text x="52" y="88" class="num">2</text>
+      <text x="80" y="88">本人確認の案内</text>
+      <path class="arw" d="M180 104v10m-4 -4l4 4l4 -4"/>
+      <rect class="a-v" x="40" y="118" width="280" height="40" rx="10"/>
+      <text x="52" y="144" class="num">3</text>
+      <text x="80" y="144">名義人さんにリンクを回す</text>
+      <path class="arw" d="M180 160v10m-4 -4l4 4l4 -4"/>
+      <rect class="a-n" x="40" y="174" width="280" height="40" rx="10"/>
+      <text x="52" y="200" class="num">4</text>
+      <text x="80" y="200">本人確認</text>
+      <path class="arw" d="M180 216v10m-4 -4l4 4l4 -4"/>
+      <rect class="a-k" x="40" y="230" width="280" height="40" rx="10"/>
+      <text x="52" y="256" class="num">5</text>
+      <text x="80" y="256">申込・決済</text>
+      <path class="arw" d="M180 272v10m-4 -4l4 4l4 -4"/>
+      <rect class="a-v" x="40" y="286" width="280" height="40" rx="10"/>
+      <text x="52" y="312" class="num">6</text>
+      <text x="80" y="312">予約番号の合図</text>
+      <path class="arw" d="M180 328v10m-4 -4l4 4l4 -4"/>
+      <rect class="a-k" x="40" y="342" width="280" height="40" rx="10"/>
+      <text x="52" y="368" class="num">7</text>
+      <text x="80" y="368">予約番号</text>
+    </svg>
+  </figure>
 
   <div id="errors" role="alert" tabindex="-1"></div>
 
@@ -128,13 +168,13 @@
 
     <fieldset>
       <label class="field" for="lines">回線数<span class="req">必須</span>
-        <span class="hint">この名義人さんで申し込む回線の数（1〜5。1つの口座に5回線まで）</span></label>
+        <span class="hint">この名義人さんで申し込む回線の数（1〜10）</span></label>
       <input type="text" id="lines" name="lines" value="1" inputmode="numeric" autocomplete="off" maxlength="6" enterkeyhint="next">
     </fieldset>
 
     <fieldset>
-      <label class="field" for="eid">名義人さんの端末の EID<span class="req" style="color:#5b6575">任意</span>
-        <span class="hint">数字32桁（ハイフンや空白があっても大丈夫です）。分からなければ空のままで構いません</span></label>
+      <label class="field" for="eid">名義人さんの端末の EID<span class="req">必須</span>
+        <span class="hint">数字32桁（ハイフンや空白があっても大丈夫です）</span></label>
       <input type="text" id="eid" name="eid" inputmode="numeric" autocomplete="off" maxlength="80" enterkeyhint="done">
     </fieldset>
 
@@ -185,7 +225,7 @@
   }
   var EID_PREFIXES = ['89049032', '89033023', '89033024', '89043051', '89043052'];
   function eidProblem(d){
-    if (!d) return '';
+    if (!d) return 'EID が空です';
     if (!/^[0-9]+$/.test(d)) return 'EID は数字32桁です（数字以外が混ざっています）';
     if (d.length !== 32) return 'EID は数字32桁です（いまは ' + d.length + ' 桁）';
     if (!EID_PREFIXES.some(function(p){ return d.indexOf(p) === 0; })) return 'EID の先頭8桁が対応外です（打ち間違いの可能性があります。見比べてください）';
@@ -203,12 +243,12 @@
     if (y < 1900 || y > 2100) return null;
     return ('000' + y).slice(-4) + ('0' + mo).slice(-2) + ('0' + d).slice(-2);
   }
-  // 回線数: 全角→半角・前後の空白を除き、1〜5 の整数だけ（LinksMate は1口座5回線まで）。読めなければ null
+  // 回線数: 全角→半角・前後の空白を除き、1〜10 の整数だけ。読めなければ null
   function normLines(s){
     s = String(s || '').normalize('NFKC').trim();
     if (!/^[0-9]+$/.test(s)) return null;
     var n = +s;
-    return n >= 1 && n <= 5 ? n : null;
+    return n >= 1 && n <= 10 ? n : null;
   }
   function todayYmd(){
     var n = new Date();
@@ -266,7 +306,7 @@
     var ep = eidProblem(v.eid);
     if (ep) errs.push({id:'eid', t:ep});
     if (!oneLine(v.linesRaw)) errs.push({id:'lines', t:'回線数が空です'});
-    else if (!v.lines) errs.push({id:'lines', t: /^[0-9]+$/.test(String(v.linesRaw).normalize('NFKC').trim()) ? '回線数は1〜5です（1つの口座に5回線まで）' : '回線数は1〜5の数字で入れてください'});
+    else if (!v.lines) errs.push({id:'lines', t:'回線数は1〜10の整数で入れてください'});
     if (!v.doc) errs.push({id:'docset', t:'本人確認に使う書類を1つ選んでください'});
     if (!v.a1 || !v.a2) errs.push({id:'agreeset', t:'名義人さんの承諾は、2つともチェックが必要です' + (v.a1 !== v.a2 ? '（' + (v.a1 ? '2つ目' : '1つ目') + 'が未チェック）' : '')});
     return errs;
