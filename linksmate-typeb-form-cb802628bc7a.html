@@ -64,7 +64,7 @@
     <ul>
       <li>本人確認（書類の撮影と顔の撮影）は、<b>名義人ご本人</b>がスマホで行います。書類を手元にご用意ください。</li>
       <li>本人確認のURLは、名義人さんの準備ができたら<b>個別にお送りします</b>（届いてから約90分有効・切れても送り直せます）。</li>
-      <li>本人確認のあと、名義人さんのフリガナと連絡先の電話番号を、あらためて伺います。</li>
+      <li>名義人さんのフリガナ・性別・連絡先の電話番号は、<b>申込の前にここで</b>お聞きします（本人確認のあとに聞き直しません）。フリガナは本人確認で名義人さんが入れるカナと照合します。</li>
       <li>料金はお見積りです。</li>
       <li>名義の用意と、本人確認の代行はしていません。</li>
       <li>メールアドレスとパスワード、プランや支払い方法は、こちらで用意・決めます。ここでは聞きません。</li>
@@ -84,6 +84,18 @@
       <label class="field" for="name">名義人のお名前（漢字）<span class="req">必須</span>
         <span class="hint">本人確認の書類と同じ表記で</span></label>
       <input type="text" id="name" name="name" autocomplete="off" enterkeyhint="next">
+    </fieldset>
+
+    <fieldset>
+      <label class="field" for="kana">名義人のフリガナ<span class="req">必須</span>
+        <span class="hint">カタカナで、姓と名のあいだに空白を入れて（ひらがなでも直します）</span></label>
+      <input type="text" id="kana" name="kana" autocomplete="off" enterkeyhint="next">
+    </fieldset>
+
+    <fieldset>
+      <label class="field" for="phone">連絡先の電話番号<span class="req">必須</span>
+        <span class="hint">0 から始まる10〜11桁（ハイフンや全角でも大丈夫です）</span></label>
+      <input type="tel" id="phone" name="phone" inputmode="numeric" autocomplete="off" enterkeyhint="next">
     </fieldset>
 
     <fieldset>
@@ -142,12 +154,20 @@
     return String(s).normalize('NFKC').replace(/[\s\u3012\u002d\u2010-\u2015\u2212\u30fc\uff0d]/g, '');
   }
 
+  // フリガナはひらがなもカタカナへ・電話は数字だけ
+  function normKana(s){
+    return oneLine(s).replace(/[ぁ-ゖ]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) + 0x60); });
+  }
+  function normPhone(s){ return String(s).normalize('NFKC').replace(/[^0-9]/g, ''); }
+
   function collect(){
     var docEl = document.querySelector('input[name=doc]:checked');
     var sexEl = document.querySelector('input[name=sex]:checked');
     return {
       client: oneLine($('client').value),
       name: oneLine($('name').value),
+      kana: normKana($('kana').value),
+      phone: normPhone($('phone').value),
       postalRaw: $('postal').value,
       postal: normPostal($('postal').value),
       doc: docEl ? docEl.value : '',
@@ -161,6 +181,10 @@
     var errs = [];
     if (!v.client) errs.push({id:'client', t:'ご依頼者（会社名・担当者名）が空です'});
     if (!v.name) errs.push({id:'name', t:'名義人のお名前が空です'});
+    if (!v.kana) errs.push({id:'kana', t:'名義人のフリガナが空です'});
+    else if (!/^[ァ-ヶー]+ [ァ-ヶー]+$/.test(v.kana)) errs.push({id:'kana', t:'フリガナはカタカナで、姓と名のあいだに空白を1つ入れてください'});
+    if (!v.phone) errs.push({id:'phone', t:'連絡先の電話番号が空です'});
+    else if (!/^0[0-9]{9,10}$/.test(v.phone)) errs.push({id:'phone', t:'電話番号は 0 から始まる10〜11桁で入れてください'});
     if (!v.postal) errs.push({id:'postal', t:'郵便番号が空です'});
     else if (!/^[0-9]{7}$/.test(v.postal)) errs.push({id:'postal', t:'郵便番号は7桁の数字で入れてください（いまは ' + v.postal.length + ' 桁・数字以外が混ざっている場合もあります）'});
     if (!v.doc) errs.push({id:'docset', t:'本人確認に使う書類を1つ選んでください'});
@@ -174,6 +198,8 @@
       '【LinksMate 新規申込の依頼】',
       'ご依頼者: ' + v.client,
       '名義人のお名前: ' + v.name,
+      '名義人のフリガナ: ' + v.kana,
+      '連絡先の電話: ' + v.phone,
       '郵便番号: ' + v.postal,
       '本人確認の書類: ' + v.doc,
       '性別: ' + v.sex,
@@ -184,7 +210,7 @@
 
   function clearErrors(){
     $('errors').style.display = 'none'; $('errors').innerHTML = '';
-    ['client','name','postal'].forEach(function(id){ $(id).removeAttribute('aria-invalid'); });
+    ['client','name','kana','phone','postal'].forEach(function(id){ $(id).removeAttribute('aria-invalid'); });
   }
   function hideResult(){ $('result').style.display = 'none'; $('status').textContent = ''; }
 
@@ -195,7 +221,7 @@
     var ul = document.createElement('ul');
     errs.forEach(function(e){
       var li = document.createElement('li'); li.textContent = e.t; ul.appendChild(li);
-      if (e.id === 'client' || e.id === 'name' || e.id === 'postal') $(e.id).setAttribute('aria-invalid', 'true');
+      if (['client','name','kana','phone','postal'].indexOf(e.id) >= 0) $(e.id).setAttribute('aria-invalid', 'true');
     });
     box.appendChild(ul);
     box.style.display = 'block';
@@ -240,7 +266,7 @@
   });
 
   $('again').addEventListener('click', function(){
-    $('name').value = ''; $('postal').value = '';
+    $('name').value = ''; $('kana').value = ''; $('phone').value = ''; $('postal').value = '';
     var d = document.querySelector('input[name=doc]:checked'); if (d) d.checked = false;
     var sx = document.querySelector('input[name=sex]:checked'); if (sx) sx.checked = false;
     $('agree1').checked = false; $('agree2').checked = false;
