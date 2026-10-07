@@ -64,7 +64,7 @@
     <ul>
       <li>本人確認（書類の撮影と顔の撮影）は、<b>名義人ご本人</b>がスマホで行います。書類を手元にご用意ください。</li>
       <li>本人確認のURLは、名義人さんの準備ができたら<b>個別にお送りします</b>（届いてから約90分有効・切れても送り直せます）。</li>
-      <li>名義人さんのフリガナ・性別・連絡先の電話番号は、<b>申込の前にここで</b>お聞きします（本人確認のあとに聞き直しません）。フリガナは本人確認で名義人さんが入れるカナと照合します。</li>
+      <li>名義人さんのフリガナ・生年月日・性別・連絡先の電話番号は、<b>申込の前にここで</b>お聞きします（本人確認のあとに聞き直しません）。フリガナは本人確認で名義人さんが入れるカナと照合します。生年月日は、名義人さんのページでご本人かどうかの確かめに使います。</li>
       <li>名義人さんの端末の EID は、お分かりなら<b>ここで</b>入れていただけると早く進みます（任意です。あとから聞くこともできます）。eSIM の再発行になると事務手数料がかかるため、打ち間違いはこちらで検査してお知らせします。</li>
       <li>料金はお見積りです。</li>
       <li>名義の用意と、本人確認の代行はしていません。</li>
@@ -94,6 +94,20 @@
     </fieldset>
 
     <fieldset>
+      <label class="field" for="birthday">名義人の生年月日<span class="req">必須</span>
+        <span class="hint">西暦の8桁（例: 1990年1月2日生まれ → 19900102。区切りや全角でも大丈夫です）。名義人さんのページで、ご本人かどうかの確かめに使います</span></label>
+      <input type="text" id="birthday" name="birthday" inputmode="numeric" autocomplete="off" maxlength="20" enterkeyhint="next">
+      <div class="small" id="bdEcho" aria-live="polite"></div>
+    </fieldset>
+
+    <fieldset id="sexset">
+      <legend>名義人の性別<span class="req">必須</span>
+        <span class="hint">免許証・在留カードの IC には性別が入っていないため、こちらで伺います</span></legend>
+      <label class="opt"><input type="radio" name="sex" value="男性"> 男性</label>
+      <label class="opt"><input type="radio" name="sex" value="女性"> 女性</label>
+    </fieldset>
+
+    <fieldset>
       <label class="field" for="phone">連絡先の電話番号<span class="req">必須</span>
         <span class="hint">0 から始まる10〜11桁（ハイフンや全角でも大丈夫です）</span></label>
       <input type="tel" id="phone" name="phone" inputmode="numeric" autocomplete="off" enterkeyhint="next">
@@ -102,13 +116,7 @@
     <fieldset>
       <label class="field" for="postal">名義人の郵便番号<span class="req">必須</span>
         <span class="hint">7桁。ハイフンや全角でも大丈夫です</span></label>
-      <input type="tel" id="postal" name="postal" inputmode="numeric" autocomplete="off" enterkeyhint="done">
-    </fieldset>
-
-    <fieldset>
-      <label class="field" for="eid">名義人さんの端末の EID<span class="req" style="color:#5b6575">任意</span>
-        <span class="hint">数字32桁（ハイフンや空白があっても大丈夫です）。iPhone は 設定→一般→情報→EID／Android は 設定→デバイス情報→SIM のステータス など（機種で違います。出ないときは名義人さんに「EID」で検索してもらってください）。いま分からなければ空のままで構いません</span></label>
-      <input type="text" id="eid" name="eid" inputmode="numeric" autocomplete="off" maxlength="80" enterkeyhint="done">
+      <input type="tel" id="postal" name="postal" inputmode="numeric" autocomplete="off" enterkeyhint="next">
     </fieldset>
 
     <fieldset id="docset">
@@ -119,11 +127,10 @@
       <label class="opt"><input type="radio" name="doc" value="特別永住者証明書"> 特別永住者証明書</label>
     </fieldset>
 
-    <fieldset id="sexset">
-      <legend>名義人の性別<span class="req">必須</span>
-        <span class="hint">免許証・在留カードの IC には性別が入っていないため、こちらで伺います</span></legend>
-      <label class="opt"><input type="radio" name="sex" value="男性"> 男性</label>
-      <label class="opt"><input type="radio" name="sex" value="女性"> 女性</label>
+    <fieldset>
+      <label class="field" for="eid">名義人さんの端末の EID<span class="req" style="color:#5b6575">任意</span>
+        <span class="hint">数字32桁（ハイフンや空白があっても大丈夫です）。iPhone は 設定→一般→情報→EID／Android は 設定→デバイス情報→SIM のステータス など（機種で違います。出ないときは名義人さんに「EID」で検索してもらってください）。いま分からなければ空のままで構いません</span></label>
+      <input type="text" id="eid" name="eid" inputmode="numeric" autocomplete="off" maxlength="80" enterkeyhint="done">
     </fieldset>
 
     <fieldset id="agreeset">
@@ -181,6 +188,34 @@
     return '';
   }
 
+  // 生年月日: NFKC のあと 8桁 か 年・月・日の区切り付き。実在の日・1900〜2100年だけ（業者コンソールの holder/gate.py norm_birthday と同じ読み方・試験で突き合わせる）。読めなければ null
+  function normBirthday(s){
+    s = String(s || '').normalize('NFKC').trim();
+    var m = /^([0-9]{4})([0-9]{2})([0-9]{2})$/.exec(s) || /^([0-9]{4})[^0-9]+([0-9]{1,2})[^0-9]+([0-9]{1,2})[^0-9]*$/.exec(s);
+    if (!m) return null;
+    var y = +m[1], mo = +m[2], d = +m[3], dt = new Date(y, mo - 1, d);
+    if (dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return null;
+    if (y < 1900 || y > 2100) return null;
+    return ('000' + y).slice(-4) + ('0' + mo).slice(-2) + ('0' + d).slice(-2);
+  }
+  function todayYmd(){
+    var n = new Date();
+    return n.getFullYear() * 10000 + (n.getMonth() + 1) * 100 + n.getDate() + '';
+  }
+  // 業者コンソール model.py と同じ3つの誤り（空・8桁の日付に読めない・今日より先）。問題が無ければ ''
+  function birthdayProblem(raw, today){
+    if (!oneLine(raw)) return '名義人の生年月日が空です';
+    var ymd = normBirthday(raw);
+    if (!ymd) return '生年月日は西暦の8桁で入れてください（例: 1990年1月2日生まれ → 19900102）';
+    if (ymd > (today || todayYmd())) return '生年月日が今日より先の日付になっています（年を確かめてください）';
+    return '';
+  }
+  function bdEcho(){
+    var ymd = normBirthday($('birthday').value), t = '';
+    if (ymd && !birthdayProblem($('birthday').value)) t = (+ymd.slice(0, 4)) + '年' + (+ymd.slice(4, 6)) + '月' + (+ymd.slice(6, 8)) + '日 として受け付けます（違えば直してください）';
+    $('bdEcho').textContent = t;
+  }
+
   function collect(){
     var docEl = document.querySelector('input[name=doc]:checked');
     var sexEl = document.querySelector('input[name=sex]:checked');
@@ -188,6 +223,8 @@
       client: oneLine($('client').value),
       name: oneLine($('name').value),
       kana: normKana($('kana').value),
+      birthdayRaw: $('birthday').value,
+      birthday: normBirthday($('birthday').value),
       phone: normPhone($('phone').value),
       postalRaw: $('postal').value,
       postal: normPostal($('postal').value),
@@ -205,6 +242,9 @@
     if (!v.name) errs.push({id:'name', t:'名義人のお名前が空です'});
     if (!v.kana) errs.push({id:'kana', t:'名義人のフリガナが空です'});
     else if (!/^[ァ-ヶー]+ [ァ-ヶー]+$/.test(v.kana)) errs.push({id:'kana', t:'フリガナはカタカナで、姓と名のあいだに空白を1つ入れてください'});
+    var bp = birthdayProblem(v.birthdayRaw);
+    if (bp) errs.push({id:'birthday', t:bp});
+    if (!v.sex) errs.push({id:'sexset', t:'名義人の性別を選んでください'});
     if (!v.phone) errs.push({id:'phone', t:'連絡先の電話番号が空です'});
     else if (!/^0[0-9]{9,10}$/.test(v.phone)) errs.push({id:'phone', t:'電話番号は 0 から始まる10〜11桁で入れてください'});
     if (!v.postal) errs.push({id:'postal', t:'郵便番号が空です'});
@@ -212,7 +252,6 @@
     var ep = eidProblem(v.eid);
     if (ep) errs.push({id:'eid', t:ep});
     if (!v.doc) errs.push({id:'docset', t:'本人確認に使う書類を1つ選んでください'});
-    if (!v.sex) errs.push({id:'sexset', t:'名義人の性別を選んでください'});
     if (!v.a1 || !v.a2) errs.push({id:'agreeset', t:'名義人さんの承諾は、2つともチェックが必要です' + (v.a1 !== v.a2 ? '（' + (v.a1 ? '2つ目' : '1つ目') + 'が未チェック）' : '')});
     return errs;
   }
@@ -223,11 +262,12 @@
       'ご依頼者: ' + v.client,
       '名義人のお名前: ' + v.name,
       '名義人のフリガナ: ' + v.kana,
+      '生年月日: ' + v.birthday,
+      '性別: ' + v.sex,
       '連絡先の電話: ' + v.phone,
       '郵便番号: ' + v.postal,
-      v.eid ? 'EID: ' + v.eid : null,
       '本人確認の書類: ' + v.doc,
-      '性別: ' + v.sex,
+      v.eid ? 'EID: ' + v.eid : null,
       '名義人の同意（名義での申込と事務の代行）: はい',
       '本人確認は名義人本人が行う: はい'
     ].filter(function(l){ return l !== null; }).join('\n');
@@ -235,7 +275,7 @@
 
   function clearErrors(){
     $('errors').style.display = 'none'; $('errors').innerHTML = '';
-    ['client','name','kana','phone','postal','eid'].forEach(function(id){ $(id).removeAttribute('aria-invalid'); });
+    ['client','name','kana','birthday','phone','postal','eid'].forEach(function(id){ $(id).removeAttribute('aria-invalid'); });
   }
   function hideResult(){ $('result').style.display = 'none'; $('status').textContent = ''; }
 
@@ -246,7 +286,7 @@
     var ul = document.createElement('ul');
     errs.forEach(function(e){
       var li = document.createElement('li'); li.textContent = e.t; ul.appendChild(li);
-      if (['client','name','kana','phone','postal','eid'].indexOf(e.id) >= 0) $(e.id).setAttribute('aria-invalid', 'true');
+      if (['client','name','kana','birthday','phone','postal','eid'].indexOf(e.id) >= 0) $(e.id).setAttribute('aria-invalid', 'true');
     });
     box.appendChild(ul);
     box.style.display = 'block';
@@ -260,8 +300,8 @@
     var v = collect();
     var errs = validate(v);
     if (errs.length){ hideResult(); showErrors(errs); return; }
-    // 郵便番号は半角7桁に揃えて入れ直す
-    $('postal').value = v.postal;
+    // 郵便番号は半角7桁・生年月日は8桁に揃えて入れ直す
+    $('postal').value = v.postal; $('birthday').value = v.birthday;
     try { localStorage.setItem(KEY, v.client); } catch(e) {}
     var msg = buildMessage(v);
     $('msg').value = msg;
@@ -275,6 +315,7 @@
   ['input','change'].forEach(function(t){
     $('f').addEventListener(t, function(){ hideResult(); });
   });
+  $('birthday').addEventListener('input', bdEcho);
 
   $('copy').addEventListener('click', function(){
     var text = $('msg').value;
@@ -291,7 +332,7 @@
   });
 
   $('again').addEventListener('click', function(){
-    $('name').value = ''; $('kana').value = ''; $('phone').value = ''; $('postal').value = ''; $('eid').value = '';
+    $('name').value = ''; $('kana').value = ''; $('birthday').value = ''; $('bdEcho').textContent = ''; $('phone').value = ''; $('postal').value = ''; $('eid').value = '';
     var d = document.querySelector('input[name=doc]:checked'); if (d) d.checked = false;
     var sx = document.querySelector('input[name=sex]:checked'); if (sx) sx.checked = false;
     $('agree1').checked = false; $('agree2').checked = false;
