@@ -166,8 +166,11 @@
     return oneLine(s).replace(/[ぁ-ゖ]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) + 0x60); });
   }
   function normPhone(s){ return String(s).normalize('NFKC').replace(/[^0-9]/g, ''); }
-  // EID: 全角→半角・空白とハイフン類を除く（業者コンソールの検査と同じ規則）
-  function normEid(s){ return String(s).normalize('NFKC').replace(/[\s\-\u2010-\u2015\u2212\u30fc\uff0d]/g, ''); }
+  // EID: 全角数字→半角・空白とハイフン類を除く。★NFKC はかけない（丸数字・上付き数字が数字に化けない＝業者コンソールの Python 側 eid_check と同じ字の集合・試験で突き合わせる）
+  function normEid(s){
+    return String(s).replace(/[０-９]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xfee0); })
+      .replace(/[ \t\n\r\f\v\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\-\u2010-\u2015\u2212\u30fc\uff0d]/g, '');
+  }
   var EID_PREFIXES = ['89049032', '89033023', '89033024', '89043051', '89043052'];
   function eidProblem(d){
     if (!d) return '';
