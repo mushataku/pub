@@ -33,6 +33,7 @@
   .flow text{font-family:inherit; font-size:17px; font-weight:700; fill:var(--ink)}
   .flow .sub{fill:var(--ink-2); font-size:13px; font-weight:400}
   .flow .day{fill:var(--ink-2); font-size:14px}
+  .flow .opt{stroke-dasharray:6 5}
   .flow .tl{fill:none; stroke:var(--line); stroke-width:3}
   .flow .dot{fill:var(--ink-2)}
   .flow rect{stroke-width:2}
@@ -82,19 +83,20 @@
 
   <figure class="flow">
     <ul class="legend"><li class="a-v">業者さん</li><li class="a-k">こちら</li><li class="a-n">名義人さん</li></ul>
-    <svg viewBox="0 0 360 494" role="img" aria-labelledby="flow-t">
-      <title id="flow-t">送ったあとの流れ（当日と翌日）</title>
-      <path class="tl" d="M20 48V461"/>
+    <svg viewBox="0 0 360 550" role="img" aria-labelledby="flow-t">
+      <title id="flow-t">送ったあとの流れ（当日と稼働日の前）</title>
+      <path class="tl" d="M20 48V517"/>
       <circle class="dot" cx="20" cy="48" r="5"/>
       <circle class="dot" cx="20" cy="111" r="5"/>
       <circle class="dot" cx="20" cy="174" r="5"/>
       <circle class="dot" cx="20" cy="237" r="5"/>
       <circle class="dot" cx="20" cy="300" r="5"/>
       <circle class="dot" cx="20" cy="363" r="5"/>
-      <circle class="dot" cx="20" cy="461" r="5"/>
+      <circle class="dot" cx="20" cy="454" r="5"/>
+      <circle class="dot" cx="20" cy="517" r="5"/>
       <text class="day" x="40" y="18">当日</text>
       <rect class="a-v" x="40" y="28" width="300" height="40" rx="10"/>
-      <text x="54" y="54">依頼を送る</text>
+      <text x="54" y="54">依頼を送る（稼働日も）</text>
       <path class="arw" d="M180 70v10m-4 -4l4 4l4 -4"/>
       <rect class="a-k" x="40" y="84" width="300" height="54" rx="10"/>
       <text x="54" y="107">本人確認の案内</text>
@@ -113,10 +115,13 @@
       <rect class="a-k" x="40" y="336" width="300" height="54" rx="10"/>
       <text x="54" y="359">電話番号</text>
       <text class="sub" x="54" y="379">数分〜1時間超（EID 登録）</text>
-      <text class="day" x="40" y="424">翌日</text>
-      <rect class="a-k" x="40" y="434" width="300" height="54" rx="10"/>
-      <text x="54" y="457">予約番号</text>
-      <text class="sub" x="54" y="477">業者へ届く</text>
+      <text class="day" x="40" y="424">稼働日の3日前〜当日朝</text>
+      <rect class="a-v opt" x="40" y="434" width="300" height="40" rx="10"/>
+      <text x="54" y="460">今すぐ発行（任意）</text>
+      <path class="arw" d="M180 476v10m-4 -4l4 4l4 -4"/>
+      <rect class="a-k" x="40" y="490" width="300" height="54" rx="10"/>
+      <text x="54" y="513">予約番号</text>
+      <text class="sub" x="54" y="533">メールで届く</text>
     </svg>
   </figure>
 
@@ -127,6 +132,13 @@
       <label class="field" for="client">ご依頼者（会社名・担当者名）<span class="req">必須</span>
         <span class="hint">次の方からは入れ直さなくて済むよう、この欄だけ端末に残ります</span></label>
       <input type="text" id="client" name="client" autocomplete="organization" enterkeyhint="next">
+    </fieldset>
+
+    <fieldset>
+      <label class="field" for="kadobi">稼働日<span class="req">必須</span>
+        <span class="hint">予約番号がほしい日（明日以降）。西暦の8桁（例: 20261010。区切りや全角でも大丈夫です）</span></label>
+      <input type="text" id="kadobi" name="kadobi" inputmode="numeric" autocomplete="off" maxlength="20" enterkeyhint="next">
+      <div class="small" id="kdEcho" aria-live="polite"></div>
     </fieldset>
 
     <fieldset>
@@ -177,7 +189,7 @@
 
     <fieldset>
       <label class="field" for="lines">回線数<span class="req">必須</span>
-        <span class="hint">この名義人さんで申し込む回線の数（1〜10）</span></label>
+        <span class="hint">この名義人さんで申し込む回線の数（1〜5）</span></label>
       <input type="text" id="lines" name="lines" value="1" inputmode="numeric" autocomplete="off" maxlength="6" enterkeyhint="next">
     </fieldset>
 
@@ -257,7 +269,7 @@
     s = String(s || '').normalize('NFKC').trim();
     if (!/^[0-9]+$/.test(s)) return null;
     var n = +s;
-    return n >= 1 && n <= 10 ? n : null;
+    return n >= 1 && n <= 5 ? n : null;
   }
   function todayYmd(){
     var n = new Date();
@@ -270,6 +282,19 @@
     if (!ymd) return '生年月日は西暦の8桁で入れてください（例: 1990年1月2日生まれ → 19900102）';
     if (ymd > (today || todayYmd())) return '生年月日が今日より先の日付になっています（年を確かめてください）';
     return '';
+  }
+  // 稼働日: 生年月日と同じ読み方・今日より後だけ（今日・過去は不可）
+  function kadobiProblem(raw, today){
+    if (!oneLine(raw)) return '稼働日が空です';
+    var ymd = normBirthday(raw);
+    if (!ymd) return '稼働日は西暦の8桁で入れてください（例: 20261010）';
+    if (ymd <= (today || todayYmd())) return '稼働日は明日以降の日付にしてください';
+    return '';
+  }
+  function kdEcho(){
+    var ymd = normBirthday($('kadobi').value), t = '';
+    if (ymd && !kadobiProblem($('kadobi').value)) t = (+ymd.slice(0, 4)) + '年' + (+ymd.slice(4, 6)) + '月' + (+ymd.slice(6, 8)) + '日 として受け付けます（違えば直してください）';
+    $('kdEcho').textContent = t;
   }
   function bdEcho(){
     var ymd = normBirthday($('birthday').value), t = '';
@@ -284,6 +309,8 @@
       client: oneLine($('client').value),
       name: oneLine($('name').value),
       kana: normKana($('kana').value),
+      kadobiRaw: $('kadobi').value,
+      kadobi: normBirthday($('kadobi').value),
       birthdayRaw: $('birthday').value,
       birthday: normBirthday($('birthday').value),
       linesRaw: $('lines').value,
@@ -302,6 +329,8 @@
   function validate(v){
     var errs = [];
     if (!v.client) errs.push({id:'client', t:'ご依頼者（会社名・担当者名）が空です'});
+    var kp = kadobiProblem(v.kadobiRaw);
+    if (kp) errs.push({id:'kadobi', t:kp});
     if (!v.name) errs.push({id:'name', t:'名義人のお名前が空です'});
     if (!v.kana) errs.push({id:'kana', t:'名義人のフリガナが空です'});
     else if (!/^[ァ-ヶー]+ [ァ-ヶー]+$/.test(v.kana)) errs.push({id:'kana', t:'フリガナはカタカナで、姓と名のあいだに空白を1つ入れてください'});
@@ -315,25 +344,28 @@
     var ep = eidProblem(v.eid);
     if (ep) errs.push({id:'eid', t:ep});
     if (!oneLine(v.linesRaw)) errs.push({id:'lines', t:'回線数が空です'});
-    else if (!v.lines) errs.push({id:'lines', t:'回線数は1〜10の整数で入れてください'});
+    else if (!v.lines) errs.push({id:'lines', t:'回線数は1〜5の整数で入れてください'});
     if (!v.doc) errs.push({id:'docset', t:'本人確認に使う書類を1つ選んでください'});
     if (!v.a1 || !v.a2) errs.push({id:'agreeset', t:'名義人さんの承諾は、2つともチェックが必要です' + (v.a1 !== v.a2 ? '（' + (v.a1 ? '2つ目' : '1つ目') + 'が未チェック）' : '')});
     return errs;
   }
 
   function buildMessage(v){
+    var ymd = v.kadobi;
     return [
-      '【LinksMate 新規申込の依頼】',
       'ご依頼者: ' + v.client,
-      '名義人のお名前: ' + v.name,
-      '名義人のフリガナ: ' + v.kana,
-      '生年月日: ' + v.birthday,
-      '性別: ' + v.sex,
-      '連絡先の電話: ' + v.phone,
-      '郵便番号: ' + v.postal,
-      '本人確認の書類: ' + v.doc,
-      '回線数: ' + v.lines,
-      v.eid ? 'EID: ' + v.eid : null,
+      '【移転元SIM作成情報】',
+      '① 稼働日：' + (+ymd.slice(0, 4)) + '年' + (+ymd.slice(4, 6)) + '月' + (+ymd.slice(6, 8)) + '日',
+      '② お名前（漢字）：' + v.name,
+      '③ フリガナ：' + v.kana,
+      '④ 生年月日：' + v.birthday,
+      '⑤ 性別：' + v.sex,
+      '⑥ 電話番号：' + v.phone,
+      '⑦ 郵便番号：' + v.postal,
+      '⑧ 本人確認書類：' + v.doc,
+      '⑨ 回線数：' + v.lines,
+      '⑩ EID：' + v.eid,
+      '※住所と本人確認書類の写真は不要です。',
       '名義人の同意（名義での申込と事務の代行）: はい',
       '本人確認は名義人本人が行う: はい'
     ].filter(function(l){ return l !== null; }).join('\n');
@@ -341,7 +373,7 @@
 
   function clearErrors(){
     $('errors').style.display = 'none'; $('errors').innerHTML = '';
-    ['client','name','kana','birthday','phone','postal','lines','eid'].forEach(function(id){ $(id).removeAttribute('aria-invalid'); });
+    ['client','kadobi','name','kana','birthday','phone','postal','lines','eid'].forEach(function(id){ $(id).removeAttribute('aria-invalid'); });
   }
   function hideResult(){ $('result').style.display = 'none'; $('status').textContent = ''; }
 
@@ -352,7 +384,7 @@
     var ul = document.createElement('ul');
     errs.forEach(function(e){
       var li = document.createElement('li'); li.textContent = e.t; ul.appendChild(li);
-      if (['client','name','kana','birthday','phone','postal','lines','eid'].indexOf(e.id) >= 0) $(e.id).setAttribute('aria-invalid', 'true');
+      if (['client','kadobi','name','kana','birthday','phone','postal','lines','eid'].indexOf(e.id) >= 0) $(e.id).setAttribute('aria-invalid', 'true');
     });
     box.appendChild(ul);
     box.style.display = 'block';
@@ -367,7 +399,7 @@
     var errs = validate(v);
     if (errs.length){ hideResult(); showErrors(errs); return; }
     // 郵便番号は半角7桁・生年月日は8桁に揃えて入れ直す
-    $('postal').value = v.postal; $('birthday').value = v.birthday; $('lines').value = v.lines;
+    $('postal').value = v.postal; $('birthday').value = v.birthday; $('kadobi').value = v.kadobi; $('lines').value = v.lines;
     try { localStorage.setItem(KEY, v.client); } catch(e) {}
     var msg = buildMessage(v);
     $('msg').value = msg;
@@ -382,6 +414,7 @@
     $('f').addEventListener(t, function(){ hideResult(); });
   });
   $('birthday').addEventListener('input', bdEcho);
+  $('kadobi').addEventListener('input', kdEcho);
 
   $('copy').addEventListener('click', function(){
     var text = $('msg').value;
@@ -398,7 +431,7 @@
   });
 
   $('again').addEventListener('click', function(){
-    $('name').value = ''; $('kana').value = ''; $('birthday').value = ''; $('bdEcho').textContent = ''; $('phone').value = ''; $('postal').value = ''; $('lines').value = '1'; $('eid').value = '';
+    $('name').value = ''; $('kana').value = ''; $('birthday').value = ''; $('bdEcho').textContent = ''; $('kadobi').value = ''; $('kdEcho').textContent = ''; $('phone').value = ''; $('postal').value = ''; $('lines').value = '1'; $('eid').value = '';
     var d = document.querySelector('input[name=doc]:checked'); if (d) d.checked = false;
     var sx = document.querySelector('input[name=sex]:checked'); if (sx) sx.checked = false;
     $('agree1').checked = false; $('agree2').checked = false;
