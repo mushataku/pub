@@ -65,6 +65,7 @@
       <li>本人確認（書類の撮影と顔の撮影）は、<b>名義人ご本人</b>がスマホで行います。書類を手元にご用意ください。</li>
       <li>本人確認のURLは、名義人さんの準備ができたら<b>個別にお送りします</b>（届いてから約90分有効・切れても送り直せます）。</li>
       <li>名義人さんのフリガナ・性別・連絡先の電話番号は、<b>申込の前にここで</b>お聞きします（本人確認のあとに聞き直しません）。フリガナは本人確認で名義人さんが入れるカナと照合します。</li>
+      <li>名義人さんの端末の EID は、お分かりなら<b>ここで</b>入れていただけると早く進みます（任意です。あとから聞くこともできます）。eSIM の再発行になると事務手数料がかかるため、打ち間違いはこちらで検査してお知らせします。</li>
       <li>料金はお見積りです。</li>
       <li>名義の用意と、本人確認の代行はしていません。</li>
       <li>メールアドレスとパスワード、プランや支払い方法は、こちらで用意・決めます。ここでは聞きません。</li>
@@ -102,6 +103,12 @@
       <label class="field" for="postal">名義人の郵便番号<span class="req">必須</span>
         <span class="hint">7桁。ハイフンや全角でも大丈夫です</span></label>
       <input type="tel" id="postal" name="postal" inputmode="numeric" autocomplete="off" enterkeyhint="done">
+    </fieldset>
+
+    <fieldset>
+      <label class="field" for="eid">名義人さんの端末の EID<span class="req" style="color:#5b6575">任意</span>
+        <span class="hint">数字32桁（ハイフンや空白があっても大丈夫です）。iPhone は 設定→一般→情報→EID／Android は 設定→デバイス情報→SIM のステータス など（機種で違います。出ないときは名義人さんに「EID」で検索してもらってください）。いま分からなければ空のままで構いません</span></label>
+      <input type="text" id="eid" name="eid" inputmode="numeric" autocomplete="off" maxlength="80" enterkeyhint="done">
     </fieldset>
 
     <fieldset id="docset">
@@ -159,6 +166,17 @@
     return oneLine(s).replace(/[ぁ-ゖ]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) + 0x60); });
   }
   function normPhone(s){ return String(s).normalize('NFKC').replace(/[^0-9]/g, ''); }
+  // EID: 全角→半角・空白とハイフン類を除く（業者コンソールの検査と同じ規則）
+  function normEid(s){ return String(s).normalize('NFKC').replace(/[\s\-\u2010-\u2015\u2212\u30fc\uff0d]/g, ''); }
+  var EID_PREFIXES = ['89049032', '89033023', '89033024', '89043051', '89043052'];
+  function eidProblem(d){
+    if (!d) return '';
+    if (!/^[0-9]+$/.test(d)) return 'EID は数字32桁です（数字以外が混ざっています）';
+    if (d.length !== 32) return 'EID は数字32桁です（いまは ' + d.length + ' 桁）';
+    if (!EID_PREFIXES.some(function(p){ return d.indexOf(p) === 0; })) return 'EID の先頭8桁が対応外です（打ち間違いの可能性があります。見比べてください）';
+    try { if (BigInt(d) % 97n !== 1n) return 'EID の検査数字（末尾2桁）が合いません。打ち間違いの可能性があります'; } catch(e) {}
+    return '';
+  }
 
   function collect(){
     var docEl = document.querySelector('input[name=doc]:checked');
@@ -170,6 +188,7 @@
       phone: normPhone($('phone').value),
       postalRaw: $('postal').value,
       postal: normPostal($('postal').value),
+      eid: normEid($('eid').value),
       doc: docEl ? docEl.value : '',
       sex: sexEl ? sexEl.value : '',
       a1: $('agree1').checked,
@@ -187,6 +206,8 @@
     else if (!/^0[0-9]{9,10}$/.test(v.phone)) errs.push({id:'phone', t:'電話番号は 0 から始まる10〜11桁で入れてください'});
     if (!v.postal) errs.push({id:'postal', t:'郵便番号が空です'});
     else if (!/^[0-9]{7}$/.test(v.postal)) errs.push({id:'postal', t:'郵便番号は7桁の数字で入れてください（いまは ' + v.postal.length + ' 桁・数字以外が混ざっている場合もあります）'});
+    var ep = eidProblem(v.eid);
+    if (ep) errs.push({id:'eid', t:ep});
     if (!v.doc) errs.push({id:'docset', t:'本人確認に使う書類を1つ選んでください'});
     if (!v.sex) errs.push({id:'sexset', t:'名義人の性別を選んでください'});
     if (!v.a1 || !v.a2) errs.push({id:'agreeset', t:'名義人さんの承諾は、2つともチェックが必要です' + (v.a1 !== v.a2 ? '（' + (v.a1 ? '2つ目' : '1つ目') + 'が未チェック）' : '')});
@@ -201,16 +222,17 @@
       '名義人のフリガナ: ' + v.kana,
       '連絡先の電話: ' + v.phone,
       '郵便番号: ' + v.postal,
+      v.eid ? 'EID: ' + v.eid : null,
       '本人確認の書類: ' + v.doc,
       '性別: ' + v.sex,
       '名義人の同意（名義での申込と事務の代行）: はい',
       '本人確認は名義人本人が行う: はい'
-    ].join('\n');
+    ].filter(function(l){ return l !== null; }).join('\n');
   }
 
   function clearErrors(){
     $('errors').style.display = 'none'; $('errors').innerHTML = '';
-    ['client','name','kana','phone','postal'].forEach(function(id){ $(id).removeAttribute('aria-invalid'); });
+    ['client','name','kana','phone','postal','eid'].forEach(function(id){ $(id).removeAttribute('aria-invalid'); });
   }
   function hideResult(){ $('result').style.display = 'none'; $('status').textContent = ''; }
 
@@ -221,7 +243,7 @@
     var ul = document.createElement('ul');
     errs.forEach(function(e){
       var li = document.createElement('li'); li.textContent = e.t; ul.appendChild(li);
-      if (['client','name','kana','phone','postal'].indexOf(e.id) >= 0) $(e.id).setAttribute('aria-invalid', 'true');
+      if (['client','name','kana','phone','postal','eid'].indexOf(e.id) >= 0) $(e.id).setAttribute('aria-invalid', 'true');
     });
     box.appendChild(ul);
     box.style.display = 'block';
@@ -266,7 +288,7 @@
   });
 
   $('again').addEventListener('click', function(){
-    $('name').value = ''; $('kana').value = ''; $('phone').value = ''; $('postal').value = '';
+    $('name').value = ''; $('kana').value = ''; $('phone').value = ''; $('postal').value = ''; $('eid').value = '';
     var d = document.querySelector('input[name=doc]:checked'); if (d) d.checked = false;
     var sx = document.querySelector('input[name=sex]:checked'); if (sx) sx.checked = false;
     $('agree1').checked = false; $('agree2').checked = false;
