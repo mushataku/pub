@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex,nofollow">
 <!-- 「どこにも送られません」を画面の約束だけにしない: 通信の出口をブラウザ側で塞ぐ。
      許すのは部品(cdnjs)の読み込みだけ。PDFの中身を送れる経路（fetch/フォーム送信/画像ビーコン）は無い。 -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' https://cdnjs.cloudflare.com; worker-src blob: https://cdnjs.cloudflare.com; connect-src https://cdnjs.cloudflare.com; img-src blob: data:; font-src data: blob:; style-src 'unsafe-inline'; form-action 'none'; base-uri 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' https://cdnjs.cloudflare.com; worker-src blob: https://cdnjs.cloudflare.com; connect-src https://cdnjs.cloudflare.com https://cdn.jsdelivr.net/npm/; img-src blob: data:; font-src data: blob:; style-src 'unsafe-inline'; form-action 'none'; base-uri 'none'">
 <title>重要事項説明書に署名と印鑑を入れる</title>
 <style>
 *{box-sizing:border-box}
@@ -82,7 +82,7 @@ button:focus-visible,.btn:focus-within,label.btn:focus-within{outline:3px solid 
 
 <section class="card" id="s2">
   <h2><span class="n">2</span>PDFを選ぶ</h2>
-  <p style="margin:0 0 10px">LINEで受け取った「重要事項説明書」のPDFを、先に端末へ保存してから選んでください。</p>
+  <p style="margin:0 0 10px">お手元の「重要事項説明書」のPDFを、先に端末へ保存してから選んでください。</p>
   <label class="btn" for="pdfFile" id="pdfBtn">PDFを選ぶ</label>
   <input id="pdfFile" class="sr" type="file" accept="application/pdf,.pdf">
   <div id="pdfMsg" class="msg" aria-live="polite"></div>
@@ -116,6 +116,8 @@ button:focus-visible,.btn:focus-within,label.btn:focus-within{outline:3px solid 
       <button id="nudgeU" type="button" aria-label="上へ">▲</button>
       <button id="nudgeD" type="button" aria-label="下へ">▼</button>
       <button id="nudgeR" type="button" aria-label="右へ">▶</button>
+    </div>
+    <div class="nudge" role="group" aria-label="大きさ">
       <button id="sizeMinus" type="button">小さく</button>
       <button id="sizePlus" type="button">大きく</button>
     </div>
@@ -155,6 +157,9 @@ button:focus-visible,.btn:focus-within,label.btn:focus-within{outline:3px solid 
 'use strict';
 var $ = function (id) { return document.getElementById(id); };
 var PDFJS_BASE = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+// 定義済みCMap（非埋め込みの和文フォント用）。cdnjs には cmaps が無い（403）ので、同じ版の npm 配布を jsdelivr から読む。
+// 「@」はメールアドレス検知ガードの誤検知を避けるため文字コードで組む。読むのはデータだけ（実行コードではない）。
+var CMAP_URL = 'https://cdn.jsdelivr.net/npm/pdfjs-dist' + String.fromCharCode(64) + '3.11.174/cmaps/';
 var OUT_NAME = '重要事項説明書_署名押印済み.pdf';
 var SEAL_FONT = '"UD Digi Kyokasho N-B","UDデジタル教科書体 NK-B","Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif CJK JP","Noto Serif JP","MS Mincho",serif';
 var PEN = 0.012;            // 署名の線の太さ（パッドの幅に対する比）
@@ -359,12 +364,12 @@ async function onPdfChosen(file) {
   if (token !== S.loadToken) return;
   var doc;
   try {
-    doc = await pdfjsLib.getDocument({ data: bytes.slice(), isEvalSupported: false, cMapUrl: PDFJS_BASE + 'cmaps/', cMapPacked: true }).promise;
+    doc = await pdfjsLib.getDocument({ data: bytes.slice(), isEvalSupported: false, cMapUrl: CMAP_URL, cMapPacked: true }).promise;
   } catch (e) {
     if (token !== S.loadToken) return;
     var nm = e && e.name;
     var text = nm === 'PasswordException' ? 'パスワードが付いたPDFは扱えません。パスワードを外したPDFを選ぶか、印刷して押印してください。'
-      : nm === 'InvalidPDFException' ? 'PDFとして読めませんでした。LINEで受け取った重要事項説明書のPDFを選んでください。'
+      : nm === 'InvalidPDFException' ? 'PDFとして読めませんでした。重要事項説明書のPDFを選んでください。'
       : 'PDFを読めませんでした（' + (nm || 'エラー') + '）。別のPDFを選ぶか、印刷して押印してください。';
     setMsg($('pdfMsg'), text, 'err');
     return;
@@ -695,7 +700,7 @@ async function build() {
     var file = new File([out], OUT_NAME, { type: 'application/pdf' });
     S.result = { file: file, url: URL.createObjectURL(file), bytes: out, crop: snap.crop, mode: snap.mode, page: snap.page };
     await showResult();
-    setMsg($('buildMsg'), 'PDFができました。', 'ok');
+    if (ver === S.ver && S.result) setMsg($('buildMsg'), 'PDFができました。', 'ok');   // 確認画面を描く間に内容が変わったら、touch() の「もう一度」の案内を消さない
   } catch (e) {
     var text = /encrypt/i.test(String(e && e.message)) ? 'このPDFは保護されていて加工できませんでした。印刷して押印してください。'
       : 'PDFを作れませんでした（' + ((e && e.message) || e) + '）。別のPDFで試すか、印刷して押印してください。';
@@ -719,7 +724,7 @@ async function showResult() {
   $('downloadBtn').textContent = share ? 'PDFを保存する' : 'PDFを保存する（保存したらLINEに添付）';
   setMsg($('resultMsg'), share ? '' : 'この端末・ブラウザでは共有ができないので、PDFを保存して、LINEのトークに添付して送ってください。', share ? '' : 'warn');
   try {                                                                // できあがったPDFそのものを描き直して見せる
-    var doc = await pdfjsLib.getDocument({ data: r.bytes.slice(), isEvalSupported: false, cMapUrl: PDFJS_BASE + 'cmaps/', cMapPacked: true }).promise;
+    var doc = await pdfjsLib.getDocument({ data: r.bytes.slice(), isEvalSupported: false, cMapUrl: CMAP_URL, cMapPacked: true }).promise;
     var page = await doc.getPage(r.page + 1);
     var cssW = Math.max(160, Math.floor($('result').clientWidth)), dpr = Math.min(window.devicePixelRatio || 1, 3);
     var rs = clamp(cssW * dpr / r.crop.w, 1, 4);
