@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<!-- 人に押させる手順書ではなく、本人が自分の端末で使う道具ページ。手書きの署名は本人の意思＝本人しか入れられないので、道具のほうを数タップで終わる形にした。 -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<!-- 「どこにも送られません」を画面の約束だけにしない: 通信の出口をブラウザ側で塞ぐ。
+     許すのは部品(cdnjs)の読み込みだけ。PDFの中身を送れる経路（fetch/フォーム送信/画像ビーコン）は無い。 -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' https://cdnjs.cloudflare.com; worker-src blob: https://cdnjs.cloudflare.com; connect-src https://cdnjs.cloudflare.com; img-src blob: data:; font-src data: blob:; style-src 'unsafe-inline'; form-action 'none'; base-uri 'none'">
+<title>重要事項説明書に署名と印鑑を入れる</title>
+<style>
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#f3f4f6;color:#1f2937;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",Meiryo,sans-serif;font-size:17px;line-height:1.6}
+.wrap{max-width:640px;margin:0 auto;padding:14px 14px 48px}
+h1{font-size:22px;line-height:1.35;margin:6px 0 10px}
+h2{font-size:18px;margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.n{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#0066cc;color:#fff;font-size:15px;flex:none}
+.lead{margin:0 0 8px}
+.privacy{margin:0 0 12px;padding:10px 12px;background:#ecfdf5;border:1px solid #6ee7b7;border-radius:10px;font-weight:600;color:#065f46}
+.card{background:#fff;border-radius:14px;padding:14px;margin:0 0 12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.banner{padding:10px 12px;border-radius:10px;margin:0 0 12px;background:#fff7ed;border:1px solid #fdba74;color:#7c2d12}
+.banner.err{background:#fef2f2;border-color:#fca5a5;color:#7f1d1d}
+.banner a{color:#0b5fd1;font-weight:700;word-break:break-all}
+label{display:block;font-weight:600;margin:0 0 6px}
+input[type=text]{width:100%;font-size:20px;padding:10px 12px;border:2px solid #9ca3af;border-radius:10px;min-height:48px}
+input[type=text]:focus{outline:3px solid #93c5fd;border-color:#0066cc}
+.sealRow{display:flex;gap:12px;align-items:center;margin-top:10px;flex-wrap:wrap}
+#sealPreview{width:96px;height:96px;background:#fff;border:1px solid #d1d5db;border-radius:8px;flex:none}
+.msg{font-size:15px;line-height:1.5;margin-top:8px;overflow-wrap:anywhere;min-height:1px}
+.msg.ok{color:#047857}.msg.warn{color:#b45309}.msg.err{color:#b91c1c;font-weight:600}
+#placeHint{min-height:4.6em}  /* 案内文の行数が変わっても、下のプレビューが指の下で動かないように高さを確保 */
+.btn,.btn2,button.primary,.seg button,.nudge button{font:inherit;cursor:pointer;border-radius:10px;min-height:48px;padding:10px 16px;border:2px solid #0066cc;background:#fff;color:#0066cc;font-weight:700;touch-action:manipulation}
+.btn{display:inline-flex;align-items:center;justify-content:center}
+.btn2{border-color:#6b7280;color:#374151;font-weight:600}
+button.primary{width:100%;background:#0066cc;color:#fff;font-size:19px;min-height:56px}
+button:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,.btn:focus-within,label.btn:focus-within{outline:3px solid #93c5fd}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.row>*{flex:1 1 120px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#sigPad{display:block;width:100%;background:#fff;border:2px dashed #6b7280;border-radius:10px;touch-action:none;cursor:crosshair;background-image:linear-gradient(#e5e7eb,#e5e7eb);background-size:calc(100% - 24px) 1px;background-repeat:no-repeat;background-position:12px 72%}
+.chk{display:flex;align-items:center;gap:10px;font-weight:600;margin:0 0 10px}
+.chk input{width:24px;height:24px;flex:none}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.seg button{flex:1 1 130px;min-width:0;min-height:44px}
+.seg button[aria-pressed=true]{background:#0066cc;color:#fff}
+#previewWrap{width:100%;border:1px solid #d1d5db;border-radius:8px;overflow:hidden;background:#fff}
+#preview{display:block;cursor:crosshair;touch-action:pinch-zoom;max-width:100%}
+.nudge{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.nudge button{flex:1 1 56px;min-width:0;min-height:48px;padding:8px}
+.pageNo{flex:2 1 120px;text-align:center;align-self:center;font-weight:600}
+#result{margin-top:14px;border-top:2px solid #0066cc;padding-top:12px}
+#resultCanvas{display:block;max-width:100%;border:1px solid #d1d5db;border-radius:8px;background:#fff}
+.hint{font-size:14px;color:#4b5563}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>重要事項説明書に<br>署名と印鑑を入れます</h1>
+<p class="lead">お名前（指で手書き）と電子印鑑を、お手元のPDFに入れて、できあがったPDFをLINEで送れます。</p>
+<p class="privacy" id="privacy">🔒 ファイルはこの端末の中だけで処理され、どこにも送られません。</p>
+<div id="lineBanner" class="banner" hidden>
+  <strong>LINEの中で開いています。</strong>PDFの保存や共有がうまくいかないことがあります。
+  下のボタンから「ブラウザ（Safari・Chrome）」で開き直してください。<br>
+  <a id="lineOpenLink" href="#" target="_blank" rel="noopener">ブラウザで開き直す</a>
+</div>
+<div id="fatal" class="banner err" role="alert" hidden></div>
+<noscript><div class="banner err">このページはJavaScriptを使います。ブラウザの設定でJavaScriptを有効にしてください。</div></noscript>
+
+<section class="card" id="s1">
+  <h2><span class="n">1</span>姓を入れる</h2>
+  <label for="surname">印鑑に入れる姓（1〜4文字・空白なし）</label>
+  <input id="surname" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="例：山田" aria-describedby="nameMsg">
+  <div class="sealRow">
+    <canvas id="sealPreview" width="600" height="600" aria-label="印鑑のプレビュー" role="img"></canvas>
+    <div id="nameMsg" class="msg" aria-live="polite">姓を入れると、ここに印鑑が出ます。</div>
+  </div>
+</section>
+
+<section class="card" id="s2">
+  <h2><span class="n">2</span>PDFを選ぶ</h2>
+  <p style="margin:0 0 10px">LINEで受け取った「重要事項説明書」のPDFを、先に端末へ保存してから選んでください。</p>
+  <label class="btn" for="pdfFile" id="pdfBtn">PDFを選ぶ</label>
+  <input id="pdfFile" class="sr" type="file" accept="application/pdf,.pdf">
+  <div id="pdfMsg" class="msg" aria-live="polite"></div>
+</section>
+
+<section class="card" id="s3">
+  <h2><span class="n">3</span>お名前を指で書く</h2>
+  <label class="chk" for="skipSig"><input type="checkbox" id="skipSig">署名はもう入っている（印鑑だけ押す）</label>
+  <div id="sigBox">
+    <canvas id="sigPad" aria-label="お名前を書く枠"></canvas>
+    <div class="row">
+      <button id="sigUndo" type="button" class="btn2">ひとつ戻す</button>
+      <button id="sigClear" type="button" class="btn2">書き直す</button>
+    </div>
+    <div id="sigMsg" class="msg" aria-live="polite">枠の中に、指でお名前を書いてください。</div>
+  </div>
+</section>
+
+<section class="card" id="s4">
+  <h2><span class="n">4</span>位置を確かめる</h2>
+  <div id="placeHint" class="msg" aria-live="polite">PDFを選ぶと、ここに署名と印鑑の位置が出ます。</div>
+  <div id="previewBox" hidden>
+    <div class="seg" role="group" aria-label="動かすもの">
+      <button id="targetSeal" type="button" aria-pressed="true">印鑑を動かす</button>
+      <button id="targetSig" type="button" aria-pressed="false">署名を動かす</button>
+    </div>
+    <div id="previewWrap"><canvas id="preview" tabindex="0" aria-label="署名と印鑑の位置の確認"></canvas></div>
+    <div class="hint">指でなぞると位置がずれます。タップした場所にも置けます。</div>
+    <div class="nudge" role="group" aria-label="少しずつ動かす">
+      <button id="nudgeL" type="button" aria-label="左へ">◀</button>
+      <button id="nudgeU" type="button" aria-label="上へ">▲</button>
+      <button id="nudgeD" type="button" aria-label="下へ">▼</button>
+      <button id="nudgeR" type="button" aria-label="右へ">▶</button>
+      <button id="sizeMinus" type="button">小さく</button>
+      <button id="sizePlus" type="button">大きく</button>
+    </div>
+    <div id="pageNav" class="row" hidden>
+      <button id="pagePrev" type="button" class="btn2">◀ 前のページ</button>
+      <span id="pageNo" class="pageNo"></span>
+      <button id="pageNext" type="button" class="btn2">次のページ ▶</button>
+    </div>
+    <div class="row"><button id="resetPlace" type="button" class="btn2" hidden>自動の位置に戻す</button></div>
+  </div>
+</section>
+
+<section class="card" id="s5">
+  <h2><span class="n">5</span>PDFを作って送る</h2>
+  <div id="buildHint" class="msg" aria-live="polite"></div>
+  <button id="buildBtn" class="primary" type="button" disabled>この内容で作る</button>
+  <div id="buildMsg" class="msg" aria-live="polite"></div>
+  <div id="result" hidden>
+    <p style="margin:0 0 8px;font-weight:700">PDFができました。印鑑と署名の位置を確かめてください。</p>
+    <canvas id="resultCanvas" aria-label="できあがりの確認"></canvas>
+    <div class="row">
+      <button id="shareBtn" type="button" class="primary">LINEなどで送る（共有）</button>
+    </div>
+    <div class="row">
+      <button id="downloadBtn" type="button" class="btn2">PDFを保存する</button>
+      <button id="backBtn" type="button" class="btn2">戻って直す</button>
+    </div>
+    <div id="resultMsg" class="msg" aria-live="polite"></div>
+  </div>
+</section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" integrity="sha512-z8IYLHO8bTgFqj+yrPyIJnzBDf7DDhWwiEsk4sY+Oe6J2M+WQequeGS7qioI5vT6rXgVRb4K1UVQC5ER7MKzKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" integrity="sha512-q+4liFwdPC/bNdhUpZx6aXDx/h77yEQtn4I1slHydcbZK34nLaR3cAeYSJshoxIOq3mjEf7xJE8YWIUHMn+oCQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+(function () {
+'use strict';
+var $ = function (id) { return document.getElementById(id); };
+var PDFJS_BASE = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+var OUT_NAME = '重要事項説明書_署名押印済み.pdf';
+var SEAL_FONT = '"UD Digi Kyokasho N-B","UDデジタル教科書体 NK-B","Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif CJK JP","Noto Serif JP","MS Mincho",serif';
+var PEN = 0.012;            // 署名の線の太さ（パッドの幅に対する比）
+var SIG_W = 1200;           // 署名を書き出すときの基準幅(px)
+
+function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
+function setMsg(el, text, kind) { el.textContent = text || ''; el.className = 'msg' + (kind ? ' ' + kind : ''); }
+function fatal(text) { var el = $('fatal'); el.textContent = text; el.hidden = false; }
+window.addEventListener('error', function (e) { fatal('予期しないエラーが起きました: ' + (e.message || e)); });
+window.addEventListener('unhandledrejection', function (e) { fatal('予期しないエラーが起きました: ' + ((e.reason && e.reason.message) || e.reason)); });
+
+// ---- 部品の読み込み確認（失敗を黙らせない） ----
+if (!window.PDFLib || !window.pdfjsLib) {
+  fatal('部品の読み込みに失敗しました。通信状況を確かめて、ページを開き直してください。');
+  $('pdfFile').disabled = true;
+  return;
+}
+pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_BASE + 'pdf.worker.min.js';
+
+// ---- LINE のアプリ内ブラウザ ----
+if (/\bLine\//i.test(navigator.userAgent)) {
+  var u = new URL(location.href);
+  u.searchParams.set('openExternalBrowser', '1');
+  $('lineOpenLink').href = u.toString();
+  $('lineBanner').hidden = false;
+}
+
+// ---- 状態 ----
+var S = {
+  name: null, sealCanvas: null,
+  pdfBytes: null, pdfDoc: null, fileName: '', numPages: 0, loadToken: 0, pageToken: 0,
+  pageIndex: 0, vp: null, pageW: 0, pageH: 0, rotate: 0,
+  base: null, baseSX: 1, baseSY: 1, fields: null, mode: 'none',
+  strokes: [], sig: { has: false, canvas: null, png: null, w: 0, h: 0 },
+  skipSig: false, place: { sig: null, seal: null }, target: 'seal',
+  building: false, result: null, ver: 0, composing: false, sigToken: 0
+};
+
+// 内容が変わったら: 作ってあったPDFは古い＝捨てて、画面を更新する
+function touch() {
+  S.ver++;
+  if (S.result) { dropResult(); setMsg($('buildMsg'), '内容を変えたので、もう一度「この内容で作る」を押してください。', 'warn'); }
+  refreshUI();
+}
+function dropResult() {
+  if (S.result) { try { URL.revokeObjectURL(S.result.url); } catch (e) { /* noop */ } }
+  S.result = null;
+  $('result').hidden = true;
+}
+
+// ================= 1. 姓と印鑑 =================
+function validateSurname(raw) {
+  var s = raw.replace(/^[\s　]+|[\s　]+$/g, '');
+  if (!s) return { ok: false, empty: true, msg: '姓を入れると、ここに印鑑が出ます。' };
+  if (/[\s　]/.test(s)) return { ok: false, msg: '空白は入れず、姓だけを入れてください（例：山田）。' };
+  if (Array.from(s).length > 4) return { ok: false, msg: '印鑑に入るのは4文字までです。姓だけを入れてください（例：山田）。' };
+  return { ok: true, name: s };
+}
+
+function drawSeal(cv, name) {
+  var C = 600, RING = 22, INNER = 60, RED = '#CC0000';
+  cv.width = C; cv.height = C;
+  var g = cv.getContext('2d');
+  g.clearRect(0, 0, C, C);
+  g.strokeStyle = RED; g.lineWidth = RING;
+  g.beginPath(); g.arc(C / 2, C / 2, C / 2 - RING, 0, Math.PI * 2); g.stroke();
+  var chars = Array.from(name);
+  var side = C - 2 * RING - 2 * INNER;
+  var size = 22, ms = null;
+  for (var s = 262; s >= 22; s -= 2) {
+    g.font = 'bold ' + s + 'px ' + SEAL_FONT;
+    var m = chars.map(function (c) { return g.measureText(c); });
+    var hs = m.reduce(function (a, x) { return a + x.actualBoundingBoxAscent + x.actualBoundingBoxDescent; }, 0);
+    var ws = Math.max.apply(null, m.map(function (x) { return x.actualBoundingBoxLeft + x.actualBoundingBoxRight; }));
+    if (hs <= side && ws <= side) { size = s; ms = m; break; }
+  }
+  g.font = 'bold ' + size + 'px ' + SEAL_FONT;
+  if (!ms) ms = chars.map(function (c) { return g.measureText(c); });
+  var heights = ms.map(function (x) { return x.actualBoundingBoxAscent + x.actualBoundingBoxDescent; });
+  var y = (C - heights.reduce(function (a, b) { return a + b; }, 0)) / 2;
+  g.fillStyle = RED; g.textBaseline = 'alphabetic'; g.textAlign = 'left';
+  chars.forEach(function (c, i) {
+    var m = ms[i];
+    var w = m.actualBoundingBoxLeft + m.actualBoundingBoxRight;
+    g.fillText(c, (C - w) / 2 + m.actualBoundingBoxLeft, y + m.actualBoundingBoxAscent);
+    y += heights[i];
+  });
+}
+
+function onSurnameChange() {
+  var v = validateSurname($('surname').value);
+  var box = $('sealPreview');
+  if (v.ok) {
+    S.name = v.name;
+    S.sealCanvas = document.createElement('canvas');
+    drawSeal(S.sealCanvas, v.name);
+    box.width = 600; box.height = 600;
+    box.getContext('2d').drawImage(S.sealCanvas, 0, 0);
+    setMsg($('nameMsg'), '「' + v.name + '」の印鑑です。', 'ok');
+  } else {
+    S.name = null; S.sealCanvas = null;
+    box.getContext('2d').clearRect(0, 0, box.width, box.height);
+    // 変換中（IME）は途中の文字で叱らない
+    setMsg($('nameMsg'), S.composing && !v.empty ? '' : v.msg, v.empty || S.composing ? '' : 'err');
+  }
+  touch();
+}
+$('surname').addEventListener('input', onSurnameChange);
+$('surname').addEventListener('compositionstart', function () { S.composing = true; });
+$('surname').addEventListener('compositionend', function () { S.composing = false; onSurnameChange(); });
+
+// ================= 2. PDF =================
+function readFile(file) {
+  return new Promise(function (resolve, reject) {
+    var fr = new FileReader();
+    fr.onload = function () { resolve(new Uint8Array(fr.result)); };
+    fr.onerror = function () { reject(fr.error || new Error('read failed')); };
+    fr.readAsArrayBuffer(file);
+  });
+}
+
+function resetPdfState() {
+  if (S.pdfDoc) { try { S.pdfDoc.destroy(); } catch (e) { /* noop */ } }
+  S.pdfBytes = null; S.pdfDoc = null; S.fileName = ''; S.numPages = 0;
+  S.base = null; S.vp = null; S.fields = null; S.mode = 'none';
+  S.place = { sig: null, seal: null }; S.target = 'seal'; S.pageIndex = 0;
+}
+
+async function renderBase(doc, idx) {
+  var page = await doc.getPage(idx + 1);
+  var vp1 = page.getViewport({ scale: 1 });
+  var rs = Math.min(2.5, Math.sqrt(8e6 / (vp1.width * vp1.height)));
+  var vp = page.getViewport({ scale: rs });
+  var cv = document.createElement('canvas');
+  cv.width = Math.ceil(vp.width); cv.height = Math.ceil(vp.height);
+  var g = cv.getContext('2d');
+  g.fillStyle = '#fff'; g.fillRect(0, 0, cv.width, cv.height);
+  await page.render({ canvasContext: g, viewport: vp }).promise;
+  return { canvas: cv, sx: cv.width / vp1.width, sy: cv.height / vp1.height, vp1: vp1, rotate: ((page.rotate % 360) + 360) % 360 };
+}
+
+// 欄の検出: scripts/sign_guide_image.py の locate_fields と同じ規則
+//   2ページ目で「（氏名）」と、縦ずれ10pt以内で右にある「㊞」を組にする。ページ上半分に無ければ見つからない扱い
+async function detectFields(doc) {
+  if (doc.numPages < 2) return null;
+  var page = await doc.getPage(2);
+  if (((page.rotate % 360) + 360) % 360 !== 0) return null;
+  var vp = page.getViewport({ scale: 1 });
+  var tc = await page.getTextContent();
+  var names = [], seals = [];
+  var LABEL = Array.from('（氏名）');
+  tc.items.forEach(function (it) {
+    if (!it.str || !it.transform) return;
+    var t = it.transform;
+    if (Math.abs(t[1]) > 0.01 || Math.abs(t[2]) > 0.01) return;      // 回転・傾きの文字は対象外
+    var fs = Math.abs(t[3]) || it.height || 0;
+    if (!(fs > 0)) return;
+    var chars = Array.from(it.str);
+    var wts = chars.map(function (c) { return /[ -~｡-ﾟ]/.test(c) ? 0.5 : 1; });
+    var tot = wts.reduce(function (a, b) { return a + b; }, 0) || 1;
+    var width = it.width > 0 ? it.width : fs * tot;
+    var base = vp.convertToViewportPoint(t[4], t[5]);               // [x, y(下向き・ベースライン)]
+    var cum = [0];
+    wts.forEach(function (w) { cum.push(cum[cum.length - 1] + w); });
+    function rect(i, n) {
+      return { x0: base[0] + width * cum[i] / tot, x1: base[0] + width * cum[i + n] / tot,
+               by: base[1], fs: fs, cy: base[1] - 0.36 * fs, top: base[1] - 0.86 * fs };
+    }
+    for (var i = 0; i < chars.length; i++) {
+      if (chars[i] === '㊞') seals.push(rect(i, 1));
+      if (i + LABEL.length <= chars.length && LABEL.every(function (c, k) { return chars[i + k] === c; })) names.push(rect(i, LABEL.length));
+    }
+  });
+  for (var a = 0; a < names.length; a++) {
+    for (var b = 0; b < seals.length; b++) {
+      var n = names[a], s = seals[b];
+      if (Math.abs(s.by - n.by) <= 10 && s.x0 > n.x1 && n.top < vp.height * 0.5) return { fs: n.fs, name: n, seal: s };
+    }
+  }
+  return null;
+}
+
+async function showPage() {
+  var token = ++S.pageToken;
+  var b = await renderBase(S.pdfDoc, S.pageIndex);
+  if (token !== S.pageToken) return false;
+  S.base = b.canvas; S.baseSX = b.sx; S.baseSY = b.sy; S.vp = b.vp1;
+  S.pageW = b.vp1.width; S.pageH = b.vp1.height; S.rotate = b.rotate;
+  return true;
+}
+
+async function onPdfChosen(file) {
+  var token = ++S.loadToken;
+  dropResult(); setMsg($('buildMsg'), '');
+  resetPdfState();
+  S.ver++;
+  refreshUI();
+  setMsg($('pdfMsg'), '読み込み中…');
+  var bytes;
+  try { bytes = await readFile(file); }
+  catch (e) { if (token === S.loadToken) { setMsg($('pdfMsg'), 'ファイルを読めませんでした。もう一度選んでください。', 'err'); } return; }
+  if (token !== S.loadToken) return;
+  var doc;
+  try {
+    doc = await pdfjsLib.getDocument({ data: bytes.slice(), isEvalSupported: false, cMapUrl: PDFJS_BASE + 'cmaps/', cMapPacked: true }).promise;
+  } catch (e) {
+    if (token !== S.loadToken) return;
+    var nm = e && e.name;
+    var text = nm === 'PasswordException' ? 'パスワードが付いたPDFは扱えません。パスワードを外したPDFを選ぶか、印刷して押印してください。'
+      : nm === 'InvalidPDFException' ? 'PDFとして読めませんでした。LINEで受け取った重要事項説明書のPDFを選んでください。'
+      : 'PDFを読めませんでした（' + (nm || 'エラー') + '）。別のPDFを選ぶか、印刷して押印してください。';
+    setMsg($('pdfMsg'), text, 'err');
+    return;
+  }
+  if (token !== S.loadToken) { try { doc.destroy(); } catch (e) { /* noop */ } return; }
+  S.pdfBytes = bytes; S.pdfDoc = doc; S.numPages = doc.numPages; S.fileName = file.name || '';
+  var fields = null;
+  try { fields = await detectFields(doc); } catch (e) { fields = null; }
+  if (token !== S.loadToken) return;
+  try {
+    S.fields = fields;
+    S.mode = fields ? 'auto' : 'manual';
+    S.pageIndex = fields ? 1 : (doc.numPages >= 2 ? 1 : 0);
+    var ok = await showPage();
+    if (!ok || token !== S.loadToken) return;
+  } catch (e) {
+    setMsg($('pdfMsg'), 'PDFの画面を作れませんでした（' + (e && e.name || 'エラー') + '）。別のPDFを選ぶか、印刷して押印してください。', 'err');
+    resetPdfState(); touch();
+    return;
+  }
+  setMsg($('pdfMsg'), '読み込みました：' + S.fileName + '（全' + S.numPages + 'ページ）', 'ok');
+  if (S.mode === 'auto') { autoPlaceSeal(); placeSigAuto(); S.target = 'seal'; }
+  touch();
+}
+$('pdfFile').addEventListener('change', function () {
+  var f = this.files && this.files[0];
+  if (!f) return;
+  var p = onPdfChosen(f);
+  this.value = '';                       // 同じファイルをもう一度選べるように
+  p.catch(function (e) { fatal('PDFの読み込みで予期しないエラー: ' + (e && e.message || e)); });
+});
+
+// ================= 3. 署名 =================
+var pad = $('sigPad');
+var cur = null;
+function sizePad() {
+  var w = Math.max(160, Math.floor(pad.clientWidth || pad.parentElement.clientWidth));
+  var dpr = Math.min(window.devicePixelRatio || 1, 3);
+  var h = Math.round(w / 3);
+  pad.style.height = h + 'px';
+  var bw = Math.round(w * dpr), bh = Math.round(h * dpr);
+  if (pad.width !== bw || pad.height !== bh) { pad.width = bw; pad.height = bh; }
+  redrawPad();
+}
+function renderStrokes(g, strokes, W, ox, oy) {
+  g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = '#111'; g.fillStyle = '#111';
+  g.lineWidth = PEN * W;
+  strokes.forEach(function (st) {
+    if (!st.length) return;
+    var P = st.map(function (p) { return [p[0] * W - ox, p[1] * W - oy]; });
+    if (P.length === 1) { g.beginPath(); g.arc(P[0][0], P[0][1], PEN * W / 2, 0, Math.PI * 2); g.fill(); return; }
+    g.beginPath(); g.moveTo(P[0][0], P[0][1]);
+    for (var i = 1; i < P.length - 1; i++) {
+      var mx = (P[i][0] + P[i + 1][0]) / 2, my = (P[i][1] + P[i + 1][1]) / 2;
+      g.quadraticCurveTo(P[i][0], P[i][1], mx, my);
+    }
+    g.lineTo(P[P.length - 1][0], P[P.length - 1][1]);
+    g.stroke();
+  });
+}
+function redrawPad() {
+  var g = pad.getContext('2d');
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  g.clearRect(0, 0, pad.width, pad.height);
+  renderStrokes(g, S.strokes, pad.width, 0, 0);
+}
+function padPoint(e) {
+  var r = pad.getBoundingClientRect();
+  return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.width];
+}
+pad.addEventListener('pointerdown', function (e) {
+  if (cur || (e.pointerType === 'mouse' && e.button !== 0)) return;
+  e.preventDefault();
+  try { pad.setPointerCapture(e.pointerId); } catch (err) { /* noop */ }
+  cur = { id: e.pointerId, pts: [padPoint(e)] };
+  S.strokes.push(cur.pts);
+  redrawPad();
+});
+pad.addEventListener('pointermove', function (e) {
+  if (!cur || e.pointerId !== cur.id) return;
+  e.preventDefault();
+  var evs = (e.getCoalescedEvents && e.getCoalescedEvents()) || [];
+  if (!evs.length) evs = [e];
+  evs.forEach(function (ev) { cur.pts.push(padPoint(ev)); });
+  redrawPad();
+});
+function endStroke(e) {
+  if (!cur || e.pointerId !== cur.id) return;
+  cur = null;
+  updateSig();
+}
+pad.addEventListener('pointerup', endStroke);
+pad.addEventListener('pointercancel', endStroke);
+pad.addEventListener('touchstart', function (e) { e.preventDefault(); }, { passive: false });
+
+// 書いたものを「インクの範囲だけ」に切り出して、透明背景のPNGにする
+function updateSig() {
+  var token = ++S.sigToken;
+  if (!S.strokes.length) {
+    S.sig = { has: false, canvas: null, png: null, w: 0, h: 0 };
+    sigAfterChange(); return;
+  }
+  var lw = PEN * SIG_W, minX = 1e9, minY = 1e9, maxX = -1e9, maxY = -1e9;
+  S.strokes.forEach(function (st) {
+    st.forEach(function (p) {
+      minX = Math.min(minX, p[0] * SIG_W); maxX = Math.max(maxX, p[0] * SIG_W);
+      minY = Math.min(minY, p[1] * SIG_W); maxY = Math.max(maxY, p[1] * SIG_W);
+    });
+  });
+  var padPx = 8;
+  var x0 = Math.floor(minX - lw / 2 - padPx), y0 = Math.floor(minY - lw / 2 - padPx);
+  var x1 = Math.ceil(maxX + lw / 2 + padPx), y1 = Math.ceil(maxY + lw / 2 + padPx);
+  var cv = document.createElement('canvas');
+  cv.width = Math.max(1, x1 - x0); cv.height = Math.max(1, y1 - y0);
+  renderStrokes(cv.getContext('2d'), S.strokes, SIG_W, x0, y0);
+  if (token !== S.sigToken) return;
+  S.sig = { has: true, canvas: cv, png: dataUrlToBytes(cv.toDataURL('image/png')), w: cv.width, h: cv.height };
+  sigAfterChange();
+}
+function dataUrlToBytes(url) {
+  var b = atob(url.split(',')[1]);
+  var u = new Uint8Array(b.length);
+  for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i);
+  return u;
+}
+function sigAfterChange() {
+  if (S.sig.has && S.mode === 'auto' && !(S.place.sig && S.place.sig.moved)) placeSigAuto();
+  else if (S.sig.has && S.place.sig) {                               // 動かし済みの署名: 中心と高さはそのまま、形だけ新しい字に合わせる
+    var o = S.place.sig; o.w = o.h * S.sig.w / S.sig.h;
+  } else if (!S.sig.has) { S.place.sig = null; }
+  touch();
+}
+$('sigClear').addEventListener('click', function () { S.strokes = []; redrawPad(); updateSig(); });
+$('sigUndo').addEventListener('click', function () { S.strokes.pop(); redrawPad(); updateSig(); });
+$('skipSig').addEventListener('change', function () {
+  S.skipSig = this.checked;
+  if (S.skipSig && S.target === 'sig') S.target = 'seal';
+  touch();
+});
+window.addEventListener('resize', function () { sizePad(); drawPreview(); });
+window.addEventListener('orientationchange', function () { setTimeout(function () { sizePad(); drawPreview(); }, 150); });
+
+// ================= 4. 位置 =================
+function autoPlaceSeal() {
+  var f = S.fields;
+  S.place.seal = { cx: (f.seal.x0 + f.seal.x1) / 2, cy: f.seal.cy, size: clamp(f.fs * 3, 22, 30) };
+}
+// 署名: 「（氏名）」の右〜「㊞」の左の間に、行の高さに収まる大きさで置く
+function placeSigAuto() {
+  if (!S.fields || !S.sig.has) return;
+  var f = S.fields;
+  var x0 = f.name.x1 + 2, x1 = f.seal.x0 - 4;
+  var maxH = f.fs * 2.6, maxW = Math.max(20, x1 - x0 - 6);
+  var sc = Math.min(maxH / S.sig.h, maxW / S.sig.w);
+  var w = S.sig.w * sc, h = S.sig.h * sc;
+  S.place.sig = { cx: x0 + 6 + w / 2, cy: f.name.cy, w: w, h: h, moved: false };
+}
+function getCrop() {
+  var W = S.pageW, H = S.pageH;
+  if (S.mode === 'auto' && S.fields) {
+    var f = S.fields;
+    var x0 = Math.max(0, f.name.x0 - 30), x1 = Math.min(W, f.seal.x1 + 30);
+    var y0 = Math.max(0, f.name.cy - 60), y1 = Math.min(H, f.name.cy + 34);
+    return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
+  }
+  return { x: 0, y: 0, w: W, h: H };
+}
+function targetObj() { return S.target === 'seal' ? S.place.seal : S.place.sig; }
+function moveTarget(dx, dy) {
+  var o = targetObj(); if (!o) return false;
+  var c = getCrop();
+  o.cx = clamp(o.cx + dx, c.x, c.x + c.w); o.cy = clamp(o.cy + dy, c.y, c.y + c.h);
+  if (S.target === 'sig') o.moved = true;
+  return true;
+}
+function resizeTarget(f) {
+  var o = targetObj(); if (!o) return;
+  if (S.target === 'seal') o.size = clamp(o.size * f, 12, 60);
+  else { var nh = clamp(o.h * f, 8, 80), r = nh / o.h; o.h = nh; o.w = o.w * r; o.moved = true; }
+}
+function placeAt(x, y) {                                              // タップした場所に、選んでいるほうの中心を置く
+  if (S.target === 'seal') {
+    S.place.seal = S.place.seal ? Object.assign({}, S.place.seal, { cx: x, cy: y }) : { cx: x, cy: y, size: 24 };
+  } else {
+    if (!S.sig.has) { setMsg($('placeHint'), '先に、上の枠で署名を書いてください。', 'warn'); return false; }
+    if (S.place.sig) { S.place.sig.cx = x; S.place.sig.cy = y; S.place.sig.moved = true; }
+    else {
+      var h = 24, w = h * S.sig.w / S.sig.h;
+      if (w > S.pageW * 0.5) { w = S.pageW * 0.5; h = w * S.sig.h / S.sig.w; }
+      S.place.sig = { cx: x, cy: y, w: w, h: h, moved: true };
+    }
+  }
+  if (S.mode === 'manual' && S.target === 'seal' && !S.skipSig && !S.place.sig) S.target = 'sig';   // 次は署名の位置
+  return true;
+}
+
+function drawPreview() {
+  var cv = $('preview');
+  if (!S.base) { $('previewBox').hidden = true; return; }
+  $('previewBox').hidden = false;
+  var crop = getCrop();
+  var cssW = Math.max(160, Math.floor($('previewWrap').clientWidth));
+  var k = cssW / crop.w, cssH = Math.max(40, Math.round(crop.h * k));
+  var dpr = Math.min(window.devicePixelRatio || 1, 3);
+  var pw = Math.round(cssW * dpr), ph = Math.round(cssH * dpr);
+  cv.style.width = cssW + 'px'; cv.style.height = cssH + 'px';
+  if (cv.width !== pw || cv.height !== ph) { cv.width = pw; cv.height = ph; }
+  cv.style.touchAction = S.mode === 'auto' ? 'pinch-zoom' : 'pan-y pinch-zoom';
+  var g = cv.getContext('2d');
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  g.fillStyle = '#fff'; g.fillRect(0, 0, pw, ph);
+  g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
+  g.drawImage(S.base, crop.x * S.baseSX, crop.y * S.baseSY, crop.w * S.baseSX, crop.h * S.baseSY, 0, 0, pw, ph);
+  var kp = pw / crop.w;
+  function box(o, w, h) { return [(o.cx - w / 2 - crop.x) * kp, (o.cy - h / 2 - crop.y) * kp, w * kp, h * kp]; }
+  var sg = S.place.sig, sl = S.place.seal;
+  if (!S.skipSig && sg && S.sig.has) { var b1 = box(sg, sg.w, sg.h); g.drawImage(S.sig.canvas, b1[0], b1[1], b1[2], b1[3]); }
+  if (sl && S.sealCanvas) { var b2 = box(sl, sl.size, sl.size); g.drawImage(S.sealCanvas, b2[0], b2[1], b2[2], b2[3]); }
+  // 動かす対象の目印（画面だけ・PDFには入らない）
+  var tg = S.target === 'seal' ? (sl && { o: sl, w: sl.size, h: sl.size }) : (sg && !S.skipSig && { o: sg, w: sg.w, h: sg.h });
+  if (tg) {
+    var bb = box(tg.o, tg.w, tg.h);
+    g.save(); g.strokeStyle = '#0066cc'; g.lineWidth = 1.5 * dpr; g.setLineDash([4 * dpr, 3 * dpr]);
+    g.strokeRect(bb[0] - 2 * dpr, bb[1] - 2 * dpr, bb[2] + 4 * dpr, bb[3] + 4 * dpr); g.restore();
+  }
+  cv.dataset.mode = S.mode;
+  cv.dataset.cropX = crop.x.toFixed(2); cv.dataset.cropY = crop.y.toFixed(2);
+  cv.dataset.cropW = crop.w.toFixed(2); cv.dataset.cropH = crop.h.toFixed(2);
+}
+
+(function bindPreview() {
+  var cv = $('preview'), drag = null;
+  function ptOf(e) {
+    var r = cv.getBoundingClientRect(), c = getCrop();
+    return { x: c.x + (e.clientX - r.left) / r.width * c.w, y: c.y + (e.clientY - r.top) / r.height * c.h, r: r, c: c };
+  }
+  cv.addEventListener('pointerdown', function (e) {
+    if (!S.base || drag || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    try { cv.setPointerCapture(e.pointerId); } catch (err) { /* noop */ }
+    drag = { id: e.pointerId, sx: e.clientX, sy: e.clientY, lx: e.clientX, ly: e.clientY, moved: false };
+  });
+  cv.addEventListener('pointermove', function (e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    if (!drag.moved && Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy) < 6) return;
+    drag.moved = true;
+    var p = ptOf(e);
+    if (moveTarget((e.clientX - drag.lx) / p.r.width * p.c.w, (e.clientY - drag.ly) / p.r.height * p.c.h)) { touch(); }
+    drag.lx = e.clientX; drag.ly = e.clientY;
+  });
+  cv.addEventListener('pointerup', function (e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    var d = drag; drag = null;
+    if (d.moved) return;
+    var p = ptOf(e);
+    if (placeAt(p.x, p.y)) touch();
+  });
+  cv.addEventListener('pointercancel', function () { drag = null; });
+  cv.addEventListener('keydown', function (e) {
+    var st = e.shiftKey ? 5 : 1, m = { ArrowLeft: [-st, 0], ArrowRight: [st, 0], ArrowUp: [0, -st], ArrowDown: [0, st] }[e.key];
+    if (!m) return;
+    e.preventDefault();
+    if (moveTarget(m[0], m[1])) touch();
+  });
+})();
+function nudge(dx, dy) { return function () { if (moveTarget(dx, dy)) touch(); }; }
+$('nudgeL').addEventListener('click', nudge(-1, 0));
+$('nudgeR').addEventListener('click', nudge(1, 0));
+$('nudgeU').addEventListener('click', nudge(0, -1));
+$('nudgeD').addEventListener('click', nudge(0, 1));
+$('sizeMinus').addEventListener('click', function () { resizeTarget(1 / 1.1); touch(); });
+$('sizePlus').addEventListener('click', function () { resizeTarget(1.1); touch(); });
+$('targetSeal').addEventListener('click', function () { S.target = 'seal'; refreshUI(); });
+$('targetSig').addEventListener('click', function () { if (!S.skipSig) { S.target = 'sig'; refreshUI(); } });
+$('resetPlace').addEventListener('click', function () {
+  if (S.mode !== 'auto' || !S.fields) return;
+  autoPlaceSeal(); S.place.sig = null; placeSigAuto(); touch();
+});
+async function goPage(delta) {
+  var idx = S.pageIndex + delta;
+  if (!S.pdfDoc || idx < 0 || idx >= S.numPages) return;
+  S.pageIndex = idx; S.place = { sig: null, seal: null }; S.target = 'seal';
+  try { await showPage(); } catch (e) { setMsg($('placeHint'), 'このページを表示できませんでした。', 'err'); return; }
+  touch();
+}
+$('pagePrev').addEventListener('click', function () { goPage(-1); });
+$('pageNext').addEventListener('click', function () { goPage(1); });
+
+// ================= 5. 作る =================
+function missing() {
+  var m = [];
+  if (!S.name) m.push('姓');
+  if (!S.pdfDoc) m.push('PDF');
+  if (!S.skipSig && !S.sig.has) m.push('署名');
+  if (S.pdfDoc && !S.place.seal) m.push('印鑑の位置');
+  if (S.pdfDoc && !S.skipSig && S.sig.has && !S.place.sig) m.push('署名の位置');
+  return m;
+}
+function sealPngBytes() {
+  var c = document.createElement('canvas'); c.width = 300; c.height = 300;
+  var g = c.getContext('2d'); g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
+  g.drawImage(S.sealCanvas, 0, 0, 300, 300);
+  return dataUrlToBytes(c.toDataURL('image/png'));
+}
+
+async function build() {
+  if (S.building || missing().length) return;
+  S.building = true;
+  $('buildBtn').disabled = true;
+  setMsg($('buildMsg'), 'PDFを作っています…');
+  dropResult();
+  var ver = S.ver;
+  var snap = { bytes: S.pdfBytes, page: S.pageIndex, rot: S.rotate, vp: S.vp, skipSig: S.skipSig,
+               seal: Object.assign({}, S.place.seal), sig: S.place.sig && Object.assign({}, S.place.sig),
+               sealPng: sealPngBytes(), sigPng: S.sig.png, mode: S.mode, crop: getCrop() };
+  try {
+    var PDFDocument = PDFLib.PDFDocument, degrees = PDFLib.degrees;
+    var pdf = await PDFDocument.load(snap.bytes.slice(), { updateMetadata: false });
+    var page = pdf.getPage(snap.page);
+    var th = snap.rot * Math.PI / 180, cs = Math.cos(th), sn = Math.sin(th);
+    function put(img, o, w, h) {
+      var c = snap.vp.convertToPdfPoint(o.cx, o.cy);
+      page.drawImage(img, { x: c[0] - (w / 2) * cs + (h / 2) * sn, y: c[1] - (w / 2) * sn - (h / 2) * cs, width: w, height: h, rotate: degrees(snap.rot) });
+    }
+    if (!snap.skipSig && snap.sig) put(await pdf.embedPng(snap.sigPng), snap.sig, snap.sig.w, snap.sig.h);
+    put(await pdf.embedPng(snap.sealPng), snap.seal, snap.seal.size, snap.seal.size);
+    var out = await pdf.save();
+    if (ver !== S.ver) { setMsg($('buildMsg'), '作っている間に内容が変わったので、もう一度「この内容で作る」を押してください。', 'warn'); return; }
+    var file = new File([out], OUT_NAME, { type: 'application/pdf' });
+    S.result = { file: file, url: URL.createObjectURL(file), bytes: out, crop: snap.crop, mode: snap.mode, page: snap.page };
+    await showResult();
+    setMsg($('buildMsg'), 'PDFができました。', 'ok');
+  } catch (e) {
+    var text = /encrypt/i.test(String(e && e.message)) ? 'このPDFは保護されていて加工できませんでした。印刷して押印してください。'
+      : 'PDFを作れませんでした（' + ((e && e.message) || e) + '）。別のPDFで試すか、印刷して押印してください。';
+    setMsg($('buildMsg'), text, 'err');
+  } finally {
+    S.building = false;
+    refreshUI();
+  }
+}
+$('buildBtn').addEventListener('click', build);
+
+function canShareFile(file) {
+  try { return !!(navigator.share && navigator.canShare && navigator.canShare({ files: [file] })); } catch (e) { return false; }
+}
+async function showResult() {
+  var r = S.result, cv = $('resultCanvas');
+  $('result').hidden = false;
+  var share = canShareFile(r.file);
+  $('shareBtn').hidden = !share;
+  $('downloadBtn').className = share ? 'btn2' : 'primary';
+  $('downloadBtn').textContent = share ? 'PDFを保存する' : 'PDFを保存する（保存したらLINEに添付）';
+  setMsg($('resultMsg'), share ? '' : 'この端末・ブラウザでは共有ができないので、PDFを保存して、LINEのトークに添付して送ってください。', share ? '' : 'warn');
+  try {                                                                // できあがったPDFそのものを描き直して見せる
+    var doc = await pdfjsLib.getDocument({ data: r.bytes.slice(), isEvalSupported: false, cMapUrl: PDFJS_BASE + 'cmaps/', cMapPacked: true }).promise;
+    var page = await doc.getPage(r.page + 1);
+    var cssW = Math.max(160, Math.floor($('result').clientWidth)), dpr = Math.min(window.devicePixelRatio || 1, 3);
+    var rs = clamp(cssW * dpr / r.crop.w, 1, 4);
+    var vp = page.getViewport({ scale: rs });
+    var full = document.createElement('canvas'); full.width = Math.ceil(vp.width); full.height = Math.ceil(vp.height);
+    var fg = full.getContext('2d'); fg.fillStyle = '#fff'; fg.fillRect(0, 0, full.width, full.height);
+    await page.render({ canvasContext: fg, viewport: vp }).promise;
+    var sx = full.width / S.pageW, sy = full.height / S.pageH;
+    var cw = Math.round(r.crop.w * sx), ch = Math.round(r.crop.h * sy);
+    cv.width = cw; cv.height = ch; cv.style.width = cssW + 'px'; cv.style.height = Math.round(cssW * ch / cw) + 'px';
+    cv.getContext('2d').drawImage(full, r.crop.x * sx, r.crop.y * sy, r.crop.w * sx, r.crop.h * sy, 0, 0, cw, ch);
+    doc.destroy();
+  } catch (e) {
+    cv.width = 1; cv.height = 1; cv.style.height = '0';
+    setMsg($('resultMsg'), 'できあがりの確認画面は出せませんでしたが、PDFは作れています。', 'warn');
+  }
+}
+$('shareBtn').addEventListener('click', async function () {
+  if (!S.result) return;
+  try {
+    await navigator.share({ files: [S.result.file], title: '重要事項説明書' });
+    setMsg($('resultMsg'), '共有画面を閉じました。LINEのトークに届いたか、確かめてください。', 'ok');
+  } catch (e) {
+    if (e && e.name === 'AbortError') { setMsg($('resultMsg'), '共有をやめました。もう一度押すか、「PDFを保存する」を使ってください。', 'warn'); return; }
+    setMsg($('resultMsg'), '共有できませんでした（' + ((e && e.name) || 'エラー') + '）。「PDFを保存する」で保存して、LINEのトークに添付してください。', 'err');
+    $('downloadBtn').className = 'primary';
+  }
+});
+$('downloadBtn').addEventListener('click', function () {
+  if (!S.result) return;
+  var a = document.createElement('a');
+  a.href = S.result.url; a.download = OUT_NAME;
+  document.body.appendChild(a); a.click(); a.remove();
+  setMsg($('resultMsg'), '保存しました。保存したPDFを、LINEのトークに添付して送ってください（iPhoneは「ファイル」アプリの「ダウンロード」にあります）。', 'ok');
+});
+$('backBtn').addEventListener('click', function () {
+  dropResult(); setMsg($('buildMsg'), '');
+  $('s4').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+// ================= 画面の更新 =================
+function refreshUI() {
+  var miss = missing();
+  $('buildBtn').disabled = S.building || miss.length > 0;
+  setMsg($('buildHint'), miss.length ? 'あと必要なもの：' + miss.join('・') : '準備ができました。「この内容で作る」を押してください。', miss.length ? '' : 'ok');
+  // 署名欄
+  $('sigBox').style.opacity = S.skipSig ? '.4' : '1';
+  $('sigClear').disabled = S.skipSig || !S.strokes.length;
+  $('sigUndo').disabled = S.skipSig || !S.strokes.length;
+  pad.style.pointerEvents = S.skipSig ? 'none' : '';
+  if (S.skipSig) setMsg($('sigMsg'), '署名は入れません（印鑑だけ押します）。');
+  else setMsg($('sigMsg'), S.sig.has ? '書けました。違うときは「書き直す」か「ひとつ戻す」。' : '枠の中に、指でお名前を書いてください。', S.sig.has ? 'ok' : '');
+  // 位置
+  var auto = S.mode === 'auto', manual = S.mode === 'manual';
+  $('targetSeal').setAttribute('aria-pressed', S.target === 'seal');
+  $('targetSig').setAttribute('aria-pressed', S.target === 'sig');
+  $('targetSig').disabled = S.skipSig;
+  var o = targetObj();
+  ['nudgeL', 'nudgeR', 'nudgeU', 'nudgeD', 'sizeMinus', 'sizePlus'].forEach(function (id) { $(id).disabled = !o; });
+  $('resetPlace').hidden = !auto;
+  $('pageNav').hidden = !(manual && S.numPages > 1);
+  $('pageNo').textContent = (S.pageIndex + 1) + ' / ' + S.numPages + ' ページ';
+  $('pagePrev').disabled = S.pageIndex <= 0;
+  $('pageNext').disabled = S.pageIndex >= S.numPages - 1;
+  var hint = $('placeHint');
+  if (!S.pdfDoc) setMsg(hint, 'PDFを選ぶと、ここに署名と印鑑の位置が出ます。');
+  else if (auto) setMsg(hint, '2ページ目の「（氏名）」と「㊞」の場所を見つけて、署名と印鑑を置きました。ずれていたら指でずらせます。', 'ok');
+  else if (!S.place.seal) setMsg(hint, '欄を自動では見つけられませんでした。印鑑を置きたい場所を、下の画面でタップしてください。', 'warn');
+  else if (!S.skipSig && !S.place.sig) setMsg(hint, S.sig.has ? '次に、署名を置きたい場所をタップしてください。' : '署名を書いてから、署名を置きたい場所をタップしてください。', 'warn');
+  else setMsg(hint, '位置を確かめてください。違うときはタップするか、指でずらしてください。', 'ok');
+  drawPreview();
+}
+
+// 初期化
+sizePad();
+refreshUI();
+})();
+</script>
+</body>
+</html>
