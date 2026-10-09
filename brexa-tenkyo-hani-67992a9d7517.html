@@ -16,7 +16,6 @@
   --chk:#7b3fc4; --chk-soft:#f3ecfb;
   --onfill:#ffffff; --strip:#eef1f5;
   --c2:#7b3fc4; --c3:#0e7c86; --c4:#b0356b; --c5:#6d6a12;
-  --u1:#1c3f8a; --u2:#2f6fd0; --u3:#5f78a8;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -29,7 +28,6 @@
     --chk:#c29cf6; --chk-soft:#261d3a;
     --onfill:#11151c; --strip:#232a37;
     --c2:#c29cf6; --c3:#4fc3cf; --c4:#f08ab4; --c5:#cfcc5a;
-    --u1:#a8c8ff; --u2:#6ea8ff; --u3:#8aa0c8;
   }
 }
 :root[data-theme="dark"]{
@@ -42,7 +40,6 @@
   --chk:#c29cf6; --chk-soft:#261d3a;
   --onfill:#11151c; --strip:#232a37;
   --c2:#c29cf6; --c3:#4fc3cf; --c4:#f08ab4; --c5:#cfcc5a;
-  --u1:#a8c8ff; --u2:#6ea8ff; --u3:#8aa0c8;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -58,6 +55,7 @@ header .date{color:var(--sub);margin:0 0 14px;font-size:15px}
 .answer .h{font-weight:800;color:var(--near);margin:0 0 6px;font-size:15px}
 .answer p{margin:0 0 8px}.answer p:last-child{margin:0}
 .answer .big{font-size:19px;font-weight:700;line-height:1.6}
+.answer a{color:var(--accent);font-weight:700}
 nav.toc{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 8px}
 nav.toc a{font-size:14.5px;border:1px solid var(--line);border-radius:999px;padding:3px 12px;color:var(--accent);
   text-decoration:none;background:var(--paper);font-weight:600}
@@ -74,6 +72,7 @@ h3{font-size:18px;line-height:1.5;margin:22px 0 8px}
 section p{margin:0 0 10px}
 .note{background:var(--warn-soft);border-left:5px solid var(--warn);border-radius:8px;padding:10px 14px;margin:0 0 12px;font-size:15.5px;line-height:1.7}
 .note b{color:var(--warn)}
+.note a{color:var(--accent);font-weight:700}
 .quote{background:var(--strip);border-radius:10px;padding:10px 14px;margin:0 0 12px;font-size:15.5px;line-height:1.7;color:var(--ink)}
 .quote p{margin:0 0 6px}.quote p:last-child{margin:0}
 .facts{margin:0 0 12px;padding-left:1.2em;font-size:15.5px;line-height:1.7}
@@ -81,6 +80,7 @@ section p{margin:0 0 10px}
 .lens{background:var(--accent-soft);border:2px solid var(--accent);border-radius:12px;padding:10px 16px;margin:0 0 14px;font-size:16px;line-height:1.7}
 .lens .lh{margin:0 0 4px;font-weight:800}
 .lens ul{margin:0 0 6px;padding-left:1.3em}.lens li{margin:2px 0}
+.lens p{margin:0 0 6px}
 .lens .fine{font-size:15px;margin:0}
 .items{display:grid;gap:10px;margin:0 0 12px}
 .item{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
@@ -92,22 +92,30 @@ section p{margin:0 0 10px}
 .pill.cond{color:var(--mid);background:var(--mid-soft)}
 .pill.chk{color:var(--chk);background:var(--chk-soft)}
 .nw{white-space:nowrap}
+.steps{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:8px}
+.steps li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:8px 14px;font-size:15.5px;line-height:1.65}
+.steps .when{display:block;font-weight:800;color:var(--accent);font-size:14px}
+.tbl{width:100%;border-collapse:collapse;margin:0 0 12px;font-size:14px;line-height:1.5;background:var(--paper)}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 6px;text-align:right;vertical-align:middle}
+.tbl th{background:var(--strip);font-weight:800;font-size:13px;line-height:1.4}
+.tbl th:first-child,.tbl td:first-child{text-align:left}
+.tbl td:first-child{font-weight:800}
+.tbl td:not(:first-child){white-space:nowrap}
+.tbl .pref{display:block;font-weight:400;font-size:12px;color:var(--sub);line-height:1.3}
+.tbl th small{display:block;font-weight:400;font-size:12px}
 .minor{margin-top:44px;padding-top:6px;border-top:2px dashed var(--line)}
 .minor h2{font-size:19px;border-bottom:1px solid var(--line);margin-top:18px;color:var(--sub)}
 .minor .qn{background:var(--far);}
 .minor p,.minor li{font-size:15.5px}
 .minor .short{font-size:16px}
-.cards{display:grid;grid-template-columns:1fr;gap:10px;margin:0 0 12px}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:15px;line-height:1.65}
-.card h4{margin:0 0 4px;font-size:16px}
-.card dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:2px 10px}
-.card dt{color:var(--sub)}.card dd{margin:0;font-weight:700}
 .compare{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:0 0 12px;font-size:15px;line-height:1.6}
 .compare .hd{font-weight:800;text-align:center;border-radius:8px;padding:4px 6px;background:var(--far-soft)}
 .compare .lb{grid-column:1 / -1;font-weight:800;color:var(--sub);margin-top:6px;font-size:14.5px}
-.compare .cell{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.compare .cell{min-width:0;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
 .next{background:var(--accent-soft);border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:30px 0 0}
-.next p{margin:0;font-size:18px;font-weight:800;line-height:1.55}
+.next p{margin:0 0 6px;font-size:18px;font-weight:800;line-height:1.55}
+.next p:last-child{margin:0}
+.next .say{font-size:16px;font-weight:700}
 footer{margin-top:30px;color:var(--sub);font-size:13.5px;line-height:1.7}
 footer p{margin:0 0 6px}
 footer a{color:var(--accent)}
@@ -115,187 +123,186 @@ footer a{color:var(--accent)}
 svg text{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif}
 .s-ink{fill:var(--ink)} .s-sub{fill:var(--sub)} .s-on{fill:var(--onfill)}
 .s-near{fill:var(--near)} .s-mid{fill:var(--mid)} .s-far{fill:var(--far)}
-.s-c2{fill:var(--c2)} .s-c3{fill:var(--c3)} .s-c4{fill:var(--c4)} .s-c5{fill:var(--c5)}
-.s-u1{fill:var(--u1)} .s-u2{fill:var(--u2)} .s-u3{fill:var(--u3)}
+.s-c2{fill:var(--c2)} .s-c3{fill:var(--c3)} .s-c4{fill:var(--c4)}
 .z-near{fill:var(--near-soft)} .z-mid{fill:var(--mid-soft)} .z-far{fill:var(--far-soft)}
 .s-line{stroke:var(--line);stroke-width:1}
-@media (min-width:640px){
-  .cards{grid-template-columns:1fr 1fr}
-}
+.s-acc{fill:var(--accent)}
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <header>
-  <h1>転居するなら、どこまで？<small>車で行き来できる範囲・仕事の数・会社の補助</small></h1>
-  <p class="date">2026年10月9日　BREXA Technology（機電）の求人をもとにした、ご本人とご家族向けの資料です</p>
+  <h1>転居するなら、どこまで？<small>長い目で見た比べ方・車で行き来できる範囲・配属の決まり方・会社の補助</small></h1>
+  <p class="date">2026年10月9日　BREXA Technology（機電）の求人をもとにした、ご本人向けの資料です</p>
 </header>
 
-<p class="defs">「会社」＝BREXA。「案件」＝配属先の候補。「機電」は今回の求人の部門、「半導体部門」は BREXA の別の部門。「確認中」＝まだ分からないこと（BREXAに確認して、分かり次第お伝えします）。</p>
+<p class="defs">「会社」＝BREXA。「配属先」＝入社後に働く場所（BREXAの社員として、取引先の現場に派遣されて働くのが前提です）。「線」＝車で片道何時間まで転居できるか、というご自分の境目。「機電」＝機械・電気の技術職で、今回の求人の部門。「半導体部門」は BREXA の別の部門。「確認中」＝まだ分からないこと（こちらで BREXA に確認して、分かり次第お伝えします）。</p>
 
 <div class="answer">
   <p class="h">先に結論</p>
-  <p class="big">車で近い所に<b>14件</b>（うち2件は勤務地の記載に食い違いがあり確認中）、少し遠い所にあと<b>3件</b>、合わせて<b>17件</b>（全88件のうち）。残りの71件は、車で4時間以上かかります。</p>
-  <p>件数は半導体部門の案件一覧から数えました。機電の求人票は「職種・業種未経験OK」ですが、一覧で「未経験OK」と書いてあるのは17件中2件、遠い71件中46件です。近くに線を引くほど、入口は細くなります。<b>配属先は入社後に会社が決める</b>ので、17件から選べるとは限りません。</p>
-  <p>ひとりで引っ越す場合の会社の補助は③へ。分かっているのは通勤の交通費が全額出ることなどで、金額の多くは確認中です。</p>
+  <p class="big">今のお住まいから車で片道2時間までなら、東京・神奈川・千葉・埼玉の多くの場所が入ります（県の端のほうは、2時間ぎりぎりのこともあります）。静岡は3〜4時間、愛知・三重は約5時間、大阪は約7時間です。</p>
+  <p><b>配属先は入社後に会社が決める</b>ので、線の内側に必ず配属されるとは限りません。求人票には、最初の3年は転居を伴うこと、3年目以降は居住地も選べるような働き方が可能になること（約束ではありません。くわしくは<a href="#s1">①</a>）が書かれています。求人票が求めているのは「今の地域＋もう1つの地域」への転居で、車で片道2時間までに限ると、それより狭くなります（選考への影響は確認中・<a href="#s3">③</a>）。</p>
+  <p>会社の補助は<a href="#s4">④</a>へ。通勤の交通費は全額出ます。社宅や手当の金額の多くは確認中です。直線250kmより近い所（東京・神奈川・千葉・静岡など）への引っ越しは、引っ越し費用が自己負担になる可能性があります。遠くでも、自分で線を引いた転居が会社の負担になるかは確認中です。車では毎週帰りにくい遠さでも、新幹線で帰れる所があります。ただし帰る交通費はほとんど自己負担で、毎週帰ると月給のおよそ2割〜5割です（<a href="#s6">⑥</a>）。線を決めてBREXAに伝える方法は<a href="#s5">⑤</a>へ。</p>
 </div>
 
-<div class="lens">
-  <p class="lh">線を引くときの見方</p>
-  <ul>
-    <li>毎週・月に1回・長い休みのどれで帰りたいか。それなら片道何時間までか</li>
-    <li>近くに限ると、未経験で入れる仕事の入口が細くなります。それでも近さを優先するか</li>
-    <li>最初の3年は、転居が続くかもしれません（②の最後に求人票の言葉）。どう受け止めるか</li>
-  </ul>
-  <p class="fine"><b>確認中</b>　線を企業に伝えたとき、配属がその範囲に限られるのか、会社が近くへの配属を受け付けるのか。自分たちで線を引いた転居が「会社都合」にあたるのか（③の引っ越し費用）。</p>
-</div>
+
 
 <nav class="toc" aria-label="目次">
-  <a href="#s1">① 車でどこまで</a>
-  <a href="#s2">② 仕事の数</a>
-  <a href="#s3">③ 会社の補助</a>
-  <a href="#s4">④ おまけ</a>
+  <a href="#s1">① 年数で比べる</a>
+  <a href="#s2">② 車でどこまで</a>
+  <a href="#s3">③ 配属の決まり方</a>
+  <a href="#s4">④ 会社の補助</a>
+  <a href="#s5">⑤ 線を決める</a>
+  <a href="#s6">⑥ おまけ</a>
 </nav>
 
 <section id="s1">
-  <h2><span class="qn">1</span>車で、どこまで行き来できる？</h2>
-  <p class="short">車で1時間〜2時間台の所に14件。そこから先は、時間がかかる所が増えていきます。</p>
+  <h2><span class="qn">①</span>求人票の「最初の3年」を、長い年数に置いてみる</h2>
+  <p class="short">いま24歳で65歳まで働くとすると、約41年。求人票が「転居を伴う」と書いているのは最初の3年で、「居住地も選べる」と書いているのはそのあとです（こちらは約束ではありません）。</p>
   <figure class="fig">
-    <svg viewBox="0 0 360 482" role="img" aria-labelledby="f1t f1d" xmlns="http://www.w3.org/2000/svg">
-    <title id="f1t">車での片道の目安と、案件の数</title>
-    <desc id="f1d">今のお住まいから、BREXAの案件がある市まで、高速道路を使った車の片道時間の目安。東京・神奈川・茨城・群馬・山梨は約1〜2時間、新潟の妙高と山形の米沢は約3.5時間、東北・北陸・東海は約4.5〜6時間、近畿より西は6〜17時間。右端の数字はその市にある案件の数。</desc>
-    <rect class="z-near" x="122.0" y="44" width="72.5" height="432"/>
-    <rect class="z-mid" x="194.5" y="44" width="43.5" height="432"/>
-    <rect class="z-far" x="238.0" y="44" width="78.5" height="432"/>
-    <text class="s-near" x="125.0" y="16" font-size="13.5" font-weight="800">近い</text>
-    <text class="s-mid" x="197.5" y="16" font-size="13.5" font-weight="800">少し遠い</text>
-    <text class="s-far" x="264.0" y="16" font-size="13.5" font-weight="800">遠い</text>
-    <text class="s-sub" x="357" y="16" font-size="12.5" text-anchor="end">案件数</text>
-    <text class="s-sub" x="114" y="34" font-size="13" text-anchor="end">車で片道</text>
-    <line class="s-line" x1="180.0" y1="36" x2="180.0" y2="44"/>
-    <text class="s-sub" x="180.0" y="34" font-size="13" text-anchor="middle">2時間</text>
-    <line class="s-line" x1="238.0" y1="36" x2="238.0" y2="44"/>
-    <text class="s-sub" x="238.0" y="34" font-size="13" text-anchor="middle">4時間</text>
-    <line class="s-line" x1="296.0" y1="36" x2="296.0" y2="44"/>
-    <text class="s-sub" x="296.0" y="34" font-size="13" text-anchor="middle">6時間</text>
-    <line class="s-line" x1="122" y1="44" x2="316.5" y2="44"/>
-    <text class="s-ink" x="114" y="71.5" font-size="13" text-anchor="end">東京・港区</text>
-    <rect class="s-near" x="122" y="59.0" width="24.1" height="16" rx="3"/>
-    <text class="s-sub" x="152.1" y="71.5" font-size="12.5">約1時間</text>
-    <text class="s-ink" x="357" y="71.5" font-size="14" font-weight="800" text-anchor="end">1件</text>
-    <text class="s-ink" x="114" y="99.0" font-size="13" text-anchor="end">群馬・太田</text>
-    <rect class="s-near" x="122" y="86.5" width="23.2" height="16" rx="3"/>
-    <text class="s-sub" x="151.2" y="99.0" font-size="12.5">約1時間</text>
-    <text class="s-ink" x="357" y="99.0" font-size="14" font-weight="800" text-anchor="end">1件</text>
-    <text class="s-ink" x="114" y="126.5" font-size="13" text-anchor="end">神奈川・川崎</text>
-    <rect class="s-near" x="122" y="114.0" width="32.2" height="16" rx="3"/>
-    <text class="s-sub" x="160.2" y="126.5" font-size="12.5">約1時間</text>
-    <text class="s-ink" x="357" y="126.5" font-size="14" font-weight="800" text-anchor="end">2件</text>
-    <text class="s-ink" x="114" y="154.0" font-size="13" text-anchor="end">茨城・石岡</text>
-    <rect class="s-near" x="122" y="141.5" width="40.6" height="16" rx="3"/>
-    <text class="s-sub" x="168.6" y="154.0" font-size="12.5">約1.5時間</text>
-    <text class="s-ink" x="357" y="154.0" font-size="14" font-weight="800" text-anchor="end">2件</text>
-    <text class="s-ink" x="114" y="181.5" font-size="13" text-anchor="end">茨城・笠間</text>
-    <rect class="s-near" x="122" y="169.0" width="46.4" height="16" rx="3"/>
-    <text class="s-sub" x="174.4" y="181.5" font-size="12.5">約1.5時間</text>
-    <text class="s-ink" x="357" y="181.5" font-size="14" font-weight="800" text-anchor="end">2件</text>
-    <text class="s-ink" x="114" y="209.0" font-size="13" text-anchor="end">神奈川・藤沢</text>
-    <rect class="s-near" x="122" y="196.5" width="48.1" height="16" rx="3"/>
-    <text class="s-sub" x="176.1" y="209.0" font-size="12.5">約1.5時間</text>
-    <text class="s-ink" x="357" y="209.0" font-size="14" font-weight="800" text-anchor="end">1件</text>
-    <text class="s-ink" x="114" y="236.5" font-size="13" text-anchor="end">神奈川・南足柄</text>
-    <rect class="s-near" x="122" y="224.0" width="53.1" height="16" rx="3"/>
-    <text class="s-sub" x="181.1" y="236.5" font-size="12.5">約2時間</text>
-    <text class="s-ink" x="357" y="236.5" font-size="14" font-weight="800" text-anchor="end">1件</text>
-    <text class="s-ink" x="114" y="264.0" font-size="13" text-anchor="end">茨城・ひたちなか</text>
-    <rect class="s-near" x="122" y="251.5" width="56.5" height="16" rx="3"/>
-    <text class="s-sub" x="184.6" y="264.0" font-size="12.5">約2時間</text>
-    <text class="s-ink" x="357" y="264.0" font-size="14" font-weight="800" text-anchor="end">3件</text>
-    <text class="s-ink" x="114" y="291.5" font-size="13" text-anchor="end">山梨・昭和町</text>
-    <rect class="s-near" x="122" y="279.0" width="63.2" height="16" rx="3"/>
-    <text class="s-sub" x="191.2" y="291.5" font-size="12.5">約2時間</text>
-    <text class="s-ink" x="357" y="291.5" font-size="14" font-weight="800" text-anchor="end">1件</text>
-    <text class="s-ink" x="114" y="319.0" font-size="13" text-anchor="end">新潟・妙高</text>
-    <rect class="s-mid" x="122" y="306.5" width="100.3" height="16" rx="3"/>
-    <text class="s-sub" x="228.3" y="319.0" font-size="12.5">約3.5時間</text>
-    <text class="s-ink" x="357" y="319.0" font-size="14" font-weight="800" text-anchor="end">1件</text>
-    <text class="s-ink" x="114" y="346.5" font-size="13" text-anchor="end">山形・米沢</text>
-    <rect class="s-mid" x="122" y="334.0" width="101.8" height="16" rx="3"/>
-    <text class="s-sub" x="229.8" y="346.5" font-size="12.5">約3.5時間</text>
-    <text class="s-ink" x="357" y="346.5" font-size="14" font-weight="800" text-anchor="end">2件</text>
-    <text class="s-ink" x="114" y="374.0" font-size="13" text-anchor="end">宮城・大和町ほか</text>
-    <rect class="s-far" x="122" y="361.5" width="150.8" height="16" rx="3"/>
-    <text class="s-on" x="128" y="374.0" font-size="12.5" font-weight="700">約4.5〜5時間</text>
-    <text class="s-ink" x="357" y="374.0" font-size="14" font-weight="800" text-anchor="end">3件</text>
-    <text class="s-ink" x="114" y="401.5" font-size="13" text-anchor="end">富山・岐阜・三重</text>
-    <rect class="s-far" x="122" y="389.0" width="153.7" height="16" rx="3"/>
-    <text class="s-on" x="128" y="401.5" font-size="12.5" font-weight="700">約5時間前後</text>
-    <text class="s-ink" x="357" y="401.5" font-size="14" font-weight="800" text-anchor="end">13件</text>
-    <text class="s-ink" x="114" y="429.0" font-size="13" text-anchor="end">岩手・石川ほか</text>
-    <rect class="s-far" x="122" y="416.5" width="174.0" height="16" rx="3"/>
-    <text class="s-on" x="128" y="429.0" font-size="12.5" font-weight="700">約5〜6時間</text>
-    <text class="s-ink" x="357" y="429.0" font-size="14" font-weight="800" text-anchor="end">14件</text>
-    <text class="s-ink" x="114" y="456.5" font-size="13" text-anchor="end">近畿・四国・九州ほか</text>
-    <rect class="s-far" x="122" y="444.0" width="188.5" height="16" rx="3"/>
-    <text class="s-on" x="128" y="456.5" font-size="12.5" font-weight="700">6〜17時間 ▶</text>
-    <text class="s-ink" x="357" y="456.5" font-size="14" font-weight="800" text-anchor="end">41件</text>
+    <svg viewBox="0 0 360 252" role="img" aria-labelledby="fyt fyd" xmlns="http://www.w3.org/2000/svg">
+    <title id="fyt">いまから65歳までの約41年のうち、最初の約3年と、そのあとの約38年</title>
+    <desc id="fyd">いま24歳で、65歳まで働くとすると約41年。27歳までの最初の約3年は、転居を伴いながら力をつける期間。27歳から65歳までのそのあとの約38年は、求人票によると、居住地も選べる働き方になっていく期間。長さの比はおよそ1対13。</desc>
+    <text class="s-ink" x="15" y="16" font-size="13.5" font-weight="800">いまから65歳まで（約41年）</text>
+    <text class="s-sub" x="15" y="46" font-size="12.5">いま24歳</text>
+    <text class="s-sub" x="345" y="46" font-size="12.5" text-anchor="end">65歳</text>
+    <rect class="s-mid" x="15" y="54" width="24.1" height="34" rx="3"/>
+    <rect class="s-acc" x="39.1" y="54" width="305.9" height="34" rx="3"/>
+    <text class="s-on" x="192" y="76" font-size="13" font-weight="800" text-anchor="middle">そのあとの約38年（求人票の言葉どおりなら）</text>
+    <line class="s-line" x1="27" y1="88" x2="27" y2="108"/>
+    <text class="s-mid" x="15" y="124" font-size="13" font-weight="800">最初の約3年（27歳まで）</text>
+    <text class="s-sub" x="15" y="140" font-size="12.5">転居を伴いながら、力をつける</text>
+    <line class="s-line" x1="300" y1="88" x2="300" y2="152"/>
+    <text class="s-acc" x="345" y="168" font-size="13" font-weight="800" text-anchor="end">そのあとの約38年（27〜65歳）</text>
+    <text class="s-sub" x="345" y="184" font-size="12.5" text-anchor="end">スキルがつけば、居住地も選べるような働き方に</text>
+    <text class="s-ink" x="345" y="200" font-size="12.5" text-anchor="end">（求人票の言葉・BREXAにいる間・約束ではありません）</text>
+    <text class="s-ink" x="15" y="228" font-size="12.5" font-weight="800">長さの比は、およそ 1 対 13（求人票どおりなら）</text>
+    <text class="s-sub" x="15" y="245" font-size="12.5">※ 65歳まで働くとした仮の数え方です</text>
     </svg>
-    <figcaption>棒の長さは、車で片道の時間の目安（高速道路を使った場合・渋滞や休憩は入れていません）。右の数字は案件の数で、棒の長さとは別です（まとめの行は、その県全体の数）。色の帯は件数を数えるためのおおよその区切りです（近い＝2.5時間まで／少し遠い＝2.5〜4時間／遠い＝4時間以上）。「ほか」には、北上（岩手）・能美（石川）・鶴岡（山形）・八戸（青森）・京都・岡山・愛媛・九州などが入ります。</figcaption>
+    <figcaption>図1　いま24歳で、65歳まで働くとした場合の長さです（仮の数え方で、会社の定年ではありません。BREXAに41年いる、という意味でもありません。求人票の言葉が当てはまるのは、BREXAで働いている間です）。最初の約3年と、そのあとの約38年を、同じものさしで並べました。下の求人票の言葉を、年数に置き直した図です。</figcaption>
   </figure>
-  <p>今のお住まいから案件のある市まで、引っ越したあとも車で行き来できる距離を並べました。<b>どこに線を引くかは、ご自分たちで決めてください。</b></p>
-  <p class="note">車の往復費用（高速代・ガソリン代）と電車の所要時間は載せていません。工場は駅から遠いことが多いので、駅ではなく「市まで」で見ています。</p>
+  <div class="quote">
+    <p>「3年目までは転居を伴いながらスキルアップを実施致しますが、スキルがついてくる3年目以降は居住地も選べるような働き方が可能になって参ります」</p>
+  </div>
+  <p>機電の求人票の言葉です。</p>
+  <p class="note"><b>ただし</b>　「3年目以降は居住地も選べる」は求人票の書き方で、保証ではありません。「今の地域＋もう1つの地域への転居を考えておいてほしい」という求人票の言葉（<a href="#s3">③</a>）には、期間が書かれていません。3年をすぎても、転居を頼まれる可能性は、求人票を読むかぎり、なくなるとは言えません。配属先は会社が決めます。選べる場所は、その地域に取引先の仕事があるかにもよります。口コミには、希望した勤務地と違う場所に配属された、という声もあります。入社後に「話が違う」とならないよう、ここは覚えておいてください。</p>
+
+  <h3>3年で、何が変わる？</h3>
+  <ul class="steps">
+    <li><span class="when">はじめ〜3年ごろ</span>試験評価（作ったものが仕様どおり動くか調べる）・保守・メンテ（点検して直す）</li>
+    <li><span class="when">3年ごろ〜</span>CADオペ（設計図をパソコンでかく）・設計補助（設計の仕事を手伝う）・生産技術（ものをつくる手順を整える）</li>
+    <li><span class="when">5〜10年</span>開発・設計・PM（仕事全体の進行役）</li>
+  </ul>
+  <p>BREXAの面接の事前資料にある、機電の仕事の進み方の例です。全員がこの順・この年数で進むとは限りません。</p>
+
+  <h3>給料の目安は？</h3>
+  <p>未経験で入るときの想定年収は、月給25万〜30万円ほど（年収300万〜360万円）と案内されています。賞与などの内訳は確認中です。経験を積んだあとの年収がいくらになるかは、手元の材料からは言えません（確認中）。参考として、会社の公開求人（職種・経験を問わない全件・2026年8月12日にプログラムで数えた結果）の、年収の下限として載っている額の真ん中の値は約380万円です。経験者向けと未経験向けが混ざった数字で、ご自分の年収の約束ではありません。</p>
+
+  <h3>年数を並べて、考える</h3>
+  <p>広く転居する並べ方では、求人票の言葉どおりなら、最初の約3年で力をつけたあと、住む場所も選べる働き方になっていきます。長く家族を支えやすい、という見方もできます。その代わり、最初の数年は家族から遠くなり、帰れるのは長い休みが中心になるかもしれません。転居の回数や時期は分かりません。</p>
+  <p>近い所に限る並べ方では、家族のそばにいて支える、という見方もできます。毎週のように帰ることもできます。その代わり、求人票に「近くてスキルが付きにくい配属先よりも、遠くてスキルの上がる配属先へ」とあるとおり、配属先の候補が減り、力がつくのが遅くなるかもしれません。近くに仕事があるかは、会社の事情しだいです。</p>
+  <p>どちらも保証ではありません。どちらを選ぶかを決めるのは、ご自分です。決める前に家族の考えを聞くのも、ひとつの方法です。決めたら、その理由を自分の言葉で家族に話す、という順番になります。理由は、会社が約束していないことよりも、自分が身につけたいことで立てると、あとで迷ったときにも、自分で立ち返れます。</p>
 </section>
 
 <section id="s2">
-  <h2><span class="qn">2</span>その範囲に、どんな仕事がいくつある？</h2>
-  <p class="short">近い14件は13件が日勤。「未経験OK」と書いてあるのは、近い14件では1件、少し遠い3件を足しても2件です。</p>
-  <p class="note"><b>ご注意</b>　社内の記録（2026年8月）にある案件一覧を、10月9日に取り直して数えました（Driveの更新日は6月27日）。一覧は半導体部門がまとめたもので、機電の配属がここから出るか、今も募集中かは確認中です。<b>配属先は入社後に決まるので、この中から選べるとは限りません。</b></p>
+  <h2><span class="qn">②</span>車で、どこまで行き来できる？</h2>
+  <p class="short">車で片道2時間までは、東京・神奈川・千葉・埼玉の多くの場所。静岡は3〜4時間、愛知・三重は約5時間、大阪は約7時間です。</p>
   <figure class="fig">
-    <svg viewBox="0 0 360 150" role="img" aria-labelledby="f2t f2d" xmlns="http://www.w3.org/2000/svg">
-    <title id="f2t">車で行き来できる17件の中身</title>
-    <desc id="f2d">車で行き来できる17件（近い14件と少し遠い3件）の中身。仕事の種類は、設計・技術9件、現場6件、IT2件。未経験については、未経験OKと書いてあるのが2件、書いていないのが7件、不可と記載が8件。</desc>
-    <text class="s-ink" x="15" y="22" font-size="14" font-weight="800">車で行き来できる17件（近い＋少し遠い）の中身</text>
-    <text class="s-sub" x="15" y="48" font-size="12.5">仕事の種類</text>
-    <rect class="s-c2" x="15.0" y="54.0" width="174.7" height="26" rx="3"/>
-    <text class="s-on" x="102.4" y="71.4" font-size="12.5" font-weight="800" text-anchor="middle">設計・技術 9</text>
-    <rect class="s-c4" x="189.7" y="54.0" width="116.5" height="26" rx="3"/>
-    <text class="s-on" x="247.9" y="71.4" font-size="12.5" font-weight="800" text-anchor="middle">現場 6</text>
-    <rect class="s-c5" x="306.2" y="54.0" width="38.8" height="26" rx="3"/>
-    <text class="s-on" x="325.6" y="71.4" font-size="12.5" font-weight="800" text-anchor="middle">IT 2</text>
-    <text class="s-sub" x="15" y="104" font-size="12.5">未経験について（一覧の欄）</text>
-    <rect class="s-u1" x="15.0" y="110.0" width="38.8" height="26" rx="3"/>
-    <text class="s-on" x="34.4" y="127.4" font-size="12.5" font-weight="800" text-anchor="middle">OK 2</text>
-    <rect class="s-u2" x="53.8" y="110.0" width="135.9" height="26" rx="3"/>
-    <text class="s-on" x="121.8" y="127.4" font-size="12.5" font-weight="800" text-anchor="middle">書いてない 7</text>
-    <rect class="s-u3" x="189.7" y="110.0" width="155.3" height="26" rx="3"/>
-    <text class="s-on" x="267.4" y="127.4" font-size="12.5" font-weight="800" text-anchor="middle">不可と記載 8</text>
+    <svg viewBox="0 0 360 334" role="img" aria-labelledby="f1t f1d" xmlns="http://www.w3.org/2000/svg">
+    <title id="f1t">車での片道の目安と、会社全体で求人が多い順</title>
+    <desc id="f1d">今のお住まいから、車で片道どのくらいかの目安。埼玉は約1時間まで、東京は約1時間、神奈川は約1〜2時間、千葉は約1.5〜2時間、静岡は約3〜4時間、愛知は約4.5〜5時間、三重は約5時間前後、大阪は約7時間。右端の数字は、BREXAの全求人を勤務地の都府県別に多い順に並べた順位で、東京が1位、愛知が2位、神奈川が3位、静岡が4位、三重が5位、千葉が6位、埼玉が7位、大阪が8位。</desc>
+    <rect class="z-near" x="122" y="44" width="58" height="237"/>
+    <rect class="z-mid" x="180" y="44" width="58" height="237"/>
+    <rect class="z-far" x="238" y="44" width="87" height="237"/>
+    <text class="s-near" x="151" y="16" font-size="13.5" font-weight="800" text-anchor="middle">近い</text>
+    <text class="s-mid" x="209" y="16" font-size="13.5" font-weight="800" text-anchor="middle">少し遠い</text>
+    <text class="s-far" x="274" y="16" font-size="13.5" font-weight="800" text-anchor="middle">遠い</text>
+    <text class="s-sub" x="357" y="13" font-size="12.5" text-anchor="end">求人の多さ</text>
+    <text class="s-sub" x="357" y="27" font-size="12.5" text-anchor="end">の順位</text>
+    <line class="s-line" x1="331" y1="32" x2="331" y2="281"/>
+    <text class="s-sub" x="114" y="34" font-size="13" text-anchor="end">車で片道</text>
+    <line class="s-line" x1="180" y1="36" x2="180" y2="44"/>
+    <text class="s-sub" x="180" y="34" font-size="13" text-anchor="middle">2時間</text>
+    <line class="s-line" x1="238" y1="36" x2="238" y2="44"/>
+    <text class="s-sub" x="238" y="34" font-size="13" text-anchor="middle">4時間</text>
+    <line class="s-line" x1="296" y1="36" x2="296" y2="44"/>
+    <text class="s-sub" x="296" y="34" font-size="13" text-anchor="middle">6時間</text>
+    <line class="s-line" x1="122" y1="44" x2="325" y2="44"/>
+
+    <text class="s-ink" x="114" y="71.5" font-size="13" text-anchor="end">埼玉</text>
+    <rect class="s-near" x="122" y="59" width="29" height="16" rx="3"/>
+    <text class="s-sub" x="157" y="71.5" font-size="12.5">約1時間まで</text>
+    <text class="s-sub" x="357" y="71.5" font-size="13" font-weight="700" text-anchor="end">7位</text>
+
+    <text class="s-ink" x="114" y="99" font-size="13" text-anchor="end">東京</text>
+    <rect class="s-near" x="122" y="86.5" width="29" height="16" rx="3"/>
+    <text class="s-sub" x="157" y="99" font-size="12.5">約1時間</text>
+    <text class="s-sub" x="357" y="99" font-size="13" font-weight="700" text-anchor="end">1位</text>
+
+    <text class="s-ink" x="114" y="126.5" font-size="13" text-anchor="end">神奈川</text>
+    <rect class="s-near" x="122" y="114" width="58" height="16" rx="3"/>
+    <text class="s-sub" x="186" y="126.5" font-size="12.5">約1〜2時間</text>
+    <text class="s-sub" x="357" y="126.5" font-size="13" font-weight="700" text-anchor="end">3位</text>
+
+    <text class="s-ink" x="114" y="154" font-size="13" text-anchor="end">千葉</text>
+    <rect class="s-near" x="122" y="141.5" width="58" height="16" rx="3"/>
+    <text class="s-sub" x="186" y="154" font-size="12.5">約1.5〜2時間</text>
+    <text class="s-sub" x="357" y="154" font-size="13" font-weight="700" text-anchor="end">6位</text>
+
+    <text class="s-ink" x="114" y="181.5" font-size="13" text-anchor="end">静岡</text>
+    <rect class="s-mid" x="122" y="169" width="116" height="16" rx="3"/>
+    <text class="s-on" x="128" y="181.5" font-size="12.5" font-weight="700">約3〜4時間</text>
+    <text class="s-sub" x="357" y="181.5" font-size="13" font-weight="700" text-anchor="end">4位</text>
+
+    <text class="s-ink" x="114" y="209" font-size="13" text-anchor="end">愛知</text>
+    <rect class="s-far" x="122" y="196.5" width="145" height="16" rx="3"/>
+    <text class="s-on" x="128" y="209" font-size="12.5" font-weight="700">約4.5〜5時間</text>
+    <text class="s-sub" x="357" y="209" font-size="13" font-weight="700" text-anchor="end">2位</text>
+
+    <text class="s-ink" x="114" y="236.5" font-size="13" text-anchor="end">三重</text>
+    <rect class="s-far" x="122" y="224" width="145" height="16" rx="3"/>
+    <text class="s-on" x="128" y="236.5" font-size="12.5" font-weight="700">約5時間前後</text>
+    <text class="s-sub" x="357" y="236.5" font-size="13" font-weight="700" text-anchor="end">5位</text>
+
+    <text class="s-ink" x="114" y="264" font-size="13" text-anchor="end">大阪</text>
+    <rect class="s-far" x="122" y="251.5" width="203" height="16" rx="3"/>
+    <text class="s-on" x="128" y="264" font-size="12.5" font-weight="700">約7時間</text>
+    <text class="s-sub" x="357" y="264" font-size="13" font-weight="700" text-anchor="end">8位</text>
+    <text class="s-sub" x="15" y="299" font-size="12">右の順位＝BREXA全体の求人が多い都府県の順位</text>
+    <text class="s-sub" x="15" y="313" font-size="12">全国での順位です。職種・経験を問わず、機電に限りません。</text>
+    <text class="s-sub" x="15" y="327" font-size="12">順位だけで、順位どうしの数の差は分かりません。</text>
     </svg>
-    <figcaption>「設計・技術」＝図面をかく設計・制御の設計・生産技術。「現場」＝工場でつくる・調べる・直す・装置を立ち上げる仕事。「IT」＝社内のシステムの仕事（職種名は「設備保守」ですが中身はシステム開発）。「書いてない」＝一覧の未経験の欄が空。「不可と記載」＝未経験は不可と書いてある。</figcaption>
+    <figcaption>図2　棒の長さは、今のお住まいから車で片道の時間の目安（高速道路を使った場合・渋滞や休憩は入れていません）。幅のあるものは、県内の場所で変わります（棒は長いほうの時間）。色の帯の区切りは、近い＝2時間まで／少し遠い＝2〜4時間／遠い＝4時間以上です。右の順位は、BREXAの全求人（2026年8月12日）を勤務地の都府県別に数えた結果です。</figcaption>
   </figure>
-  <ul class="facts">
-    <li>近い14件の勤務地は、関東の中が13件（茨城7・神奈川4・東京1・群馬1）、山梨が1件です。</li>
-    <li>「未経験OK」の茨城の1件は、必要条件に「半導体製造装置に関する業務経験」とも書いてあります（確認中）。少し遠い3件では、新潟の1件（3日働いて3日休む昼夜交代）だけです。</li>
-    <li>「書いてない」7件の必要条件は、「機械（設計）に関する基礎知識」が4件、「設備に関する知見」が1件、「CAD使用経験」が1件。ひたちなかの1件は「技術部門はプロセス技術の経験必要、保全/製造部門は不要」です。川崎の2件には「微経験可」ともあります（少しだけ経験があれば可、の意味かもしれません。確認中）。</li>
-    <li>石岡と笠間の各1件は、最寄駅の欄が別の場所（笠間＝八戸、石岡＝計算科学センター）になっていて、勤務地を確認中です。石岡の1件は業務欄に「神戸の自社拠点にてPLCに関する研修を受講(最低3ヶ月)」とあり、石岡の製造の1件は必要条件に「30～40代」とあります。</li>
-    <li>遠い71件は、昼夜交代（3勤3休＝3日働いて3日休む／4勤2休＝4日働いて2日休む）が30件と多めです。17件のうち3件は「車が必要」と書いてあります。</li>
-  </ul>
-  <div class="quote">
-    <p>「居住地+1エリアの転居を見通していただきますようお願いいたします。（居住地が『関東』の例:+1エリアとして北海道・東北・東海・関西など）」</p>
-    <p>「3年目までは転居を伴いながらスキルアップを実施致しますが、スキルがついてくる3年目以降は居住地も選べるような働き方が可能になって参ります」</p>
-    <p>「近くてスキルが付きにくい配属先よりも、遠くてスキルの上がる配属先へアサイン」</p>
-  </div>
-  <p>これは機電の求人票の言葉です。関東にお住まいの場合、近い14件は関東の中（と山梨）です。会社が近くへの配属を受け付けるかは確認中です。</p>
+  <p>今のお住まいから、引っ越したあとも車で行き来できる距離を並べました。図には、求人が多い順の上位8都府県だけを載せています。群馬・栃木・茨城などの近県は載せていません。車で1〜2時間ほどの所が多く、上位8に入っていないだけで、求人が無いという意味ではありません（9位以下は順位を出していません）。<b>どこに線を引くかは、ご自分で決めてください。</b></p>
+  <p class="note">車の往復費用（高速代・ガソリン代）と電車の所要時間は載せていません。勤務先は駅から離れていることもあるので、駅ではなく車の時間で見ています。時間は目安なので、出発地を入れて地図アプリでも確かめてください。</p>
 </section>
 
 <section id="s3">
-  <h2><span class="qn">3</span>ひとりで引っ越すと、会社はどこまで助けてくれる？</h2>
-  <p class="short">機電の求人票で分かっているのは、交通費が全額出ることと、借上社宅制度・住宅手当があること。金額の多くは確認中です。</p>
+  <h2><span class="qn">③</span>配属は、どう決まる？</h2>
+  <p class="short">会社全体では東京・愛知・神奈川に求人が多く、配属先は入社後に会社が決めます。</p>
+  <p>BREXAの社員として、取引先の現場に派遣されて働くのが前提です。</p>
+  <div class="lens">
+    <p class="lh">会社全体では、どこに求人が多い？</p>
+    <p>BREXA の公開求人を勤務地の都府県別に多い順に並べると、<b>東京・愛知・神奈川・静岡・三重・千葉・埼玉・大阪</b>の順です（会社の求人サイトの全求人を、2026年8月12日にプログラムで数えた結果）。<b>職種・経験の条件を問わない全求人の傾向で、未経験の機電に限った数ではありません。</b></p>
+    <p class="fine"><b>確認中</b>　機電の未経験の配属が、同じ順になるか。<b>配属先は入社後に決まるので、これらの地域から選べるとは限りません。</b></p>
+  </div>
+  <div class="quote">
+    <p>「居住地+1エリアの転居を見通していただきますようお願いいたします。（居住地が『関東』の例:+1エリアとして北海道・東北・東海・関西など）」</p>
+    <p>「近くてスキルが付きにくい配属先よりも、遠くてスキルの上がる配属先へアサイン」</p>
+  </div>
+  <p>これは機電の求人票の言葉です（「見通す」＝転居があると考えておくこと、「アサイン」＝仕事や場所を割り当てること）。「3年目以降は居住地も選べる」という言葉は、①にあります。関東にお住まいなら、「+1エリア」は、今の地域（関東）のほかに、もう1つの地域（北海道・東北・東海〔愛知・静岡・三重など〕・関西〔大阪など〕）まで転居できる、という意味です。車で片道2時間までの線は、この「+1エリア」より狭くなります。狭い線で伝えたときに、会社が近くへの配属を受け付けるか、選考にどう影響するかは確認中です。</p>
+</section>
+
+<section id="s4">
+  <h2><span class="qn">④</span>ひとりで引っ越すと、会社はどこまで助けてくれる？</h2>
+  <p class="short">機電の求人票で分かっているのは、交通費が全額出ることと、借上社宅（会社が借りた部屋に住む制度）・住宅手当があること。金額の多くは確認中です。</p>
   <figure class="fig">
     <svg viewBox="0 0 360 236" role="img" aria-labelledby="f3t f3d" xmlns="http://www.w3.org/2000/svg">
-    <title id="f3t">家賃の補助のしくみ（ひとり用の寮・社宅）</title>
+    <title id="f3t">借上社宅の家賃補助のしくみ（ひとり用）</title>
     <desc id="f3d">家賃5万円の部屋なら、会社が2.5万円、自分が2.5万円。家賃7万円の部屋なら、会社は上限の3万円、自分が4万円。</desc>
-    <text class="s-sub" x="15" y="16" font-size="13.5" font-weight="800">半導体部門の数字の例です（機電は確認中）</text>
+    <text class="s-sub" x="15" y="16" font-size="13.5" font-weight="800">借上社宅の家賃補助｜半導体部門の例（機電は確認中）</text>
     <text class="s-ink" x="15" y="46" font-size="14" font-weight="800">家賃5万円の部屋</text>
     <rect class="s-near" x="15.0" y="54.0" width="117.5" height="34" rx="3"/>
     <text class="s-on" x="73.8" y="75.9" font-size="14.0" font-weight="800" text-anchor="middle">会社 2.5万</text>
@@ -309,12 +316,12 @@ svg text{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI",
     <text class="s-sub" x="85.5" y="178" font-size="12.5" text-anchor="middle">上限</text>
     <text class="s-sub" x="15" y="218" font-size="12.5">※ 家賃6万円までは半分。6万円をこえると3万円で頭打ち</text>
     </svg>
-    <figcaption>半導体部門の採用ページにある、寮・社宅の家賃補助のしくみの例です（ひとり用）。機電で同じかは確認中。</figcaption>
+    <figcaption>図3　半導体部門の採用ページにある、借上社宅（会社が借りた部屋に住む制度）の家賃補助のしくみの例です（ひとり用）。機電で同じかは確認中。住宅手当とは別の制度です（両方もらえるかは確認中）。</figcaption>
   </figure>
   <div class="items">
     <div class="item">
       <div class="top"><span class="nm">通勤の交通費</span><span class="pill ok">分かっている</span></div>
-      <p>全額が出ます。車で通う場合はガソリン代です。</p>
+      <p>全額が出ます。車で通う場合はガソリン代です。新居から職場までの分で、今のお住まいへ帰る分は含みません。</p>
     </div>
     <div class="item">
       <div class="top"><span class="nm">借上社宅</span><span class="pill cond">一部確認中</span></div>
@@ -322,70 +329,138 @@ svg text{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI",
     </div>
     <div class="item">
       <div class="top"><span class="nm">住宅手当</span><span class="pill chk">確認中</span></div>
-      <p>求人票に「毎月最大3万円」とあります。「自宅からの通勤圏ではない全国各地のプロジェクトに配属されることがございます。この状況から」という文脈の手当で、近い所が対象になるか、社宅補助と別にもらえるかは確認中です。</p>
+      <p>求人票に「毎月最大3万円」とあります。自宅から通えない全国各地へ配属される人に向けた手当という書き方で、近い所が対象になるか、社宅補助と別にもらえるかは確認中です。</p>
     </div>
     <div class="item">
       <div class="top"><span class="nm">引っ越し費用</span><span class="pill cond">一部確認中</span></div>
-      <p>全額を会社が出すのは「会社都合での転居」だけです。会社の公開サイト（teni-shoku.jp）には、その目安として「直線距離250km以上など」とあります。近い範囲の17件は、どこも250km未満（いちばん遠い米沢市で約220km）です。<b>自分たちで線を引いた転居が「会社都合」にあたるかが、いちばん大事な確認事項です。</b></p>
+      <p><b>直線250kmより近い所への引っ越しは、引っ越し費用が自己負担になる可能性があります（確認中）。</b>全額を会社が出すのは、会社が命じる転居（会社都合）だけです。会社の公開サイト（teni-shoku.jp）には、その目安として「直線距離250km以上など」とあります。直線250kmは、埼玉から名古屋あたりまでの距離とほぼ同じです（名古屋は約260km）。東京・神奈川・千葉・静岡は、それより近い所です。自分で線を引いた転居が「会社都合」にあたるかが、いちばん大事な確認事項です。</p>
     </div>
     <div class="item">
       <div class="top"><span class="nm">赴任手当（月5万円）</span><span class="pill chk">確認中</span></div>
-      <p>「扶養家族を有する単身赴任者」向けの手当です（扶養＝生活費を支えている家族）。会社は「独身での転勤は支給なし」と書いています。入籍前のパートナーやお子さんがいる場合に「扶養家族」にあたるかは、確認中です。</p>
+      <p>会社は、この手当について「独身での転勤は支給なし」と書いています。転勤先へ単身で行く人（赴任者）のうち、「扶養家族を有する」人向けの手当です（扶養＝生活費を支えている家族）。「扶養家族」にどこまで含まれるかは、確認中です。</p>
     </div>
   </div>
 </section>
 
-<section id="s4" class="minor">
-  <h2><span class="qn">4</span>おまけ　もし、他の選択肢も考えるなら</h2>
-
-  <h3>新幹線を使う場合</h3>
-  <p class="short">大宮から乗り換えなしで行ける東北・北陸の22件が加わり、合計39件になります。</p>
-  <div class="cards">
-    <div class="card"><h4>岩手（北上市）</h4>
-      <dl><dt>新幹線（大宮から）</dt><dd>約2時間</dd>
-      <dt>片道の運賃</dt><dd>約13,600円</dd>
-      <dt>毎週帰ると1か月で</dt><dd>約10.9万円（往復×4週）</dd>
-      <dt>直線の距離</dt><dd>約390km</dd>
-      <dt>案件</dt><dd>7件</dd></dl></div>
-    <div class="card"><h4>宮城（仙台まで）</h4>
-      <dl><dt>新幹線（大宮から）</dt><dd>約1時間10分</dd>
-      <dt>片道の運賃</dt><dd>約11,100円</dd>
-      <dt>毎週帰ると1か月で</dt><dd>約8.9万円（往復×4週）</dd>
-      <dt>直線の距離</dt><dd>約300〜330km</dd>
-      <dt>案件</dt><dd>3件</dd></dl></div>
-    <div class="card"><h4>富山（富山駅まで）</h4>
-      <dl><dt>新幹線（大宮から）</dt><dd>約1時間40分</dd>
-      <dt>片道の運賃</dt><dd>約12,600円</dd>
-      <dt>毎週帰ると1か月で</dt><dd>約10.1万円（往復×4週）</dd>
-      <dt>直線の距離</dt><dd>約210〜250km</dd>
-      <dt>案件</dt><dd>7件</dd></dl></div>
-    <div class="card"><h4>石川（金沢駅まで）</h4>
-      <dl><dt>新幹線（大宮から）</dt><dd>約2時間</dd>
-      <dt>片道の運賃</dt><dd>約13,950円</dd>
-      <dt>毎週帰ると1か月で</dt><dd>約11.2万円（往復×4週）</dd>
-      <dt>直線の距離</dt><dd>約275km</dd>
-      <dt>案件</dt><dd>5件</dd></dl></div>
-  </div>
-  <p class="note">運賃は大人・普通車指定席・通常期（2026年3月の改定後）。駅から勤務先まで、さらに車や在来線が必要です。山形の庄内・青森・東海・近畿より西は、乗り換えが要るので計算していません。大宮は乗る駅の目安で、直線の距離は大宮付近から測った目安です。会社の帰省旅費は直線250km以上のときの決まりで、求人票には「扶養家族ありは2か月に1回、なしは6か月に1回」とあります（「独身での転勤は支給なし」という記載もあり、確認中）。毎週帰る分は、ほとんど自己負担の見込みです。</p>
-
-  <h3>ご家族ごと引っ越す場合</h3>
-  <div class="compare">
-    <div class="hd">ひとりで引っ越す</div><div class="hd">家族ごと引っ越す</div>
-    <div class="lb">寮・社宅の家賃補助（家賃の50%）</div>
-    <div class="cell">ひとり用は月3万円まで <span class="nw">（確認中）</span></div><div class="cell">家族寮（家族で住める寮）は月4万円まで <span class="nw">（確認中）</span></div>
-    <div class="lb">家族手当（扶養している家族のみ）</div>
-    <div class="cell">なし（扶養する家族がいない場合）</div><div class="cell">配偶者 月13,000円／子1人 月6,000円 <span class="nw">（半導体部門の数字・</span><span class="nw">入籍前の場合は確認中）</span></div>
-  </div>
-  <p class="note"><b>確認中</b>　入籍前のパートナーやお子さんがいる場合に、家族寮・家族手当の対象になるかは、分かるまで言えません。</p>
-</section>
-
-<div class="next">
-  <p>次にやること：ご自分たちで引いた線の内側を、「転居できるエリア」として企業に伝えます。</p>
+<section id="s5">
+  <h2><span class="qn">⑤</span>線を決める</h2>
+<div class="lens">
+  <p class="lh">自分で線を引くときの見方</p>
+  <ul>
+    <li>毎週・月に1回・長い休みのどれで帰りたいか。それなら片道何時間までか（ひとつの目安：毎週なら2時間まで〔図2の「近い」〕、月に1回なら4時間まで〔「少し遠い」〕。長い休みだけなら、4時間をこえる「遠い」や⑥の新幹線も候補）</li>
+    <li>求人票が求めているのは、「今の地域＋もう1つの地域」への転居です（③の求人票の言葉）。車で片道2時間までの線は、それより狭くなります</li>
+    <li>近くに限るほど、会社が選べる配属先は少なくなります（求人票は「近くてスキルが付きにくい配属先よりも、遠くてスキルの上がる配属先へ」と書いています）</li>
+    <li>最初の約3年は、転居を伴うと求人票にあります（①の求人票の言葉）。転居の回数や時期は、求人票には書かれていません</li>
+  </ul>
+  <p class="fine"><b>確認中</b>　(ア)自分で線を引いた転居が「会社都合」（会社が命じる転居）にあたるのか。あたらないと、引っ越し費用は自己負担になる可能性があります（④）。(イ)線をBREXAに伝えたとき、選考にどう影響するのか。(ウ)伝えた範囲を約束してもらえるのか、希望として聞いてもらうだけなのか。(エ)「もう1つの地域」を自分で選べるのか、会社が決めるのか。</p>
 </div>
 
+<div class="next">
+  <p>線が決まったら：「転居できるエリア」として、お知らせください。BREXAに伝えます。</p>
+  <p class="say">伝え方の例（どれか1つで十分です）：</p>
+  <p class="say">・「単身で、今の住まいから車で片道（　）時間までの（　　）なら転居できます」（　　）には、図2の都府県のほか、群馬・栃木・茨城など、線の内側に入る近県も書けます。時間だけ書いて、場所は「その範囲ぜんぶ」と書くこともできます。</p>
+  <p class="say">・「求人票のとおり、今の地域＋もう1つの地域（　　）なら転居できます」</p>
+  <p class="say">・「まだ決めきれません。確認中の答えを見てから決めます」</p>
+  <p class="say">・「この条件では難しそうです」</p>
+  <p class="say">上の「確認中」の答えが出たら、お知らせします。</p>
+</div>
+</section>
+
+<section id="s6" class="minor">
+  <h2><span class="qn">⑥</span>おまけ　もし、他の選択肢も考えるなら</h2>
+
+  <h3>新幹線を使う場合</h3>
+  <p class="short">車では毎週帰りにくい遠さでも、大宮から新幹線で1〜2時間台の町があります。毎週帰ると、月に5万円台〜11万円台です。</p>
+  <p>大宮から乗り換えなしで行ける、東北・上越・北陸新幹線の主な町を並べました（会社の求人が多い順とは関係なく選んでいます）。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 360 262" role="img" aria-labelledby="f4t f4d" xmlns="http://www.w3.org/2000/svg">
+    <title id="f4t">大宮から新幹線で行く町の、片道の時間と、毎週帰ると1か月の費用</title>
+    <desc id="f4d">大宮から新幹線で行く町を、片道の時間が短い順に並べた図。郡山と長野は約1時間で月約5.4万円、仙台は約1時間5分で約8.9万円、新潟は約1時間35分で約8.4万円、富山は約1時間40分で約10.1万円、盛岡は約1時間45分で約11.7万円、金沢は約2時間で約11.2万円、山形は約2時間20分で約8.9万円。棒の長さは片道の時間、右の数字は毎週帰ると1か月の費用（往復×4週）。</desc>
+    <text class="s-ink" x="15" y="14" font-size="12.5" font-weight="800">大宮から新幹線で行く町</text>
+    <text class="s-sub" x="15" y="32" font-size="12">棒＝片道の時間／右＝毎週帰ると1か月の費用（往復×4週）</text>
+    <text class="s-sub" x="196" y="47" font-size="11.5" text-anchor="middle">1時間</text>
+    <text class="s-sub" x="266" y="47" font-size="11.5" text-anchor="middle">2時間</text>
+    <line class="s-line" x1="196" y1="51" x2="196" y2="258"/>
+    <line class="s-line" x1="266" y1="51" x2="266" y2="258"/>
+
+    <text class="s-ink" x="118" y="67" font-size="12.5" font-weight="800" text-anchor="end">郡山</text>
+    <rect class="s-c3" x="126" y="54" width="70.0" height="18" rx="3"/>
+    <text class="s-on" x="132" y="67" font-size="12.5" font-weight="700">約1時間</text>
+    <text class="s-ink" x="357" y="67" font-size="12.5" font-weight="800" text-anchor="end">月5.4万円</text>
+
+    <text class="s-ink" x="118" y="93" font-size="12.5" font-weight="800" text-anchor="end">長野</text>
+    <rect class="s-c3" x="126" y="80" width="70.0" height="18" rx="3"/>
+    <text class="s-on" x="132" y="93" font-size="12.5" font-weight="700">約1時間</text>
+    <text class="s-ink" x="357" y="93" font-size="12.5" font-weight="800" text-anchor="end">月5.4万円</text>
+
+    <text class="s-ink" x="118" y="119" font-size="12.5" font-weight="800" text-anchor="end">仙台※</text>
+    <rect class="s-c3" x="126" y="106" width="75.8" height="18" rx="3"/>
+    <text class="s-on" x="132" y="119" font-size="12.5" font-weight="700">約1時間5分</text>
+    <text class="s-ink" x="357" y="119" font-size="12.5" font-weight="800" text-anchor="end">月8.9万円</text>
+
+    <text class="s-ink" x="118" y="145" font-size="12.5" font-weight="800" text-anchor="end">新潟</text>
+    <rect class="s-c3" x="126" y="132" width="110.8" height="18" rx="3"/>
+    <text class="s-on" x="132" y="145" font-size="12.5" font-weight="700">約1時間35分</text>
+    <text class="s-ink" x="357" y="145" font-size="12.5" font-weight="800" text-anchor="end">月8.4万円</text>
+
+    <text class="s-ink" x="118" y="171" font-size="12.5" font-weight="800" text-anchor="end">富山</text>
+    <rect class="s-c3" x="126" y="158" width="116.7" height="18" rx="3"/>
+    <text class="s-on" x="132" y="171" font-size="12.5" font-weight="700">約1時間40分</text>
+    <text class="s-ink" x="357" y="171" font-size="12.5" font-weight="800" text-anchor="end">月10.1万円</text>
+
+    <text class="s-ink" x="118" y="197" font-size="12.5" font-weight="800" text-anchor="end">盛岡※</text>
+    <rect class="s-c3" x="126" y="184" width="122.5" height="18" rx="3"/>
+    <text class="s-on" x="132" y="197" font-size="12.5" font-weight="700">約1時間45分</text>
+    <text class="s-ink" x="357" y="197" font-size="12.5" font-weight="800" text-anchor="end">月11.7万円</text>
+
+    <text class="s-ink" x="118" y="223" font-size="12.5" font-weight="800" text-anchor="end">金沢※</text>
+    <rect class="s-c3" x="126" y="210" width="140.0" height="18" rx="3"/>
+    <text class="s-on" x="132" y="223" font-size="12.5" font-weight="700">約2時間</text>
+    <text class="s-ink" x="357" y="223" font-size="12.5" font-weight="800" text-anchor="end">月11.2万円</text>
+
+    <text class="s-ink" x="118" y="249" font-size="12.5" font-weight="800" text-anchor="end">山形※</text>
+    <rect class="s-c3" x="126" y="236" width="163.3" height="18" rx="3"/>
+    <text class="s-on" x="132" y="249" font-size="12.5" font-weight="700">約2時間20分</text>
+    <text class="s-ink" x="357" y="249" font-size="12.5" font-weight="800" text-anchor="end">月8.9万円</text>
+
+    </svg>
+    <figcaption>図4　棒の長さは片道の時間（最短の列車）です。時間の数字は図2の車と比べられますが、棒の目盛りは図2と別です。右は、毎週帰ると1か月でいくらかです。※は、直線250km以上の町です（帰省旅費の目安）。町の名前だけで、勤務先がその町にあるという意味ではありません。駅から勤務先までの交通費は入っていません。</figcaption>
+  </figure>
+  <table class="tbl">
+    <thead><tr><th>行き先</th><th>片道の時間</th><th>片道の料金</th><th>毎週帰ると1か月<small>（往復×4週）</small></th></tr></thead>
+    <tbody>
+      <tr><td>郡山<span class="pref">福島県</span></td><td>約1時間</td><td>6,690円</td><td>約5.4万円</td></tr>
+      <tr><td>長野<span class="pref">長野県</span></td><td>約1時間</td><td>6,690円</td><td>約5.4万円</td></tr>
+      <tr><td>仙台※<span class="pref">宮城県</span></td><td>約1時間5分</td><td>11,090円</td><td>約8.9万円</td></tr>
+      <tr><td>新潟<span class="pref">新潟県</span></td><td>約1時間35分</td><td>10,550円</td><td>約8.4万円</td></tr>
+      <tr><td>富山<span class="pref">富山県</span></td><td>約1時間40分</td><td>12,640円</td><td>約10.1万円</td></tr>
+      <tr><td>盛岡※<span class="pref">岩手県</span></td><td>約1時間45分</td><td>14,580円</td><td>約11.7万円</td></tr>
+      <tr><td>金沢※<span class="pref">石川県</span></td><td>約2時間</td><td>13,950円</td><td>約11.2万円</td></tr>
+      <tr><td>山形※<span class="pref">山形県</span></td><td>約2時間20分</td><td>11,130円</td><td>約8.9万円</td></tr>
+    </tbody>
+  </table>
+  <p class="note"><b>毎週帰る分は、ほとんど自己負担になる見込みです。</b>月5万〜11万円台は、月給25万〜30万円ほどのおよそ2割〜5割にあたります。会社の帰省旅費は直線250km以上のときの決まりで、求人票には「扶養家族ありは2か月に1回、なしは6か月に1回」とあります（④の赴任手当にある「独身での転勤は支給なし」が、帰省旅費にも当てはまるかは確認中です）。</p>
+  <ul class="facts">
+    <li>片道の料金は、運賃と特急料金を合わせた、大人の指定席の値段です（通常期＝ふつうの時期・2026年3月の改定後）。混む時期は片道200〜400円高くなります。</li>
+    <li>駅から勤務先まで、さらに車や在来線が必要です。勤務先は駅から離れていることもあります。</li>
+    <li>大宮は乗る駅の目安です。時間は最短の列車のものです。</li>
+    <li>※は、直線250km以上の町です（帰省旅費の目安）。ほかの町は、250kmより近い目安です。</li>
+  </ul>
+
+  <h3>配偶者・お子さんと一緒に引っ越す場合</h3>
+  <div class="compare">
+    <div class="hd">ひとりで引っ越す</div><div class="hd">一緒に引っ越す</div>
+    <div class="lb">借上社宅・寮の家賃補助（家賃の50%・半導体部門の数字）</div>
+    <div class="cell">ひとり用は月3万円まで <span class="nw">（確認中）</span></div><div class="cell">家族寮（家族で住める寮）は月4万円まで <span class="nw">（確認中）</span></div>
+    <div class="lb">家族手当（扶養している家族がいる人のみ・数字は半導体部門）</div>
+    <div class="cell">扶養家族がいれば、ひとりで行く場合も対象か確認中</div><div class="cell">配偶者 月13,000円／子1人 月6,000円</div>
+  </div>
+  <p class="note"><b>確認中</b>　扶養する家族がいる場合に、家族寮・家族手当の対象になる範囲は、分かるまで言えません。</p>
+</section>
+
 <footer>
-  <p>この資料は、BREXA Technology の機電の求人票、半導体部門の案件一覧、会社の公開情報（<a href="https://technology.brexa.com/lp/recruit/semiconductor/lp01/">半導体部門の採用ページ</a>・<a href="https://engineering-technology.brexa.com/">求人サイト</a>・<a href="https://teni-shoku.jp/">teni-shoku.jp</a>）から作りました。</p>
-  <p>車の所要時間は地図データ（OpenStreetMap）で計算した目安です。新幹線の運賃は <a href="https://jr-shinkansen.net/articles/fare-hayabusa/">東北</a>・<a href="https://jr-shinkansen.net/articles/fare-hokuriku/">北陸</a> の料金表、所要時間は<a href="https://ekitan.com/">駅探</a>・JR東日本の時刻表によります。</p>
+  <p>この資料は、BREXA Technology の機電の求人票、会社の公開情報（<a href="https://technology.brexa.com/lp/recruit/semiconductor/lp01/">半導体部門の採用ページ</a>・<a href="https://engineering-technology.brexa.com/">求人サイト</a>・<a href="https://teni-shoku.jp/">teni-shoku.jp</a>）から作りました。勤務地の順位と年収の下限は、求人サイトに載っている全求人を2026年8月12日にプログラムで数えたものです。年数の比べ方は、65歳まで働くとした仮の数え方で、会社の定年ではありません。</p>
+  <p>車の所要時間は、高速道路を使った場合の目安です。新幹線の料金は <a href="https://jr-shinkansen.net/articles/fare-tohoku/">東北</a>・<a href="https://jr-shinkansen.net/articles/fare-hayabusa/">はやぶさ</a>・<a href="https://jr-shinkansen.net/articles/fare-yamagata/">山形</a>・<a href="https://jr-shinkansen.net/articles/fare-joetsu/">上越</a>・<a href="https://jr-shinkansen.net/articles/fare-hokuriku/">北陸</a> の料金表（2026年3月改定・通常期）、所要時間は<a href="https://ekitan.com/">駅探</a>・<a href="https://timetables.jreast.co.jp/">JR東日本の時刻表</a>によります。</p>
   <p>決まったことではなく、考えるための材料です。会社の決まりは変わることがあります。</p>
 </footer>
 
