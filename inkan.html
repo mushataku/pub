@@ -170,6 +170,25 @@ function fatal(text) { var el = $('fatal'); el.textContent = text; el.hidden = f
 window.addEventListener('error', function (e) { fatal('予期しないエラーが起きました: ' + (e.message || e)); });
 window.addEventListener('unhandledrejection', function (e) { fatal('予期しないエラーが起きました: ' + ((e.reason && e.reason.message) || e.reason)); });
 
+// ---- 文字の対応表（cmaps）が読めなかったとき ----
+// 書面ごとの失敗で致命的ではない（フォントを埋め込んだ書面は無関係）。pdf.js は読めないと書面の文字を描かず白紙のまま進むので、取得の口で拾って理由を出す。
+// gen は openDoc を呼んだときの S.loadToken。古い書面の遅れた失敗は、いま選んでいる書面の画面に出さない。
+function cmapFailed(gen, name, why) {
+  if (gen !== S.loadToken || S.cmapFail) return;      // 同じ書面で何度呼ばれても表示は1回（スクロールも最初の1回だけ）
+  var text = '書面の文字を画面に表示するためのデータを読めませんでした（' + why + '：' + name + '）。通信状況を確かめて、ページを開き直してください。直らないときは、印刷して押印してください。';
+  S.cmapFail = { text: text };
+  fatal(text);
+  var r = $('fatal').getBoundingClientRect();
+  if (r.top < 0 || r.bottom > window.innerHeight) $('fatal').scrollIntoView({ block: 'start' });
+}
+// 次の書面を選んだら、cmaps 由来の表示だけ消す。cmaps の表示のあとに別の理由で上書きされた #fatal は本文が違うので残す
+// （#fatal は1枠＝先にあった別の理由を cmaps の表示が上書きすることはある。worker の失敗は pdfFile が無効になるのでこの順には来ない）
+function clearCmapFail() {
+  var el = $('fatal');
+  if (S.cmapFail && !el.hidden && el.textContent === S.cmapFail.text) { el.hidden = true; el.textContent = ''; }
+  S.cmapFail = null;
+}
+
 // ---- 部品の読み込み確認（失敗を黙らせない） ----
 if (!window.PDFLib || !window.pdfjsLib) {
   fatal('部品の読み込みに失敗しました。通信状況を確かめて、ページを開き直してください。');
@@ -197,11 +216,29 @@ var workerReady = fetch(WORKER_URL, { integrity: WORKER_SRI, credentials: 'omit'
   $('pdfFile').disabled = true;
   return false;
 });
+// pdf.js が cmaps を取る口（既定の factory と同じ取り方）。読めなければ画面に出し、元と同じ Error を投げ直す（pdf.js が白紙で進む既存の経路は変えない）。
+// openDoc の呼び出しごとに作り、その世代(S.loadToken)を閉じ込める。getDocument の useWorkerFetch を true にすると取得が worker 側に移りここを通らなくなる（足さない。standardFontDataUrl も、将来 factory を外すと同じ道になるので足さない）。
+function cmapReaderFactory(gen) {
+  return class {
+    constructor(o) { this.baseUrl = o.baseUrl; this.isCompressed = o.isCompressed; }
+    async fetch(o) {
+      var url = this.baseUrl + o.name + (this.isCompressed ? '.bcmap' : ''), why;
+      try {
+        var r = await fetch(url, { credentials: 'omit' });
+        if (r.ok) return { cMapData: new Uint8Array(await r.arrayBuffer()), compressionType: this.isCompressed ? 1 : 0 };
+        why = 'HTTP ' + r.status;
+      } catch (e) { why = '通信できません'; }
+      cmapFailed(gen, o.name, why);
+      throw new Error('Unable to load ' + (this.isCompressed ? 'binary ' : '') + 'CMap at: ' + url);
+    }
+  };
+}
 // getDocument の共通口。worker の用意ができてから開く（2箇所とも通る）。
 function openDoc(bytes) {
+  var gen = S.loadToken;
   return workerReady.then(function (ok) {
     if (!ok) { var er = new Error('worker'); er.name = 'WorkerUnavailable'; throw er; }
-    return pdfjsLib.getDocument({ data: bytes.slice(), isEvalSupported: false, cMapUrl: CMAP_URL, cMapPacked: true }).promise;
+    return pdfjsLib.getDocument({ data: bytes.slice(), isEvalSupported: false, cMapUrl: CMAP_URL, cMapPacked: true, CMapReaderFactory: cmapReaderFactory(gen) }).promise;
   });
 }
 
@@ -216,7 +253,7 @@ if (/\bLine\//i.test(navigator.userAgent)) {
 // ---- 状態 ----
 var S = {
   name: null, sealCanvas: null,
-  pdfBytes: null, pdfDoc: null, fileName: '', numPages: 0, loadToken: 0, pageToken: 0,
+  pdfBytes: null, pdfDoc: null, fileName: '', numPages: 0, loadToken: 0, pageToken: 0, cmapFail: null,
   pageIndex: 0, vp: null, pageW: 0, pageH: 0, rotate: 0,
   base: null, baseSX: 1, baseSY: 1, fields: null, mode: 'none',
   strokes: [], sig: { has: false, canvas: null, png: null, w: 0, h: 0 },
@@ -377,9 +414,16 @@ async function showPage() {
   return true;
 }
 
+function showLoadedMsg() {
+  var base = '読み込みました：' + S.fileName + '（全' + S.numPages + 'ページ）';
+  if (S.cmapFail) setMsg($('pdfMsg'), base + '。ただし、書面の文字を画面に出せていません（ページ上部の案内を見てください）。', 'warn');
+  else setMsg($('pdfMsg'), base, 'ok');
+}
+
 async function onPdfChosen(file) {
   var token = ++S.loadToken;
   dropResult(); setMsg($('buildMsg'), '');
+  clearCmapFail();
   resetPdfState();
   S.ver++;
   refreshUI();
@@ -417,7 +461,7 @@ async function onPdfChosen(file) {
     resetPdfState(); touch();
     return;
   }
-  setMsg($('pdfMsg'), '読み込みました：' + S.fileName + '（全' + S.numPages + 'ページ）', 'ok');
+  showLoadedMsg();
   if (S.mode === 'auto') { autoPlaceSeal(); placeSigAuto(); S.target = 'seal'; }
   touch();
 }
