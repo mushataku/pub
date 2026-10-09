@@ -6,8 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <!-- 「どこにも送られません」を画面の約束だけにしない: 通信の出口をブラウザ側で塞ぐ。
-     許すのは部品(cdnjs)の読み込みだけ。PDFの中身を送れる経路（fetch/フォーム送信/画像ビーコン）は無い。 -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' https://cdnjs.cloudflare.com; worker-src blob: https://cdnjs.cloudflare.com; connect-src https://cdnjs.cloudflare.com https://cdn.jsdelivr.net/npm/; img-src blob: data:; font-src data: blob:; style-src 'unsafe-inline'; form-action 'none'; base-uri 'none'">
+     許すのは、このページと同じ場所の部品（inkan-vendor/）と、和文の文字データ（jsdelivr の cmaps＝データだけで実行コードではない）の読み込みだけ。
+     PDFの中身を送れる経路（fetch/フォーム送信/画像ビーコン）は無い。 -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'self'; worker-src blob:; connect-src 'self' https://cdn.jsdelivr.net/npm/; img-src blob: data:; font-src data: blob:; style-src 'unsafe-inline'; form-action 'none'; base-uri 'none'">
 <title>重要事項説明書に署名と印鑑を入れる</title>
 <style>
 *{box-sizing:border-box}
@@ -150,14 +151,13 @@ button:focus-visible,.btn:focus-within,label.btn:focus-within{outline:3px solid 
 </section>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" integrity="sha512-z8IYLHO8bTgFqj+yrPyIJnzBDf7DDhWwiEsk4sY+Oe6J2M+WQequeGS7qioI5vT6rXgVRb4K1UVQC5ER7MKzKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" integrity="sha512-q+4liFwdPC/bNdhUpZx6aXDx/h77yEQtn4I1slHydcbZK34nLaR3cAeYSJshoxIOq3mjEf7xJE8YWIUHMn+oCQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="inkan-vendor/pdf-lib-1.17.1.min.js" integrity="sha512-z8IYLHO8bTgFqj+yrPyIJnzBDf7DDhWwiEsk4sY+Oe6J2M+WQequeGS7qioI5vT6rXgVRb4K1UVQC5ER7MKzKQ=="></script>
+<script src="inkan-vendor/pdf-3.11.174.min.js" integrity="sha512-q+4liFwdPC/bNdhUpZx6aXDx/h77yEQtn4I1slHydcbZK34nLaR3cAeYSJshoxIOq3mjEf7xJE8YWIUHMn+oCQ=="></script>
 <script>
 (function () {
 'use strict';
 var $ = function (id) { return document.getElementById(id); };
-var PDFJS_BASE = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
-// 定義済みCMap（非埋め込みの和文フォント用）。cdnjs には cmaps が無い（403）ので、同じ版の npm 配布を jsdelivr から読む。
+// 定義済みCMap（非埋め込みの和文フォント用）。pdf.js の npm 配布（同じ版）の cmaps を jsdelivr から読む＝部品のうち外部ホストに残る唯一のもの（データだけ）。
 // 「@」はメールアドレス検知ガードの誤検知を避けるため文字コードで組む。読むのはデータだけ（実行コードではない）。
 var CMAP_URL = 'https://cdn.jsdelivr.net/npm/pdfjs-dist' + String.fromCharCode(64) + '3.11.174/cmaps/';
 var OUT_NAME = '重要事項説明書_署名押印済み.pdf';
@@ -177,7 +177,34 @@ if (!window.PDFLib || !window.pdfjsLib) {
   $('pdfFile').disabled = true;
   return;
 }
-pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_BASE + 'pdf.worker.min.js';
+// pdf.js が自分で読み込む worker には integrity 属性を付けられない。そこで先に fetch(integrity) で検証した本文だけを
+// Blob URL にして渡す（同じ origin の blob は本物の Web Worker で動く）。値は scripts/inkan_page_publish.py の表と同じ（テストが突き合わせる）。
+var WORKER_URL = 'inkan-vendor/pdf-3.11.174.worker.min.js';
+var WORKER_SRI = 'sha512-BbrZ76UNZq5BhH7LL7pn9A4TKQpQeNCHOo65/akfelcIBbcVvYWOFQKPXIrykE3qZxYjmDX573oa4Ywsc7rpTw==';
+var workerReady = fetch(WORKER_URL, { integrity: WORKER_SRI, credentials: 'omit' }).then(function (r) {
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  return r.arrayBuffer();
+}).then(function (buf) {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = URL.createObjectURL(new Blob([buf], { type: 'text/javascript' }));
+  return '';
+}).catch(function () {
+  // integrity の不一致も 404 も、fetch は「Failed to fetch」としか返さず通信断と見分けがつかない。理由だけ、検証なしでもう一度取って分ける（この結果は実行に使わない）。
+  return fetch(WORKER_URL, { credentials: 'omit' }).then(function (r) {
+    return r.ok ? '内容が想定と違います' : '取得できません（HTTP ' + r.status + '）';
+  }, function () { return '通信できません'; });
+}).then(function (why) {
+  if (!why) return true;
+  fatal('PDFを読む部品の確認に失敗しました（' + why + '）。通信状況を確かめて、ページを開き直してください。');
+  $('pdfFile').disabled = true;
+  return false;
+});
+// getDocument の共通口。worker の用意ができてから開く（2箇所とも通る）。
+function openDoc(bytes) {
+  return workerReady.then(function (ok) {
+    if (!ok) { var er = new Error('worker'); er.name = 'WorkerUnavailable'; throw er; }
+    return pdfjsLib.getDocument({ data: bytes.slice(), isEvalSupported: false, cMapUrl: CMAP_URL, cMapPacked: true }).promise;
+  });
+}
 
 // ---- LINE のアプリ内ブラウザ ----
 if (/\bLine\//i.test(navigator.userAgent)) {
@@ -364,11 +391,12 @@ async function onPdfChosen(file) {
   if (token !== S.loadToken) return;
   var doc;
   try {
-    doc = await pdfjsLib.getDocument({ data: bytes.slice(), isEvalSupported: false, cMapUrl: CMAP_URL, cMapPacked: true }).promise;
+    doc = await openDoc(bytes);
   } catch (e) {
     if (token !== S.loadToken) return;
     var nm = e && e.name;
-    var text = nm === 'PasswordException' ? 'パスワードが付いたPDFは扱えません。パスワードを外したPDFを選ぶか、印刷して押印してください。'
+    var text = nm === 'WorkerUnavailable' ? 'PDFを読む部品が使えません。ページを開き直してください。'
+      : nm === 'PasswordException' ? 'パスワードが付いたPDFは扱えません。パスワードを外したPDFを選ぶか、印刷して押印してください。'
       : nm === 'InvalidPDFException' ? 'PDFとして読めませんでした。重要事項説明書のPDFを選んでください。'
       : 'PDFを読めませんでした（' + (nm || 'エラー') + '）。別のPDFを選ぶか、印刷して押印してください。';
     setMsg($('pdfMsg'), text, 'err');
@@ -724,7 +752,7 @@ async function showResult() {
   $('downloadBtn').textContent = share ? 'PDFを保存する' : 'PDFを保存する（保存したらLINEに添付）';
   setMsg($('resultMsg'), share ? '' : 'この端末・ブラウザでは共有ができないので、PDFを保存して、LINEのトークに添付して送ってください。', share ? '' : 'warn');
   try {                                                                // できあがったPDFそのものを描き直して見せる
-    var doc = await pdfjsLib.getDocument({ data: r.bytes.slice(), isEvalSupported: false, cMapUrl: CMAP_URL, cMapPacked: true }).promise;
+    var doc = await openDoc(r.bytes);
     var page = await doc.getPage(r.page + 1);
     var cssW = Math.max(160, Math.floor($('result').clientWidth)), dpr = Math.min(window.devicePixelRatio || 1, 3);
     var rs = clamp(cssW * dpr / r.crop.w, 1, 4);
