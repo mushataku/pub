@@ -6,9 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <!-- 「どこにも送られません」を画面の約束だけにしない: 通信の出口をブラウザ側で塞ぐ。
-     許すのは、このページと同じ場所の部品（inkan-vendor/）と、和文の文字データ（jsdelivr の cmaps＝データだけで実行コードではない）の読み込みだけ。
+     許すのは、このページと同じ場所の部品（inkan-vendor/＝pdf-lib・pdf.js・worker と、和文の文字データ cmaps）の読み込みだけ。外部のホストは1つも無い。
      PDFの中身を送れる経路（fetch/フォーム送信/画像ビーコン）は無い。 -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'self'; worker-src blob:; connect-src 'self' https://cdn.jsdelivr.net/npm/; img-src blob: data:; font-src data: blob:; style-src 'unsafe-inline'; form-action 'none'; base-uri 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'self'; worker-src blob:; connect-src 'self'; img-src blob: data:; font-src data: blob:; style-src 'unsafe-inline'; form-action 'none'; base-uri 'none'">
 <title>重要事項説明書に署名と印鑑を入れる</title>
 <style>
 *{box-sizing:border-box}
@@ -157,9 +157,8 @@ button:focus-visible,.btn:focus-within,label.btn:focus-within{outline:3px solid 
 (function () {
 'use strict';
 var $ = function (id) { return document.getElementById(id); };
-// 定義済みCMap（非埋め込みの和文フォント用）。pdf.js の npm 配布（同じ版）の cmaps を jsdelivr から読む＝部品のうち外部ホストに残る唯一のもの（データだけ）。
-// 「@」はメールアドレス検知ガードの誤検知を避けるため文字コードで組む。読むのはデータだけ（実行コードではない）。
-var CMAP_URL = 'https://cdn.jsdelivr.net/npm/pdfjs-dist' + String.fromCharCode(64) + '3.11.174/cmaps/';
+// 定義済みCMap（非埋め込みの和文フォント用）。pdf.js の npm 配布（同じ版）の cmaps を、部品と同じ場所（inkan-vendor/cmaps/）から読む。読むのはデータだけ（実行コードではない）。
+var CMAP_URL = 'inkan-vendor/cmaps/';
 var OUT_NAME = '重要事項説明書_署名押印済み.pdf';
 var SEAL_FONT = '"UD Digi Kyokasho N-B","UDデジタル教科書体 NK-B","Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif CJK JP","Noto Serif JP","MS Mincho",serif';
 var PEN = 0.012;            // 署名の線の太さ（パッドの幅に対する比）
