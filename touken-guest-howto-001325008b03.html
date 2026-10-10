@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>刀剣ゲスト申込の撃ち方</title>
+<style>
+:root{
+  --bg:#f6f7f9; --card:#ffffff; --ink:#15181d; --sub:#5b6370; --line:#dde1e7;
+  --accent:#c2410c; --accent-bg:#fff1e8; --ok:#15803d; --ok-bg:#e8f6ec;
+  --warn:#b45309; --warn-bg:#fff7e0; --ng:#b91c1c; --ng-bg:#fdecec;
+  --machine:#e9ebef; --btn:#1d4ed8; --btn-ink:#fff; --kbd:#eef0f4;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111317; --card:#1a1d23; --ink:#eceef2; --sub:#a3abb8; --line:#2c313a;
+    --accent:#fb923c; --accent-bg:#2a1a10; --ok:#4ade80; --ok-bg:#12261a;
+    --warn:#fbbf24; --warn-bg:#2a2210; --ng:#f87171; --ng-bg:#2c1414;
+    --machine:#262a31; --btn:#3b82f6; --btn-ink:#fff; --kbd:#262a31;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111317; --card:#1a1d23; --ink:#eceef2; --sub:#a3abb8; --line:#2c313a;
+  --accent:#fb923c; --accent-bg:#2a1a10; --ok:#4ade80; --ok-bg:#12261a;
+  --warn:#fbbf24; --warn-bg:#2a2210; --ng:#f87171; --ng-bg:#2c1414;
+  --machine:#262a31; --btn:#3b82f6; --btn-ink:#fff; --kbd:#262a31;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 "Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:26px;line-height:1.35;margin:8px 0 4px}
+.lead{color:var(--sub);margin:0 0 18px}
+.deadline{background:var(--ng-bg);border:2px solid var(--ng);border-radius:12px;padding:14px 16px;margin:0 0 16px}
+.deadline b{color:var(--ng);font-size:20px}
+.only{background:var(--ok-bg);border:2px solid var(--ok);border-radius:12px;padding:14px 16px;margin:0 0 22px}
+.only b.big{font-size:19px}
+.flow{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 26px}
+.flow a{flex:1 1 150px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.flow a span{display:block;font-size:13px;color:var(--sub)}
+.flow a strong{font-size:17px}
+.flow a:hover,.flow a:focus{border-color:var(--accent)}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px 8px;margin:0 0 22px;scroll-margin-top:12px}
+.step h2{display:flex;align-items:center;gap:12px;font-size:21px;margin:0 0 6px}
+.num{flex:none;width:40px;height:40px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:21px;font-weight:700}
+.who{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:2px 10px;margin-left:4px;vertical-align:middle}
+.who.you{background:var(--accent-bg);color:var(--accent)}
+.who.ai{background:var(--ok-bg);color:var(--ok)}
+.where{color:var(--sub);margin:0 0 12px}
+.go{display:inline-block;background:var(--btn);color:var(--btn-ink);text-decoration:none;font-weight:700;border-radius:10px;padding:10px 16px;margin:4px 0 14px}
+.go:hover,.go:focus{filter:brightness(1.1)}
+ol.do{padding-left:1.4em;margin:0 0 12px}
+ol.do li{margin:0 0 10px}
+.btnlabel{display:inline-block;background:var(--kbd);border:1px solid var(--line);border-bottom-width:3px;border-radius:7px;padding:0 8px;font-weight:700}
+.tbl{width:100%;border-collapse:collapse;font-size:15px;margin:0 0 14px}
+.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:8px 8px;text-align:left;vertical-align:top}
+.tbl th{font-size:13px;color:var(--sub);font-weight:600}
+.tbl td:first-child{font-weight:700}
+.tag{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:1px 7px;white-space:nowrap;margin:1px 0}
+.req{background:var(--accent-bg);color:var(--accent)}
+.opt{background:var(--kbd);color:var(--sub)}
+.pd{background:var(--ok-bg);color:var(--ok)}
+tr.machine td{background:var(--machine);color:var(--sub)}
+.box{border-radius:10px;padding:10px 14px;margin:0 0 14px}
+.box.ok{background:var(--ok-bg);border-left:5px solid var(--ok)}
+.box.warn{background:var(--warn-bg);border-left:5px solid var(--warn)}
+.box.ng{background:var(--ng-bg);border-left:5px solid var(--ng)}
+.box p{margin:4px 0}
+.scroll{overflow-x:auto}
+.mini{font-size:14px;color:var(--sub)}
+.screen{border:2px dashed var(--line);border-radius:12px;padding:12px 14px;margin:0 0 14px;font-size:15px}
+.screen .legend{font-weight:700;color:var(--sub);font-size:13px;margin-bottom:6px}
+.screen .row{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin:4px 0}
+.hl{outline:3px solid var(--accent);outline-offset:2px}
+footer{color:var(--sub);font-size:13px;margin-top:30px;word-break:break-all}
+@media (max-width:560px){
+  h1{font-size:22px}
+  .step{padding:14px 14px 6px}
+  .tbl{font-size:14px}
+  .tbl th,.tbl td{padding:7px 5px}
+  .tbl.cols tr:first-child{display:none}
+  .tbl.cols tr{display:grid;grid-template-columns:1fr auto;border-bottom:1px solid var(--line);padding:8px 6px}
+  .tbl.cols td{border:0;padding:0}
+  .tbl.cols td:nth-child(2){text-align:right}
+  .tbl.cols td:nth-child(3){grid-column:1/-1;padding-top:2px}
+  .tbl.cols tr.machine{background:var(--machine)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>刀剣ゲスト申込の撃ち方</h1>
+<p class="lead">真剣乱舞祭2026（ローチケ非会員）。<b>シートに書く → 画面で取り込む → 画面で押す</b> の3ステップです。</p>
+
+<div class="deadline">
+  ⏰ 締切 <b>10月12日（月）12:00</b>（ネルケ先行・出演者共通先行とも）<br>
+  当落発表は 10月17日（土）15:00。当落は機械が自動で読みに行きます。
+</div>
+
+<div class="only">
+  <b class="big">🙋 人がやるのは STEP 1（シートに書く）だけでOK。</b><br>
+  顧客の名前や住所は拓也しか知らないので、ここだけは人の手が要ります。STEP 2・3 は、Claude に「<b>刀剣、シート書いたから撃って</b>」と言えば代わりに押します。自分で押したいときは、下の手順どおりに進めてください。
+</div>
+
+<nav class="flow">
+  <a href="#s1"><span>STEP 1 ・ 人</span><strong>📝 シートに書く</strong></a>
+  <a href="#s2"><span>STEP 2 ・ Claudeでも可</span><strong>📥 画面で取り込む</strong></a>
+  <a href="#s3"><span>STEP 3 ・ Claudeでも可</span><strong>🎯 画面で押す</strong></a>
+  <a href="#s4"><span>あと</span><strong>✉️ 顧客へ連絡</strong></a>
+</nav>
+
+<!-- STEP 1 -->
+<section class="step" id="s1">
+  <h2><span class="num">1</span>シートに顧客を1行ずつ書く <span class="who you">人</span></h2>
+  <p class="where">シート「刀剣・新規顧客名簿」のタブ <b>「新規顧客」</b>。<b>1行＝1人</b>です。</p>
+  <a class="go" href="https://docs.google.com/spreadsheets/d/1-sNJbE2FXndPPxI_ek3UD3hUH7u4MrYDQQAgsqjtF98" target="_blank" rel="noopener">▶ シートを開く</a>
+
+  <div class="box ok"><p>✅ <b>必ず書くのは「本人情報」と「受付」だけ。</b>公演・席種・枚数・経路は、シートで空のままにしておいて STEP 3 の画面で選んでも大丈夫です。</p></div>
+
+  <div class="scroll">
+  <table class="tbl cols">
+    <tr><th>列</th><th></th><th>書き方</th></tr>
+    <tr class="machine"><td>顧客ID</td><td><span class="tag opt">空のまま</span></td><td>機械が c101〜 の番号を振ります</td></tr>
+    <tr><td>姓（漢字）・名（漢字）</td><td><span class="tag req">必須</span></td><td>例：山田・花子</td></tr>
+    <tr><td>セイ（カナ）・メイ（カナ）</td><td><span class="tag req">必須</span></td><td>カタカナ。例：ヤマダ・ハナコ</td></tr>
+    <tr><td>生年月日</td><td><span class="tag req">必須</span></td><td><b>1995-04-01</b> か <b>19950401</b>（数字8桁なら読めます）</td></tr>
+    <tr><td>性別</td><td><span class="tag req">必須</span></td><td><b>男</b> か <b>女</b></td></tr>
+    <tr><td>郵便番号</td><td><span class="tag req">必須</span></td><td>7桁。ハイフンはあってもなくてもOK</td></tr>
+    <tr><td>都道府県・市区町村・番地以降</td><td><span class="tag req">必須</span></td><td>例：東京都・新宿区・西新宿2-8-1</td></tr>
+    <tr><td>建物名等（任意）</td><td><span class="tag opt">任意</span></td><td>マンション名・部屋番号</td></tr>
+    <tr><td>電話番号（任意）</td><td><span class="tag opt">任意</span></td><td>顧客本人の電話。<b>当選したときの入金に使う番号</b>なので、あれば入れておくのがおすすめ</td></tr>
+    <tr><td>受付</td><td><span class="tag req">必須</span> <span class="tag pd">プルダウン</span></td><td><b>ネルケ先行</b>／<b>出演者共通先行</b>／<b>両方</b></td></tr>
+    <tr><td>ネルケ 公演</td><td><span class="tag pd">プルダウン</span></td><td>会場と日時（全32公演）。空なら画面で選ぶ</td></tr>
+    <tr><td>ネルケ 第1〜3 席種・枚数</td><td><span class="tag pd">プルダウン</span></td><td>席種：ステージアラウンド 19,800円／スタンダード 17,800円／注釈付き 14,800円。枚数：1〜4。<b>第1希望だけでもOK</b></td></tr>
+    <tr><td>出演者 公演・第1〜3 席種・枚数</td><td><span class="tag pd">プルダウン</span></td><td>ネルケと同じ形。「出演者共通先行」か「両方」を選んだ人だけ書く</td></tr>
+    <tr><td>経路</td><td><span class="tag pd">プルダウン</span></td><td><b>Android</b> がおすすめ（下の ⚠️ を参照）</td></tr>
+    <tr class="machine"><td>灰色の4列</td><td><span class="tag opt">触らない</span></td><td>取り込み・メール・申込結果・受付番号。機械が書きます</td></tr>
+  </table>
+  </div>
+
+  <div class="box ng">
+    <p>🚫 <b>「両方」を選んだ人は、ネルケと出演者で<u>違う公演</u>を選んでください。</b>同じ公演を2つの受付に入れると規約上1申込しか有効にならないので、機械が撃つ前に断ります。</p>
+  </div>
+  <div class="box warn">
+    <p>⚠️ <b>経路は Android がおすすめです。</b>10/6 の試験では、自宅回線は入口で切られました。Android（Pixel の Chrome）は確認画面まで届いています（1件 約3分）。撃つ時間帯は Pixel を MNP の作業に使わないでください。</p>
+    <p class="mini">住宅IPは承認が要ります（課金ゲート）。承認の行が無いと係が断ります。</p>
+  </div>
+</section>
+
+<!-- STEP 2 -->
+<section class="step" id="s2">
+  <h2><span class="num">2</span>画面でシートを取り込む <span class="who ai">Claudeでも可</span></h2>
+  <p class="where">チケットWebコンソールの <b>「刀剣（ゲスト申込）」</b> 欄（リンクから開くとその欄へ飛びます）。</p>
+  <a class="go" href="https://bot-lab-ticketing-890276945216.asia-northeast1.run.app/#gs-box" target="_blank" rel="noopener">▶ コンソールを開く</a>
+
+  <div class="screen">
+    <div class="legend">画面ではこう見えます</div>
+    <div><b>ゲスト名簿シートの取り込み</b></div>
+    <div class="row"><span class="btnlabel hl">下見（シートを読むだけ）</span><span class="btnlabel">この内容で取り込む</span></div>
+  </div>
+
+  <ol class="do">
+    <li><span class="btnlabel">下見（シートを読むだけ）</span> を押す。<br><span class="mini">シートを読むだけで、何も書きません。何人読めたか、どの行のどの欄が足りないかが出ます。</span></li>
+    <li>結果が「完了」になったら、人数と不足を確認する。<br><span class="mini">不足があれば、シートを直して 1. からやり直します。</span></li>
+    <li><span class="btnlabel">この内容で取り込む</span> を押す。<br><span class="mini">下見と同じ内容のときだけ押せます。下見の後にシートを書き換えたら、下見からやり直してください。</span></li>
+  </ol>
+
+  <div class="box ok"><p>✅ 取り込むと、シートの「顧客ID」に c101〜 が入り、画面の下に <b>顧客×受付</b> のカードが並びます。</p></div>
+  <div class="box warn"><p>⚠️ ボタンが灰色で押せないときは、PC の係（対話の係）が止まっています。Claude に「刀剣の係を起こして」と言ってください。</p></div>
+</section>
+
+<!-- STEP 3 -->
+<section class="step" id="s3">
+  <h2><span class="num">3</span>カードごとに「確認画面まで」→「申し込む」 <span class="who ai">Claudeでも可</span></h2>
+  <p class="where">同じ「刀剣（ゲスト申込）」欄。<b>顧客×受付</b>ごとにカードが1枚あります（「両方」の人は2枚）。</p>
+
+  <div class="screen">
+    <div class="legend">カード1枚の見た目</div>
+    <div><b>c101 ／ ネルケ先行</b></div>
+    <div class="row">公演 [ 選ぶ ▾ ]</div>
+    <div class="row">第1希望 席種 [ ▾ ]　枚数 [ ▾ ]</div>
+    <div class="row">第2希望 席種 [ ▾ ]　枚数 [ ▾ ]</div>
+    <div class="row">第3希望 席種 [ ▾ ]　枚数 [ ▾ ]</div>
+    <div class="row">経路 [ Android ▾ ]</div>
+    <div class="row"><span class="btnlabel hl">確認画面まで（見るだけ）</span><span class="btnlabel">申し込む</span></div>
+  </div>
+
+  <ol class="do">
+    <li>空欄（公演・席種・枚数・経路）を選ぶ。<b>シートに書いた値は最初から入っています</b>。</li>
+    <li>ページ上部の <b>「押す人」</b> に自分の名前が入っているか確かめる。</li>
+    <li><span class="btnlabel">確認画面まで（見るだけ）</span> を押す。<br><span class="mini">実サイトの確認画面まで進み、<b>送信の直前で止まります</b>（まだ申し込まれません）。約3分かかります。</span></li>
+    <li>結果が <b>「完了」</b> になったら <span class="btnlabel">申し込む</span> を押す。確認ダイアログで顧客・公演・希望・経路を見て <b>OK</b>。<br><span class="mini">「確認画面まで」から30分以内に押してください。1回の確認画面で申し込めるのは1回だけです。</span></li>
+  </ol>
+
+  <div class="box ng">
+    <p>🚫 <b>1人目は1件だけ撃って、結果を見てから残りへ進んでください。</b>本番で最後のボタンを押すのは今回が初めてです。受付番号がきちんと読めたかを確かめてから次へ進みます。</p>
+    <p>🚫 <b>「確認画面まで」の後に選びを変えると、「申し込む」は断られます。</b>変えたら「確認画面まで」からやり直してください。</p>
+  </div>
+
+  <div class="scroll">
+  <table class="tbl">
+    <tr><th>カードの状態</th><th>意味</th><th>やること</th></tr>
+    <tr><td>未申込</td><td>まだ送っていない</td><td>「確認画面まで」から</td></tr>
+    <tr><td>申込済み</td><td>送って受付番号まで読めた</td><td>次のカードへ</td></tr>
+    <tr><td>要確認（送信済みの可能性）</td><td>送れたかもしれないが、番号が読めない</td><td><b>撃ち直さない。</b>Claude に見せる（二重申込を防ぐため）</td></tr>
+    <tr><td>台帳が読めない</td><td>機械側の記録の不具合</td><td>押さずに Claude に見せる</td></tr>
+    <tr><td>「確認画面まで」が完了にならない</td><td>Pixel が使用中・サイトに入口で切られた など</td><td>少し待つか経路を変えて、「確認画面まで」から（まだ何も送っていません）</td></tr>
+  </table>
+  </div>
+</section>
+
+<!-- STEP 4 -->
+<section class="step" id="s4">
+  <h2><span class="num">✉</span>申込済みになったら顧客へ連絡 <span class="who you">人</span></h2>
+  <ol class="do">
+    <li>カードの <span class="btnlabel">文面をコピー</span> を押す。<br><span class="mini">公演名・受付番号・マイページ用の4桁が入った文面がコピーされます（氏名・住所は入りません）。</span></li>
+    <li>LINE などに貼って、自分で送る。<span class="mini">（機械は送りません）</span></li>
+  </ol>
+  <div class="box ok"><p>✅ 10/17（土）15:30 から、機械が当落を読みに行きます。当選するとカードの文面が「当選＋入金期限」に変わるので、同じようにコピーして送ってください。</p></div>
+</section>
+
+<footer>
+  リンク：<a href="https://docs.google.com/spreadsheets/d/1-sNJbE2FXndPPxI_ek3UD3hUH7u4MrYDQQAgsqjtF98" target="_blank" rel="noopener">刀剣・新規顧客名簿</a> ／
+  <a href="https://bot-lab-ticketing-890276945216.asia-northeast1.run.app/#gs-box" target="_blank" rel="noopener">チケットWebコンソール</a> ／
+  <a href="https://mushataku.github.io/pub/touken-presale-f07dda6048aa.html" target="_blank" rel="noopener">刀剣乱舞の先行の地図</a><br>
+  2026-10-10 時点の画面に合わせています。
+</footer>
+</div>
+</body>
+</html>
