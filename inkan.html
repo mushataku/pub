@@ -173,14 +173,30 @@ window.addEventListener('unhandledrejection', function (e) { fatal('予期しな
 // ---- 文字の対応表（cmaps）が読めなかったとき ----
 // 書面ごとの失敗で致命的ではない（フォントを埋め込んだ書面は無関係）。pdf.js は読めないと書面の文字を描かず白紙のまま進むので、取得の口で拾って理由を出す。
 // gen は openDoc を呼んだときの S.loadToken。古い書面の遅れた失敗は、いま選んでいる書面の画面に出さない。
-function cmapFailed(gen, name, why) {
-  if (gen !== S.loadToken || S.cmapFail) return;      // 同じ書面で何度呼ばれても表示は1回（スクロールも最初の1回だけ）
-  var text = '書面の文字を画面に表示するためのデータを読めませんでした（' + why + '：' + name + '）。通信状況を確かめて、ページを開き直してください。直らないときは、印刷して押印してください。';
+// res は「できあがりの確認画面の描き直し」から呼ばれたときだけ入る（そのときの S.result）。読み込みと出し先が違う（下の resultCmapFailed）。
+// 次の手は3か所（#fatal・作成ボタン上の案内・位置の案内）で同じ文にする（食い違わせない）。
+var CMAP_NEXT = 'もう一度PDFを選んでください。直らないときは、ページを開き直してください。それでも直らないときは、印刷して押印してください。';
+function cmapFailed(gen, name, why, res) {
+  if (gen !== S.loadToken) return;
+  if (res) { resultCmapFailed(res, name, why); return; }
+  if (S.cmapFail) return;                              // 同じ書面で何度呼ばれても表示は1回（スクロールも最初の1回だけ）
+  var text = '書面の文字を画面に表示するためのデータを読めませんでした（' + why + '：' + name + '）。通信状況を確かめて、' + CMAP_NEXT;
   S.cmapFail = { text: text };
   fatal(text);
   var r = $('fatal').getBoundingClientRect();
   if (r.top < 0 || r.bottom > window.innerHeight) $('fatal').scrollIntoView({ block: 'start' });
+  refreshUI();                                         // 遅れて届いた失敗でも、作成ボタンと案内が追従する
 }
+// 確認画面の描き直しだけ失敗したとき: PDF は正しくできている＝#fatal（ページ最上部・「開き直して」と案内する）は使わず、画面も動かさず、確認画面の直下に1回だけ出す。
+// S.cmapFail は立てない（立てると、プレビューが正常なのに作り直しの作成ボタンまで止まる）。
+function resultCmapFailed(res, name, why) {
+  if (res !== S.result || res.cmapNoted || S.cmapFail) return;      // 古い結果（作り直した・戻った）の遅れた失敗は捨てる・1つの結果につき1回。読み込みでも欠けた書面は #fatal がすでに理由と次の手を言っている（「確認画面だけ」は事実と違い、次の手が割れる）
+  res.cmapNoted = true;
+  var el = $('resultMsg'), cur = el.textContent;       // 共有の可否の案内は消さず、あとに足す
+  setMsg(el, (cur ? cur + ' ' : '') + 'PDFはできています。確認画面だけ、書面の文字を表示するデータが読めず（' + why + '：' + name + '）文字が出ていません。このまま保存・共有して使えます。気になるときは、もう一度「この内容で作る」を押してください。', 'warn');
+}
+// 読み込みで cmaps が欠けて manual のとき＝プレビューは白紙で、位置を決められない。作成と位置の指定を止める（判定はここ1か所・読むのは refreshUI／placeAt／build）。
+function cmapBlocked() { return !!S.cmapFail && S.mode === 'manual'; }
 // 次の書面を選んだら、cmaps 由来の表示だけ消す。cmaps の表示のあとに別の理由で上書きされた #fatal は本文が違うので残す
 // （#fatal は1枠＝先にあった別の理由を cmaps の表示が上書きすることはある。worker の失敗は pdfFile が無効になるのでこの順には来ない）
 function clearCmapFail() {
@@ -218,7 +234,7 @@ var workerReady = fetch(WORKER_URL, { integrity: WORKER_SRI, credentials: 'omit'
 });
 // pdf.js が cmaps を取る口（既定の factory と同じ取り方）。読めなければ画面に出し、元と同じ Error を投げ直す（pdf.js が白紙で進む既存の経路は変えない）。
 // openDoc の呼び出しごとに作り、その世代(S.loadToken)を閉じ込める。getDocument の useWorkerFetch を true にすると取得が worker 側に移りここを通らなくなる（足さない。standardFontDataUrl も、将来 factory を外すと同じ道になるので足さない）。
-function cmapReaderFactory(gen) {
+function cmapReaderFactory(gen, res) {
   return class {
     constructor(o) { this.baseUrl = o.baseUrl; this.isCompressed = o.isCompressed; }
     async fetch(o) {
@@ -228,17 +244,17 @@ function cmapReaderFactory(gen) {
         if (r.ok) return { cMapData: new Uint8Array(await r.arrayBuffer()), compressionType: this.isCompressed ? 1 : 0 };
         why = 'HTTP ' + r.status;
       } catch (e) { why = '通信できません'; }
-      cmapFailed(gen, o.name, why);
+      cmapFailed(gen, o.name, why, res);
       throw new Error('Unable to load ' + (this.isCompressed ? 'binary ' : '') + 'CMap at: ' + url);
     }
   };
 }
-// getDocument の共通口。worker の用意ができてから開く（2箇所とも通る）。
-function openDoc(bytes) {
+// getDocument の共通口。worker の用意ができてから開く（2箇所とも通る）。res は結果の描き直しのときだけ（S.result）。
+function openDoc(bytes, res) {
   var gen = S.loadToken;
   return workerReady.then(function (ok) {
     if (!ok) { var er = new Error('worker'); er.name = 'WorkerUnavailable'; throw er; }
-    return pdfjsLib.getDocument({ data: bytes.slice(), isEvalSupported: false, cMapUrl: CMAP_URL, cMapPacked: true, CMapReaderFactory: cmapReaderFactory(gen) }).promise;
+    return pdfjsLib.getDocument({ data: bytes.slice(), isEvalSupported: false, cMapUrl: CMAP_URL, cMapPacked: true, CMapReaderFactory: cmapReaderFactory(gen, res) }).promise;
   });
 }
 
@@ -622,6 +638,7 @@ function resizeTarget(f) {
   else { var nh = clamp(o.h * f, 8, 80), r = nh / o.h; o.h = nh; o.w = o.w * r; o.moved = true; }
 }
 function placeAt(x, y) {                                              // タップした場所に、選んでいるほうの中心を置く
+  if (cmapBlocked()) return false;                                    // 書面の文字が出ていない白紙の上には、位置を決めさせない
   if (S.target === 'seal') {
     S.place.seal = S.place.seal ? Object.assign({}, S.place.seal, { cx: x, cy: y }) : { cx: x, cy: y, size: 24 };
   } else {
@@ -746,7 +763,7 @@ function sealPngBytes() {
 }
 
 async function build() {
-  if (S.building || missing().length) return;
+  if (S.building || missing().length || cmapBlocked()) return;
   S.building = true;
   $('buildBtn').disabled = true;
   setMsg($('buildMsg'), 'PDFを作っています…');
@@ -795,7 +812,7 @@ async function showResult() {
   $('downloadBtn').textContent = share ? 'PDFを保存する' : 'PDFを保存する（保存したらLINEに添付）';
   setMsg($('resultMsg'), share ? '' : 'この端末・ブラウザでは共有ができないので、PDFを保存して、LINEのトークに添付して送ってください。', share ? '' : 'warn');
   try {                                                                // できあがったPDFそのものを描き直して見せる
-    var doc = await openDoc(r.bytes);
+    var doc = await openDoc(r.bytes, r);
     var page = await doc.getPage(r.page + 1);
     var cssW = Math.max(160, Math.floor($('result').clientWidth)), dpr = Math.min(window.devicePixelRatio || 1, 3);
     var rs = clamp(cssW * dpr / r.crop.w, 1, 4);
@@ -838,9 +855,10 @@ $('backBtn').addEventListener('click', function () {
 
 // ================= 画面の更新 =================
 function refreshUI() {
-  var miss = missing();
-  $('buildBtn').disabled = S.building || miss.length > 0;
-  setMsg($('buildHint'), miss.length ? 'あと必要なもの：' + miss.join('・') : '準備ができました。「この内容で作る」を押してください。', miss.length ? '' : 'ok');
+  var miss = missing(), blocked = cmapBlocked();
+  $('buildBtn').disabled = S.building || miss.length > 0 || blocked;
+  if (blocked) setMsg($('buildHint'), '書面の文字が表示できていないため、PDFを作れません。' + CMAP_NEXT, 'warn');
+  else setMsg($('buildHint'), miss.length ? 'あと必要なもの：' + miss.join('・') : '準備ができました。「この内容で作る」を押してください。', miss.length ? '' : 'ok');
   // 署名欄
   $('sigBox').style.opacity = S.skipSig ? '.4' : '1';
   $('sigClear').disabled = S.skipSig || !S.strokes.length;
@@ -863,6 +881,7 @@ function refreshUI() {
   var hint = $('placeHint');
   if (!S.pdfDoc) setMsg(hint, 'PDFを選ぶと、ここに署名と印鑑の位置が出ます。');
   else if (auto) setMsg(hint, '2ページ目の「（氏名）」と「㊞」の場所を見つけて、署名と印鑑を置きました。ずれていたら指でずらせます。', 'ok');
+  else if (blocked) setMsg(hint, '書面の文字が表示できていないため、ここでは位置を決められません。' + CMAP_NEXT, 'warn');
   else if (!S.place.seal) setMsg(hint, '欄を自動では見つけられませんでした。印鑑を置きたい場所を、下の画面でタップしてください。', 'warn');
   else if (!S.skipSig && !S.place.sig) setMsg(hint, S.sig.has ? '次に、署名を置きたい場所をタップしてください。' : '署名を書いてから、署名を置きたい場所をタップしてください。', 'warn');
   else setMsg(hint, '位置を確かめてください。違うときはタップするか、指でずらしてください。', 'ok');
