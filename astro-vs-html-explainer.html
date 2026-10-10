@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Astroってなに？ 図解でざっくり</title>
+<style>
+:root{--bg:#faf9f7;--card:#ffffff;--ink:#1e222a;--sub:#5b6472;--line:#c9c5bd;
+  --accent:#1565c0;--accentbg:#e8f1fb;--ok:#2e7d43;--okbg:#e4f2e7;--warn:#b3261e;--warnbg:#fbe4e2;
+  --dirbg:#edece8;}
+@media (prefers-color-scheme: dark){:root{--bg:#15171c;--card:#1e2128;--ink:#e8e6e1;--sub:#a5adba;--line:#454b56;
+  --accent:#82b4e8;--accentbg:#1e2a38;--ok:#7fce93;--okbg:#20362a;--warn:#f2867e;--warnbg:#43231f;
+  --dirbg:#2a2e36;}}
+:root[data-theme="light"]{--bg:#faf9f7;--card:#ffffff;--ink:#1e222a;--sub:#5b6472;--line:#c9c5bd;
+  --accent:#1565c0;--accentbg:#e8f1fb;--ok:#2e7d43;--okbg:#e4f2e7;--warn:#b3261e;--warnbg:#fbe4e2;
+  --dirbg:#edece8;}
+:root[data-theme="dark"]{--bg:#15171c;--card:#1e2128;--ink:#e8e6e1;--sub:#a5adba;--line:#454b56;
+  --accent:#82b4e8;--accentbg:#1e2a38;--ok:#7fce93;--okbg:#20362a;--warn:#f2867e;--warnbg:#43231f;
+  --dirbg:#2a2e36;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,system-ui,sans-serif;
+  font-size:15.5px;line-height:1.7;-webkit-font-smoothing:antialiased}
+main{max-width:860px;margin:0 auto;padding:28px 18px 80px}
+h1{font-size:23px;margin:0 0 6px}
+h2{font-size:18px;margin:48px 0 4px;padding-top:10px;border-top:1px solid var(--line)}
+p.lead{color:var(--sub);margin:2px 0 0;font-size:13.5px}
+p.sub{color:var(--sub);margin:4px 0 18px;font-size:13.5px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0}
+
+/* フォルダツリー */
+.tree{list-style:none;margin:0;padding:0;font-size:14px}
+.tree ul{list-style:none;margin:0;padding-left:28px}
+.tree li{position:relative;padding:4px 0 4px 26px}
+.tree li::before{content:"";position:absolute;left:0;top:-6px;height:26px;width:18px;
+  border-left:2px solid var(--line);border-bottom:2px solid var(--line);border-bottom-left-radius:10px}
+.tree li::after{content:"";position:absolute;left:0;top:20px;bottom:-6px;border-left:2px solid var(--line)}
+.tree li:last-child::after{display:none}
+.tree > li{padding-left:0}
+.tree > li::before,.tree > li::after{display:none}
+.node{display:inline-flex;align-items:center;gap:6px;background:var(--dirbg);border:1px solid var(--line);
+  border-radius:8px;padding:4px 11px;font-size:13.5px}
+.node.file{background:transparent;border-style:dashed}
+.node .tag{font-size:10.5px;color:var(--sub);background:var(--card);border-radius:5px;padding:0 6px;white-space:nowrap}
+.node.root{border-width:2px;border-color:var(--ink);padding:6px 14px;font-weight:700}
+
+/* 比較: 2カラム */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+@media (max-width:620px){.compare{grid-template-columns:1fr}}
+.col{border-radius:12px;padding:16px;border:1px solid var(--line)}
+.col.html{background:var(--warnbg)}
+.col.astro{background:var(--okbg)}
+.col h3{margin:0 0 10px;font-size:14.5px}
+.col h3 .badge{display:inline-block;font-size:10.5px;padding:1px 8px;border-radius:7px;margin-right:6px;font-weight:700}
+.col.html .badge{background:var(--warn);color:#fff}
+.col.astro .badge{background:var(--ok);color:#fff}
+.filebox{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin:6px 0;font-size:12.5px;font-family:Consolas,Menlo,monospace}
+.filebox .hl{background:var(--warnbg);display:inline-block;border-radius:3px;padding:0 3px}
+.col.astro .filebox .hl{background:var(--okbg)}
+.arrow-down{text-align:center;color:var(--sub);font-size:20px;margin:4px 0}
+.result{font-size:12.5px;color:var(--sub);margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+
+/* 量産フロー */
+.flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin:18px 0}
+.flowbox{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:13px;text-align:center;min-width:120px}
+.flowbox.key{border-color:var(--accent);background:var(--accentbg)}
+.flowarrow{font-size:18px;color:var(--sub)}
+.stack{display:flex;flex-direction:column;gap:5px}
+.stack .flowbox{font-size:11.5px;padding:6px 10px}
+
+.tbl{overflow-x:auto;margin-top:10px}
+.tbl table{border-collapse:collapse;width:100%;min-width:520px}
+.tbl td,.tbl th{padding:8px 10px;border-bottom:1px solid var(--line);font-size:13px;text-align:left;vertical-align:top}
+.tbl th{font-size:11.5px;color:var(--sub);white-space:nowrap}
+code{font-family:Consolas,Menlo,monospace;font-size:12.5px;background:var(--dirbg);border-radius:4px;padding:0 4px}
+.callout{background:var(--accentbg);border-left:4px solid var(--accent);border-radius:6px;padding:10px 14px;font-size:13.5px;margin:14px 0}
+.legend{font-size:12px;color:var(--sub);margin-top:8px}
+</style>
+</head>
+<body>
+<main>
+
+<h1>Astroってなに？ 図解でざっくり</h1>
+<p class="lead">「GitHubのrepoって何？」「素のHTMLと何が違うの？」をゼロから図で確認する用の1枚。2026-10-11 作成。</p>
+
+<h2>① そもそも「GitHubのrepo」「フォルダ」ってどういう状態？</h2>
+<p class="sub">さっき見てもらった実例（チケット風ページ）のフォルダを、そのまま箱の絵にするとこう。</p>
+
+<div class="card">
+<ul class="tree">
+  <li><span class="node root">📦 epl（リポジトリ＝この一式が入ってる大きい箱）</span>
+    <ul>
+      <li><span class="node">📁 _astro（部品が組み上がった後のCSS・JS）</span></li>
+      <li><span class="node">📁 image（ボタンの画像とか）</span></li>
+      <li><span class="node">📁 tickets（チケットのページが並ぶ場所）</span>
+        <ul>
+          <li><span class="node">📁 8a6e2443-...（1人ぶんのチケット＝フォルダ名がランダムな文字列）</span>
+            <ul>
+              <li><span class="node file">📄 index.html <span class="tag">これがブラウザに表示される実体</span></span></li>
+              <li><span class="node">📁 mogiri（もぎり画面）</span></li>
+            </ul>
+          </li>
+          <li><span class="node file" style="opacity:.5">📁 （他の人のチケットがあれば、ここにもう1個フォルダが並ぶ）</span></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+<div class="callout">
+<b>ポイント：</b> GitHubの画面（<code>github.com/...</code>）で開くと、この「箱の中身」がソースコードのまま見える。<br>
+GitHub Pagesの画面（<code>....github.io/...</code>）で開くと、<code>index.html</code>の中身がブラウザで「組み立てられて」ふつうのWebページとして表示される。<br>
+<b>同じファイルを、2つの違う見方で見ている</b>、というだけ。
+</div>
+
+<h2>② 素のHTMLとAstro、何が違うのか</h2>
+<p class="sub">「最終的にブラウザに出てくるもの」はほぼ同じ。違うのは<b>「作るときの手間」</b>。例：100人ぶんのチケットページを作るとする。</p>
+
+<div class="compare">
+  <div class="col html">
+    <h3><span class="badge">素のHTML</span>手でコピペして増やす</h3>
+    <div class="filebox"><span class="hl">&lt;header&gt;ロゴ...&lt;/header&gt;</span><br>田中さん用の内容...</div>
+    <div class="filebox"><span class="hl">&lt;header&gt;ロゴ...&lt;/header&gt;</span><br>佐藤さん用の内容...</div>
+    <div class="filebox" style="opacity:.6">… これが100人ぶん続く …</div>
+    <div class="result">👉 ヘッダーのデザインを1つ直したくなったら、<b>100個のファイルを全部開いて直す</b></div>
+  </div>
+  <div class="col astro">
+    <h3><span class="badge">Astro</span>部品化してビルドで量産</h3>
+    <div class="filebox">部品：<span class="hl">Header.astro</span>（1個だけ書く）</div>
+    <div class="filebox">テンプレ：<span class="hl">チケットの型</span> + 名簿データ（田中さん、佐藤さん…）</div>
+    <div class="arrow-down">⬇ ビルド（機械が自動で流し込む）⬇</div>
+    <div class="filebox" style="opacity:.8">tanaka/index.html, sato/index.html … が自動で生成される</div>
+    <div class="result">👉 ヘッダーを直したくなったら、<b>部品1個だけ直せば100人ぶんに反映される</b></div>
+  </div>
+</div>
+
+<h2>③ さっきのチケットのフォルダ名がランダムだった理由</h2>
+<p class="sub">テンプレート（枠）とデータ（中身）を分けて、ビルドのときに「1人1フォルダ」で量産しているから。</p>
+
+<div class="flow">
+  <div class="flowbox key">テンプレート<br><span style="color:var(--sub);font-size:11px">index.astro<br>（枠だけ・名前や日付は空欄）</span></div>
+  <div class="flowarrow">＋</div>
+  <div class="stack">
+    <div class="flowbox">名前:A さん</div>
+    <div class="flowbox">名前:B さん</div>
+    <div class="flowbox">名前:C さん…</div>
+  </div>
+  <div class="flowarrow">⬇<br><span style="font-size:10px">ビルド</span></div>
+</div>
+<div class="flow">
+  <div class="flowbox">📁 ランダムID-1<br>（Aさんの1枚）</div>
+  <div class="flowbox">📁 ランダムID-2<br>（Bさんの1枚）</div>
+  <div class="flowbox">📁 ランダムID-3<br>（Cさんの1枚）</div>
+</div>
+<p class="legend">※フォルダ名をランダムにしているのは「連番だと他人のチケットのURLを推測して覗けてしまう」のを防ぐため。中身（名前・金額など）はビルドの時点でもう確定したHTMLとして書き込まれている＝あとから動くプログラムではない。</p>
+
+<h2>まとめ</h2>
+<div class="tbl"><table>
+<tr><th>用語</th><th>意味</th></tr>
+<tr><td><code>リポジトリ(repo)</code></td><td>ファイル一式が入った箱。GitHub上の「プロジェクトのフォルダ」</td></tr>
+<tr><td><code>ソースコード</code></td><td>人間が書く「元の設計図」。Astroの場合は <code>.astro</code> ファイル</td></tr>
+<tr><td><code>ビルド</code></td><td>設計図を実際に動くHTML/CSS/JSに変換する作業（機械が自動でやる）</td></tr>
+<tr><td><code>ビルド後の静的ファイル</code></td><td>ブラウザがそのまま表示できる完成品。GitHub Pagesに置くのはコレ</td></tr>
+<tr><td><code>GitHub Pages</code></td><td>repoの中身を無料でWebページとして公開してくれる機能</td></tr>
+</table></div>
+
+<div class="callout">
+<b>一言でいうと：</b> 素のHTMLは「1枚ずつ手で作る」。Astroは「型を1個作って、データを流し込んで量産する印刷機」。<br>
+1枚しか要らないならAstroは要らない。<b>何十枚・何百枚を似たデザインで作る</b>ときに手間が大きく変わる。
+</div>
+
+</main>
+</body>
+</html>
