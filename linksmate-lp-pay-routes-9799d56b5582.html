@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex, nofollow">
+<title>LP 購入の決済を機械で押し切る2つの道（A: iPhone と B: Pixel）</title>
+<style>
+:root{
+  --ink:#1f2328; --sub:#57606a; --line:#d0d7de; --bg:#ffffff; --soft:#f6f8fa;
+  --mach:#0b63c9; --mach-bg:#e6f0fb; --mach-ink:#08407f;
+  --human:#c25e00; --human-bg:#fff0e0; --human-ink:#6b3300;
+  --gate:#7a4fc0; --gate-bg:#f1eafb; --gate-ink:#3b2468;
+  --unk:#8a6d00; --unk-bg:#fffbe6; --note-line:#f0d77a;
+  --ok:#1a7f4b; --ok-bg:#e3f5ea; --bad:#cf222e; --accent:#0b63c9;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ink:#e6edf3; --sub:#9aa4af; --line:#3a424b; --bg:#14181d; --soft:#1d232a;
+    --mach:#6cb2ff; --mach-bg:#14283f; --mach-ink:#cfe5ff;
+    --human:#f0a05a; --human-bg:#3a2411; --human-ink:#ffe3c7;
+    --gate:#b79af0; --gate-bg:#2a2140; --gate-ink:#e7dcff;
+    --unk:#e2c25a; --unk-bg:#2b2711; --note-line:#6b5d1a;
+    --ok:#56d08a; --ok-bg:#12301f; --bad:#ff7b8f; --accent:#6cb2ff;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic UI","Meiryo",sans-serif;
+  font-size:16px;line-height:1.75;overflow-wrap:anywhere}
+main{max-width:720px;margin:0 auto;padding:20px 16px 56px}
+h1{font-size:1.4rem;line-height:1.45;margin:.2em 0 .3em}
+h2{font-size:1.15rem;margin:2.2em 0 .6em;padding-bottom:.25em;border-bottom:2px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1rem;margin:1.4em 0 .3em}
+p{margin:.55em 0}
+a{color:var(--accent)}
+.meta{color:var(--sub);font-size:.88rem}
+.lead{background:var(--soft);border-left:4px solid var(--accent);padding:12px 14px;border-radius:6px;margin:14px 0}
+.toc{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.92rem;margin:10px 0 0;padding:0;list-style:none}
+.toc a{text-decoration:none;border-bottom:1px dotted var(--accent)}
+figure{margin:16px 0 8px}
+figure svg{display:block;width:100%;max-width:440px;height:auto;margin:0 auto}
+figcaption{color:var(--sub);font-size:.9rem;margin-top:6px}
+svg text{font-family:inherit;fill:var(--ink)}
+svg .t-mach{fill:var(--mach-ink)} svg .t-human{fill:var(--human-ink)} svg .t-gate{fill:var(--gate-ink)} svg .t-unk{fill:var(--unk)}
+svg .sub{fill:var(--sub)}
+svg .b{font-weight:700}
+.arrow{stroke:var(--sub);stroke-width:1.8;fill:none}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.88rem;color:var(--sub);margin:6px 0 0}
+.dot{display:inline-block;width:.9em;height:.9em;border-radius:3px;vertical-align:-.1em;margin-right:.3em;border:2px solid}
+.dot.mach{background:var(--mach-bg);border-color:var(--mach)}
+.dot.human{background:var(--human-bg);border-color:var(--human)}
+.dot.gate{background:var(--gate-bg);border-color:var(--gate)}
+.dot.unk{background:var(--unk-bg);border-color:var(--unk);border-style:dashed}
+.tag{display:inline-block;font-size:.78rem;font-weight:700;line-height:1.5;padding:0 7px;border-radius:999px;border:1px solid;vertical-align:.08em;white-space:nowrap}
+.tag.ok{color:var(--ok);background:var(--ok-bg);border-color:var(--ok)}
+.tag.unk{color:var(--unk);background:var(--unk-bg);border-color:var(--unk)}
+.tag.human{color:var(--human);background:var(--human-bg);border-color:var(--human)}
+.tag.mach{color:var(--mach);background:var(--mach-bg);border-color:var(--mach)}
+.steps{padding-left:1.5em;margin:.5em 0}
+.steps li{margin:.45em 0}
+.note{font-size:.92rem;background:var(--unk-bg);border:1px solid var(--note-line);border-radius:6px;padding:8px 12px;margin:12px 0}
+.tbl{width:100%;border-collapse:collapse;font-size:.88rem;margin:10px 0;table-layout:fixed}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 7px;text-align:left;vertical-align:top;line-height:1.55}
+.tbl thead th{background:var(--soft)}
+.tbl th:first-child{width:25%;background:var(--soft);word-break:keep-all}
+.tbl td.rec{background:var(--ok-bg)}
+.cards{display:grid;gap:10px;margin:10px 0;padding:0;list-style:none;counter-reset:c}
+.cards li{counter-increment:c;border:1px solid var(--line);border-radius:8px;padding:10px 12px 10px 44px;position:relative;background:var(--soft)}
+.cards li::before{content:counter(c);position:absolute;left:12px;top:10px;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.cards b{display:block}
+.links{padding-left:1.2em;margin:.4em 0;font-size:.93rem}
+.links li{margin:.35em 0}
+.big{font-size:1.1rem;font-weight:700}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" style="fill:var(--sub)"/>
+    </marker>
+  </defs>
+</svg>
+<main>
+
+<h1>LP 購入の決済を、機械で押し切る2つの道</h1>
+<p class="meta">A: 専用 iPhone で Apple Pay ／ B: いまある Pixel で Google Pay。どちらも図で「誰が・何を・どの順で」を見せます（2026-10-10）</p>
+
+<div class="lead">
+<p><span class="big">ひとことで</span></p>
+<p>LinksMate の LP 購入は、いまゆうとが自分の iPhone の Apple Pay で毎回手で払っています。<b>前日型の依頼で一番時間がかかる段</b>で、10/9 は LP の依頼から入金まで <b>2時間24分</b>でした。この段を機械で押し切る道が2つあります。</p>
+<p><b>道A</b>：専用の中古 iPhone を、ESP32 という小さな基板で操作する（目安 約1.7万円）。<br>
+<b>道B</b>：いまある Pixel 7a を adb で操作して Google Pay で払う（0円）。</p>
+<p><b>推奨は「まず B を費用0で1回試す」</b>。Apple Pay でなければならない理由が出たときだけ A に進みます。</p>
+<ul class="toc">
+  <li><a href="#now">① 今の流れ</a></li>
+  <li><a href="#base">② 共通の土台</a></li>
+  <li><a href="#a">③ 道A</a></li>
+  <li><a href="#b">④ 道B</a></li>
+  <li><a href="#cmp">⑤ 比べる</a></li>
+  <li><a href="#decide">⑥ 決めること</a></li>
+  <li><a href="#src">⑦ 根拠リンク</a></li>
+</ul>
+</div>
+
+<div class="legend" aria-label="図の色の見方">
+  <span><span class="dot mach"></span>機械がやる</span>
+  <span><span class="dot human"></span>人の手が要る</span>
+  <span><span class="dot gate"></span>本人確認の関門</span>
+  <span><span class="dot unk"></span>点線＝まだ測っていない</span>
+</div>
+
+<h2 id="now">① 今の流れ：LP の購入だけが人の手</h2>
+<figure>
+<svg viewBox="0 0 360 410" role="img" aria-label="今の流れ。機械が額を計算してゆうとに依頼し、ゆうとが iPhone で Apple Pay を使って手払いし、機械が反映を見つけて申し込みを進める">
+  <rect x="10" y="8" width="340" height="50" rx="8" style="fill:var(--mach-bg);stroke:var(--mach)" stroke-width="2"/>
+  <text x="24" y="30" font-size="13" class="b t-mach">① 機械：必要な LP の額を計算する</text>
+  <text x="24" y="48" font-size="12" class="t-mach">足りない分を割り出す</text>
+
+  <line class="arrow" x1="180" y1="58" x2="180" y2="74" marker-end="url(#ah)"/>
+
+  <rect x="10" y="78" width="340" height="50" rx="8" style="fill:var(--mach-bg);stroke:var(--mach)" stroke-width="2"/>
+  <text x="24" y="100" font-size="13" class="b t-mach">② 機械：ゆうとへ LP 購入を依頼する</text>
+  <text x="24" y="118" font-size="12" class="t-mach">Discord に額つきで書く</text>
+
+  <line class="arrow" x1="180" y1="128" x2="180" y2="144" marker-end="url(#ah)"/>
+
+  <rect x="10" y="148" width="340" height="120" rx="8" style="fill:var(--human-bg);stroke:var(--human)" stroke-width="3"/>
+  <text x="24" y="172" font-size="13" class="b t-human">③ ゆうと：自分の iPhone で手払い</text>
+  <text x="24" y="193" font-size="12" class="t-human">LinksMate にログイン → LP 購入</text>
+  <text x="24" y="211" font-size="12" class="t-human">額を入れる → Apple Pay</text>
+  <text x="24" y="229" font-size="12" class="t-human">顔や指紋で本人確認 → 払い終わり</text>
+  <text x="24" y="254" font-size="12" class="b t-human">ここが一番長い（10/9 は 2時間24分）</text>
+
+  <line class="arrow" x1="180" y1="268" x2="180" y2="284" marker-end="url(#ah)"/>
+
+  <rect x="10" y="288" width="340" height="50" rx="8" style="fill:var(--mach-bg);stroke:var(--mach)" stroke-width="2"/>
+  <text x="24" y="310" font-size="13" class="b t-mach">④ 機械：LP が反映されたのを見つける</text>
+  <text x="24" y="328" font-size="12" class="t-mach">残高の増えるのを読む</text>
+
+  <line class="arrow" x1="180" y1="338" x2="180" y2="354" marker-end="url(#ah)"/>
+
+  <rect x="10" y="358" width="340" height="44" rx="8" style="fill:var(--mach-bg);stroke:var(--mach)" stroke-width="2"/>
+  <text x="24" y="385" font-size="13" class="b t-mach">⑤ 機械：申し込みを先へ進める</text>
+</svg>
+<figcaption>今は③だけが人。ここを機械にできれば、前日型の依頼の一番長い待ちが縮みます。</figcaption>
+</figure>
+
+<p>ゆうとが手で払っているのは、購入画面の Apple Pay が<b>linksmate.jp の確認画面の中で決済まで終わる作り</b>で、決済だけの URL を作って渡す手が無いからです。PC の Chrome では Apple Pay のボタンも使えません（どちらも 2026-09-22 の実測）。購入画面の支払い手段は、コンビニ・銀行・クレジットカード・Apple Pay・Google Pay の5つです。</p>
+<p class="meta">コンビニ・銀行は払い込みが要り、手数料もかかります（346円・330円）。Apple Pay とカードは手数料なしで、反映まで約5分です。</p>
+
+<h2 id="base">② 2つの道が同じ土台に立つ理由：カード番号を「端末専用の番号」に置き換える</h2>
+<figure>
+<svg viewBox="0 0 360 318" role="img" aria-label="本物のカード番号をウォレットに登録すると端末専用の番号に置き換わり、支払いのたびに端末が本人確認をして、店には使い捨ての暗号つきで渡る図">
+  <rect x="10" y="8" width="340" height="52" rx="8" style="fill:var(--soft);stroke:var(--sub)" stroke-width="2"/>
+  <text x="24" y="31" font-size="13" class="b">① 本物のカード番号</text>
+  <text x="24" y="49" font-size="12" class="sub">ウォレットに登録するときだけ使う</text>
+
+  <line class="arrow" x1="180" y1="60" x2="180" y2="82" marker-end="url(#ah)"/>
+  <text x="192" y="76" font-size="12" class="sub">置き換え（1回だけ）</text>
+
+  <rect x="10" y="86" width="340" height="58" rx="8" style="fill:var(--mach-bg);stroke:var(--mach)" stroke-width="2"/>
+  <text x="24" y="109" font-size="13" class="b t-mach">② この端末専用の別の番号</text>
+  <text x="24" y="128" font-size="12" class="t-mach">この端末の中でしか使えない</text>
+
+  <line class="arrow" x1="180" y1="144" x2="180" y2="170" marker-end="url(#ah)"/>
+  <text x="192" y="162" font-size="12" class="sub">支払いのたび</text>
+
+  <rect x="10" y="174" width="340" height="58" rx="8" style="fill:var(--gate-bg);stroke:var(--gate)" stroke-width="2.5"/>
+  <text x="24" y="197" font-size="13" class="b t-gate">③ 端末が本人確認をする</text>
+  <text x="24" y="216" font-size="12" class="t-gate">顔・指紋・画面ロック（パスコードや PIN）</text>
+
+  <line class="arrow" x1="180" y1="232" x2="180" y2="258" marker-end="url(#ah)"/>
+  <text x="192" y="250" font-size="12" class="sub">通ったときだけ</text>
+
+  <rect x="10" y="262" width="340" height="48" rx="8" style="fill:var(--ok-bg);stroke:var(--ok)" stroke-width="2"/>
+  <text x="24" y="283" font-size="13" class="b" style="fill:var(--ok)">④ 店には使い捨ての暗号つきで渡る</text>
+  <text x="24" y="301" font-size="12" class="sub">本物の番号は店に渡らない</text>
+</svg>
+<figcaption>Apple Pay も Google Pay も、この4段は同じ形。違うのは③の関門を何で通すかです。</figcaption>
+</figure>
+
+<ul class="steps">
+  <li><b>Apple 側</b>：Apple は元のカード番号を保存せず、端末の Secure Element が「端末アカウント番号」と取引ごとの動的なセキュリティコードを出す、と Apple が書いています。 <span class="tag ok">公式で確認</span></li>
+  <li><b>Google 側</b>：実際のカード番号の代わりにランダムな番号の「仮想カード」を店に渡す、と Google ウォレットのヘルプにあります。 <span class="tag ok">公式で確認</span></li>
+  <li><b>3D セキュア（カード会社の追加確認）が出にくい理由</b>：Google Pay API には、カードの持ち方が2種類あります。「端末トークン」（<code>CRYPTOGRAM_3DS</code>＝端末で作る暗号つき）と、「Google アカウントに保存したカード番号」（<code>PAN_ONLY</code>）。後者は3D セキュアなどの追加確認を求められうる、と Google の開発者ブログにあります。端末に入れたカードなら追加確認が省かれることが多い、という筋です。 <span class="tag ok">公式で確認</span></li>
+  <li>ただし<b>LinksMate の決済がどちらの方式を受け付けるか</b>は測っていません。JCB は端末トークン方式に未対応と Google の資料にあるので、カードのブランドも結果を左右します。 <span class="tag unk">未測定</span></li>
+</ul>
+
+<h2 id="a">③ 道A：専用の中古 iPhone を ESP32 で操作する</h2>
+<figure>
+<svg viewBox="0 0 360 416" role="img" aria-label="道Aの配線図。PC が USB で ESP32 につながり、ESP32 が Bluetooth のマウスとキーボードのふりをして iPhone を操作し、iPhone の画面は AirPlay で PC の受信ソフトに届いて PC が読む">
+  <rect x="100" y="10" width="160" height="54" rx="8" style="fill:var(--mach-bg);stroke:var(--mach)" stroke-width="2"/>
+  <text x="180" y="34" font-size="13" text-anchor="middle" class="b t-mach">PC（Claude）</text>
+  <text x="180" y="52" font-size="12" text-anchor="middle" class="t-mach">全体を指揮する</text>
+
+  <rect x="8" y="130" width="156" height="88" rx="8" style="fill:var(--mach-bg);stroke:var(--mach)" stroke-width="2"/>
+  <text x="86" y="152" font-size="13" text-anchor="middle" class="b t-mach">ESP32</text>
+  <text x="86" y="170" font-size="12" text-anchor="middle" class="b t-mach">機械の手</text>
+  <text x="86" y="188" font-size="12" text-anchor="middle" class="t-mach">Bluetooth の</text>
+  <text x="86" y="206" font-size="12" text-anchor="middle" class="t-mach">キーボード兼マウスのふり</text>
+
+  <rect x="196" y="130" width="156" height="88" rx="8" style="fill:var(--mach-bg);stroke:var(--mach)" stroke-width="2"/>
+  <text x="274" y="152" font-size="13" text-anchor="middle" class="b t-mach">AirPlay 受信ソフト</text>
+  <text x="274" y="170" font-size="12" text-anchor="middle" class="b t-mach">機械の目</text>
+  <text x="274" y="188" font-size="12" text-anchor="middle" class="t-mach">iPhone の画面を</text>
+  <text x="274" y="206" font-size="12" text-anchor="middle" class="t-mach">PC で受けて読む</text>
+
+  <rect x="100" y="304" width="160" height="100" rx="8" style="fill:var(--human-bg);stroke:var(--human)" stroke-width="2"/>
+  <text x="180" y="326" font-size="13" text-anchor="middle" class="b t-human">専用の中古 iPhone</text>
+  <text x="180" y="346" font-size="12" text-anchor="middle" class="t-human">Safari で LinksMate</text>
+  <text x="180" y="364" font-size="12" text-anchor="middle" class="t-human">LP 購入 → Apple Pay</text>
+  <text x="180" y="382" font-size="12" text-anchor="middle" class="t-human">→ パスコード</text>
+
+  <line class="arrow" x1="136" y1="64" x2="90" y2="130" marker-end="url(#ah)"/>
+  <text x="8" y="98" font-size="12" class="sub">USB ケーブル</text>
+
+  <line class="arrow" x1="86" y1="218" x2="132" y2="304" marker-end="url(#ah)"/>
+  <text x="8" y="256" font-size="12" class="sub">Bluetooth で</text>
+  <text x="8" y="272" font-size="12" class="sub">タップ・入力</text>
+
+  <line class="arrow" x1="228" y1="304" x2="274" y2="218" marker-end="url(#ah)"/>
+  <text x="270" y="256" font-size="12" class="sub">AirPlay で</text>
+  <text x="270" y="272" font-size="12" class="sub">画面を送る</text>
+
+  <line class="arrow" x1="274" y1="130" x2="224" y2="64" marker-end="url(#ah)"/>
+  <text x="268" y="98" font-size="12" class="sub">画面を読む</text>
+</svg>
+<figcaption>機械の手（ESP32）は iPhone に「Bluetooth のマウスとキーボード」として見せかけて操作し、機械の目（AirPlay）は画面を PC に飛ばして読ませます。</figcaption>
+</figure>
+
+<h3>流れ（誰が・何を・どの順で）</h3>
+<ol class="steps">
+  <li><span class="tag human">人・最初の1回</span> 専用の iPhone に専用の Apple ID を作り、決済に使うカードをウォレットに入れる。</li>
+  <li><span class="tag human">人・最初の1回</span> 確認を指でなくパスコードにする。<b>iPhone SE（第2世代）のような Touch ID 機種なら</b>、設定の「Touch ID とパスコード」で Apple Pay のスイッチをオフにする（Apple が「Touch ID を Apple Pay でオン・オフできる」と書いています）。Touch ID 機種は支払い確認が「Touch ID またはパスコード」で、<b>サイドボタンの2回押しが要りません</b>。<span class="tag ok">公式で確認</span><br>
+  Face ID 機種は「サイドボタンを2回押してから顔かパスコード」。2回押しの代わりに AssistiveTouch で確認できる、と検索結果にありましたが、Apple の本文を取得できず確かめていません。<span class="tag unk">未確認</span></li>
+  <li><span class="tag human">人・最初の1回</span> iPhone の AssistiveTouch をオンにし、ESP32 をマウスとキーボードとしてペアリングする（Apple はポインタ機器を AssistiveTouch につなぐ手順と、Bluetooth キーボードのペアリングを書いています）。<span class="tag ok">公式で確認</span></li>
+  <li><span class="tag mach">機械</span> Safari で LinksMate のタイプB 口座にログインし、LP 購入の画面で額を入れる。</li>
+  <li><span class="tag mach">機械</span> Apple Pay を選び、支払いシートに出たパスコードを入れる。キーボードで入らなければ、マウス役でテンキーを1つずつ押す。</li>
+  <li><span class="tag mach">機械</span> 画面は AirPlay で PC に届くので、支払い完了の表示を読んで次へ進む。</li>
+</ol>
+
+<h3>機械の部品：実在を確かめたもの</h3>
+<ul class="links">
+  <li>手：ESP32 を Bluetooth のキーボードやマウスにする Arduino 用ライブラリ — <a href="https://github.com/T-vK/ESP32-BLE-Keyboard" target="_blank" rel="noopener">ESP32-BLE-Keyboard</a>、<a href="https://github.com/T-vK/ESP32-BLE-Mouse" target="_blank" rel="noopener">ESP32-BLE-Mouse</a>、両方入りの <a href="https://github.com/Kopunk/ESP32-BLE-Combo" target="_blank" rel="noopener">ESP32-BLE-Combo</a>。<b>Keyboard と Combo の README は「iOS は安定しない・古い端末では動かない」と書いています</b>。</li>
+  <li>目：AirPlay 受信ソフト <a href="https://github.com/FDH2/UxPlay" target="_blank" rel="noopener">UxPlay</a>。iOS の画面ミラーリングを受けられ、Windows 向けは MSYS2 でビルドする形です（配布済みの実行ファイルは確認できませんでした）。保護された動画は映りません。</li>
+</ul>
+
+<h3>費用の目安</h3>
+<p>中古 iPhone SE（第2世代）が<b>約1.5万円</b>、ESP32 が<b>約2千円</b>。合計で約1.7万円です。中古の相場は状態と容量で幅が大きく、価格比較サイトでは約0.4〜1.8万円でした（2026年7月時点）。ESP32 の国内の店頭価格は確かめていない目安です。</p>
+
+<div class="note">
+<b>安全の注意：</b>人がいなくても払える端末になります。決済のカードは<b>上限つきのプリペイドかバーチャルカード</b>にして、万一のときの被害の上限を先に切っておく前提です。
+</div>
+
+<h3>道Aの「まだ測っていない」5つ <span class="tag unk">要実機確認</span></h3>
+<ol class="steps">
+  <li>Touch ID の Apple Pay をオフにすると、支払いシートが本当にパスコード入力になるか（公式の文面は「Touch ID またはパスコード」まで）。</li>
+  <li>ESP32 の Bluetooth 操作で iPhone を安定して動かせるか（ライブラリ側が「iOS は不安定」と書いている）。</li>
+  <li>支払いシートのパスコード欄に、Bluetooth キーボードで入れられるか。入らなければマウス役でテンキーを押す。</li>
+  <li>AirPlay の画面に Apple Pay の支払いシートが映るか。</li>
+  <li>Windows の AirPlay 受信（UxPlay のビルド）が、止まらず動き続けるか。</li>
+</ol>
+
+<h2 id="b">④ 道B：いまある Pixel で Google Pay</h2>
+<figure>
+<svg viewBox="0 0 360 330" role="img" aria-label="道Bの配線図。PC が adb で Pixel を操作し、Pixel の Chrome で LinksMate を開き、Google ウォレットのカードで払い、支払い確認は未測定。Pixel の画面は adb のダンプで PC が読む">
+  <rect x="100" y="10" width="160" height="54" rx="8" style="fill:var(--mach-bg);stroke:var(--mach)" stroke-width="2"/>
+  <text x="180" y="34" font-size="13" text-anchor="middle" class="b t-mach">PC（Claude）</text>
+  <text x="180" y="52" font-size="12" text-anchor="middle" class="t-mach">全体を指揮する</text>
+
+  <rect x="24" y="130" width="312" height="188" rx="14" style="fill:var(--soft);stroke:var(--sub)" stroke-width="2"/>
+  <text x="40" y="152" font-size="13" class="b">Pixel 7a（いまある機材）</text>
+
+  <rect x="40" y="162" width="280" height="44" rx="8" style="fill:var(--mach-bg);stroke:var(--mach)" stroke-width="2"/>
+  <text x="54" y="181" font-size="13" class="b t-mach">Chrome</text>
+  <text x="54" y="198" font-size="12" class="t-mach">LinksMate にログイン → LP 購入</text>
+
+  <rect x="40" y="214" width="280" height="44" rx="8" style="fill:var(--mach-bg);stroke:var(--mach)" stroke-width="2"/>
+  <text x="54" y="233" font-size="13" class="b t-mach">Google ウォレット</text>
+  <text x="54" y="250" font-size="12" class="t-mach">カードの端末用の番号が入る</text>
+
+  <rect x="40" y="266" width="280" height="44" rx="8" style="fill:var(--unk-bg);stroke:var(--unk)" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="54" y="285" font-size="13" class="b t-unk">支払いの確認（画面ロックなど）</text>
+  <text x="54" y="302" font-size="12" class="t-unk">何を求められるか未測定</text>
+
+  <line class="arrow" x1="150" y1="64" x2="150" y2="130" marker-end="url(#ah)"/>
+  <text x="142" y="102" font-size="12" text-anchor="end" class="sub">adb で押す・打つ</text>
+  <line class="arrow" x1="212" y1="130" x2="212" y2="64" marker-end="url(#ah)"/>
+  <text x="222" y="102" font-size="12" class="sub">画面を読む</text>
+</svg>
+<figcaption>新しい機材は無し。Pixel は adb で操作でき、PC の Chrome の代わりに Pixel の Chrome を使います。</figcaption>
+</figure>
+
+<h3>流れ（誰が・何を・どの順で）</h3>
+<ol class="steps">
+  <li><span class="tag human">人・最初の1回</span> Pixel の Google ウォレットに、決済に使うカードを入れる（この Pixel にいまカードが入っているかは未確認）。</li>
+  <li><span class="tag mach">機械</span> PC が adb で Pixel の Chrome を開く。Pixel の Chrome を CDP で動かす前例は、すでにあります（ローチケの Android 腕）。</li>
+  <li><span class="tag mach">機械</span> LinksMate にログインし、LP 購入の画面で額を入れ、支払い手段の「Google Pay」を選ぶ。</li>
+  <li><span class="tag mach">機械</span> 出てきた支払いの確認を通す。ここが「画面ロックの PIN を adb で入れられるか」の核心（下の未測定②）。</li>
+  <li><span class="tag mach">機械</span> 支払い完了を読んで、申し込みを先へ進める。</li>
+</ol>
+
+<h3>Pixel の PIN について、すでに分かっていること</h3>
+<ul class="steps">
+  <li>Pixel のロック画面は、機械が PIN を adb で入れて解く仕組みが<b>すでに実運用</b>で動いています。設定アプリの「本人確認」画面（端末の PIN を求める画面）に PIN を打つ口もあります。</li>
+  <li>既知の罠：<code>input text</code> が PIN パッドに入らない機種があり、その場合は<code>input keyevent 8 9 10 11</code>（数字キー1〜4）が回避策、と記録されています。この Pixel 7a のロック画面では <code>input text</code> で解けています。</li>
+  <li>PIN の誤入力を続けるとロックアウトされるので、失敗の記録と冷却の仕組みが付いています。</li>
+  <li>Google Pay の支払い確認の画面で同じ入れ方が通るかは、<b>まだ測っていません</b>。</li>
+</ul>
+
+<h3>道Bの「まだ測っていない」3つ <span class="tag unk">未測定</span></h3>
+<ol class="steps">
+  <li><b>① 3D セキュアが出ないか</b>：LinksMate の Google Pay で、カード会社の追加確認が出るか（②の土台の「端末トークンなら省かれる」が、ここで成り立つか）。</li>
+  <li><b>② 支払い確認の画面ロックを adb で通せるか</b>：求められるのが PIN なら、上の既知の入れ方で通る見込み。指紋だけを求められたら、機械では通せません。</li>
+  <li><b>③ 支払いシートを機械が読めて押せるか</b>：調べていて見つけた3点目です。Google Pay の支払いシートは、Chrome の中でなく OS 側の画面らしい（推測）。そうなら CDP では見えないので、adb の画面ダンプで読めるかを測ります。</li>
+</ol>
+
+<h3>測り方：次の LP 依頼で、1回だけ手で Pixel から払ってみる</h3>
+<ol class="steps">
+  <li><span class="tag human">人</span> 次の依頼の LP 購入を、Pixel の Chrome から Google Pay で手払いする。</li>
+  <li>見ること：(a) 3D セキュアの画面が出たか (b) 支払いの確認で何を求められたか（PIN・指紋・何もなし） (c) その画面を adb のダンプで読めたか。</li>
+  <li>この3つが分かれば、B を機械化できるかが決まります。費用は0円です。</li>
+</ol>
+
+<h2 id="cmp">⑤ 比べる</h2>
+<table class="tbl">
+  <thead><tr><th></th><th>道A：iPhone ＋ Apple Pay</th><th>道B：Pixel ＋ Google Pay</th></tr></thead>
+  <tbody>
+    <tr><th>追加の<br>費用</th><td>約1.7万円（中古 iPhone 約1.5万＋ESP32 約2千円・目安）</td><td class="rec">0円</td></tr>
+    <tr><th>新しい<br>機材</th><td>iPhone 1台・ESP32 1個・USB ケーブル・PC の AirPlay 受信ソフト</td><td class="rec">なし（いまの Pixel&nbsp;7a）</td></tr>
+    <tr><th>人の手が<br>残る所</th><td>最初の1回：Apple ID・カード登録・設定・ペアリング。運用中は無い想定</td><td>最初の1回：カード登録。運用中は未測定（上の②）</td></tr>
+    <tr><th>未確認の<br>点</th><td>5つ（上の「道Aの5つ」）</td><td>3つ（上の「道Bの3つ」）。測るのは手払い1回</td></tr>
+    <tr><th>壊れ<br>やすさ</th><td>高い。部品が多く、iOS の Bluetooth 操作は不安定との報告、AirPlay 受信は非公式の実装</td><td>中。Pixel の画面ロックまわりは過去に変わった（Workspace アカウントを足すと画面ロックが必須になった・9/30）</td></tr>
+    <tr><th>推奨</th><td>保留。Apple Pay でなければならない理由が出たら</td><td class="rec"><b>まずこちら</b></td></tr>
+  </tbody>
+</table>
+
+<h2 id="decide">⑥ 拓也が決めること（3つ）</h2>
+<ol class="cards">
+  <li><b>どちらの道か</b>推奨は「まず B を1回手で試す」。B の測定結果（3D セキュア・支払い確認・画面の読み取り）を見てから、A に進むかを決められます。</li>
+  <li><b>A を選ぶなら、購入の承認（課金）</b>中古 iPhone と ESP32 で約1.7万円。B だけで足りるなら不要です。</li>
+  <li><b>決済カードを誰のものにするか</b>いま手払いに使っているカードをそのまま載せるか、上限つきの専用カードを新しく作るか。機械が払える端末になるので、専用カードで被害の上限を切るほうが安全側です。どちらの道でも同じ問いです。</li>
+</ol>
+
+<h2 id="src">⑦ 根拠リンクと、確かめきれなかったこと</h2>
+<h3>公式の根拠</h3>
+<ul class="links">
+  <li>Apple：<a href="https://support.apple.com/ja-jp/102626" target="_blank" rel="noopener">Apple Pay で支払う</a>（Touch ID 機種は Touch ID かパスコード／Face ID 機種はサイドボタン2回押しから）</li>
+  <li>Apple：<a href="https://support.apple.com/ja-jp/102528" target="_blank" rel="noopener">iPhone と iPad で Touch ID を使う</a>（Apple Pay での Touch ID のオン・オフ）</li>
+  <li>Apple：<a href="https://support.apple.com/ja-jp/101554" target="_blank" rel="noopener">Apple Pay のセキュリティとプライバシーの概要</a>（端末アカウント番号と動的セキュリティコード）</li>
+  <li>Apple：<a href="https://support.apple.com/ja-jp/111775" target="_blank" rel="noopener">AssistiveTouch でポインタ機器を使う</a>、<a href="https://support.apple.com/guide/iphone/pair-magic-keyboard-iph4288319c0/ios" target="_blank" rel="noopener">iPhone で Bluetooth キーボードをペアリング</a>、<a href="https://support.apple.com/ja-jp/111882" target="_blank" rel="noopener">iPhone SE（第2世代）の仕様</a>（Touch ID 搭載）</li>
+  <li>Google：<a href="https://support.google.com/wallet/answer/7643925" target="_blank" rel="noopener">お支払い情報の保護（仮想カード・画面ロック）</a></li>
+  <li>Google：<a href="https://developers.google.com/pay/api/web/reference/request-objects" target="_blank" rel="noopener">Google Pay API の認証方式（PAN_ONLY と CRYPTOGRAM_3DS）</a>、<a href="https://developers.googleblog.com/en/when-to-step-up-your-google-pay-transactions-as-a-psp" target="_blank" rel="noopener">どちらで追加確認が要るか</a></li>
+  <li>相場：<a href="https://price-rank.com/p/5884/market_price" target="_blank" rel="noopener">iPhone SE（第2世代）の中古相場</a>（価格比較サイト・2026年7月時点）</li>
+</ul>
+<h3>確かめきれなかったこと</h3>
+<ul class="steps">
+  <li>Face ID 機種で、Apple Pay の Face ID を切る設定と、AssistiveTouch の「確認」でサイドボタン2回押しを代える設定（Apple の本文を取得できなかった）。</li>
+  <li>Touch ID を切ったあとの支払いシートの挙動、Bluetooth キーボードでのパスコード入力、AirPlay の画面に支払いシートが映るか（すべて実機でしか分からない）。</li>
+  <li>LinksMate の Google Pay の作り（Apple Pay 側は確認画面の中で完結すると実測済み。Google Pay 側は未確認）。</li>
+  <li>ESP32 の国内の店頭価格。中古 iPhone の店ごとの在庫価格。</li>
+</ul>
+
+</main>
+</body>
+</html>
