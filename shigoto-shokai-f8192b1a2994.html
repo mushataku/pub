@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="shigoto-omitted" content="documents">
+<title>お仕事のご紹介</title>
+<style>
+:root {
+  --bg: #f6f7f9;
+  --paper: #ffffff;
+  --ink: #1d2433;
+  --sub: #5a6478;
+  --line: #e1e5ec;
+  --accent: #1f6feb;
+  --accent-soft: #e8f0fe;
+  --good: #1a7f4b;
+  --good-soft: #e6f4ec;
+  --note: #8a5a00;
+  --note-soft: #fff6e0;
+  --pass-soft: #eef0f3;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11151c; --paper: #1a202b; --ink: #e8ecf3; --sub: #a3adbf; --line: #2c3444;
+    --accent: #6ea8ff; --accent-soft: #1c2a44; --good: #5cc98f; --good-soft: #17301f;
+    --note: #f0c060; --note-soft: #33290f; --pass-soft: #232a38;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11151c; --paper: #1a202b; --ink: #e8ecf3; --sub: #a3adbf; --line: #2c3444;
+  --accent: #6ea8ff; --accent-soft: #1c2a44; --good: #5cc98f; --good-soft: #17301f;
+  --note: #f0c060; --note-soft: #33290f; --pass-soft: #232a38;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  font-size: 17px; line-height: 1.7;
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding: 32px 16px 48px; }
+header h1 { font-size: 30px; margin: 0 0 4px; letter-spacing: .02em; }
+header { position: relative; }
+header .date { color: var(--sub); margin: 0 0 20px; }
+td small.pr { color: var(--good); }
+.deck-mini {
+  display: inline-block; font-size: 13.5px; font-weight: 600; color: var(--accent);
+  text-decoration: none; white-space: nowrap;
+}
+.deck-mini:hover { text-decoration: underline; }
+.deck-mini:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.card .deck-mini {
+  align-self: flex-start; margin-top: 12px; padding: 4px 14px;
+  border: 1px solid var(--accent); border-radius: 999px;
+}
+.card .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
+td.co .deck-mini { display: block; margin-top: 4px; }
+.axis {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px;
+  padding: 14px 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+}
+.axis .label { font-weight: 700; margin-right: 4px; align-self: center; }
+.chip {
+  display: inline-block; padding: 3px 12px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 15px;
+}
+h2 { font-size: 22px; margin: 36px 0 6px; }
+h2 + .lead { margin: 0 0 14px; color: var(--sub); }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 14px;
+  padding: 18px 18px 16px; display: flex; flex-direction: column;
+}
+.card h3 { margin: 0 0 2px; font-size: 20px; }
+.card .what { margin: 0 0 12px; color: var(--sub); font-size: 15px; }
+.card dl { margin: 0 0 12px; display: grid; grid-template-columns: 4.2em 1fr; gap: 4px 8px; font-size: 15.5px; }
+.card dt { color: var(--sub); }
+.card dd { margin: 0; }
+.card .point {
+  margin-top: auto; padding: 10px 12px; border-radius: 10px;
+  background: var(--good-soft); color: var(--ink); font-size: 15px;
+}
+.card .point b { color: var(--good); }
+.card .caution {
+  margin-top: 8px; padding: 8px 12px; border-radius: 10px;
+  background: var(--note-soft); color: var(--ink); font-size: 14px;
+}
+.chosen {
+  display: inline-block; margin-left: 8px; padding: 2px 10px; border-radius: 999px;
+  background: var(--good-soft); color: var(--good); font-size: 12.5px; font-weight: 700;
+  vertical-align: middle; white-space: nowrap;
+}
+td small { display: block; color: var(--sub); font-size: 14px; }
+.table-wrap { overflow-x: auto; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 15.5px; }
+th, td { text-align: left; vertical-align: top; padding: 11px 14px; border-bottom: 1px solid var(--line); }
+th { color: var(--sub); font-weight: 600; font-size: 14px; background: var(--bg); }
+tr:last-child td { border-bottom: none; }
+td.co { font-weight: 700; }
+td.num { white-space: normal; }
+@media (min-width: 621px) { .table-wrap thead th:nth-child(1) { width: 16%; } .table-wrap thead th:nth-child(2) { width: 34%; } .table-wrap thead th:nth-child(3) { width: 18%; } }
+.also {
+  margin: 12px 0 0; padding: 10px 14px; border-radius: 10px;
+  background: var(--note-soft); color: var(--ink); font-size: 15px;
+}
+.videos { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.videos li { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.videos a { font-weight: 700; color: var(--accent); text-decoration: none; }
+.videos a:hover { text-decoration: underline; }
+.videos .meta { display: block; color: var(--sub); font-size: 14px; margin-top: 2px; }
+.videos .why { display: block; margin-top: 6px; font-size: 15px; }
+footer { margin-top: 32px; color: var(--sub); font-size: 14px; }
+@media (max-width: 860px) {
+  .cards { grid-template-columns: 1fr; }
+  header h1 { font-size: 24px; }
+}
+@media (max-width: 620px) {
+  table { min-width: 0; }
+  .tech td { width: auto !important; }
+  thead { display: none; }
+  tr { display: block; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  tr:last-child { border-bottom: none; }
+  td { display: block; border: none; padding: 1px 0; white-space: normal; }
+  td.co { font-size: 17px; margin-bottom: 2px; }
+  td:nth-child(3)::before { content: "勤務地\3000"; color: var(--sub); }
+  td:nth-child(4)::before { content: "月給\3000"; color: var(--sub); }
+  td:nth-child(5)::before { content: "休日\3000"; color: var(--sub); }
+  td.num br { display: none; }
+}
+@media print {
+  body { background: #fff; }
+  .card, .table-wrap, .axis { break-inside: avoid; }
+}
+.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+#documents .deck-mini { padding: 4px 14px; border: 1px solid var(--accent); border-radius: 999px; }
+#documents .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
+.card .links .deck-mini { margin-top: 0; }
+.thanks { margin: 0 0 20px; padding: 16px 18px; border-radius: 14px; background: var(--good-soft); border: 1px solid var(--line); }
+.thanks p { margin: 0 0 6px; }
+.thanks p:last-child { margin: 0; }
+.flow-box { margin: 0 0 24px; padding: 14px 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+.flow-box h3 { margin: 0 0 6px; font-size: 18px; }
+.flow-box ol { margin: 0; padding-left: 1.4em; }
+.flow-box li { margin: 4px 0; }
+.page-nav { margin: 0 0 24px; }
+.page-nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; }
+.page-nav a {
+  display: inline-block; padding: 6px 14px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); font-weight: 600;
+  font-size: 14.5px; text-decoration: none;
+}
+.page-nav a:hover { text-decoration: underline; }
+.page-nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+section[id] { scroll-margin-top: 16px; }
+.decision {
+  margin: 0 0 32px; padding: 16px 18px; background: var(--paper);
+  border: 1px solid var(--line); border-radius: 14px;
+}
+.decision h2 { margin: 0 0 10px; font-size: 20px; }
+.decision ul { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.decision li { padding: 4px 12px; border-radius: 999px; background: var(--good-soft); color: var(--ink); font-size: 15px; }
+.decision li b { color: var(--good); }
+.decision p { margin: 8px 0 0; font-size: 15px; }
+.decision p.yardstick { color: var(--sub); }
+.decision h3.tier-h { margin: 16px 0 6px; font-size: 16px; }
+.decision h3.tier-h.t-sent { color: var(--good); }
+.decision h3.tier-h.t-next { color: var(--accent); }
+.decision h3.tier-h.t-later { color: var(--note); }
+.decision h3.tier-h.t-pass { color: var(--sub); }
+.decision ul.t-next li { background: var(--accent-soft); }
+.decision ul.t-next li b { color: var(--accent); }
+.decision ul.t-later li { background: var(--note-soft); }
+.decision ul.t-later li b { color: var(--note); }
+.decision ul.t-pass li { background: var(--pass-soft); }
+.decision p.tier-note { margin: 0 0 6px; color: var(--sub); font-size: 14.5px; }
+.decision ul.tier-more { display: block; margin: 0 0 6px; }
+.decision ul.tier-more li { display: block; border-radius: 10px; background: var(--note-soft); margin: 0 0 6px; padding: 6px 12px; font-size: 14.5px; }
+.decision ul.tier-more li b { color: var(--note); }
+.verdict {
+  margin-top: 10px; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--pass-soft); color: var(--ink);
+  font-size: 15px; line-height: 1.65; font-weight: 400; white-space: normal;
+}
+.verdict.is-sent { background: var(--good-soft); border-color: var(--good); }
+.verdict.is-next { background: var(--accent-soft); border-color: var(--accent); }
+.is-next .vbadge { background: var(--accent); color: var(--paper); }
+.verdict.is-later { background: var(--note-soft); border-color: var(--note); }
+.is-later .vbadge { background: var(--note); color: var(--paper); }
+.verdict .vhead { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-bottom: 4px; }
+.verdict .vlabel { font-size: 13px; font-weight: 600; color: var(--sub); }
+.vbadge {
+  display: inline-block; padding: 2px 10px; border-radius: 999px;
+  font-size: 13px; font-weight: 700; white-space: nowrap;
+  background: var(--sub); color: var(--paper);
+}
+.is-sent .vbadge { background: var(--good); color: var(--paper); }
+.verdict p { margin: 0; }
+tr.has-verdict td { border-bottom: none; padding-bottom: 6px; }
+tr.verdict-row td { padding-top: 0; }
+.tech tr.verdict-row td { width: auto; }
+@media (max-width: 620px) {
+  tr.has-verdict { border-bottom: none; padding-bottom: 4px; }
+  tr.verdict-row { padding-top: 0; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>相田さんにご紹介したいお仕事</h1>
+  <p class="date">2026年10月10日（土）</p>
+</header>
+
+<section class="thanks">
+<p><b>新しくご紹介できるお仕事が見つかりました。</b></p>
+  <p>お電話で伺った「ご自宅から通えて、年収が上がる仕事」を軸に、営業の会社を6社選びました。比べるために、施工管理の会社も2社載せています。</p>
+  <p>各社の「年収」は求人票に書かれた目安で、成果給や賞与を含みます。家計の計算には、その後ろの<b>「固定給だけなら」</b>の数字を使ってください。</p>
+</section>
+<div class="flow-box">
+  <h3>これからの進め方</h3>
+  <ol><li>このページを見て、気になった会社をLINEで教えてください（いくつでも大丈夫です）</li><li>気になる点（お休み・残業・配属先など）は、こちらで会社に確かめてお伝えします</li><li>受ける会社が決まったら、書類はこちらで整えます</li></ol>
+</div>
+<nav class="page-nav" aria-label="ページ内リンク"><ul><li><a href="#companies">ご紹介した会社</a></li><li><a href="#industry">業界の説明資料</a></li></ul></nav>
+
+<section id="companies" data-section="companies">
+<h2>ご紹介した会社</h2>
+<div class="axis">
+  <span class="label">お電話で伺ったこと</span>
+  <span class="chip">年収を上げたい</span>
+  <span class="chip">固定給の下限も大事</span>
+  <span class="chip">ご自宅から通える会社（転居なし）</span>
+  <span class="chip">営業か施工管理</span>
+  
+</div>
+
+<h2>年収が上がる営業の会社（6社）</h2>
+<p class="lead">上から、求人票の想定年収の下の数字が高い順です。黄色の欄は、先に知っておいてほしい点です。</p>
+
+<div class="cards">
+  <article class="card">
+    <h3>いーふらん（おたからや）</h3>
+    <p class="what">買取店「おたからや」で、来店されたお客様のブランド品や貴金属を確認して買い取る接客（飛び込み・電話営業なし）</p>
+    <dl>
+      <dt>勤務地</dt><dd>全国の直営店（自宅から1時間以内の店舗に配属・原則転居なし）</dd><dt>通勤</dt><dd>ご自宅から1時間以内の店舗に配属（どの店舗かは入社時に決まります）</dd><dt>月給</dt><dd>35万円〜80万円（35万円のうち8万円は月42時間分の固定残業代）</dd><dt>年収</dt><dd>求人票の想定は500万〜2,000万円（成果給・賞与込み・上のほうは一部の社員の数字）。固定給だけなら年420万円＋賞与（年2回・額の記載なし）</dd><dt>休日</dt><dd>シフト制・年間休日111日（有給と合わせて120日以上と書かれている）</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　GSで鍛えた接客がそのまま活きる、来店されたお客様だけを相手にする仕事です。値段は専門の部署が付けます。固定給は6社の中でいちばん高い35万円からです。</p>
+    <p class="caution">成果に応じた給与の割合が大きい（求人票の言葉では「完全成果主義」）。 入社から3か月は試用期間で、期間を区切った雇用になる。 シフト制で、土日に休めるとは限らない。 選考の途中で、前の職場に働きぶりを確認する手続き（リファレンスチェック）がある。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://e-fran.jp/" target="_blank" rel="noopener" aria-label="いーふらん（おたからや）のホームページ">会社のHP →</a></div>
+  </article>
+  <article class="card">
+    <h3>NOWALL（ノーウォール）</h3>
+    <p class="what">太陽光発電・蓄電池などの住宅設備を、個人のお宅を訪ねて提案する営業（営業先へは車で移動）</p>
+    <dl>
+      <dt>勤務地</dt><dd>東京・秋葉原のオフィス（営業先は首都圏・転勤なし）</dd><dt>通勤</dt><dd>電車で約1時間（秋葉原）。営業先へは車で移動</dd><dt>月給</dt><dd>25万円〜35万円</dd><dt>年収</dt><dd>求人票の想定は500万〜740万円（成果給込み）。固定給だけなら年300万円（賞与の記載なし）</dd><dt>休日</dt><dd>水・木休み（土日は出勤）・年間休日117日</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　「しっかり稼ぎたい」人を求めている会社で、営業部は22〜30歳のメンバーです。成果が出れば年収の伸びは大きい一方、固定給は今と同じくらいからです。</p>
+    <p class="caution">固定給は25万円からで、賞与の記載が無い。年収の多くを成果給が占める。 個人のお宅を訪ねる営業で、夕方から夜に回る。夏も外を回る。 土日は出勤。月の残業は平均50時間以下と書かれている。 契約社員として採用される場合もある。</p>
+    
+    <div class="links"></div>
+  </article>
+  <article class="card">
+    <h3>新日本エネックス</h3>
+    <p class="what">提携するハウスメーカーの家を定期点検で訪ね、住まいの困りごとを伺って次の打ち合わせにつなぐ営業（太陽光・リフォームなど）</p>
+    <dl>
+      <dt>勤務地</dt><dd>埼玉支店（大宮）ほか</dd><dt>通勤</dt><dd>電車で約20分（大宮）。お客様のお宅へは社用車</dd><dt>月給</dt><dd>26万円〜30万円（月45時間分・6.5万円以上の固定残業代を含む）</dd><dt>年収</dt><dd>求人票の想定は500万〜576万円。1年目の例は500万円（月給28万円＋手当＋成果給）。固定給だけなら年312万円＋賞与（額の記載なし）</dd><dt>休日</dt><dd>火・水休み（土日は出勤）・年間休日115日</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　職場はご自宅からいちばん近い大宮です。訪ねるのは約束の決まったお宅だけで、法人のお客様を回ってきた経験がそのまま使えます。</p>
+    <p class="caution">土日は出勤で、休みは火・水。勤務は10時〜20時。 月給に45時間分の固定残業代を含む。 最終面接は福岡（博多）で、対面。 転勤の可能性はある（希望を聞いて判断すると書かれている）。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://nj-enex.co.jp/" target="_blank" rel="noopener" aria-label="新日本エネックスのホームページ">会社のHP →</a></div>
+  </article>
+  <article class="card">
+    <h3>IDOM（ガリバー）</h3>
+    <p class="what">中古車の「ガリバー」の店舗で、来店や問い合わせのお客様に車の購入・売却を案内する営業（飛び込み・電話営業なし）</p>
+    <dl>
+      <dt>勤務地</dt><dd>全国の店舗（埼玉県内だけで24店・転勤はできるだけ考慮）</dd><dt>通勤</dt><dd>車で15〜20分ほどの店舗があります（配属店は入社時に決まります）</dd><dt>月給</dt><dd>25万円〜30万円</dd><dt>年収</dt><dd>求人票の想定は450万〜500万円。1年目の例は450万円（月給27万円＋成果給＋賞与）。固定給だけなら年300万円＋賞与（昨年度の実績は3か月分）</dd><dt>休日</dt><dd>シフト制・年間休日125日</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　タイヤを月133本売った経験と車好きが、そのまま話の種になる仕事です。来店されたお客様の対応が中心で、査定額は専門の担当が付けます。</p>
+    <p class="caution">年収の例はどれも成果給と賞与を含んだ数字。 シフト制で、土日に休めるとは限らない。勤務は10時〜20時。 月給に固定残業代が含まれるかは、求人票に書かれていない。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://idom-inc.com/" target="_blank" rel="noopener" aria-label="IDOM（ガリバー）のホームページ">会社のHP →</a></div>
+  </article>
+  <article class="card">
+    <h3>カイトル</h3>
+    <p class="what">スーパーやホームセンターに1週間ずつ買取の特設ブースを出し、来られたお客様の品物を査定して買い取る仕事</p>
+    <dl>
+      <dt>勤務地</dt><dd>首都圏の催事会場（自宅から60〜90分以内の会場に振り分け・転勤なし）</dd><dt>通勤</dt><dd>ご自宅から60〜90分以内の会場（週ごとに変わります）</dd><dt>月給</dt><dd>最初の6か月は27.5万円、その後30万円〜50万円（月20時間分の固定残業代を含む）</dd><dt>年収</dt><dd>求人票の想定は400万〜700万円（成果給込み）。1年目の例は600万円。固定給だけなら1年目は年345万円</dd><dt>休日</dt><dd>土日休み・年間休日124日</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　土日休み・年間休日124日で、ご家族との時間を取りながら成果給も狙えます。会場へは直行直帰が基本です。</p>
+    <p class="caution">最初の6か月は契約社員（その後、正社員）。 会場が1週間ごとに変わり、通勤時間も週によって変わる。 賞与は業績しだいで、決まった額は無い。 2022年にできた新しい会社。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://kai-toru.com/" target="_blank" rel="noopener" aria-label="カイトルのホームページ">会社のHP →</a></div>
+  </article>
+  <article class="card">
+    <h3>大東建託</h3>
+    <p class="what">土地を持つオーナーに、アパートを建てて貸す土地活用を提案する営業（訪問して関係をつくる）</p>
+    <dl>
+      <dt>勤務地</dt><dd>全国の支店（原則転勤なし・希望を考えて配属）</dd><dt>通勤</dt><dd>通える支店に配属（原則転勤なし）。お客様のお宅へは社用車</dd><dt>月給</dt><dd>27.8万円〜30.2万円（入社1年間だけの手当3万円と、35時間分・5.7万円以上の固定残業代を含む）</dd><dt>年収</dt><dd>求人票の1年目のイメージは500万〜600万円（成果給込み）。契約1件で約200万円の成果給。固定給だけなら年333.6万円</dd><dt>休日</dt><dd>土日祝休み・年間休日125日（お客様の都合で土日に出ることもある）</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　契約1件で約200万円の成果給が出る、いちばん「気合で稼ぐ」会社です。土日祝が休みで、上場企業です。</p>
+    <p class="caution">契約が取れないうちは固定給だけ（実績なしの月収例は約30.8万円・残業40時間込み）。 1日に何十件も訪ねる訪問営業で、飛び込みや夜の訪問もある。夏も外を回る。 月給のうち3万円は入社1年間だけの手当。平均残業は月38時間。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.kentaku.co.jp/" target="_blank" rel="noopener" aria-label="大東建託のホームページ">会社のHP →</a></div>
+  </article>
+</div>
+
+<h2>比べるための施工管理の会社（2社）</h2>
+<p class="lead">施工管理は、資格を取りながら年収を上げていく仕事です。</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
+  <tbody>
+    <tr><td class="co">エール<a class="deck-mini" href="https://www.yell-inc.com/" target="_blank" rel="noopener" aria-label="エールのホームページ">会社のHP →</a></td><td>施工管理（アシスタントから始めて現場の管理へ）<small>入社後1か月の研修（座学＋現場）</small><small>月給には固定残業代が含まれる求人票がある（例: 月給25.3万円のうち4.8万円が月30時間分の固定残業代）。</small><small>実際の残業時間は口コミで幅がある（会社側は月10h以内を主張するが、口コミ集計では最大月38hという値もある）。</small></td><td class="num">関東（転勤なし）<small>通勤 ご自宅から通える現場に配属（現場へは直行直帰）</small></td><td class="num">22.6万〜25.3万円<small>年収 1年目の例は375万円（未経験・残業代込み）。経験3年・資格ありの例は476万円（会社の公式サイト）</small></td><td class="num">完全週休2日・年間休日128日（2026年度カレンダー）</td></tr>
+<tr><td class="co">ワールドコーポレーション<a class="deck-mini" href="https://worldcorp-jp.com/" target="_blank" rel="noopener" aria-label="ワールドコーポレーションのホームページ">会社のHP →</a></td><td>施工管理（社員として建設会社の現場に派遣されて働く）<small>有給の研修あり（入社から180日はチームで新人をサポート）</small><small>正社員として雇われ、建設会社の現場に派遣されて働く形。配属の現場は会社が決める。</small><small>直近1年の退職率は31.1%（会社の公表値）。</small></td><td class="num">首都圏の建設現場（原則、自宅から90分以内）<small>通勤 ご自宅から原則90分以内の現場</small></td><td class="num">25万円（月20時間分・3.34万円の固定残業代を含む・24歳以下の例）<small>年収 会社のモデル年収は21歳355万円・25歳450万円。1級の資格を取ると月5万円の手当</small></td><td class="num">土日祝休み（会社の説明）</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="also">正直にお伝えすると、施工管理の1年目の年収は今とほぼ同じです。資格と経験で上がっていく形なので、すぐに年収を上げたいなら上の営業の会社のほうが近道です。また、夏は暑い中の現場に出ることもあります。</p>
+
+</section>
+<section id="industry" data-section="industry">
+<h2>業界の説明資料</h2>
+<ul class="videos">
+  <li><a href="https://drive.google.com/file/d/1hH4k9m57BCrY0_OQTSqg1CsMrRuFJVHK/view" target="_blank" rel="noopener">営業の仕事</a>
+    <span class="meta">営業の仕事内容と将来性をまとめた資料</span></li>
+  <li><a href="https://drive.google.com/file/d/1aaqbrGWGHvvOBhfCRVNETd7fdiUqzovh/view" target="_blank" rel="noopener">機械系エンジニアの仕事</a>
+    <span class="meta">機械系エンジニア（開発設計・組み込み・ものづくり）の仕事内容と将来性をまとめた資料</span></li>
+  <li><a href="https://drive.google.com/file/d/1rMe1E4_EpphASnW63x9ubO1gtUm55174/view" target="_blank" rel="noopener">インフラエンジニアの仕事</a>
+    <span class="meta">インフラエンジニアの仕事内容と将来性をまとめた資料</span></li>
+</ul>
+</section>
+
+<footer>※条件は各社の求人票・会社の公開情報（2026年10月時点）に書かれている内容です。<br>※「年収」は求人票の想定年収や年収の例で、成果給・賞与を含みます。成果によって上下し、約束された金額ではありません。「固定給だけなら」は月給の下限×12か月で計算しています。<br>※通勤時間は目安です。<br>※「会社のHP →」は各社の公式ホームページにつながります。</footer>
+
+</div>
+</body>
+</html>
