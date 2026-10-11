@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>MNP の本番への載せ方</title>
+<style>
+:root{
+  --bg:#f7f6f2; --card:#ffffff; --ink:#1f2328; --sub:#5b6270; --line:#d8d6cf;
+  --box:#e8f0fe; --box-ink:#1a4fb4; --place:#eaf6ec; --place-ink:#1d6b34;
+  --hand:#fff4e0; --hand-ink:#9a5b00; --bad:#fdecec; --bad-ink:#b3261e;
+  --auto:#efe9fb; --auto-ink:#5b3cc4; --chip:#f0efe9;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181c; --card:#1f2228; --ink:#e8e9ec; --sub:#a3a9b5; --line:#3a3e47;
+    --box:#1d2a44; --box-ink:#8fb3ff; --place:#1c3324; --place-ink:#86d39c;
+    --hand:#3a2c12; --hand-ink:#f0b85a; --bad:#3d1f1f; --bad-ink:#ff8a80;
+    --auto:#2a2342; --auto-ink:#b9a6ff; --chip:#2a2d34;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181c; --card:#1f2228; --ink:#e8e9ec; --sub:#a3a9b5; --line:#3a3e47;
+  --box:#1d2a44; --box-ink:#8fb3ff; --place:#1c3324; --place-ink:#86d39c;
+  --hand:#3a2c12; --hand-ink:#f0b85a; --bad:#3d1f1f; --bad-ink:#ff8a80;
+  --auto:#2a2342; --auto-ink:#b9a6ff; --chip:#2a2d34;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif;line-height:1.7;font-size:15px}
+main{max-width:980px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:22px;margin:0 0 4px}
+h2{font-size:18px;margin:40px 0 8px;padding-top:8px;border-top:2px solid var(--line)}
+h3{font-size:15px;margin:20px 0 6px}
+p{margin:6px 0}
+.meta{color:var(--sub);font-size:13px}
+.words{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.word{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;flex:1 1 220px}
+.word b{display:block}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px;font-size:12px}
+.tag{display:inline-block;border-radius:6px;padding:1px 8px;font-size:12px;white-space:nowrap}
+.t-box{background:var(--box);color:var(--box-ink)}
+.t-place{background:var(--place);color:var(--place-ink)}
+.t-hand{background:var(--hand);color:var(--hand-ink)}
+.t-bad{background:var(--bad);color:var(--bad-ink)}
+.t-auto{background:var(--auto);color:var(--auto-ink)}
+.lane{display:grid;grid-template-columns:1.1fr 32px 1.2fr 32px 1.5fr;align-items:center;gap:0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0}
+.arrow{text-align:center;color:var(--sub);font-size:20px}
+.cell{border-radius:10px;padding:8px 10px}
+.cell b{display:block}
+.c-box{background:var(--box);color:var(--box-ink)}
+.c-hand{background:var(--hand);color:var(--hand-ink)}
+.c-auto{background:var(--auto);color:var(--auto-ink)}
+.small{font-size:12px;opacity:.9}
+.places{display:flex;flex-direction:column;gap:6px}
+.place{background:var(--place);color:var(--place-ink);border-radius:8px;padding:6px 10px}
+.place.borrow{background:var(--bad);color:var(--bad-ink);border:2px dashed var(--bad-ink)}
+code{font-size:11px;opacity:.85;word-break:break-all}
+.cell code{display:block}
+.pipe{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:12px 0}
+.pipe .step{flex:1 1 150px;background:var(--auto);color:var(--auto-ink);border-radius:10px;padding:8px 10px}
+.pipe .step b{display:block}
+.pipe .to{align-self:center;color:var(--sub)}
+.callout{background:var(--bad);color:var(--bad-ink);border-radius:12px;padding:10px 14px;margin:12px 0}
+.callout.ok{background:var(--place);color:var(--place-ink)}
+.callout.hand{background:var(--hand);color:var(--hand-ink)}
+.callout ol,.callout ul{margin:4px 0 4px 1.2em;padding:0}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:13px;margin:8px 0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--chip)}
+td.num{text-align:right;white-space:nowrap}
+.bars{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+.bar-row{display:grid;grid-template-columns:200px 1fr 92px;gap:8px;align-items:center;margin:10px 0;font-size:13px}
+.bar-track{position:relative;height:22px;background:var(--chip);border-radius:6px}
+.bar-fill{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
+.free-line{position:absolute;top:-6px;bottom:-6px;border-left:2px dashed var(--ink)}
+.bar-yen{text-align:right;font-weight:bold}
+.fig-note{color:var(--sub);font-size:12px;margin-top:4px}
+.decide{background:var(--card);border:2px solid var(--hand-ink);border-radius:12px;padding:12px 14px;margin:12px 0}
+@media (max-width:720px){
+  .lane{grid-template-columns:1fr;gap:4px}
+  .arrow{transform:rotate(90deg);height:22px;line-height:22px}
+  .bar-row{grid-template-columns:1fr;gap:2px}
+  .bar-yen{text-align:left}
+  table{font-size:12px}
+}
+</style>
+</head>
+<body>
+<main>
+<h1>MNP の本番への載せ方 ― 今と、目指す形</h1>
+<p class="meta">2026-10-12（月）0:50 時点の実測。bot-lab の司令塔が作成。数字の出どころは本番の設定と過去7日のビルドの記録。</p>
+
+<div class="words">
+  <div class="word"><b>箱（image）</b>プログラムと、それを動かすのに要るもの（Python・ブラウザ等）を一式で固めたもの。</div>
+  <div class="word"><b>作る（build）</b>コードから箱を作る。重い箱ほど時間がかかる。</div>
+  <div class="word"><b>載せる（deploy）</b>本番の置き場に「次からこの箱で動いて」と渡す。</div>
+</div>
+<p>1回のコード変更で、いくつかの置き場が同時に変わるのは普通です。問題はそこではなく、<b>それを人が手で、正しい順番で撃っている</b>ことと、<b>1か所だけ箱を「借りている」</b>ことです。</p>
+
+<h2>図1　今：箱4つ・置き場7か所・人が撃つコマンド6本</h2>
+<div class="legend">
+  <span class="tag t-box">箱</span><span class="tag t-hand">人が手で撃つ</span><span class="tag t-place">本番の置き場</span><span class="tag t-bad">借りている（危ない）</span>
+</div>
+
+<div class="lane">
+  <div class="cell c-box"><b>A 業者コンソールの箱</b><span class="small">軽い・作るのに約30秒</span></div>
+  <div class="arrow">→</div>
+  <div class="cell c-hand"><b>① 人が撃つ</b><code>vendorconsole/deploy.sh</code><span class="small">作る＋載せるを1本で</span></div>
+  <div class="arrow">→</div>
+  <div class="places">
+    <div class="place">業者コンソール <code>bot-lab-mnp-vendor</code></div>
+  </div>
+</div>
+
+<div class="lane">
+  <div class="cell c-box"><b>B 名義人ページの箱</b><span class="small">軽い・約30秒</span></div>
+  <div class="arrow">→</div>
+  <div class="cell c-hand"><b>② 人が撃つ</b><code>holder/deploy.sh</code><span class="small">1つの箱を2か所に</span></div>
+  <div class="arrow">→</div>
+  <div class="places">
+    <div class="place">名義人ページ（今のURL） <code>bot-lab-mnp-holder</code></div>
+    <div class="place">名義人ページ（前に渡したURL） <code>links-verify</code></div>
+  </div>
+</div>
+
+<div class="lane">
+  <div class="cell c-box"><b>C 運用コンソールの箱</b><span class="small">重い（ブラウザ入り・約1.4GB）・約3分</span></div>
+  <div class="arrow">→</div>
+  <div class="cell c-hand"><b>③ 人が撃つ</b><code>webconsole/deploy.sh</code><span class="small">2か所に載せる</span><br><b>④ その後に、もう1本</b><code>typeb_cloud_job.sh deploy</code></div>
+  <div class="arrow">→</div>
+  <div class="places">
+    <div class="place">運用コンソール <code>bot-lab-linksmate</code></div>
+    <div class="place">重い作業の係 <code>bot-lab-linksmate-worker</code></div>
+    <div class="place borrow"><b>段2〜の係（申込を進める本体）</b> <code>bot-lab-typeb-autodrive</code><span class="small">自分の箱を作らず、「運用コンソールがいま動かしている箱」を借りる。③を先に撃たないと古いコードのまま動く（今夜これを踏んだ）</span></div>
+  </div>
+</div>
+
+<div class="lane">
+  <div class="cell c-box"><b>D 電話の箱</b><span class="small">約2.5分・repo のほぼ全部が入っている</span></div>
+  <div class="arrow">→</div>
+  <div class="cell c-hand"><b>⑤ 作る</b><code>paypay_reader_job.sh build</code><b>⑥ 載せる</b><code>paypay_reader_job.sh deploy</code><span class="small">同じ版名で2回撃つ</span></div>
+  <div class="arrow">→</div>
+  <div class="places">
+    <div class="place">PayPay 読み手 <code>bot-lab-paypay-reader</code></div>
+  </div>
+</div>
+
+<div class="callout">
+<b>今の問題</b>
+<ol>
+<li><b>着地しても本番は変わらない。</b>誰かが①〜⑥を撃つまで、古いコードのまま動く。撃つ人は、どの変更がどの箱の中身を変えるか、どの順番かを覚えている必要がある。</li>
+<li><b>段2〜の係は箱を借りている。</b>③→④の順を守らないと、新しいコードが載らない。どの版で動いているかも名前で分からない。</li>
+<li><b>GitHub と Google Cloud がつながっていない。</b>だから「着地したら自動で作る」ができない（つなぐのは初回だけの作業）。</li>
+</ol>
+</div>
+
+<h2>図2　目指す形：着地したら、関係する箱だけが自動で作られ、全部の置き場に載る</h2>
+<div class="legend">
+  <span class="tag t-auto">機械が自動でやる</span><span class="tag t-box">箱</span><span class="tag t-place">本番の置き場</span>
+</div>
+
+<div class="pipe">
+  <div class="step"><b>1. 着地</b>master にコードが入る（今と同じ）</div>
+  <div class="to">→</div>
+  <div class="step"><b>2. GitHub が知らせる</b>Google Cloud の「作る係」（Cloud Build）へ</div>
+  <div class="to">→</div>
+  <div class="step"><b>3. 関係する箱だけ選ぶ</b>箱ごとに「中に入れるファイル」の一覧を持ち、変わったファイルが当たった箱だけ作る</div>
+  <div class="to">→</div>
+  <div class="step"><b>4. 作って試す</b>箱に版名＝コミット番号を付け、今 deploy.sh が撃っている試験を箱の中で回す</div>
+  <div class="to">→</div>
+  <div class="step"><b>5. 全部の置き場に載せる</b>同じ版名の箱を、その箱の置き場すべてへ一度に</div>
+</div>
+
+<div class="lane">
+  <div class="cell c-box"><b>A 業者コンソールの箱</b><span class="small">版名 git-（コミット番号）</span></div>
+  <div class="arrow">→</div>
+  <div class="cell c-auto"><b>自動</b>業者コンソールのファイルが変わったら</div>
+  <div class="arrow">→</div>
+  <div class="places"><div class="place">業者コンソール</div></div>
+</div>
+<div class="lane">
+  <div class="cell c-box"><b>B 名義人ページの箱</b><span class="small">版名 git-（コミット番号）</span></div>
+  <div class="arrow">→</div>
+  <div class="cell c-auto"><b>自動</b>名義人ページのファイルが変わったら</div>
+  <div class="arrow">→</div>
+  <div class="places"><div class="place">名義人ページ（今のURL）</div><div class="place">名義人ページ（前に渡したURL）</div></div>
+</div>
+<div class="lane">
+  <div class="cell c-box"><b>C 運用コンソールの箱</b><span class="small">版名 git-（コミット番号）・前の箱の重い部分を使い回して速く</span></div>
+  <div class="arrow">→</div>
+  <div class="cell c-auto"><b>自動</b>運用コンソール・段2〜の係のファイルが変わったら</div>
+  <div class="arrow">→</div>
+  <div class="places">
+    <div class="place">運用コンソール</div>
+    <div class="place">重い作業の係</div>
+    <div class="place"><b>段2〜の係</b>：借りるのをやめ、同じ版名の箱を同時に受け取る</div>
+  </div>
+</div>
+<div class="lane">
+  <div class="cell c-box"><b>D 電話の箱</b><span class="small">版名 git-（コミット番号）</span></div>
+  <div class="arrow">→</div>
+  <div class="cell c-auto"><b>自動</b>PayPay の読み取りに要るファイルが変わったら（repo 全部を見るのをやめる）</div>
+  <div class="arrow">→</div>
+  <div class="places"><div class="place">PayPay 読み手</div></div>
+</div>
+
+<div class="callout ok">
+<b>壊れたものを載せないための柵</b>
+<ul>
+<li>試験が赤なら載せない（今 deploy.sh の頭で回している試験を、そのまま作る係の中へ移す）。</li>
+<li>サービスは新しい箱が起動しなければ、前の版のまま動き続ける（Google Cloud の性質）。係（Job）は作った箱で読み込みの試験をしてから差し替える。</li>
+<li>着地が続くと作る係が並んで走る。古い版が後から新しい版を上書きしないよう、載せる直前に「いま載っている版が自分より新しくないか」を見る。</li>
+<li><b>保険の見張り</b>：1時間に1回、7か所の版名が master の最新と合っているかを見て、ずれていたら知らせる（出来事起点が本体・定期は保険、の規則どおり）。</li>
+</ul>
+</div>
+
+<div class="callout hand">
+<b>人の手が残るところ（めったに無い）</b>
+<ul>
+<li>秘密の値・権限・ログイン画面（IAP）の設定を変えるとき：今の deploy.sh を「設定を変える専用」として残す。毎回の箱の差し替えでは触らない。</li>
+<li>緊急で手で載せたいとき：今の deploy.sh は残す（今と同じ門＝遅れた木・未着地のコードでは撃てない）。</li>
+<li>GitHub と Google Cloud をつなぐ初回：Chrome で機械が押す。GitHub が本人確認（パスワード・2段階認証）を求めたら、そこだけ拓也。</li>
+</ul>
+<p class="small">図の外：PC で動く係（本体の木）は今回の範囲に入れていない。必要なら同じ形で後から足す。</p>
+</div>
+
+<h2>図3　費用の見積り（Cloud Build の作る時間）</h2>
+<p>作る係は<b>月2,500分まで無料</b>、超えたら<b>1分 $0.006（約0.9円）</b>。請求先は bot-lab の請求アカウント（ゆうとのカード）。この請求アカウントの無料枠を使うのは、ほぼ bot-lab だけ。</p>
+
+<div class="bars">
+  <div class="bar-row"><div>今（手で撃っている分）</div><div class="bar-track"><div class="bar-fill" style="width:9.5%;background:var(--place-ink)"></div><div class="free-line" style="left:41.7%"></div></div><div class="bar-yen">約570分<br>0円</div></div>
+  <div class="bar-row"><div>自動・工夫あり<br><span class="small">C の重い部分を使い回す＋D の見るファイルを絞る</span></div><div class="bar-track"><div class="bar-fill" style="width:38.8%;background:var(--auto-ink)"></div><div class="free-line" style="left:41.7%"></div></div><div class="bar-yen">約2,300分<br>0円</div></div>
+  <div class="bar-row"><div>自動・D だけ絞る</div><div class="bar-track"><div class="bar-fill" style="width:51.2%;background:var(--hand-ink)"></div><div class="free-line" style="left:41.7%"></div></div><div class="bar-yen">約3,100分<br>約500円</div></div>
+  <div class="bar-row"><div>自動・工夫なし</div><div class="bar-track"><div class="bar-fill" style="width:97.8%;background:var(--bad-ink)"></div><div class="free-line" style="left:41.7%"></div></div><div class="bar-yen">約5,900分<br>約3,000円</div></div>
+  <p class="fig-note">横軸＝1か月に作る係が動く分数（右端 6,000分）。点線＝無料の2,500分。円は超えた分×$0.006、1ドル150円で換算。</p>
+</div>
+
+<h3>見積りの中身</h3>
+<table>
+<tr><th>箱</th><th>過去7日でその箱の中身を変えた着地</th><th>1回の所要（作る＋試す＋載せる）</th><th class="num">1週間</th></tr>
+<tr><td>A 業者コンソール</td><td>約37回</td><td>約1.5分</td><td class="num">約57分</td></tr>
+<tr><td>B 名義人ページ</td><td>約27回</td><td>約2.2分（2か所に載せる）</td><td class="num">約60分</td></tr>
+<tr><td>C 運用コンソール</td><td>約131回</td><td>約4.3分 → 使い回しで約3分</td><td class="num">約563分<br>→ 約393分</td></tr>
+<tr><td>D 電話（PayPay）</td><td>repo 全部なら約239回／PayPay のファイルだけなら約9回</td><td>約2.8分</td><td class="num">約670分<br>→ 約25分</td></tr>
+</table>
+<p class="small">着地の回数＝過去7日（10/5〜10/11）に master へ入った PR 615本・コミット941本から、箱ごとに「中に入れるファイル」を触ったコミットを数え、PR あたりに直した値。先週は多い週だった（1日約88本の PR）。作る時間は過去7日の実測（C 約178秒・D 約154秒・A/B 約33秒）、試す・載せる時間は推定。</p>
+
+<h3>箱の置き場（Artifact Registry）</h3>
+<p>今 25GB で月 約370円（もう払っている分）。0.5GB まで無料、超えたら1GB 月 $0.10。自動にすると C の版が週23→約131に増える。前の箱の重い部分を使い回さないと、版ごとに重い部分が新しく溜まり、7日分で <b>+40〜130GB（月 +600〜2,000円）</b>に膨らみうる。使い回し＋C の保存期間を短くする（7日→2日）で、今と同じくらいに抑える。</p>
+
+<div class="decide">
+<b>拓也に決めてほしいこと（1つだけ・課金）</b>
+<p>「自動・工夫あり」で進めます。見込みは<b>月0〜500円</b>（作る係）＋置き場は今と同じくらい。外れたときの歯止めとして、請求アカウントに<b>月1,000円の予算の知らせ</b>（無料）を張ります。<br>→ <b>月1,000円までの従量（ゆうとのカード）を承認するか</b>。</p>
+</div>
+
+<h2>進め方（4段・どれも着地したら次へ）</h2>
+<table>
+<tr><th>段</th><th>やること</th><th>人の手</th></tr>
+<tr><td>1</td><td>GitHub と Google Cloud をつなぐ。軽い A（業者コンソール）だけ自動にして、着地→本番を1回通して見る</td><td>GitHub の本人確認が出たら拓也</td></tr>
+<tr><td>2</td><td>C（運用コンソール・重い作業の係・段2〜の係）を自動に。借りるのをやめ、使い回しで速くする</td><td>なし</td></tr>
+<tr><td>3</td><td>B（名義人ページ2か所）と D（PayPay 読み手・見るファイルを絞る）を自動に</td><td>なし</td></tr>
+<tr><td>4</td><td>保険の見張り（7か所の版名と master のずれ）と、予算の知らせ。deploy.sh を「設定専用＋緊急用」に整理</td><td>なし</td></tr>
+</table>
+</main>
+</body>
+</html>
