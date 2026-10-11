@@ -180,11 +180,12 @@
     </fieldset>
 
     <fieldset id="docset">
-      <legend>本人確認に使う書類（1つ）<span class="req">必須</span></legend>
-      <label class="opt"><input type="radio" name="doc" value="マイナンバーカード"> マイナンバーカード</label>
-      <label class="opt"><input type="radio" name="doc" value="運転免許証"> 運転免許証</label>
-      <label class="opt"><input type="radio" name="doc" value="在留カード"> 在留カード</label>
-      <label class="opt"><input type="radio" name="doc" value="特別永住者証明書"> 特別永住者証明書</label>
+      <legend>本人確認に使う書類（持っているものすべて）<span class="req">必須</span></legend>
+      <label class="opt"><input type="checkbox" name="doc" value="マイナンバーカード"> マイナンバーカード</label>
+      <label class="opt"><input type="checkbox" name="doc" value="運転免許証"> 運転免許証</label>
+      <label class="opt"><input type="checkbox" name="doc" value="在留カード"> 在留カード</label>
+      <label class="opt"><input type="checkbox" name="doc" value="特別永住者証明書"> 特別永住者証明書</label>
+      <span class="hint">上の順で使います。先の書類で本人確認ができなかったとき（暗証番号のロックなど）は、名義人さんのページのボタンから次の書類で出し直せます</span>
     </fieldset>
 
     <fieldset>
@@ -303,7 +304,7 @@
   }
 
   function collect(){
-    var docEl = document.querySelector('input[name=doc]:checked');
+    var docs = Array.prototype.map.call(document.querySelectorAll('input[name=doc]:checked'), function(r){ return r.value; });  // 並びは上の順（使う順）
     var sexEl = document.querySelector('input[name=sex]:checked');
     return {
       client: oneLine($('client').value),
@@ -319,7 +320,8 @@
       postalRaw: $('postal').value,
       postal: normPostal($('postal').value),
       eid: normEid($('eid').value),
-      doc: docEl ? docEl.value : '',
+      docs: docs,
+      doc: docs.join('／'),
       sex: sexEl ? sexEl.value : '',
       a1: $('agree1').checked,
       a2: $('agree2').checked
@@ -345,7 +347,8 @@
     if (ep) errs.push({id:'eid', t:ep});
     if (!oneLine(v.linesRaw)) errs.push({id:'lines', t:'回線数が空です'});
     else if (!v.lines) errs.push({id:'lines', t:'回線数は1〜5の整数で入れてください'});
-    if (!v.doc) errs.push({id:'docset', t:'本人確認に使う書類を1つ選んでください'});
+    if (!v.docs.length) errs.push({id:'docset', t:'本人確認に使う書類を1つ以上選んでください'});
+    else if (v.docs.indexOf('在留カード') >= 0 && v.docs.indexOf('特別永住者証明書') >= 0) errs.push({id:'docset', t:'在留カードと特別永住者証明書は両方は選べません（同時に持てません）'});
     if (!v.a1 || !v.a2) errs.push({id:'agreeset', t:'名義人さんの承諾は、2つともチェックが必要です' + (v.a1 !== v.a2 ? '（' + (v.a1 ? '2つ目' : '1つ目') + 'が未チェック）' : '')});
     return errs;
   }
@@ -432,7 +435,7 @@
 
   $('again').addEventListener('click', function(){
     $('name').value = ''; $('kana').value = ''; $('birthday').value = ''; $('bdEcho').textContent = ''; $('kadobi').value = ''; $('kdEcho').textContent = ''; $('phone').value = ''; $('postal').value = ''; $('lines').value = '1'; $('eid').value = '';
-    var d = document.querySelector('input[name=doc]:checked'); if (d) d.checked = false;
+    Array.prototype.forEach.call(document.querySelectorAll('input[name=doc]:checked'), function(d){ d.checked = false; });
     var sx = document.querySelector('input[name=sex]:checked'); if (sx) sx.checked = false;
     $('agree1').checked = false; $('agree2').checked = false;
     $('msg').value = ''; $('line').href = '#';
