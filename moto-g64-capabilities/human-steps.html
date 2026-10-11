@@ -1,0 +1,35 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>新しい moto を挿す前の1枚（人に残る手）</title><style>
+body{font:16px/1.7 'Yu Gothic UI','Meiryo',sans-serif;margin:0;background:#f6f7f9;color:#1d2129}main{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:22px}h2{font-size:17px;margin:26px 0 8px;border-left:5px solid #c77700;padding-left:8px}
+.pick{display:flex;gap:8px;flex-wrap:wrap}.pick button{flex:1;min-width:200px;padding:10px;border:2px solid #27406b;background:#fff;border-radius:10px;font:inherit;cursor:pointer}
+.pick button.on{background:#27406b;color:#fff}.panel{display:none;background:#fff;border:1px solid #dfe3ea;border-radius:8px;padding:10px 16px;margin-top:10px}.panel.show{display:block}
+ol.steps{padding-left:0;list-style:none;counter-reset:s}ol.steps li{counter-increment:s;background:#fff;border:1px solid #dfe3ea;border-radius:8px;margin:8px 0;padding:8px 12px 8px 50px;position:relative;cursor:pointer}
+ol.steps li::before{content:counter(s);position:absolute;left:12px;top:8px;width:28px;height:28px;border-radius:14px;background:#c77700;color:#fff;text-align:center;line-height:28px;font-weight:bold}
+ol.steps li.done{background:#e8f5ec;text-decoration:line-through;color:#6b7280}.note{font-size:13px;color:#5b6370}.auto li{margin:2px 0}
+</style></head><body><main>
+<h1>新しい moto を挿す前に、人がやるのはこれだけ（約1分・1台ごと）</h1>
+<p class="note"><a href="index.html">← moto g64y の能力表</a></p>
+<p>端末に USB デバッグが入る<b>前</b>は、PC から届く口がありません（adb も画面の部品を読む口も無い＝物理）。ここだけが人の手で、あとは挿すと自動で用意が進みます。</p>
+<h2>いま何が起きていますか</h2>
+<div class="pick"><button data-p="p1">挿したのに何も起きない</button><button data-p="p2">PC に「USB デバッグが OFF」の箱が出た</button><button data-p="p3">端末に「USB デバッグを許可しますか？」が出た</button></div>
+<div class="panel" id="p1"><b>USB デバッグが OFF のままです。</b>PC には「ファイル転送」の口だけが見えて、adb には何も出ません。30秒待っても adb に出ないと、PC に箱が出ます（下の手順をそのまま）。</div>
+<div class="panel" id="p2"><b>下の手順1〜4を端末で</b>。終わったら挿し直す必要はなく、許可した瞬間から自動で用意が始まります。</div>
+<div class="panel" id="p3"><b>「このパソコンからの USB デバッグを常に許可する」にチェックを入れて「許可」</b>（手順5）。これで人の手は終わりです。</div>
+<h2>手順（押すと済みの印）　残り <span id="left"></span> 手</h2>
+<ol class="steps"><li>初期設定をホームまで抜ける（Wi-Fi・Google ログインは任意＝Wi-Fi は道具が PC の Wi-Fi に繋ぐ）</li>
+<li>設定 → デバイス情報 →「ビルド番号」を7回タップ</li>
+<li>設定 → システム → 開発者向けオプション →「USB デバッグ」を ON</li>
+<li>PC に USB で挿す</li>
+<li>端末の「USB デバッグを許可しますか？」で、「このパソコンからの USB デバッグを常に許可する」にチェック →「許可」</li></ol>
+<h2>許可したあと、人の手なしで進むこと</h2>
+<ul class="auto"><li>PIN・常時点灯・回転固定・Gboard の日本語12キー</li><li>Tailscale の参加（tag:pixel）・adb の tcp 5555・常時オン VPN</li><li>PAY ID・あんスタ（Basic・Music）・SMS Gateway・eSIM の LPA を入れる</li><li>EID を読んで名簿に載せる（末尾4桁は名簿・全桁は秘密の置き場）</li></ul>
+<p class="note">全部で新品の1台が約5分（前倒しの効果で約250秒の見込み）。人の手が残るのは、機械で埋まらなかった段があった回だけで、そのときは箱と Discord が1回ずつ出ます。この端末に顧客の eSIM が載るのは申込のときで、用意の段では載せません。生成 2026-10-12 06:20。</p>
+</main><script>
+document.querySelectorAll('.pick button').forEach(b=>b.addEventListener('click',()=>{
+ document.querySelectorAll('.pick button').forEach(x=>x.classList.toggle('on',x===b));
+ document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('show',p.id===b.dataset.p));}));
+const steps=[...document.querySelectorAll('ol.steps li')];
+function upd(){document.getElementById('left').textContent=steps.filter(s=>!s.classList.contains('done')).length;}
+steps.forEach(s=>s.addEventListener('click',()=>{s.classList.toggle('done');upd();}));upd();
+</script></body></html>
