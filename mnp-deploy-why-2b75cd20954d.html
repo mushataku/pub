@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>クラウドの載せ方の定石</title>
+<style>
+:root{
+  --bg:#f7f6f2; --card:#ffffff; --ink:#1f2328; --sub:#5b6270; --line:#d8d6cf;
+  --box:#e8f0fe; --box-ink:#1a4fb4; --place:#eaf6ec; --place-ink:#1d6b34;
+  --hand:#fff4e0; --hand-ink:#9a5b00; --bad:#fdecec; --bad-ink:#b3261e;
+  --auto:#efe9fb; --auto-ink:#5b3cc4; --chip:#f0efe9;
+  --l1:#dfe7f5; --l2:#d3e6dc; --l3:#efe6cf; --l4:#f3dccb; --l5:#f2d3d8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181c; --card:#1f2228; --ink:#e8e9ec; --sub:#a3a9b5; --line:#3a3e47;
+    --box:#1d2a44; --box-ink:#8fb3ff; --place:#1c3324; --place-ink:#86d39c;
+    --hand:#3a2c12; --hand-ink:#f0b85a; --bad:#3d1f1f; --bad-ink:#ff8a80;
+    --auto:#2a2342; --auto-ink:#b9a6ff; --chip:#2a2d34;
+    --l1:#24304a; --l2:#213a2e; --l3:#3a3322; --l4:#40291f; --l5:#432630;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181c; --card:#1f2228; --ink:#e8e9ec; --sub:#a3a9b5; --line:#3a3e47;
+  --box:#1d2a44; --box-ink:#8fb3ff; --place:#1c3324; --place-ink:#86d39c;
+  --hand:#3a2c12; --hand-ink:#f0b85a; --bad:#3d1f1f; --bad-ink:#ff8a80;
+  --auto:#2a2342; --auto-ink:#b9a6ff; --chip:#2a2d34;
+  --l1:#24304a; --l2:#213a2e; --l3:#3a3322; --l4:#40291f; --l5:#432630;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif;line-height:1.7;font-size:15px}
+main{max-width:980px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:22px;margin:0 0 4px}
+h2{font-size:18px;margin:40px 0 8px;padding-top:8px;border-top:2px solid var(--line)}
+h3{font-size:15px;margin:18px 0 6px}
+p{margin:6px 0}
+a{color:var(--box-ink)}
+.meta{color:var(--sub);font-size:13px}
+.concl{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.concl div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.concl b{display:block;font-size:15px;margin-bottom:4px}
+.fig{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:12px 0}
+.figt{font-weight:bold;margin-bottom:8px}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px}
+.flow .n{flex:1 1 140px;border-radius:10px;padding:8px 10px}
+.flow .n b{display:block}
+.flow .to{align-self:center;color:var(--sub);font-size:13px;text-align:center;min-width:56px}
+.c-code{background:var(--chip)}
+.c-box{background:var(--box);color:var(--box-ink)}
+.c-place{background:var(--place);color:var(--place-ink)}
+.c-auto{background:var(--auto);color:var(--auto-ink)}
+.c-bad{background:var(--bad);color:var(--bad-ink)}
+.c-hand{background:var(--hand);color:var(--hand-ink)}
+.small{font-size:12px;opacity:.9}
+.stackwrap{display:grid;grid-template-columns:1fr 210px;gap:14px;align-items:center}
+.stack{display:flex;flex-direction:column;gap:3px}
+.layer{border-radius:8px;padding:7px 10px;display:flex;justify-content:space-between;gap:8px}
+.layer span.f{font-size:12px;color:var(--sub);white-space:nowrap}
+.L5{background:var(--l5)} .L4{background:var(--l4)} .L3{background:var(--l3)} .L2{background:var(--l2)} .L1{background:var(--l1)}
+.rebuild{outline:2px dashed var(--bad-ink)}
+.side{font-size:13px}
+.side .k{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:4px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.col{border-radius:10px;padding:10px 12px}
+.boxrow{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
+.mini{border-radius:6px;padding:2px 8px;font-size:12px}
+.boxes3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.bx{border-radius:10px;padding:10px;background:var(--box);color:var(--box-ink)}
+.bx b{display:block}
+.bx ul{margin:4px 0 0 1.1em;padding:0}
+.callout{border-radius:12px;padding:10px 14px;margin:10px 0}
+.callout ol,.callout ul{margin:4px 0 4px 1.2em;padding:0}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:13px;margin:8px 0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--chip)}
+.word{font-weight:bold;white-space:nowrap}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:8px 0}
+summary{cursor:pointer;font-weight:bold}
+.conv{display:flex;gap:6px;align-items:flex-end;height:90px;margin:8px 0}
+.conv .bar{width:64px;background:var(--hand);color:var(--hand-ink);border-radius:6px 6px 0 0;text-align:center;font-weight:bold;display:flex;align-items:flex-start;justify-content:center;padding-top:2px}
+.conv .lab{display:flex;gap:6px}
+.conv .lab div{width:64px;text-align:center;font-size:12px;color:var(--sub)}
+@media (max-width:720px){
+  .concl,.boxes3,.two{grid-template-columns:1fr}
+  .stackwrap{grid-template-columns:1fr}
+  .flow .to{min-width:100%;transform:none}
+  table{font-size:12px}
+}
+</style>
+</head>
+<body>
+<main>
+<h1>クラウドの載せ方 ― 世の中の定石と、MNP の決着</h1>
+<p class="meta">2026-10-12（月）2:30・bot-lab の司令塔。公式文書・定番の文献の調査と、Fable の critic との3往復で決めた。前の図（今の姿と費用）: <a href="https://mushataku.github.io/pub/mnp-deploy-map-6637f06da3ab.html">MNP の本番への載せ方</a></p>
+
+<div class="concl">
+  <div><b>① 機能ごとに箱が違うのは普通</b>箱を分けてよい理由は「要る道具が違う」だけ。MNP は 軽い・ブラウザ・電話 の3つにそろえる。</div>
+  <div><b>② 作り直さない、は正しい。手段が違う</b>箱を細かく割るのでなく、箱の中の「層」を使い回す。割るほど版ずれが増える。</div>
+  <div><b>③ 段1は動いた・穴は図の外にあった</b>着地→本番 2分07秒。失敗が無音・PC の係の遅れ・お金を払う係の版ばらばら、を先に塞ぐ。</div>
+</div>
+
+<h2>1. 言葉の地図 ― コードが本番で動くまで</h2>
+<div class="fig">
+  <div class="figt">図1　作る → 載せる → 走る</div>
+  <div class="flow">
+    <div class="n c-code"><b>コード</b>master の1コミット<br><span class="small">例 bb27b5a4</span></div>
+    <div class="to">作る<br>build →</div>
+    <div class="n c-box"><b>箱（image）</b>コード＋Python＋ブラウザ等を一式で固めたもの<br><span class="small">版名（tag）: git-bb27b5a4<br>指紋（digest）: sha256:… 中身から決まる</span></div>
+    <div class="to">載せる<br>deploy →</div>
+    <div class="n c-place"><b>置き場</b><b class="small">Service＝いつも開いている窓口</b><span class="small">業者コンソール・名義人ページ・運用コンソール</span><b class="small">Job＝呼ばれたら走って終わる係</b><span class="small">段2〜の係・重い作業の係・PayPay・LP 支払い</span></div>
+    <div class="to">走る<br>run →</div>
+    <div class="n c-auto"><b>動いている本番</b>夜中も人がいない所で動く</div>
+  </div>
+  <p class="small">世の中の呼び名: <b>12-Factor App の「build・release・run を分ける」</b>。走る段は人がいない時間に自動で動くので、そこで壊れる余地を一番小さくする。一度作った箱は書き換えず、変えるときは新しい箱を作る（<b>immutable</b>）。</p>
+</div>
+<p>今夜の事故はここで起きた。段2〜の係（Job）は自分の箱を持たず、運用コンソールが<b>いま使っている箱を借りて</b>いた。修正は着地していたのに運用コンソールの箱が古いままだったので、係も古いコードで3回動いた。</p>
+
+<h2>2. 箱の中は「層」になっている ― 作り直さない仕組み</h2>
+<div class="fig">
+  <div class="figt">図2　ブラウザの箱の中（下ほど変わりにくい）</div>
+  <div class="stackwrap">
+    <div class="stack">
+      <div class="layer L5 rebuild"><span>⑤ 箱ごとのコード（運用画面・Job の係）</span><span class="f">週 約130回変わる</span></div>
+      <div class="layer L4 rebuild"><span>④ 共有のコード（model.py など）</span><span class="f">週 約23回</span></div>
+      <div class="layer L3"><span>③ ライブラリ（pip で入れる部品）</span><span class="f">月に数回</span></div>
+      <div class="layer L2"><span>② ブラウザ（Chromium）</span><span class="f">数か月に1回</span></div>
+      <div class="layer L1"><span>① 土台（OS・Python）</span><span class="f">数か月に1回</span></div>
+    </div>
+    <div class="side">
+      <p><span class="k L5 rebuild"></span>点線＝この着地で作り直す層</p>
+      <p>④ の model.py が変わったら、④と⑤だけを作り直す。①〜③は<b>前の箱から使い回す</b>（<code>--cache-from</code>）。</p>
+      <p>決まり: 1つの層が変わると、その上は全部作り直し（Docker 公式）。だから変わりにくいものを下に置く。</p>
+    </div>
+  </div>
+  <p class="small">実測: 業者コンソールは使い回しで「作る」が35秒。運用コンソール（約1.4GB）は今は使い回しが無く約3分。段2で使い回しを入れる。</p>
+</div>
+<p>拓也の「変わらない部品はいちいち載せ直さなくて済むように」は、<b>この層の使い回しで実現する</b>。箱を細かく割らなくても、変わらない層（ブラウザ・ライブラリ）は作り直されない。なお「載せる」こと自体は安くて安全（新しい版が起動しなければ前の版のまま）。高くつくのは「作る」方。</p>
+
+<h2>3. 箱を細かく割ると何が起きるか</h2>
+<div class="fig">
+  <div class="figt">図3　model.py を1回直したとき</div>
+  <div class="two">
+    <div class="col c-place"><b>要る道具で3つ（決めた形）</b>
+      <div class="boxrow"><span class="mini c-box">軽い箱</span><span class="mini c-box">ブラウザの箱</span></div>
+      <p class="small">model.py が入る箱は2つ。どちらも同じコミットから作り、その箱の置き場すべてに同じ版を載せる。作り終わる時刻の差は1〜2分。</p>
+    </div>
+    <div class="col c-bad"><b>機能ごとに10個に割った形</b>
+      <div class="boxrow"><span class="mini c-box">業者</span><span class="mini c-box">名義人A</span><span class="mini c-box">名義人B</span><span class="mini c-box">画面</span><span class="mini c-box">作業</span><span class="mini c-box">段2</span><span class="mini c-box">申込</span><span class="mini c-box">回線</span><span class="mini c-box">LP</span><span class="mini c-box">PayPay</span></div>
+      <p class="small">10個を作り直す。作り終わる時刻がばらばらで、その間は新旧が混ざる（今夜の事故の型）。作る時間は10倍近くになり、無料枠（月2,500分）を超える。</p>
+    </div>
+  </div>
+  <p class="small">世の中の呼び名: <b>分散モノリス（distributed monolith）</b>＝分けたのに一緒にしか変えられない状態。Sam Newman は「一番悪い形」と呼ぶ。Martin Fowler は「2つが繰り返し一緒に変わるなら1つに戻せ」「まず1つで始めよ（Monolith First）」。</p>
+</div>
+<div class="callout c-place"><b>今夜の事故を消すのは箱の数ではない。</b>「同じコミットから作った同じ版を、その箱の置き場すべてに載せる」決まりが消す。箱の数はこれとは別の話。</div>
+
+<h2>4. 箱を分ける理由は1つだけ ― 要る道具</h2>
+<div class="fig">
+  <div class="figt">図4　分ける理由と、それを持つ場所</div>
+  <table>
+    <tr><th>分ける理由</th><th>誰が持つか</th><th>MNP では</th></tr>
+    <tr><td>要る道具が違う（Python だけ／ブラウザ／電話の道具）</td><td><b>箱</b></td><td>箱が3つに分かれる理由はこれだけ</td></tr>
+    <tr><td>誰に見せるか・権限（ログインの門・鍵・保存先）</td><td><b>置き場</b>（Service の設定）</td><td>同じ箱でも、置き場ごとに別の権限を持てる</td></tr>
+    <tr><td>いつ出すか</td><td><b>トリガー</b>（変わったファイル）</td><td>箱ごとに自動で起きる</td></tr>
+  </table>
+  <div class="boxes3">
+    <div class="bx"><b>軽い箱</b>Python だけ
+      <ul><li>業者コンソール</li><li>名義人ページ（今の URL）</li><li>名義人ページ（前に渡した URL）</li></ul>
+      <span class="small">1つの箱を入口違いで3か所に（今は2つの箱 → 1つに統合）</span></div>
+    <div class="bx"><b>ブラウザの箱</b>Chromium 入り
+      <ul><li>運用コンソール</li><li>重い作業の係</li><li>段2〜の係（申込を進める本体）</li></ul>
+      <span class="small">借りるのをやめ、同じ版を3か所に同時に</span></div>
+    <div class="bx"><b>電話の箱</b>adb・Tailscale 入り
+      <ul><li>端末の見張り</li><li>LP 支払い（Google Pay）</li><li>PayPay 読み手</li></ul>
+      <span class="small">今は3つが別々の版で動いている → そろえる</span></div>
+  </div>
+  <p class="small">世の中の呼び名: 同じ箱を入口違いで走らせるのは 12-Factor の <b>process types</b>（Heroku の Procfile の web／worker）。普通のやり方。</p>
+</div>
+
+<h2>5. ブラウザが要る・要らないの線</h2>
+<div class="fig">
+  <div class="figt">図5　MNP の段ごとに</div>
+  <div class="two">
+    <div class="col c-box"><b>ブラウザが要る</b>
+      <ul><li>LinksMate の画面を操作する段（新規の申込・回線の追加・予約番号の発行・本人確認の画面）</li><li>運用コンソールの画面から係を起こす所</li></ul>
+    </div>
+    <div class="col c-place"><b>要らない</b>
+      <ul><li>メールを読む・保存先の読み書き・業者や名義人への知らせ</li><li>LP 支払い（Pixel の Google Pay）・本人確認の撮影（名義人の端末）</li><li>転送の承認（HTTP の取得と送信だけで済んでいる）</li></ul>
+    </div>
+  </div>
+</div>
+<table>
+  <tr><th>問い</th><th>答え</th><th>理由</th></tr>
+  <tr><td>Chromium でないとダメか</td><td>Chromium のまま</td><td>使っている patchright（人らしく見せる版の Playwright）は Chromium 専用。今の箱には使っていない Firefox・WebKit・2本目の Chromium が入っている（約220MB）→ 段2の後に外す。ただし軽い「headless shell」版はローチケが入口で弾いた実測がある＝本物の Chromium は残す</td></tr>
+  <tr><td>ブラウザ無しで申込を通せるか</td><td>今はしない</td><td>画面に CAPTCHA は無いので技術的には不可能ではない。ただ bot-lab は「普通の人に見える」こと（人の打鍵・マウスの動き）に投資してきた。HTTP を直接叩くと通信の指紋や JS の実行の有無で見え方が変わる＝測っていない賭け</td></tr>
+  <tr><td>箱を軽くすると速く起動するか</td><td>しない</td><td>Cloud Run 公式: 箱の大きさは起動時間に影響しない。軽くして得するのは「作る」時間と置き場の容量</td></tr>
+</table>
+
+<h2>6. 着地 → 本番（決めた形）</h2>
+<div class="fig">
+  <div class="figt">図6　人が撃たない載せ方（段1で業者コンソールは実際に動いた）</div>
+  <div class="flow">
+    <div class="n c-code"><b>1 着地</b>master に入る</div>
+    <div class="to">→</div>
+    <div class="n c-auto"><b>2 関係する箱だけ起きる</b><span class="small">中に入れるファイルの一覧は Dockerfile から機械で作る</span></div>
+    <div class="to">→</div>
+    <div class="n c-auto"><b>3 作る</b><span class="small">層を使い回す</span></div>
+    <div class="to">→</div>
+    <div class="n c-auto"><b>4 試す</b><span class="small">赤なら止めて Discord へ即知らせ</span></div>
+    <div class="to">→</div>
+    <div class="n c-auto"><b>5 柵</b><span class="small">いま載っている方が新しければ載せない</span></div>
+    <div class="to">→</div>
+    <div class="n c-place"><b>6 全部の置き場へ同じ版</b><span class="small">Job は指紋（digest）で指す</span></div>
+    <div class="to">→</div>
+    <div class="n c-place"><b>7 確かめる</b><span class="small">新しい版が起動したか。違えばやり直す</span></div>
+  </div>
+  <p class="small">実測（段1・業者コンソール）: 着地 01:59:11 → ビルド開始 +31秒 → 本番で新しい版が動く 02:01:18。<b>2分07秒</b>。docs だけの着地では起きないことも確かめた。<br>保険: 1時間に1回クラウドの見張りが、各箱の最新のビルドと載っている版を比べ、ずれていれば作り直しを起こす（PC が寝ていても回る）。</p>
+</div>
+<p><b>Job は指紋で指す理由</b>: Service は載せたときに版名を指紋に固定するが、Job は<b>走るたびに</b>版名を引き直す（Cloud Run 公式）。しかも同じコミットから作り直すと指紋が変わることを今夜実測した。版名で指すと、次に走ったとき黙って別の箱を引きうる。</p>
+
+<h2>7. critic が見つけた、設計図の外の穴</h2>
+<div class="callout c-bad"><b>① 失敗が無音</b>　試験が赤だと本番には載らないが、誰にも知らされない。→ 段1.5 で、失敗・柵で止まった・判定できなかった を Discord に即知らせる。</div>
+<div class="callout c-bad"><b>② PC の係の遅れ</b>　PC で動く係の多くは走るたびに最新を取り込むが、LinksMate の転送の押し出し係は <b>433コミット遅れ</b>のまま数分おきに動いている。誰も使っていない古い checkout も残っている。→ 別の票で直す。</div>
+<div class="callout c-bad"><b>③ お金を払う係が版ばらばら</b>　電話の箱には LP 支払い（Google Pay）の係が乗っていて、同じ箱の3つの係が<b>3つの別の版</b>で動いている。→ 段3-D でそろえる。自動で新しい版に入れ替わるようになるが、払ってよい条件（額の範囲）は変わらない。</div>
+
+<h2>8. これからの段</h2>
+<table>
+  <tr><th>段</th><th>やること</th><th>順番</th></tr>
+  <tr><td>1</td><td>GitHub と Google Cloud をつなぎ、業者コンソールを自動に</td><td>済（2分07秒）</td></tr>
+  <tr><td>1.5</td><td>共通の門: 手順を1枚にまとめる・失敗を Discord へ・柵を強くする・止めたいときのブレーキ</td><td>次（これだけ先）</td></tr>
+  <tr><td>2</td><td>ブラウザの箱: 運用コンソール・重い作業の係・段2〜の係を同じ版で。借りるのをやめる。層の使い回し</td><td rowspan="3">1.5 の後に3つ同時</td></tr>
+  <tr><td>3-AB</td><td>軽い箱: 業者コンソールと名義人ページを1つの箱に</td></tr>
+  <tr><td>3-D</td><td>電話の箱: 3つの係を同じ版で。repo 全部を入れるのをやめる</td></tr>
+  <tr><td>4</td><td>クラウドの見張り（毎時・ずれたら自分で直す）。deploy.sh は「設定を変える専用＋緊急用」に</td><td>2・3 の後</td></tr>
+  <tr><td>別</td><td>PC の係の取り込み／共有データの形の番人（古い形を新しいコードで読めるか）／ブラウザの箱を軽くする</td><td>今すぐ（軽くするのは2の後）</td></tr>
+</table>
+<p><b>費用</b>: 見込みは月1,700〜2,400分で、無料枠2,500分の内側だが余白は薄い。超えても1,000分あたり約900円で、承認済みの月1,000円の内。軽い箱を1つにすると名義人ページの作り直しが消えて月200〜300分減る。予算の知らせ（50%・90%・100%）は張ってある。<br><b>名義人ページ</b>は業者コンソールと同じ箱になるので、業者コンソールの着地のたびに入れ替わる（1日数回）。中に記録を持たないページなので、使う人から見た動きは変わらない。</p>
+
+<h2>9. critic との往復</h2>
+<div class="fig">
+  <div class="figt">まだ合意できていない点の数</div>
+  <div class="conv"><div class="bar" style="height:62%">5</div><div class="bar" style="height:87%">7</div><div class="bar" style="height:22px">0</div></div>
+  <div class="conv lab" style="height:auto"><div>1往復目</div><div>2往復目</div><div>3往復目</div></div>
+  <p class="small">2往復目で増えたのは、論点が細かく割れたから（大きな異論が減り、細部の選び方が並んだ）。前任の設計の骨（箱ごとの自動・中に入れる一覧は Dockerfile から機械で作る・版名はコミット・柵3つ・箱は3つ）は保たれた。</p>
+</div>
+<details><summary>critic の指摘で変わった点（18）</summary>
+<ol class="small">
+<li>「1本の流れで全部作り、指紋が変わった箱だけ載せる」案を捨てた（中身が同じでも指紋が変わると実測・費用も月約2,200分増）</li>
+<li>失敗の知らせを段1.5 に前倒し。形は新しいサービスを立てず、手順の中から Discord の webhook へ。鍵は bot の全権の鍵でなく、1チャンネルに書けるだけの webhook</li>
+<li>柵の手順を1つのファイルに（段2・3がコピーして門が4つに分かれる前に）</li>
+<li>柵を「読み直す」でなく「載せた後に確かめて、古ければやり直す」形に（並走で古い方が勝つ隙間を閉じる）</li>
+<li>柵が見る「いま載っている版」を、起動に成功した版から読む（同じ repo に既に注記があった罠）</li>
+<li>柵が判定できなかったときに印を出して知らせる（壊れた門が成功に見えない）</li>
+<li>Job は差し替えても起動の検査が無い＝載せる前に箱の中で各入口を読み込んでみる</li>
+<li>Job は指紋で指す</li>
+<li>電話の箱の置き場に LP 支払いの係を名指し</li>
+<li>PC の係を版ずれの場所として数える（別票）</li>
+<li>フォルダごと入れる行は「フォルダ/**」で見張ってよい、を規則に</li>
+<li>軽い箱の統合を費用の根拠でも裏づけ（月200〜300分）／費用の余白が薄いことを明記</li>
+<li>見張りを「鳴る」から「自分で直す」へ</li>
+<li>止めたいときのブレーキ（サービスに印を付けると自動で載せない）と、戻すのは「git で元に戻す着地」が正、を明文化</li>
+<li>箱ごとの設定ファイルを分け、段2・3を同時に撒けるように</li>
+<li>ブラウザ無しの申込を見送る根拠を「測る前に対策しない」に結んだ</li>
+<li>見張りは git を持たず、ビルドの記録・載っている版・GitHub の比較で前後を決める（同じ版を6時間に1回までしか撃ち直さない）</li>
+<li>箱の中のメモリ上の記録は入れ替わりで消える前提、を明文化</li>
+</ol>
+<p class="small">critic の側が引いた点: 「箱を軽くすると起動が速くなる」（Cloud Run では無関係）／「** は禁止」（推奨だった）／無料枠の数え方（月2,500分）。</p>
+</details>
+
+<h2>10. 言葉の一覧（世の中の呼び名）</h2>
+<table>
+  <tr><th>呼び名</th><th>一言</th><th>出どころ</th></tr>
+  <tr><td class="word">image（箱）・layer（層）</td><td>箱は層の重なり。変わった層から上だけ作り直す</td><td><a href="https://docs.docker.com/build/cache/">Docker 公式</a></td></tr>
+  <tr><td class="word">tag（版名）・digest（指紋）</td><td>版名は人が付ける名札、指紋は中身から決まる番号</td><td><a href="https://docs.cloud.google.com/run/docs/deploying">Cloud Run 公式</a></td></tr>
+  <tr><td class="word">build・release・run</td><td>作る・出す・走るを分ける</td><td><a href="https://12factor.net/build-release-run">12-Factor App</a></td></tr>
+  <tr><td class="word">process types</td><td>同じ箱を入口違いで走らせる</td><td><a href="https://12factor.net/concurrency">12-Factor App</a></td></tr>
+  <tr><td class="word">build once, deploy many</td><td>1回作った同じ箱を全部の置き場に</td><td><a href="https://dora.dev/capabilities/deployment-automation/">DORA（Google）</a></td></tr>
+  <tr><td class="word">Monolith First</td><td>まず1つで始め、境界が見えてから分ける</td><td><a href="https://martinfowler.com/bliki/MonolithFirst.html">Martin Fowler</a></td></tr>
+  <tr><td class="word">distributed monolith</td><td>分けたのに一緒にしか変えられない状態</td><td><a href="https://www.infoq.com/news/2020/05/monolith-decomposition-newman/">Sam Newman</a></td></tr>
+  <tr><td class="word">version skew</td><td>部品ごとの版がずれている期間の食い違い</td><td><a href="https://kubernetes.io/releases/version-skew-policy/">Kubernetes</a></td></tr>
+  <tr><td class="word">parallel change</td><td>データの形を変えるときは、読む側を先に出し書く側を後に</td><td><a href="https://martinfowler.com/bliki/ParallelChange.html">Martin Fowler</a></td></tr>
+  <tr><td class="word">affected builds</td><td>変わったファイルに関係するものだけ作る。一覧の取りこぼしが最大の落とし穴</td><td><a href="https://nx.dev/concepts/affected">Nx</a>・<a href="https://docs.cloud.google.com/build/docs/automating-builds/create-manage-triggers">Cloud Build</a></td></tr>
+  <tr><td class="word">Service・Job・revision</td><td>窓口・係・置き場ごとの版の履歴（前の版へすぐ戻せる）</td><td><a href="https://docs.cloud.google.com/run/docs/managing/revisions">Cloud Run 公式</a></td></tr>
+</table>
+<p class="meta">拓也に決めてもらうこと: なし（課金は 01:09 承認の月1,000円の範囲。箱を3つにそろえるのは技術の整理で、使う人から見た動きは変わらない）。</p>
+</main>
+</body>
+</html>
