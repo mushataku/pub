@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>小票を速くする七つの語彙</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1f;--mu:#5d5d63;--ln:#c9c6bf;--card:#f1efe9;--acc:#2f6fb3;--acc-bg:#e3eefa;--c2:#b7791f;--c3:#2f855a;--red:#c53030;--red-bg:#fdecec;--on:#ffffff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#16171a;--fg:#e8e6e1;--mu:#a3a19b;--ln:#4a4a50;--card:#222328;--acc:#7fb2ec;--acc-bg:#1f3048;--c2:#e3a64a;--c3:#68c38f;--red:#f07b7b;--red-bg:#3a2224;--on:#0e1520}}
+:root[data-theme="dark"]{--bg:#16171a;--fg:#e8e6e1;--mu:#a3a19b;--ln:#4a4a50;--card:#222328;--acc:#7fb2ec;--acc-bg:#1f3048;--c2:#e3a64a;--c3:#68c38f;--red:#f07b7b;--red-bg:#3a2224;--on:#0e1520}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif;line-height:1.85;font-size:16px}
+main{max-width:42rem;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.55rem;line-height:1.4;margin:.2em 0 .2em}
+.date{color:var(--mu);font-size:.9rem;margin:0 0 1.2em}
+h2{font-size:1.25rem;line-height:1.45;margin:2.4em 0 .6em;padding-top:.6em;border-top:2px solid var(--ln);scroll-margin-top:12px}
+h2.plain{border-top:none}
+h2 .num{display:inline-block;min-width:1.6em;color:var(--acc)}
+h2 .en{display:block;font-size:.85rem;font-weight:500;color:var(--mu)}
+h3{font-size:.98rem;margin:1.5em 0 .3em;color:var(--acc)}
+p{margin:.5em 0}
+ul{padding-left:1.3em;margin:.4em 0}
+li{margin:.25em 0}
+a{color:var(--acc);overflow-wrap:anywhere;word-break:break-word}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--card);padding:.05em .35em;border-radius:4px;overflow-wrap:anywhere}
+.lead{background:var(--card);border-radius:10px;padding:14px 16px}
+.tbl{width:100%;overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.86rem;line-height:1.55}
+th,td{border-bottom:1px solid var(--ln);padding:6px 6px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+th{color:var(--mu);font-weight:600}
+nav ol{padding-left:1.4em}
+figure{margin:.6em 0;background:var(--card);border-radius:10px;padding:10px}
+figure svg{display:block;width:100%;max-width:640px;height:auto;margin:0 auto}
+figcaption{font-size:.84rem;color:var(--mu);margin-top:6px;line-height:1.6}
+.q{font-weight:600}
+details{border:1px solid var(--ln);border-radius:8px;padding:6px 12px;margin:.4em 0}
+summary{cursor:pointer;color:var(--acc);font-weight:600;min-height:32px;display:flex;align-items:center}
+.ans{padding:4px 0 6px}
+.src li{font-size:.92rem}
+footer{margin-top:3em;color:var(--mu);font-size:.84rem}
+svg .t{fill:var(--fg)} svg .s{font-size:12px} svg .xs{font-size:10.5px} svg .b{font-weight:700}
+svg .mu{fill:var(--mu)} svg .on{fill:var(--on)}
+svg .ln{stroke:var(--ln);stroke-width:1.2;fill:none} svg .dash{stroke-dasharray:5 4} svg .thick{stroke-width:2.6}
+svg .hl{fill:var(--acc-bg);stroke:none}
+svg .card{fill:var(--bg);stroke:var(--mu);stroke-width:1} svg .card.acc{fill:var(--acc);stroke:var(--acc)}
+svg .cv{fill:none;stroke-width:1.8} svg .c1{stroke:var(--acc)} svg .c2{stroke:var(--c2)} svg .c3{stroke:var(--c3)}
+svg .c1t{fill:var(--acc)} svg .c2t{fill:var(--c2)} svg .c3t{fill:var(--c3)}
+svg .dot1{fill:var(--acc)}
+svg .arw{stroke:var(--mu);stroke-width:1.4;fill:none} svg .arwh{fill:var(--mu)}
+svg .box{fill:var(--bg);stroke:var(--ln);stroke-width:1.2} svg .hlbox{fill:var(--acc-bg);stroke:var(--acc)} svg .redbox{fill:var(--red-bg);stroke:var(--red)}
+svg .grp{fill:none;stroke:var(--ln);stroke-dasharray:4 3}
+svg .tier1{fill:var(--acc-bg);stroke:var(--acc)} svg .tier2{fill:var(--card);stroke:var(--c2)} svg .tier3{fill:var(--card);stroke:var(--c3)}
+svg .bar1{fill:var(--acc)} svg .bar2{fill:var(--mu);opacity:.55} svg .bar3{fill:var(--red)}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>小票を速くする七つの語彙</h1>
+<p class="date">2026年10月14日（水）</p>
+</header>
+
+<section class="lead" id="why">
+<p>これは、八時間と百三十六コミットの振り返りから選んだ七つの語彙です。</p>
+<p>10月14日、recruit の架電コンソール改修は 10:46 から 18:40 までの約8時間、コミット136本、票は十数本かかりました。中身の修正はどれも数分で、時間の大半は1票ごとの固定費（指示書・子の起動の列待ち・worktree・押し試験・critic・報告書・クラウドと PC の2周・Cloud Build の見届け）に消えています。</p>
+<p>その日に決めた3つ（人間なら2〜3分の修正は15分を上限の目安に／小票は critic と押し試験を省き、戻しを即時にして守る／子を起こさず司令塔が直す）は、世の中では既に名前のついた考え方です。設計の対話で同じ言葉を使えるように、先にその名前を7つ渡しておきます。各章の終わりに1問ずつ確かめの問いを置きました。</p>
+</section>
+
+<h2 id="map" class="plain"><span class="num">◆</span>対応表</h2>
+<p>左が自分たちの言い方、真ん中が世の中の名前です。右の列は設計のどちらを動かすかの目安で、(A) は repo を問わない票1本ごとの固定費、(B) は画面の票に固有の話です。</p>
+<div class="tbl"><table>
+<thead><tr><th>#</th><th>自分たちの言い方</th><th>世の中の名前</th><th>動かす所</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>小票・<code>[小]</code> の軽量パス</td><td>Expedite lane / Classes of Service</td><td>(A)</td></tr>
+<tr><td>2</td><td>固定費・儀式・束ねる</td><td>Transaction cost vs Batch size</td><td>(A)</td></tr>
+<tr><td>3</td><td>着地・戻し</td><td>Trunk-based development / DORA 4 keys</td><td>(A)</td></tr>
+<tr><td>4</td><td>押し試験・critic を省く</td><td>Risk-based testing / Tiered CI / Test impact analysis</td><td>(A)・画面の対応表は (B)</td></tr>
+<tr><td>5</td><td>描画を見る往復</td><td>Hot reload / Live preview / Component isolation</td><td>(B)</td></tr>
+<tr><td>6</td><td>golden の更新・再生成</td><td>Snapshot / Approval testing / Visual regression</td><td>(B)</td></tr>
+<tr><td>7</td><td>並走・同じファイル</td><td>Merge contention / WIP limit</td><td>(A)・同じ画面ファイルは (B)</td></tr>
+</tbody></table></div>
+
+<nav aria-label="目次">
+<h2 id="toc" class="plain"><span class="num">◆</span>目次</h2>
+<ol>
+<li><a href="#ch1">Expedite lane / Classes of Service</a></li>
+<li><a href="#ch2">Transaction cost vs Batch size</a></li>
+<li><a href="#ch3">Trunk-based development / DORA 4 keys</a></li>
+<li><a href="#ch4">Risk-based testing / Tiered CI / Test impact analysis</a></li>
+<li><a href="#ch5">Hot reload / Live preview / Component isolation</a></li>
+<li><a href="#ch6">Snapshot / Approval testing / Visual regression</a></li>
+<li><a href="#ch7">Merge contention / WIP limit</a></li>
+<li><a href="#final">終章：7つの関係と読む順</a></li>
+</ol>
+</nav>
+
+<section class="ch" id="ch1">
+<h2><span class="num">1</span>Expedite lane / Classes of Service<span class="en">仕事のクラス分け</span></h2>
+<h3>① 定義</h3><p>仕事を「遅れたときにどんな形で損をするか」で数クラスに分け、クラスごとに<strong>入場条件</strong>・<strong>流し方（どの検査を省くか）</strong>・<strong>同時進行の上限（WIP）</strong>を変える考え方です。全部の仕事を同じ儀式で流すのをやめて、損失の形が違う仕事には違う道を用意する。</p>
+<p>カンバン方式を広めた Anderson は代表的な4クラスを挙げています。Expedite（遅れると即座に大きく損をする。同時1本だけ、全員が手を止めて通す）、Fixed date（期日を過ぎると損が跳ねる）、Standard（遅れるほどじわじわ損をする）、Intangible（今は損が見えないが、放置すると後で損として表に出る）。小票の設計で一番大事な「小票の定義」は、この語彙でいえば<strong>クラスの入場条件</strong>そのものです。</p>
+<h3>② 出典</h3><ul class="src"><li>David J. Anderson『Kanban: Successful Evolutionary Change for Your Technology Business』Blue Hole Press, 2010（Classes of Service を扱う章）</li><li>Kanban University「The Official Kanban Guide」 <a href="https://kanban.university/kanban-guide/">https://kanban.university/kanban-guide/</a>（Classes of Service 単独の公式解説ページの URL は [未到達]）</li></ul>
+<h3>③ 定石・代表ツール</h3><ul><li>カンバン盤にクラスごとの横レーン（swimlane）を引き、レーンごとに WIP 上限を書く</li><li>Expedite は同時1本。入ったら他の仕事を止めてでも通す</li><li>クラスごとに「どの検査を通すか」を明文化する（Expedite は事後確認に回す、など）</li><li>入場条件は事前に決め、票を切る人がその場で判断しないで済むようにする</li></ul>
+<h3>④ 自分たちの型との差</h3><p>いまは全票が同じ儀式を通っています。クラスが1つしか無い状態です。2026-09-20 に入った <code>[小]</code> の軽量パス（変更対象3本以下・新規モジュール無し・<strong>deploy 無し</strong>・番人系でない）は2クラス目の芽ですが、「deploy 無し」が入場条件に入っているので、本番デプロイを伴う画面の票は1本も入れません。架電コンソールの小さな直しは全部ここで弾かれ、Standard と同じ道を通りました。</p>
+<h3>⑤ 物理の同型</h3><p>エネルギー準位を1つ増やす話に近いです。系の平均的な振る舞いはほとんど変わらないまま、新しい準位に入れた小さな仕事の待ち時間だけが桁で縮む。待ちは Little の法則 W=L/λ で決まるので、小票専用のレーンで L を小さく保てば、そのレーンの W だけが小さくなります。</p>
+<h3>⑥ 図</h3><figure>
+<svg viewBox="0 0 360 236" role="img" aria-labelledby="f1t">
+<title id="f1t">クラス別レーンのあるカンバン盤</title>
+<g class="t s">
+<text x="96" y="16">待ち</text><text x="168" y="16">作業中</text><text x="246" y="16">検査</text><text x="314" y="16">着地</text>
+</g>
+<text class="t xs mu" x="168" y="29">WIP 上限 4</text>
+<line class="ln" x1="72" y1="34" x2="356" y2="34"/>
+<rect class="hl" x="2" y="38" width="354" height="46" rx="6"/>
+<text class="t s b" x="6" y="58">Expedite</text><text class="t xs" x="6" y="74">同時1本</text>
+<rect class="card acc" x="146" y="46" width="44" height="28" rx="4"/><text class="t xs on" x="152" y="64">障害</text>
+<text class="t xs" x="226" y="64">検査は省く</text>
+<line class="ln dash" x1="72" y1="88" x2="356" y2="88"/>
+<text class="t s b" x="6" y="108">Fixed</text><text class="t xs" x="6" y="122">期日あり</text>
+<rect class="card" x="82" y="96" width="40" height="24" rx="4"/>
+<rect class="card" x="152" y="96" width="40" height="24" rx="4"/>
+<line class="ln dash" x1="72" y1="132" x2="356" y2="132"/>
+<text class="t s b" x="6" y="152">Standard</text><text class="t xs" x="6" y="166">ふつう</text>
+<rect class="card" x="78" y="140" width="40" height="24" rx="4"/>
+<rect class="card" x="146" y="140" width="40" height="24" rx="4"/>
+<rect class="card" x="230" y="140" width="40" height="24" rx="4"/>
+<line class="ln dash" x1="72" y1="176" x2="356" y2="176"/>
+<text class="t s b" x="6" y="196">Intangible</text><text class="t xs" x="6" y="210">急がない</text>
+<rect class="card" x="78" y="184" width="40" height="24" rx="4"/>
+<rect class="card" x="122" y="184" width="0" height="0"/>
+<rect class="card" x="150" y="184" width="40" height="24" rx="4"/>
+<line class="ln" x1="72" y1="34" x2="72" y2="226"/><line class="ln" x1="140" y1="34" x2="140" y2="226"/>
+<line class="ln" x1="216" y1="34" x2="216" y2="226"/><line class="ln" x1="290" y1="34" x2="290" y2="226"/>
+</svg><figcaption>図1　クラスごとのレーンと WIP 上限。Expedite レーンは同時1本で、検査を省いて通す。</figcaption></figure>
+<h3>⑦ 自己検査の1問</h3><p class="q">deploy 無しを条件から外し、本番デプロイを伴う小さな画面の直しを Expedite 側に入れたい。入場条件を決める以外に、何をセットで決めないと危ないか。</p>
+<details><summary>答えを開く</summary><div class="ans"><p>そのクラスの<strong>流し方</strong>と<strong>WIP 上限</strong>です。入場条件だけ決めて検査を省くと、壊れたときの守りが無くなります。Expedite は「同時1本」と「壊れたら即座に戻せる」がセットで初めて成り立ちます。戻しの装置は第3章の話です。</p></div></details>
+</section>
+<section class="ch" id="ch2">
+<h2><span class="num">2</span>Transaction cost vs Batch size<span class="en">取引コストとバッチの大きさ</span></h2>
+<h3>① 定義</h3><p>一度にまとめて流す仕事の量（バッチ）の最適な大きさは、2つのコストの和が最小になる所で決まります。1回流すたびに掛かる固定費＝<strong>取引コスト</strong>（段取り・起動・検査・報告・デプロイ）と、溜めておくことで生じる<strong>保持コスト</strong>（待ち・在庫・フィードバックの遅れ）。前者はバッチを大きくすると1件あたりが薄まり、後者はバッチを大きくすると膨らむので、和は U 字になります。</p>
+<p>大事なのは帰結のほうで、<strong>固定費が高いほど最適バッチは大きくなる</strong>。だから「小さく流したい」なら、まず取引コストを下げる。製造業の段取り替え短縮（SMED）がまさにこれで、段取りを短くしたから小ロット生産が採算に乗りました。在庫理論の経済的発注量（EOQ）も同じ式の形をしています。</p>
+<h3>② 出典</h3><ul class="src"><li>Donald G. Reinertsen『The Principles of Product Development Flow: Second Generation Lean Product Development』Celeritas Publishing, 2009（Batch Size の章）</li><li>Economic order quantity（EOQ） <a href="https://en.wikipedia.org/wiki/Economic_order_quantity">https://en.wikipedia.org/wiki/Economic_order_quantity</a></li><li>Single-minute exchange of die（SMED） <a href="https://en.wikipedia.org/wiki/Single-minute_exchange_of_die">https://en.wikipedia.org/wiki/Single-minute_exchange_of_die</a></li></ul>
+<h3>③ 定石・代表ツール</h3><ul><li>固定費の内訳を書き出し、1つずつ「省く・並行にする・自動にする」を当てる（SMED の内段取り／外段取りの切り分け）</li><li>バッチを大きくして固定費を薄める手は、保持コストが見えにくいので過大評価されやすいと知っておく</li><li>Little の法則 W=L/λ で待ちの量を見積もる</li></ul>
+<h3>④ 自分たちの型との差</h3><p>10-14 に取った対処は「同じファイルの小改修は束ねて1票に」でした。これは U 字の上で<strong>最適バッチを大きくする側</strong>に動いたことになります。Reinertsen 流なら逆で、固定費そのものを削る。いまの固定費は、指示書を書く・子の起動の列待ち（90秒間隔で1本ずつの排他なので十数分）・worktree・押し試験の全部回し・critic・9節の報告書・クラウドで exit 17 を受けて PC で2周目・Cloud Build の見届け、が1票ごとに乗っています。中身の修正が数分なのに8時間かかった理由はここに集まっています。</p>
+<h3>⑤ 物理の同型</h3><p>2つの寄与の和の極小を取る形は物理でおなじみです。片方の係数を下げると極小点が動く。ここでは取引コストの係数を下げると極小点が小バッチ側へ滑り、極小値そのものも下がります（図2の破線）。束ねる対処は「係数はそのままで、極小点に合わせて座る位置を変えた」だけで、ポテンシャルの形は変わっていません。</p>
+<h3>⑥ 図</h3><figure>
+<svg viewBox="0 0 360 214" role="img" aria-labelledby="f2t">
+<title id="f2t">取引コストと保持コストの和はU字になり、取引コストを下げると極小点が左へ動く</title>
+<defs><marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="arwh" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<line class="ln" x1="44" y1="176" x2="346" y2="176"/><line class="ln" x1="44" y1="20" x2="44" y2="176"/>
+<text class="t xs" x="250" y="194">バッチの大きさ →</text>
+<text class="t xs" x="4" y="16">コスト</text>
+<path class="cv c2" d="M44.0,172.4 L47.1,171.7 L50.2,171.0 L53.3,170.2 L56.5,169.5 L59.6,168.8 L62.7,168.1 L65.8,167.4 L68.9,166.6 L72.0,165.9 L75.2,165.2 L78.3,164.5 L81.4,163.8 L84.5,163.0 L87.6,162.3 L90.7,161.6 L93.9,160.9 L97.0,160.2 L100.1,159.4 L103.2,158.7 L106.3,158.0 L109.4,157.3 L112.5,156.6 L115.7,155.8 L118.8,155.1 L121.9,154.4 L125.0,153.7 L128.1,153.0 L131.2,152.2 L134.4,151.5 L137.5,150.8 L140.6,150.1 L143.7,149.4 L146.8,148.6 L149.9,147.9 L153.1,147.2 L156.2,146.5 L159.3,145.8 L162.4,145.0 L165.5,144.3 L168.6,143.6 L171.7,142.9 L174.9,142.2 L178.0,141.4 L181.1,140.7 L184.2,140.0 L187.3,139.3 L190.4,138.6 L193.6,137.8 L196.7,137.1 L199.8,136.4 L202.9,135.7 L206.0,135.0 L209.1,134.2 L212.3,133.5 L215.4,132.8 L218.5,132.1 L221.6,131.4 L224.7,130.6 L227.8,129.9 L230.9,129.2 L234.1,128.5 L237.2,127.8 L240.3,127.0 L243.4,126.3 L246.5,125.6 L249.6,124.9 L252.8,124.2 L255.9,123.4 L259.0,122.7 L262.1,122.0 L265.2,121.3 L268.3,120.6 L271.5,119.8 L274.6,119.1 L277.7,118.4 L280.8,117.7 L283.9,117.0 L287.0,116.2 L290.1,115.5 L293.3,114.8 L296.4,114.1 L299.5,113.4 L302.6,112.6 L305.7,111.9 L308.8,111.2 L312.0,110.5 L315.1,109.8 L318.2,109.0 L321.3,108.3 L324.4,107.6 L327.5,106.9 L330.7,106.2 L333.8,105.4 L336.9,104.7 L340.0,104.0"/>
+<path class="cv c3" d="M53.3,32.0 L56.5,48.0 L59.6,60.8 L62.7,71.3 L65.8,80.0 L68.9,87.4 L72.0,93.7 L75.2,99.2 L78.3,104.0 L81.4,108.2 L84.5,112.0 L87.6,115.4 L90.7,118.4 L93.9,121.1 L97.0,123.6 L100.1,125.9 L103.2,128.0 L106.3,129.9 L109.4,131.7 L112.5,133.3 L115.7,134.9 L118.8,136.3 L121.9,137.6 L125.0,138.8 L128.1,140.0 L131.2,141.1 L134.4,142.1 L137.5,143.1 L140.6,144.0 L143.7,144.9 L146.8,145.7 L149.9,146.5 L153.1,147.2 L156.2,147.9 L159.3,148.6 L162.4,149.2 L165.5,149.8 L168.6,150.4 L171.7,151.0 L174.9,151.5 L178.0,152.0 L181.1,152.5 L184.2,153.0 L187.3,153.4 L190.4,153.8 L193.6,154.3 L196.7,154.7 L199.8,155.1 L202.9,155.4 L206.0,155.8 L209.1,156.1 L212.3,156.5 L215.4,156.8 L218.5,157.1 L221.6,157.4 L224.7,157.7 L227.8,158.0 L230.9,158.3 L234.1,158.5 L237.2,158.8 L240.3,159.1 L243.4,159.3 L246.5,159.5 L249.6,159.8 L252.8,160.0 L255.9,160.2 L259.0,160.4 L262.1,160.6 L265.2,160.8 L268.3,161.0 L271.5,161.2 L274.6,161.4 L277.7,161.6 L280.8,161.8 L283.9,162.0 L287.0,162.1 L290.1,162.3 L293.3,162.4 L296.4,162.6 L299.5,162.8 L302.6,162.9 L305.7,163.1 L308.8,163.2 L312.0,163.3 L315.1,163.5 L318.2,163.6 L321.3,163.7 L324.4,163.9 L327.5,164.0 L330.7,164.1 L333.8,164.2 L336.9,164.4 L340.0,164.5"/>
+<path class="cv c1 thick" d="M56.5,41.5 L59.6,53.6 L62.7,63.4 L65.8,71.4 L68.9,78.0 L72.0,83.6 L75.2,88.4 L78.3,92.5 L81.4,96.0 L84.5,99.0 L87.6,101.7 L90.7,104.0 L93.9,106.0 L97.0,107.8 L100.1,109.4 L103.2,110.7 L106.3,111.9 L109.4,113.0 L112.5,113.9 L115.7,114.7 L118.8,115.4 L121.9,116.0 L125.0,116.5 L128.1,117.0 L131.2,117.3 L134.4,117.6 L137.5,117.9 L140.6,118.1 L143.7,118.2 L146.8,118.3 L149.9,118.4 L153.1,118.4 L156.2,118.4 L159.3,118.3 L162.4,118.2 L165.5,118.1 L168.6,118.0 L171.7,117.8 L174.9,117.6 L178.0,117.4 L181.1,117.2 L184.2,117.0 L187.3,116.7 L190.4,116.4 L193.6,116.1 L196.7,115.8 L199.8,115.5 L202.9,115.1 L206.0,114.7 L209.1,114.4 L212.3,114.0 L215.4,113.6 L218.5,113.2 L221.6,112.8 L224.7,112.4 L227.8,111.9 L230.9,111.5 L234.1,111.0 L237.2,110.6 L240.3,110.1 L243.4,109.6 L246.5,109.1 L249.6,108.7 L252.8,108.2 L255.9,107.7 L259.0,107.2 L262.1,106.6 L265.2,106.1 L268.3,105.6 L271.5,105.1 L274.6,104.5 L277.7,104.0 L280.8,103.5 L283.9,102.9 L287.0,102.4 L290.1,101.8 L293.3,101.2 L296.4,100.7 L299.5,100.1 L302.6,99.5 L305.7,99.0 L308.8,98.4 L312.0,97.8 L315.1,97.2 L318.2,96.7 L321.3,96.1 L324.4,95.5 L327.5,94.9 L330.7,94.3 L333.8,93.7 L336.9,93.1 L340.0,92.5"/>
+<path class="cv c3 dash" d="M44.0,118.4 L47.1,128.0 L50.2,134.9 L53.3,140.0 L56.5,144.0 L59.6,147.2 L62.7,149.8 L65.8,152.0 L68.9,153.8 L72.0,155.4 L75.2,156.8 L78.3,158.0 L81.4,159.1 L84.5,160.0 L87.6,160.8 L90.7,161.6 L93.9,162.3 L97.0,162.9 L100.1,163.5 L103.2,164.0 L106.3,164.5 L109.4,164.9 L112.5,165.3 L115.7,165.7 L118.8,166.1 L121.9,166.4 L125.0,166.7 L128.1,167.0 L131.2,167.3 L134.4,167.5 L137.5,167.8 L140.6,168.0 L143.7,168.2 L146.8,168.4 L149.9,168.6 L153.1,168.8 L156.2,169.0 L159.3,169.1 L162.4,169.3 L165.5,169.5 L168.6,169.6 L171.7,169.7 L174.9,169.9 L178.0,170.0 L181.1,170.1 L184.2,170.2 L187.3,170.4 L190.4,170.5 L193.6,170.6 L196.7,170.7 L199.8,170.8 L202.9,170.9 L206.0,170.9 L209.1,171.0 L212.3,171.1 L215.4,171.2 L218.5,171.3 L221.6,171.4 L224.7,171.4 L227.8,171.5 L230.9,171.6 L234.1,171.6 L237.2,171.7 L240.3,171.8 L243.4,171.8 L246.5,171.9 L249.6,171.9 L252.8,172.0 L255.9,172.1 L259.0,172.1 L262.1,172.2 L265.2,172.2 L268.3,172.3 L271.5,172.3 L274.6,172.4 L277.7,172.4 L280.8,172.4 L283.9,172.5 L287.0,172.5 L290.1,172.6 L293.3,172.6 L296.4,172.7 L299.5,172.7 L302.6,172.7 L305.7,172.8 L308.8,172.8 L312.0,172.8 L315.1,172.9 L318.2,172.9 L321.3,172.9 L324.4,173.0 L327.5,173.0 L330.7,173.0 L333.8,173.1 L336.9,173.1 L340.0,173.1"/>
+<path class="cv c1 dash thick" d="M44.0,114.8 L47.1,123.7 L50.2,129.8 L53.3,134.2 L56.5,137.5 L59.6,140.0 L62.7,141.9 L65.8,143.4 L68.9,144.5 L72.0,145.3 L75.2,146.0 L78.3,146.5 L81.4,146.8 L84.5,147.0 L87.6,147.2 L90.7,147.2 L93.9,147.2 L97.0,147.1 L100.1,146.9 L103.2,146.7 L106.3,146.5 L109.4,146.2 L112.5,145.9 L115.7,145.6 L118.8,145.2 L121.9,144.8 L125.0,144.4 L128.1,144.0 L131.2,143.5 L134.4,143.0 L137.5,142.6 L140.6,142.1 L143.7,141.6 L146.8,141.1 L149.9,140.5 L153.1,140.0 L156.2,139.5 L159.3,138.9 L162.4,138.3 L165.5,137.8 L168.6,137.2 L171.7,136.6 L174.9,136.0 L178.0,135.4 L181.1,134.8 L184.2,134.2 L187.3,133.6 L190.4,133.0 L193.6,132.4 L196.7,131.8 L199.8,131.2 L202.9,130.5 L206.0,129.9 L209.1,129.3 L212.3,128.6 L215.4,128.0 L218.5,127.4 L221.6,126.7 L224.7,126.1 L227.8,125.4 L230.9,124.8 L234.1,124.1 L237.2,123.5 L240.3,122.8 L243.4,122.1 L246.5,121.5 L249.6,120.8 L252.8,120.2 L255.9,119.5 L259.0,118.8 L262.1,118.2 L265.2,117.5 L268.3,116.8 L271.5,116.1 L274.6,115.5 L277.7,114.8 L280.8,114.1 L283.9,113.4 L287.0,112.8 L290.1,112.1 L293.3,111.4 L296.4,110.7 L299.5,110.0 L302.6,109.4 L305.7,108.7 L308.8,108.0 L312.0,107.3 L315.1,106.6 L318.2,105.9 L321.3,105.3 L324.4,104.6 L327.5,103.9 L330.7,103.2 L333.8,102.5 L336.9,101.8 L340.0,101.1"/>
+<circle class="dot1" cx="153.1" cy="118.4" r="4"/>
+<circle class="dot1" cx="90.7" cy="147.2" r="4"/>
+<path class="arw" d="M147.1,128.4 L98.7,151.2" marker-end="url(#ah2)"/>
+<text class="t xs c1t" x="210" y="40">和（U字）</text>
+<text class="t xs c2t" x="266" y="140">保持コスト</text>
+<text class="t xs c3t" x="58" y="40">取引コスト</text>
+<text class="t xs mu" x="196" y="58">破線＝取引コストを下げた後</text>
+<line class="ln" x1="90.7" y1="152.2" x2="70.7" y2="186"/><text class="t xs" x="40.7" y="198">新しい極小</text>
+</svg><figcaption>図2　実線＝いまの形。破線＝取引コストを下げた後。和の極小点（点）が左下へ移る。数値は形を示すための仮のもの。</figcaption></figure>
+<h3>⑦ 自己検査の1問</h3><p class="q">「同じファイルの小改修を束ねる」と「起動の列待ちを無くす」は、U 字の図の上でそれぞれ何を動かす操作か。</p>
+<details><summary>答えを開く</summary><div class="ans"><p>束ねるのは<strong>座る位置</strong>（バッチの大きさ）を右へ動かす操作で、曲線は変わりません。列待ちを無くすのは<strong>取引コストの曲線そのもの</strong>を下げる操作で、極小点が左へ動き、極小値も下がります。後者をやると、束ねなくても小さく流すほうが得になります。</p></div></details>
+</section>
+<section class="ch" id="ch3">
+<h2><span class="num">3</span>Trunk-based development / DORA 4 keys<span class="en">幹への小さな統合と4つの指標</span></h2>
+<h3>① 定義</h3><p>全員が1本の幹（trunk）へ、1日に何度も小さく統合する開発の型です。長く生きる枝を作らないので、合流のたびの差分が小さく、衝突も小さい。安全の取り方は「壊さないように検査を積む」から「壊れてもすぐ戻す」へ寄ります。</p>
+<p>この型がうまく回っているかを測る物差しとして広く使われているのが DORA の指標です。速さの2つ（変更のリードタイム・デプロイ頻度）と安定の2つ（変更失敗率・復旧までの時間＝MTTR）。研究の結論は、速さと安定はトレードオフではなく、優れたチームは両方とも良い、というものでした。なお現行の dora.dev では MTTR を「Failed deployment recovery time」と呼び、5つ目の指標として rework rate を加えています。</p>
+<h3>② 出典</h3><ul class="src"><li>Nicole Forsgren, Jez Humble, Gene Kim『Accelerate: The Science of Lean Software and DevOps』IT Revolution Press, 2018</li><li>DORA「DORA's software delivery metrics: the four keys」 <a href="https://dora.dev/guides/dora-metrics-four-keys/">https://dora.dev/guides/dora-metrics-four-keys/</a></li><li>Paul Hammant ほか「Trunk Based Development」 <a href="https://trunkbaseddevelopment.com/">https://trunkbaseddevelopment.com/</a></li></ul>
+<h3>③ 定石・代表ツール</h3><ul><li>revert-first：本番で壊れたら原因究明より先に戻す</li><li>feature flag：コードは合流させ、機能の公開はスイッチで切り替える</li><li>progressive delivery：一部の利用者から段階的に出す（canary など）</li><li>短命の枝は1日以内に合流させる</li></ul>
+<h3>④ 自分たちの型との差</h3><p>着地はもう trunk の形です（main への PR→自動デプロイ）。無いのは「戻し」が1手で即時に終わる装置で、今は <code>git revert</code>→着地器→Cloud Build で数分かかります。Cloud Run の traffic 戻しは止血には使えますが、本流の戻しではありません。拓也の決め②「小票は critic と押し試験を省き、戻しを即時にして守る」は、DORA の言葉でいえば<strong>変更失敗率を少し許して、MTTR で守る</strong>形です。</p>
+<h3>⑤ 物理の同型</h3><p>系の安定性を「摂動を入れない」ことで担保するのではなく、「入った摂動を減衰させる復元力」で担保する、という切り替えです。指標でいえば変更失敗率が摂動の頻度、MTTR が減衰の時定数にあたります。時定数が十分短ければ、摂動の頻度が多少上がっても系は平衡のそばに留まります。</p>
+<h3>⑥ 図</h3><figure>
+<svg viewBox="0 0 360 250" role="img" aria-labelledby="f3t">
+<title id="f3t">trunk への小さな統合と長命の枝、DORA 指標の 2×2</title>
+<text class="t s b" x="6" y="18">trunk-based</text>
+<line class="ln thick" x1="10" y1="44" x2="350" y2="44"/>
+<path class="cv c1" d="M40,44 q10,-16 22,0"/><path class="cv c1" d="M90,44 q10,-16 22,0"/>
+<path class="cv c1" d="M140,44 q10,-16 22,0"/><path class="cv c1" d="M190,44 q10,-16 22,0"/>
+<path class="cv c1" d="M240,44 q10,-16 22,0"/><path class="cv c1" d="M290,44 q10,-16 22,0"/>
+<text class="t xs mu" x="10" y="62">小さく何度も合流＝1回の差分が小さい</text>
+<text class="t s b" x="6" y="88">長命の枝</text>
+<line class="ln thick" x1="10" y1="112" x2="350" y2="112"/>
+<path class="cv c3" d="M40,112 C60,82 260,82 300,112"/>
+<text class="t s c3t" x="294" y="98">✕</text>
+<text class="t xs mu" x="10" y="130">最後に一度だけ合流＝衝突がまとめて来る</text>
+<g transform="translate(10,144)">
+<rect class="box" x="0" y="0" width="168" height="44" rx="6"/><text class="t xs b" x="8" y="17">速さ</text><text class="t xs" x="8" y="34">Lead time for changes</text>
+<rect class="box" x="172" y="0" width="168" height="44" rx="6"/><text class="t xs b" x="180" y="17">速さ</text><text class="t xs" x="180" y="34">Deployment frequency</text>
+<rect class="box" x="0" y="48" width="168" height="44" rx="6"/><text class="t xs b" x="8" y="65">安定</text><text class="t xs" x="8" y="82">Change fail rate</text>
+<rect class="box hlbox" x="172" y="48" width="168" height="44" rx="6"/><text class="t xs b" x="180" y="65">安定（戻す速さ）</text><text class="t xs" x="180" y="82">MTTR / recovery time</text>
+</g>
+</svg><figcaption>図3　上：小さく何度も合流する trunk。中：最後に一度だけ合流する長命の枝。下：DORA の4指標。小票の設計が頼るのは右下（戻す速さ）。</figcaption></figure>
+<h3>⑦ 自己検査の1問</h3><p class="q">小票で critic と押し試験を省くなら、DORA の4指標のうちどれが悪くなるのを受け入れ、どれを改善して埋め合わせることになるか。</p>
+<details><summary>答えを開く</summary><div class="ans"><p>受け入れるのは<strong>変更失敗率（Change fail rate）</strong>の上昇、埋め合わせるのは<strong>MTTR（復旧までの時間）</strong>の短縮です。戻しの装置が数分のままだと埋め合わせにならないので、小票クラスを開く前に戻しを即時にする順番になります。</p></div></details>
+</section>
+<section class="ch" id="ch4">
+<h2><span class="num">4</span>Risk-based testing / Tiered CI / Test impact analysis<span class="en">リスクに比例した検査</span></h2>
+<h3>① 定義</h3><p>検査の量を「壊れたときの損失 × 壊れる確率」に比例させる、という原則です（ISTQB の用語でいう risk-based testing）。全部を同じ厚さで検査するのでなく、危ない所を厚く、安全な所を薄く。</p>
+<p>これを CI に落とすと2つの形になります。1つは<strong>検査の段（tier）</strong>で、速い検査は commit ごとに、遅い検査は合流の後にまとめて回す（Google でいう presubmit と postsubmit）。もう1つは<strong>テストの選択（test impact analysis）</strong>で、差分から依存関係をたどって、影響を受けるテストだけを走らせる。Meta（当時 Facebook）は機械学習で選ぶ Predictive Test Selection を論文にしています。</p>
+<h3>② 出典</h3><ul class="src"><li>ISTQB Glossary「risk-based testing」 <a href="https://glossary.istqb.org/en_US/term/risk-based-testing">https://glossary.istqb.org/en_US/term/risk-based-testing</a></li><li>Titus Winters, Tom Manshreck, Hyrum Wright 編『Software Engineering at Google』O'Reilly, 2020, 第23章 Continuous Integration <a href="https://abseil.io/resources/swe-book/html/ch23.html">https://abseil.io/resources/swe-book/html/ch23.html</a></li><li>Machalica ほか「Predictive Test Selection」ICSE-SEIP 2019 <a href="https://arxiv.org/abs/1810.05286">https://arxiv.org/abs/1810.05286</a></li></ul>
+<h3>③ 定石・代表ツール</h3><ul><li>Azure DevOps の Test Impact Analysis <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/test/test-impact-analysis">（公式 docs）</a></li><li>pytest-testmon：変更に関係するテストだけを再実行する <a href="https://testmon.org/">https://testmon.org/</a></li><li>presubmit は速いものだけ、遅い E2E は postsubmit に回して壊れたら戻す</li><li>リスクの高い場所（送信・決済・番人）の一覧を先に作り、そこに触る差分だけ厚く検査する</li></ul>
+<h3>④ 自分たちの型との差</h3><p>「触った流れだけ押す」という規律は 2026-10-09 からありますが、どの流れを押すかを選ぶのは人です。pytest には着地器の選択器がある一方、画面の押し試験（<code>verify_*.py</code> が約30本）には「差分→流れ」の対応表がありません。critic を撃つかどうかも、今は全票一律です。この語彙を当てると、critic の有無は差分の大きさと触る場所（番人・送信・決済に近いか）で決める、という形になります。</p>
+<h3>⑤ 物理の同型</h3><p>数値計算の適応メッシュと同じ発想です。分解能（ここでは検査の厚さ）を全域に均一に張るのではなく、勾配の大きい所（壊れたときの損失が大きい所）にだけ細かく張る。全域を最細のメッシュで切るのは正しいけれど高くつく、というのも同じです。</p>
+<h3>⑥ 図</h3><figure>
+<svg viewBox="0 0 360 230" role="img" aria-labelledby="f4t">
+<title id="f4t">検査の階層と、差分から走らせるテストを選ぶ流れ</title>
+<defs><marker id="ah4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="arwh" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<path class="tier1" d="M150,14 L210,14 L232,70 L128,70 Z"/>
+<path class="tier2" d="M128,74 L232,74 L256,134 L104,134 Z"/>
+<path class="tier3" d="M104,138 L256,138 L282,202 L78,202 Z"/>
+<text class="t xs b" x="152" y="40">静的・単体</text><text class="t xs" x="152" y="56">秒・commit毎</text>
+<text class="t xs b" x="152" y="100">結合テスト</text><text class="t xs" x="152" y="118">分・合流前</text>
+<text class="t xs b" x="146" y="166">画面・E2E</text><text class="t xs" x="140" y="184">十分〜・合流後</text>
+<text class="t xs" x="292" y="40">速い</text><text class="t xs" x="292" y="196">遅い</text>
+<line class="ln" x1="304" y1="48" x2="304" y2="180" marker-end="url(#ah4)"/>
+<rect class="box" x="4" y="20" width="76" height="26" rx="5"/><text class="t xs" x="14" y="37">差分</text>
+<rect class="box" x="4" y="80" width="76" height="26" rx="5"/><text class="t xs" x="10" y="97">依存の地図</text>
+<rect class="box hlbox" x="4" y="140" width="76" height="26" rx="5"/><text class="t xs" x="10" y="157">選んだ検査</text>
+<line class="arw" x1="42" y1="48" x2="42" y2="76" marker-end="url(#ah4)"/>
+<line class="arw" x1="42" y1="108" x2="42" y2="136" marker-end="url(#ah4)"/>
+<text class="t xs mu" x="4" y="222">損失×確率が大きい所ほど下の段まで回す</text>
+</svg><figcaption>図4　右：検査の段（上ほど速く頻繁、下ほど遅く合流後）。左：差分から依存の地図をたどって、走らせる検査を選ぶ。</figcaption></figure>
+<h3>⑦ 自己検査の1問</h3><p class="q">画面の押し試験 30本を毎票全部回す代わりに、何を用意すれば「この差分ならこの3本」と機械が選べるようになるか。</p>
+<details><summary>答えを開く</summary><div class="ans"><p><strong>差分（ファイル・関数）→画面の流れ→押し試験</strong>の対応表です。pytest の選択器が import の依存をたどるように、画面側にも「どのファイルがどの流れの描画を変えるか」の地図が要ります。地図があれば、選ぶのは人でなく機械になり、損失の大きい流れ（送信・決済）だけは常に足す、という重み付けもできます。</p></div></details>
+</section>
+<section class="ch" id="ch5">
+<h2><span class="num">5</span>Hot reload / Live preview / Component isolation<span class="en">保存した瞬間に見える開発ループ</span></h2>
+<h3>① 定義</h3><p>ファイルを保存した瞬間に、ブラウザの表示が更新される開発の仕組みです。ページ全体を読み直す live reload と、画面の状態を保ったまま変わった部品だけを差し替える HMR（Hot Module Replacement）があります。どちらも開発用サーバ（dev server）がファイルの変更を見張り、ブラウザへ押し込みます。</p>
+<p>もう1つの柱が<strong>部品の単体描画（component isolation）</strong>で、Storybook はボタン1つ・行1つを「空のとき」「長い名前のとき」「エラーのとき」のように状態ごとに単体で描いて並べます。業界は「見てから直す往復」を無くしたわけではなく、<strong>往復1回を秒にした</strong>、というのが要点です。</p>
+<h3>② 出典</h3><ul class="src"><li>Vite「Features — Hot Module Replacement」 <a href="https://vite.dev/guide/features.html">https://vite.dev/guide/features.html</a></li><li>webpack「Hot Module Replacement」 <a href="https://webpack.js.org/concepts/hot-module-replacement/">https://webpack.js.org/concepts/hot-module-replacement/</a></li><li>Storybook「Why Storybook?」 <a href="https://storybook.js.org/docs/get-started/why-storybook">https://storybook.js.org/docs/get-started/why-storybook</a></li><li>Flutter「Hot reload」 <a href="https://docs.flutter.dev/tools/hot-reload">https://docs.flutter.dev/tools/hot-reload</a></li></ul>
+<h3>③ 定石・代表ツール</h3><ul><li>dev server（Vite など）で保存→即反映</li><li>Storybook で部品を状態ごとに単体描画し、見た目の確認をそこで済ませる</li><li>サーバ側で HTML を組む構成でも、ファイル監視＋自動リロードの小さな道具で live reload は作れる</li><li>確認用の「見る道具」と、守るための「検査」を分けて持つ</li></ul>
+<h3>④ 自分たちの型との差</h3><p>架電コンソールは Python の文字列で HTML/CSS/JS を組み立てていて、描画を見るには fake サーバを立てて Playwright で撮る、の1回が分単位です。保存→再生成→自動リロードの道具も、部品（行1つ・ボタン1つ）を単体で描く口もありません。golden と押し試験はあくまで「検査」で、「見る」道具ではない。見るために検査を回しているので、往復が重くなっています。</p>
+<h3>⑤ 物理の同型</h3><p>当てません。開発ループの速さはツールの話で、構図の同じ物理の例を探すと飾りになるだけなので、ここは省きます。</p>
+<h3>⑥ 図</h3><figure>
+<svg viewBox="0 0 360 236" role="img" aria-labelledby="f5t">
+<title id="f5t">分単位の確認ループと秒単位の hot reload の対比</title>
+<defs><marker id="ah5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="arwh" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<text class="t s b" x="6" y="18">いまの往復（1回が分）</text>
+<rect class="box" x="6" y="28" width="62" height="28" rx="5"/><text class="t xs" x="14" y="46">編集</text>
+<rect class="box" x="78" y="28" width="62" height="28" rx="5"/><text class="t xs" x="84" y="46">再生成</text>
+<rect class="box" x="150" y="28" width="62" height="28" rx="5"/><text class="t xs" x="154" y="46">fake鯖</text>
+<rect class="box" x="222" y="28" width="62" height="28" rx="5"/><text class="t xs" x="225" y="46">Playwright</text>
+<rect class="box" x="294" y="28" width="60" height="28" rx="5"/><text class="t xs" x="310" y="46">PNG</text>
+<line class="arw" x1="68" y1="42" x2="76" y2="42" marker-end="url(#ah5)"/><line class="arw" x1="140" y1="42" x2="148" y2="42" marker-end="url(#ah5)"/>
+<line class="arw" x1="212" y1="42" x2="220" y2="42" marker-end="url(#ah5)"/><line class="arw" x1="284" y1="42" x2="292" y2="42" marker-end="url(#ah5)"/>
+<path class="arw" d="M324,58 C324,96 37,96 37,60" marker-end="url(#ah5)"/>
+<text class="t xs mu" x="120" y="104">目で見て、また編集へ</text>
+<text class="t s b" x="6" y="140">hot reload（1回が秒）</text>
+<rect class="box" x="40" y="160" width="90" height="34" rx="6"/><text class="t s" x="70" y="182">保存</text>
+<rect class="box hlbox" x="230" y="160" width="100" height="34" rx="6"/><text class="t s" x="244" y="182">表示が変わる</text>
+<line class="arw" x1="132" y1="177" x2="226" y2="177" marker-end="url(#ah5)"/>
+<path class="arw" d="M280,196 C280,226 85,226 85,198" marker-end="url(#ah5)"/>
+<text class="t xs mu" x="138" y="168">dev server が押す</text>
+</svg><figcaption>図5　上：いまの確認ループ（5工程・1回が分）。下：hot reload（保存→表示・1回が秒）。</figcaption></figure>
+<h3>⑦ 自己検査の1問</h3><p class="q">hot reload を入れても押し試験は要るか。要るなら、何が変わるか。</p>
+<details><summary>答えを開く</summary><div class="ans"><p>要ります。hot reload は<strong>見る</strong>道具で、壊れていないことを<strong>守る</strong>道具ではないからです。変わるのは押し試験の役割で、「見た目を確かめるために回す」ことが無くなり、「合流の後に守りとして回す」だけになります。第4章の段でいえば、押し試験を下の段（合流後）へ下ろせるようになります。</p></div></details>
+</section>
+<section class="ch" id="ch6">
+<h2><span class="num">6</span>Snapshot / Approval testing / Visual regression<span class="en">基準と比べる検査</span></h2>
+<h3>① 定義</h3><p>出力を最初に一度保存しておき、以後は毎回それと比べる検査です。保存したものを基準（golden master）と呼びます。期待値を手で書かなくてよいので、古いコードの振る舞いを固定するのに強い（Feathers はこれを characterization test と呼びました）。</p>
+<p>運用の肝は「変えるとき」にあります。意図して出力を変えたら、<strong>基準の更新は機械がやり</strong>（Jest なら <code>jest -u</code>）、<strong>人は差分を見て承認する</strong>。画像で比べる番人もあり、Playwright の <code>toHaveScreenshot</code>、BackstopJS、Percy などが画面の見た目の差分を取ります。規律は3つで、意図した変更で赤くなるのは正しい／基準の更新は変更と同じ commit に入れる／基準同士の衝突は手で混ぜず、合流後に再生成する。</p>
+<h3>② 出典</h3><ul class="src"><li>Jest「Snapshot Testing」 <a href="https://jestjs.io/docs/snapshot-testing">https://jestjs.io/docs/snapshot-testing</a></li><li>Llewellyn Falco ほか「Approval Tests」 <a href="https://approvaltests.com/">https://approvaltests.com/</a></li><li>Michael Feathers『Working Effectively with Legacy Code』Prentice Hall, 2004（characterization test）</li><li>Playwright「Visual comparisons」 <a href="https://playwright.dev/docs/test-snapshots">https://playwright.dev/docs/test-snapshots</a></li></ul>
+<h3>③ 定石・代表ツール</h3><ul><li>基準ファイルは小さく分ける（画面全体1本でなく、部品や状態ごと）</li><li>更新コマンドを1つに決め、CI からも同じコマンドで再生成できるようにする</li><li>画像の比較は許容差（ピクセル数・比率）を決めてから使う</li><li>基準の衝突はマージツールで混ぜず、合流後のコードから作り直す</li></ul>
+<h3>④ 自分たちの型との差</h3><p>いまの golden は byte 単位の JSON が1本で、画面を変える票では毎回赤くなります。更新も合流後の再生成も、人が環境変数を立てて手で撃っています。10-14 の実測では、何本かの票が衝突したあと「合流後に再生成する」という結論に自力でたどり着きました。snapshot の流儀では、そこは最初から着地器（CI）がやる仕事です。</p>
+<h3>⑤ 物理の同型</h3><p>基底状態を固定して、そこからの摂動だけを測る、という形です。拓也の言う「理想理論はズレ検出器」そのもので、基準がよく定義されていればズレは小さく明瞭に出る。基準そのものを動かす（更新する）ときは、それが測定ではなく<strong>理論の改訂</strong>だと自覚して、改訂の記録（commit）と一緒に残す、というのが snapshot の規律にあたります。</p>
+<h3>⑥ 図</h3><figure>
+<svg viewBox="0 0 360 214" role="img" aria-labelledby="f6t">
+<title id="f6t">基準（golden）と今回の出力を比べ、差分を承認するか赤にする</title>
+<defs><marker id="ah6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="arwh" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<rect class="box" x="10" y="14" width="140" height="92" rx="6"/><text class="t s b" x="20" y="32">基準（golden）</text>
+<rect class="bar2" x="22" y="44" width="110" height="8"/><rect class="bar2" x="22" y="60" width="90" height="8"/><rect class="bar2" x="22" y="76" width="100" height="8"/>
+<rect class="box" x="210" y="14" width="140" height="92" rx="6"/><text class="t s b" x="220" y="32">今回の出力</text>
+<rect class="bar2" x="222" y="44" width="110" height="8"/><rect class="bar3" x="222" y="60" width="64" height="8"/><rect class="bar2" x="222" y="76" width="100" height="8"/>
+<text class="t s" x="160" y="62">比べる</text>
+<line class="arw" x1="152" y1="70" x2="206" y2="70" marker-end="url(#ah6)"/>
+<line class="arw" x1="280" y1="108" x2="230" y2="140" marker-end="url(#ah6)"/>
+<line class="arw" x1="280" y1="108" x2="318" y2="140" marker-end="url(#ah6)"/>
+<rect class="box hlbox" x="140" y="144" width="128" height="58" rx="6"/>
+<text class="t xs b" x="148" y="162">意図した変更</text><text class="t xs" x="148" y="178">機械が基準を更新</text><text class="t xs" x="148" y="194">人は差分を承認</text>
+<rect class="box redbox" x="274" y="144" width="82" height="58" rx="6"/>
+<text class="t xs b" x="281" y="162">意図しない</text><text class="t xs" x="281" y="178">赤のまま</text><text class="t xs" x="281" y="194">番人が止めた</text>
+<text class="t xs mu" x="10" y="130">基準を固定して</text><text class="t xs mu" x="10" y="146">ズレだけを測る</text>
+</svg><figcaption>図6　基準と今回の出力を比べる。差分が意図したものなら承認して基準を更新、意図しないものなら赤のまま止める。</figcaption></figure>
+<h3>⑦ 自己検査の1問</h3><p class="q">2本の枝が同じ golden を別々に更新して衝突した。手でマージするのはなぜまずく、代わりに何をすればよいか。</p>
+<details><summary>答えを開く</summary><div class="ans"><p>手で混ぜた golden は、<strong>どちらのコードの出力でもない</strong>ものになりがちで、番人として嘘をつきます。代わりに、合流後のコードから golden を<strong>再生成</strong>し、差分を人が承認する。これを着地器が自動でやれば、人が環境変数を立てる手間も消えます。</p></div></details>
+</section>
+<section class="ch" id="ch7">
+<h2><span class="num">7</span>Merge contention / WIP limit<span class="en">合流の衝突と同時進行の上限</span></h2>
+<h3>① 定義</h3><p>同時に進めている仕事の数（WIP）に上限を置く、というカンバンの柱です。Little の法則 W=L/λ により、到着の速さ λ が同じなら、同時進行の数 L を減らすほど1件あたりの滞在時間 W は比例して短くなります。</p>
+<p>コードではもう1つ理由があって、同じファイルを複数の枝が同時に触ると、合流するたびに衝突し、混ぜ直しが発生します（merge contention）。定石は4つ。WIP を絞る／小さく早く着地させる／ファイルを責任ごとに割って触る場所を分ける／stacked diffs（積み重ねた小さな差分）や merge queue（合流を機械が1本ずつ並べる）を使う。</p>
+<h3>② 出典</h3><ul class="src"><li>John D. C. Little「A Proof for the Queuing Formula: L = λW」Operations Research 9(3), 1961（解説 <a href="https://en.wikipedia.org/wiki/Little%27s_law">https://en.wikipedia.org/wiki/Little%27s_law</a>）</li><li>David J. Anderson『Kanban』Blue Hole Press, 2010（WIP limits）</li><li>GitHub Docs「Managing a merge queue」 <a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue">（公式 docs）</a></li><li>Graphite「Stacked diffs」 <a href="https://graphite.dev/guides/stacked-diffs">https://graphite.dev/guides/stacked-diffs</a></li></ul>
+<h3>③ 定石・代表ツール</h3><ul><li>列ごと・ファイルごとに WIP 上限を置く</li><li>触る範囲の重なる票は同時に撒かない</li><li>大きなファイルは責任で割り、票ごとに触るファイルが重ならないようにする</li><li>merge queue で合流を直列化し、衝突の後始末を機械に寄せる</li></ul>
+<h3>④ 自分たちの型との差</h3><p>10-14 は、同じ3〜4ファイル（HTML の組み立て・CSS・行の JS・golden）を十数票が並走で触りました。WIP の上限が無かった状態です。10並列の司令塔運用はそもそも WIP を増やす向きに働くので、画面の票に限っては、WIP を1にするか、ファイルを割って重ならないようにするか、の二択になります。</p>
+<h3>⑤ 物理の同型</h3><p>当てません。W=L/λ は物理の同型というより、待ち行列の定理そのものなので、ここでは定理として使います（図7の上半分）。</p>
+<h3>⑥ 図</h3><figure>
+<svg viewBox="0 0 360 226" role="img" aria-labelledby="f7t">
+<title id="f7t">到着率が一定なら、同時進行の数に比例して1件の滞在時間が伸びる</title>
+<text class="t s b" x="6" y="18">W = L / λ（λ 一定）</text>
+<text class="t xs" x="6" y="46">L 小</text><rect class="bar2" x="60" y="36" width="34" height="14"/><rect class="bar1" x="180" y="36" width="30" height="14"/>
+<text class="t xs" x="6" y="76">L 中</text><rect class="bar2" x="60" y="66" width="84" height="14"/><rect class="bar1" x="180" y="66" width="75" height="14"/>
+<text class="t xs" x="6" y="106">L 大</text><rect class="bar2" x="60" y="96" width="110" height="14"/><rect class="bar1" x="180" y="96" width="100" height="14"/>
+<text class="t xs mu" x="60" y="128">同時進行の数 L</text><text class="t xs mu" x="180" y="128">1件の滞在 W</text>
+<line class="ln dash" x1="6" y1="142" x2="354" y2="142"/>
+<text class="t s b" x="6" y="164">同じファイルを複数の枝が触る</text>
+<rect class="box redbox" x="140" y="178" width="80" height="36" rx="6"/><text class="t xs" x="154" y="200">画面.py</text>
+<g class="t xs"><text x="14" y="186">枝 A</text><text x="14" y="204">枝 B</text><text x="306" y="186">枝 C</text><text x="306" y="204">枝 D</text></g>
+<line class="ln" x1="46" y1="183" x2="138" y2="190"/><line class="ln" x1="46" y1="201" x2="138" y2="200"/>
+<line class="ln" x1="302" y1="183" x2="222" y2="190"/><line class="ln" x1="302" y1="201" x2="222" y2="200"/>
+</svg><figcaption>図7　上：λ 一定なら同時進行の数 L に比例して1件の滞在 W が伸びる（長さは形を示すための目安）。下：同じファイルを4本の枝が触ると、合流のたびに衝突する。</figcaption></figure>
+<h3>⑦ 自己検査の1問</h3><p class="q">画面の票だけ WIP 1 にする案と、画面のファイルを責任で割る案。小票を速くしたいという目的にとって、それぞれの弱点は何か。</p>
+<details><summary>答えを開く</summary><div class="ans"><p>WIP 1 は衝突が消える代わりに、<strong>画面の票が直列の列待ちになる</strong>ので、第2章の保持コスト（待ち）が増えます。固定費が高いままだと特に痛い。ファイルを割る案は並走を保てる代わりに、<strong>割る作業そのものが一度きりの大きな改修</strong>になり、割り方を誤ると票が結局同じファイルに集まります。固定費を先に下げて WIP 1 でも列が詰まらない状態を作るか、割ってから並走させるかの順番の問題です。</p></div></details>
+</section>
+
+<section class="ch" id="final">
+<h2><span class="num">終</span>7つの関係と読む順<span class="en">How the seven fit together</span></h2>
+<p>7つは3つの束に分かれます。<strong>流れ</strong>（1・2・3・7）は仕事をどう流すか、<strong>検査</strong>（4・6）はどこをどれだけ確かめるか、<strong>開発ループ</strong>（5）は直す人の手元の往復の速さです。束どうしの関係は図8のとおりで、中心にあるのは第2章の固定費です。</p>
+<figure>
+<svg viewBox="0 0 360 250" role="img" aria-labelledby="f8t">
+<title id="f8t">7つの語彙の関係</title>
+<defs><marker id="ah8" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="arwh" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<rect class="grp" x="4" y="6" width="352" height="96" rx="8"/><text class="t xs b" x="12" y="22">流れ</text>
+<rect class="box" x="12" y="32" width="78" height="32" rx="6"/><text class="t xs" x="17" y="52">2 取引コスト</text>
+<rect class="box hlbox" x="102" y="32" width="78" height="32" rx="6"/><text class="t xs" x="107" y="52">1 クラス分け</text>
+<rect class="box" x="192" y="32" width="78" height="32" rx="6"/><text class="t xs" x="196" y="52">3 trunk・戻し</text>
+<rect class="box" x="282" y="32" width="68" height="32" rx="6"/><text class="t xs" x="300" y="52">7 WIP</text>
+<line class="arw" x1="90" y1="48" x2="100" y2="48" marker-end="url(#ah8)"/>
+<line class="arw" x1="192" y1="48" x2="182" y2="48" marker-end="url(#ah8)"/>
+<path class="arw" d="M316,66 C316,90 142,90 142,68" marker-end="url(#ah8)"/>
+<rect class="grp" x="4" y="116" width="200" height="66" rx="8"/><text class="t xs b" x="12" y="132">検査</text>
+<rect class="box" x="12" y="140" width="86" height="32" rx="6"/><text class="t xs" x="18" y="160">4 検査を選ぶ</text>
+<rect class="box" x="108" y="140" width="88" height="32" rx="6"/><text class="t xs" x="116" y="160">6 snapshot</text>
+<rect class="grp" x="214" y="116" width="142" height="66" rx="8"/><text class="t xs b" x="222" y="132">開発ループ</text>
+<rect class="box" x="226" y="140" width="120" height="32" rx="6"/><text class="t xs" x="250" y="160">5 hot reload</text>
+<path class="arw" d="M50,138 C50,112 46,92 46,68" marker-end="url(#ah8)"/>
+<path class="arw" d="M150,138 C150,112 60,96 54,68" marker-end="url(#ah8)"/>
+<path class="arw" d="M330,138 C330,100 70,100 62,68" marker-end="url(#ah8)"/>
+<text class="t xs mu" x="10" y="204">4・5・6 はどれも「2 の固定費」を削る道具。</text>
+<text class="t xs mu" x="10" y="222">削れた分だけ 1 の小票クラスを広く取れ、</text>
+<text class="t xs mu" x="10" y="240">3 の即時の戻しがその安全を引き受ける。</text>
+</svg><figcaption>図8　7つの関係。検査と開発ループの道具はどれも固定費（2）を削り、削れた分だけ小票のクラス（1）を広く取れる。その安全は即時の戻し（3）が受け持ち、WIP（7）が待ちを詰める。</figcaption></figure>
+<h3>設計のどこを動かすか</h3>
+<p><strong>(A) repo を問わない固定費</strong>は 1・2・3・4・7 で動かします。小票クラスの入場条件を決め（1）、固定費の内訳を1つずつ削り（2）、戻しを1手で即時にし（3）、critic や押し試験を差分の場所で選び（4）、同時に撒く数を絞る（7）。</p>
+<p><strong>(B) 画面固有</strong>は 4・5・6・7 で動かします。差分→画面の流れの対応表（4）、保存→表示を秒にする道具（5）、golden を小さく割って合流後に機械が再生成する形（6）、同じ画面ファイルを並走で触らない工夫（7）。</p>
+<h3>読む順の提案</h3>
+<p>2 → 1 → 3 → 7 → 4 → 6 → 5 の順がおすすめです。まず「なぜ遅いか」の形（2）をつかみ、それを小票のクラス（1）と戻し（3）で受ける、ここまでが (A) の骨格です。次に待ちと衝突（7）。検査の2章（4・6）と開発ループ（5）は (B) の道具なので最後に回すと、どの固定費を削る道具なのかが見えた状態で読めます。</p>
+<h3>英日対照表</h3>
+<div class="tbl"><table>
+<thead><tr><th>英語</th><th>日本語の言い換え</th></tr></thead>
+<tbody>
+<tr><td>Class of Service</td><td>仕事のクラス（流し方の違う種類）</td></tr>
+<tr><td>Expedite</td><td>特急。同時1本・全員が止めて通す</td></tr>
+<tr><td>WIP (Work In Progress) limit</td><td>同時進行の上限</td></tr>
+<tr><td>Transaction cost</td><td>取引コスト（1回流すたびの固定費）</td></tr>
+<tr><td>Holding cost</td><td>保持コスト（溜めておく損）</td></tr>
+<tr><td>Batch size</td><td>一度に流す量</td></tr>
+<tr><td>SMED</td><td>段取り替えの短縮</td></tr>
+<tr><td>Little's law</td><td>リトルの法則 W=L/λ</td></tr>
+<tr><td>Trunk-based development</td><td>幹へ小さく何度も統合する開発</td></tr>
+<tr><td>Lead time for changes</td><td>変更のリードタイム</td></tr>
+<tr><td>Deployment frequency</td><td>デプロイ頻度</td></tr>
+<tr><td>Change fail rate</td><td>変更失敗率</td></tr>
+<tr><td>MTTR / recovery time</td><td>復旧までの時間</td></tr>
+<tr><td>Feature flag</td><td>機能のスイッチ</td></tr>
+<tr><td>Progressive delivery</td><td>段階的な公開</td></tr>
+<tr><td>Risk-based testing</td><td>リスクに比例した検査</td></tr>
+<tr><td>Presubmit / Postsubmit</td><td>合流前の検査／合流後の検査</td></tr>
+<tr><td>Test impact analysis</td><td>差分が影響するテストだけを選ぶこと</td></tr>
+<tr><td>Hot reload / HMR</td><td>保存した瞬間の反映</td></tr>
+<tr><td>Component isolation</td><td>部品の単体描画</td></tr>
+<tr><td>Snapshot / Golden master</td><td>保存しておいた基準の出力</td></tr>
+<tr><td>Approval testing</td><td>差分を人が承認する検査</td></tr>
+<tr><td>Characterization test</td><td>今の振る舞いを固定する検査</td></tr>
+<tr><td>Visual regression</td><td>見た目の差分検査</td></tr>
+<tr><td>Merge contention</td><td>合流の衝突</td></tr>
+<tr><td>Stacked diffs</td><td>積み重ねた小さな差分</td></tr>
+<tr><td>Merge queue</td><td>合流の順番待ちを機械が並べる仕組み</td></tr>
+</tbody></table></div>
+</section>
+<footer>出典の URL は 2026年10月14日に到達を確かめたものです。書籍は書誌のみで、章番号は確かめた所だけ書いています。</footer>
+</main>
+</body>
+</html>
