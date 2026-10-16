@@ -47,8 +47,14 @@ td.num{text-align:right;white-space:nowrap}
 .note{color:var(--sub);font-size:12.5px}
 .box{background:var(--soft);border-radius:8px;padding:10px 12px;margin:10px 0}
 .promise li{margin:4px 0}
-svg text{fill:var(--ink);font-family:inherit}
-svg .sub{fill:var(--sub)}
+.bars{margin:8px 0 4px}
+.br{display:grid;grid-template-columns:minmax(96px,30%) 1fr auto;gap:8px;align-items:center;margin:8px 0}
+.bl{font-size:13px;line-height:1.35}
+.bt{display:flex;height:20px;background:var(--soft);border-radius:4px;overflow:hidden}
+.bf{display:block;height:100%}
+.bf.dash{background:repeating-linear-gradient(90deg,var(--bar3) 0 4px,transparent 4px 7px);opacity:.8}
+.bv{font-size:13px;white-space:nowrap;text-align:right;line-height:1.35}
+@media (max-width:480px){.br{grid-template-columns:1fr auto}.bt{grid-column:1 / -1;order:3}}
 </style>
 </head>
 <body>
@@ -71,23 +77,12 @@ svg .sub{fill:var(--sub)}
 <p>8回のうち6回は、早朝や前日の運送で使った車でそのまま出勤した日です。自宅は新宿御苑で、自宅に駐車場が無いため、運送の後の車は自宅近くかオフィス近くのコインパーキングに停めるしかありません。そのため、出勤日はより安いオフィス近くに停めていました。申請しているのは人材の出勤日の分だけです。</p>
 
 <h3>車の置き場所ごとの1日の費用（10:00〜22:00に停めた場合）</h3>
-<svg viewBox="0 0 640 210" width="100%" role="img" aria-label="御苑2,600円以上、JS大久保1,700円、新井薬師に停めて電車1,614〜1,714円と約1時間の移動">
-  <text x="0" y="30" font-size="13">御苑（自宅周辺）</text>
-  <rect x="190" y="16" width="260" height="22" rx="3" fill="var(--bar1)"/>
-  <text x="458" y="32" font-size="13">2,600円以上</text>
-
-  <text x="0" y="90" font-size="13" font-weight="700">東新宿 JS大久保</text>
-  <rect x="190" y="76" width="170" height="22" rx="3" fill="var(--bar2)"/>
-  <text x="368" y="92" font-size="13" font-weight="700">1,700円</text>
-
-  <text x="0" y="150" font-size="13">新井薬師に停めて</text>
-  <text x="0" y="166" font-size="13">電車で通う</text>
-  <rect x="190" y="136" width="125" height="22" rx="3" fill="var(--bar3)"/>
-  <rect x="315" y="136" width="41" height="22" rx="3" fill="var(--bar3)" stroke="var(--ink)" stroke-dasharray="3 2" fill-opacity=".35"/>
-  <text x="364" y="152" font-size="13">1,614〜1,714円（ほかに移動 約1時間）</text>
-  <text x="190" y="182" font-size="11.5" class="sub">駐車1,200〜1,300円（塗り）＋ 電車往復414円（点線）</text>
-  <text x="0" y="205" font-size="11.5" class="sub">※御苑は周辺の代表駐車場（12時間最大2,600円・24時間最大3,400円ほか）、新井薬師は上高田の2か所の料金から計算</text>
-</svg>
+<div class="bars" role="img" aria-label="御苑2,600円以上、JS大久保1,700円、新井薬師に停めて電車1,614〜1,714円と約1時間の移動">
+  <div class="br"><div class="bl">御苑（自宅周辺）</div><div class="bt"><span class="bf" style="width:100%;background:var(--bar1)"></span></div><div class="bv">2,600円以上</div></div>
+  <div class="br"><div class="bl"><b>東新宿 JS大久保</b></div><div class="bt"><span class="bf" style="width:65%;background:var(--bar2)"></span></div><div class="bv"><b>1,700円</b></div></div>
+  <div class="br"><div class="bl">新井薬師に停めて電車</div><div class="bt"><span class="bf" style="width:48%;background:var(--bar3)"></span><span class="bf dash" style="width:16%"></span></div><div class="bv">1,614〜1,714円<br><small>＋移動 約1時間</small></div></div>
+  <p class="note">新井薬師＝駐車1,200〜1,300円（塗り）＋電車往復414円（点線）。御苑は周辺の代表駐車場（12時間最大2,600円・24時間最大3,400円ほか）、新井薬師は上高田の2か所の料金から計算。</p>
+</div>
 <p>東新宿（JS大久保）は御苑より900円以上安くなります。新井薬師に停めて電車で通う方法とは費用がほぼ同じで、往復1時間の移動が増えるだけなので、オフィス近くを選びました。運送の都合で新井薬師に停めた日は、電車で出勤しています（交通費で申請している西武新宿〜新井薬師の分）。</p>
 
 <h3>各駐車場の料金（時間帯別）</h3>
