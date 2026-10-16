@@ -7,47 +7,88 @@
 <title>9月経費のご説明</title>
 <style>
 :root{
-  --bg:#f7f6f3; --card:#ffffff; --ink:#1f2328; --sub:#5b6168; --line:#e2e0da;
-  --accent:#2f6fb3; --good:#2e7d4f; --warn:#b5651d; --bad:#b03a2e;
-  --bar1:#9aa4ae; --bar2:#2f6fb3; --bar3:#c9a46a; --soft:#eef3f9;
+  --bg:#f7f6f3; --card:#ffffff; --ink:#1f2328; --sub:#5b6168; --line:#e2e0da; --soft:#f1f0ec;
+  --accent:#2f6fb3; --good:#2e7d4f; --goodbg:#e7f4ec; --bad:#b03a2e; --badbg:#fbeae7;
+  --c1:#c0571b; --c1bg:#fdeee3; --c2:#6b4fb3; --c2bg:#efeafb; --c3:#7a7f86; --c3bg:#eef0f2;
+  --bar1:#9aa4ae; --bar2:#2f6fb3; --bar3:#c9a46a;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#16181b; --card:#1f2226; --ink:#e7e9ec; --sub:#a3a9b1; --line:#33373d;
-    --accent:#7fb0e6; --good:#6fc391; --warn:#e2a35f; --bad:#e8857a;
-    --bar1:#6c757e; --bar2:#7fb0e6; --bar3:#d9b77e; --soft:#1d2a38;
+    --bg:#16181b; --card:#1f2226; --ink:#e7e9ec; --sub:#a3a9b1; --line:#33373d; --soft:#272b30;
+    --accent:#7fb0e6; --good:#6fc391; --goodbg:#1c3326; --bad:#e8857a; --badbg:#3a2220;
+    --c1:#f0a36b; --c1bg:#3a2a1d; --c2:#b9a3f0; --c2bg:#2b2540; --c3:#a3a9b1; --c3bg:#2a2e33;
+    --bar1:#6c757e; --bar2:#7fb0e6; --bar3:#d9b77e;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#16181b; --card:#1f2226; --ink:#e7e9ec; --sub:#a3a9b1; --line:#33373d;
-  --accent:#7fb0e6; --good:#6fc391; --warn:#e2a35f; --bad:#e8857a;
-  --bar1:#6c757e; --bar2:#7fb0e6; --bar3:#d9b77e; --soft:#1d2a38;
+  --bg:#16181b; --card:#1f2226; --ink:#e7e9ec; --sub:#a3a9b1; --line:#33373d; --soft:#272b30;
+  --accent:#7fb0e6; --good:#6fc391; --goodbg:#1c3326; --bad:#e8857a; --badbg:#3a2220;
+  --c1:#f0a36b; --c1bg:#3a2a1d; --c2:#b9a3f0; --c2bg:#2b2540; --c3:#a3a9b1; --c3bg:#2a2e33;
+  --bar1:#6c757e; --bar2:#7fb0e6; --bar3:#d9b77e;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif;line-height:1.75;font-size:15px}
-main{max-width:780px;margin:0 auto;padding:28px 16px 64px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif;line-height:1.7;font-size:15px}
+main{max-width:820px;margin:0 auto;padding:28px 16px 64px}
 h1{font-size:22px;margin:0 0 4px}
-.meta{color:var(--sub);font-size:13px;margin-bottom:20px}
-h2{font-size:18px;margin:0 0 10px;display:flex;gap:8px;align-items:center}
-h2 .n{background:var(--accent);color:var(--card);border-radius:6px;padding:0 8px;font-size:14px}
-h3{font-size:15px;margin:18px 0 6px}
-section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 14px;margin:16px 0}
+.meta{color:var(--sub);font-size:13px;margin-bottom:18px}
+h2{font-size:18px;margin:0 0 12px}
+h3{font-size:15px;margin:18px 0 8px}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;margin:16px 0}
 p{margin:6px 0}
-.summary{list-style:none;padding:0;margin:0}
-.summary li{padding:8px 0;border-bottom:1px dashed var(--line)}
-.summary li:last-child{border-bottom:0}
-.summary b{color:var(--accent)}
+.note{color:var(--sub);font-size:12.5px}
+/* Q&A */
+.qa{border:1px solid var(--line);border-radius:10px;margin:12px 0;overflow:hidden}
+.q{background:var(--soft);padding:10px 14px;font-size:13.5px;color:var(--sub)}
+.q b{color:var(--ink)}
+.a{padding:12px 14px}
+.a .lead{font-size:16px;font-weight:700;margin:0 0 6px}
+.chip{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:1px 10px;margin-right:6px;vertical-align:1px}
+.chip.ok{background:var(--goodbg);color:var(--good)}
+.chip.ng{background:var(--badbg);color:var(--bad)}
+.chip.c1{background:var(--c1bg);color:var(--c1)}
+.chip.c2{background:var(--c2bg);color:var(--c2)}
+.chip.c3{background:var(--c3bg);color:var(--c3)}
+/* 8回の内訳 */
+.split{display:flex;height:34px;border-radius:6px;overflow:hidden;margin:8px 0 4px;font-size:13px;font-weight:700}
+.split div{display:flex;align-items:center;justify-content:center;color:#fff}
+.legend{font-size:12.5px;color:var(--sub)}
+/* 昼夜 */
+.daynight{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.dn{border-radius:8px;padding:10px 12px}
+.dn .t{font-size:13px;color:var(--sub)}
+.dn .v{font-size:17px;font-weight:700}
+.dn.day{background:var(--c3bg)}
+.dn.night{background:var(--goodbg)}
+.dn.night .v{color:var(--good)}
+/* 締めボード */
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.col{background:var(--soft);border-radius:8px;padding:8px}
+.col h4{margin:0 0 6px;font-size:13px}
+.col h4 small{display:block;color:var(--sub);font-weight:400}
+.it{background:var(--card);border-left:5px solid var(--c3);border-radius:6px;padding:6px 8px;margin:6px 0;font-size:12.5px;line-height:1.45}
+.it b{font-size:13px}
+.it .d{color:var(--sub)}
+.it.c1{border-left-color:var(--c1)} .it.c2{border-left-color:var(--c2)} .it.ok{border-left-color:var(--good)} .it.del{border-left-color:var(--bad);opacity:.7}
+.it.del b{text-decoration:line-through}
+@media (max-width:620px){.board{grid-template-columns:1fr}.daynight{grid-template-columns:1fr}}
+/* 二重 before/after */
+.ba{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
+.ba .side{border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px}
+.ba .arrow{font-size:20px;color:var(--sub)}
+.row{display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--line)}
+.row:last-child{border-bottom:0}
+.row.del span:first-child{text-decoration:line-through;color:var(--bad)}
+.row.new{color:var(--good);font-weight:700}
+@media (max-width:620px){.ba{grid-template-columns:1fr}.ba .arrow{transform:rotate(90deg);justify-self:center}}
+/* 表 */
 .tbl{width:100%;overflow-x:auto;margin:8px 0}
-table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:460px}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:520px}
 th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
 th{color:var(--sub);font-weight:600;background:var(--soft)}
 td.num{text-align:right;white-space:nowrap}
-.tag{display:inline-block;font-size:12px;border-radius:4px;padding:0 6px;border:1px solid currentColor}
-.ok{color:var(--good)} .ng{color:var(--bad)} .wn{color:var(--warn)}
-.note{color:var(--sub);font-size:12.5px}
-.box{background:var(--soft);border-radius:8px;padding:10px 12px;margin:10px 0}
-.promise li{margin:4px 0}
-.bars{margin:8px 0 4px}
+.wn{color:var(--c1);font-weight:700}
+.ngt{color:var(--bad)}
+/* bars */
 .br{display:grid;grid-template-columns:minmax(96px,30%) 1fr auto;gap:8px;align-items:center;margin:8px 0}
 .bl{font-size:13px;line-height:1.35}
 .bt{display:flex;height:20px;background:var(--soft);border-radius:4px;overflow:hidden}
@@ -55,111 +96,164 @@ td.num{text-align:right;white-space:nowrap}
 .bf.dash{background:repeating-linear-gradient(90deg,var(--bar3) 0 4px,transparent 4px 7px);opacity:.8}
 .bv{font-size:13px;white-space:nowrap;text-align:right;line-height:1.35}
 @media (max-width:480px){.br{grid-template-columns:1fr auto}.bt{grid-column:1 / -1;order:3}}
+.promise li{margin:4px 0}
+details summary{cursor:pointer;color:var(--accent);font-size:14px;margin:6px 0}
 </style>
 </head>
 <body>
 <main>
 <h1>9月経費のご説明</h1>
-<div class="meta">武者野拓也（人材）／2026年10月16日 作成／対象：武者野経費まとめ（8〜9月・全21件）</div>
+<div class="meta">武者野拓也（人材）／2026年10月16日 作成／対象：武者野経費まとめ（8〜9月）</div>
 
 <section>
-<h2>要点</h2>
-<ul class="summary">
-  <li><b>車の利用：</b>8回中6回は、運送で使った車でそのまま出勤した日です。自宅（新宿御苑）に駐車場が無いため、出勤日は御苑より安いオフィス近くに停めていました。翌日まで停めた2回は、夜間の上限が無い駐車場で割高になりました。今後は改めます。</li>
-  <li><b>申請の遅れ：</b>カード払いの分を「引き落としの月」に申請していたことと、9月の領収書を人材と運送に分けるのが遅れたことが原因です。今後は利用日を基準に、25日の締めまでに申請します。</li>
-  <li><b>二重申請：</b>Claude Max 8/17分（No.9・¥35,031）が二重でした。</li>
-</ul>
-<div class="box"><b>お願い：</b>No.9（10/3申請・Claude Max 8/17分 ¥35,031）の削除をお願いいたします。フォームの編集リンクが手元に無く、私の側では取り消せないためです。</div>
+<h2>ご質問への回答</h2>
+
+<div class="qa">
+  <div class="q"><b>Q1.</b> 人材勤務時に車両通勤が必須だった状況は？</div>
+  <div class="a">
+    <p class="lead">8回中6回は、運送で使った車でそのまま出勤した日です。</p>
+    <div class="split" role="img" aria-label="8回中、運送の後そのまま出勤6回、運送なし2回">
+      <div style="flex:6;background:var(--bar2)">運送の後そのまま出勤　6回</div>
+      <div style="flex:2;background:var(--bar1)">運送なし　2回</div>
+    </div>
+    <p>残りの2回（9/2・9/16）は運送の無い日で、車で行く必要はありませんでした。ただ、自宅（新宿御苑）に駐車場が無く、車はどこかのパーキングに停めておく必要があります。御苑に置くよりオフィス近くのほうが安いため、オフィス近くに移して停めました。</p>
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q"><b>Q2.</b> 駐車が長くなっているものがあるのは？</div>
+  <div class="a">
+    <p class="lead">人材の業務が夜まで続いたためです。普段、夜間の駐車代は会社に申請していません。</p>
+    <div class="daynight">
+      <div class="dn day"><div class="t">日中（出勤日）</div><div class="v">申請している</div></div>
+      <div class="dn night"><div class="t">夜間（普段）</div><div class="v">自分で手配・申請なし</div></div>
+    </div>
+    <p>例外は、徹夜で作業した2回（9/13〜14・9/29〜30）だけです。このとき停めていた東新宿の駐車場は夜間の上限が無く、割高になりました（2,600円・4,800円）。業務が長引くと分かった時点で、夜間最大のある駐車場に移すべきでした。申し訳ありません。</p>
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q"><b>Q3.</b> 二重請求があるのは？</div>
+  <div class="a">
+    <p class="lead"><span class="chip ok">対応済み</span>Claude Max 8/17分の重複を削除し、9月分を正しく入れ直しました。</p>
+    <div class="ba">
+      <div class="side">
+        <div class="note">修正前</div>
+        <div class="row"><span>No.8 Max 8/17分（8/30申請）</span><span>¥36,391</span></div>
+        <div class="row del"><span>No.9 Max 8/17分（10/3申請）</span><span>¥35,031</span></div>
+        <div class="row"><span>9月分 Max・API</span><span class="ngt">未申請</span></div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="side">
+        <div class="note">修正後</div>
+        <div class="row"><span>No.8 Max 8/17分</span><span>¥36,391</span></div>
+        <div class="row new"><span>Max 9/19決済分（10/16申請）</span><span>¥34,736</span></div>
+        <div class="row new"><span>API 9/17決済分（10/16申請）</span><span>¥3,425</span></div>
+      </div>
+    </div>
+    <p class="note">10/3にカード払いの分をまとめて申請した際、8/30に申請済みのNo.8を確認しませんでした。金額が違うのは、ドル建ての決済を円に換算したレートの違いです。</p>
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q"><b>Q4.</b> 締め後（10/3）に8月・9月分を入力したのは？</div>
+  <div class="a">
+    <p class="lead">原因は2つです。</p>
+    <p><span class="chip c1">原因A</span>カードで立て替えた分は「引き落としの月」に申請するものと勘違いしていました（正しくは利用日の締めで申請）。</p>
+    <p><span class="chip c2">原因B</span>車を人材と運送の両方で使っているため、9月の領収書22枚を事業ごとに分ける作業が遅れました。</p>
+    <p>どの申請がどちらの原因でずれたかは、下の「締めごとの申請状況」のとおりです。締めに間に合わないと分かった時点でご相談すべきところ、相談しませんでした。申し訳ありません。</p>
+  </div>
+</div>
 </section>
 
 <section>
-<h2><span class="n">1</span>人材勤務での車の利用</h2>
-<p>8回のうち6回は、早朝や前日の運送で使った車でそのまま出勤した日です。自宅は新宿御苑で、自宅に駐車場が無いため、運送の後の車は自宅近くかオフィス近くのコインパーキングに停めるしかありません。そのため、出勤日はより安いオフィス近くに停めていました。申請しているのは人材の出勤日の分だけです。</p>
-
-<h3>車の置き場所ごとの1日の費用（10:00〜22:00に停めた場合）</h3>
-<div class="bars" role="img" aria-label="御苑2,600円以上、JS大久保1,700円、新井薬師に停めて電車1,614〜1,714円と約1時間の移動">
-  <div class="br"><div class="bl">御苑（自宅周辺）</div><div class="bt"><span class="bf" style="width:100%;background:var(--bar1)"></span></div><div class="bv">2,600円以上</div></div>
-  <div class="br"><div class="bl"><b>東新宿 JS大久保</b></div><div class="bt"><span class="bf" style="width:65%;background:var(--bar2)"></span></div><div class="bv"><b>1,700円</b></div></div>
-  <div class="br"><div class="bl">新井薬師に停めて電車</div><div class="bt"><span class="bf" style="width:48%;background:var(--bar3)"></span><span class="bf dash" style="width:16%"></span></div><div class="bv">1,614〜1,714円<br><small>＋移動 約1時間</small></div></div>
-  <p class="note">新井薬師＝駐車1,200〜1,300円（塗り）＋電車往復414円（点線）。御苑は周辺の代表駐車場（12時間最大2,600円・24時間最大3,400円ほか）、新井薬師は上高田の2か所の料金から計算。</p>
+<h2>締めごとの申請状況</h2>
+<p class="note">利用日で数えたときの締め期間ごとに並べています。色が遅れの原因です。</p>
+<p>
+  <span class="chip c1">A 引き落とし月の勘違い</span>
+  <span class="chip c2">B 仕分けの遅れ</span>
+  <span class="chip c3">締め直後の申請</span>
+  <span class="chip ok">締め内（問題なし）</span>
+</p>
+<div class="board">
+  <div class="col">
+    <h4>8月締め<small>7/26〜8/25利用</small></h4>
+    <div class="it c1"><b>Claude API 8/1〜8/16</b><br><span class="d">10/3申請・¥13,997</span></div>
+    <div class="it c1"><b>架電の通話料 8月分</b><br><span class="d">10/3申請・¥6,244</span></div>
+    <div class="it"><b>交通費 8/2〜8/20（7件）</b><br><span class="d">8/30申請・5日遅れ</span></div>
+    <div class="it"><b>SMS送信用端末 8/24</b><br><span class="d">8/30申請・5日遅れ</span></div>
+    <div class="it"><b>Claude Max 8/17（No.8）</b><br><span class="d">8/30申請・5日遅れ</span></div>
+    <div class="it del"><b>Claude Max 8/17（No.9）</b><br><span class="d">重複のため削除</span></div>
+  </div>
+  <div class="col">
+    <h4>9月締め<small>8/26〜9/25利用</small></h4>
+    <div class="it c1"><b>Claude Max 9/19</b><br><span class="d">10/16申請・¥34,736</span></div>
+    <div class="it c1"><b>Claude API 9/17</b><br><span class="d">10/16申請・¥3,425</span></div>
+    <div class="it c2"><b>駐車場 9/2〜9/16（5件）</b><br><span class="d">10/3申請・¥12,700</span></div>
+    <div class="it c2"><b>交通費 9/4・9/12</b><br><span class="d">10/3申請・¥414</span></div>
+    <div class="it ok"><b>交通費 8/30</b><br><span class="d">8/30申請</span></div>
+  </div>
+  <div class="col">
+    <h4>10月締め<small>9/26〜10/25利用</small></h4>
+    <div class="it ok"><b>駐車場 9/28・9/29〜30</b><br><span class="d">10/3申請・¥6,500</span></div>
+    <div class="it ok"><b>交通費 9/26</b><br><span class="d">10/3申請・¥207</span></div>
+  </div>
 </div>
-<p>東新宿（JS大久保）は御苑より900円以上安くなります。新井薬師に停めて電車で通う方法とは費用がほぼ同じで、往復1時間の移動が増えるだけなので、オフィス近くを選びました。運送の都合で新井薬師に停めた日は、電車で出勤しています（交通費で申請している西武新宿〜新井薬師の分）。</p>
+</section>
 
-<h3>各駐車場の料金（時間帯別）</h3>
-<div class="tbl"><table>
-<thead><tr><th>場所</th><th>駐車場</th><th>時間帯</th><th>料金</th><th>上限</th></tr></thead>
-<tbody>
-<tr><td rowspan="3">東新宿</td><td>JS大久保</td><td>終日</td><td>15分200円</td><td>入庫から12時間 最大1,700円（この上限は2回＝24時間まで）</td></tr>
-<tr><td rowspan="2">PNP東新宿</td><td>7:00〜20:00</td><td>15分200円</td><td>昼間最大1,500円</td></tr>
-<tr><td>20:00〜翌7:00</td><td>60分200円</td><td class="ng">上限なし</td></tr>
-<tr><td rowspan="4">新井薬師<br>（上高田）</td><td rowspan="2">パークジャパン上高田第4</td><td>8:00〜22:00</td><td>25分200円</td><td>24時間 最大1,300円</td></tr>
-<tr><td>22:00〜翌8:00</td><td>60分100円</td><td>夜間最大400円</td></tr>
-<tr><td rowspan="2">パークネット上高田5丁目</td><td>終日</td><td>30分200円</td><td>24時間 最大1,200円</td></tr>
-<tr><td>18:00〜翌8:00</td><td>―</td><td>夜間最大400円</td></tr>
-<tr><td rowspan="3">新宿御苑</td><td>コインパーク新宿2丁目第4</td><td>日中</td><td>20分200円</td><td>12時間 最大2,600円（1回限り）・夜間最大600円</td></tr>
-<tr><td>東洋カーマックス新宿御苑前</td><td>日中</td><td>15分300円</td><td>5時間 最大1,800円・24時間 最大3,400円・夜間最大600円</td></tr>
-<tr><td>コインパーク新宿1丁目第2</td><td>日中</td><td>15分300円</td><td>6時間 最大1,800円（1回限り）・夜間最大800円</td></tr>
-</tbody></table></div>
-<p class="note">「最大」は、その時間内なら何時間停めてもその金額で止まる上限のこと。2026年10月16日に駐車場検索サイト・運営会社の公式ページで確認。JS大久保とPNP東新宿は、9月の領収書（時刻の分かる6枚）の金額がこの料金表で計算どおりになることを確認済み。</p>
+<section>
+<h2>今後の運用</h2>
+<ul class="promise">
+  <li>経費は<b>利用日を基準に、25日の締めまで</b>に申請します。間に合わないときは締めの前にご相談します。</li>
+  <li>申請の前に経費まとめシートと突き合わせ、二重申請を防ぎます。</li>
+  <li>日中はオフィス近くのJS大久保（12時間 最大1,700円）を使い、勤務が夜まで続く日は夜間最大のある駐車場に移します。</li>
+  <li>車の使い方のルールをご指示いただければ、それに合わせます。</li>
+</ul>
+</section>
+
+<section>
+<h2>参考資料</h2>
 
 <h3>9月に人材勤務で駐車場を使った8回</h3>
 <div class="tbl"><table>
 <thead><tr><th>日付</th><th>その日の運送</th><th>車を使った理由</th><th>駐車場・時間</th><th>金額</th></tr></thead>
 <tbody>
-<tr><td>9/2</td><td>なし</td><td>運送なし。自宅近くに置く代わりにオフィス近くに停めた</td><td>PNP東新宿</td><td class="num">2,100円</td></tr>
+<tr><td>9/2</td><td>なし</td><td>運送なし。置き場所としてオフィス近くを使用</td><td>PNP東新宿</td><td class="num">2,100円</td></tr>
 <tr><td>9/7</td><td>縁 新宿文京 4:00〜8:40</td><td>早朝の運送の後、そのまま出勤</td><td>PNP東新宿<br>10:18〜23:52</td><td class="num">2,300円</td></tr>
 <tr><td>9/13〜14</td><td>9/13 縁 千代田 14:30〜16:30<br>9/14 埼玉</td><td>運送の後に出勤し徹夜で作業、翌朝そのまま埼玉の運送へ</td><td>PNP東新宿<br>19:44〜翌7:10</td><td class="num wn">2,600円</td></tr>
 <tr><td>9/14</td><td>埼玉</td><td>運送の後、そのまま出勤</td><td>PNP東新宿<br>13:49〜23:39</td><td class="num">2,300円</td></tr>
 <tr><td>9/15</td><td>縁 新宿文京 4:00〜8:40</td><td>早朝の運送の後に出勤</td><td>JS大久保<br>14:22〜23:49</td><td class="num">1,700円</td></tr>
-<tr><td>9/16</td><td>なし</td><td>運送なし。自宅近くに置く代わりにオフィス近くに停めた</td><td>JS大久保<br>9:46〜21:08</td><td class="num">1,700円</td></tr>
+<tr><td>9/16</td><td>なし</td><td>運送なし。置き場所としてオフィス近くを使用</td><td>JS大久保<br>9:46〜21:08</td><td class="num">1,700円</td></tr>
 <tr><td>9/28</td><td>縁 新宿文京 4:00〜8:40</td><td>早朝の運送の後、そのまま出勤</td><td>JS大久保<br>10:33〜21:24</td><td class="num">1,700円</td></tr>
 <tr><td>9/29〜30</td><td>9/29 縁 新宿文京 4:00〜8:40</td><td>早朝の運送の後に出勤し徹夜で作業</td><td>JS大久保<br>10:50〜翌12:21</td><td class="num wn">4,800円</td></tr>
 <tr><td colspan="4"><b>合計</b></td><td class="num"><b>19,200円</b></td></tr>
 </tbody></table></div>
-<p class="note">「縁」は運送の案件名です。</p>
-<p>駐車時間が長いのは、人材の業務が夜まで続いたためです。9/14まではPNP東新宿を使っていましたが、20時以降は上限なしで加算されるため、9/15以降は12時間最大1,700円のJS大久保に切り替えています。</p>
+<p class="note">「縁」は運送の案件名。9/14まではPNP東新宿を使っていましたが、20時以降は上限なしで加算されるため、9/15以降は12時間最大1,700円のJS大久保に切り替えています。</p>
 
-<div class="box">
-<p><b>反省点：夜をまたいだ2回</b></p>
-<p>9/13〜14と9/29〜30は、徹夜で作業したため夜間も停めました（9/14はそのまま朝7時に埼玉の運送へ出発しています）。東新宿の2か所には夜間の上限が無いため、業務が長引くと分かった時点で、夜間最大（400〜800円）のある駐車場に移すべきでした。配慮が足りず申し訳ありません。</p>
-</div>
-</section>
+<h3>車の置き場所ごとの1日の費用（10:00〜22:00に停めた場合）</h3>
+<div class="br"><div class="bl">御苑（自宅周辺）</div><div class="bt"><span class="bf" style="width:100%;background:var(--bar1)"></span></div><div class="bv">2,600円以上</div></div>
+<div class="br"><div class="bl"><b>東新宿 JS大久保</b></div><div class="bt"><span class="bf" style="width:65%;background:var(--bar2)"></span></div><div class="bv"><b>1,700円</b></div></div>
+<div class="br"><div class="bl">新井薬師に停めて電車</div><div class="bt"><span class="bf" style="width:48%;background:var(--bar3)"></span><span class="bf dash" style="width:16%"></span></div><div class="bv">1,614〜1,714円<br><small>＋移動 約1時間</small></div></div>
+<p class="note">新井薬師＝駐車1,200〜1,300円（塗り）＋電車往復414円（点線）。新井薬師に停めても費用はほぼ同じで往復1時間の移動が増えるため、オフィス近くを選んでいます。運送の都合で新井薬師に停めた日は電車で出勤しています（交通費で申請している西武新宿〜新井薬師の分）。</p>
 
-<section>
-<h2><span class="n">2</span>申請の遅れ</h2>
-<p>25日締め・当月払いに対して、締めを過ぎて申請したものは次のとおりです。</p>
+<details>
+<summary>各駐車場の料金（時間帯別）を見る</summary>
 <div class="tbl"><table>
-<thead><tr><th>対象</th><th>申請日</th><th>遅れた理由</th></tr></thead>
+<thead><tr><th>場所</th><th>駐車場</th><th>時間帯</th><th>料金</th><th>上限</th></tr></thead>
 <tbody>
-<tr><td>Claude API（8月分）<br>架電の通話料（8月分）</td><td>10/3</td><td>カードで立て替えた分は、引き落としの月に申請するものと理解していました（利用日ではなく）。</td></tr>
-<tr><td>Claude Max（9/19決済）<br>Claude API（9/17決済）</td><td>10/16</td><td>同じ理由で未申請でした。本日申請しました。</td></tr>
-<tr><td>9月の駐車場5件（9/2〜9/16）<br>電車代（9/4・9/12）</td><td>10/3</td><td>車を人材と運送の両方で使っているため、9月分の領収書22枚を事業ごとに分ける作業が遅れました。</td></tr>
-<tr><td>8月の交通費ほか</td><td>8/30</td><td>8/25の締めを過ぎていました。</td></tr>
+<tr><td rowspan="3">東新宿</td><td>JS大久保</td><td>終日</td><td>15分200円</td><td>入庫から12時間 最大1,700円（2回＝24時間まで）</td></tr>
+<tr><td rowspan="2">PNP東新宿</td><td>7:00〜20:00</td><td>15分200円</td><td>昼間最大1,500円</td></tr>
+<tr><td>20:00〜翌7:00</td><td>60分200円</td><td class="ngt">上限なし</td></tr>
+<tr><td rowspan="4">新井薬師<br>（上高田）</td><td rowspan="2">パークジャパン上高田第4</td><td>8:00〜22:00</td><td>25分200円</td><td>24時間 最大1,300円</td></tr>
+<tr><td>22:00〜翌8:00</td><td>60分100円</td><td>夜間最大400円</td></tr>
+<tr><td rowspan="2">パークネット上高田5丁目</td><td>終日</td><td>30分200円</td><td>24時間 最大1,200円</td></tr>
+<tr><td>18:00〜翌8:00</td><td>―</td><td>夜間最大400円</td></tr>
+<tr><td rowspan="3">新宿御苑</td><td>コインパーク新宿2丁目第4</td><td>日中</td><td>20分200円</td><td>12時間 最大2,600円・夜間最大600円</td></tr>
+<tr><td>東洋カーマックス新宿御苑前</td><td>日中</td><td>15分300円</td><td>5時間 最大1,800円・24時間 最大3,400円・夜間最大600円</td></tr>
+<tr><td>コインパーク新宿1丁目第2</td><td>日中</td><td>15分300円</td><td>6時間 最大1,800円・夜間最大800円</td></tr>
 </tbody></table></div>
-<p class="note">9/26以降の分（9/28・9/29〜30の駐車場、9/26の電車代）は10月締めの範囲です。</p>
-<p>締めに間に合わないと分かった時点でご相談すべきところ、相談せずに申請してしまいました。申し訳ありません。</p>
-</section>
-
-<section>
-<h2><span class="n">3</span>二重申請</h2>
-<div class="tbl"><table>
-<thead><tr><th>No.</th><th>申請日</th><th>内容</th><th>金額</th><th>扱い</th></tr></thead>
-<tbody>
-<tr><td>8</td><td>8/30</td><td>Claude Max 8/17決済分（領収書あり）</td><td class="num">¥36,391</td><td><span class="tag ok">有効</span></td></tr>
-<tr><td>9</td><td>10/3</td><td>Claude Max 8/17決済分（同じ決済）</td><td class="num">¥35,031</td><td><span class="tag ng">取り下げ</span></td></tr>
-</tbody></table></div>
-<p>10/3にカード払いの分をまとめて申請した際、8/30に申請済みのNo.8を確認しませんでした。金額が違うのは、ドル建ての決済を円に換算したレートの違いです。お手数ですが、No.9の削除をお願いいたします。10/3申請分のうち、Claude API（8/1〜8/16の4回分）と通話料（8月分）は別の支払いで、二重ではありません。</p>
-</section>
-
-<section>
-<h2><span class="n">4</span>今後の運用</h2>
-<ul class="promise">
-  <li>日中はオフィス近くのJS大久保（12時間 最大1,700円）を使います。</li>
-  <li>勤務が夜まで続く日は、夜間最大のある駐車場に移します。</li>
-  <li>経費は利用日を基準に、25日の締めまでに申請します。間に合わないときは締めの前にご相談します。</li>
-  <li>申請の前に経費まとめシートと突き合わせ、二重申請を防ぎます。</li>
-  <li>車の使い方のルールをご指示いただければ、それに合わせます。</li>
-</ul>
+<p class="note">「最大」は、その時間内なら何時間停めてもその金額で止まる上限。2026年10月16日に駐車場検索サイト・運営会社の公式ページで確認。JS大久保とPNP東新宿は、9月の領収書の金額がこの料金表で計算どおりになることを確認済み。</p>
+</details>
 </section>
 </main>
 </body>
