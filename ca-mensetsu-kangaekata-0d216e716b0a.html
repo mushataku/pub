@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>面接対策の考え方</title>
+<style>
+:root{--bg:#f3f5f9;--card:#fff;--fg:#1b1f27;--mut:#5b6472;--accent:#1f5fd1;--accentbg:#e8f0ff;--ng:#c0392b;--ngbg:#fdeceb;--ok:#13795b;--okbg:#e6f6ef;--line:#e2e6ee;--gold:#9a6a00;--goldbg:#fff6df;--ink:#0f2a5c}
+@media (prefers-color-scheme:dark){:root{--bg:#121418;--card:#1c1f25;--fg:#eceff4;--mut:#a3acb9;--accent:#7aa7ff;--accentbg:#1d2a44;--ng:#ff8a80;--ngbg:#3a1f1f;--ok:#6fdcaf;--okbg:#15312a;--line:#2c3038;--gold:#ffd27a;--goldbg:#3a2f12;--ink:#cfe0ff}}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;font-size:17px;line-height:1.85;margin:0;padding:20px 16px 48px}
+.wrap{max-width:820px;margin:0 auto}
+header{background:var(--accent);color:#fff;border-radius:16px;padding:20px 22px;margin-bottom:20px}
+@media (prefers-color-scheme:dark){header{color:#0b1220}}
+header h1{margin:0;font-size:1.45em;line-height:1.35}
+header p{margin:6px 0 0;font-size:.92em;opacity:.95}
+.part{font-size:.85em;font-weight:700;color:var(--accent);letter-spacing:.08em;margin:44px 0 0}
+.parttitle{font-size:1.3em;font-weight:700;margin:2px 0 4px}
+h2{font-size:1.15em;margin:28px 0 10px;display:flex;align-items:center;gap:10px;line-height:1.45}
+h2 .n{background:var(--accent);color:#fff;border-radius:50%;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;font-size:.8em;flex:none}
+@media (prefers-color-scheme:dark){h2 .n{color:#0b1220}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin:10px 0}
+.rule{background:var(--accentbg);border-left:6px solid var(--accent);border-radius:10px;padding:12px 16px;margin:10px 0;font-size:1.05em;font-weight:700;color:var(--ink);line-height:1.6}
+.hero{background:var(--goldbg);border:2px solid var(--gold)}
+.lbl{color:var(--gold);font-weight:700;font-size:.85em}
+.quote{border-left:4px solid var(--line);padding:2px 0 2px 12px;margin:10px 0;color:var(--fg);font-size:.95em}
+.quote::before{content:"武者野の言葉（要旨）";display:block;font-size:.72em;font-weight:700;color:var(--mut)}
+.scene{font-size:.93em;color:var(--mut);margin:0 0 6px}
+.scene::before{content:"場面：";font-weight:700;color:var(--fg)}
+.why{font-size:.93em;color:var(--mut);margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
+.why::before{content:"なぜ：";font-weight:700;color:var(--fg)}
+/* 図 */
+.tree .root{background:var(--goldbg);border:2px solid var(--gold);border-radius:12px;padding:12px 16px;font-weight:700;text-align:center;line-height:1.6}
+.tree .stem{width:2px;height:18px;background:var(--gold);margin:0 auto}
+.tree .branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.tree .br{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:10px;padding:10px 12px;font-size:.9em}
+.tree .br b{display:block;color:var(--accent);font-size:1.05em;margin-bottom:2px}
+.tree .br span{color:var(--mut)}
+.bar{display:flex;border-radius:10px;overflow:hidden;margin:10px 0 6px;font-weight:700;font-size:.92em}
+.bar .a{flex:8;background:var(--accent);color:#fff;padding:10px 12px}
+.bar .b{flex:2;background:var(--gold);color:#fff;padding:10px 6px;text-align:center}
+@media (prefers-color-scheme:dark){.bar .a,.bar .b{color:#0b1220}}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:10px 0}
+.two div{border-radius:10px;padding:10px 12px;font-size:.92em;border:1px solid var(--line);background:var(--card)}
+.two .x{background:var(--ngbg);border-color:transparent}
+.two .o{background:var(--okbg);border-color:transparent}
+.two b{display:block;font-size:.85em}
+.two .x b{color:var(--ng)}
+.two .o b{color:var(--ok)}
+.funnel{display:flex;flex-direction:column;align-items:center;gap:3px;margin:12px 0}
+.funnel div{background:var(--accentbg);color:var(--ink);border-radius:8px;padding:6px 12px;text-align:center;font-size:.92em}
+.funnel .w1{width:100%}.funnel .w2{width:84%}.funnel .w3{width:68%}.funnel .w4{width:52%;background:var(--goldbg);color:var(--gold);border:2px solid var(--gold);font-weight:700}
+.funnel .ar{background:none;padding:0;color:var(--mut);font-size:.82em}
+.ladder{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.ladder div{border-radius:10px;padding:8px 14px;border:1px solid var(--line);background:var(--card);font-size:.93em}
+.ladder b{display:inline-block;min-width:5.2em;color:var(--accent)}
+.ladder .top{background:var(--goldbg);border:2px solid var(--gold);font-weight:700}
+.chain{display:flex;flex-direction:column;gap:3px;margin:10px 0}
+.chain div{border:1px solid var(--line);border-radius:8px;padding:6px 12px;background:var(--card);font-size:.92em}
+.chain .ar{border:none;background:none;padding:0 12px;color:var(--mut);font-size:.85em}
+.chain .end{background:var(--goldbg);border:2px solid var(--gold);font-weight:700}
+.axes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.axes div{background:var(--accentbg);color:var(--ink);border-radius:10px;padding:8px;text-align:center;font-weight:700;font-size:.88em;line-height:1.45}
+.axes small{display:block;font-weight:400;color:var(--mut);margin-top:4px}
+.box1m{border:2px solid var(--accent);border-radius:12px;padding:8px 10px;margin:10px 0}
+.box1m .t{font-size:.8em;font-weight:700;color:var(--accent)}
+.box1m ol{margin:4px 0 0}
+.outside{background:var(--ngbg);border-radius:10px;padding:8px 12px;font-size:.92em;margin-top:6px}
+.outside b{color:var(--ng)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0}
+.steps div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:.9em}
+.steps b{display:block;color:var(--accent)}
+.flow{margin:10px 0;font-size:.92em}
+.flow .q{background:var(--accentbg);color:var(--ink);border-radius:10px;padding:8px 12px;font-weight:700}
+.flow .a{display:flex;gap:8px;margin:4px 0 8px 14px;align-items:flex-start}
+.flow .a span{flex:none;font-weight:700;border-radius:6px;padding:0 8px;font-size:.85em}
+.flow .yes{background:var(--okbg);color:var(--ok)}
+.flow .no{background:var(--ngbg);color:var(--ng)}
+.flow .fin{background:var(--goldbg);border:2px solid var(--gold);border-radius:10px;padding:8px 12px;font-weight:700}
+.layers{border-radius:12px;overflow:hidden;margin:10px 0;font-size:.92em}
+.layers .up{background:var(--accentbg);color:var(--ink);padding:10px 12px}
+.layers .down{background:var(--goldbg);color:var(--fg);padding:10px 12px;border-top:2px dashed var(--gold)}
+.layers b{display:block;font-size:.8em;color:var(--mut)}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:0 16px}
+details[open]{padding-bottom:12px}
+summary{cursor:pointer;font-weight:700;color:var(--accent);padding:12px 0;min-height:44px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▶ ";font-size:.8em}
+details[open] summary::before{content:"▼ "}
+.pq{font-weight:700;margin:12px 0 0}
+.pq::before{content:"問 ";color:var(--accent)}
+.foot{font-size:.85em;color:var(--mut);margin-top:40px;border-top:1px solid var(--line);padding-top:12px}
+ul,ol{padding-left:1.3em;margin:6px 0}
+li{margin:3px 0}
+
+.len{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:10px 0}
+.len div{border-radius:10px;padding:8px 12px;font-size:.92em;border:1px solid var(--line);background:var(--card)}
+.len div b{display:block;font-size:.8em;color:var(--accent)}
+.len .s5{background:var(--goldbg);border:2px solid var(--gold)}
+.len .s5 b{color:var(--gold)}
+.real{background:var(--accentbg);color:var(--ink);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:.95em}
+.real::before{content:"面接官が本当に知りたいこと";display:block;font-size:.75em;font-weight:700;color:var(--mut)}
+.qh{font-size:1.05em}
+.src{font-size:.82em;color:var(--mut)}
+.qtitle{display:inline-block;background:var(--accent);color:#fff;border-radius:8px;padding:0 10px;margin-right:4px;font-size:.85em;flex:none}
+@media (prefers-color-scheme:dark){.qtitle{color:#0b1220}}
+.quote.mk::before{content:"MKの面接対策動画より（要旨）"}
+.sub{font-weight:700;margin:16px 0 2px}
+table.sheet{width:100%;border-collapse:collapse;font-size:.85em;margin:8px 0;table-layout:fixed}
+table.sheet th,table.sheet td{border:1px solid var(--line);padding:6px;vertical-align:top;word-break:break-all}
+table.sheet th{background:var(--accentbg);color:var(--ink)}
+table.sheet td.s5c{background:var(--goldbg)}
+table.disc{width:100%;border-collapse:collapse;font-size:.88em;margin:8px 0}
+table.disc th,table.disc td{border:1px solid var(--line);padding:6px 8px;vertical-align:top;text-align:left}
+table.disc th{background:var(--accentbg);color:var(--ink)}
+.todo{counter-reset:t;list-style:none;padding:0}
+.todo li{counter-increment:t;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px 8px 44px;margin:6px 0;position:relative}
+.todo li::before{content:counter(t);position:absolute;left:10px;top:8px;background:var(--accent);color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:.8em;font-weight:700}
+@media (prefers-color-scheme:dark){.todo li::before{color:#0b1220}}
+</style></head><body><div class="wrap">
+
+<header>
+<h1>面接対策の考え方<br>— テンプレ質問の答えをどう設計するか</h1>
+<p>社内CA向け。武者野の面接対策の回の逐語と、MKの面接対策動画から、考え方の芯を抜き出しました。例は、伏せたり一部を変えたりしています。</p>
+</header>
+
+<div class="card hero">
+<p class="lbl">この資料の使い方（20〜30分）</p>
+<p style="margin:6px 0 0">面接でよく聞かれる質問を7つ並べ、それぞれの答えをどう組み立てるかを書いています。覚えてほしいのは台本ではなく<b>組み立て方</b>です。</p>
+<div class="quote">細かいフレーズは、この考え方さえ分かっていれば、自分で判断して振り分けられる。</div>
+<p style="margin:0">読む順: PART 1 答えの長さ → PART 2 質問ごとの設計 → PART 3 何を言い何を言わないか → PART 4 CAの回し方と来週の準備 → 練習問題6問。</p>
+</div>
+
+<!-- ============ 1 ============ -->
+<p class="part">PART 1</p>
+<div class="parttitle">どの質問にも、3つの長さの答えを持つ</div>
+
+<h2>5秒・30秒・1分以上</h2>
+<div class="card">
+<div class="ladder">
+<div class="top"><b>5秒</b>一言。並べるなら3つまで。発表でいえばタイトル</div>
+<div><b>30秒</b>5秒の答えの1つずつに、一言ずつ足す。スライド1枚ずつのタイトル</div>
+<div><b>1分以上</b>聞かれたら出すエピソード。スライドの中身</div>
+</div>
+<p>どの質問にも、この3つの長さの答えを持たせます。木の幹から枝が分かれるように、<b>5秒の答えが幹で、長い答えは幹に枝を足すだけ</b>です。秒数は目安で、武者野も回の中では「5秒とか10秒」と言っています。大事なのは「一番短い版」を持つことです。</p>
+<p style="margin:0">1分以上の答えは文にしなくて構いません。本人の体験は話しきれないほどあるので、要るのは「どれを話さないか」を決めることです。武者野は「長く喋る練習はしなくていい」と言っています。</p>
+</div>
+
+<h2>一番大事なのは5秒の答え</h2>
+<div class="card">
+<div class="quote">本当は10時間でも100時間でも話したいことがある。でも「10秒しかあげません」と言われたら、めちゃめちゃ考えて言葉を選ぶじゃないですか。そうやって決めたものが一番大事な情報なんです。</div>
+<p>論文でも、タイトルしか読まない人が一番多い。武者野は論文を書くとき、作業全体の1割ほどをタイトルに使うそうです。5秒の答えを考え抜くことが、その人を一番よく伝える作業になります。</p>
+<p style="margin:0 0 4px">5秒の答えを先に言うと、途中で遮られても困りません。</p>
+<div class="two">
+<div class="x"><b>順に話す</b>「1つ目は車が好きで…2つ目は…」<br>──ここで遮られる──<br>→「それ、タクシーでよくない？」</div>
+<div class="o"><b>5秒の答えを先に言う</b>「理由は3つで、車・人・ジェントルマンの所作です」<br>→ どこで遮られても核は伝わる。相手の反応を見て、どこまで話すか選べる</div>
+</div>
+<p style="margin:0">もう1つの得は、<b>質問の順番が変わっても、変化球が来ても迷わない</b>ことです（PART 2 の最後）。</p>
+</div>
+
+<h2>答えが向かう先は1つ</h2>
+<div class="card">
+<div class="tree"><div class="root">面接官が「この人は長く続けてくれる」と社内に説明できる根拠を渡す</div></div>
+<div class="quote">この人は情熱を持って長く続けてくれそうだな、が伝わるようにしないといけない。</div>
+<p style="margin:0">面接官は、採った人がすぐ辞めると「誰が何を根拠に取ったのか」と社内で問われます。PART 2 の「面接官が本当に知りたいこと」は、Q2 から Q7 まで全部この1行から出てきます。</p>
+</div>
+
+<!-- ============ 2 ============ -->
+<p class="part">PART 2</p>
+<div class="parttitle">テンプレ質問ごとの設計</div>
+<p class="src">例は、ハイヤー会社の面接に向けた回のものです（本人は車が好き・接客業のアルバイト経験あり・今は配送の仕事）。施工管理やITでも、組み立て方は同じです。</p>
+
+<h2><span class="qtitle">Q1</span><span class="qh">自己紹介をお願いします</span></h2>
+<div class="card">
+<div class="real">この人は何をしてきた人か（この後の質問の入口）</div>
+<div class="len">
+<div class="s5"><b>5秒</b>名前と、今何をしている人か</div>
+<div><b>30秒</b>学校 → その後の仕事を順に。仕事は何をしていたかまで具体的に</div>
+<div><b>1分以上</b>聞かれた経歴のエピソード</div>
+</div>
+<p style="margin:0">MKの動画では、名前・年齢・最終学歴・その後の仕事の順に述べ、<b>していた仕事の中身（例: パソコンの不具合やネットワークの問い合わせへの対応）を具体的に説明する</b>形を示しています。自己紹介は面接官が次に聞くことの入口なので、ここで志望動機まで言い切ろうとしなくて構いません。学歴・職歴の事実は書類どおりに言います。</p>
+</div>
+
+<h2><span class="qtitle">Q2</span><span class="qh">志望動機を教えてください</span></h2>
+<div class="card">
+<div class="real">その興味は続くか。うちでなければいけない理由があるか</div>
+<div class="len">
+<div class="s5"><b>5秒</b>「車が好き・人に直接ありがとうと言われる仕事が好き・ジェントルマンの所作が身につく仕事。この3つです」</div>
+<div><b>30秒</b>3つそれぞれに、今までの選択（アルバイト・今の仕事）や見た場面を一言ずつ</div>
+<div><b>1分以上</b>3つそれぞれのエピソード</div>
+</div>
+
+<p class="sub">考え方A　8割が今までの自分、2割が新しい出会い</p>
+<div class="bar"><div class="a">8割　①車 ②人 ＝今までの選択に通っている軸</div><div class="b">2割　③所作＝今回知った魅力</div></div>
+<p class="src" style="margin:0">割合は話の重みの目安です（時間や数ではありません）。</p>
+<div class="two">
+<div class="x"><b>全部が「最近知った」</b>その興味、続くの？</div>
+<div class="x"><b>全部が「昔から好き」</b>なら最初から選べばよかったのでは？</div>
+</div>
+<p>学生時代のアルバイトや今の仕事を、同じ軸で選んできたと言えれば、今回の選択も気まぐれではなくその続きだと読めます。<b>軸の見つけ方</b>は、本人にこれまでの選択（学校・アルバイト・仕事）を並べてもらい、「なぜそれを選んだんですか」と聞いて、繰り返し出てくる言葉を拾うことです。</p>
+<div class="quote">8割ぐらいが今までと同じ意思決定の軸に基づいた選択なんだ、となると、突発的な興味で動いてるわけじゃない、本当に興味を持ってくれてるんだ、となる。</div>
+
+<p class="sub">考え方B　「道を歩いているおじさん」に当ててもらう</p>
+<p style="margin:0">会社名と職種名を使わずに志望動機を話し、それを聞いた初対面の人が「何の仕事の話か」を当てられるかを確かめます。下の図は、答えに要素が1つ足されるごとに、当てはまる仕事が絞られていく様子です。</p>
+<div class="funnel">
+<div class="w1">すべての仕事</div>
+<div class="ar">▼ ＋「車が好き」</div>
+<div class="w2">車に関わる仕事（百前後）</div>
+<div class="ar">▼ ＋「人と直接関わり、ありがとうと言われる」</div>
+<div class="w3">タクシー・ディーラー・ガソリンスタンド</div>
+<div class="ar">▼ ＋「乗る人が頭をぶつけないよう手を添える所作」</div>
+<div class="w4">ハイヤー</div>
+</div>
+<p>この回、本人の答えは「人と関わる」の段（タクシーと区別がつかない所）で止まっていました。<b>武者野は足りない要素を自分では言わず</b>、「何が足りないと思います？」と聞きました。会社の紹介動画で見た所作の場面は、本人が自分で出したものです。</p>
+
+<p class="sub">考え方C　誰でも言える理由は、加点にならない</p>
+<div class="quote">VIP対応に憧れて、は言ってマイナスではないけど、プラスでもない。みんな言うので。頭をぶつけないように、みたいな超具体は、他の応募者が言わない言葉。</div>
+<p style="margin:0">MKの動画でも、「研修制度が良いから」のようなふんわりした志望動機ではなく、その会社にしか無いものを本人の事情（ブランクがあるから早くキャリアアップしたい）とつなげる方が、説得力がずっと増すと言っています。</p>
+</div>
+
+<h2><span class="qtitle">Q3</span><span class="qh">退職理由（転職理由）を教えてください</span></h2>
+<div class="card">
+<div class="real">同じ理由で、うちもすぐ辞めないか</div>
+<div class="rule">骨組み：今この瞬間が、挑戦の扉の前に立つ準備が整ったときだから</div>
+<div class="chain">
+<div>今の仕事で積んできたもの（＝準備）</div>
+<div class="ar">▼</div>
+<div>それが揃った「今」だから</div>
+<div class="ar">▼</div>
+<div class="end">次の挑戦に進む（＝志望動機の2割）</div>
+</div>
+<div class="len">
+<div class="s5"><b>5秒</b>「◯◯の準備が整ったので、次は△△に挑戦したいと考えました」</div>
+<div><b>30秒</b>今の仕事で何を積んだか → だから今、の順に</div>
+<div><b>1分以上</b>積んだものの具体。聞かれたら辞める直接のきっかけ</div>
+</div>
+<p style="margin:0">今の職場への不満から入ると、面接官には「うちでも同じ不満が出たら辞める」と聞こえます。退職を<b>前の職場から逃げる話ではなく、次の扉の前に立てた話</b>にすると、志望動機（Q2）の2割とそのままつながります。ただし、本人がLINEやメモに書いた退職理由が重いときは、それを軽い理由にすり替えません。離職票などの書類に書かれた退職の事由とも食い違わないようにし、書かれた理由を土台に言い方の順番だけを組み直します。</p>
+</div>
+
+<h2><span class="qtitle">Q4</span><span class="qh">短期間で辞めた理由・学校を途中で辞めた理由は？</span></h2>
+<div class="card">
+<div class="real">この人は勢いだけで決めて、また途中で投げ出さないか</div>
+<p class="src" style="margin:0 0 4px">Q3 は「今の仕事を、今辞める理由」。Q4 は「過去に、短く・途中で辞めた理由」です。</p>
+<div class="steps">
+<div><b>事実</b>淡々と。言い訳を重ねない</div>
+<div><b>目的</b>何のために辞めたか／その後それに向けて何をしてきたか（当時本当にあった目的だけ）</div>
+<div><b>自責の念</b>当時の自分の判断を反省している、と言葉にする</div>
+</div>
+<div class="quote mk">もう1つ、絶対につけてほしいのが自責の念です。これが無いと、この人は勢いだけで意思決定している、となって、定着するかを疑われ、お見送りになる可能性が高いんです。</div>
+<div class="len">
+<div class="s5"><b>5秒</b>「独学で資格を取るために辞めました。勢いで決めた所は反省しています」</div>
+<div><b>30秒</b>事実 → 目的とその後にしてきたこと → 自責の念</div>
+<div><b>1分以上</b>その後にしてきたことの具体</div>
+</div>
+<p class="src" style="margin:0">例（合成）: 専門学校を1年で辞め、その後は働きながら独学で資格を取った人。</p>
+<p>武者野の回でも、過去の失敗を聞かれた本人が「事実 → 今どう気をつけているか」で答えたあと、武者野は「反省しています」という一言を足させました。<b>目を見て「本当に反省しています」と言われるのと言われないのとでは、印象がだいぶ違う</b>からです。</p>
+<p>目的は、本人が当時実際に持っていたものだけを使います。後から作らず、書類・離職票の事由・在籍期間と食い違わないようにします。</p><p style="margin:0">体調を崩して辞めた場合は、自責の念ではなく「今は問題なく働ける」を先回りして言います（PART 3）。</p>
+</div>
+
+<h2><span class="qtitle">Q5</span><span class="qh">なぜ他ではなく、うちなんですか？</span></h2>
+<div class="card">
+<div class="real">似た仕事・他社との違いを分かったうえで選んでいるか</div>
+<div class="len">
+<div class="s5"><b>5秒</b>違いを一言で。「（タクシーとの違いは）指名制度です」</div>
+<div><b>30秒</b>違いを説明 → 自分はそちら側が好きだ、の順に</div>
+<div><b>1分以上</b>そう思った体験</div>
+</div>
+<p class="src" style="margin:0">指名制度＝同じお客様から名指しで繰り返し呼ばれる仕組み。タクシーは基本的にその場限りです。</p>
+<div class="quote">なぜタクシーじゃなくハイヤーなのかを説明するには、まず違いを説明する必要がある。違いで切り分けたうえで、自分はどっち側が好みなのかを話す。これが論理的な順番ですよね。</div>
+<p>同業他社が少ない業界なら「似た仕事との違い」を一言二言で。同業他社が多い業界（IT・施工管理など）なら「その会社にしか無いもの」（Q2 の考え方C）を使います。5秒なら「◯◯（その会社にしか無い仕組み）があるからです」の形です。違いや仕組みは、求人票と会社のホームページで裏を取ってから使います。</p>
+<p style="margin:0"><b>相手が知らないことは一言足します。</b>本人の以前のアルバイト先は礼儀作法がとても厳しい業種ですが、世間ではあまり知られていません。武者野は「これって世間で知られていることですか？」と本人に確かめてから、「実は◯◯の業界は礼儀作法が厳しくて」と一言添えることにしました。</p>
+</div>
+
+<h2><span class="qtitle">Q6</span><span class="qh">入社後、どうなりたいですか？</span></h2>
+<div class="card">
+<div class="real">この人の目指す姿が、うちの仕事の先にあるか</div>
+<div class="len">
+<div class="s5"><b>5秒</b>「指名される運転手になりたいです」</div>
+<div><b>30秒</b>なりたい姿 → そのために日々何をするか</div>
+<div><b>1分以上</b>待ち時間の過ごし方など具体</div>
+</div>
+<p class="sub">答え同士をつなげておく（伏線）</p>
+<p style="margin:0">面接官の質問は、前の答えを受けてこの順に続きやすい。だから答えを鎖のようにつないでおきます。</p>
+<div class="chain">
+<div>「タクシーとの違いは？」→ 指名制度（Q5）</div>
+<div class="ar">▼ だから</div>
+<div>「どうなりたい？」→ 指名される運転手（Q6）</div>
+<div class="ar">▼ では</div>
+<div>「そのために何をする？」→ 待ち時間にニュースで一般知識を上げる／お客様の会社や業界を調べる</div>
+<div class="ar">▼ これが</div>
+<div class="end">志望動機の②「人に直接ありがとうと言われる」（Q2）の裏付けになる</div>
+</div>
+<p style="margin:0">お客様の会社を調べておけば、話が合い、また呼んでもらえる。1つの答えが次の答えの根拠になっています。武者野はここも「これ、何の伏線だと思います？」と本人に聞いています。</p>
+</div>
+
+<h2><span class="qtitle">Q7</span><span class="qh">あなたの短所・弱みは？</span></h2>
+<div class="card">
+<div class="real">弱みを分かったうえで、直そうとしているか</div>
+<div class="len">
+<div class="s5"><b>5秒</b>事実を一言で認める。「◯◯が苦手です」</div>
+<div><b>30秒</b>事実 → 今どう直しているか／これからどう直すか</div>
+<div><b>1分以上</b>直している具体</div>
+</div>
+<p style="margin:0">聞かれたら、事実を認めて、直し方とセットで答えます。聞かれていないときにどうするかは、次の PART 3 です。</p>
+</div>
+
+<h2>テンプレの答えを筋として強く持てば、変化球にも順番違いにも対応できる</h2>
+<div class="card">
+<div class="axes">
+<div>①車が好き<small>例「今どんな仕事を？」</small></div>
+<div>②人に直接ありがとう<small>例「お客様との関わりは？」</small></div>
+<div>③所作<small>例「そのアルバイト、どうだった？」</small></div>
+</div>
+<p>上の箱は志望動機の3つの軸、小さい字は「その軸で答えればよい質問」の例です。テンプレ質問の答えを自分の中で筋として強く持っていれば、テンプレに無い質問が来ても「これは③の話だ」と分かります。</p>
+<div class="quote">この3つを持って、俺は今この扉の前に立ってるんだ、という意識をずっしり持っていれば、いきなり変な順番で聞かれても、ここの幹を聞かれてるなと分かる。</div>
+<p style="margin:0">本人も、別の会社の面接で経歴を逆の順に聞かれたが、練習した引き出しで答えられた、と話していました。<b>テンプレ質問を練習するのは、テンプレ以外に答えるため</b>です。</p>
+</div>
+
+<h2>テンプレ以外の例: きれいごとに、少しの本音を混ぜる</h2>
+<div class="card">
+<div class="two">
+<div class="x"><b>きれいごとだけ</b>「とてもきれい好きです」<br>→ 面接だから良く言っているのでは？</div>
+<div class="o"><b>きれいごと＋本音</b>「部屋は散らかっていますが、車と仕事場はいつもきれいにしています」<br>→ 本当っぽい</div>
+</div>
+<div class="quote">きれいごとだけだと、ちょっと嘘っぽくて不安なんですよ。本音っぽいことを話すと、きれいごとのところまで本当だと感じてもらえる。</div>
+<p style="margin:0">「部屋はきれいですか」と聞かれて、この答えは本人が自分で出しました。武者野は「正解」と言って、なぜ正解かを説明しただけです。</p>
+</div>
+
+<!-- ============ 3 ============ -->
+<p class="part">PART 3</p>
+<div class="parttitle">何を先に言い、何を言わないか</div>
+
+<h2>分ける軸は2つ。「定着の不安か、能力の弱みか」と「面接官に見えているか」</h2>
+<div class="card">
+<table class="disc">
+<tr><th></th><th>面接官に見えている<br>（書類に出ている・頭に浮かぶ）</th><th>面接官に見えていない</th></tr>
+<tr><th>定着の不安<br>（見えている＝中退・短い在籍など／見えていない＝体調・家庭の事情など）</th><td><b>先に言う</b>。聞かれる前に答えを置く</td><td>言う／言わないは<b>本人が決める</b>（下の検算）</td></tr>
+<tr><th>能力の弱み</th><td>聞かれたら「事実 → 直し方」（Q7）</td><td><b>自分からは言わない</b></td></tr>
+</table>
+<p style="margin:0">学歴・職歴・在籍期間・資格は書類に全部書くので、<b>「見えていない」には入りません</b>。本人が決めてよいのは、書類に書く欄の無い事情（家族のこと・体調の詳しい中身など。退職の事由に当たらないもの）だけです。どのマスでも、事実の嘘はつきません。</p>
+</div>
+
+<h2>見えている不安は、聞かれなくても先に答える</h2>
+<div class="card">
+<div class="layers">
+<div class="up"><b>面接官が口に出す質問</b>「学校はなぜ辞めたんですか？」（体調を崩して中退・今は回復）</div>
+<div class="down"><b>口には出さないが、頭の中にある質問</b>「また体調を崩さないの？」</div>
+</div>
+<div class="quote">そんなストレートには聞かないと思うけど、心の中では絶対思ってる。だから聞かれなくても、こっちから念押しする。</div>
+<p style="margin:0">念押しは、本人が言える事実（「通院は終わり、今は問題なく働いています」など）の範囲で作ります。面接は、<b>相手が欲しい言葉を先に用意しておいて、タイミングよく打ち込むリズムゲーム</b>のようなもの、というのが武者野の言い方です。</p>
+</div>
+
+<h2>見えていない弱みは、自分からは言わない</h2>
+<div class="card">
+<p class="scene">本人が志望動機の中で「敬語はまだまだなので、研修でしっかり学びたい」と添えた。</p>
+<div class="box1m">
+<div class="t">志望動機の1分に入れる中身（優先順）</div>
+<ol><li>3つの軸</li><li>軸ごとのエピソード</li><li>その会社でなければいけない理由</li></ol>
+</div>
+<div class="outside"><b>1分に入らない：</b>「敬語はまだまだですが」</div>
+<div class="quote">自分という商品を売る営業の場なんで、商品のいいところをとにかく伝える。隠すわけじゃなく、1分の優先順位の中に入ってこない。</div>
+<p style="margin:0">本人は「自分は成長する人間だ」と伝えたかったのだろう、と武者野は意図を汲んでいます。意図は否定せず、話す場所を変えます（聞かれたら Q7 の型で答える）。なお PART 2 の「少しの本音」は、きれいごとを本当に見せるための味付けで、弱みの告白とは別物です。</p>
+</div>
+
+<h2>迷う事情は、検算2問のあと本人が決める</h2>
+<div class="card">
+<p class="scene">書類に書く欄の無い過去の1件を、面接で言うべきかと本人が相談してきた。</p>
+<div class="flow">
+<div class="q">問1　言わなくても、嘘にならないか（聞かれたことに事実で答えられるか）</div>
+<div class="a"><span class="no">嘘になる</span>言う。事実の嘘はつかない</div>
+<div class="a"><span class="yes">ならない</span>問2へ</div>
+<div class="q">問2　後から出てくるか（入社書類・前の職場への照会・公的な記録・ネット検索・本人がうっかり話す）</div>
+<div class="a"><span class="no">出てくる</span>先に言う方が得だと本人に伝える</div>
+<div class="a"><span class="yes">出てこない</span>言う／言わないは本人が選んでよい</div>
+<div class="fin">本人が選んだ方で答えを作る（CAは得と損を並べ、決めるのは本人）</div>
+</div>
+<div class="quote">バレるんだったら、言った方が絶対いい。これって後から分かるものなんですかね？</div>
+<p style="margin:0">この回は本人が問1を自分で考えてきていたので、武者野は問2の確認から入りました。問2は、上の括弧の出どころを1つずつ本人と確かめます。本人の「出ないと思う」だけで終わらせず、分からないものは、本人に書類を取り寄せてもらうか、企業の選考で何を確認されるかをCAが求人票・企業側に確かめます（CAが前の職場や役所へ直接問い合わせることはしません）。出る見込みがあれば「先に言う」側に倒します。</p>
+</div>
+
+<h2>書類も面接の一部</h2>
+<div class="card">
+<p class="scene">事前アンケートの「他社の選考状況」欄。本人は別の業界の会社も受けているが、「職種がかけ離れているから『なし』と書きたい」と言った。</p>
+<div class="two">
+<div class="x"><b>「なし」と書く</b>受けているなら事実と違う。それに「リスクの分散は大丈夫？」と逆に不安を呼ぶ</div>
+<div class="o"><b>書いて、軸で説明する</b>職種は違っても「車が好き」の軸で説明できる → 志望動機の補強になる</div>
+</div>
+<ul>
+<li><b>自由記述</b>は「条件で選んでいるか、仕事内容に興味があるか」を見る欄。仕事内容の側に寄せる</li>
+<li><b>深掘りを呼ぶだけの欄</b>（「求人を信じて入社し、後悔した経験は？」など）は、無いなら「ない」でシンプルに。面接で聞かれたら Q4 の型で答える</li>
+</ul>
+</div>
+
+<!-- ============ 4 ============ -->
+<p class="part">PART 4</p>
+<div class="parttitle">CAとしての回し方と、来週の準備</div>
+
+<h2>答えは本人に出させる</h2>
+<div class="card">
+<div class="steps">
+<div><b>話させる</b>考えてきた答えを先に</div>
+<div><b>問う</b>「何が足りないと思います？」「5秒で言うと？」</div>
+<div><b>正解と言う</b>本人が出したら、なぜ正解かも言う</div>
+<div><b>答え合わせ</b>CAの答えは最後に、押し付けずに</div>
+</div>
+<p>この回は、本人が考えてきた志望動機を話すところから始まりました。詰まったときは「まとまってなくていいので、思いの丈を喋ってください」。本人が良い答えを出すと、武者野は3回「正解」と言い、毎回なぜ正解かを続けています。理由まで渡すと、本人は練習していない質問にも同じ型を当てられます。</p>
+<div class="quote">こうしろという話じゃなくて、テストが終わったあとに二人で答え合わせしてるぐらいの雑談だと思ってください。</div>
+<p class="why" style="margin-bottom:0">CAが作った文は、少し違う聞き方をされると崩れる。本人が組み立てた答えや、本人が「それ使っていいですか」と自分で取りに来た答えは、本番でも崩れない。CAが足してよいのは、型と短い一言（「反省しています」など）までです。</p>
+</div>
+
+<h2>来週の面接対策は、この順で準備する</h2>
+<div class="card">
+<ol class="todo">
+<li>2日前までに、本人へ宿題を送る。Q1〜Q7 への答えを、うまく書けなくていいので箇条書きで</li>
+<li>受ける会社の求人票とホームページを読み、Q5 に使える「違い」「その会社にしか無いもの」の候補を拾う</li>
+<li>本人の答えと面談の記録から、<b>本人が実際に言った言葉</b>に印をつける</li>
+<li>下の表を紙かメモに写して埋める。<b>5秒の列から</b>。本人の言葉が無いマスは空けておき、当日本人に聞く</li>
+<li>Q2 の軸が見えなければ、当日は本人のこれまでの選択を並べて「なぜそれを選んだか」から始める</li>
+<li>前日までに、当日の時間割・面接官役のやり方が載った手順書（面接対策の型）の場所を武者野に聞いて読む</li><li>当日は、上の「答えは本人に出させる」の4手で回す</li>
+</ol>
+<table class="sheet">
+<tr><th style="width:22%">質問</th><th style="width:30%">5秒</th><th>30秒</th><th style="width:20%">1分以上（ネタだけ）</th></tr>
+<tr><td>Q1 自己紹介</td><td class="s5c"></td><td></td><td></td></tr>
+<tr><td>Q2 志望動機</td><td class="s5c"></td><td></td><td></td></tr>
+<tr><td>Q3 退職理由</td><td class="s5c"></td><td></td><td></td></tr>
+<tr><td>Q4 短期・中退</td><td class="s5c"></td><td></td><td></td></tr>
+<tr><td>Q5 なぜうち</td><td class="s5c"></td><td></td><td></td></tr>
+<tr><td>Q6 入社後</td><td class="s5c"></td><td></td><td></td></tr>
+<tr><td>Q7 短所</td><td class="s5c"></td><td></td><td></td></tr>
+</table>
+<p class="src" style="margin:0">Q4 は該当する経歴がある人だけ。</p>
+</div>
+
+<!-- ============ 練習 ============ -->
+<p class="part">練習問題</p>
+<div class="parttitle">あなたならどうするか、先に考えてから開く</div>
+<div class="card">
+<p style="margin:0">頭の中で答えを決めてから「武者野の手を見る」を押してください。ずれた問があれば、その節を読み直します。</p>
+
+<p class="pq">本人の志望動機は「車が好き」「人と関わるのが好き」の2つ。ハイヤー会社を受ける。あなたは次に何と言う？</p>
+<details><summary>武者野の手を見る</summary>
+<p>足りない要素を自分では言わず、「会社名を使わずに今の話を道のおじさんにしたら、何の仕事だと当てられますか？」と聞く。タクシーと区別がつかないことに本人が気づき、本人の言葉で3つ目（所作）を出す。（→ Q2 考え方B）</p>
+</details>
+
+<p class="pq">本人が志望動機を2分かけて丁寧に話した。内容は良い。次にやることは？</p>
+<details><summary>武者野の手を見る</summary>
+<p>「5秒で言うと？」と聞き、3つの軸を一言ずつに絞ってもらう。長い版は直さない。5秒の答えがすぐ出るまで、何度か言ってもらう。（→ PART 1）</p>
+</details>
+
+<p class="pq">本人の退職理由は「今の職場は同じ作業の繰り返しで、成長できないから」。どう組み直す？</p>
+<details><summary>武者野の手を見る</summary>
+<p>不満から入らず、「今の仕事で◯◯を積んで、次に挑戦する準備が整ったから」という骨組みにする。積んだものは本人の言葉で出してもらう。次の挑戦の中身が、志望動機の2割とつながっているかも確かめる。（→ Q3）</p>
+</details>
+
+<p class="pq">本人が専門学校を辞めた理由を「やりたいことが見つかったので」とだけ答えた。何を足す？</p>
+<details><summary>武者野の手を見る</summary>
+<p>辞めた目的と、その後それに向けて何をしてきたかを足す。さらに「当時は勢いで決めてしまったことを反省しています」という自責の念を必ず付ける。無いと「勢いで決める人＝また辞める」と見られる。（→ Q4）</p>
+</details>
+
+<p class="pq">本人が「敬語はまだまだですが、研修で学びたいです」と志望動機に添えた。直す？</p>
+<details><summary>武者野の手を見る</summary>
+<p>自分からは言わなくていい、と伝える。隠すのではなく、1分の優先順位に入らないから。聞かれたときの答え方（事実 → 直し方）は渡しておく。本人の「成長する人だと伝えたい」意図は汲む。（→ PART 3）</p>
+</details>
+
+<p class="pq">本人の答えより、あなたが考えた答えの方がうまいと思った。どう渡す？</p>
+<details><summary>武者野の手を見る</summary>
+<p>先に本人の答えの良い所を言う。自分の答えは「こうしろ」ではなく「答え合わせ」として出す。本人が「使いたい」と取りに来たら渡す。取りに来なければ、本人の答えのまま進める。（→ PART 4）</p>
+</details>
+</div>
+
+<div class="foot">
+<p>出典: 武者野の面接対策の回の逐語／MKの面接対策動画（模擬面接）。逐語は文字起こしの誤りを直して要旨にしています。求職者の氏名・企業名は出さず、事情の一部は変えています。</p>
+<p>動かさない線: 盛ってよいのは関心・理由・意欲。事実（期間・資格・経験・実績・数字）は盛らない。</p>
+</div>
+
+</div></body></html>
