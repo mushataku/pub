@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>MNP 依頼コンソールの通し</title>
+<style>
+:root{
+  --ink:#1f2328; --sub:#57606a; --line:#d0d7de; --bg:#ffffff; --soft:#f6f8fa;
+  --v:#c2410c; --v-bg:#fff1e6;   /* 業者さん */
+  --h:#2f7d32; --h-bg:#ebf6ec;   /* 名義人さん */
+  --u:#0b63c9; --u-bg:#e8f1fc;   /* こちら（担当者・管理） */
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --ink:#e6edf3; --sub:#9da7b3; --line:#3d444d; --bg:#0d1117; --soft:#161b22;
+    --v:#ffa36b; --v-bg:#3a2214; --h:#7ccf80; --h-bg:#16301a; --u:#79b8ff; --u-bg:#14263d; }
+}
+:root[data-theme="dark"]{ --ink:#e6edf3; --sub:#9da7b3; --line:#3d444d; --bg:#0d1117; --soft:#161b22;
+  --v:#ffa36b; --v-bg:#3a2214; --h:#7ccf80; --h-bg:#16301a; --u:#79b8ff; --u-bg:#14263d; }
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic UI","Meiryo",sans-serif;
+  font-size:16px;line-height:1.75;overflow-wrap:anywhere}
+main{max-width:560px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.35rem;line-height:1.4;margin:.2em 0 .3em}
+.meta{color:var(--sub);font-size:.88rem}
+video{display:block;width:100%;max-width:400px;height:auto;margin:12px auto;border:1px solid var(--line);border-radius:12px;background:#000}
+.take{font-size:1.04rem;font-weight:700;background:var(--v-bg);border-radius:8px;padding:8px 10px;margin:14px 0 8px}
+.band{list-style:none;padding:0;margin:10px 0;display:grid;gap:4px}
+.band li{display:grid;grid-template-columns:2.2em 1fr;gap:6px;align-items:start;font-size:.95rem}
+.band b.n{display:inline-block;width:1.8em;height:1.8em;border-radius:50%;text-align:center;line-height:1.8em;color:#fff;background:var(--sub)}
+.band li.vv b.n{background:var(--v)} .band li.hh b.n{background:var(--h)} .band li.uu b.n{background:var(--u)}
+footer{margin-top:32px;color:var(--sub);font-size:.85rem;border-top:1px solid var(--line);padding-top:10px}
+</style>
+</head>
+<body>
+<main>
+<h1>MNP 依頼コンソールの通し（<span id="video-len">1分18秒</span>）</h1>
+<p class="meta">依頼を出してから予約番号の3点をコピーするまでを1本で。字幕の札の色＝その場面の手番（<b style="color:var(--v)">業者さん</b>・<b style="color:var(--h)">名義人さん</b>・<b style="color:var(--u)">こちら</b>）。</p>
+<video controls playsinline preload="metadata" src="mnp-console-walkthrough-9b3a5b261044.mp4"></video>
+<p class="take">依頼1件は5つの段を進む。業者さんの手番は「依頼を出す」（依頼フォームで情報を集めて）と「名義人さんにリンクを1回渡す」だけで、あとは一覧のカードと詳しい画面に橙の行が出たときにその通りにする（入金・EID もこの行。説明書の「3つ」）。</p>
+<ol class="band">
+<li class="uu"><b class="n">1</b><span><b>受付</b>　こちら。口座を作り、本人確認を用意</span></li>
+<li class="hh"><b class="n">2</b><span><b>名義人さんの本人確認待ち</b>　名義人さん。リンクから本人確認</span></li>
+<li class="uu"><b class="n">3</b><span><b>本人確認済み</b>　こちら。申込を進める</span></li>
+<li class="uu"><b class="n">4</b><span><b>申込完了</b>　こちら。電話番号が付き発行の朝を待つ（EID・稼働日が空なら業者さん）</span></li>
+<li class="vv"><b class="n">5</b><span><b>予約番号発行済み</b>　業者さん。3点（電話番号・予約番号・有効期限）を使う</span></li>
+</ol>
+<footer>
+<p>撮った日時: <span id="shot-at">2026-10-18 07:07</span>・元にした版: <span id="shot-sha">7ef4e5c09</span>。名前・電話番号・番号・アドレスは全部見本です（実在の依頼ではありません）。動画は <code>python -m sites.linksmate.vendorconsole.walkthrough --write</code> が試験サーバで撮り直します。</p>
+</footer>
+</main>
+</body>
+</html>
