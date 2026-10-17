@@ -9,22 +9,36 @@
 --leaf:#5f6a7b;--leafbg:#f1f3f6;--leafline:#bfc7d3;
 --ng:#c0392b;--ngbg:#fdeceb;--ok:#13795b;--okbg:#e6f6ef;
 --ink:#22314f;--inkfg:#fff;--syn:#7b4bb7;--bub:#eef1f6;--bubline:#aeb8c8;
---old:#d9e0ea;--newa:#fbfcfd;--newb:#e3e9f1;--hon:#ffd9a8;--kre:#cfe9dd}
+--old:#d9e0ea;--newa:#fbfcfd;--newb:#e3e9f1;--hon:#ffd9a8;--kre:#cfe9dd;
+/* 物語の4つの部分：過去=藍 今=苔 扉=紅紫 扉の先=青緑 */
+--k1:#4f4c96;--k1bg:#ecebf7;--k1l:#c4c2e6;
+--k2:#5b6f12;--k2bg:#f0f4dc;--k2l:#cbd69c;
+--k3:#9b3368;--k3bg:#f9e8f1;--k3l:#e3b4cc;
+--k4:#0b6b82;--k4bg:#e2f2f6;--k4l:#a8d5e0}
 @media (prefers-color-scheme:dark){:root{--bg:#121418;--card:#1c1f25;--fg:#eceff4;--mut:#a7b0bd;--line:#30353e;
 --gold:#d9a93f;--goldink:#ffd27a;--goldbg:#3a2f12;
 --blue:#7aa7ff;--blueink:#a9c6ff;--bluebg:#1d2a44;--blueline:#3a5a90;
 --leaf:#a7b0bd;--leafbg:#23272e;--leafline:#4d5562;
 --ng:#ff8a80;--ngbg:#3a1f1f;--ok:#6fdcaf;--okbg:#15312a;
 --ink:#cfe0ff;--inkfg:#0b1220;--syn:#c9a7ff;--bub:#272c35;--bubline:#5d6676;
---old:#39414e;--newa:#20242b;--newb:#2e343d;--hon:#8a5f1c;--kre:#22634a}}
+--old:#39414e;--newa:#20242b;--newb:#2e343d;--hon:#8a5f1c;--kre:#22634a;
+--k1:#b2b3f0;--k1bg:#26253f;--k1l:#55528c;
+--k2:#c2d677;--k2bg:#262c15;--k2l:#5b6d2c;
+--k3:#f2a0c9;--k3bg:#3a1f2e;--k3l:#80405f;
+--k4:#72d0e6;--k4bg:#132f38;--k4l:#2d6878}}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;font-size:17px;line-height:1.6;padding:16px 16px 40px}
 .wrap{max-width:1000px;margin:0 auto}
-h1,h2,h3,h4,p,figure,ol,ul,table{margin:0}
+h1,h2,h3,h4,p,figure,ol,ul,table,dl,dd{margin:0}
 ol,ul{padding:0;list-style:none}
 a{color:inherit}
 b{font-weight:800}
+[id]{scroll-margin-top:10px}
+/* 日本語を文節で折り返す（対応しないブラウザは従来どおり） */
+.bub,.ld,.key2,.key3,.inner span,.part h2,.card h3,.qh h3,.why,.lead2,.fl3>p,.only,.fig h4,.pr p,.chk,.gyaku,.kata,.mk1,.mk2,.dl,.dax,.cap,.rec,.aside{word-break:auto-phrase;overflow-wrap:break-word}
+.bub,.ld,.key2,.inner span,.part h2,.card h3,.qh h3,.fig h4{text-wrap:balance}
+symbol{overflow:visible}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
 .card h3{font-size:18px;line-height:1.4;margin-bottom:10px}
 .cap{font-size:15px;color:var(--mut);margin-top:8px;line-height:1.5}
@@ -36,6 +50,7 @@ b{font-weight:800}
 .tag.k{border:1.5px dashed var(--mut);color:var(--mut)}
 .tag.s{border:1.5px dotted var(--syn);color:var(--syn)}
 .tag.m{border:1.5px solid var(--fg)}
+.tag.r{background:var(--leafbg);border:1.5px solid var(--leafline);color:var(--fg)}
 .spk{background:var(--fg);color:var(--bg)}
 .spk.mk{background:var(--mut)}
 .say{display:flex;align-items:center;gap:4px}
@@ -48,6 +63,18 @@ b{font-weight:800}
 .n5{display:inline-block;min-width:1.4em;height:1.4em;line-height:1.4em;text-align:center;border-radius:50%;background:var(--gold);color:var(--card);font-size:13.5px;font-weight:800;margin:0 2px;vertical-align:.1em}
 .warn{font-size:15px;font-weight:700;color:var(--ng);margin-top:8px;line-height:1.5}
 .aside{font-size:15px;line-height:1.5;margin-top:10px}
+.rec{font-size:15px;line-height:1.55;margin-top:10px}
+/* 物語の4つの部分（語＋色） */
+.k1{--kc:var(--k1);--kb:var(--k1bg);--kl:var(--k1l)}
+.k2{--kc:var(--k2);--kb:var(--k2bg);--kl:var(--k2l)}
+.k3{--kc:var(--k3);--kb:var(--k3bg);--kl:var(--k3l)}
+.k4{--kc:var(--k4);--kb:var(--k4bg);--kl:var(--k4l)}
+.pc{display:inline-block;font-size:14px;font-weight:800;line-height:1.45;color:var(--kc);background:var(--kb);border:1.5px solid var(--kl);border-left:5px solid var(--kc);border-radius:5px;padding:0 7px 0 5px;white-space:nowrap;vertical-align:.08em;text-decoration:none}
+.pc small{font-size:14px;font-weight:700;margin-left:4px}
+.pc.pcb{font-size:16px;padding:1px 9px 1px 7px}
+a.pc{text-decoration:none}
+.kw{color:var(--kc);font-weight:800}
+.pcard{border-top:5px solid var(--kc)}
 /* 見出し */
 .top{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 14px;margin:0 0 12px}
 .top h1{font-size:26px;line-height:1.3}
@@ -55,45 +82,143 @@ b{font-weight:800}
 .part{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;margin:30px 0 0;border-bottom:2px solid var(--line);padding-bottom:4px}
 .part span{font-size:14px;font-weight:800;letter-spacing:.06em;color:var(--mut)}
 .part h2{font-size:22px;line-height:1.35}
-.part p{font-size:15px;color:var(--mut)}
-/* 冒頭：木と例の人 */
-.hero{display:grid;gap:12px}
-@media(min-width:760px){.hero{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr)}}
-.tree svg{display:block;width:100%;max-width:400px;height:auto;margin:0 auto}
-.tree .tg{display:grid;gap:10px;align-items:center}
-@media(min-width:760px){.tree .tg{grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:24px}}
-.tree .fc{font-size:16px;font-weight:800;text-align:center;color:var(--goldink);line-height:1.5}
-.s-gold{fill:var(--gold)}.s-blue{stroke:var(--blue)}.s-leaf{fill:var(--leafbg);stroke:var(--leafline);stroke-width:2;stroke-dasharray:5 4}.s-line{stroke:var(--leafline)}
-.t-gold{fill:var(--goldink)}.t-blue{fill:var(--blueink)}.t-leaf{fill:var(--leaf)}.t-fg{fill:var(--fg)}.t-mut{fill:var(--mut)}
-.tree figcaption{font-size:16px;font-weight:800;text-align:center;margin-top:6px;color:var(--goldink)}
-.tc{font-size:15px;font-weight:700;text-align:center;margin-top:8px}
-.qnav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:8px 0}
+#p0{margin-top:6px}
+.qnav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:12px 0 0}
 .qnav a{text-decoration:none;font-size:14px;font-weight:700;border:1.5px solid var(--line);border-radius:999px;padding:1px 10px 1px 8px;background:var(--card)}
 .qnav a::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--gold);margin-right:5px;vertical-align:.05em}
 .qnav a.go{border-style:dashed}
 .qnav a.go::before{content:"→";width:auto;height:auto;background:none;border-radius:0;color:var(--mut);vertical-align:0}
+.qnav a.pc{font-size:15px;border:1.5px solid var(--kl);border-left:5px solid var(--kc);border-radius:5px;background:var(--kb);padding:1px 10px 1px 7px}
+.qnav a.pc::before{content:none}
 .key{display:block;font-size:16px;font-weight:800;text-align:center}
+/* PART 0：1文 */
+.lead{margin-top:12px;padding:18px}
+.ld{font-size:21px;font-weight:800;line-height:1.55}
+.ld2{margin-top:4px;font-size:23px}
+.miki{padding:0 3px 3px;background:linear-gradient(90deg,var(--k1),var(--k2),var(--k3),var(--k4)) left bottom/100% 5px no-repeat}
+@media(max-width:520px){.ld{font-size:19px}.ld2{font-size:21px}}
+/* PART 0：3段 */
+.flow{display:grid;gap:6px;margin-top:12px}
+@media(min-width:760px){.flow{grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr) 22px minmax(0,1fr)}}
+.fl3 h3{display:flex;align-items:center;font-size:17px;margin-bottom:6px}
+.fl3>p{font-size:15.5px;line-height:1.55}
+.arw{display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:18px;line-height:1}
+.arw::before{content:"▼"}
+@media(min-width:760px){.arw::before{content:"▶"}}
+.p4{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:10px}
+.p4.join{gap:0}
+.p4.join i{width:12px;height:4px;background:var(--fg);border-radius:2px}
+.p4 .mkbar{flex-basis:100%;margin-top:7px;padding-top:9px;font-size:14px;font-weight:800;text-align:center;background:linear-gradient(90deg,var(--k1),var(--k2),var(--k3),var(--k4)) top/100% 6px no-repeat}
+.sw{display:grid;gap:3px;margin-top:8px}
+.sw p{border-radius:10px;padding:4px 10px;font-weight:800;font-size:15px;line-height:1.45}
+.sw b{margin-right:6px}
+.sw .swx{background:var(--ngbg);color:var(--ng);border:1.5px dashed var(--ng)}
+.sw .swo{background:var(--okbg);color:var(--ok);border:2px solid var(--ok)}
+.sw .swa{padding:0;text-align:center;color:var(--mut);font-size:14px}
+.only{margin-top:8px;font-weight:800;font-size:15px;line-height:1.5}
+.key2{margin:14px 0 0;text-align:center;font-weight:800;font-size:17px;line-height:1.6}
+/* PART 0：扉の図 */
+.dfig{margin-top:12px}
+.dtop{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-bottom:12px}
+.bub.qm{border-style:dashed;border-width:2px;font-size:18px;font-weight:900;padding:0 14px}
+.dtop a{font-size:15px;font-weight:800;text-underline-offset:3px}
+.dg{display:grid;gap:12px}
+.dwide{display:none}
+.dp{display:grid;grid-template-columns:88px minmax(0,1fr);gap:4px 10px;align-items:center;position:relative}
+.dic{grid-row:1/span 3;width:88px;height:63px}
+.dp .bub{justify-self:start}
+.dl{font-size:15px;font-weight:700;line-height:1.5}
+.dl .pc{margin-right:6px}
+.dax{font-size:14px;font-weight:700;color:var(--mut);line-height:1.5}
+.dax .axs{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.dax .g5{font-size:14px}
+.dp:not(:last-of-type)::after{content:"";position:absolute;left:43px;bottom:-12px;height:12px;border-left:2px dotted var(--leafline)}
+@media(min-width:760px){
+.dg{grid-template-columns:repeat(4,minmax(0,1fr));column-gap:0;row-gap:0}
+.dp{display:contents}
+.dp::after,.dp:not(:last-of-type)::after{content:none}
+.dic{display:none}
+.dwide{display:block;grid-column:1/-1;grid-row:2;width:100%;height:auto}
+.dg .dp.k1>*{grid-column:1}.dg .dp.k2>*{grid-column:2}.dg .dp.k3>*{grid-column:3}.dg .dp.k4>*{grid-column:4}
+.dg .bub{grid-row:1;justify-self:center;align-self:end;margin:0 6px 12px}
+.dg .bub::before{left:50%;top:auto;bottom:-10px;margin:0 0 0 -7px;border-width:10px 7px 0 7px;border-color:var(--bubline) transparent transparent transparent}
+.dg .bub::after{left:50%;top:auto;bottom:-7.5px;margin:0 0 0 -5px;border-width:7.5px 5px 0 5px;border-color:var(--bub) transparent transparent transparent}
+.dl{grid-row:3;padding:8px 8px 0;text-align:center}
+.dl .pc{display:table;margin:0 auto 4px}
+.dax{grid-row:4;padding:6px 8px 0;text-align:center}
+.dax .axs{justify-content:center}
+}
+.dcap{text-align:center;margin-top:12px;padding-top:8px;border-top:1px dashed var(--line)}
+.inner{margin:34px auto 0;text-align:center}
+.inner span{display:inline-block;position:relative;border:2px dotted var(--k2);background:var(--k2bg);border-radius:22px;padding:6px 16px;font-weight:800;font-size:16px;line-height:1.5}
+.inner span::before,.inner span::after{content:"";position:absolute;border:2px dotted var(--k2);background:var(--k2bg);border-radius:50%}
+.inner span::before{width:12px;height:12px;top:-17px;left:22%}
+.inner span::after{width:7px;height:7px;top:-27px;left:19%}
+.inner small{display:block;font-size:14px;color:var(--mut);margin-top:4px}
+/* SVGの絵 */
+.gl{fill:none;stroke:var(--leafline);stroke-width:2.5}
+.rd-e{fill:none;stroke:var(--k1l);stroke-width:31}
+.rd-f{fill:none;stroke:var(--k1bg);stroke-width:27}
+.rd-p{fill:var(--k1bg)}
+.rd-l{fill:none;stroke:var(--k1l);stroke-width:2}
+.fpk{fill:var(--k1)}
+.ps2{fill:var(--k2)}
+.orb{fill:var(--gold);stroke:var(--card);stroke-width:2.5}
+.arm{fill:none;stroke:var(--card);stroke-width:3.5;stroke-linecap:round}
+.beam{fill:var(--k4bg)}
+.lf3{fill:var(--k3bg);stroke:var(--k3);stroke-width:3;stroke-linejoin:round}
+.fr3{fill:none;stroke:var(--k3);stroke-width:6;stroke-linejoin:round}
+.th3{stroke:var(--k3);stroke-width:4;stroke-linecap:round}
+.kn3{fill:var(--k3)}
+.halo{fill:var(--k4);opacity:.2}
+.sun{fill:var(--k4)}
+.ray{stroke:var(--k4);stroke-width:3;stroke-linecap:round}
+.ps4{fill:var(--k4)}
+/* PART 0：例の人・Aさんの物語・言葉 */
 .wh{display:flex;align-items:center;gap:10px}
 .ava{width:46px;height:46px;flex:none;color:var(--ink)}
-.who3{margin-bottom:12px}
+.who3{margin-top:12px}
 .nm{font-size:19px;font-weight:800;line-height:1.35}
 .legend .lt{flex-basis:100%;color:var(--fg);font-weight:800;font-size:15px}
-.nm small{display:block;font-size:14px;font-weight:700;color:var(--mut)}
 .kn{font-size:14px;font-weight:600;color:var(--mut)}
 .nmsub{font-size:15px;font-weight:600;color:var(--mut);margin-top:2px;line-height:1.5}
 .nmsub b{color:var(--fg);margin-left:4px;white-space:nowrap}
-.src5{margin-top:4px;border:2px solid var(--leafline);border-radius:12px;padding:6px 8px;display:grid;gap:6px}
-.m5r.nw .fact{outline:1.5px dashed var(--leafline);outline-offset:-1.5px}
-.m5l{font-size:14px;font-weight:800;color:var(--mut)}
-.m5r{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
-@media(min-width:520px){.m5r{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}}
-.m5r .fs{display:flex;flex-wrap:wrap;gap:6px}
-.to5{display:inline-flex;align-items:center;gap:6px;margin-left:auto;color:var(--mut);font-weight:800}
-.fact{background:var(--leafbg);border-radius:8px;padding:3px 9px;font-size:15px;line-height:1.45}
-.fact small{display:block;font-size:14px;color:var(--mut)}
 .legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;padding-top:8px;border-top:1px dashed var(--line);font-size:14px;color:var(--mut);align-items:center}
 .legend .bub{font-size:14px;padding:0 8px;margin-right:4px}
+.story{margin-top:12px}
+.st4{display:grid;gap:8px;position:relative}
+.st4::before{content:"";position:absolute;left:calc(2.9em - 2px);top:14px;bottom:14px;width:4px;border-radius:2px;background:linear-gradient(var(--k1),var(--k2),var(--k3),var(--k4))}
+.st4 li{display:grid;grid-template-columns:5.8em minmax(0,1fr);gap:8px;align-items:start}
+.st4 li>.pc{justify-self:center;position:relative;margin-top:5px}
+.st4 li>p{font-size:15.5px;line-height:1.55;font-weight:700;background:var(--kb);border-radius:8px;padding:5px 10px}
+.chk{margin-top:12px;border:2px dashed var(--fg);border-radius:12px;padding:8px 12px;font-size:15.5px;line-height:1.55}
+.chk b{margin-right:6px}
+.chk .chk2{margin-top:4px;font-weight:800;color:var(--ng)}
+.gls{margin-top:12px}
+.gls h3{font-size:15px;color:var(--mut);margin-bottom:8px}
+.gls dl{display:grid;gap:4px 14px;font-size:14.5px;line-height:1.55}
+@media(min-width:620px){.gls dl{grid-template-columns:8.6em minmax(0,1fr)}}
+.gls dt{font-weight:800}
+.gls dd{padding-bottom:6px;border-bottom:1px dashed var(--line)}
+.gls dd:last-of-type{border-bottom:0;padding-bottom:0}
+.gls .g4{display:grid;gap:4px}
+@media(min-width:760px){.gls .g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.gls .g4 .pc{margin-right:6px}
+.lchip{display:inline-block;border-radius:8px;padding:0 8px;font-weight:800;font-size:14px;line-height:1.5;margin-right:2px}
+.lchip.l5{background:var(--goldbg);border:2px solid var(--gold);color:var(--goldink)}
+.lchip.l30{background:var(--bluebg);border:1.5px solid var(--blueline);color:var(--blueink)}
+.lchip.l60{background:var(--leafbg);border:1.5px dashed var(--leafline);color:var(--leaf)}
 /* PART 1 */
+.lead2{font-size:16px;font-weight:700;color:var(--mut);margin-top:10px}
+.nest .n5b{background:var(--goldbg);border:2px solid var(--gold);border-radius:12px;padding:8px 10px 10px}
+.nest .n30{margin-top:8px;background:var(--bluebg);border:1.5px solid var(--blueline);border-radius:10px;padding:7px 10px 10px}
+.nest .n60{margin-top:8px;background:var(--leafbg);border:1.5px dashed var(--leafline);border-radius:8px;padding:6px 10px}
+.nh{font-weight:800;font-size:16px;line-height:1.45}
+.nh .k{font-size:14px;margin-right:4px}
+.n5b>.nh{color:var(--goldink)}
+.n30>.nh{color:var(--blueink)}
+.n60>.nh{color:var(--leaf)}
+.ns{font-size:14px;color:var(--mut);font-weight:600;line-height:1.45}
 .sq{display:flex;flex-direction:column;align-items:center}
 .mid1{display:flex;flex-direction:column;justify-content:center}
 .sq .w{width:100%;background:var(--leafbg);border:1.5px dashed var(--leafline);border-radius:10px;padding:6px;text-align:center;font-size:15px}
@@ -106,20 +231,28 @@ b{font-weight:800}
 .segs{display:grid;grid-template-columns:1.45fr 1fr 1fr;gap:5px}
 .sg{position:relative;border-radius:8px;padding:5px 4px;text-align:center;font-size:14px;font-weight:700;background:var(--leafbg);border:1.5px solid var(--line);line-height:1.35}
 .sg.off{color:var(--mut);background:none;border-style:dashed;font-weight:500;text-decoration:line-through}
+.sg.off .n5{background:var(--mut)}
 .sg.g{background:var(--goldbg);border:2px solid var(--gold);color:var(--goldink)}
 .segs .sg:first-child::after{content:"";position:absolute;right:-5px;top:-7px;bottom:-7px;border-right:3px dashed var(--ng)}
 .cutl{font-size:14px;font-weight:800;color:var(--ng);text-align:right;padding-right:2px}
 .lane .bub,.lane .res{margin-top:8px}
 .res{display:inline-block;font-weight:800;font-size:15px;color:var(--ok);background:var(--okbg);border-radius:8px;padding:2px 10px}
-/* 質問カード */
+/* PART 2：部分のカード */
 .q{margin-top:12px}
-.q,#q7,#prep{scroll-margin-top:10px}
-.qh{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-bottom:12px}
-.qn{background:var(--fg);color:var(--bg);border-radius:8px;padding:0 9px;font-weight:800;font-size:16px;line-height:1.6}
+.qh{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-bottom:10px}
 .qh h3{margin:0;font-size:19px;line-height:1.4}
+.qh h3 small{display:block;font-size:14px;font-weight:700;color:var(--mut)}
 .qh .say{margin-left:auto}
 .why{display:flex;align-items:center;gap:8px;margin-top:10px;font-weight:800;font-size:16px;line-height:1.5}
 .why .ico{color:var(--fg)}
+.sub{border-top-style:dashed}
+@media(min-width:760px){.sub{margin-left:28px}}
+.many{font-size:15px;font-weight:700;color:var(--kc);margin:-4px 0 10px}
+.alt{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 14px;padding:8px 10px;border-radius:10px;background:var(--kb)}
+.alt .al{flex-basis:100%;font-size:14px;font-weight:800;color:var(--kc)}
+.ac{display:inline-block;font-size:14.5px;font-weight:700;border:1.5px solid var(--kl);background:var(--card);border-radius:999px;padding:0 10px;line-height:1.6}
+.altn{flex-basis:100%;display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;font-size:14.5px;font-weight:700;line-height:1.5}
+.altn a{text-underline-offset:3px}
 .qg{display:grid;gap:14px}
 @media(min-width:760px){.qg{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);align-items:start}}
 .ans{display:flex;flex-direction:column;gap:8px}
@@ -133,13 +266,30 @@ b{font-weight:800}
 .a60 .k{color:var(--leaf)}
 .a30::before,.a60::before{content:"";position:absolute;left:-15px;top:-10px;width:12px;height:27px;border-left:2px solid var(--leafline);border-bottom:2px solid var(--leafline);border-bottom-left-radius:6px}
 .ans .nt{display:block;font-size:14px;font-weight:600;color:var(--mut)}
-.ans .two{display:grid;gap:3px;margin-top:3px;font-size:15px}
+.ans .nt2{margin-top:3px}
+.ans .two{display:grid;gap:5px;margin-top:4px;font-size:15px}
+.hf{display:block;font-size:14px;font-weight:800;color:var(--k3)}
 .fig h4{font-size:16px;line-height:1.45;margin-bottom:8px}
 .fig h4 .L{display:inline-block;background:var(--fg);color:var(--bg);border-radius:6px;padding:0 7px;margin-right:6px;font-size:14px}
 .chain{display:flex;flex-wrap:wrap;align-items:center;gap:4px}
 .chain span{background:var(--card);border:1.5px solid var(--blueline);border-radius:8px;padding:1px 7px;font-size:15px}
 .chain i{font-style:normal;color:var(--mut);font-size:14px}
-/* Q2 */
+/* 過去：選んできたことの道 */
+.road{display:grid;gap:6px}
+.road li{display:flex;align-items:center;gap:8px;background:var(--k1bg);border:1.5px solid var(--k1l);border-radius:8px;padding:4px 9px;font-size:15px;line-height:1.45;font-weight:700}
+.road .fp{width:22px;height:22px;flex:none;color:var(--k1)}
+@media(min-width:520px){.road{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.road li{flex-direction:column;justify-content:flex-start;text-align:center;padding:5px 5px 7px;gap:3px;font-size:14.5px}}
+.rdcap{font-size:14px;font-weight:700;color:var(--k1);margin-top:4px;text-align:right}
+.to8{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin-top:8px;font-weight:800;font-size:15px;line-height:1.5}
+/* 扉：前半と後半 */
+.split{display:flex;border-radius:10px;overflow:hidden;border:1.5px solid var(--k3l);font-weight:800;font-size:15px;line-height:1.4;margin-bottom:6px}
+.split>span{display:flex;flex-direction:column;justify-content:center;padding:5px 10px;color:var(--k3)}
+.split>.sp1{flex:1.5 1 0;min-width:0;background:var(--k3bg)}
+.split>.sp2{flex:1 1 0;min-width:0;background:var(--card);border-left:2px dashed var(--k3l)}
+.split i{font-style:normal;font-size:14px;font-weight:800;color:var(--mut)}
+.split small{font-size:14px;font-weight:700;color:var(--mut)}
+.splitcap{margin:0 0 12px}
+/* 図A（8割・2割） */
 .prow{display:grid;gap:4px;margin:0 0 10px}
 @media(min-width:420px){.prow{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:center}}
 .pbar{display:flex;border-radius:8px;overflow:hidden;min-height:40px;font-size:14px;font-weight:700;border:1.5px solid var(--leafline)}
@@ -147,6 +297,15 @@ b{font-weight:800}
 .pbar .old{background:var(--old)}
 .pbar .new{background:repeating-linear-gradient(45deg,var(--newa) 0 7px,var(--newb) 7px 14px)}
 .prow .bub,.prow .res{justify-self:start}
+.src5{margin-top:4px;border:2px solid var(--k1l);border-radius:12px;padding:6px 8px;display:grid;gap:6px}
+.m5r.nw .fact{outline:1.5px dashed var(--leafline);outline-offset:-1.5px}
+.m5l{font-size:14px;font-weight:800;color:var(--k1)}
+.m5r{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+@media(min-width:520px){.m5r{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}}
+.m5r .fs{display:flex;flex-wrap:wrap;gap:6px}
+.to5{display:inline-flex;align-items:center;gap:6px;margin-left:auto;color:var(--mut);font-weight:800}
+.fact{background:var(--leafbg);border-radius:8px;padding:3px 9px;font-size:15px;line-height:1.45}
+/* 図B・C */
 .fn{display:flex;flex-direction:column;align-items:center;gap:3px}
 .fn .lv{border-radius:8px;padding:4px 8px;text-align:center;background:var(--leafbg);border:1.5px solid var(--leafline);font-weight:800;font-size:15px;line-height:1.4}
 .fn .lv em{display:block;font-style:normal;font-size:14px;color:var(--ng)}
@@ -157,37 +316,11 @@ b{font-weight:800}
 .srow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line)}
 .srow:last-child{border-bottom:0}
 .srow .w{font-weight:700;font-size:15px;line-height:1.45}
-.srow small{grid-column:1/-1;font-size:14px;color:var(--mut)}
 .pt{font-weight:900;font-size:17px;border-radius:8px;padding:0 10px;text-align:center}
 .pt.z{background:var(--leafbg);color:var(--mut)}
 .pt.p{background:var(--okbg);color:var(--ok)}
-/* Q3 */
-.frame{font-weight:800;font-size:15px;line-height:1.5;border-left:5px solid var(--fg);padding:2px 0 2px 10px;margin-bottom:8px}
-.stairs{display:flex;align-items:flex-end;gap:5px;margin:4px 0 0}
-.st{flex:1;background:var(--leafbg);border:1.5px solid var(--leafline);border-bottom:0;border-radius:8px 8px 0 0;text-align:center;font-size:14px;font-weight:700;padding:6px 3px;line-height:1.35;position:relative}
-.st.s1{height:62px}.st.s2{height:86px}
-.st.s2 .ico{position:absolute;top:-30px;left:50%;margin-left:-14px;width:28px;height:28px;color:var(--ink)}
-.door{flex:1.1;height:122px;border:2.5px solid var(--ok);border-bottom:0;border-radius:44px 44px 0 0;background:var(--okbg);color:var(--ok);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:15px;line-height:1.35;text-align:center;position:relative}
-.door small{font-size:14px}
-.door::after{content:"";position:absolute;right:11px;top:62%;width:8px;height:8px;border-radius:50%;background:var(--ok)}
-.floor{height:3px;background:var(--leafline);margin-bottom:10px}
-.xr{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:15px}
-.xr .x{font-weight:800;color:var(--ng)}
-.frame2{font-size:15.5px;line-height:1.5}
-/* Q4 */
-.eq{display:flex;align-items:stretch;gap:3px;margin-top:4px}
-@media(max-width:520px){.eq{flex-direction:column;align-items:stretch}.eq .plus{align-self:center;line-height:1}}
-.term{flex:1 1 0;min-width:0;border:1.5px solid var(--line);border-radius:10px;padding:5px;text-align:center;font-weight:800;font-size:15px;background:var(--leafbg);line-height:1.35}
-.term small{display:block;font-weight:600;font-size:14px;color:var(--mut);margin-top:2px}
-.term.must{border:2.5px solid var(--fg);background:var(--card)}
-.plus{align-self:center;font-weight:900;color:var(--mut)}
-.qt{font-size:15px;line-height:1.6;margin-top:10px}
-.qt .bub{margin:4px 4px 0 12px}
-.ngt{color:var(--ng);font-weight:800;margin-left:4px;white-space:nowrap}
-.fork{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:10px;font-size:15px}
-.fork .if{border:1.5px solid var(--line);border-radius:8px;padding:1px 8px;background:var(--leafbg);font-weight:700}
-.fork b{color:var(--ok)}
-/* Q5 */
+.figs{display:grid;gap:14px;align-content:start}
+/* 図D */
 .vs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:6px;align-items:stretch}
 .side{border:1.5px solid var(--line);border-radius:10px;padding:6px;text-align:center;font-weight:800;background:var(--leafbg);font-size:16px;line-height:1.4}
 .side small{display:block;font-weight:600;font-size:14px;color:var(--mut)}
@@ -197,26 +330,83 @@ b{font-weight:800}
 .mid .g5{display:block;margin-top:2px}
 .ind{display:grid;gap:6px;margin-top:10px}
 .ind div{font-size:15px;line-height:1.45;border-left:4px solid var(--leafline);padding-left:8px}
-/* Q6 */
+.ind div.hl{border-left-color:var(--k3)}
+/* 今：階段と扉 */
+.frame2{font-size:15.5px;line-height:1.5}
+.stairs{display:flex;align-items:flex-end;gap:5px;margin:4px 0 0}
+.st{flex:1;border:1.5px solid;border-bottom:0;border-radius:8px 8px 0 0;text-align:center;font-size:14px;font-weight:800;padding:6px 3px;line-height:1.35;position:relative}
+.st.s1{height:62px;background:var(--k1bg);border-color:var(--k1l);color:var(--k1)}
+.st.s2{height:86px;background:var(--k2bg);border-color:var(--k2l);color:var(--k2)}
+.st.s2 .ico{position:absolute;top:-30px;left:50%;margin-left:-14px;width:28px;height:28px;color:var(--k2)}
+.door{flex:1.1;height:122px;border:2.5px solid var(--k3);border-bottom:0;border-radius:44px 44px 0 0;background:var(--k3bg);color:var(--k3);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:15px;line-height:1.35;text-align:center;position:relative}
+.door::after{content:"";position:absolute;right:11px;top:62%;width:8px;height:8px;border-radius:50%;background:var(--k3)}
+.floor{height:3px;background:var(--leafline);margin-bottom:10px}
+.xr{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:15px}
+.xr .x{font-weight:800;color:var(--ng)}
+/* 経歴の傷 */
+.eq{display:flex;align-items:stretch;gap:3px;margin-top:4px}
+@media(max-width:520px){.eq{flex-direction:column;align-items:stretch}.eq .plus{align-self:center;line-height:1}}
+.term{flex:1 1 0;min-width:0;border:1.5px solid var(--line);border-radius:10px;padding:5px;text-align:center;font-weight:800;font-size:15px;background:var(--leafbg);line-height:1.35}
+.term small{display:block;font-weight:600;font-size:14px;color:var(--mut);margin-top:2px}
+.term.must{border:2.5px solid var(--fg);background:var(--card)}
+.plus{align-self:center;font-weight:900;color:var(--mut)}
+.qt{font-size:15px;line-height:1.6;margin-top:10px}
+.qt .bub{margin:4px 4px 0 12px}
+.ngt{color:var(--ng);font-weight:800;margin-left:4px;white-space:nowrap}
+.fork{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin-top:10px;font-size:15px;line-height:1.5}
+.fork .if{border:1.5px solid var(--line);border-radius:8px;padding:1px 8px;background:var(--leafbg);font-weight:700}
+.fork b{color:var(--ok)}
+.fork .fsm{flex-basis:100%;font-size:14px;color:var(--mut);font-weight:600;padding-left:4px}
+/* 扉の先：伏線・逆質問 */
 .lk{display:flex;flex-direction:column}
 .lk .s{border:1.5px solid var(--line);background:var(--leafbg);border-radius:10px;padding:5px 10px;font-size:15px;line-height:1.5}
+.lk .s .pc{margin-right:6px}
 .lk .s .qq{font-weight:700;color:var(--mut);font-size:14px;margin-right:4px}
 .lk .v{font-size:14px;color:var(--mut);font-weight:700;padding:2px 0 2px 16px;min-height:22px}
 .lk .v::before{content:"↓ "}
 .lk .end{border:2px solid var(--ok);background:var(--okbg);font-weight:700}
-/* 変化球・きれいごと */
-.map .mr{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:6px;margin:0 0 8px}
-.map .qc{border:1.5px solid var(--line);border-radius:10px;padding:3px 10px;background:var(--leafbg);font-size:15px;line-height:1.45}
-.map .to{color:var(--mut);font-weight:800}
-.map .g5{white-space:nowrap}
-.map .kr{grid-template-columns:minmax(0,1fr)}
-.kh{font-size:16px;line-height:1.45;margin:12px 0 8px;padding-top:10px;border-top:1px dashed var(--line)}
-.kans{font-size:15px;line-height:1.6;margin-top:4px}
+.gyaku{margin-top:14px;border-left:5px solid var(--k4);background:var(--k4bg);border-radius:0 10px 10px 0;padding:7px 12px;font-size:15.5px;line-height:1.55;font-weight:700}
+.gyaku .ngx{color:var(--ng);font-weight:800;margin-top:2px}
+/* 想定外の質問 */
+.sotei{margin-top:12px;border:2px solid var(--fg)}
+.sotei>h3{font-size:19px}
+.sotei .grid{margin-top:4px}
+.shd{font-size:14px;font-weight:800;color:var(--mut);padding-bottom:4px;border-bottom:1.5px solid var(--line);margin-bottom:2px;line-height:1.5}
+.srw{display:grid;grid-template-columns:minmax(0,1fr);gap:4px 8px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line)}
+@media(min-width:440px){.srw{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}}
+.qc{display:inline-block;border:1.5px solid var(--line);border-radius:10px;padding:3px 10px;background:var(--leafbg);font-size:15px;line-height:1.45;justify-self:start}
+.srw .sa{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;font-weight:800;font-size:15px;line-height:1.5}
+.srw .sa i{font-style:normal;color:var(--mut)}
+.srw .sa.ext{display:block;color:var(--mut)}
+.srw .sa.ext a{color:var(--fg);text-underline-offset:3px}
+.kh{font-size:16px;line-height:1.45;margin:14px 0 8px;padding-top:10px;border-top:1px dashed var(--line)}
+@media(min-width:760px){.sotei .kh{margin-top:0;padding-top:0;border-top:0}}
+.kans{font-size:15px;line-height:1.6;margin-top:6px}
 .kans .to{color:var(--mut);font-weight:800;margin-right:6px}
 .hon{box-shadow:inset 0 -.55em 0 var(--hon)}
 .kre{box-shadow:inset 0 -.55em 0 var(--kre)}
 .kl{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:14px;margin-top:6px;color:var(--mut);font-weight:700}
 .kl i{display:inline-block;width:22px;height:10px;border-radius:3px;margin-right:4px}
+.sotei .cap b{color:var(--fg)}
+/* 確認の質問 */
+.kak{margin-top:12px}
+.kak .grid{margin-top:4px}
+.kq{display:flex;flex-wrap:wrap;gap:6px}
+.kq>span{border:1.5px solid var(--line);background:var(--leafbg);border-radius:8px;padding:2px 9px;font-size:15px;font-weight:700;line-height:1.45}
+.kq em{display:block;font-style:normal;font-size:14px;font-weight:600;color:var(--mut)}
+.kq a{text-underline-offset:3px}
+.kata{margin-top:10px;border-left:5px solid var(--fg);padding:2px 0 2px 10px;font-weight:800;font-size:15.5px;line-height:1.55}
+.kata small{display:block;font-size:14.5px;font-weight:700;color:var(--mut);margin-top:2px}
+.job+.job{margin-top:10px}
+.jh{font-weight:800;font-size:15px;border-bottom:1.5px solid var(--line);padding-bottom:2px;line-height:1.5}
+.jh small{font-size:14px;font-weight:600;color:var(--mut);margin-left:6px}
+.jq li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 8px;align-items:center;padding:4px 0;border-bottom:1px dashed var(--line);font-size:15px;line-height:1.45}
+.jq li:last-child{border-bottom:0}
+.jq small{display:block;font-size:14px;color:var(--mut);font-weight:600}
+.dst{font-size:14px;font-weight:800;color:var(--mut);white-space:nowrap}
+.ca{display:inline-block;font-size:14px;font-weight:800;border:1.5px solid var(--fg);color:var(--fg);border-radius:5px;padding:0 6px;line-height:1.45}
+.jfam{font-size:15px;line-height:1.55;margin-top:4px}
+.jfam a{text-underline-offset:3px}
 /* PART 3 */
 .mx{display:grid;grid-template-columns:4.6em minmax(0,1fr) minmax(0,1fr);gap:5px}
 @media(max-width:520px){.mx .c{font-size:15px;padding:8px 4px}}
@@ -225,6 +415,7 @@ b{font-weight:800}
 .mx .rh{font-size:15px;font-weight:800;display:flex;align-items:center;line-height:1.35}
 .mx .c{border-radius:10px;padding:8px 6px;text-align:center;font-weight:800;line-height:1.4;min-height:66px;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:16px}
 .mx .c small{font-size:14px;font-weight:600;color:var(--mut)}
+.mx .c small a{text-underline-offset:3px}
 .c.say1{background:var(--okbg);color:var(--ok)}
 .c.you{background:var(--bub);border:1.5px dashed var(--bubline)}
 .c.ask{background:var(--leafbg);border:1.5px solid var(--line)}
@@ -272,17 +463,29 @@ b{font-weight:800}
 .fr .ok{color:var(--ok);font-weight:800}
 .fr .xx{color:var(--ng);font-weight:900;margin-right:4px}
 .fr .bub{margin-top:4px}
+.tansho .say{margin-bottom:12px}
 /* PART 4 */
 .s4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 @media(min-width:760px){.s4{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .s4 li{border:1.5px solid var(--line);border-radius:10px;padding:6px 10px;background:var(--leafbg);font-size:15px;line-height:1.45}
 .s4 li b{display:flex;align-items:center;font-size:16px}
 .s4 li small{display:block;font-size:14px;color:var(--mut)}
+.key3{margin-top:10px;font-weight:800;font-size:16px;line-height:1.55}
+.ord{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.ord i{font-style:normal;font-weight:800;color:var(--mut)}
+.ord .pc{font-size:15px;padding:2px 9px 2px 7px}
+.og{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.qx{display:inline-block;border:2px dashed var(--fg);border-radius:6px;padding:0 9px;font-weight:900;font-size:15px;line-height:1.5}
+.mk1{font-size:15.5px;font-weight:700;line-height:1.5;margin-bottom:8px}
+.mk2{font-size:15px;line-height:1.55;margin-top:10px;font-weight:700}
+.mk2 .qx{margin-right:4px}
+.h3t{display:flex;flex-wrap:wrap;align-items:center;gap:4px}
 .tl{display:grid;gap:8px}
-@media(min-width:760px){.tl{grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr) minmax(0,1fr)}}
+@media(min-width:760px){.tl{grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr) minmax(0,1.1fr)}}
 .tl>li{border-top:4px solid var(--fg);background:var(--leafbg);border-radius:4px 4px 10px 10px;padding:6px 10px}
 .tl>li>b{display:block;font-size:15px}
-.tl span{display:block;font-size:15px;line-height:1.5;margin-top:3px}
+.tl>li>span{display:block;font-size:15px;line-height:1.5;margin-top:4px;padding-left:12px;position:relative}
+.tl>li>span::before{content:"";position:absolute;left:1px;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--mut)}
 .dayh{font-weight:800;font-size:15px;margin:14px 0 6px}
 .day{display:grid;gap:5px}
 .day li{display:grid;grid-template-columns:9.5em minmax(0,1fr);align-items:center;gap:8px}
@@ -291,12 +494,19 @@ b{font-weight:800}
 .day li small{display:block;font-size:14px;font-weight:600;color:var(--mut)}
 .day li.core i{background:var(--fg)}
 @media(min-width:640px){.day{display:flex;gap:3px}.day li{flex:var(--m) 1 0;min-width:0;display:flex;flex-direction:column;align-items:stretch;gap:4px}.day li i{order:0;width:auto;height:12px;border-radius:3px}.day li small{display:block;margin-left:0}}
-table.sh{width:100%;border-collapse:collapse;table-layout:fixed;margin-top:12px;font-size:14px}
+.tdir{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:14px;font-size:15px;font-weight:800;line-height:1.5}
+.tdir .tv{padding-bottom:3px;background:linear-gradient(90deg,var(--k1),var(--k2),var(--k3),var(--k4)) left bottom/100% 4px no-repeat}
+.tdir .tv small{font-size:14px;font-weight:700;color:var(--mut);margin-left:4px}
+.tdir .th2{padding-bottom:3px;background:linear-gradient(90deg,var(--gold),var(--blue),var(--leafline)) left bottom/100% 4px no-repeat}
+table.sh{width:100%;border-collapse:collapse;table-layout:fixed;margin-top:8px;font-size:14px}
 .sh th,.sh td{border:1px solid var(--line);padding:6px 5px;height:2.6em;text-align:left;vertical-align:top}
 .sh th{background:var(--leafbg)}
 .sh th.h5{background:var(--goldbg);color:var(--goldink)}
 .sh th.h30{background:var(--bluebg);color:var(--blueink)}
 .sh td.c5{background:var(--goldbg)}
+.sh th.rk{background:var(--kb);color:var(--kc);border-left:5px solid var(--kc);font-weight:800;line-height:1.4}
+.sh th.rk small{display:block;font-size:14px;font-weight:700}
+.sh tr.kz th.rk{border-left-color:var(--k1l);background:var(--card);font-weight:700}
 /* 練習問題 */
 .pr{display:grid;gap:10px;margin-top:12px}
 @media(min-width:760px){.pr{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
@@ -309,90 +519,239 @@ summary::-webkit-details-marker{display:none}
 summary::before{content:"▶";font-size:13.5px;margin-right:6px}
 details[open] summary::before{content:"▼"}
 details div{font-size:16px;line-height:1.6;border-top:1px dashed var(--line);padding-top:6px}
+details div a{text-underline-offset:3px}
 .foot{font-size:14px;color:var(--mut);margin-top:26px;border-top:1px solid var(--line);padding-top:10px;line-height:1.6}
 </style></head><body><div class="wrap">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <symbol id="i-iv" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4.6" fill="currentColor"/><path d="M2.5 23.5c.7-6 4.6-9 9.5-9s8.8 3 9.5 9z" fill="currentColor"/><path class="tie" d="M12 15.2l-1.7 1.9 1.7 5.6 1.7-5.6z"/></symbol>
 <symbol id="i-p" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4.6" fill="currentColor"/><path d="M2.5 23.5c.7-6 4.6-9 9.5-9s8.8 3 9.5 9z" fill="currentColor"/></symbol>
+<symbol id="i-fp" viewBox="0 0 24 24"><ellipse cx="8" cy="15.5" rx="3.3" ry="5.4" transform="rotate(-14 8 15.5)" fill="currentColor"/><ellipse cx="16.5" cy="8.5" rx="3.3" ry="5.4" transform="rotate(14 16.5 8.5)" fill="currentColor"/></symbol>
+<!-- 過去：道と足跡 -->
+<symbol id="a1" viewBox="0 0 240 170">
+<path class="rd-e" d="M-10 44C50 44 58 108 128 116S214 140 240 144"/>
+<path class="rd-f" d="M-10 44C50 44 58 108 128 116S214 140 240 144"/>
+<g class="fpk"><ellipse cx="19.0" cy="54.3" rx="4.6" ry="2.5" transform="rotate(25 19.0 54.3)"/><ellipse cx="44.7" cy="62.1" rx="4.6" ry="2.5" transform="rotate(40 44.7 62.1)"/><ellipse cx="54.7" cy="82.0" rx="4.6" ry="2.5" transform="rotate(43 54.7 82.0)"/><ellipse cx="73.7" cy="88.1" rx="4.6" ry="2.5" transform="rotate(39 73.7 88.1)"/><ellipse cx="84.7" cy="105.7" rx="4.6" ry="2.5" transform="rotate(31 84.7 105.7)"/><ellipse cx="109.9" cy="108.2" rx="4.6" ry="2.5" transform="rotate(17 109.9 108.2)"/><ellipse cx="155.4" cy="124.0" rx="4.6" ry="2.5" transform="rotate(10 155.4 124.0)"/><ellipse cx="193.6" cy="125.0" rx="4.6" ry="2.5" transform="rotate(17 193.6 125.0)"/><ellipse cx="216.2" cy="141.5" rx="4.6" ry="2.5" transform="rotate(20 216.2 141.5)"/><ellipse cx="235.5" cy="139.1" rx="4.6" ry="2.5" transform="rotate(13 235.5 139.1)"/></g>
+<path class="gl" d="M0 160H240"/>
+</symbol>
+<!-- 今：3つの軸を持って立つ人 -->
+<symbol id="a2" viewBox="0 0 240 170">
+<path class="rd-p" d="M-4 129C40 131 76 146 108 157L108 160L-4 160Z"/>
+<path class="rd-l" d="M-4 129C40 131 76 146 108 157"/>
+<g class="fpk"><ellipse cx="22" cy="148" rx="4.6" ry="2.5" transform="rotate(8 22 148)"/><ellipse cx="50" cy="141" rx="4.6" ry="2.5" transform="rotate(16 50 141)"/><ellipse cx="78" cy="153" rx="4.6" ry="2.5" transform="rotate(22 78 153)"/></g>
+<circle class="ps2" cx="132" cy="60" r="15"/>
+<path class="ps2" d="M104 160C104 116 112 92 132 90C152 92 160 116 160 160Z"/>
+<path class="arm" d="M106 128Q132 144 158 128"/>
+<circle class="orb" cx="116" cy="118" r="9"/><circle class="orb" cx="132" cy="110" r="9"/><circle class="orb" cx="148" cy="118" r="9"/>
+<path class="gl" d="M0 160H240"/>
+</symbol>
+<!-- 扉：開いた扉と光 -->
+<symbol id="a3" viewBox="0 0 240 170">
+<path class="beam" d="M164 82L240 50L240 160L164 160Z"/>
+<path class="beam" d="M76 160V74A44 44 0 0 1 164 74V160Z"/>
+<path class="lf3" d="M76 74L48 60L48 166L76 160Z"/>
+<circle class="kn3" cx="56" cy="116" r="3.5"/>
+<path class="fr3" d="M76 160V74A44 44 0 0 1 164 74V160"/>
+<path class="gl" d="M0 160H240"/>
+<path class="th3" d="M70 160H170"/>
+</symbol>
+<!-- 扉の先：光と入社後の自分 -->
+<symbol id="a4" viewBox="0 0 240 170">
+<path class="beam" d="M-4 50.6L240 16L240 160L-4 160Z"/>
+<circle class="halo" cx="118" cy="72" r="34"/>
+<circle class="sun" cx="118" cy="72" r="17"/>
+<g class="ray"><path d="M118 34V26"/><path d="M118 110V118"/><path d="M80 72H72"/><path d="M156 72H164"/><path d="M91 45L85 39"/><path d="M145 45L151 39"/><path d="M91 99L85 105"/><path d="M145 99L151 105"/></g>
+<circle class="ps4" cx="184" cy="122" r="7"/>
+<path class="ps4" d="M172 160C172 142 176 134 184 133C192 134 196 142 196 160Z"/>
+<path class="gl" d="M0 160H240"/>
+</symbol>
 </defs></svg>
 
 <header class="top"><h1>面接対策の考え方</h1><p>社内CA向け</p></header>
-<section class="card who3">
-<div class="wh"><svg class="ava" aria-hidden="true"><use href="#i-p"/></svg><div><p class="nm">この資料の例の人：Aさん<span class="kn">（仮名）</span></p><p class="nmsub">武者野が面接対策をした人。受けるのは<b>ハイヤー会社の1次面接</b></p></div></div>
-<div class="legend"><span class="lt">例は全部Aさん。型と説明用の例は札で区別</span><span><span class="tag a">Aさん</span>実際の答え</span><span><span class="tag k">型</span>答えの型</span><span><span class="tag s">合成の例</span>説明用に作った例</span><span><span class="bub">「…」</span>面接官の本音</span></div>
+
+<!-- PART 0 -->
+<div class="part" id="p0"><span>PART 0</span><h2>面接で話すのは、1本の物語</h2></div>
+<section class="card lead">
+<p class="ld">面接で伝えるのは「今この瞬間、私がこの扉の前に立っている理由」という1本の物語。</p>
+<p class="ld ld2">これが<span class="miki">幹</span>。</p>
 </section>
 
-<figure class="card tree">
-<div class="tg">
-<svg viewBox="0 0 340 232" role="img" aria-label="答えの木。幹が5秒で最初の一言、枝が30秒で5秒の答えに一言ずつ足す、葉が1分以上でそれぞれの話">
-<line x1="8" y1="223" x2="118" y2="223" class="s-line" stroke-width="2.5"/>
-<path d="M62 150 L24 66 M62 150 L62 50 M62 150 L100 66" class="s-blue" stroke-width="7" stroke-linecap="round" fill="none"/>
-<circle cx="24" cy="56" r="21" class="s-leaf"/><circle cx="62" cy="38" r="24" class="s-leaf"/><circle cx="100" cy="56" r="21" class="s-leaf"/>
-<rect x="48" y="138" width="28" height="85" rx="5" class="s-gold"/>
-<text x="132" y="42" font-size="16" font-weight="800" class="t-leaf">1分以上＝葉</text>
-<text x="132" y="63" font-size="15.5" class="t-mut">それぞれの話（ネタ）</text>
-<text x="132" y="110" font-size="16" font-weight="800" class="t-blue">30秒＝枝</text>
-<text x="132" y="131" font-size="15.5" class="t-mut">5秒の答えに一言ずつ足す</text>
-<text x="132" y="181" font-size="19" font-weight="800" class="t-gold">5秒＝幹 ★一番大事</text>
-<text x="132" y="205" font-size="15.5" class="t-fg">最初の一言。3つまで</text>
-</svg>
-<div class="tside">
-<p class="fc">発表でいえば、タイトル／スライドのタイトル／中身。読まれるのはタイトルだけ</p>
-<p class="tc">7問すべてに、この木を1本ずつ</p>
-<nav class="qnav"><a href="#q1">Q1 自己紹介</a><a href="#q2">Q2 志望動機</a><a href="#q3">Q3 退職理由</a><a href="#q4">Q4 短期・中退</a><a href="#q5">Q5 なぜうち</a><a href="#q6">Q6 入社後</a><a href="#q7">Q7 短所</a><a href="#prep" class="go">準備の手順</a></nav>
-<span class="key">幹が強ければ、変化球も順番違いも受けられる</span>
+<div class="flow">
+<section class="card fl3"><h3><span class="nb">1</span>磨く</h3>
+<p>4つの部分の答え（＝テンプレ質問）を、本人の言葉に落ちるまで磨く</p>
+<div class="p4"><span class="pc k1">過去</span><span class="pc k2">今</span><span class="pc k3">扉</span><span class="pc k4">扉の先</span></div>
+</section>
+<div class="arw" aria-hidden="true"></div>
+<section class="card fl3"><h3><span class="nb">2</span>幹になる</h3>
+<p>磨いた答え同士がつながって、ずっしりした幹（物語）になる。つなぐのはCAの問い「何が足りない？」と伏線（<a href="#saki">扉の先の図</a>）</p>
+<div class="p4 join"><span class="pc k1">過去</span><i></i><span class="pc k2">今</span><i></i><span class="pc k3">扉</span><i></i><span class="pc k4">扉の先</span><span class="mkbar">1本の幹（物語）</span></div>
+</section>
+<div class="arw" aria-hidden="true"></div>
+<section class="card fl3"><h3><span class="nb">3</span>頭が切り替わる</h3>
+<p>本番の頭の使い方が切り替わる</p>
+<div class="sw"><p class="swx"><b>✕</b>なんて答えよう？</p><p class="swa">↓</p><p class="swo"><b>○</b>物語のどの部分を聞かれている？</p></div>
+<p class="only">本番で頭を使うのは、この切り替えだけ</p>
+</section>
 </div>
+<p class="key2">だから、想定外の質問が来ても、順番がめちゃくちゃでも迷わない。<br>テンプレを練習するのは、テンプレ以外に答えるため。</p>
+
+<figure class="card dfig" id="door">
+<h3>物語の4つの部分</h3>
+<div class="dtop"><div class="say"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span class="bub qm">？</span></div><a href="#sotei">想定外の質問＝どの部分を聞かれている？</a></div>
+<div class="dg">
+<div class="dp k1"><svg class="dic" viewBox="0 0 240 170" aria-hidden="true"><use href="#a1"/></svg><span class="bub">「経歴は？」</span><p class="dl"><span class="pc k1">過去</span>道＝選んできたことの足跡</p></div>
+<div class="dp k2"><svg class="dic" viewBox="0 0 240 170" aria-hidden="true"><use href="#a2"/></svg><span class="bub">「なぜ辞める？」</span><p class="dl"><span class="pc k2">今</span>人＝なぜ今ここに立つか</p><p class="dax">手に持っているのは、扉で話す軸<span class="axs"><span class="g5"><span class="n5">1</span>車</span><span class="g5"><span class="n5">2</span>人</span><span class="g5"><span class="n5">3</span>所作</span></span></p></div>
+<div class="dp k3"><svg class="dic" viewBox="0 0 240 170" aria-hidden="true"><use href="#a3"/></svg><span class="bub">「志望動機は？」</span><p class="dl"><span class="pc k3">扉</span>扉＝この仕事・この会社</p></div>
+<div class="dp k4"><svg class="dic" viewBox="0 0 240 170" aria-hidden="true"><use href="#a4"/></svg><span class="bub">「入ってどうなりたい？」</span><p class="dl"><span class="pc k4">扉の先</span>光＝入社後</p></div>
+<svg class="dwide" viewBox="0 0 960 170" aria-hidden="true"><use href="#a1" x="0" y="0" width="240" height="170"/><use href="#a2" x="240" y="0" width="240" height="170"/><use href="#a3" x="480" y="0" width="240" height="170"/><use href="#a4" x="720" y="0" width="240" height="170"/></svg>
 </div>
+<p class="inner"><span>「この3つを持って、今、この扉の前に立っている」</span><small>武者野の回の言葉</small></p>
+<p class="cap dcap">吹き出し＝面接官の質問。どの質問も、物語のどれかの部分を指している</p>
 </figure>
 
+<section class="card who3">
+<div class="wh"><svg class="ava" aria-hidden="true"><use href="#i-p"/></svg><div><p class="nm">この資料の例の人：Aさん<span class="kn">（仮名）</span></p><p class="nmsub">武者野が面接対策をした人。受けるのは<b>ハイヤー会社の1次面接</b></p></div></div>
+<div class="legend"><span class="lt">例はできるだけAさん。型と説明用の例は札で区別</span><span><span class="tag a">Aさん</span>実際の答え</span><span><span class="tag m">武者野の案</span>本人の事実から武者野が組んだ案</span><span><span class="tag k">型</span>答えの型</span><span><span class="tag s">合成の例</span>説明用に作った例</span><span><span class="tag r">社内の記録</span>社内の面接記録から</span><span><span class="bub">「…」</span>面接官の本音</span></div>
+</section>
+
+<section class="card story">
+<h3>Aさんの物語を、部分ごとの一言（5秒版）で</h3>
+<ol class="st4">
+<li class="k1"><span class="pc k1">過去</span><p><span class="tag a">Aさん</span>子どもの頃から車好き。ガソリンスタンド・接客のバイト、今は配送の仕事</p></li>
+<li class="k2"><span class="pc k2">今</span><p><span class="tag m">武者野の案</span>今の会社に入った目的は、社会人としての基盤を作ること。それが整った今が挑戦の時</p></li>
+<li class="k3"><span class="pc k3">扉</span><p><span class="tag a">Aさん</span><span class="n5">1</span>車・<span class="n5">2</span>人・<span class="n5">3</span>所作の3つ。タクシーとの違いは指名制度</p></li>
+<li class="k4"><span class="pc k4">扉の先</span><p><span class="tag a">Aさん</span>指名される運転手になりたい</p></li>
+</ol>
+<div class="chk"><p><span class="tag k">型</span><b>検算</b>4つの5秒版を上から順に続けて読んで、1本の話になるか（途中で話が飛ばないか・矛盾しないか）</p><p class="chk2">飛ぶ・矛盾する → その部分の答えを磨き直す</p></div>
+<p class="cap">4行には武者野の案が1行混ざる（今）</p>
+</section>
+
+<section class="card gls">
+<h3>ここまでの言葉</h3>
+<dl>
+<dt>幹＝物語</dt><dd>今この瞬間、この扉の前に立っている理由。1本だけ</dd>
+<dt>物語の4つの部分</dt><dd><div class="g4"><span><span class="pc k1">過去</span>何を選び、何を積んだか</span><span><span class="pc k2">今</span>なぜ今、ここを出るのか</span><span><span class="pc k3">扉</span>なぜこの仕事・この会社か</span><span><span class="pc k4">扉の先</span>入ってどうなりたいか</span></div></dd>
+<dt>答えの長さ</dt><dd><span class="lchip l5">5秒</span><span class="lchip l30">30秒</span><span class="lchip l60">1分以上</span> 1つの答えを何秒で言うか。幹とは別の話（<a href="#p1">PART 1</a>）</dd>
+<dt>軸</dt><dd>志望動機の3本。Aさんなら<span class="n5">1</span>車・<span class="n5">2</span>人・<span class="n5">3</span>所作</dd>
+</dl>
+</section>
+<nav class="qnav" aria-label="この資料の目次"><a class="go" href="#p1">PART 1 答えの長さ</a><a class="go" href="#p2">PART 2 4つの部分</a><a class="go" href="#p3">PART 3 言う・言わない</a><a class="go" href="#p4">PART 4 CAの回し方</a><a class="go" href="#renshu">練習問題</a></nav>
+
 <!-- PART 1 -->
-<div class="part"><span>PART 1</span><h2>5秒が一番大事</h2></div>
+<div class="part" id="p1"><span>PART 1</span><h2>1つの答えの中では、5秒が一番大事</h2></div>
+<p class="lead2">物語の各部分の答えを、何秒で言うか（長さの話）</p>
 <div class="grid c2">
+<figure class="card">
+<h3>長さは、発表にたとえると</h3>
+<div class="nest">
+<div class="n5b"><p class="nh"><span class="k">5秒</span>＝発表のタイトル</p><p class="ns">最初の一言。3つまで</p>
+<div class="n30"><p class="nh"><span class="k">30秒</span>＝スライドのタイトル</p><p class="ns">5秒の答えに一言ずつ足す</p>
+<div class="n60"><p class="nh"><span class="k">1分以上</span>＝スライドの中身</p><p class="ns">それぞれの話（ネタ）</p></div>
+</div>
+</div>
+</div>
+<p class="key" style="margin-top:10px">読まれるのはタイトルだけ</p>
+</figure>
 <figure class="card mid1">
 <div class="sq"><div class="w">話したいこと：10時間でも100時間でも</div><div class="n">「5秒しかあげません」と言われたら</div><div class="g">選び抜いた一言<br>＝一番大事な情報</div></div>
 </figure>
-
-<figure class="card">
+</div>
+<figure class="card" style="margin-top:12px">
 <h3>先に5秒なら、遮られても困らない</h3>
 <div class="cut">
 <div class="lane"><div class="ln x">✕ 順に話す</div>
 <div class="segs"><div class="cutl">✂ 遮られる</div><div></div><div></div></div>
-<div class="segs"><span class="sg">①車が好きで…</span><span class="sg off">②人…</span><span class="sg off">③所作…</span></div>
+<div class="segs"><span class="sg"><span class="n5">1</span>車が好きで…</span><span class="sg off"><span class="n5">2</span>人…</span><span class="sg off"><span class="n5">3</span>所作…</span></div>
 <span class="bub">「それ、タクシーでよくない？」</span></div>
 <div class="lane"><div class="ln o">○ 5秒を先に</div>
-<div class="segs"><span class="sg g">車・人・所作の3つ</span><span class="sg off">①の話</span><span class="sg off">②の話</span></div>
+<div class="segs"><span class="sg g">車・人・所作の3つ</span><span class="sg off"><span class="n5">1</span>の話</span><span class="sg off"><span class="n5">2</span>の話</span></div>
 <span class="res">3つとも届いた</span></div>
 </div>
 </figure>
-</div>
 
 <!-- PART 2 -->
-<div class="part"><span>PART 2</span><h2>質問ごとの設計</h2></div>
-<p class="why"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span>面接官の本音は、Q2〜Q7のどれも「この人は長く続くか」から出る</span></p>
+<div class="part" id="p2"><span>PART 2</span><h2>物語の4つの部分</h2></div>
+<p class="why"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span>面接官の本音は、どの部分でも「この人は長く続くか」から出る</span></p>
+<nav class="qnav" aria-label="PART 2 の中"><a class="pc k1" href="#kako">過去</a><a class="pc k2" href="#ima">今</a><a class="pc k3" href="#tobira">扉</a><a class="pc k4" href="#saki">扉の先</a><a class="go" href="#sotei">想定外の質問</a><a class="go" href="#kakunin">確認の質問</a><a class="go" href="#prep">準備の手順</a></nav>
 
-<section class="card q" id="q1">
-<div class="qh"><span class="qn">Q1</span><h3>自己紹介をお願いします</h3><div class="say"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span class="bub">「何をしてきた人？」</span></div></div>
+<section class="card q pcard k1" id="kako">
+<div class="qh"><span class="pc pcb k1">過去</span><h3>経歴を教えてください</h3><div class="say"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span class="bub">「何を積んできた人？ 選び方に筋はある？」</span></div></div>
+<div class="alt"><p class="al">同じ部分を聞く、別の言い方</p><span class="ac">自己紹介をお願いします</span><span class="ac">学生時代に頑張ったことは？</span><span class="ac">一番頑張ったことは？</span><span class="ac">失敗から学んだことは？</span><span class="ac">なぜその学校・その会社を選んだ？</span><span class="ac">前の仕事で何をしていた？</span><span class="ac">持っている資格・使える道具は？</span>
+<p class="altn"><span class="ac">強みは？</span><span>→ 積んだもの。<span class="kw k3">扉</span>の軸と同じ語になってよい</span></p></div>
+<div class="qg">
 <div class="ans">
-<div class="a5"><span class="k">5秒</span><span class="tag k">型</span>名前と、今していること</div>
-<div class="a30"><span class="k">30秒</span><span class="nt">MKの面接対策動画の順</span><div class="chain"><span>名前</span><i>→</i><span>年齢</span><i>→</i><span>最終学歴</span><i>→</i><span>その後の仕事（中身まで）</span></div></div>
-<div class="a60"><span class="k">1分以上</span>聞かれた経歴の話</div>
+<div class="a5"><span class="k">5秒</span><span class="tag k">型</span>最終学歴 → 今の仕事、を1文で<span class="nt">「自己紹介をどうぞ」なら頭に名前を足す</span></div>
+<div class="a30"><span class="k">30秒</span><span class="nt">MKの面接対策動画の順</span><div class="chain"><span>名前</span><i>→</i><span>年齢</span><i>→</i><span>最終学歴</span><i>→</i><span>その後の仕事</span></div><span class="nt nt2">各社・学校に「なぜ選んだ／なぜ辞めた」を1文ずつ</span></div>
+<div class="a60"><span class="k">1分以上</span>聞かれた所の話</div>
+</div>
+<div class="fig">
+<h4><span class="L">図</span>Aさんの「選んできたこと」</h4>
+<ol class="road">
+<li><svg class="fp" aria-hidden="true"><use href="#i-fp"/></svg>子どもの頃から車好き</li>
+<li><svg class="fp" aria-hidden="true"><use href="#i-fp"/></svg>ガソリンスタンドのバイト</li>
+<li><svg class="fp" aria-hidden="true"><use href="#i-fp"/></svg>接客のバイト</li>
+<li><svg class="fp" aria-hidden="true"><use href="#i-fp"/></svg>今は配送の仕事</li>
+</ol>
+<p class="to8">共通項<span class="g5"><span class="n5">1</span>車</span><span class="g5"><span class="n5">2</span>人</span>→<a class="pc k3" href="#tobira-a">扉</a>志望動機の8割になる</p>
+</div>
+</div>
+<p class="rec"><span class="tag r">社内の記録</span>経歴を辞めた理由と一緒に聞かれた回が、記録に4回ある</p>
+</section>
+
+<section class="card q pcard k1 sub" id="kizu">
+<div class="qh"><span class="pc pcb k1">過去</span><h3>経歴の傷<small>中退・短期離職・空白期間・転職回数</small></h3><div class="say"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span class="bub">「また勢いで投げ出さない？」</span></div></div>
+<p class="many">＊この事業では、大半の人が当てはまる</p>
+<div class="qg">
+<div class="ans">
+<div class="a5"><span class="k">5秒</span><span class="tag s">合成の例</span>「早く現場で働きたくて辞めました。勢いで決めた所は反省しています」</div>
+<div class="a30"><span class="k">30秒</span><div class="eq"><div class="term">事実<small>淡々と</small></div><span class="plus">＋</span><div class="term">目的とその後<small>当時本当にあった目的だけ</small></div><span class="plus">＋</span><div class="term must">自責の念<small>必ず</small></div></div></div>
+<div class="a60"><span class="k">1分以上</span>その後してきたこと</div>
+</div>
+<div class="fig">
+<p class="qt" style="margin-top:0"><span class="spk mk">MKの面接対策動画</span>自責の念が無いと<span class="bub">「勢いだけで決める人？」</span><b class="ngt">→ 見送りになりやすい</b></p>
+<div class="fork"><span class="if">空白期間</span>→<b>「何をしていたか」を事実で</b><span class="fsm">受験勉強・療養・お金を貯める など</span></div>
+<div class="fork"><span class="if">辞めてから今までの空白</span>→<a class="pc k2" href="#ima">今</a><span class="fsm">「辞めてから今まで何を？」はこちら</span></div>
+<div class="fork"><span class="if">体調で辞めた</span>→<b>自責は付けず、<a href="#pre1">PART 3 の 1</a> へ</b><span class="fsm">Aさん：体調を崩して中退・今は回復</span></div>
+</div>
 </div>
 </section>
 
-<section class="card q" id="q2">
-<div class="qh"><span class="qn">Q2</span><h3>志望動機は？</h3><div class="say"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span class="bub">「その興味、続く？ なぜうち？」</span></div></div>
+<section class="card q pcard k2" id="ima">
+<div class="qh"><span class="pc pcb k2">今</span><h3>退職理由は？</h3><div class="say"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span class="bub">「同じ理由で、また辞めない？」</span></div></div>
+<div class="alt"><p class="al">同じ部分を聞く、別の言い方</p><span class="ac">なぜこの時期に？</span><span class="ac">辞めてから今まで何を？</span><span class="ac">今の会社に不満は？</span></div>
 <div class="qg">
 <div class="ans">
-<div class="a5"><span class="k">5秒</span><span class="tag a">Aさん</span>「<span class="n5">1</span>車が好き・<span class="n5">2</span>人に直接ありがとうと言われる仕事が好き・<span class="n5">3</span>ジェントルマンの所作が身につく仕事。この3つです」</div>
-<div class="a30"><span class="k">30秒</span>3つに一言ずつ</div>
-<div class="a60"><span class="k">1分以上</span>3つそれぞれの話</div>
+<div class="a5"><span class="k">5秒</span><span class="tag k">型</span>「◯◯の準備が整ったので、次は△△に挑戦したいと考えました」<div class="two"><span><span class="tag m">武者野の案</span>Aさんなら「今の会社に入った目的は、社会人としての基盤を作ること。それが整った今が、挑戦の時だと考えました」</span></div></div>
+<div class="a30"><span class="k">30秒</span>積んだもの → だから今</div>
+<div class="a60"><span class="k">1分以上</span>積んだものの具体</div>
 </div>
 <div class="fig">
+<div class="xr"><span class="x">✕ 不満から入る</span><span class="bub">「うちでも辞める？」</span></div>
+<p class="ln o frame2" style="margin-top:10px">○「辞めた理由」から「挑戦の理由」へ重心を移す</p>
+<div class="stairs"><div class="st s1">今の仕事で<br>積んだもの</div><div class="st s2"><svg class="ico" aria-hidden="true"><use href="#i-p"/></svg>揃った<br>「今」</div><div class="door">扉＝<br>次の挑戦</div></div>
+<div class="floor"></div>
+<p class="warn">⚠ 事由は離職票のまま。会社都合・契約満了なら、事実どおり言ってから扉の話へ</p>
+</div>
+</div>
+</section>
+
+<section class="card q pcard k3" id="tobira">
+<div class="qh"><span class="pc pcb k3">扉</span><h3>志望動機は？<small>＝ なぜこの仕事 ＋ なぜこの会社</small></h3><div class="say"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span class="bub">「その興味、続く？ 違いを分かって選んでる？」</span></div></div>
+<div class="split"><span class="sp1"><i>前半</i>なぜこの仕事<small>軸<span class="n5">1</span><span class="n5">2</span><span class="n5">3</span></small></span><span class="sp2"><i>後半</i>なぜこの会社<small>＝「なぜうち？」</small></span></div>
+<p class="cap splitcap">「なぜうち？」は別の質問ではなく、志望動機の後ろ半分。社内の面接記録には、別々に聞かれた例が無い</p>
+<div class="alt"><p class="al">同じ部分を聞く、別の言い方</p><span class="ac">なぜうちなんですか？</span><span class="ac">なぜこの職種？</span><span class="ac">この仕事をどう思う？</span><span class="ac">きっかけは？</span>
+<p class="altn"><span class="ac">他社との違いは？</span><span>→ <a href="#tobira-d">図D</a> の「同業が多い」へ</span></p></div>
+<div class="qg">
+<div class="ans">
+<div class="a5"><span class="k">5秒</span><span class="tag a">Aさん</span><div class="two"><span><span class="hf">前半 なぜこの仕事</span>「<span class="n5">1</span>車が好き・<span class="n5">2</span>人に直接ありがとうと言われる仕事が好き・<span class="n5">3</span>ジェントルマンの所作が身につく仕事。この3つです」</span><span><span class="hf">後半 なぜこの会社</span>「タクシーとの違いは指名制度です」</span></div></div>
+<div class="a30"><span class="k">30秒</span>3つに一言ずつ → 違い → 自分はそちら側が好き</div>
+<div class="a60"><span class="k">1分以上</span>3つそれぞれの話・そう思った体験</div>
+</div>
+<div class="fig" id="tobira-a">
 <h4><span class="L">A</span>8割は今までの自分、2割は新しい出会い</h4>
 <div class="prow"><div class="pbar"><i class="new" style="flex:1">全部 最近知った</i></div><span class="bub">「続くの？」</span></div>
 <div class="prow"><div class="pbar"><i class="old" style="flex:1">全部 昔から好き</i></div><span class="bub">「なら最初から選べば？」</span></div>
 <div class="prow"><div class="pbar"><i class="old" style="flex:8">8割 今までの選択<span><span class="n5">1</span><span class="n5">2</span></span></i><i class="new" style="flex:2">2割<span class="n5">3</span></i></div><span class="res">本気だと伝わる</span></div>
-<div class="src5"><p class="m5l">Aさんの場合</p>
+<div class="src5"><p class="m5l">Aさんの場合（過去で選んできたこと）</p>
 <div class="m5r"><span class="fs"><span class="fact">子どもの頃から車好き</span><span class="fact">ガソリンスタンドのバイト</span><span class="fact">今は配送の仕事</span></span><span class="to5">→ 共通項<span class="g5"><span class="n5">1</span>車</span></span></div>
 <div class="m5r"><span class="fs"><span class="fact">接客業のバイト</span></span><span class="to5">→<span class="g5"><span class="n5">2</span>人</span></span></div>
 <div class="m5r nw"><span class="fs"><span class="fact">会社の紹介動画で見た所作</span></span><span class="to5">→ 2割<span class="g5"><span class="n5">3</span>所作</span></span></div>
@@ -413,64 +772,25 @@ details div{font-size:16px;line-height:1.6;border-top:1px dashed var(--line);pad
 <div class="lv hit" style="width:60%">ハイヤー</div>
 </div>
 </div>
+<div class="figs">
 <div class="fig">
 <h4><span class="L">C</span>誰でも言える理由は、加点にならない</h4>
 <div class="srow"><span class="w"><span class="tag s">合成の例</span>「VIP対応に憧れて」</span><span class="pt z">±0</span></div>
 <div class="srow"><span class="w"><span class="tag a">Aさん</span>「頭をぶつけないよう手を添える所作」</span><span class="pt p">＋</span></div>
 </div>
+<div class="fig" id="tobira-d">
+<h4><span class="L">D</span>なぜこの会社：違いを説明してから、自分はそちら側</h4>
+<div class="vs"><div class="side">タクシー<small>その場限り</small></div><div class="mid">違い<span class="g5">指名制度</span></div><div class="side pick">ハイヤー<small>同じお客様が<br>名指しで何度も呼ぶ</small><em>自分はこっち</em></div></div>
+<div class="ind"><div><b>同業が少ない</b> → 似た仕事との違い</div><div class="hl"><b>同業が多い</b>（IT・施工管理）→ その会社にしか無いもの</div></div>
 </div>
-</section>
-
-<section class="card q" id="q3">
-<div class="qh"><span class="qn">Q3</span><h3>退職理由は？</h3><div class="say"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span class="bub">「同じ理由で、また辞めない？」</span></div></div>
-<div class="qg">
-<div class="ans">
-<div class="a5"><span class="k">5秒</span><span class="tag k">型</span>「◯◯の準備が整ったので、次は△△に挑戦したいと考えました」</div>
-<div class="a30"><span class="k">30秒</span>積んだもの → だから今</div>
-<div class="a60"><span class="k">1分以上</span>積んだものの具体</div>
-</div>
-<div class="fig">
-<div class="xr"><span class="x">✕ 不満から入る</span><span class="bub">「うちでも辞める？」</span></div>
-<p class="ln o frame2" style="margin-top:10px">○ 骨組み「今この瞬間が、挑戦の扉の前に立つ準備が整ったから」</p>
-<div class="stairs"><div class="st s1">今の仕事で<br>積んだもの</div><div class="st s2"><svg class="ico" aria-hidden="true"><use href="#i-p"/></svg>揃った<br>「今」</div><div class="door">扉＝<br>次の挑戦</div></div>
-<div class="floor"></div>
-<p class="warn">⚠ 事由は離職票のまま。会社都合・契約満了なら、事実どおり言ってから扉の話へ</p>
 </div>
 </div>
 </section>
 
-<section class="card q" id="q4">
-<div class="qh"><span class="qn">Q4</span><h3>短期離職・中退の理由は？</h3><div class="say"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span class="bub">「また勢いで投げ出さない？」</span></div></div>
-<div class="qg">
-<div class="ans">
-<div class="a5"><span class="k">5秒</span><span class="tag s">合成の例</span>「早く現場で働きたくて辞めました。勢いで決めた所は反省しています」</div>
-<div class="a30"><span class="k">30秒</span><div class="eq"><div class="term">事実<small>淡々と</small></div><span class="plus">＋</span><div class="term">目的とその後<small>当時本当にあった目的だけ</small></div><span class="plus">＋</span><div class="term must">自責の念<small>必ず</small></div></div></div>
-<div class="a60"><span class="k">1分以上</span>その後してきたこと</div>
-</div>
-<div class="fig">
-<p class="qt" style="margin-top:0"><span class="spk mk">MKの面接対策動画</span>自責の念が無いと<span class="bub">「勢いだけで決める人？」</span><b class="ngt">→ 見送りになりやすい</b></p>
-<div class="fork"><span class="if">体調で辞めた</span>→<b>自責は付けず、PART 3 ①へ</b></div>
-</div>
-</div>
-</section>
-
-<section class="card q" id="q5">
-<div class="qh"><span class="qn">Q5</span><h3>なぜ、うちなんですか？</h3><div class="say"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span class="bub">「違いを分かって選んでる？」</span></div></div>
-<div class="qg">
-<div class="ans">
-<div class="a5"><span class="k">5秒</span><span class="tag a">Aさん</span>「（タクシーとの違いは）指名制度です」</div>
-<div class="a30"><span class="k">30秒</span>違いを説明 → 自分はそちら側が好き</div>
-<div class="a60"><span class="k">1分以上</span>そう思った体験</div>
-</div>
-<div class="fig">
-<div class="vs"><div class="side">タクシー<small>その場限り</small></div><div class="mid">① 違い<span class="g5">指名制度</span></div><div class="side pick">ハイヤー<small>同じお客様が<br>名指しで何度も呼ぶ</small><em>② 自分はこっち</em></div></div>
-<div class="ind"><div><b>同業が少ない</b> → 似た仕事との違い</div><div><b>同業が多い</b>（IT・施工管理）→ その会社にしか無いもの</div></div>
-</div>
-</div>
-</section>
-
-<section class="card q" id="q6">
-<div class="qh"><span class="qn">Q6</span><h3>入社後、どうなりたい？</h3><div class="say"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span class="bub">「その姿、うちの仕事の先にある？」</span></div></div>
+<section class="card q pcard k4" id="saki">
+<div class="qh"><span class="pc pcb k4">扉の先</span><h3>入社後、どうなりたい？</h3><div class="say"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span class="bub">「その姿、うちの仕事の先にある？」</span></div></div>
+<div class="alt"><p class="al">同じ部分を聞く、別の言い方</p><span class="ac">5年後は？</span><span class="ac">キャリアプランは？</span><span class="ac">（最後に）何か質問はありますか？</span>
+<p class="altn"><span class="ac">最初は◯◯の業務からですが大丈夫？</span><span>→ 本当にその仕事でよいかは、推薦の前に本人に Yes/No で確かめておく</span></p></div>
 <div class="qg">
 <div class="ans">
 <div class="a5"><span class="k">5秒</span><span class="tag a">Aさん</span>「指名される運転手になりたいです」<span class="nt">武者野が答え合わせで出し、本人が「使いたい」と取りに来た</span></div>
@@ -478,9 +798,9 @@ details div{font-size:16px;line-height:1.6;border-top:1px dashed var(--line);pad
 <div class="a60"><span class="k">1分以上</span>待ち時間の過ごし方<div class="two"><span><span class="tag a">Aさん</span>通った道を振り返り、抜け道をメモ</span></div></div>
 </div>
 <div class="fig lk">
-<div class="s"><span class="qq">Q5</span><span class="g5">指名制度</span></div>
+<div class="s"><span class="pc k3">扉</span><span class="g5">指名制度</span></div>
 <div class="v"></div>
-<div class="s"><span class="qq">Q6</span><span class="g5">指名される運転手</span></div>
+<div class="s"><span class="pc k4">扉の先</span><span class="g5">指名される運転手</span></div>
 <div class="v"></div>
 <div class="s"><span class="qq">日々</span><span class="tag m">武者野の案</span>ニュース・お客様の会社や業界を調べる</div>
 <div class="v"></div>
@@ -488,36 +808,65 @@ details div{font-size:16px;line-height:1.6;border-top:1px dashed var(--line);pad
 <p class="cap">答え同士を伏線でつなぐ</p>
 </div>
 </div>
+<div class="gyaku"><p><span class="tag k">型</span>逆質問は、<span class="kw k4">扉の先</span>を見せる最後の場。入社後に伸びるための質問をする</p><p class="ngx">✕ 条件（給与・休み）の質問は入れない</p></div>
+<p class="rec"><span class="tag r">社内の記録</span>「積みたいキャリアが決まっていない」が見送りの理由になった回がある</p>
 </section>
 
+<section class="card sotei" id="sotei">
+<h3>想定外の質問は、物語のどこかで受ける</h3>
 <div class="grid c2">
-<section class="card" id="q7">
-<div class="qh"><span class="qn">Q7</span><h3>短所は？</h3></div>
-<div class="say" style="margin-bottom:12px"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span class="bub">「分かって、直そうとしてる？」</span></div>
-<div class="ans">
-<div class="a5"><span class="k">5秒</span><span class="tag k">型</span>「◯◯が苦手です」と認める</div>
-<div class="a30"><span class="k">30秒</span>事実 → 今どう直しているか</div>
-<div class="a60"><span class="k">1分以上</span>直している具体</div>
-</div>
-<p class="cap">聞かれなければ言わない（PART 3）</p>
-</section>
-
-<section class="card map">
-<h3>変化球は、幹で受ける</h3>
-<div class="mr"><span class="qc">「今どんな仕事を？」</span><span class="to">→</span><span class="g5"><span class="n5">1</span>車</span></div>
-<div class="mr"><span class="qc">「お客様との関わりは？」</span><span class="to">→</span><span class="g5"><span class="n5">2</span>人</span></div>
-<div class="mr"><span class="qc">「そのアルバイト、どうだった？」</span><span class="to">→</span><span class="g5"><span class="n5">3</span>所作</span></div>
+<div>
+<p class="shd">質問 → 表面はどの部分 ⇒ 答えを寄せる軸</p>
+<div class="srw"><span class="qc">「今どんな仕事を？」</span><span class="sa"><span class="pc k1">過去</span><i>⇒</i><span class="g5"><span class="n5">1</span>車</span>へ寄せる</span></div>
+<div class="srw"><span class="qc">「そのアルバイト、どうだった？」</span><span class="sa"><span class="pc k1">過去</span><i>⇒</i><span class="g5"><span class="n5">3</span>所作</span>へ寄せる</span></div>
+<div class="srw"><span class="qc">「お客様との関わりは？」</span><span class="sa"><span class="pc k3">扉</span><i>⇒</i><span class="g5"><span class="n5">2</span>人</span></span></div>
+<div class="srw"><span class="qc">「短所は？」</span><span class="sa ext">物語の外。<a href="#tansho">PART 3 の型</a>で</span></div>
 <p class="aside"><span class="tag a">Aさん</span>別の会社で経歴を逆順に聞かれても、引き出しで答えられた</p>
+</div>
+<div>
 <h4 class="kh">きれいごとに、本音を少し</h4>
-<div class="mr kr"><span class="qc">「部屋はきれいですか？」</span></div>
+<span class="qc">「部屋はきれいですか？」</span>
 <p class="kans"><span class="to">→</span><span class="tag a">Aさん</span>「<span class="hon">部屋は散らかっていますが</span>、<span class="kre">車と仕事場はいつもきれいにしています</span>」</p>
 <div class="kl"><span><i style="background:var(--hon)"></i>本音</span><span><i style="background:var(--kre)"></i>きれいごと</span><span>→ きれいごとも本当に聞こえる</span></div>
+</div>
+</div>
 <p class="cap"><b>テンプレを練習するのは、テンプレ以外に答えるため</b></p>
 </section>
+
+<section class="card kak" id="kakunin">
+<h3>物語ではない、確認の質問</h3>
+<div class="grid c2">
+<div class="fig">
+<h4><span class="L">A</span>可否の質問</h4>
+<div class="kq"><span>勤務地・通勤・転居</span><span>朝が早い・夜勤・残業・転勤</span><span>希望年収</span><span>いつから働けるか</span><span>他社の選考状況<em>「なし」にしない（<a href="#shorui">書類のカード</a>）</em></span><span>いまの健康状態で勤務条件を満たせるか<em>病歴・療養は <a href="#pre2">PART 3 の 2</a></em></span></div>
+<p class="kata"><span class="tag k">型</span>推薦の前に、本人と可否を決めておく。面接で聞かれたら、決めたとおりに短く答える<small>「できません」を面接の場で初めて考えない。事実と違う「できます」は言わせない（<a href="#p3">PART 3 の線</a>）</small></p>
+<p class="rec"><span class="tag r">社内の記録</span>「朝の早い出勤はできない」と答えて見送りになった回がある／通勤・転居は4回聞かれている</p>
 </div>
+<div class="fig">
+<h4><span class="L">B</span>職種ごとによく聞かれること</h4>
+<div class="job"><p class="jh">ハイヤー・タクシー</p><ul class="jq">
+<li><span>事故・違反歴<small>事実＋反省を短く（目的は要らない）。後で調べられる＝点数は推薦の前に把握</small></span><span class="dst">→ <a class="pc k1" href="#kizu">過去</a></span></li>
+<li><span>健康<small>いまの状態は A 可否／既往歴は言う範囲を本人と決める</small></span><span class="dst">→ <span class="ca">A 可否</span>・<a href="#pre2">PART 3 の 2</a></span></li>
+<li><span>残業・待機が長いが大丈夫か</span><span class="dst">→ <span class="ca">A 可否</span></span></li>
+<li><span>給与が下がっても続けられるか<small>家族の話し方は下の「家族のこと」</small></span><span class="dst">→ <span class="ca">A 可否</span></span></li>
+</ul></div>
+<div class="job"><p class="jh">IT</p><ul class="jq">
+<li><span>なぜエンジニアか</span><span class="dst">→ <a class="pc k3" href="#tobira">扉</a></span></li>
+<li><span>学習状況</span><span class="dst">→ <a class="pc k2" href="#ima">今</a></span></li>
+<li><span>作ったもの</span><span class="dst">→ <a class="pc k2" href="#ima">今</a></span></li>
+<li><span>年収が下がっても大丈夫か</span><span class="dst">→ <span class="ca">A 可否</span></span></li>
+</ul></div>
+<div class="job"><p class="jh">施工管理</p><ul class="jq">
+<li><span>運転して現場へ行けるか・転勤</span><span class="dst">→ <span class="ca">A 可否</span></span></li>
+</ul></div>
+<div class="job"><p class="jh">家族のこと<small>聞いてはいけないとされるが、実際は聞かれる</small></p>
+<p class="jfam">聞かれる前提で、言う範囲を本人と決めておく（<a href="#pre2">PART 3 の 2</a>）。決めた範囲を事実で短く</p></div>
+</div>
+</div>
+</section>
 
 <!-- PART 3 -->
-<div class="part"><span>PART 3</span><h2>何を先に言い、何を言わないか</h2></div>
+<div class="part" id="p3"><span>PART 3</span><h2>何を先に言い、何を言わないか</h2></div>
 <div class="card frm">
 <p class="fh"><span class="spk">武者野</span>面接は、自分という商品を売る営業の場</p>
 <div class="rules"><div class="o">○ 盛ってよい：関心・理由・意欲</div><div class="x">✕ 盛らない：事実（期間・資格・経験・実績・数字）</div><div class="w">→ 弱みは自分から言わない（下の表）</div></div>
@@ -527,12 +876,12 @@ details div{font-size:16px;line-height:1.6;border-top:1px dashed var(--line);pad
 <div class="mx">
 <div></div><div class="h">面接官に見えている<small>書類に有る</small></div><div class="h">見えていない<small>書類に無い</small></div>
 <div class="rh">定着の不安</div><div class="c say1">先に言う<span class="nb">1</span></div><div class="c you">本人が決める<span class="nb">2</span></div>
-<div class="rh">能力の弱み</div><div class="c ask">聞かれたら<small>事実 → 直し方（Q7）</small></div><div class="c no">自分からは<br>言わない<span class="nb">3</span></div>
+<div class="rh">能力の弱み</div><div class="c ask">聞かれたら<small>事実 → 直し方（<a href="#tansho">下の型</a>）</small></div><div class="c no">自分からは<br>言わない<span class="nb">3</span></div>
 </div>
 <p class="cap">学歴・職歴・在籍期間・資格は書類に全部書く＝いつも「見えている」</p>
 </figure>
 
-<figure class="card">
+<figure class="card" id="pre1">
 <h3><span class="nb">1</span>聞かれていない不安にも、先に答える</h3>
 <div class="ice"><div class="up"><small>口に出す質問（Aさん：体調を崩して中退・今は回復）</small><div class="say"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span class="q0">「学校はなぜ辞めたんですか？」</span></div></div>
 <div class="dn"><small>頭の中の質問</small><span class="bub">「また体調を崩さない？」</span></div></div>
@@ -541,7 +890,18 @@ details div{font-size:16px;line-height:1.6;border-top:1px dashed var(--line);pad
 </div>
 
 <div class="grid c2">
-<figure class="card">
+<section class="card tansho" id="tansho">
+<h3>短所を聞かれたら</h3>
+<div class="say"><svg class="ico" aria-hidden="true"><use href="#i-iv"/></svg><span class="bub">「分かって、直そうとしてる？」</span></div>
+<div class="ans">
+<div class="a5"><span class="k">5秒</span><span class="tag k">型</span>「◯◯が苦手です」と認める</div>
+<div class="a30"><span class="k">30秒</span>事実 → 今どう直しているか</div>
+<div class="a60"><span class="k">1分以上</span>直している具体</div>
+</div>
+<p class="cap">自分からは言わない（上の表の 3）</p>
+</section>
+
+<figure class="card" id="pre2">
 <h3><span class="nb">2</span>迷う事情は、2問のあと本人が決める</h3>
 <div class="fl">
 <div class="fq">問1 言わなくても、嘘にならない？</div><div class="fx"><i>なる</i>言う</div>
@@ -552,26 +912,28 @@ details div{font-size:16px;line-height:1.6;border-top:1px dashed var(--line);pad
 </div>
 <p class="cap">不明なら本人が書類を取り寄せる／求人票・企業に確かめる。<b>CAは前の職場や役所に直接問い合わせない</b></p>
 </figure>
+</div>
 
-<figure class="card">
+<div class="grid c2">
+<figure class="card" id="pre3">
 <h3><span class="nb">3</span>見えていない弱みは、1分の枠の外</h3>
 <div class="om">
 <div class="box"><b>志望動機の1分（優先順）</b><ol><li>3つの軸</li><li>軸ごとの話</li><li>その会社である理由</li></ol></div>
 <div class="out"><span class="tag s">合成の例</span>「敬語はまだまだですが、研修で学びたい」<em>✕ 枠に入らない（隠すのではない）</em></div>
 </div>
-<p class="cap">聞かれたらQ7の型。「本音を少し」（変化球カード）は弱みの告白とは別物</p>
+<p class="cap">聞かれたら短所の型。「本音を少し」（想定外の質問のカード）は弱みの告白とは別物</p>
 </figure>
-</div>
 
-<figure class="card" style="margin-top:12px">
+<figure class="card" id="shorui">
 <h3>書類も面接の一部</h3>
 <div class="form"><div class="ft">事前アンケート</div>
 <div class="fr"><span class="f">他社の選考状況</span><span class="xx">✕</span><span class="in">なし</span>受けているなら事実と違う<span class="bub">「本当に無いの？ 落ちたらどうするの？」</span><br><span class="ok">○ 職種が違っても書き、志望の軸で説明 → 志望動機の補強に</span></div>
 </div>
 </figure>
+</div>
 
 <!-- PART 4 -->
-<div class="part"><span>PART 4</span><h2>CAの回し方と、次の回の準備</h2></div>
+<div class="part" id="p4"><span>PART 4</span><h2>CAの回し方と、次の回の準備</h2></div>
 <figure class="card" style="margin-top:12px">
 <h3>答えは本人に出させる</h3>
 <ol class="s4">
@@ -581,53 +943,72 @@ details div{font-size:16px;line-height:1.6;border-top:1px dashed var(--line);pad
 <li><b><span class="nb">4</span>答え合わせ</b><small>CAの答えは最後に</small></li>
 </ol>
 <p class="cap">本人が出した答えは崩れない。CAが足すのは型と短い一言まで</p>
+<p class="key3"><span class="miki">幹</span>は本人の中にできる。CAは「何が足りない？」と、答え同士のつなぎ（伏線）で縫う</p>
 </figure>
+
+<div class="grid c2">
+<figure class="card">
+<h3 class="h3t"><span class="tag k">型</span>磨く順番</h3>
+<div class="ord"><span class="pc k3">扉<small>志望動機</small></span><span class="og"><i>→</i><span class="pc k2">今</span></span><span class="og"><i>→</i><span class="pc k4">扉の先</span></span><span class="og"><i>→</i><span class="pc k1">過去</span></span></div>
+<p class="cap">Aさんは志望動機を練習し抜いて幹ができた（武者野の回）</p>
+</figure>
+<figure class="card">
+<h3>模擬面接は、物語の順で聞かない</h3>
+<p class="mk1">実際の面接は、経歴・退職理由からいきなり入る。聞く順の例：</p>
+<div class="ord"><span class="pc k2">今</span><span class="og"><i>→</i><span class="pc k1">過去</span></span><span class="og"><i>→</i><span class="qx">？</span></span><span class="og"><i>→</i><span class="pc k4">扉の先</span></span><span class="og"><i>→</i><span class="pc k3">扉</span></span></div>
+<p class="mk2"><span class="qx">？</span>外れた質問を1つ混ぜる。答える前に、本人に「物語のどこ？」と言わせる</p>
+</figure>
+</div>
 
 <figure class="card" style="margin-top:12px" id="prep">
 <h3>次の面接対策の準備</h3>
 <ol class="tl">
-<li><b>2日前</b><span>① 本人へ宿題：Q1〜Q7の答えを箇条書きで</span></li>
-<li><b>前日まで</b><span>② 求人票・HPからQ5の「違い」を拾う</span><span>③ 本人が言った言葉に印</span><span>④ 下の表を紙かメモに写し、本人の言葉で埋める（<b>5秒の列から</b>）。無いマスは当日聞く</span></li>
-<li><b>当日</b><span>⑤ Q2の軸が見えなければ、選んできたこと（学校・バイト・仕事）の「なぜ」から共通項を拾う</span><span>⑥ 上の4手で回す</span></li>
+<li><b>2日前</b><span>本人へ宿題：物語の4つの部分（＋経歴の傷）の答えを箇条書きで</span></li>
+<li><b>前日まで</b><span>求人票・HPから<span class="kw k3">扉</span>の「違い」を拾う</span><span>本人が言った言葉に印</span><span>下の表を埋める（<b><span class="kw k3">扉</span>の5秒から</b>。磨く順番どおり）。無いマスは当日聞く</span><span>確認の質問の可否は、本来は推薦の前に決まっている。未確認が残っていれば当日に聞いて潰す</span></li>
+<li><b>当日</b><span><span class="kw k3">扉</span>の軸が見えなければ、<span class="kw k1">過去</span>で選んできたこと（学校・バイト・仕事）の「なぜ」から共通項を拾う</span><span>上の4手で回す</span></li>
 </ol>
 <p class="dayh">当日の流れ（目安）</p>
 <ol class="day">
 <li style="--m:7.5"><i></i><span>雑談<small>5〜10分</small></span></li>
 <li style="--m:12.5"><i></i><span>埋めた表を本人と確認<small>10〜15分</small></span></li>
-<li class="core" style="--m:25"><i></i><span>模擬面接（Q1〜Q7）<small>20〜30分</small></span></li>
+<li class="core" style="--m:25"><i></i><span>模擬面接（4つの部分＋外れた質問1つ）<small>20〜30分</small></span></li>
 <li style="--m:17.5"><i></i><span>本人が表の3列（5秒・30秒・1分以上）に○△✕ → FB<small>15〜20分</small></span></li>
 <li style="--m:5"><i></i><span>宿題<small>5分</small></span></li>
 </ol>
+<p class="tdir"><span class="tv">↓ 縦に読む＝幹<small>過去→扉の先の5秒版が、1本の話か</small></span><span class="th2">→ 横に伸ばす＝長さ</span></p>
 <table class="sh">
-<tr><th style="width:30%">質問</th><th class="h5" style="width:26%">5秒</th><th class="h30">30秒</th><th style="width:21%">1分以上（ネタ）</th></tr>
-<tr><td>Q1 自己紹介</td><td class="c5"></td><td></td><td></td></tr>
-<tr><td>Q2 志望動機</td><td class="c5"></td><td></td><td></td></tr>
-<tr><td>Q3 退職理由</td><td class="c5"></td><td></td><td></td></tr>
-<tr><td>Q4 短期・中退</td><td class="c5"></td><td></td><td></td></tr>
-<tr><td>Q5 なぜうち</td><td class="c5"></td><td></td><td></td></tr>
-<tr><td>Q6 入社後</td><td class="c5"></td><td></td><td></td></tr>
-<tr><td>Q7 短所</td><td class="c5"></td><td></td><td></td></tr>
+<tr><th style="width:30%">部分</th><th class="h5" style="width:26%">5秒</th><th class="h30">30秒</th><th style="width:21%">1分以上（ネタ）</th></tr>
+<tr class="k1"><th class="rk">過去</th><td class="c5"></td><td></td><td></td></tr>
+<tr class="k1 kz"><th class="rk">経歴の傷</th><td class="c5"></td><td></td><td></td></tr>
+<tr class="k2"><th class="rk">今</th><td class="c5"></td><td></td><td></td></tr>
+<tr class="k3"><th class="rk">扉<small>なぜこの仕事</small></th><td class="c5"></td><td></td><td></td></tr>
+<tr class="k3"><th class="rk">扉<small>なぜこの会社</small></th><td class="c5"></td><td></td><td></td></tr>
+<tr class="k4"><th class="rk">扉の先</th><td class="c5"></td><td></td><td></td></tr>
 </table>
-<p class="cap">Q4は該当者だけ</p>
+<p class="cap">経歴の傷の行は、無い人は空欄。確認の質問の可否は表の外にメモ</p>
 </figure>
 
 <!-- 練習問題 -->
-<div class="part"><span>練習問題</span><h2>武者野ならどうする？</h2></div>
+<div class="part" id="renshu"><span>練習問題</span><h2>武者野ならどうする？</h2></div>
 <div class="pr">
 <div><p><b>1</b>志望動機が「車」「人と関わる」で止まった。次の一言は？</p>
-<details><summary>答え</summary><div>足りない要素を自分では言わず、「会社名を使わずに今の話を道のおじさんにしたら、何の仕事だと当てられますか？」と聞く。タクシーと区別がつかないと本人が気づき、本人の言葉で3つ目（所作）を出す。（→ Q2 B）</div></details></div>
+<details><summary>答え</summary><div>足りない要素を自分では言わず、「会社名を使わずに今の話を道のおじさんにしたら、何の仕事だと当てられますか？」と聞く。タクシーと区別がつかないと本人が気づき、本人の言葉で3つ目（所作）を出す。（→ <a href="#tobira">扉</a> の図B）</div></details></div>
 <div><p><b>2</b>志望動機を2分で話した。内容は良い。次は？</p>
-<details><summary>答え</summary><div>「5秒で言うと？」と聞き、3つの軸を一言ずつに絞ってもらう。長い版は直さない。5秒の答えがすぐ出るまで何度か言ってもらう。（→ PART 1）</div></details></div>
+<details><summary>答え</summary><div>「5秒で言うと？」と聞き、3つの軸を一言ずつに絞ってもらう。長い版は直さない。5秒の答えがすぐ出るまで何度か言ってもらう。（→ <a href="#p1">PART 1</a>）</div></details></div>
 <div><p><b>3</b>退職理由が「同じ作業の繰り返しで成長できない」。組み直すと？</p>
-<details><summary>答え</summary><div>不満から入らず、「今の仕事で◯◯を積んで、次に挑戦する準備が整ったから」の骨組みにする。積んだものは本人の言葉で出してもらう。次の挑戦が志望動機の2割とつながっているかも確かめる。退職の事由そのものは変えない。（→ Q3）</div></details></div>
+<details><summary>答え</summary><div>不満から入らず、「今の仕事で◯◯を積んで、次に挑戦する準備が整ったから」の骨組みにする。積んだものは本人の言葉で出してもらう。次の挑戦が志望動機の2割とつながっているかも確かめる。退職の事由そのものは変えない。（→ <a href="#ima">今</a>）</div></details></div>
 <div><p><b>4</b>中退の理由が「やりたいことが見つかった」だけ。何を足す？</p>
-<details><summary>答え</summary><div>辞めた目的（当時本当にあったものだけ）と、その後それに向けてしてきたことを足す。さらに「勢いで決めてしまったことは反省しています」と自責の念を必ず付ける。（→ Q4）</div></details></div>
+<details><summary>答え</summary><div>辞めた目的（当時本当にあったものだけ）と、その後それに向けてしてきたことを足す。さらに「勢いで決めてしまったことは反省しています」と自責の念を必ず付ける。（→ <a href="#kizu">過去・経歴の傷</a>）</div></details></div>
 <div><p><b>5</b>志望動機に「敬語はまだまだですが」と添えた。直す？</p>
-<details><summary>答え</summary><div>自分からは言わなくていい、と伝える。隠すのではなく、1分の優先順位に入らないから。聞かれたときの答え方（事実 → 直し方）は渡しておく。「成長する人だと伝えたい」意図は汲む。（→ PART 3）</div></details></div>
+<details><summary>答え</summary><div>自分からは言わなくていい、と伝える。隠すのではなく、1分の優先順位に入らないから。聞かれたときの答え方（事実 → 直し方）は渡しておく。「成長する人だと伝えたい」意図は汲む。（→ <a href="#p3">PART 3</a>）</div></details></div>
 <div><p><b>6</b>自分の答えの方がうまいと思った。どう渡す？</p>
-<details><summary>答え</summary><div>先に本人の答えの良い所を言う。自分の答えは「こうしろ」ではなく「答え合わせ」として出す。本人が「使いたい」と取りに来たら渡す。来なければ本人の答えのまま進める。（→ PART 4）</div></details></div>
+<details><summary>答え</summary><div>先に本人の答えの良い所を言う。自分の答えは「こうしろ」ではなく「答え合わせ」として出す。本人が「使いたい」と取りに来たら渡す。来なければ本人の答えのまま進める。（→ <a href="#p4">PART 4</a>）</div></details></div>
+<div><p><b>7</b>最初の質問がラフな雑談（「そのバイト、どうだった？」）で、本人が固まった。CAは何を聞く？</p>
+<details><summary>答え</summary><div>「まとまってなくていいから話して」のあと、「今の、物語のどこ？」と聞く。本人が部分と寄せる軸を言えたら、その軸の一言（5秒）から話させ、エピソードへ。（→ <a href="#p0">PART 0</a>・<a href="#sotei">想定外の質問</a>）</div></details></div>
+<div><p><b>8</b>本人が「志望動機」と「なぜうち」を別々に準備してきた。どうする？</p>
+<details><summary>答え</summary><div>1つにまとめる。志望動機の前半（なぜこの仕事＝軸<span class="n5">1</span><span class="n5">2</span><span class="n5">3</span>）と後半（なぜこの会社＝違い）として、続けて言えるようにする。別々に聞かれたら、後半だけを言う（同じ軸を2回言わない）。同業が多い会社なら、後半は「その会社にしか無いもの」（<a href="#tobira-d">図D</a>）。（→ <a href="#tobira">扉</a>）</div></details></div>
 </div>
 
-<p class="foot">出典：武者野の面接対策の回／MKの面接対策動画（要旨）</p>
+<p class="foot">出典：武者野の面接対策の回／MKの面接対策動画（要旨）／社内の面接記録（約15面接・本人の電話報告が中心）／転職サイト・当事者の記録（よく聞かれる質問の調べ）</p>
 
 </div></body></html>
