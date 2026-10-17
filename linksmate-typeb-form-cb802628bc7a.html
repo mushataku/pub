@@ -122,7 +122,7 @@
       <path class="arw" d="M180 476v10m-4 -4l4 4l4 -4"/>
       <rect class="a-k" x="40" y="490" width="300" height="54" rx="10"/>
       <text x="54" y="513">予約番号</text>
-      <text class="sub" x="54" y="533">メールで届く</text>
+      <text class="sub" x="54" y="533">依頼の詳しい画面に出る（メールには書かない）</text>
     </svg>
   </figure>
 
@@ -137,7 +137,7 @@
 
     <fieldset>
       <label class="field" for="kadobi">稼働日<span class="req">必須</span>
-        <span class="hint">予約番号がほしい日（明日以降）。西暦の8桁（例: 20261010。区切りや全角でも大丈夫です）</span></label>
+        <span class="hint">名義人さんが回線を使い始める日（明日以降）。西暦の8桁（例: 20261010。区切りや全角でも大丈夫です）</span></label>
       <input type="text" id="kadobi" name="kadobi" inputmode="numeric" autocomplete="off" maxlength="20" enterkeyhint="next">
       <div class="small" id="kdEcho" aria-live="polite"></div>
     </fieldset>
@@ -156,7 +156,7 @@
 
     <fieldset>
       <label class="field" for="birthday">名義人の生年月日<span class="req">必須</span>
-        <span class="hint">西暦の8桁（例: 1990年1月2日生まれ → 19900102。区切りや全角でも大丈夫です）。名義人さんのページで、ご本人かどうかの確かめに使います</span></label>
+        <span class="hint">西暦の8桁（例: 1990年1月2日生まれ → 19900102。区切りや全角でも大丈夫です）。LinksMate の申込に使います（名義人さんのページでは聞きません）</span></label>
       <input type="text" id="birthday" name="birthday" inputmode="numeric" autocomplete="off" maxlength="20" enterkeyhint="next">
       <div class="small" id="bdEcho" aria-live="polite"></div>
     </fieldset>
