@@ -47,6 +47,7 @@
   fieldset{border:0; padding:0; margin:0 0 22px}
   label.field, legend{display:block; font-weight:700; margin-bottom:6px; padding:0}
   .req{color:var(--warn); font-size:14px; margin-left:6px}
+  .opt-tag{color:var(--ink-2); font-size:14px; font-weight:400; margin-left:6px}
   .hint{display:block; font-weight:400; color:var(--ink-2); font-size:15px}
   input[type=text], input[type=tel]{
     width:100%; font:inherit; font-size:20px; padding:12px 14px; min-height:52px;
@@ -195,8 +196,8 @@
     </fieldset>
 
     <fieldset>
-      <label class="field" for="eid">名義人さんの端末の EID<span class="req">必須</span>
-        <span class="hint">数字32桁（ハイフンや空白があっても大丈夫です）</span></label>
+      <label class="field" for="eid">名義人さんの端末の EID<span class="opt-tag">任意</span>
+        <span class="hint">数字32桁（ハイフンや空白があっても大丈夫です）。後からでも大丈夫です。申込が完了したらお願いします</span></label>
       <input type="text" id="eid" name="eid" inputmode="numeric" autocomplete="off" maxlength="80" enterkeyhint="done">
     </fieldset>
 
@@ -245,6 +246,7 @@
     return String(s).replace(/[０-９]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xfee0); })
       .replace(/[ \t\n\r\f\v\u00a0\u1680\u2000-\u200d\u2028\u2029\u202f\u205f\u2060\u3000\-\u2010-\u2015\u2212\u30fc\uff0d\ufeff]/g, '');
   }
+  var EID_NOTE = '（後からでも大丈夫です。申込が完了したらお願いします）';
   var EID_PREFIXES = ['89049032', '89033023', '89033024', '89043051', '89043052'];
   function eidProblem(d){
     if (!d) return 'EID が空です';
@@ -346,7 +348,7 @@
     else if (!/^0[0-9]{9,10}$/.test(v.phone)) errs.push({id:'phone', t:'電話番号は 0 から始まる10〜11桁で入れてください'});
     if (!v.postal) errs.push({id:'postal', t:'郵便番号が空です'});
     else if (!/^[0-9]{7}$/.test(v.postal)) errs.push({id:'postal', t:'郵便番号は7桁の数字で入れてください（いまは ' + v.postal.length + ' 桁・数字以外が混ざっている場合もあります）'});
-    var ep = eidProblem(v.eid);
+    var ep = v.eid ? eidProblem(v.eid) : '';  // EID は受付の段では任意（空なら「後で」＝書式に注釈を載せて出す）。入っていれば今までどおり検査する
     if (ep) errs.push({id:'eid', t:ep});
     if (!oneLine(v.linesRaw)) errs.push({id:'lines', t:'回線数が空です'});
     else if (!v.lines) errs.push({id:'lines', t:'回線数は1〜5の整数で入れてください'});
@@ -370,7 +372,7 @@
       '⑦ 郵便番号：' + v.postal,
       '⑧ 本人確認書類：' + v.doc,
       '⑨ 回線数：' + v.lines,
-      '⑩ EID：' + v.eid,
+      '⑩ EID：' + (v.eid || EID_NOTE),  // 空で出すときは注釈（業者コンソールの貼り付けはこの注釈のままを「後で」と読む＝paste_parse.FORMAT_TEMPLATE と一字一句同じ）
       '※住所と本人確認書類の写真は不要です。',
       '名義人の同意（名義での申込と事務の代行）: はい',
       '本人確認は名義人本人が行う: はい'
