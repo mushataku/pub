@@ -4,27 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="robots" content="noindex, nofollow">
-<title>ボールソート</title>
+<title>Ball Sort Lab</title>
 <style>
   :root{--bg1:#2b1055;--bg2:#7597de;--glass:rgba(255,255,255,.18);--line:rgba(255,255,255,.55)}
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
   html,body{margin:0;height:100%;font-family:"Hiragino Maru Gothic ProN","Rounded Mplus 1c",system-ui,sans-serif;color:#fff;overflow:hidden}
   body{background:linear-gradient(160deg,var(--bg1),var(--bg2));display:flex;flex-direction:column;align-items:center}
-  header{width:100%;max-width:520px;padding:44px 16px 4px;text-align:center}
+  header{width:100%;max-width:900px;padding:14px 64px 4px;text-align:center}
   .ad{display:inline-block;background:#ff3b5c;padding:4px 12px;border-radius:99px;font-size:13px;font-weight:700;box-shadow:0 3px 0 #a3132e;animation:pulse 1.2s infinite}
   @keyframes pulse{50%{transform:scale(1.06)}}
   h1{margin:8px 0 2px;font-size:26px;text-shadow:0 3px 0 rgba(0,0,0,.25)}
   .stats{display:flex;justify-content:center;gap:18px;font-size:15px;opacity:.95}
-  #board{flex:1;width:100%;max-width:520px;display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:18px 14px;padding:10px 16px}
-  .tube{position:relative;width:54px;height:calc(var(--cap)*46px + 18px);border:3px solid var(--line);border-top:none;border-radius:0 0 28px 28px;background:var(--glass);display:flex;flex-direction:column-reverse;align-items:center;padding:6px 0;gap:4px;cursor:pointer;transition:transform .15s}
+  #board{flex:1;min-height:0;overflow:hidden;width:100%;max-width:1100px;display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:18px 14px;padding:10px 16px}
+  .tube{position:relative;width:calc(54px*var(--k,1));height:calc((var(--cap)*46px + 18px)*var(--k,1));border:3px solid var(--line);border-top:none;border-radius:0 0 28px 28px;background:var(--glass);display:flex;flex-direction:column-reverse;align-items:center;padding:6px 0;gap:4px;cursor:pointer;transition:transform .15s}
   .tube::before{content:"";position:absolute;top:-6px;left:-7px;right:-7px;height:6px;border-radius:4px;background:var(--line)}
   .tube.sel{transform:translateY(-14px)}
   .tube.done{border-color:#ffe066;box-shadow:0 0 18px #ffe066}
   .tube.shake{animation:shake .3s}
   @keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-  .ball{width:40px;height:40px;border-radius:50%;box-shadow:inset -5px -6px 0 rgba(0,0,0,.22),inset 5px 5px 0 rgba(255,255,255,.35);transition:transform .18s}
-  .tube.sel .ball.top{transform:translateY(-30px)}
-  footer{display:flex;gap:10px;padding:10px 16px 22px}
+  .ball{width:calc(40px*var(--k,1));height:calc(40px*var(--k,1));flex:none;border-radius:50%;box-shadow:inset -5px -6px 0 rgba(0,0,0,.22),inset 5px 5px 0 rgba(255,255,255,.35);transition:transform .18s}
+  .tube.sel .ball.top{transform:translateY(calc(-30px*var(--k,1)))}
+  footer{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding:8px 16px 16px}
   button{font:inherit;font-weight:700;font-size:15px;border:none;border-radius:14px;padding:12px 18px;color:#fff;background:#4c6ef5;box-shadow:0 4px 0 #2b4bc9;cursor:pointer}
   button:active{transform:translateY(3px);box-shadow:0 1px 0 #2b4bc9}
   button.alt{background:#20c997;box-shadow:0 4px 0 #128a67}
@@ -35,26 +35,42 @@
   #win h2{font-size:40px;margin:0;animation:pop .5s}
   @keyframes pop{0%{transform:scale(.2)}70%{transform:scale(1.15)}}
   canvas{position:fixed;inset:0;pointer-events:none;z-index:6}
-  .switch{position:fixed;top:10px;right:10px;z-index:4;background:#a06cd5;color:#fff;text-decoration:none;font-weight:800;font-size:13px;padding:7px 11px;border-radius:12px;box-shadow:0 3px 0 #6247aa}
+  @media (max-width:640px){header{padding:46px 12px 4px}}
+  .lang{position:fixed;top:10px;right:10px;z-index:4;font-size:13px;padding:6px 12px;border-radius:12px;background:rgba(255,255,255,.22);box-shadow:0 3px 0 rgba(0,0,0,.25)}
+  .switch{position:fixed;top:10px;left:10px;z-index:4;background:#a06cd5;color:#fff;text-decoration:none;font-weight:800;font-size:13px;padding:7px 11px;border-radius:12px;box-shadow:0 3px 0 #6247aa}
   .switch:active{transform:translateY(2px);box-shadow:0 1px 0 #6247aa}
 </style>
 </head>
 <body>
-<a class="switch" href="jelly.html">🟣 ゼリーへ</a>
+<!--switch--><a class="switch" href="jelly.html" data-i="sw">🟣 ゼリーへ</a><!--/switch-->
+<button class="lang" id="lang" aria-label="Language">EN</button>
 <header>
-  <span class="ad">🔥 IQ150の人しかクリアできない！？</span>
-  <h1>ボールソート</h1>
-  <div class="stats"><span>レベル <b id="lv">1</b></span><span>手数 <b id="mv">0</b></span><span>ベスト <b id="best">-</b></span></div>
+  <span class="ad" data-i="ad">🔥 IQ150の人しかクリアできない！？</span>
+  <h1 data-i="title">ボールソート・ラボ</h1>
+  <div class="stats"><span><span data-i="level">レベル</span> <b id="lv">1</b></span><span><span data-i="moves">手数</span> <b id="mv">0</b></span><span><span data-i="best">ベスト</span> <b id="best">-</b></span></div>
 </header>
 <div id="board"></div>
 <footer>
-  <button id="undo" class="alt">↶ 戻す</button>
-  <button id="restart" class="warn">↻ やり直し</button>
-  <button id="addtube">＋ 試験管</button>
+  <button id="undo" class="alt" data-i="undo">↶ 戻す</button>
+  <button id="restart" class="warn" data-i="restart">↻ やり直し</button>
+  <button id="addtube" data-i="addtube">＋ 試験管</button>
 </footer>
-<div id="win"><h2>🎉 クリア！</h2><div id="winmsg"></div><button id="next">次のレベルへ ▶</button></div>
+<div id="win"><h2 data-i="clear">🎉 クリア！</h2><div id="winmsg"></div><button id="next" data-i="next">次のレベルへ ▶</button></div>
 <canvas id="fx"></canvas>
 <script>
+const hooks={gameplayStart(){},levelComplete(){},gameOver(){}};  // CrazyGames SDK 用の差し込み口(今は空)
+const I18N={
+  ja:{title:"ボールソート・ラボ",ad:"🔥 IQ150の人しかクリアできない！？",level:"レベル",moves:"手数",best:"ベスト",undo:"↶ 戻す",restart:"↻ やり直し",addtube:"＋ 試験管",clear:"🎉 クリア！",next:"次のレベルへ ▶",sw:"🟣 ゼリーへ",win:(m,b)=>`${m}手でクリア`+(b?"（ベスト更新！）":"")},
+  en:{title:"Ball Sort Lab",ad:"🔥 Only genius-level brains can clear this!?",level:"Level",moves:"Moves",best:"Best",undo:"↶ Undo",restart:"↻ Restart",addtube:"＋ Tube",clear:"🎉 Cleared!",next:"Next level ▶",sw:"🟣 Jelly",win:(m,b)=>`Cleared in ${m} moves`+(b?" (new best!)":"")}
+};
+let lang=null;
+function detectLang(){try{const s=localStorage.getItem("bs_lang");if(s==="ja"||s==="en")return s}catch(e){}return (navigator.language||"en").toLowerCase().startsWith("ja")?"ja":"en"}
+function applyLang(){
+  const t=I18N[lang];document.documentElement.lang=lang;document.title=t.title;
+  document.querySelectorAll("[data-i]").forEach(e=>{e.textContent=t[e.dataset.i]});
+  const lb=document.getElementById("lang");if(lb)lb.textContent=lang==="ja"?"EN":"日本語";
+  fit();
+}
 const COLORS=["#ff4d6d","#4dabf7","#ffd43b","#51cf66","#cc5de8","#ff922b","#22b8cf","#f783ac","#a9e34b","#868e96","#845ef7","#e8590c"];
 const CAP=4;
 let level=1,tubes=[],start=[],history=[],sel=-1,moves=0,extraUsed=false;
@@ -75,6 +91,7 @@ function newLevel(){
   }while(ts.some(t=>t.every(c=>c===t[0])));   // 最初から揃ってる管は作らない
   ts.push([],[]);
   start=ts.map(t=>t.slice());
+  hooks.gameplayStart();
   reset();
 }
 function reset(){tubes=start.map(t=>t.slice());history=[];sel=-1;moves=0;extraUsed=false;render()}
@@ -122,12 +139,20 @@ function render(){
   $("best").textContent=store.get("bs_best_"+level)||"-";
   $("undo").disabled=!history.length;
   $("addtube").disabled=extraUsed;
+  fit();
 }
+// 盤面が枠に収まるまで試験管を縮める(16:9 でも縦長スマホでも切れない)
+function fit(){
+  const b=$("board");if(!b)return;
+  let k=1;b.style.setProperty("--k",k);
+  while(k>.4&&(b.scrollHeight>b.clientHeight+1||b.scrollWidth>b.clientWidth+1)){k=Math.round((k-.04)*100)/100;b.style.setProperty("--k",k)}
+}
+addEventListener("resize",fit);
 
 function win(){
   const key="bs_best_"+level,prev=+store.get(key)||Infinity;
   if(moves<prev)store.set(key,moves);
-  $("winmsg").textContent=`${moves}手でクリア`+(moves<prev&&prev!==Infinity?"（ベスト更新！）":"");
+  $("winmsg").textContent=I18N[lang].win(moves,moves<prev&&prev!==Infinity);hooks.levelComplete();
   $("win").classList.add("show");confetti();
   [660,880,1100].forEach((f,i)=>setTimeout(()=>beep(f),i*120));
 }
@@ -146,7 +171,10 @@ function confetti(){
   let f=0;(function step(){x.clearRect(0,0,cv.width,cv.height);ps.forEach(p=>{p.vy+=.4;p.x+=p.vx;p.y+=p.vy;x.fillStyle=p.c;x.fillRect(p.x,p.y,p.r,p.r)});if(++f<120)requestAnimationFrame(step);else x.clearRect(0,0,cv.width,cv.height)})();
 }
 
+lang=detectLang();
+$("lang").onclick=()=>{lang=lang==="ja"?"en":"ja";store.set("bs_lang",lang);applyLang()};
 level=+store.get("bs_level")||1;
+applyLang();
 newLevel();
 </script>
 </body>
