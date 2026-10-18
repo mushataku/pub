@@ -10,7 +10,7 @@
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
   html,body{margin:0;height:100%;font-family:"Hiragino Maru Gothic ProN","Rounded Mplus 1c",system-ui,sans-serif;color:#fff;overflow:hidden}
   body{background:linear-gradient(160deg,var(--bg1),var(--bg2));display:flex;flex-direction:column;align-items:center}
-  header{width:100%;max-width:520px;padding:14px 16px 4px;text-align:center}
+  header{width:100%;max-width:520px;padding:44px 16px 4px;text-align:center}
   .ad{display:inline-block;background:#ff3b5c;padding:4px 12px;border-radius:99px;font-size:13px;font-weight:700;box-shadow:0 3px 0 #a3132e;animation:pulse 1.2s infinite}
   @keyframes pulse{50%{transform:scale(1.06)}}
   h1{margin:8px 0 2px;font-size:26px;text-shadow:0 3px 0 rgba(0,0,0,.25)}
@@ -35,9 +35,12 @@
   #win h2{font-size:40px;margin:0;animation:pop .5s}
   @keyframes pop{0%{transform:scale(.2)}70%{transform:scale(1.15)}}
   canvas{position:fixed;inset:0;pointer-events:none;z-index:6}
+  .switch{position:fixed;top:10px;right:10px;z-index:4;background:#a06cd5;color:#fff;text-decoration:none;font-weight:800;font-size:13px;padding:7px 11px;border-radius:12px;box-shadow:0 3px 0 #6247aa}
+  .switch:active{transform:translateY(2px);box-shadow:0 1px 0 #6247aa}
 </style>
 </head>
 <body>
+<a class="switch" href="jelly.html">🟣 ゼリーへ</a>
 <header>
   <span class="ad">🔥 IQ150の人しかクリアできない！？</span>
   <h1>ボールソート</h1>
