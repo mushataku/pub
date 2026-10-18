@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<title>ボールソート</title>
+<style>
+  :root{--bg1:#2b1055;--bg2:#7597de;--glass:rgba(255,255,255,.18);--line:rgba(255,255,255,.55)}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
+  html,body{margin:0;height:100%;font-family:"Hiragino Maru Gothic ProN","Rounded Mplus 1c",system-ui,sans-serif;color:#fff;overflow:hidden}
+  body{background:linear-gradient(160deg,var(--bg1),var(--bg2));display:flex;flex-direction:column;align-items:center}
+  header{width:100%;max-width:520px;padding:14px 16px 4px;text-align:center}
+  .ad{display:inline-block;background:#ff3b5c;padding:4px 12px;border-radius:99px;font-size:13px;font-weight:700;box-shadow:0 3px 0 #a3132e;animation:pulse 1.2s infinite}
+  @keyframes pulse{50%{transform:scale(1.06)}}
+  h1{margin:8px 0 2px;font-size:26px;text-shadow:0 3px 0 rgba(0,0,0,.25)}
+  .stats{display:flex;justify-content:center;gap:18px;font-size:15px;opacity:.95}
+  #board{flex:1;width:100%;max-width:520px;display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:18px 14px;padding:10px 16px}
+  .tube{position:relative;width:54px;height:calc(var(--cap)*46px + 18px);border:3px solid var(--line);border-top:none;border-radius:0 0 28px 28px;background:var(--glass);display:flex;flex-direction:column-reverse;align-items:center;padding:6px 0;gap:4px;cursor:pointer;transition:transform .15s}
+  .tube::before{content:"";position:absolute;top:-6px;left:-7px;right:-7px;height:6px;border-radius:4px;background:var(--line)}
+  .tube.sel{transform:translateY(-14px)}
+  .tube.done{border-color:#ffe066;box-shadow:0 0 18px #ffe066}
+  .tube.shake{animation:shake .3s}
+  @keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+  .ball{width:40px;height:40px;border-radius:50%;box-shadow:inset -5px -6px 0 rgba(0,0,0,.22),inset 5px 5px 0 rgba(255,255,255,.35);transition:transform .18s}
+  .tube.sel .ball.top{transform:translateY(-30px)}
+  footer{display:flex;gap:10px;padding:10px 16px 22px}
+  button{font:inherit;font-weight:700;font-size:15px;border:none;border-radius:14px;padding:12px 18px;color:#fff;background:#4c6ef5;box-shadow:0 4px 0 #2b4bc9;cursor:pointer}
+  button:active{transform:translateY(3px);box-shadow:0 1px 0 #2b4bc9}
+  button.alt{background:#20c997;box-shadow:0 4px 0 #128a67}
+  button.warn{background:#fa5252;box-shadow:0 4px 0 #b02525}
+  button:disabled{opacity:.45}
+  #win{position:fixed;inset:0;background:rgba(20,10,50,.7);display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:5}
+  #win.show{display:flex}
+  #win h2{font-size:40px;margin:0;animation:pop .5s}
+  @keyframes pop{0%{transform:scale(.2)}70%{transform:scale(1.15)}}
+  canvas{position:fixed;inset:0;pointer-events:none;z-index:6}
+</style>
+</head>
+<body>
+<header>
+  <span class="ad">🔥 IQ150の人しかクリアできない！？</span>
+  <h1>ボールソート</h1>
+  <div class="stats"><span>レベル <b id="lv">1</b></span><span>手数 <b id="mv">0</b></span><span>ベスト <b id="best">-</b></span></div>
+</header>
+<div id="board"></div>
+<footer>
+  <button id="undo" class="alt">↶ 戻す</button>
+  <button id="restart" class="warn">↻ やり直し</button>
+  <button id="addtube">＋ 試験管</button>
+</footer>
+<div id="win"><h2>🎉 クリア！</h2><div id="winmsg"></div><button id="next">次のレベルへ ▶</button></div>
+<canvas id="fx"></canvas>
+<script>
+const COLORS=["#ff4d6d","#4dabf7","#ffd43b","#51cf66","#cc5de8","#ff922b","#22b8cf","#f783ac","#a9e34b","#868e96","#845ef7","#e8590c"];
+const CAP=4;
+let level=1,tubes=[],start=[],history=[],sel=-1,moves=0,extraUsed=false;
+const $=id=>document.getElementById(id);
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+function colorsFor(lv){return Math.min(3+Math.floor((lv-1)/2),COLORS.length)}
+function solvedTube(t){return t.length===0||(t.length===CAP&&t.every(c=>c===t[0]))}
+function isWin(){return tubes.every(solvedTube)}
+
+function newLevel(){
+  const n=colorsFor(level);
+  let balls,ts;
+  do{
+    balls=[];for(let c=0;c<n;c++)for(let i=0;i<CAP;i++)balls.push(c);
+    for(let i=balls.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[balls[i],balls[j]]=[balls[j],balls[i]]}
+    ts=[];for(let i=0;i<n;i++)ts.push(balls.slice(i*CAP,i*CAP+CAP));
+  }while(ts.some(t=>t.every(c=>c===t[0])));   // 最初から揃ってる管は作らない
+  ts.push([],[]);
+  start=ts.map(t=>t.slice());
+  reset();
+}
+function reset(){tubes=start.map(t=>t.slice());history=[];sel=-1;moves=0;extraUsed=false;render()}
+
+function canPour(a,b){
+  const A=tubes[a],B=tubes[b];
+  if(a===b||!A.length||B.length>=CAP)return false;
+  return !B.length||B[B.length-1]===A[A.length-1];
+}
+function pour(a,b){
+  history.push(tubes.map(t=>t.slice()));
+  const A=tubes[a],B=tubes[b],c=A[A.length-1];
+  while(A.length&&A[A.length-1]===c&&B.length<CAP)B.push(A.pop());
+  moves++;
+}
+
+function tap(i){
+  if(sel===-1){if(tubes[i].length){sel=i;beep(520)}}
+  else if(sel===i){sel=-1}
+  else if(canPour(sel,i)){
+    pour(sel,i);sel=-1;
+    beep(solvedTube(tubes[i])&&tubes[i].length?880:660);
+    render();
+    if(isWin())setTimeout(win,350);
+    return;
+  }else{
+    const el=$("board").children[i];el.classList.remove("shake");void el.offsetWidth;el.classList.add("shake");
+    beep(180);
+    if(tubes[i].length){sel=i}
+  }
+  render();
+}
+
+function render(){
+  const b=$("board");b.innerHTML="";
+  tubes.forEach((t,i)=>{
+    const d=document.createElement("div");
+    d.className="tube"+(i===sel?" sel":"")+(t.length===CAP&&solvedTube(t)?" done":"");
+    d.style.setProperty("--cap",CAP);
+    t.forEach((c,k)=>{const o=document.createElement("div");o.className="ball"+(k===t.length-1?" top":"");o.style.background=COLORS[c];d.appendChild(o)});
+    d.addEventListener("click",()=>tap(i));
+    b.appendChild(d);
+  });
+  $("lv").textContent=level;$("mv").textContent=moves;
+  $("best").textContent=store.get("bs_best_"+level)||"-";
+  $("undo").disabled=!history.length;
+  $("addtube").disabled=extraUsed;
+}
+
+function win(){
+  const key="bs_best_"+level,prev=+store.get(key)||Infinity;
+  if(moves<prev)store.set(key,moves);
+  $("winmsg").textContent=`${moves}手でクリア`+(moves<prev&&prev!==Infinity?"（ベスト更新！）":"");
+  $("win").classList.add("show");confetti();
+  [660,880,1100].forEach((f,i)=>setTimeout(()=>beep(f),i*120));
+}
+
+$("undo").onclick=()=>{if(history.length){tubes=history.pop();moves++;sel=-1;render()}};
+$("restart").onclick=reset;
+$("addtube").onclick=()=>{if(!extraUsed){history.push(tubes.map(t=>t.slice()));tubes.push([]);extraUsed=true;sel=-1;render()}};
+$("next").onclick=()=>{$("win").classList.remove("show");level++;store.set("bs_level",level);newLevel()};
+
+let ac;
+function beep(f){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.15,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.15);o.connect(g).connect(ac.destination);o.start();o.stop(ac.currentTime+.16)}catch(e){}}
+
+function confetti(){
+  const cv=$("fx"),x=cv.getContext("2d");cv.width=innerWidth;cv.height=innerHeight;
+  const ps=Array.from({length:140},()=>({x:innerWidth/2,y:innerHeight/2,vx:(Math.random()-.5)*14,vy:Math.random()*-14-4,c:COLORS[Math.floor(Math.random()*COLORS.length)],r:Math.random()*6+4}));
+  let f=0;(function step(){x.clearRect(0,0,cv.width,cv.height);ps.forEach(p=>{p.vy+=.4;p.x+=p.vx;p.y+=p.vy;x.fillStyle=p.c;x.fillRect(p.x,p.y,p.r,p.r)});if(++f<120)requestAnimationFrame(step);else x.clearRect(0,0,cv.width,cv.height)})();
+}
+
+level=+store.get("bs_level")||1;
+newLevel();
+</script>
+</body>
+</html>
