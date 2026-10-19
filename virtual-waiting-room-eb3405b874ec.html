@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>仮想待合室のしくみ</title>
+<style>
+:root{
+  --bg:#f7f6f2; --card:#ffffff; --ink:#1d1d1b; --sub:#5d5c57; --line:#d9d6cc;
+  --a:#2f6fdb; --a-soft:#e3ecfb; --b:#d9782b; --b-soft:#fbeadb; --c:#2f9a62; --c-soft:#dff2e7;
+  --warn:#c23b3b; --warn-soft:#f8e1e1; --code:#f0eee7;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16171a; --card:#1f2125; --ink:#ecebe6; --sub:#a8a69e; --line:#3a3c42;
+    --a:#7aa7ff; --a-soft:#22304a; --b:#f0a265; --b-soft:#3d2c1d; --c:#6fd29c; --c-soft:#1b3528;
+    --warn:#ff8080; --warn-soft:#3e2222; --code:#2a2c31;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16171a; --card:#1f2125; --ink:#ecebe6; --sub:#a8a69e; --line:#3a3c42;
+  --a:#7aa7ff; --a-soft:#22304a; --b:#f0a265; --b-soft:#3d2c1d; --c:#6fd29c; --c-soft:#1b3528;
+  --warn:#ff8080; --warn-soft:#3e2222; --code:#2a2c31;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif;line-height:1.8;font-size:16px}
+main{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:1.7rem;line-height:1.4;margin:.2em 0 .3em}
+h2{font-size:1.3rem;margin:2.4em 0 .6em;padding-top:.6em;border-top:1px solid var(--line)}
+h2 .no{display:inline-block;min-width:1.8em;color:var(--a)}
+h3{font-size:1.05rem;margin:1.6em 0 .4em}
+p{margin:.6em 0}
+.lead{color:var(--sub)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.point{background:var(--a-soft);border-left:4px solid var(--a);border-radius:8px;padding:12px 16px;margin:14px 0}
+.warn{background:var(--warn-soft);border-left:4px solid var(--warn);border-radius:8px;padding:12px 16px;margin:14px 0}
+.tag{display:inline-block;font-size:.8rem;padding:1px 8px;border-radius:99px;font-weight:600;margin-right:4px}
+.ta{background:var(--a-soft);color:var(--a)} .tb{background:var(--b-soft);color:var(--b)} .tc{background:var(--c-soft);color:var(--c)}
+code{background:var(--code);padding:1px 6px;border-radius:5px;font-size:.88em;word-break:break-all}
+.tok{font-family:ui-monospace,Consolas,monospace;font-size:.9rem;background:var(--code);border-radius:8px;padding:12px;overflow-x:auto;white-space:nowrap}
+.tok span{padding:2px 3px;border-radius:4px}
+table{width:100%;border-collapse:collapse;font-size:.93rem}
+th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+th{color:var(--sub);font-weight:600}
+.scroll{overflow-x:auto}
+svg{width:100%;min-width:640px;height:auto;display:block}
+svg text{font-family:inherit;fill:var(--ink)}
+.cap{font-size:.85rem;color:var(--sub);margin-top:6px}
+.toc{columns:2;column-gap:24px;padding-left:1.2em;margin:.4em 0}
+@media (max-width:560px){.toc{columns:1}}
+.qa dt{font-weight:700;margin-top:1em}
+.qa dd{margin:.2em 0 0 0}
+.foot{color:var(--sub);font-size:.85rem;margin-top:3em}
+</style>
+</head>
+<body>
+<main>
+
+<p class="lead">ポケモンセンターオンライン 10月22日（木）販売分のお知らせを題材に</p>
+<h1>「仮想待合室」は何をしているのか</h1>
+<p>ひとことで言うと、<b>お店の入口の前に、別の会社が「整理券売り場」を建てている</b>だけです。お店（ポケセンのサイト）そのものは何も速くなっていません。入口を通る人数を毎分◯人に絞って、お店がパンクしないようにしています。</p>
+
+<div class="card">
+<b>このページの順番</b>
+<ol class="toc">
+<li>たとえ話：人気ラーメン店の整理券</li>
+<li>登場人物は3人</li>
+<li>1回アクセスしたときに起きること（6ステップ）</li>
+<li>入場券の中身と「偽造できない理由」</li>
+<li>Cookie が2枚ある理由</li>
+<li>蛇口：毎分何人を通すか</li>
+<li>10月22日（木）当日のタイムライン</li>
+<li>お知らせの注意書きは全部ここから来ている</li>
+<li>よくある疑問</li>
+<li>確かめたこと・確かめていないこと</li>
+</ol>
+</div>
+
+<!-- 1 -->
+<h2><span class="no">1</span>たとえ話：人気ラーメン店の整理券</h2>
+<p>席が20席しかないラーメン店に、1000人が一度に来たとします。全員が店に押し入ると、厨房も会計も止まって、誰も食べられません。</p>
+<p>そこで店の前に<b>整理券係</b>を立てます。</p>
+<ul>
+<li>来た人には番号札を渡して、外で待ってもらう</li>
+<li>席が空いたぶんだけ「次の5人どうぞ」と通す</li>
+<li>通した人には<b>入店証（リストバンド）</b>を巻く。店員はリストバンドを見るだけで「この人は通っていい」と分かる</li>
+</ul>
+<p>仮想待合室はこれをWebでやっています。対応はこうです。</p>
+<div class="scroll"><table>
+<tr><th>ラーメン店</th><th>Webの世界</th></tr>
+<tr><td>店（厨房・会計）</td><td>ポケセンのサイト（裏側は Salesforce という会社のネットショップの仕組み）</td></tr>
+<tr><td>整理券係</td><td><b>Queue-it</b>（キューイット）というデンマークの会社のサービス</td></tr>
+<tr><td>番号札</td><td>待合室側に置かれる Cookie（ブラウザに保存される小さなメモ）</td></tr>
+<tr><td>リストバンド</td><td>サイト側に置かれる「入場済み」の Cookie</td></tr>
+<tr><td>店の入口に立つ店員</td><td>サイトに組み込まれた Queue-it の「確認係」プログラム</td></tr>
+</table></div>
+
+<!-- 2 -->
+<h2><span class="no">2</span>登場人物は3人</h2>
+<div class="scroll"><svg viewBox="0 0 820 300" role="img" aria-label="ブラウザ、待合室、サイトの3者の関係図">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--sub)"/></marker>
+  </defs>
+  <!-- browser -->
+  <rect x="20" y="100" width="200" height="110" rx="14" fill="var(--a-soft)" stroke="var(--a)" stroke-width="2"/>
+  <text x="120" y="140" text-anchor="middle" font-size="20" font-weight="700" style="fill:var(--a)">あなたのブラウザ</text>
+  <text x="120" y="168" text-anchor="middle" font-size="14">Cookie（メモ）を</text>
+  <text x="120" y="188" text-anchor="middle" font-size="14">2枚持ち歩く</text>
+  <!-- queue -->
+  <rect x="600" y="20" width="200" height="120" rx="14" fill="var(--b-soft)" stroke="var(--b)" stroke-width="2"/>
+  <text x="700" y="58" text-anchor="middle" font-size="20" font-weight="700" style="fill:var(--b)">待合室</text>
+  <text x="700" y="84" text-anchor="middle" font-size="13">wr.pokemoncenter-online.com</text>
+  <text x="700" y="106" text-anchor="middle" font-size="13">中身は Queue-it のサーバー</text>
+  <text x="700" y="126" text-anchor="middle" font-size="13">順番を管理する</text>
+  <!-- site -->
+  <rect x="600" y="170" width="200" height="120" rx="14" fill="var(--c-soft)" stroke="var(--c)" stroke-width="2"/>
+  <text x="700" y="206" text-anchor="middle" font-size="20" font-weight="700" style="fill:var(--c)">ポケセンのサイト</text>
+  <text x="700" y="232" text-anchor="middle" font-size="13">www.pokemoncenter-online.com</text>
+  <text x="700" y="254" text-anchor="middle" font-size="13">入口に「確認係」が</text>
+  <text x="700" y="274" text-anchor="middle" font-size="13">組み込まれている</text>
+  <!-- arrows -->
+  <line x1="225" y1="135" x2="592" y2="80" stroke="var(--sub)" stroke-width="2" marker-end="url(#ar)" marker-start="url(#ar)"/>
+  <text x="400" y="92" text-anchor="middle" font-size="14">並ぶ・順番を聞く</text>
+  <line x1="225" y1="180" x2="592" y2="230" stroke="var(--sub)" stroke-width="2" marker-end="url(#ar)" marker-start="url(#ar)"/>
+  <text x="400" y="232" text-anchor="middle" font-size="14">買い物をする</text>
+  <!-- secret key -->
+  <line x1="700" y1="142" x2="700" y2="168" stroke="var(--warn)" stroke-width="3" stroke-dasharray="5 4"/>
+  <text x="560" y="160" text-anchor="end" font-size="13" style="fill:var(--warn)">🔑 同じ秘密の鍵を共有</text>
+</svg></div>
+<p class="cap">待合室とサイトはお互いに通信しなくていい作りになっています。2人をつなぐのは、事前に分け合った「秘密の鍵」1本だけです（4章で説明）。</p>
+
+<div class="point">
+大事なのは、<b>待合室はサイトとは別のサーバーで動いている</b>ことです。何十万人が待合室のページを開いて待っていても、その負荷は Queue-it が受け止めます。ポケセンのサーバーには、通された人の分の負荷しかかかりません。
+</div>
+
+<!-- 3 -->
+<h2><span class="no">3</span>1回アクセスしたときに起きること（6ステップ）</h2>
+<p>縦の線が「人（サーバー）」、横の矢印が「やり取り」です。上から下へ時間が進みます。</p>
+
+<div class="scroll">
+<svg viewBox="0 0 820 760" role="img" aria-label="アクセスから入場までのシーケンス図" style="min-width:600px">
+  <defs>
+    <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
+  </defs>
+  <!-- heads -->
+  <rect x="40" y="10" width="180" height="44" rx="10" fill="var(--a-soft)" stroke="var(--a)"/>
+  <text x="130" y="38" text-anchor="middle" font-size="16" font-weight="700" style="fill:var(--a)">ブラウザ</text>
+  <rect x="320" y="10" width="180" height="44" rx="10" fill="var(--c-soft)" stroke="var(--c)"/>
+  <text x="410" y="38" text-anchor="middle" font-size="16" font-weight="700" style="fill:var(--c)">サイト（確認係）</text>
+  <rect x="600" y="10" width="180" height="44" rx="10" fill="var(--b-soft)" stroke="var(--b)"/>
+  <text x="690" y="38" text-anchor="middle" font-size="16" font-weight="700" style="fill:var(--b)">待合室</text>
+  <line x1="130" y1="54" x2="130" y2="750" stroke="var(--a)" stroke-dasharray="4 5"/>
+  <line x1="410" y1="54" x2="410" y2="750" stroke="var(--c)" stroke-dasharray="4 5"/>
+  <line x1="690" y1="54" x2="690" y2="750" stroke="var(--b)" stroke-dasharray="4 5"/>
+
+  <!-- 1 -->
+  <circle cx="22" cy="95" r="13" fill="var(--a)"/><text x="22" y="100" text-anchor="middle" font-size="14" font-weight="700" style="fill:#fff">1</text>
+  <line x1="130" y1="95" x2="402" y2="95" stroke="var(--ink)" stroke-width="2" marker-end="url(#ar2)"/>
+  <text x="266" y="86" text-anchor="middle" font-size="14">お知らせのページを開きたい</text>
+
+  <!-- 2 -->
+  <circle cx="22" cy="150" r="13" fill="var(--a)"/><text x="22" y="155" text-anchor="middle" font-size="14" font-weight="700" style="fill:#fff">2</text>
+  <rect x="425" y="122" width="180" height="56" rx="8" fill="var(--card)" stroke="var(--line)"/>
+  <text x="515" y="145" text-anchor="middle" font-size="13">リストバンド（入場Cookie）</text>
+  <text x="515" y="165" text-anchor="middle" font-size="13">持ってる？ → <tspan style="fill:var(--warn)" font-weight="700">無い</tspan></text>
+  <line x1="402" y1="200" x2="138" y2="200" stroke="var(--ink)" stroke-width="2" marker-end="url(#ar2)"/>
+  <text x="266" y="192" text-anchor="middle" font-size="14">「待合室へ行って」（転送）</text>
+
+  <!-- 3 -->
+  <circle cx="22" cy="250" r="13" fill="var(--a)"/><text x="22" y="255" text-anchor="middle" font-size="14" font-weight="700" style="fill:#fff">3</text>
+  <line x1="130" y1="250" x2="682" y2="250" stroke="var(--ink)" stroke-width="2" marker-end="url(#ar2)"/>
+  <text x="406" y="242" text-anchor="middle" font-size="14">待合室に到着</text>
+  <line x1="682" y1="285" x2="138" y2="285" stroke="var(--ink)" stroke-width="2" marker-end="url(#ar2)"/>
+  <text x="406" y="277" text-anchor="middle" font-size="14">番号札（待合室Cookie）を渡す＋待ち画面</text>
+
+  <!-- waiting loop -->
+  <rect x="140" y="305" width="540" height="130" rx="10" fill="var(--b-soft)" opacity=".55" stroke="var(--b)" stroke-dasharray="6 4"/>
+  <text x="155" y="328" font-size="14" font-weight="700" style="fill:var(--b)">待っている間（何分〜何十分）</text>
+  <line x1="130" y1="355" x2="682" y2="355" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#ar2)"/>
+  <text x="406" y="348" text-anchor="middle" font-size="13">「私の番まだ？」（画面が数十秒ごとに自動で聞く）</text>
+  <line x1="682" y1="395" x2="138" y2="395" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#ar2)"/>
+  <text x="406" y="388" text-anchor="middle" font-size="13">「前にあと◯人・目安◯分」</text>
+  <text x="406" y="424" text-anchor="middle" font-size="12" style="fill:var(--sub)">※ ポケセンのサーバーはこの間まったく関わらない</text>
+
+  <!-- 4 -->
+  <circle cx="22" cy="475" r="13" fill="var(--a)"/><text x="22" y="480" text-anchor="middle" font-size="14" font-weight="700" style="fill:#fff">4</text>
+  <line x1="682" y1="475" x2="138" y2="475" stroke="var(--ink)" stroke-width="2" marker-end="url(#ar2)"/>
+  <text x="406" y="467" text-anchor="middle" font-size="14" font-weight="700">順番が来た！ 署名入りの入場券を持たせてサイトへ戻す</text>
+
+  <!-- 5 -->
+  <circle cx="22" cy="535" r="13" fill="var(--a)"/><text x="22" y="540" text-anchor="middle" font-size="14" font-weight="700" style="fill:#fff">5</text>
+  <line x1="130" y1="535" x2="402" y2="535" stroke="var(--ink)" stroke-width="2" marker-end="url(#ar2)"/>
+  <text x="266" y="527" text-anchor="middle" font-size="14">入場券（URLの末尾）付きで再訪</text>
+  <rect x="425" y="555" width="250" height="80" rx="8" fill="var(--card)" stroke="var(--line)"/>
+  <text x="550" y="578" text-anchor="middle" font-size="13">🔑 秘密の鍵で署名を計算し直す</text>
+  <text x="550" y="600" text-anchor="middle" font-size="13">→ 一致した・期限内</text>
+  <text x="550" y="622" text-anchor="middle" font-size="13" font-weight="700" style="fill:var(--c)">本物と判定（待合室に聞かない）</text>
+
+  <!-- 6 -->
+  <circle cx="22" cy="680" r="13" fill="var(--a)"/><text x="22" y="685" text-anchor="middle" font-size="14" font-weight="700" style="fill:#fff">6</text>
+  <line x1="402" y1="680" x2="138" y2="680" stroke="var(--ink)" stroke-width="2" marker-end="url(#ar2)"/>
+  <text x="266" y="672" text-anchor="middle" font-size="14">ページ＋リストバンド（入場Cookie）</text>
+  <text x="266" y="720" text-anchor="middle" font-size="13" style="fill:var(--sub)">以後20分は、リストバンドだけで</text>
+  <text x="266" y="740" text-anchor="middle" font-size="13" style="fill:var(--sub)">どのページも直接開ける</text>
+</svg>
+</div>
+
+<h3>各ステップの補足</h3>
+<ol>
+<li><b>開きたいページへアクセス。</b>まずはふつうにポケセンのサイトに行きます。</li>
+<li><b>確認係が門前払い。</b>サイトに組み込まれた Queue-it の部品が「リストバンド Cookie を持っているか」だけ確認します。持っていなければ、ページを作らずに「待合室へ行って」と転送の返事を返します。転送の返事はとても軽い処理なので、何十万回来てもサイトはほとんど疲れません。</li>
+<li><b>待合室で番号札。</b>待合室は、あなたを見分けるための番号札 Cookie を渡します。以後、待合室は「この番号札の人は列の何番目」と覚えておきます。</li>
+<li><b>順番が来たら入場券を持たせて戻す。</b>待合室の画面は数十秒ごとに自動で「まだ？」と聞いています。順番が来ると、<b>署名入りの入場券</b>をURLの末尾にくっつけて、元のページへ転送します。</li>
+<li><b>確認係が入場券を検査。</b>確認係は秘密の鍵を使って署名を自分で計算し直し、入場券に書いてある署名と比べます。一致すれば本物です。<b>このとき待合室に問い合わせる必要がない</b>のが要点です。</li>
+<li><b>リストバンドを巻く。</b>本物と分かったら、サイトは自分のドメインに「入場済み」Cookie を置きます。以後20分ほどは、これを見せるだけで通れます。</li>
+</ol>
+
+<!-- 4 -->
+<h2><span class="no">4</span>入場券の中身と「偽造できない理由」</h2>
+<p>今回実際にアクセスしたときに受け取った入場券がこれです（販売時間外だったので、並ばずに即発行されました）。</p>
+<div class="tok">
+<span style="background:var(--a-soft)">e_wr20261014ec</span>~<span style="background:var(--b-soft)">ts_1792419540</span>~<span style="background:var(--c-soft)">ce_true</span>~<span style="background:var(--a-soft)">rt_afterevent</span>~<span style="background:var(--warn-soft)">h_d7e290ec5e62…cfa7</span>
+</div>
+<div class="scroll"><table>
+<tr><th>部分</th><th>意味</th><th>ラーメン店で言うと</th></tr>
+<tr><td><code>e_…</code></td><td>どの待合室の券か</td><td>「10/22 限定販売の列」の券</td></tr>
+<tr><td><code>ts_…</code></td><td>有効期限（1970年からの秒数）</td><td>「この券は◯時◯分まで有効」</td></tr>
+<tr><td><code>ce_…</code></td><td>リストバンドの期限延長を認めるか</td><td>店内にいる間は延長してよいか</td></tr>
+<tr><td><code>rt_…</code></td><td>通された理由。<code>queue</code>＝並んで順番が来た、<code>afterevent</code>＝販売時間外なのでそのまま通した</td><td>「並んだ人」か「空いていたので通した人」か</td></tr>
+<tr><td><code>h_…</code></td><td><b>署名</b>（上の4つ全部と秘密の鍵から計算した値）</td><td>店主の<b>ハンコ</b></td></tr>
+</table></div>
+
+<h3>署名（ハンコ）の仕組み</h3>
+<div class="scroll"><svg viewBox="0 0 820 260" role="img" aria-label="署名の作り方と確かめ方">
+  <defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+  <text x="200" y="26" text-anchor="middle" font-size="15" font-weight="700" style="fill:var(--b)">待合室：ハンコを押す</text>
+  <text x="620" y="26" text-anchor="middle" font-size="15" font-weight="700" style="fill:var(--c)">サイト：ハンコを確かめる</text>
+  <rect x="30" y="45" width="160" height="50" rx="8" fill="var(--card)" stroke="var(--line)"/>
+  <text x="110" y="75" text-anchor="middle" font-size="13">券の中身 e,ts,ce,rt</text>
+  <rect x="30" y="110" width="160" height="50" rx="8" fill="var(--warn-soft)" stroke="var(--warn)"/>
+  <text x="110" y="140" text-anchor="middle" font-size="13">🔑 秘密の鍵</text>
+  <rect x="230" y="78" width="140" height="50" rx="25" fill="var(--b-soft)" stroke="var(--b)"/>
+  <text x="300" y="108" text-anchor="middle" font-size="13">混ぜて計算</text>
+  <line x1="190" y1="70" x2="228" y2="95" stroke="var(--ink)" marker-end="url(#ar3)"/>
+  <line x1="190" y1="135" x2="228" y2="112" stroke="var(--ink)" marker-end="url(#ar3)"/>
+  <line x1="300" y1="130" x2="300" y2="180" stroke="var(--ink)" marker-end="url(#ar3)"/>
+  <text x="300" y="205" text-anchor="middle" font-size="13" font-weight="700">署名 h = d7e290…</text>
+
+  <line x1="410" y1="40" x2="410" y2="240" stroke="var(--line)" stroke-dasharray="4 4"/>
+
+  <rect x="450" y="45" width="160" height="50" rx="8" fill="var(--card)" stroke="var(--line)"/>
+  <text x="530" y="75" text-anchor="middle" font-size="13">届いた券の中身</text>
+  <rect x="450" y="110" width="160" height="50" rx="8" fill="var(--warn-soft)" stroke="var(--warn)"/>
+  <text x="530" y="140" text-anchor="middle" font-size="13">🔑 同じ秘密の鍵</text>
+  <rect x="650" y="78" width="140" height="50" rx="25" fill="var(--c-soft)" stroke="var(--c)"/>
+  <text x="720" y="108" text-anchor="middle" font-size="13">同じ計算</text>
+  <line x1="610" y1="70" x2="648" y2="95" stroke="var(--ink)" marker-end="url(#ar3)"/>
+  <line x1="610" y1="135" x2="648" y2="112" stroke="var(--ink)" marker-end="url(#ar3)"/>
+  <line x1="720" y1="130" x2="720" y2="180" stroke="var(--ink)" marker-end="url(#ar3)"/>
+  <text x="720" y="205" text-anchor="middle" font-size="13">券の h と一致？</text>
+  <text x="720" y="232" text-anchor="middle" font-size="13" font-weight="700" style="fill:var(--c)">一致＝本物</text>
+</svg></div>
+<p>この計算（HMAC-SHA256 という方式）には、次の性質があります。</p>
+<ul>
+<li>中身を1文字でも変えると、署名がまったく別の値になる。たとえば期限 <code>ts</code> を延ばすと、ハンコが合わなくなる</li>
+<li>秘密の鍵を知らない人には、正しい署名を作れない。鍵は待合室とサイトしか持っていない</li>
+<li>計算はとても軽い。サイトは1回ごとに一瞬で確かめられる</li>
+</ul>
+<div class="point">
+だから「順番が来たことにした券」を自分で作ることはできません。そしてサイトは券を見るだけで本物か分かるので、<b>入場のたびに待合室へ問い合わせなくていい</b>。この2つがそろっているので、大人数をさばけます。
+</div>
+
+<!-- 5 -->
+<h2><span class="no">5</span>Cookie が2枚ある理由</h2>
+<p>Cookie は「そのドメイン専用のメモ」で、別のドメインからは読めません。待合室とサイトはドメインが違うので、それぞれが自分のメモを置きます。</p>
+<div class="scroll"><svg viewBox="0 0 820 230" role="img" aria-label="ブラウザ内の2枚のCookie">
+  <rect x="20" y="20" width="780" height="190" rx="14" fill="var(--a-soft)" stroke="var(--a)" stroke-width="2"/>
+  <text x="40" y="50" font-size="16" font-weight="700" style="fill:var(--a)">あなたのブラウザの中</text>
+  <rect x="50" y="70" width="340" height="120" rx="10" fill="var(--card)" stroke="var(--b)" stroke-width="2"/>
+  <text x="220" y="100" text-anchor="middle" font-size="15" font-weight="700" style="fill:var(--b)">① 番号札（待合室用）</text>
+  <text x="220" y="126" text-anchor="middle" font-size="13">置き場所: wr.pokemoncenter-online.com</text>
+  <text x="220" y="148" text-anchor="middle" font-size="13">名前: Queue-it-pol____…wr20261014ec</text>
+  <text x="220" y="170" text-anchor="middle" font-size="13">役目: 列のどこにいるかの目印</text>
+  <rect x="430" y="70" width="340" height="120" rx="10" fill="var(--card)" stroke="var(--c)" stroke-width="2"/>
+  <text x="600" y="100" text-anchor="middle" font-size="15" font-weight="700" style="fill:var(--c)">② リストバンド（サイト用）</text>
+  <text x="600" y="126" text-anchor="middle" font-size="13">置き場所: www.pokemoncenter-online.com</text>
+  <text x="600" y="148" text-anchor="middle" font-size="13">名前: QueueITAccepted-…_wr20261014ec</text>
+  <text x="600" y="170" text-anchor="middle" font-size="13">役目: 入場済みの証明（約20分）</text>
+</svg></div>
+<p class="cap">今回、Cookie を保存できる道具（curl）でアクセスしたところ、最後にこの2枚がそれぞれのドメインに入っていました。</p>
+<div class="warn">
+<b>シークレットモードがダメな理由</b>はここにあります。番号札①が消えると、待合室はあなたを「初めて来た別の人」として扱い、最後尾に並ばせます。シークレットウィンドウを閉じたり、Cookie を消したりすると番号札も消えます。
+</div>
+
+<!-- 6 -->
+<h2><span class="no">6</span>蛇口：毎分何人を通すか</h2>
+<div class="scroll"><svg viewBox="0 0 820 250" role="img" aria-label="待合室は蛇口の役割">
+  <defs><marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+  <!-- crowd -->
+  <text x="110" y="40" text-anchor="middle" font-size="15" font-weight="700">10:00 に一斉に来る人</text>
+  <g style="fill:var(--a)">
+    <circle cx="40" cy="80" r="9"/><circle cx="65" cy="80" r="9"/><circle cx="90" cy="80" r="9"/><circle cx="115" cy="80" r="9"/><circle cx="140" cy="80" r="9"/><circle cx="165" cy="80" r="9"/>
+    <circle cx="40" cy="108" r="9"/><circle cx="65" cy="108" r="9"/><circle cx="90" cy="108" r="9"/><circle cx="115" cy="108" r="9"/><circle cx="140" cy="108" r="9"/><circle cx="165" cy="108" r="9"/>
+    <circle cx="40" cy="136" r="9"/><circle cx="65" cy="136" r="9"/><circle cx="90" cy="136" r="9"/><circle cx="115" cy="136" r="9"/><circle cx="140" cy="136" r="9"/><circle cx="165" cy="136" r="9"/>
+    <circle cx="40" cy="164" r="9"/><circle cx="65" cy="164" r="9"/><circle cx="90" cy="164" r="9"/><circle cx="115" cy="164" r="9"/><circle cx="140" cy="164" r="9"/><circle cx="165" cy="164" r="9"/>
+  </g>
+  <text x="110" y="205" text-anchor="middle" font-size="13" style="fill:var(--sub)">何十万人</text>
+  <!-- funnel -->
+  <path d="M220,60 L420,60 L350,130 L350,170 L290,170 L290,130 Z" fill="var(--b-soft)" stroke="var(--b)" stroke-width="2"/>
+  <text x="320" y="95" text-anchor="middle" font-size="15" font-weight="700" style="fill:var(--b)">待合室</text>
+  <text x="320" y="200" text-anchor="middle" font-size="13">蛇口＝毎分◯人だけ通す</text>
+  <text x="320" y="220" text-anchor="middle" font-size="12" style="fill:var(--sub)">◯人は運営が設定（公開されていない）</text>
+  <line x1="360" y1="150" x2="560" y2="150" stroke="var(--ink)" stroke-width="2.5" marker-end="url(#ar4)"/>
+  <g style="fill:var(--a)"><circle cx="420" cy="150" r="7"/><circle cx="480" cy="150" r="7"/></g>
+  <!-- site -->
+  <rect x="580" y="90" width="210" height="120" rx="14" fill="var(--c-soft)" stroke="var(--c)" stroke-width="2"/>
+  <text x="685" y="135" text-anchor="middle" font-size="16" font-weight="700" style="fill:var(--c)">サイト</text>
+  <text x="685" y="162" text-anchor="middle" font-size="13">さばける人数しか</text>
+  <text x="685" y="182" text-anchor="middle" font-size="13">中にいない＝落ちない</text>
+</svg></div>
+<p>水道の蛇口と同じで、元の水量（来る人数）がどれだけ多くても、出てくる水（サイトに入る人数）は蛇口の開き具合で決まります。待ち時間の目安は「前にいる人数 ÷ 毎分通す人数」で出しています。毎分の人数は途中で運営が変えられるので、目安が伸び縮みします。</p>
+
+<!-- 7 -->
+<h2><span class="no">7</span>10月22日（木）当日のタイムライン</h2>
+<div class="scroll">
+<svg viewBox="0 0 820 300" role="img" aria-label="当日の時間の流れ" style="min-width:620px">
+  <line x1="40" y1="120" x2="790" y2="120" stroke="var(--ink)" stroke-width="2"/>
+  <!-- ticks -->
+  <line x1="80" y1="110" x2="80" y2="130" stroke="var(--ink)" stroke-width="2"/><text x="80" y="150" text-anchor="middle" font-size="14" font-weight="700">9:30</text>
+  <line x1="400" y1="105" x2="400" y2="135" stroke="var(--warn)" stroke-width="3"/><text x="400" y="155" text-anchor="middle" font-size="14" font-weight="700" style="fill:var(--warn)">10:00 販売開始</text>
+  <!-- phase A -->
+  <rect x="80" y="60" width="320" height="44" rx="6" fill="var(--b-soft)" stroke="var(--b)"/>
+  <text x="240" y="80" text-anchor="middle" font-size="14" font-weight="700" style="fill:var(--b)">開始前の待機</text>
+  <text x="240" y="98" text-anchor="middle" font-size="12">サイト全体が待合室に（全ページ見られない）</text>
+  <!-- phase B -->
+  <rect x="400" y="60" width="390" height="44" rx="6" fill="var(--a-soft)" stroke="var(--a)"/>
+  <text x="595" y="80" text-anchor="middle" font-size="14" font-weight="700" style="fill:var(--a)">混雑中は順番に入場</text>
+  <text x="595" y="98" text-anchor="middle" font-size="12">空いてきたら待合室は出なくなる</text>
+  <!-- lottery explanation -->
+  <rect x="60" y="180" width="330" height="105" rx="10" fill="var(--card)" stroke="var(--line)"/>
+  <text x="75" y="205" font-size="14" font-weight="700">🎲 9:30〜9:59 に来た人</text>
+  <text x="75" y="230" font-size="13">→ 10:00 ちょうどに順番を<tspan font-weight="700">シャッフル</tspan></text>
+  <text x="75" y="252" font-size="13">→ 9:31 に来ても 9:59 に来ても同じ条件</text>
+  <text x="75" y="274" font-size="13">→ 画面を開いたまま待てば自動で参加</text>
+  <rect x="420" y="180" width="370" height="105" rx="10" fill="var(--card)" stroke="var(--line)"/>
+  <text x="435" y="205" font-size="14" font-weight="700">🏃 10:00 以降に来た人</text>
+  <text x="435" y="230" font-size="13">→ 抽選組の<tspan font-weight="700">後ろ</tspan>に、来た順で並ぶ</text>
+  <text x="435" y="252" font-size="13">→ 10:00:01 に来た人は、抽選組の</text>
+  <text x="435" y="274" font-size="13">　最後の人より後になる</text>
+</svg>
+</div>
+<p>開始前の30分を<b>抽選</b>にしているのは、「9時30分00秒ちょうどにアクセスした人が勝つ」という、連打やプログラムが有利になる競争をなくすためです。30分のどこで来ても同じ確率になります。</p>
+
+<h3>入場したあとの2つのタイマー</h3>
+<div class="scroll"><svg viewBox="0 0 820 200" role="img" aria-label="10分と20分のタイマー">
+  <rect x="20" y="20" width="380" height="160" rx="12" fill="var(--warn-soft)" stroke="var(--warn)"/>
+  <text x="210" y="55" text-anchor="middle" font-size="17" font-weight="700" style="fill:var(--warn)">⏱ 10分：受け取り猶予</text>
+  <text x="210" y="88" text-anchor="middle" font-size="13">「順番が来た」から実際に</text>
+  <text x="210" y="110" text-anchor="middle" font-size="13">サイトへ移るまでの時間</text>
+  <text x="210" y="142" text-anchor="middle" font-size="13">別タブで遊んでいて気づかないと</text>
+  <text x="210" y="164" text-anchor="middle" font-size="13" font-weight="700">失効 → 最後尾へ</text>
+  <rect x="420" y="20" width="380" height="160" rx="12" fill="var(--c-soft)" stroke="var(--c)"/>
+  <text x="610" y="55" text-anchor="middle" font-size="17" font-weight="700" style="fill:var(--c)">⏱ 約20分：リストバンドの寿命</text>
+  <text x="610" y="88" text-anchor="middle" font-size="13">入場Cookie の有効期限</text>
+  <text x="610" y="110" text-anchor="middle" font-size="13">切れると確認係が「無い」と判定</text>
+  <text x="610" y="142" text-anchor="middle" font-size="13">→ ステップ2に戻って待合室へ</text>
+  <text x="610" y="164" text-anchor="middle" font-size="13" font-weight="700">操作中の注文も無効になりうる</text>
+</svg></div>
+<p>20分の制限は、入った人がずっと居座ると次の人を通せないからです。ラーメン店の「食べ終わったら出てください」に当たります。</p>
+
+<!-- 8 -->
+<h2><span class="no">8</span>お知らせの注意書きは全部ここから来ている</h2>
+<div class="scroll"><table>
+<tr><th>お知らせの注意書き</th><th>仕組みのどこから来るか</th></tr>
+<tr><td>Cookie を有効にして</td><td>番号札もリストバンドも Cookie。無いと誰だか分からない（5章）</td></tr>
+<tr><td>シークレットモードは控えて</td><td>番号札が消えやすい＝別人扱い（5章）</td></tr>
+<tr><td>9:30 以降はサイト全体が見られない</td><td>確認係が全ページの入口に立っている（3章のステップ2）</td></tr>
+<tr><td>9:30 前にカートに入れた商品が無効になりうる</td><td>9:30 以降はリストバンドが無いので、一度待合室に戻される</td></tr>
+<tr><td>開いたまま待てば自動で抽選の対象</td><td>番号札を持って列にいれば、10:00 のシャッフルに入る（7章）</td></tr>
+<tr><td>待ち時間の表示に1分ほどかかる</td><td>画面が定期的に「まだ？」と聞いて更新しているため（3章）</td></tr>
+<tr><td>待ち時間は目安</td><td>毎分通す人数を運営が途中で変えられる（6章）</td></tr>
+<tr><td>順番が来てから10分で無効</td><td>受け取り猶予のタイマー（7章）</td></tr>
+<tr><td>利用は約20分で並び直し</td><td>リストバンドの寿命（7章）</td></tr>
+</table></div>
+
+<!-- 9 -->
+<h2><span class="no">9</span>よくある疑問</h2>
+<dl class="qa">
+<dt>Q. 待合室の画面で何度も再読み込みすると早くなる？</dt>
+<dd>なりません。順番は番号札（Cookie）にひもづいているので、再読み込みしても同じ順番のままです。Cookie を消すと最後尾になるので、むしろ損です。</dd>
+<dt>Q. タブを何個も開いたら有利？</dt>
+<dd>同じブラウザなら Cookie は共通なので、基本的には同じ番号札を見ているだけです。別のブラウザや別の端末から並ぶと、別の人として並ぶことはできます。それをどこまで許すかや、1会員1回に絞る仕組みを入れているかは、ポケセン側の設定次第で、外からは分かりません。</dd>
+<dt>Q. 入場券（URLの末尾）を友だちに送ったら、友だちも入れる？</dt>
+<dd>Queue-it には、入場券を1回しか使えないようにする設定や、IPアドレスと結びつける設定があります。ポケセンがそれを有効にしているかは確かめていません。少なくとも有効期限 <code>ts</code> があるので、時間が経った券は使えません。</dd>
+<dt>Q. なぜポケセンは自分で作らずに Queue-it を使うの？</dt>
+<dd>待っている何十万人分の画面を出し続ける負荷そのものを、自分のサーバーから切り離せるからです。整理券係を店の中に置くと、整理券係の行列でまた店が詰まります。</dd>
+</dl>
+
+<!-- 10 -->
+<h2><span class="no">10</span>確かめたこと・確かめていないこと</h2>
+<div class="card">
+<p><span class="tag tc">実際に見た</span>2026年10月19日（月）23時ごろ、お知らせのURLにアクセスしたときの転送の流れ（<code>wr.pokemoncenter-online.com</code> へ転送 → 入場券付きでサイトへ戻る → 2枚の Cookie）、入場券の中身、お知らせの本文。販売時間外だったので、実際に並ぶ状態は見ていません。</p>
+<p><span class="tag ta">公開情報から</span>入場券の各項目の意味と署名方式（HMAC-SHA256）は、Queue-it が公開している連携部品の仕様に基づく説明です。</p>
+<p><span class="tag tb">確かめていない</span>毎分通す人数、入場券の使い回し防止やbot対策の設定、<code>wr.</code> のドメインが DNS 上どこを指しているか。</p>
+</div>
+
+<p class="foot">bot-lab で作成・2026年10月19日（月）</p>
+</main>
+</body>
+</html>
