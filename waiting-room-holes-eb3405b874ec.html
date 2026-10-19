@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>待合室の穴と塞ぎ方</title>
+<style>
+:root{
+  --bg:#f7f6f2; --card:#ffffff; --ink:#1d1d1b; --sub:#5d5c57; --line:#d9d6cc;
+  --a:#2f6fdb; --a-soft:#e3ecfb; --b:#d9782b; --b-soft:#fbeadb; --c:#2f9a62; --c-soft:#dff2e7;
+  --p:#7b4fc9; --p-soft:#ece4fa; --warn:#c23b3b; --warn-soft:#f8e1e1; --code:#f0eee7;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16171a; --card:#1f2125; --ink:#ecebe6; --sub:#a8a69e; --line:#3a3c42;
+    --a:#7aa7ff; --a-soft:#22304a; --b:#f0a265; --b-soft:#3d2c1d; --c:#6fd29c; --c-soft:#1b3528;
+    --p:#b597f0; --p-soft:#2e2542; --warn:#ff8080; --warn-soft:#3e2222; --code:#2a2c31;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16171a; --card:#1f2125; --ink:#ecebe6; --sub:#a8a69e; --line:#3a3c42;
+  --a:#7aa7ff; --a-soft:#22304a; --b:#f0a265; --b-soft:#3d2c1d; --c:#6fd29c; --c-soft:#1b3528;
+  --p:#b597f0; --p-soft:#2e2542; --warn:#ff8080; --warn-soft:#3e2222; --code:#2a2c31;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif;line-height:1.8;font-size:16px}
+main{max-width:900px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:1.7rem;line-height:1.4;margin:.2em 0 .3em}
+h2{font-size:1.3rem;margin:2.4em 0 .6em;padding-top:.6em;border-top:1px solid var(--line)}
+h2 .no{display:inline-block;min-width:1.8em;color:var(--a)}
+p{margin:.6em 0}
+.lead{color:var(--sub)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.point{background:var(--a-soft);border-left:4px solid var(--a);border-radius:8px;padding:12px 16px;margin:14px 0}
+.verdict{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+@media (max-width:620px){.verdict{grid-template-columns:1fr}}
+.verdict .v{border-radius:12px;padding:14px 16px;border:2px solid}
+.v.ok{background:var(--c-soft);border-color:var(--c)}
+.v.dep{background:var(--b-soft);border-color:var(--b)}
+.v .big{font-size:1.25rem;font-weight:800}
+.tag{display:inline-block;font-size:.78rem;padding:1px 9px;border-radius:99px;font-weight:700;margin:0 4px 2px 0;white-space:nowrap}
+.q{background:var(--b-soft);color:var(--b)} .s{background:var(--c-soft);color:var(--c)} .m{background:var(--p-soft);color:var(--p)}
+.ok2{background:var(--a-soft);color:var(--a)} .ng{background:var(--warn-soft);color:var(--warn)}
+code{background:var(--code);padding:1px 6px;border-radius:5px;font-size:.88em;word-break:break-all}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+svg{width:100%;min-width:660px;height:auto;display:block}
+svg text{font-family:inherit;fill:var(--ink)}
+.cap{font-size:.85rem;color:var(--sub);margin-top:6px}
+.holes{display:grid;grid-template-columns:1fr;gap:14px}
+.hole{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.hole .hd{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--warn-soft);flex-wrap:wrap}
+.hole .id{background:var(--warn);color:#fff;font-weight:800;border-radius:8px;padding:2px 10px;font-size:.95rem}
+.hole .tt{font-weight:800}
+.hole .bd{display:grid;grid-template-columns:1fr 1fr}
+@media (max-width:620px){.hole .bd{grid-template-columns:1fr}}
+.hole .bd > div{padding:12px 16px}
+.hole .atk{border-right:1px dashed var(--line)}
+@media (max-width:620px){.hole .atk{border-right:none;border-bottom:1px dashed var(--line)}}
+.hole .lbl{font-size:.8rem;font-weight:700;color:var(--sub);letter-spacing:.05em}
+.hole ul{margin:.3em 0;padding-left:1.2em}
+.steps{counter-reset:st;list-style:none;padding:0;margin:0}
+.steps li{counter-increment:st;position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px 12px 62px;margin:10px 0}
+.steps li::before{content:counter(st);position:absolute;left:14px;top:12px;width:34px;height:34px;border-radius:50%;background:var(--a);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.steps .why{color:var(--sub);font-size:.9rem}
+.foot{color:var(--sub);font-size:.85rem;margin-top:3em}
+a{color:var(--a)}
+</style>
+</head>
+<body>
+<main>
+
+<p class="lead">続き：<a href="https://mushataku.github.io/pub/virtual-waiting-room-eb3405b874ec.html">仮想待合室のしくみ（前編）</a></p>
+<h1>Queue-it を入れたら公平になるのか<br>――穴の地図と、自分でやること</h1>
+
+<h2><span class="no">0</span>先に結論：これ、本当に使える？</h2>
+<div class="verdict">
+  <div class="v ok">
+    <div class="big">✅ サイトを落とさない → 使える</div>
+    <p>何十万人が来ても、サイトに入るのは毎分◯人だけ。これは契約して設定すれば Queue-it が丸ごとやってくれる。</p>
+  </div>
+  <div class="v dep">
+    <div class="big">⚠️ 公平に売る → 自分次第</div>
+    <p>Queue-it が出すのは道具だけ。どれだけ公平になるかは、<b>サイトへの組み込み方</b>と<b>自社の会員の仕組み</b>で決まる。</p>
+  </div>
+</div>
+<p>穴は無数にあるわけではありません。<b>根っこは2つ</b>で、そこから7つの穴が出ているだけです。7つのうち6つは<b>最初に1回正しく作れば塞がる</b>種類です。ずっと戦い続けるのは、穴1（アカウント量産）の1か所だけです。</p>
+
+<h2><span class="no">1</span>根っこは2つだけ</h2>
+<div class="scroll">
+<svg viewBox="0 0 880 400" role="img" aria-label="2つの根本問題">
+  <rect x="20" y="20" width="410" height="360" rx="16" fill="var(--p-soft)" stroke="var(--p)" stroke-width="2"/>
+  <text x="225" y="56" text-anchor="middle" font-size="20" font-weight="800" style="fill:var(--p)">根っこ1　シビル攻撃</text>
+  <text x="225" y="82" text-anchor="middle" font-size="14">1人が大量の「偽の1人」を作る</text>
+  <circle cx="90" cy="170" r="24" style="fill:var(--warn)"/>
+  <text x="90" y="176" text-anchor="middle" font-size="16" font-weight="800" style="fill:#fff">1人</text>
+  <g style="fill:var(--p)">
+    <circle cx="230" cy="120" r="10"/><circle cx="260" cy="120" r="10"/><circle cx="290" cy="120" r="10"/><circle cx="320" cy="120" r="10"/><circle cx="350" cy="120" r="10"/>
+    <circle cx="230" cy="150" r="10"/><circle cx="260" cy="150" r="10"/><circle cx="290" cy="150" r="10"/><circle cx="320" cy="150" r="10"/><circle cx="350" cy="150" r="10"/>
+    <circle cx="230" cy="180" r="10"/><circle cx="260" cy="180" r="10"/><circle cx="290" cy="180" r="10"/><circle cx="320" cy="180" r="10"/><circle cx="350" cy="180" r="10"/>
+    <circle cx="230" cy="210" r="10"/><circle cx="260" cy="210" r="10"/><circle cx="290" cy="210" r="10"/><circle cx="320" cy="210" r="10"/><circle cx="350" cy="210" r="10"/>
+  </g>
+  <line x1="117" y1="170" x2="210" y2="170" stroke="var(--ink)" stroke-width="2"/>
+  <polygon points="210,163 222,170 210,177" style="fill:var(--ink)"/>
+  <text x="290" y="242" text-anchor="middle" font-size="13">「別の人」として500回並ぶ</text>
+  <rect x="45" y="268" width="360" height="96" rx="10" fill="var(--card)" stroke="var(--line)"/>
+  <text x="225" y="294" text-anchor="middle" font-size="14" font-weight="700">守り方：「1人」の数え方を</text>
+  <text x="225" y="318" text-anchor="middle" font-size="14" font-weight="700">偽造が高くつくものにする</text>
+  <text x="225" y="346" text-anchor="middle" font-size="13" style="fill:var(--sub)">Cookie（タダ）→ 電話番号・本人確認（高い）</text>
+
+  <rect x="450" y="20" width="410" height="360" rx="16" fill="var(--b-soft)" stroke="var(--b)" stroke-width="2"/>
+  <text x="655" y="56" text-anchor="middle" font-size="20" font-weight="800" style="fill:var(--b)">根っこ2　持参人トークン</text>
+  <text x="655" y="82" text-anchor="middle" font-size="14">券を「持ってきた人なら誰でも」通す</text>
+  <rect x="490" y="130" width="130" height="70" rx="10" fill="var(--card)" stroke="var(--b)" stroke-width="2"/>
+  <text x="555" y="160" text-anchor="middle" font-size="15" font-weight="700">🎫 入場券</text>
+  <text x="555" y="182" text-anchor="middle" font-size="12" style="fill:var(--sub)">URLの末尾</text>
+  <line x1="622" y1="150" x2="700" y2="115" stroke="var(--ink)" stroke-width="1.5"/>
+  <line x1="622" y1="165" x2="700" y2="165" stroke="var(--ink)" stroke-width="1.5"/>
+  <line x1="622" y1="180" x2="700" y2="215" stroke="var(--ink)" stroke-width="1.5"/>
+  <text x="708" y="120" font-size="13">別のブラウザ ✅</text>
+  <text x="708" y="170" font-size="13">別の人 ✅</text>
+  <text x="708" y="220" font-size="13">何回でも ✅</text>
+  <text x="655" y="248" text-anchor="middle" font-size="13">拾った人も入れてしまう</text>
+  <rect x="475" y="268" width="360" height="96" rx="10" fill="var(--card)" stroke="var(--line)"/>
+  <text x="655" y="294" text-anchor="middle" font-size="14" font-weight="700">守り方：券を「発行した相手」と</text>
+  <text x="655" y="318" text-anchor="middle" font-size="14" font-weight="700">「使える回数」に縛る</text>
+  <text x="655" y="346" text-anchor="middle" font-size="13" style="fill:var(--sub)">誰の券か・1回きりか を確かめる</text>
+</svg>
+</div>
+<p class="cap">どちらも世の中で決まった呼び名がある、よく知られた問題です。「シビル攻撃」はブロックチェーンや口コミのサクラと同じ問題で、「持参人トークン（bearer token）」は Web のログイン全般で出てくる問題です。</p>
+
+<div class="point">
+物理で言うと、<b>不公平は消えずに「一番偽造しやすい単位」に流れていきます</b>。先着販売なら「速さ」に、抽選なら「並んだ数」に流れる。守る側がやることは、その単位をだんだん偽造しにくいものへ置き換えていくことです。
+</div>
+
+<h2><span class="no">2</span>穴の地図：お客さんの道のりのどこに穴があるか</h2>
+<p>お客さんがチケットを買うまでの道のりを左から右に並べ、穴の位置に番号を付けました。紫は根っこ1から、オレンジは根っこ2から出ている穴です。</p>
+<div class="scroll">
+<svg viewBox="0 0 900 400" role="img" aria-label="購入の道のりと穴の位置" style="min-width:760px">
+  <g font-size="14" font-weight="700">
+    <rect x="10" y="120" width="130" height="70" rx="12" fill="var(--card)" stroke="var(--line)" stroke-width="2"/>
+    <text x="75" y="152" text-anchor="middle">① 会員登録</text><text x="75" y="174" text-anchor="middle" font-size="12" font-weight="400" style="fill:var(--sub)">事前</text>
+    <rect x="160" y="120" width="130" height="70" rx="12" fill="var(--b-soft)" stroke="var(--b)" stroke-width="2"/>
+    <text x="225" y="152" text-anchor="middle">② 並ぶ</text><text x="225" y="174" text-anchor="middle" font-size="12" font-weight="400" style="fill:var(--sub)">待合室</text>
+    <rect x="310" y="120" width="130" height="70" rx="12" fill="var(--b-soft)" stroke="var(--b)" stroke-width="2"/>
+    <text x="375" y="152" text-anchor="middle">③ 抽選・順番</text><text x="375" y="174" text-anchor="middle" font-size="12" font-weight="400" style="fill:var(--sub)">待合室</text>
+    <rect x="460" y="120" width="130" height="70" rx="12" fill="var(--card)" stroke="var(--line)" stroke-width="2"/>
+    <text x="525" y="152" text-anchor="middle">④ 入場券</text><text x="525" y="174" text-anchor="middle" font-size="12" font-weight="400" style="fill:var(--sub)">受け渡し</text>
+    <rect x="610" y="120" width="130" height="70" rx="12" fill="var(--c-soft)" stroke="var(--c)" stroke-width="2"/>
+    <text x="675" y="152" text-anchor="middle">⑤ サイト入場</text><text x="675" y="174" text-anchor="middle" font-size="12" font-weight="400" style="fill:var(--sub)">確認係</text>
+    <rect x="760" y="120" width="130" height="70" rx="12" fill="var(--c-soft)" stroke="var(--c)" stroke-width="2"/>
+    <text x="825" y="152" text-anchor="middle">⑥ カート・注文</text><text x="825" y="174" text-anchor="middle" font-size="12" font-weight="400" style="fill:var(--sub)">サイト</text>
+  </g>
+  <g stroke="var(--sub)" stroke-width="2">
+    <line x1="140" y1="155" x2="158" y2="155"/><line x1="290" y1="155" x2="308" y2="155"/><line x1="440" y1="155" x2="458" y2="155"/><line x1="590" y1="155" x2="608" y2="155"/><line x1="740" y1="155" x2="758" y2="155"/>
+  </g>
+  <g font-size="13" font-weight="700">
+    <circle cx="75" cy="70" r="20" style="fill:var(--p)"/><text x="75" y="75" text-anchor="middle" style="fill:#fff">穴1</text>
+    <text x="75" y="34" text-anchor="middle">アカウント量産</text>
+    <line x1="75" y1="90" x2="75" y2="118" stroke="var(--p)" stroke-width="2" stroke-dasharray="4 3"/>
+    <circle cx="195" cy="70" r="20" style="fill:var(--p)"/><text x="195" y="75" text-anchor="middle" style="fill:#fff">穴2</text>
+    <text x="185" y="34" text-anchor="middle">タブ500個</text>
+    <line x1="195" y1="90" x2="200" y2="118" stroke="var(--p)" stroke-width="2" stroke-dasharray="4 3"/>
+    <circle cx="265" cy="70" r="20" style="fill:var(--p)"/><text x="265" y="75" text-anchor="middle" style="fill:#fff">穴3</text>
+    <text x="300" y="34" text-anchor="middle">bot の大量並び</text>
+    <line x1="265" y1="90" x2="255" y2="118" stroke="var(--p)" stroke-width="2" stroke-dasharray="4 3"/>
+  </g>
+  <g font-size="13" font-weight="700">
+    <circle cx="525" cy="250" r="20" style="fill:var(--b)"/><text x="525" y="255" text-anchor="middle" style="fill:#fff">穴4</text>
+    <text x="525" y="292" text-anchor="middle">URL の使い回し</text>
+    <line x1="525" y1="192" x2="525" y2="230" stroke="var(--b)" stroke-width="2" stroke-dasharray="4 3"/>
+    <circle cx="675" cy="250" r="20" style="fill:var(--b)"/><text x="675" y="255" text-anchor="middle" style="fill:#fff">穴5</text>
+    <text x="675" y="292" text-anchor="middle">待合室を素通り</text>
+    <line x1="675" y1="192" x2="675" y2="230" stroke="var(--b)" stroke-width="2" stroke-dasharray="4 3"/>
+    <circle cx="795" cy="250" r="20" style="fill:var(--b)"/><text x="795" y="255" text-anchor="middle" style="fill:#fff">穴6</text>
+    <text x="790" y="292" text-anchor="middle">裏口 API</text>
+    <line x1="795" y1="192" x2="795" y2="230" stroke="var(--b)" stroke-width="2" stroke-dasharray="4 3"/>
+    <circle cx="862" cy="250" r="20" style="fill:var(--b)"/><text x="862" y="255" text-anchor="middle" style="fill:#fff">穴7</text>
+    <text x="830" y="322" text-anchor="middle">入ったら買い放題</text>
+    <line x1="862" y1="192" x2="862" y2="230" stroke="var(--b)" stroke-width="2" stroke-dasharray="4 3"/>
+  </g>
+  <path d="M 225 192 Q 432 510 660 192" fill="none" stroke="var(--warn)" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="440" y="385" text-anchor="middle" font-size="13" font-weight="700" style="fill:var(--warn)">穴5：②〜④を飛ばして直接入る道</text>
+</svg>
+</div>
+<p class="cap">紫＝根っこ1（1人が何人分にもなる）／オレンジ＝根っこ2（券や入口が誰でも通す）。</p>
+
+<h2><span class="no">3</span>7つの穴と、自分がやること</h2>
+<p>穴ごとに、左に「何が起きるか」、右に「どう塞ぐか」を書きました。塞ぐ手には担当のラベルを付けています。</p>
+<p>
+<span class="tag q">Queue-it の設定</span>Queue-it の管理画面で設定をオンにする<br>
+<span class="tag s">サイトの作り</span>自社サイトの開発で作る<br>
+<span class="tag m">会員の仕組み</span>会員登録・本人確認の設計<br>
+<span class="tag ok2">公式で確認済み</span>Queue-it の公式の説明に機能として書いてある<br>
+<span class="tag ng">公式に見当たらない</span>自前で作る前提
+</p>
+
+<div class="holes">
+
+<div class="hole"><div class="hd"><span class="id">穴1</span><span class="tt">アカウントを量産する</span><span class="tag m">根っこ1</span></div>
+<div class="bd"><div class="atk"><div class="lbl">何が起きるか</div>
+<p>捨てメールで会員を何百個も作る。穴2をいくら塞いで「1会員＝1か所」にしても、会員が500個あれば500か所並べてしまう。</p></div>
+<div><div class="lbl">塞ぎ方</div>
+<ul>
+<li><span class="tag m">会員の仕組み</span>登録時に <b>SMS 認証</b>。1つの電話番号＝1会員</li>
+<li><span class="tag m">会員の仕組み</span>人気の販売は「購入実績がある会員」「◯日前までに登録した会員」だけに絞る</li>
+<li><span class="tag m">会員の仕組み</span>必要ならクレジットカードの名義や本人確認書類まで上げる</li>
+</ul>
+<p class="cap">★ここが最後まで残る本当の勝負所です（4章）。</p></div></div></div>
+
+<div class="hole"><div class="hd"><span class="id">穴2</span><span class="tt">タブを500個開いて何人分も並ぶ</span><span class="tag m">根っこ1</span></div>
+<div class="bd"><div class="atk"><div class="lbl">何が起きるか</div>
+<p>待合室は「番号札の Cookie 1枚＝1人」と数えている。番号札を何枚も作られると、抽選のくじを何枚も引かれる。LINE の「タブ500個で抽選番号を見る」はこれ。</p></div>
+<div><div class="lbl">塞ぎ方</div>
+<ul>
+<li><span class="tag s">サイトの作り</span><b>並ぶ前にログインさせる</b>。待合室へは、会員IDを入れた入場トークン付きでしか入れないようにする</li>
+<li><span class="tag q">Queue-it の設定</span><span class="tag ok2">公式で確認済み</span><b>会員IDごとに列は1か所</b>（一意キーの強制）＋列に入るためのトークン必須</li>
+</ul>
+<p class="cap">Queue-it の事例では、1本のリンクを31,000回開いた転売屋も、列には1か所しか取れなかったとのこと（Queue-it 自身の発表）。</p></div></div></div>
+
+<div class="hole"><div class="hd"><span class="id">穴3</span><span class="tt">bot で機械的に大量に並ぶ</span><span class="tag m">根っこ1</span></div>
+<div class="bd"><div class="atk"><div class="lbl">何が起きるか</div>
+<p>プログラムがデータセンターのサーバーから何千も同時にアクセスして並ぶ。</p></div>
+<div><div class="lbl">塞ぎ方</div>
+<ul>
+<li><span class="tag q">Queue-it の設定</span><span class="tag ok2">公式で確認済み</span>列に入るところで<b>計算の課題（proof of work）や CAPTCHA</b></li>
+<li><span class="tag q">Queue-it の設定</span><span class="tag ok2">公式で確認済み</span><b>データセンターの IP アドレスを拒否</b></li>
+</ul>
+<p class="cap">これは「数を作る値段」を上げるだけで、ゼロにはなりません。穴2のログイン必須と組み合わせて、初めて並ぶ数そのものを絞れます。</p></div></div></div>
+
+<div class="hole"><div class="hd"><span class="id">穴4</span><span class="tt">順番が来た URL を使い回す・人に配る</span><span class="tag q">根っこ2</span></div>
+<div class="bd"><div class="atk"><div class="lbl">何が起きるか</div>
+<p>入場券は URL の末尾の文字列。署名と期限しか見ていないと、コピーした URL を開いた人は誰でも入れる。LINE の「抽選の先の URL を拾って買いまくる」はこれ。</p></div>
+<div><div class="lbl">塞ぎ方</div>
+<ul>
+<li><span class="tag q">Queue-it の設定</span><span class="tag ok2">公式で確認済み</span>入場券の期限 <code>ts</code> を短くする。公式の部品は、入場が済むと URL から入場券を消す（共有防止のため）</li>
+<li><span class="tag q">Queue-it の設定</span><span class="tag ok2">公式で確認済み</span>入場券に<b>発行時の IP</b>を入れて確かめる（一部の組み込み方式で対応）</li>
+<li><span class="tag s">サイトの作り</span><span class="tag ng">公式に見当たらない</span><b>使った券の列番号（<code>q</code>）を台帳に記録</b>し、2回目は拒否する</li>
+<li><span class="tag s">サイトの作り</span>入場時に<b>ログイン中の会員と、列に並んだ会員が同じか</b>を照らし合わせる</li>
+</ul></div></div></div>
+
+<div class="hole"><div class="hd"><span class="id">穴5</span><span class="tt">待合室を素通りして直接入る</span><span class="tag q">根っこ2</span></div>
+<div class="bd"><div class="atk"><div class="lbl">何が起きるか</div>
+<p>入場の確認が、ブラウザに読み込ませる JavaScript だけだと、それを動かさない道具で直接サイトを叩けば通れてしまう。確認係が「お客さんの手の中」にいる状態。</p></div>
+<div><div class="lbl">塞ぎ方</div>
+<ul>
+<li><span class="tag s">サイトの作り</span><span class="tag ok2">公式で確認済み</span>確認は<b>サーバー側か CDN の手前（エッジ）</b>でやる。Queue-it は各言語・各 CDN 向けにこの部品を出している</li>
+<li><span class="tag s">サイトの作り</span>ブラウザ側の確認は、表示を整えるためのおまけと割り切る</li>
+</ul></div></div></div>
+
+<div class="hole"><div class="hd"><span class="id">穴6</span><span class="tt">守っていない裏口（API）から注文する</span><span class="tag q">根っこ2</span></div>
+<div class="bd"><div class="atk"><div class="lbl">何が起きるか</div>
+<p>商品ページは待合室で守っているのに、「カートに入れる」「注文する」の裏の窓口は守っていない。正面玄関は行列なのに、裏口が開いている状態。</p></div>
+<div><div class="lbl">塞ぎ方</div>
+<ul>
+<li><span class="tag q">Queue-it の設定</span>守るURLの規則は<b>「全部守る」から始めて、外すものだけを書く</b></li>
+<li><span class="tag s">サイトの作り</span>カート・決済の API でも、入場 Cookie（なければ入場済みの記録）を必ず確かめる</li>
+</ul></div></div></div>
+
+<div class="hole"><div class="hd"><span class="id">穴7</span><span class="tt">一度入ったら買い放題</span><span class="tag q">根っこ2</span></div>
+<div class="bd"><div class="atk"><div class="lbl">何が起きるか</div>
+<p>入場 Cookie の寿命（ポケセンなら約20分）の間、何回でも注文できる。抽選で1回当たれば、それで在庫を持っていける。</p></div>
+<div><div class="lbl">塞ぎ方</div>
+<ul>
+<li><span class="tag s">サイトの作り</span><b>入場1回＝注文1回</b>。注文が終わったら入場 Cookie を捨てて、次はまた並ばせる</li>
+<li><span class="tag s">サイトの作り</span><b>会員ごとの購入上限</b>を、注文の段で機械的に止める（画面の案内だけにしない）</li>
+<li><span class="tag q">Queue-it の設定</span>入場 Cookie の寿命を、1回買うのに足りる長さまで短くする</li>
+</ul></div></div></div>
+
+</div>
+
+<h2><span class="no">4</span>やる順番</h2>
+<p>塞げる範囲が広くて手間が小さいものから並べました。上の5つは「1回作れば終わり」、最後の1つだけが「ずっと続く勝負」です。</p>
+<ol class="steps">
+<li><b>確認係をサーバー側（エッジ）に置き、全URLを守る</b>　<span class="tag s">サイトの作り</span><span class="tag q">Queue-it の設定</span><br><span class="why">穴5・穴6。ここが開いていると、他を全部塞いでも横から入られる。土台。</span></li>
+<li><b>並ぶ前にログイン＋会員IDごとに列は1か所</b>　<span class="tag s">サイトの作り</span><span class="tag q">Queue-it の設定</span><br><span class="why">穴2。「タブ500個」が一発で無意味になる。抽選にするならこれは必須。</span></li>
+<li><b>入場1回＝注文1回、会員ごとの購入上限</b>　<span class="tag s">サイトの作り</span><br><span class="why">穴7。当たった1人の買い占めを止める。</span></li>
+<li><b>入場券の台帳＋会員の照らし合わせ＋短い期限</b>　<span class="tag s">サイトの作り</span><span class="tag q">Queue-it の設定</span><br><span class="why">穴4。URL を拾って使い回す手がなくなる。</span></li>
+<li><b>bot 対策（計算の課題・CAPTCHA・データセンターIPの拒否）をオン</b>　<span class="tag q">Queue-it の設定</span><br><span class="why">穴3。設定だけでできる。</span></li>
+<li><b>会員1つを作る値段を上げる（SMS 認証、購入実績のある会員に絞る、本人確認）</b>　<span class="tag m">会員の仕組み</span><br><span class="why">穴1。<b>ここだけは終わりがない</b>。電話番号を大量に用意する業者もいるので、商品の人気（転売で儲かる額）に合わせて、どこまで上げるかを決め続ける。</span></li>
+</ol>
+
+<div class="scroll">
+<svg viewBox="0 0 880 250" role="img" aria-label="担当の分かれ方">
+  <text x="440" y="26" text-anchor="middle" font-size="16" font-weight="800">誰がどこを持つか</text>
+  <rect x="20" y="44" width="270" height="190" rx="14" fill="var(--b-soft)" stroke="var(--b)" stroke-width="2"/>
+  <text x="155" y="76" text-anchor="middle" font-size="16" font-weight="800" style="fill:var(--b)">Queue-it</text>
+  <text x="155" y="104" text-anchor="middle" font-size="13">サイトを落とさない</text>
+  <text x="155" y="128" text-anchor="middle" font-size="13">抽選・列の管理</text>
+  <text x="155" y="152" text-anchor="middle" font-size="13">1会員＝列に1か所</text>
+  <text x="155" y="176" text-anchor="middle" font-size="13">bot 対策</text>
+  <text x="155" y="214" text-anchor="middle" font-size="12" style="fill:var(--sub)">→ 設定をオンにするだけ</text>
+  <rect x="305" y="44" width="270" height="190" rx="14" fill="var(--c-soft)" stroke="var(--c)" stroke-width="2"/>
+  <text x="440" y="76" text-anchor="middle" font-size="16" font-weight="800" style="fill:var(--c)">自社サイト</text>
+  <text x="440" y="104" text-anchor="middle" font-size="13">サーバー側で確認・全URL</text>
+  <text x="440" y="128" text-anchor="middle" font-size="13">並ぶ前のログイン</text>
+  <text x="440" y="152" text-anchor="middle" font-size="13">入場券の台帳</text>
+  <text x="440" y="176" text-anchor="middle" font-size="13">入場1回＝注文1回</text>
+  <text x="440" y="214" text-anchor="middle" font-size="12" style="fill:var(--sub)">→ 最初に1回作る</text>
+  <rect x="590" y="44" width="270" height="190" rx="14" fill="var(--p-soft)" stroke="var(--p)" stroke-width="3"/>
+  <text x="725" y="76" text-anchor="middle" font-size="16" font-weight="800" style="fill:var(--p)">会員の仕組み</text>
+  <text x="725" y="104" text-anchor="middle" font-size="13">SMS 認証</text>
+  <text x="725" y="128" text-anchor="middle" font-size="13">購入実績で絞る</text>
+  <text x="725" y="152" text-anchor="middle" font-size="13">本人確認</text>
+  <text x="725" y="176" text-anchor="middle" font-size="13">（入場時の顔認証など）</text>
+  <text x="725" y="214" text-anchor="middle" font-size="12" font-weight="700" style="fill:var(--p)">→ ずっと続く勝負</text>
+</svg>
+</div>
+
+<h2><span class="no">5</span>それでも残るもの</h2>
+<div class="card">
+<ul>
+<li><b>本物の人間が大勢で並ぶ</b>（転売のために人を集める）。1人1会員を守っていても防げない。ここから先は「買った後」の話で、チケットの名義を固定する、入場時に本人確認する、公式のリセール（定価での譲渡）を用意する、といった待合室の外の手になる。</li>
+<li><b>電話番号を大量に持つ業者</b>。SMS 認証は値段を上げるだけで、ゼロにはしない。だから「どこまで値段を上げるか」は、転売の儲けとの見合いで決め続けることになる。</li>
+</ul>
+</div>
+
+<h2><span class="no">6</span>このページの確かさ</h2>
+<div class="card">
+<p><span class="tag ok2">公式で確認済み</span>のラベルは、Queue-it の公式サイトと公開されている組み込み部品の説明に、機能として書かれているものです。実際に契約して動かしたわけではありません。数字（31,000回など）は Queue-it 自身の発表です。</p>
+<p><span class="tag ng">公式に見当たらない</span>入場券を1回しか使えなくする機能は、公式の説明では見つかりませんでした。見落としの可能性もあるので、契約するなら営業担当に「使った入場券を2回目に拒否できるか」を直接聞くのが確実です。</p>
+<p>ローチケやポケセンなど、実際のサイトがどこまで塞いでいるかは調べていません。</p>
+<p>出典：
+<a href="https://queue-it.com/developers/bots-abuse-management/">Queue-it Bot &amp; Abuse Management</a> ／
+<a href="https://queue-it.com/blog/invite-only-waiting-room/">Invite-only waiting room</a> ／
+<a href="https://queue-it.com/bot-detection-protection/">Bot Detection &amp; Protection</a> ／
+<a href="https://queue-it.com/developers/how-queue-it-works/">How Queue-it Works</a> ／
+<a href="https://github.com/queueit/KnownUser.Fastly">KnownUser.Fastly</a> ／
+<a href="https://github.com/queueit/QueueToken.V1.Net">QueueToken.V1.Net</a> ／
+<a href="https://queue-it.com/jp/blog/how-to-boost-your-sales-with-queue-it-s-live-raffles-jp/">ライブ抽選の解説</a></p>
+</div>
+
+<p class="foot">bot-lab で作成・2026年10月19日（月）</p>
+</main>
+</body>
+</html>
