@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>健診の通過見込み</title>
+<style>
+:root{
+  --bg:#f7f6f2; --card:#ffffff; --ink:#1f2328; --sub:#5b6270; --line:#d9d6cc;
+  --a:#2f6fb0; --b:#c2562b; --c:#3d8f5a; --d:#8a5cc2; --warn:#b3261e; --ok:#2e7d32; --hl:#fff4cc;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181c; --card:#20232a; --ink:#e8e6e1; --sub:#a3a9b5; --line:#3a3e47;
+    --a:#6fa8e0; --b:#e8875c; --c:#6cc08a; --d:#b893ea; --warn:#f2867d; --ok:#7fcf83; --hl:#3a3420;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181c; --card:#20232a; --ink:#e8e6e1; --sub:#a3a9b5; --line:#3a3e47;
+  --a:#6fa8e0; --b:#e8875c; --c:#6cc08a; --d:#b893ea; --warn:#f2867d; --ok:#7fcf83; --hl:#3a3420;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif;line-height:1.75;font-size:16px}
+main{max-width:760px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.5rem;margin:0 0 4px}
+.lead{color:var(--sub);margin:0 0 24px}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 18px;margin:0 0 18px}
+h2{font-size:1.15rem;margin:0 0 6px}
+h2 .n{display:inline-block;width:1.7em;height:1.7em;line-height:1.7em;text-align:center;border-radius:50%;background:var(--ink);color:var(--card);font-size:.85rem;margin-right:8px;vertical-align:2px}
+.msg{font-weight:700;margin:0 0 14px}
+svg{width:100%;height:auto;display:block}
+svg text{fill:var(--ink);font-family:inherit}
+.sub{fill:var(--sub)}
+.note{color:var(--sub);font-size:.88rem;margin:10px 0 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.box{border:1px solid var(--line);border-radius:10px;padding:12px}
+.box b{display:block;margin-bottom:4px}
+.tag{display:inline-block;font-size:.78rem;border-radius:99px;padding:1px 10px;margin-top:6px;border:1px solid currentColor}
+.ok{color:var(--ok)} .ng{color:var(--warn)}
+mark{background:var(--hl);color:inherit;padding:0 3px;border-radius:3px}
+ol{padding-left:1.3em;margin:0}
+li{margin:4px 0}
+footer{color:var(--sub);font-size:.82rem;text-align:center;margin-top:20px}
+a{color:var(--a)}
+.src{font-size:.8rem;color:var(--sub);margin-top:6px}
+</style>
+</head>
+<body>
+<main>
+<h1>健康診断、ここから通す道はあります</h1>
+<p class="lead">肝臓の数値で再受診になった件について、国の基準・日本交通様の方針・ほかの人の事例を調べてまとめました。</p>
+
+<section>
+<h2><span class="n">1</span>結論</h2>
+<p class="msg">数値だけで一律に落とす基準は見つかりませんでした。お医者さんの「仕事に支障なし」があれば、通る道は十分あります。</p>
+<p style="margin:0">人柄では「採用したい」と言ってもらえています。残っているのは健康診断の説明だけです。</p>
+</section>
+
+<section>
+<h2><span class="n">2</span>決めるのは「数字」ではなく「お医者さんの意見」</h2>
+<p class="msg">健診で気になる数字が出たら、お医者さんの意見を聞いて、会社が判断する仕組みです。</p>
+<svg viewBox="0 0 640 150" role="img" aria-label="健診から採用判断までの流れ">
+  <rect x="10" y="40" width="140" height="64" rx="10" fill="none" stroke="var(--ink)" stroke-width="2"/>
+  <text x="80" y="68" text-anchor="middle" font-size="14" font-weight="700">健康診断</text>
+  <text x="80" y="90" text-anchor="middle" font-size="12" class="sub">ALT が高い</text>
+  <line x1="150" y1="72" x2="210" y2="72" stroke="var(--ink)" stroke-width="2"/><polygon points="210,66 220,72 210,78" style="fill:var(--ink)"/>
+  <rect x="220" y="30" width="200" height="84" rx="10" fill="none" style="stroke:var(--ok)" stroke-width="3"/>
+  <text x="320" y="62" text-anchor="middle" font-size="15" font-weight="700" style="fill:var(--ok)">お医者さんの意見</text>
+  <text x="320" y="84" text-anchor="middle" font-size="12">仕事に支障があるか</text>
+  <text x="320" y="102" text-anchor="middle" font-size="12" class="sub">診断書はここで判断材料になる</text>
+  <line x1="420" y1="72" x2="480" y2="72" stroke="var(--ink)" stroke-width="2"/><polygon points="480,66 490,72 480,78" style="fill:var(--ink)"/>
+  <rect x="490" y="40" width="140" height="64" rx="10" fill="none" stroke="var(--ink)" stroke-width="2"/>
+  <text x="560" y="68" text-anchor="middle" font-size="14" font-weight="700">会社が判断</text>
+  <text x="560" y="90" text-anchor="middle" font-size="12" class="sub">採用</text>
+</svg>
+<p class="note">運転の仕事で見られるのは「運転中に突然倒れるおそれがあるか」です。国（国土交通省）が運転に支障のおそれがある病気として挙げているのは、脳や心臓の病気、てんかん、低血糖、睡眠障害などで、<b>肝臓の数値は入っていません</b>。</p>
+<p class="src">出典: <a href="https://www.mlit.go.jp/jidosha/anzen/03analysis/resourse/data/h21_2_1.pdf">国土交通省 運転者の健康管理マニュアル</a></p>
+</section>
+
+<section>
+<h2><span class="n">3</span>前向きな材料</h2>
+<p class="msg">調べた範囲では、どれも通る側を向いています。</p>
+<div class="grid">
+  <div class="box"><b>日本交通様の方針</b>健康診断は「深刻な病気がないかの確認」で、「特に大きな疾患をお持ちでない場合、採用への影響はございません」と公式に書かれています。<div class="src"><a href="https://www.nihon-kotsu-recruit.jp/taxi/recruit/recruit3/">日本交通 採用までの流れ</a></div></div>
+  <div class="box"><b>ほかのタクシー会社の考え方</b>「かかりつけ医が乗務可と言えば産業医もOK」「専門医の診断書があれば入社可」と答えている会社が複数あります。<div class="src"><a href="https://www.tenshokudou.com/taxi_chiebukuro/detail/57">転職道Q&amp;A</a></div></div>
+  <div class="box"><b>再受診のチャンスをもらえた</b>落とすつもりなら再受診はさせません。採用担当の方が「健康診断をクリアしてほしい」とお願いしてくれています。</div>
+  <div class="box"><b>ほかの人の事例</b>入社前の健康診断で肝臓の数値が引っかかっても、診断書を出したり再検査を受けたりして、そのまま入社できた例が見つかりました（ドライバー職を含む）。</div>
+  <div class="box"><b>お酒が原因ではない</b>小学生の頃からの体質なので、運転の仕事で一番気にされる「飲酒の習慣」の心配がありません。</div>
+</div>
+</section>
+
+<section>
+<h2><span class="n">4</span>診断書に書いてもらいたいこと</h2>
+<p class="msg">この4つがそろうと、会社が判断しやすくなります。</p>
+<div class="grid">
+  <div class="box"><b>① 診断名</b>脂肪肝など</div>
+  <div class="box"><b>② 子どもの頃からの体質</b>ずっと続いているもの</div>
+  <div class="box"><b>③ お酒が原因ではない</b>飲酒によるものではない</div>
+  <div class="box"><b>④ 仕事に支障なし</b>車の運転の仕事ができる</div>
+</div>
+<p class="note">消化器内科で、血液検査とお腹のエコー検査を受けて相談してください。小学生の頃からALTが高いことを最初に伝えるとスムーズです。</p>
+</section>
+
+<section>
+<h2><span class="n">5</span>このあとの流れ</h2>
+<ol>
+  <li>消化器内科を受診して、診断書をもらう（行ける日を武者野に教えてください）</li>
+  <li>日本交通様への伝え方は、武者野のほうで紹介元の方と相談して進めます</li>
+  <li>再受診の案内メールが届いたら、武者野に教えてください</li>
+  <li>受診日まで、生活の7項目は続けてください（数値を少しでも良くするため）</li>
+</ol>
+</section>
+
+<footer>国の資料・会社の公開情報・公開されている体験談をもとにした整理です。医学的な判断はお医者さんが行います。　2026年10月20日 武者野</footer>
+</main>
+</body>
+</html>
