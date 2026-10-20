@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>健診の通過見込み</title>
+<style>
+:root{
+  --bg:#f7f6f2; --card:#ffffff; --ink:#1f2328; --sub:#5b6270; --line:#d9d6cc;
+  --a:#2f6fb0; --b:#c2562b; --c:#3d8f5a; --d:#8a5cc2; --warn:#b3261e; --ok:#2e7d32; --hl:#fff4cc;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181c; --card:#20232a; --ink:#e8e6e1; --sub:#a3a9b5; --line:#3a3e47;
+    --a:#6fa8e0; --b:#e8875c; --c:#6cc08a; --d:#b893ea; --warn:#f2867d; --ok:#7fcf83; --hl:#3a3420;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181c; --card:#20232a; --ink:#e8e6e1; --sub:#a3a9b5; --line:#3a3e47;
+  --a:#6fa8e0; --b:#e8875c; --c:#6cc08a; --d:#b893ea; --warn:#f2867d; --ok:#7fcf83; --hl:#3a3420;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif;line-height:1.75;font-size:16px}
+main{max-width:760px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.5rem;margin:0 0 4px}
+.lead{color:var(--sub);margin:0 0 24px}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 18px;margin:0 0 18px}
+h2{font-size:1.15rem;margin:0 0 6px}
+h2 .n{display:inline-block;width:1.7em;height:1.7em;line-height:1.7em;text-align:center;border-radius:50%;background:var(--ink);color:var(--card);font-size:.85rem;margin-right:8px;vertical-align:2px}
+.msg{font-weight:700;margin:0 0 14px}
+svg{width:100%;height:auto;display:block}
+svg text{fill:var(--ink);font-family:inherit}
+.sub{fill:var(--sub)}
+.note{color:var(--sub);font-size:.88rem;margin:10px 0 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.box{border:1px solid var(--line);border-radius:10px;padding:12px}
+.box b{display:block;margin-bottom:4px}
+.tag{display:inline-block;font-size:.78rem;border-radius:99px;padding:1px 10px;margin-top:6px;border:1px solid currentColor}
+.ok{color:var(--ok)} .ng{color:var(--warn)}
+mark{background:var(--hl);color:inherit;padding:0 3px;border-radius:3px}
+ol{padding-left:1.3em;margin:0}
+li{margin:4px 0}
+footer{color:var(--sub);font-size:.82rem;text-align:center;margin-top:20px}
+a{color:var(--a)}
+.src{font-size:.8rem;color:var(--sub);margin-top:6px}
+</style>
+</head>
+<body>
+<main>
+<h1>肝機能で引っかかった。通る見込みは？</h1>
+<p class="lead">ハイヤー（日本交通）の再受診案件を、公式文書と外部の事例で評価した。2026年10月20日。</p>
+
+<section>
+<h2><span class="n">1</span>結論</h2>
+<p class="msg">医師の診断書が出せれば、通る見込みは6〜7割。鍵はALTの実際の値。</p>
+<svg viewBox="0 0 640 120" role="img" aria-label="見込みのメーター">
+  <rect x="20" y="40" width="600" height="28" rx="14" fill="none" stroke="var(--line)" stroke-width="2"/>
+  <rect x="20" y="40" width="390" height="28" rx="14" style="fill:var(--ok)" opacity=".85"/>
+  <line x1="380" y1="30" x2="380" y2="78" stroke="var(--ink)" stroke-width="2" stroke-dasharray="3 3"/>
+  <line x1="440" y1="30" x2="440" y2="78" stroke="var(--ink)" stroke-width="2" stroke-dasharray="3 3"/>
+  <text x="410" y="24" text-anchor="middle" font-size="15" font-weight="700">6〜7割</text>
+  <text x="20" y="96" font-size="12" class="sub">0</text>
+  <text x="320" y="96" text-anchor="middle" font-size="12" class="sub">5割</text>
+  <text x="620" y="96" text-anchor="end" font-size="12" class="sub">10割</text>
+  <text x="320" y="116" text-anchor="middle" font-size="12" class="sub">事例の傾向からの主観的な見積もり（統計ではない）</text>
+</svg>
+</section>
+
+<section>
+<h2><span class="n">2</span>決めるのは「数字」ではなく「医師の意見」</h2>
+<p class="msg">業界にも日本交通にも、肝機能の数値で一律に落とす基準は見つからなかった。</p>
+<svg viewBox="0 0 640 150" role="img" aria-label="健診から採用判断までの流れ">
+  <rect x="10" y="40" width="140" height="64" rx="10" fill="none" stroke="var(--ink)" stroke-width="2"/>
+  <text x="80" y="68" text-anchor="middle" font-size="14" font-weight="700">健診</text>
+  <text x="80" y="90" text-anchor="middle" font-size="12" class="sub">ALT が高い</text>
+  <line x1="150" y1="72" x2="210" y2="72" stroke="var(--ink)" stroke-width="2"/><polygon points="210,66 220,72 210,78" style="fill:var(--ink)"/>
+  <rect x="220" y="30" width="200" height="84" rx="10" fill="none" style="stroke:var(--ok)" stroke-width="3"/>
+  <text x="320" y="62" text-anchor="middle" font-size="15" font-weight="700" style="fill:var(--ok)">医師の意見</text>
+  <text x="320" y="84" text-anchor="middle" font-size="12">乗務可／就業制限／要休業</text>
+  <text x="320" y="102" text-anchor="middle" font-size="12" class="sub">診断書はここで判断材料になる</text>
+  <line x1="420" y1="72" x2="480" y2="72" stroke="var(--ink)" stroke-width="2"/><polygon points="480,66 490,72 480,78" style="fill:var(--ink)"/>
+  <rect x="490" y="40" width="140" height="64" rx="10" fill="none" stroke="var(--ink)" stroke-width="2"/>
+  <text x="560" y="68" text-anchor="middle" font-size="14" font-weight="700">会社が判断</text>
+  <text x="560" y="90" text-anchor="middle" font-size="12" class="sub">採用・乗務</text>
+  <text x="320" y="140" text-anchor="middle" font-size="12" class="sub">国交省の通達・タクシー運転者の健康管理制度の枠組み</text>
+</svg>
+<p class="note">判断の軸は「運転中に突然倒れるか」。国交省が運転に支障のおそれがある病気として挙げるのは脳・心臓の病気、てんかん、失神、低血糖、睡眠障害、アルコール中毒など。<b>肝機能の異常は見当たらない</b>。</p>
+<p class="src">出典: <a href="https://www.mlit.go.jp/jidosha/anzen/03analysis/resourse/data/h21_2_1.pdf">国交省 健康管理マニュアル別冊</a>／<a href="https://wwwtb.mlit.go.jp/kanto/content/000325399.pdf">関東運輸局 通達</a>／<a href="https://wwwtb.mlit.go.jp/kinki/content/000371798.pdf">タクシー運転者健康管理制度 実施要領</a></p>
+</section>
+
+<section>
+<h2><span class="n">3</span>有利な材料</h2>
+<p class="msg">公式・業界・会社の動き・当事者の事例の4方向とも、通る側を向いている。</p>
+<div class="grid">
+  <div class="box"><b>日本交通の公式</b>健診は「深刻な病気がないかの確認」。「特に大きな疾患をお持ちでない場合、採用への影響はございません」。<div class="src"><a href="https://www.nihon-kotsu-recruit.jp/taxi/recruit/recruit3/">採用までの流れ</a></div></div>
+  <div class="box"><b>他のタクシー会社の人事</b>合同「かかりつけ医の乗務可で産業医OK」。三和「専門医の業務可の診断書で入社可」。明治「要精密検査は支障なし」。<div class="src"><a href="https://www.tenshokudou.com/taxi_chiebukuro/detail/57">転職道Q&amp;A（事業者発信）</a></div></div>
+  <div class="box"><b>会社が「再受診」を選んだ</b>落とすなら再受診させない。採用担当が電話で生活改善を頼んできた＝通す理由を探している側。</div>
+  <div class="box"><b>当事者の事例</b>結果が分かる4件中3件が採用（佐川急便ドライバー内定・ALT約150の市役所職員など）。肝機能だけで内定取消の報告は0件。<div class="src"><a href="https://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q11258475431">佐川</a>／<a href="https://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q14165565954">市役所</a>／<a href="https://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q11200063136">新卒</a></div></div>
+  <div class="box"><b>お酒が原因ではない</b>小学生の頃から ALT が高い体質（本人・10/20 電話）。運転の仕事で一番敏感な飲酒の疑いを外せる。</div>
+</div>
+</section>
+
+<section>
+<h2><span class="n">4</span>不利な材料・分からないこと</h2>
+<p class="msg">最後は会社と産業医の裁量。ALT の値次第で話が変わる。</p>
+<div class="grid">
+  <div class="box"><b>数値基準は非公開</b>日本交通・業界団体とも見つからず[未到達]。</div>
+  <div class="box"><b>ALT の実数値が不明</b>事例で採用側なのは100台まで。かなり高い・線維化や肝炎が見つかると別の話。</div>
+  <div class="box"><b>違反点数4点</b>日本交通は「大きなマイナスだが不合格ではない」。マイナスが2つ重なる。</div>
+  <div class="box"><b>入社後に響いた例</b>ドライバー職で、入社前健診（脂質・肝機能・肥満）を理由に試用6か月後の本採用を断られた例が1件。<div class="src"><a href="https://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q13257734453">知恵袋</a></div></div>
+</div>
+</section>
+
+<section>
+<h2><span class="n">5</span>ALT の値で見込みが変わる</h2>
+<p class="msg">内科の結果が出たら、この表に当てる。</p>
+<div class="grid">
+  <div class="box" style="border-color:var(--ok)"><b class="ok">〜100台</b>診断書で通る見込みが高い。事例の採用側はここ。</div>
+  <div class="box" style="border-color:#d4a017"><b style="color:#d4a017">200前後</b>医師の書き方次第。事例が少ない。</div>
+  <div class="box" style="border-color:var(--warn)"><b class="ng">それ以上・線維化あり</b>治療後の入社を探る。入社時期を後ろにずらす会社もある。</div>
+</div>
+<p class="note">基準値は30前後。肝臓学会は ALT 30超でかかりつけ医の受診を勧める（精査の入口で、就業の線ではない）。</p>
+</section>
+
+<section>
+<h2><span class="n">6</span>見込みを上げる手</h2>
+<ol>
+  <li>消化器内科で採血＋腹部エコー（10/20 本人に依頼済み）。<mark>ALT の実数値</mark>を押さえる。</li>
+  <li>診断書に4点を入れる: 小児期からの体質／お酒が原因でない／線維化なし（エコー）／<mark>運転業務に支障なし</mark>。</li>
+  <li>中原さん経由で日本交通に「診断書を判断材料にしてもらえるか」を先に確認する。</li>
+  <li>BREXA 2次（10/22（木）10:00）は本気で取りにいく＝保険。</li>
+</ol>
+</section>
+
+<footer>調べ方: 公式文書（国交省・厚労省・日本交通）＋当事者の事例（知恵袋・ブログ・業界サイト）を媒体別に当てた。事業者発信は割り引いて扱った。医学的な判断は医師が行う。</footer>
+</main>
+</body>
+</html>
