@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>求人広告の数字の読み方</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--mute:#6b6a65;--line:#dedcd5;--card:#fff;--acc:#2a78d6;--acc2:#d9762b;--soft:#eef4fc}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a1a19;--fg:#ecebe6;--mute:#a3a29c;--line:#3a3936;--card:#232321;--acc:#3987e5;--acc2:#e88d47;--soft:#1f2a38}}
+:root[data-theme="dark"]{--bg:#1a1a19;--fg:#ecebe6;--mute:#a3a29c;--line:#3a3936;--card:#232321;--acc:#3987e5;--acc2:#e88d47;--soft:#1f2a38}
+@media print{:root,:root:not([data-theme="light"]),:root[data-theme="dark"]{--bg:#fff;--fg:#1d1d1b;--mute:#555;--line:#ccc;--card:#fff;--acc:#2a78d6;--acc2:#d9762b;--soft:#eef4fc}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;line-height:1.8}
+main{max-width:820px;margin:0 auto;padding:28px 16px 56px}
+h1{font-size:1.5rem;margin:0 0 6px}
+.lead{color:var(--mute);margin:0 0 24px}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 12px;margin:0 0 18px;break-inside:avoid}
+h2{font-size:1.1rem;margin:0 0 8px}
+.q{font-size:.88rem;color:var(--mute);margin:0 0 8px}
+.a{border-left:4px solid var(--acc);padding:2px 0 2px 12px;margin:8px 0}
+.formula{background:var(--soft);border-radius:8px;padding:10px 14px;font-weight:600;margin:10px 0;overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem;margin:8px 0}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}
+.tw{overflow-x:auto}
+.funnel{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:10px 0}
+.step{border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:var(--soft);font-size:.9rem}
+.arrow{color:var(--mute);font-size:.82rem}
+.note{font-size:.84rem;color:var(--mute)}
+.tag{display:inline-block;font-size:.75rem;border:1px solid var(--acc2);color:var(--acc2);border-radius:4px;padding:0 5px;margin-left:4px}
+</style>
+</head>
+<body>
+<main>
+<h1>求人広告の数字の読み方</h1>
+<p class="lead">2026-10-16 のMK定例で仲島さんに教わったことの整理。Indeed と求人ボックスの月次レポートを自分で読めるようにするためのメモ。</p>
+
+<section>
+<h2>0. 全体の流れ：表示されてから応募されるまで</h2>
+<div class="funnel">
+<span class="step">表示回数<br><small>インプレッション</small></span><span class="arrow">× クリック率<br>(CTR)</span>
+<span class="step">クリック数</span><span class="arrow">× 応募率<br>(CVR)</span>
+<span class="step">応募数</span>
+</div>
+<p>お金がかかるのは<b>クリックされたとき</b>だけ（クリック課金）。表示されただけ、応募されただけではお金は動かない。</p>
+<div class="formula">費用 ＝ クリック単価（CPC）× クリック数</div>
+<div class="formula">応募単価（CPA）＝ 費用 ÷ 応募数 ＝ クリック単価 ÷ 応募率</div>
+<p class="note">2つ目の式は、1つ目の式の「クリック数」を「応募数 ÷ 応募率」に置き換えると出てくる。レポートの数字はすべてこの3段と2つの式でつながっている。</p>
+</section>
+
+<section>
+<h2>1. クリック単価は誰が決めるのか</h2>
+<p class="q">会議での質問：「最初にかちっといくらかかるか決まるイメージだった」</p>
+<div class="a"><b>Indeed では、こちらは決められない。</b>Indeed が「この求人はどれくらいクリックされるか」を学習して、クリック単価を決める。こちらが決めるのは<b>月の予算</b>（いくらまで使うか）だけ。</div>
+<ul>
+<li>表示を増やそうとすると、Indeed はクリック単価を引き上げて、より上の枠に出そうとする</li>
+<li>競合が同じ条件の求人に予算を積むと、こちらの表示は下がり、クリック単価は上がる</li>
+<li>求人ボックスは逆で、<b>クリック単価をこちらで設定できる</b>（下の5章）</li>
+</ul>
+</section>
+
+<section>
+<h2>2. 予算を増やすと、なぜ応募単価が上がるのか</h2>
+<p class="q">会議での質問：「見る人がまだ余っているうちは、予算を増やしても単価は一定じゃないの？」</p>
+<div class="a">応募率やクリック率は、原稿が良ければ予算を増やしても大きくは下がらない。上がるのは<b>クリック単価</b>のほう。</div>
+<ul>
+<li>その条件（職種・地域・未経験など）で検索する人の数には上限がある。予算を積んでも、表示はある所で頭打ちになる</li>
+<li>それでも予算を使い切ろうとすると、Indeed は1クリックの値段を上げて、より目立つ枠を取りに行く</li>
+<li>だから「予算を下げたら応募単価が下がった」が起きる。SeeD のエンジニア求人は、10月に予算を約半分にして応募単価が約1割下がった</li>
+</ul>
+<p class="note">あなたが描いていた「途中まで単価一定、飽和したら上がる」の形は、クリック単価が固定の世界の話。実際はクリック単価が予算に合わせて動くので、最初から少しずつ上がっていく。</p>
+</section>
+
+<section>
+<h2>3. クリック率が上がると、応募単価は二重に下がる</h2>
+<p class="q">会議で自分で整理したこと：「クリック率が2倍で、クリック単価も安くなるなら、応募単価は半分以上安くなる」</p>
+<div class="a">クリックされやすい原稿は、Indeed から「人気がある」と見られてクリック単価も下がる（仲島さんの仮説。公開されていないが確度は高いとのこと）。</div>
+<ul>
+<li>クリック率が上がる → 同じ表示でクリックが増える</li>
+<li>さらにクリック単価が下がる → 1クリックあたりの費用も減る</li>
+<li>だから<b>原稿（タイトル・キーワード・条件の見せ方）が、広告運用の腕の見せどころ</b>になる</li>
+</ul>
+</section>
+
+<section>
+<h2>4. 良し悪しはどこで見るか</h2>
+<p class="q">会議での質問：「業界標準みたいなのが全然分からない」</p>
+<div class="a">応募単価そのものに業界標準は無い（予算・求人数・地域で動くから）。<b>クリック率と応募率</b>で見る。</div>
+<div class="tw"><table>
+<tr><th>指標</th><th>MKが運用するエンジニア求人での目安</th></tr>
+<tr><td>クリック率（CTR）</td><td>5〜7%</td></tr>
+<tr><td>応募率（CVR）</td><td>2〜4%</td></tr>
+</table></div>
+<ul>
+<li><b>IT事務が安いのは</b>、「事務」で検索する人が多く、予算をかけなくても表示されるから。エンジニアは検索する人が少なく、競合も多い</li>
+<li><b>10月は他社が広告費を増やす時期</b>で、エンジニア求人の応募単価が4,000〜5,000円を超える会社もある</li>
+<li><b>新しく出した求人は「新着」扱い</b>で、検索結果の1ページ目に出やすい。最初の数週間は単価が低く出るので、開設時期が違うアカウントを単純に比べない</li>
+</ul>
+</section>
+
+<section>
+<h2>5. Indeed と求人ボックスの違い</h2>
+<p class="q">会議での質問：「求人ボックスの方が温度感が低い気がする。数字に出てる？」</p>
+<div class="tw"><table>
+<tr><th></th><th>Indeed</th><th>求人ボックス</th></tr>
+<tr><td>クリック単価</td><td>Indeed が決める</td><td>こちらで設定できる</td></tr>
+<tr><td>予算の使い方</td><td>予算に合わせてクリック単価が動く</td><td>掲載している求人が少ないと、予算を使い切れない。掲載数を増やして取れるだけ取る</td></tr>
+<tr><td>集まる人</td><td>求人サイトの最大手</td><td>最近広告を大量に出していて、8〜9月は訪問者数が Indeed を上回った。転職意欲の低い層の応募が増えている可能性<span class="tag">仲島さんの仮説</span></td></tr>
+</table></div>
+<p>媒体の仕組みが違っても、<b>応募単価で並べれば同じ物差しで比べられる</b>。</p>
+</section>
+
+<section>
+<h2>6. 本当に見るべきは「応募のあと」</h2>
+<div class="a">応募単価が安くても、年齢や条件で面談にできない応募ばかりなら意味がない。<b>有効応募単価・面談1件あたりの単価</b>の方が大事（仲島さん）。広告の画面からはそこが見えないので、Gooner 側の数字で返す。</div>
+<div class="formula">有効応募単価 ＝ 広告費 ÷ 有効応募数　／　面談単価 ＝ 広告費 ÷ 面談数</div>
+<p>Indeed にも「応募の質」を伝える手段がある。</p>
+<ul>
+<li><b>ステータスの更新</b>：応募者を「選考中」「対応終了」などに整理すると、Indeed は「採用につながる層」を学ぶ。応募から3日前後で整理し続けるのが、こちらにできる対策</li>
+<li><b>自動アプローチ</b>：Indeed の LINE 公式アカウントなどに「オファーが届きました」と送る機能。ペルソナの年齢層に合わせて、掲載時から設定済み</li>
+</ul>
+</section>
+
+<section>
+<h2>7. レポートに出てくる用語</h2>
+<div class="tw"><table>
+<tr><th>レポートの言葉</th><th>業界の略語</th><th>意味</th></tr>
+<tr><td>表示回数</td><td>imp（インプレッション）</td><td>検索結果などに求人が出た回数</td></tr>
+<tr><td>クリック率</td><td>CTR</td><td>クリック数 ÷ 表示回数</td></tr>
+<tr><td>クリック単価</td><td>CPC</td><td>1クリックあたりの費用</td></tr>
+<tr><td>応募率</td><td>CVR</td><td>応募数 ÷ クリック数</td></tr>
+<tr><td>応募単価</td><td>CPA</td><td>費用 ÷ 応募数</td></tr>
+<tr><td>応募開始数・応募開始率</td><td>—</td><td>応募フォームを開いた数。開始数 − 応募数 ＝ 途中でやめた人</td></tr>
+<tr><td>応募完了率</td><td>—</td><td>応募数 ÷ 応募開始数。低いならフォームの質問が多すぎる等を疑う</td></tr>
+<tr><td>ご利用額・消化</td><td>—</td><td>実際に使った費用。ご利用率 ＝ 消化 ÷ 月予算</td></tr>
+<tr><td>キャンペーン</td><td>—</td><td>予算をまとめる単位（例：エンジニア／IT事務）。キャンペーンごとに予算を割り振る</td></tr>
+<tr><td>新着</td><td>—</td><td>掲載したての求人。上位に出やすい期間がある</td></tr>
+</table></div>
+</section>
+
+<p class="note">出典：2026-10-16 MK定例で仲島さんから聞いた説明と、MASTER key の月次レポート（2026年10月度）。「仮説」と付けたものは仲島さん自身が仮説と言っていたもの。</p>
+</main>
+</body>
+</html>
