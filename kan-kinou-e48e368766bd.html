@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>健診の肝機能の読み方</title>
+<style>
+:root{
+  --bg:#f7f6f2; --card:#ffffff; --ink:#1f2328; --sub:#5b6270; --line:#d9d6cc;
+  --a:#2f6fb0; --b:#c2562b; --c:#3d8f5a; --d:#8a5cc2; --warn:#b3261e; --ok:#2e7d32; --hl:#fff4cc;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181c; --card:#20232a; --ink:#e8e6e1; --sub:#a3a9b5; --line:#3a3e47;
+    --a:#6fa8e0; --b:#e8875c; --c:#6cc08a; --d:#b893ea; --warn:#f2867d; --ok:#7fcf83; --hl:#3a3420;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181c; --card:#20232a; --ink:#e8e6e1; --sub:#a3a9b5; --line:#3a3e47;
+  --a:#6fa8e0; --b:#e8875c; --c:#6cc08a; --d:#b893ea; --warn:#f2867d; --ok:#7fcf83; --hl:#3a3420;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif;line-height:1.75;font-size:16px}
+main{max-width:760px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.5rem;margin:0 0 4px}
+.lead{color:var(--sub);margin:0 0 24px}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 18px;margin:0 0 18px}
+h2{font-size:1.15rem;margin:0 0 6px}
+h2 .n{display:inline-block;width:1.7em;height:1.7em;line-height:1.7em;text-align:center;border-radius:50%;background:var(--ink);color:var(--card);font-size:.85rem;margin-right:8px;vertical-align:2px}
+.msg{font-weight:700;margin:0 0 14px}
+svg{width:100%;height:auto;display:block}
+svg text{fill:var(--ink);font-family:inherit}
+.sub{fill:var(--sub)}
+.note{color:var(--sub);font-size:.88rem;margin:10px 0 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.box{border:1px solid var(--line);border-radius:10px;padding:12px}
+.box b{display:block;margin-bottom:4px}
+.tag{display:inline-block;font-size:.78rem;border-radius:99px;padding:1px 10px;margin-top:6px;border:1px solid currentColor}
+.ok{color:var(--ok)} .ng{color:var(--warn)}
+mark{background:var(--hl);color:inherit;padding:0 3px;border-radius:3px}
+ol{padding-left:1.3em;margin:0}
+li{margin:4px 0}
+footer{color:var(--sub);font-size:.82rem;text-align:center;margin-top:20px}
+</style>
+</head>
+<body>
+<main>
+<h1>健診の「肝機能」の読み方</h1>
+<p class="lead">ハイヤーの健康診断で肝臓が引っかかったときに、何を見て、何をすれば通る見込みが出るか。</p>
+
+<section>
+<h2><span class="n">1</span>肝機能の数字は4つ</h2>
+<p class="msg">2つは「壊れた量」、1つは「働きすぎ」、1つは「ゴミ処理」を測っている。</p>
+<svg viewBox="0 0 640 300" role="img" aria-label="肝臓と4つの数字の関係図">
+  <ellipse cx="320" cy="150" rx="120" ry="72" fill="none" stroke="var(--ink)" stroke-width="2.5"/>
+  <text x="320" y="146" text-anchor="middle" font-size="22" font-weight="700">肝臓</text>
+  <text x="320" y="172" text-anchor="middle" font-size="13" class="sub">体の化学工場</text>
+  <!-- AST -->
+  <line x1="215" y1="112" x2="140" y2="62" stroke="var(--a)" stroke-width="2.5"/>
+  <rect x="10" y="20" width="170" height="64" rx="10" fill="none" stroke="var(--a)" stroke-width="2"/>
+  <text x="95" y="46" text-anchor="middle" font-size="17" font-weight="700" fill="var(--a)" style="fill:var(--a)">AST</text>
+  <text x="95" y="70" text-anchor="middle" font-size="13">細胞が壊れて漏れた量</text>
+  <!-- ALT -->
+  <line x1="425" y1="112" x2="500" y2="62" stroke="var(--b)" stroke-width="2.5"/>
+  <rect x="460" y="20" width="170" height="64" rx="10" fill="none" stroke="var(--b)" stroke-width="2"/>
+  <text x="545" y="46" text-anchor="middle" font-size="17" font-weight="700" style="fill:var(--b)">ALT</text>
+  <text x="545" y="70" text-anchor="middle" font-size="13">同上（ほぼ肝臓だけ）</text>
+  <!-- GGT -->
+  <line x1="215" y1="188" x2="140" y2="238" stroke="var(--c)" stroke-width="2.5"/>
+  <rect x="10" y="216" width="170" height="64" rx="10" fill="none" stroke="var(--c)" stroke-width="2"/>
+  <text x="95" y="242" text-anchor="middle" font-size="17" font-weight="700" style="fill:var(--c)">γ-GTP</text>
+  <text x="95" y="266" text-anchor="middle" font-size="13">働きすぎ（お酒に反応）</text>
+  <!-- Bil -->
+  <line x1="425" y1="188" x2="500" y2="238" stroke="var(--d)" stroke-width="2.5"/>
+  <rect x="460" y="216" width="170" height="64" rx="10" fill="none" stroke="var(--d)" stroke-width="2"/>
+  <text x="545" y="242" text-anchor="middle" font-size="17" font-weight="700" style="fill:var(--d)">ビリルビン</text>
+  <text x="545" y="266" text-anchor="middle" font-size="13">赤血球のゴミ処理</text>
+</svg>
+<p class="note">AST は筋肉にも多いので、激しい筋トレの直後でも上がる。</p>
+</section>
+
+<section>
+<h2><span class="n">2</span>数字の下がる速さが違う</h2>
+<p class="msg">AST・ALT は数日で戻るが、γ-GTP は禁酒しても半分になるのに約2週間かかる。</p>
+<svg viewBox="0 0 640 280" role="img" aria-label="原因を止めてからの数字の下がり方">
+  <line x1="50" y1="220" x2="590" y2="220" stroke="var(--line)" stroke-width="1.5"/>
+  <line x1="50" y1="20" x2="50" y2="220" stroke="var(--line)" stroke-width="1.5"/>
+  <line x1="50" y1="120" x2="590" y2="120" stroke="var(--line)" stroke-dasharray="4 4"/>
+  <text x="44" y="24" text-anchor="end" font-size="12" class="sub">100</text>
+  <text x="44" y="124" text-anchor="end" font-size="12" class="sub">半分</text>
+  <text x="44" y="224" text-anchor="end" font-size="12" class="sub">0</text>
+  <text x="50" y="242" text-anchor="middle" font-size="12" class="sub">0日</text>
+  <text x="182" y="242" text-anchor="middle" font-size="12" class="sub">7日</text>
+  <text x="315" y="242" text-anchor="middle" font-size="12" class="sub">14日</text>
+  <text x="448" y="242" text-anchor="middle" font-size="12" class="sub">21日</text>
+  <text x="580" y="242" text-anchor="middle" font-size="12" class="sub">28日</text>
+  <text x="315" y="268" text-anchor="middle" font-size="13" class="sub">原因（お酒・運動など）を止めてからの日数</text>
+  <polyline fill="none" stroke="var(--a)" stroke-width="3" points="50,20 59.5,98.2 68.9,145.6 78.4,174.6 87.9,192.4 106.8,209.8 125.7,216.2 163.6,219.5 580,220"/>
+  <polyline fill="none" stroke="var(--b)" stroke-width="3" points="50,20 68.9,78.6 87.9,120 106.8,149.2 125.7,170 144.7,184.6 163.6,195 201.4,207.5 239.3,213.8 315,218.4 580,220"/>
+  <polyline fill="none" stroke="var(--c)" stroke-width="3.5" points="50,20 87.9,38.8 125.7,56 163.6,71.4 201.4,85.4 239.3,98 277.2,109.6 315,120 352.9,129.4 390.7,138 428.6,145.6 466.5,152.8 504.3,159 542.2,164.8 580,170"/>
+  <circle cx="315" cy="120" r="5" style="fill:var(--c)"/>
+  <text x="325" y="112" font-size="13" font-weight="700" style="fill:var(--c)">γ-GTP：14日で半分</text>
+  <text x="96" y="140" font-size="13" font-weight="700" style="fill:var(--b)">ALT：2日で半分</text>
+  <text x="60" y="186" font-size="13" font-weight="700" style="fill:var(--a)">AST：1日以内</text>
+</svg>
+<p class="note">一般的な目安（半減期の典型値）。個人差がある。だから<mark>再受診の日は、準備期間が取れる日ほど有利</mark>。</p>
+</section>
+
+<section>
+<h2><span class="n">3</span>若い人で「昔から悪い」原因は主に3つ</h2>
+<p class="msg">どの数字が高いかで、原因の見当がつく。</p>
+<div class="grid">
+  <div class="box"><b>脂肪肝</b>ALT が高め。太っていなくても、甘い物・夜食が多いとなる。食事で数週間〜数か月で下がる。<br><span class="tag ok">説明しやすい</span></div>
+  <div class="box"><b>体質（ジルベール症候群）</b>ビリルビンだけ少し高い。数%の人にある生まれつきの体質で害はない。空腹・寝不足で上がる。<br><span class="tag ok">一番説明しやすい</span></div>
+  <div class="box"><b>お酒</b>γ-GTP が高い。若くても量が多いと上がる。下がるのに2〜4週間。<br><span class="tag ng">説明は逆効果</span></div>
+</div>
+<p class="note">まれに B型・C型肝炎もある。内科の採血1回で白黒がつく。</p>
+</section>
+
+<section>
+<h2><span class="n">4</span>会社が気にしているのは2つ</h2>
+<p class="msg">「お酒の習慣がないか」と「原因の分からない病気がないか」。</p>
+<p style="margin:0">肝臓の数字が少し高いだけで、運転中に倒れることはまず無い。運転の仕事で一番敏感なのは<mark>飲酒習慣</mark>で、γ-GTP が高いとそう読まれやすい。バス・タクシー・ハイヤーは健診で異常が出たら医師の意見を聞いて乗務の可否を決める仕組み（国交省の健康管理マニュアル）なので、<mark>医師の「就業に支障なし」の書類はそのまま判断材料になる</mark>。</p>
+</section>
+
+<section>
+<h2><span class="n">5</span>どう動くか</h2>
+<p class="msg">原因を先に確かめて、それに合わせて会社への見せ方を決める。</p>
+<svg viewBox="0 0 640 330" role="img" aria-label="原因ごとの進め方の分岐図">
+  <rect x="200" y="10" width="240" height="50" rx="10" fill="none" stroke="var(--ink)" stroke-width="2"/>
+  <text x="320" y="32" text-anchor="middle" font-size="14" font-weight="700">内科で採血・過去の結果を見る</text>
+  <text x="320" y="50" text-anchor="middle" font-size="12" class="sub">どの数字が高いか</text>
+  <line x1="320" y1="60" x2="320" y2="85" stroke="var(--ink)" stroke-width="2"/>
+  <line x1="110" y1="85" x2="530" y2="85" stroke="var(--ink)" stroke-width="2"/>
+  <line x1="110" y1="85" x2="110" y2="110" stroke="var(--ink)" stroke-width="2"/>
+  <line x1="320" y1="85" x2="320" y2="110" stroke="var(--ink)" stroke-width="2"/>
+  <line x1="530" y1="85" x2="530" y2="110" stroke="var(--ink)" stroke-width="2"/>
+  <rect x="15" y="110" width="190" height="48" rx="10" fill="none" stroke="var(--d)" stroke-width="2"/>
+  <text x="110" y="140" text-anchor="middle" font-size="14" font-weight="700" style="fill:var(--d)">ビリルビンだけ</text>
+  <rect x="225" y="110" width="190" height="48" rx="10" fill="none" stroke="var(--b)" stroke-width="2"/>
+  <text x="320" y="140" text-anchor="middle" font-size="14" font-weight="700" style="fill:var(--b)">ALT が中心</text>
+  <rect x="435" y="110" width="190" height="48" rx="10" fill="none" stroke="var(--c)" stroke-width="2"/>
+  <text x="530" y="140" text-anchor="middle" font-size="14" font-weight="700" style="fill:var(--c)">γ-GTP が中心</text>
+  <line x1="110" y1="158" x2="110" y2="185" stroke="var(--line)" stroke-width="2"/>
+  <line x1="320" y1="158" x2="320" y2="185" stroke="var(--line)" stroke-width="2"/>
+  <line x1="530" y1="158" x2="530" y2="185" stroke="var(--line)" stroke-width="2"/>
+  <text x="110" y="205" text-anchor="middle" font-size="13">体質の可能性</text>
+  <text x="320" y="205" text-anchor="middle" font-size="13">脂肪肝の可能性</text>
+  <text x="530" y="205" text-anchor="middle" font-size="13">お酒を疑われる</text>
+  <rect x="15" y="220" width="190" height="96" rx="10" fill="none" stroke="var(--ok)" stroke-width="2"/>
+  <text x="110" y="248" text-anchor="middle" font-size="13" style="fill:var(--ok)" font-weight="700">診断書で説明</text>
+  <text x="110" y="272" text-anchor="middle" font-size="12">「病的意義なし」</text>
+  <text x="110" y="292" text-anchor="middle" font-size="12">中原さん経由で提出</text>
+  <rect x="225" y="220" width="190" height="96" rx="10" fill="none" stroke="var(--ok)" stroke-width="2"/>
+  <text x="320" y="248" text-anchor="middle" font-size="13" style="fill:var(--ok)" font-weight="700">食事改善＋意見書</text>
+  <text x="320" y="272" text-anchor="middle" font-size="12">「経過観察・就業可」</text>
+  <text x="320" y="292" text-anchor="middle" font-size="12">再受診の数字も添える</text>
+  <rect x="435" y="220" width="190" height="96" rx="10" fill="none" stroke="var(--warn)" stroke-width="2"/>
+  <text x="530" y="248" text-anchor="middle" font-size="13" style="fill:var(--warn)" font-weight="700">説明は出さない</text>
+  <text x="530" y="272" text-anchor="middle" font-size="12">今日から禁酒</text>
+  <text x="530" y="292" text-anchor="middle" font-size="12">下がった数字で見せる</text>
+</svg>
+<p class="note">どの道でも、送った7項目（禁酒・水・睡眠・食事・前日20時まで・運動控え・当日安静）は続ける。</p>
+</section>
+
+<section>
+<h2><span class="n">6</span>次にやること</h2>
+<ol>
+  <li>本人に、過去の健診で<mark>どの数字が高いと言われたか</mark>を聞く。</li>
+  <li>再受診の前に、内科で採血して原因を聞いてもらう（自費で数千円・結果は当日〜数日）。</li>
+  <li>原因が分かってから、会社への伝え方を決める（分かるまでは会社に持ち出さない）。</li>
+</ol>
+</section>
+
+<footer>仕組みの説明であって診断ではない。原因を決めるのは内科の医師。　2026年10月20日作成</footer>
+</main>
+</body>
+</html>
