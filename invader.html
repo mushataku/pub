@@ -15,7 +15,7 @@
 <body>
 <div id="wrap">
   <canvas id="c" width="672" height="768"></canvas>
-  <div id="hint">← → で移動 ／ スペースで発射 ／ P で一時停止 ／ M で音のON/OFF</div>
+  <div id="hint">← → で移動 ／ スペース・Z・↑・クリックで発射 ／ P 一時停止 ／ M 音ON/OFF</div>
 </div>
 <script>
 const cv = document.getElementById('c'), g = cv.getContext('2d');
@@ -112,14 +112,31 @@ function hitShield(b){
 }
 
 // ---- 入力 ----
-addEventListener('keydown',e=>{
-  keys[e.code]=true;
-  if(['Space','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.code)) e.preventDefault();
-  if(e.code==='KeyM') muted=!muted;
-  if(e.code==='KeyP' && state==='play') paused=!paused;
-  if((e.code==='Space'||e.code==='Enter') && (state==='title'||state==='over')) newGame();
-});
-addEventListener('keyup',e=>keys[e.code]=false);
+// 日本語入力ON・環境差でも撃てるように、スペース・Z・↑・Enter を全部「発射」に寄せる
+function keyName(e){
+  const k=e.key, c=e.code;
+  if(c==='Space'||k===' '||k==='Spacebar'||e.keyCode===32||c==='KeyZ'||k==='z'||k==='Z'||c==='ArrowUp'||k==='ArrowUp'||c==='Enter'||k==='Enter') return 'Space';
+  if(c==='ArrowLeft'||k==='ArrowLeft'||c==='KeyA') return 'ArrowLeft';
+  if(c==='ArrowRight'||k==='ArrowRight'||c==='KeyD') return 'ArrowRight';
+  return c;
+}
+function onKey(e,down){
+  const n=keyName(e);
+  if(['Space','ArrowLeft','ArrowRight','ArrowDown'].includes(n)) e.preventDefault();
+  if(!down){ keys[n]=false; return; }
+  keys[n]=true;
+  if(e.repeat) return;
+  if(n==='KeyM') muted=!muted;
+  if(n==='KeyP' && state==='play') paused=!paused;
+  if(n==='Space' && (state==='title'||state==='over')) newGame();
+}
+window.addEventListener('keydown',e=>onKey(e,true),true);
+window.addEventListener('keyup',e=>onKey(e,false),true);
+window.addEventListener('blur',()=>{ for(const k in keys) keys[k]=false; });
+// マウスでも：クリックでスタート、押している間は発射
+cv.addEventListener('mousedown',()=>{ window.focus(); if(state==='title'||state==='over'){newGame();return;} keys.Space=true; });
+addEventListener('mouseup',()=>{ keys.Space=false; });
+window.focus();
 // タッチ（スマホでも遊べるように）
 cv.addEventListener('touchstart',e=>{ e.preventDefault(); if(state!=='play'){newGame();return;} touchMove(e); keys.Space=true; },{passive:false});
 cv.addEventListener('touchmove',e=>{ e.preventDefault(); touchMove(e); },{passive:false});
@@ -234,7 +251,7 @@ function draw(){
     drawSpr(SPR.squid[0],W/2-128,360,3,'#ff4fd8');  txt('= 30 点',W/2+40,382,22,'#fff','left');
     drawSpr(SPR.crab[0],W/2-134,420,3,'#4fd8ff');   txt('= 20 点',W/2+40,442,22,'#fff','left');
     drawSpr(SPR.octo[0],W/2-136,480,3,'#7dff4f');   txt('= 10 点',W/2+40,502,22,'#fff','left');
-    if(Math.floor(Date.now()/500)%2) txt('スペースキーでスタート',W/2,620,28,'#ffd84f');
+    if(Math.floor(Date.now()/500)%2) txt('スペース か クリックでスタート',W/2,620,26,'#ffd84f');
     return;
   }
 
@@ -269,7 +286,7 @@ function draw(){
     g.fillStyle='rgba(0,0,0,.6)'; g.fillRect(0,H/2-110,W,200);
     txt('GAME OVER',W/2,H/2-30,56,'#ff3b3b');
     txt('SCORE '+score,W/2,H/2+20,28,'#fff');
-    if(Math.floor(Date.now()/500)%2) txt('スペースキーでもう一回',W/2,H/2+70,24,'#ffd84f');
+    if(Math.floor(Date.now()/500)%2) txt('スペース か クリックでもう一回',W/2,H/2+70,24,'#ffd84f');
   }
 }
 
