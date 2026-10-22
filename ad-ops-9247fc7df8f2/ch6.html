@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>広告運用の勉強サイト｜6章 Gooner でいま起きていること</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="site.css">
+<script src="data.js"></script>
+<script src="site.js"></script>
+<script src="sims.js"></script>
+<style>
+/* 6章だけの見た目（共通へ上げたいものは parts/ch6.md） */
+.c6-cell { fill: var(--surface); stroke: var(--grid); stroke-width: 1; }
+.c6-jump { fill: var(--surface); stroke: var(--ink); stroke-width: 2.5; }
+.c6-ok { fill: var(--surface); stroke: var(--ink2); stroke-width: 1.5; }
+.c6-not { fill: var(--surface); stroke: var(--ink2); stroke-width: 1.5; stroke-dasharray: 5 3; }
+.c6-line { fill: none; stroke-width: 2.5; }
+.c6-dash { stroke-dasharray: 6 4; }
+.c6-fade { opacity: .55; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><a class="home" href="index.html">広告運用の勉強サイト</a><button class="theme-btn" type="button">配色: 自動</button></header>
+<nav class="here" data-here="spend,app,valid,iv,rec,acc" aria-label="全体の中の今ここ">全体の流れ: 広告費 → クリック → 応募 → 有効応募 → 面談 → 推薦 → 承諾（この章は広告費から承諾まで）→ 紹介料</nav>
+<main>
+<h1><span class="chno">6章</span>Gooner でいま起きていること: アカウント別の6段</h1>
+<p class="lead">3つのアカウント（SeeD・求人BOX・心）を広告費から承諾までの6段で並べ、どこで減るか・何が途中か・何がまだ言えないかを見る。</p>
+
+<h2 id="sec-6-1">9月の応募はどの段で減ったか</h2>
+<figure id="fig-6-1">
+<p class="tag"><b>何</b>: 段ごとの人数と単価｜<b>期間</b>: 暦月 9月＝応募日 <span data-n="c09.from">9/1</span>〜<span data-n="c09.to">9/30</span> の人を取得時点まで追った数｜<b>時点</b>: <span data-n="meta.page_time">10/22 17:06</span>｜<b>範囲</b>: 全体・SeeD・求人BOX（心は10月開設＝図6-4）。承諾は MK 経由以外の経路も含む｜<b>定義</b>: 単価＝9月の広告費 ÷ その段まで進んだ9月の応募者。応募は件数、有効応募から先は人数。面談は新規面談</p>
+<p class="legend"><span>太い枠＝1つ上の段から単価がいちばん大きく跳ねた段（その列で1つ）</span></p>
+<svg class="w-s" viewBox="0 0 360 292" role="img" aria-labelledby="t-6-1"><title id="t-6-1">9月の応募者を6段で並べた表。全体は広告費 1,246,207 円、応募 419 件、有効応募 176 人、面談 58 人、推薦 14 人、承諾 5 人。SeeD は推薦で単価がいちばん跳ね（19,231 円から 83,333 円）、求人BOX は面談で跳ねる（6,839 円から 41,034 円）。</title>
+<g font-size="12">
+<text x="4" y="22" class="s-ink2">段</text>
+<text x="125" y="22" text-anchor="middle" font-weight="700">全体</text>
+<text x="215" y="22" text-anchor="middle" font-weight="700">SeeD</text>
+<text x="305" y="22" text-anchor="middle" font-weight="700">求人BOX</text>
+
+<text x="4" y="55">広告費</text>
+<rect x="82" y="34" width="86" height="38" rx="4" class="c6-cell"/>
+<text x="125" y="58" text-anchor="middle" font-weight="700"><tspan data-n="c09.all.spend">1,246,207</tspan>円</text>
+<rect x="172" y="34" width="86" height="38" rx="4" class="c6-cell"/>
+<text x="215" y="58" text-anchor="middle" font-weight="700"><tspan data-n="c09.seed.spend">1,000,000</tspan>円</text>
+<rect x="262" y="34" width="86" height="38" rx="4" class="c6-cell"/>
+<text x="305" y="58" text-anchor="middle" font-weight="700"><tspan data-n="c09.box.spend">246,207</tspan>円</text>
+
+<text x="4" y="97">応募</text>
+<rect x="82" y="76" width="86" height="38" rx="4" class="c6-cell"/>
+<text x="125" y="92" text-anchor="middle" font-weight="700"><tspan data-n="c09.all.app">419</tspan> 件</text>
+<text x="125" y="107" text-anchor="middle" font-size="11.5" class="s-ink2">単価 <tspan data-n="c09.all.u.app">2,974</tspan>円</text>
+<rect x="172" y="76" width="86" height="38" rx="4" class="c6-cell"/>
+<text x="215" y="92" text-anchor="middle" font-weight="700"><tspan data-n="c09.seed.app">343</tspan> 件</text>
+<text x="215" y="107" text-anchor="middle" font-size="11.5" class="s-ink2">単価 <tspan data-n="c09.seed.u.app">2,915</tspan>円</text>
+<rect x="262" y="76" width="86" height="38" rx="4" class="c6-cell"/>
+<text x="305" y="92" text-anchor="middle" font-weight="700"><tspan data-n="c09.box.app">76</tspan> 件</text>
+<text x="305" y="107" text-anchor="middle" font-size="11.5" class="s-ink2">単価 <tspan data-n="c09.box.u.app">3,240</tspan>円</text>
+
+<text x="4" y="139">有効応募</text>
+<rect x="82" y="118" width="86" height="38" rx="4" class="c6-cell"/>
+<text x="125" y="134" text-anchor="middle" font-weight="700"><tspan data-n="c09.all.valid">176</tspan> 人</text>
+<text x="125" y="149" text-anchor="middle" font-size="11.5" class="s-ink2">単価 <tspan data-n="c09.all.u.valid">7,081</tspan>円</text>
+<rect x="172" y="118" width="86" height="38" rx="4" class="c6-cell"/>
+<text x="215" y="134" text-anchor="middle" font-weight="700"><tspan data-n="c09.seed.valid">140</tspan> 人</text>
+<text x="215" y="149" text-anchor="middle" font-size="11.5" class="s-ink2">単価 <tspan data-n="c09.seed.u.valid">7,143</tspan>円</text>
+<rect x="262" y="118" width="86" height="38" rx="4" class="c6-cell"/>
+<text x="305" y="134" text-anchor="middle" font-weight="700"><tspan data-n="c09.box.valid">36</tspan> 人</text>
+<text x="305" y="149" text-anchor="middle" font-size="11.5" class="s-ink2">単価 <tspan data-n="c09.box.u.valid">6,839</tspan>円</text>
+
+<text x="4" y="181">面談</text>
+<rect x="82" y="160" width="86" height="38" rx="4" class="c6-cell"/>
+<text x="125" y="176" text-anchor="middle" font-weight="700"><tspan data-n="c09.all.iv1">58</tspan> 人</text>
+<text x="125" y="191" text-anchor="middle" font-size="11.5" class="s-ink2">単価 <tspan data-n="c09.all.u.iv1">21,486</tspan>円</text>
+<rect x="172" y="160" width="86" height="38" rx="4" class="c6-cell"/>
+<text x="215" y="176" text-anchor="middle" font-weight="700"><tspan data-n="c09.seed.iv1">52</tspan> 人</text>
+<text x="215" y="191" text-anchor="middle" font-size="11.5" class="s-ink2">単価 <tspan data-n="c09.seed.u.iv1">19,231</tspan>円</text>
+<rect x="262" y="160" width="86" height="38" rx="4" class="c6-jump"/>
+<text x="305" y="176" text-anchor="middle" font-weight="700"><tspan data-n="c09.box.iv1">6</tspan> 人</text>
+<text x="305" y="191" text-anchor="middle" font-size="11.5" class="s-ink2">単価 <tspan data-n="c09.box.u.iv1">41,034</tspan>円</text>
+
+<text x="4" y="223">推薦</text>
+<rect x="82" y="202" width="86" height="38" rx="4" class="c6-jump"/>
+<text x="125" y="218" text-anchor="middle" font-weight="700"><tspan data-n="c09.all.rec">14</tspan> 人</text>
+<text x="125" y="233" text-anchor="middle" font-size="11.5" class="s-ink2">単価 <tspan data-n="c09.all.u.rec">89,015</tspan>円</text>
+<rect x="172" y="202" width="86" height="38" rx="4" class="c6-jump"/>
+<text x="215" y="218" text-anchor="middle" font-weight="700"><tspan data-n="c09.seed.rec">12</tspan> 人</text>
+<text x="215" y="233" text-anchor="middle" font-size="11.5" class="s-ink2">単価 <tspan data-n="c09.seed.u.rec">83,333</tspan>円</text>
+<rect x="262" y="202" width="86" height="38" rx="4" class="c6-cell"/>
+<text x="305" y="218" text-anchor="middle" font-weight="700"><tspan data-n="c09.box.rec">2</tspan> 人</text>
+<text x="305" y="233" text-anchor="middle" font-size="11.5" class="s-ink2">単価 <tspan data-n="c09.box.u.rec">123,104</tspan>円</text>
+
+<text x="4" y="265">承諾</text>
+<rect x="82" y="244" width="86" height="38" rx="4" class="c6-cell"/>
+<text x="125" y="260" text-anchor="middle" font-weight="700"><tspan data-n="c09.all.acc">5</tspan> 人</text>
+<text x="125" y="275" text-anchor="middle" font-size="11.5" class="s-ink2">単価 <tspan data-n="c09.all.u.acc">249,241</tspan>円</text>
+<rect x="172" y="244" width="86" height="38" rx="4" class="c6-cell"/>
+<text x="215" y="260" text-anchor="middle" font-weight="700"><tspan data-n="c09.seed.acc">4</tspan> 人</text>
+<text x="215" y="275" text-anchor="middle" font-size="11.5" class="s-ink2">単価 <tspan data-n="c09.seed.u.acc">250,000</tspan>円</text>
+<rect x="262" y="244" width="86" height="38" rx="4" class="c6-cell"/>
+<text x="305" y="260" text-anchor="middle" font-weight="700"><tspan data-n="c09.box.acc">1</tspan> 人</text>
+<text x="305" y="275" text-anchor="middle" font-size="11.5" class="s-ink2">単価 <tspan data-n="c09.box.u.acc">246,207</tspan>円</text>
+</g>
+</svg>
+<figcaption>太い枠の段で単価が跳ねる（SeeD 約4倍・求人BOX 約6倍）。</figcaption>
+</figure>
+<p>下の段ほど単価は上がり、跳ね方がいちばん大きい段が、人がいちばん減る段です。9月の SeeD は<a href="glossary.html#iv1">面談</a>から推薦で、求人BOX は有効応募から面談で大きく減りました。求人BOX は面談から先が数人なので、1人の増減で単価が大きく動きます。</p>
+
+<h2 id="sec-6-2">月ごとの推移: 10月はまだ途中</h2>
+<figure id="fig-6-2">
+<p class="tag"><b>何</b>: 広告費・有効応募単価・承諾の月ごとの推移｜<b>期間</b>: 暦月 <span data-n="c07.from">7/1</span>〜9/30 と、10月は <span data-n="c10.from">10/1</span>〜<span data-n="c10.to">10/16</span>（途中）｜<b>時点</b>: <span data-n="meta.page_time">10/22 17:06</span>｜<b>範囲</b>: SeeD・求人BOX・心（心は10月開設）｜<b>定義</b>: 承諾はその月の応募者のうち取得時点までに承諾した人数。有効応募単価＝その月の広告費 ÷ その月の有効応募</p>
+<p class="legend"><span>色はアカウント: 青＝SeeD・橙＝求人BOX・紫＝心。線の形でも区別（SeeD 実線●・求人BOX 点線■・心 ▲）。斜線の帯＝途中の月</span></p>
+<svg class="w-s" viewBox="0 0 360 312" role="img" aria-labelledby="t-6-2"><title id="t-6-2">7月から10月の推移。広告費は 7月 880,690 円、8月 1,250,558 円、9月 1,246,207 円、10月は 10/16 までで 600,069 円。有効応募単価は SeeD が 3,365 円から 7,194 円、7,143 円、7,145 円。求人BOX は 1,379 円、2,433 円、6,839 円、6,170 円で、9月にほぼ SeeD と並んだ。心は10月 4,574 円。承諾は SeeD 3、0、4、0 人、求人BOX 1、0、1、0 人。10月は途中。</title>
+<defs><pattern id="hatch6" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" class="st-ink2" style="stroke-width:1.5;stroke-opacity:.35"/></pattern></defs>
+<rect x="238" y="4" width="54" height="306" fill="url(#hatch6)"/>
+<g font-size="12">
+<!-- A 広告費 -->
+<text x="4" y="14" class="s-ink2" font-size="11.5">広告費（円）</text>
+<line x1="80" y1="100" x2="300" y2="100" class="st-axis"/>
+<rect x="84" y="56.9" width="32" height="43.1" class="f-blue"/><rect x="84" y="45.8" width="32" height="11.1" class="f-orange"/>
+<text x="100" y="41" text-anchor="middle" font-size="11.5" class="halo s-ink"><tspan data-n="c07.all.spend">880,690</tspan></text>
+<rect x="139" y="38.5" width="32" height="61.5" class="f-blue"/><rect x="139" y="23.0" width="32" height="15.4" class="f-orange"/>
+<text x="171" y="19" text-anchor="end" font-size="11.5" class="halo s-ink"><tspan data-n="c08.all.spend">1,250,558</tspan></text>
+<rect x="194" y="38.5" width="32" height="61.5" class="f-blue"/><rect x="194" y="23.3" width="32" height="15.1" class="f-orange"/>
+<text x="194" y="19" text-anchor="start" font-size="11.5" class="halo s-ink"><tspan data-n="c09.all.spend">1,246,207</tspan></text>
+<rect x="249" y="83.3" width="32" height="16.7" class="f-blue"/><rect x="249" y="67.2" width="32" height="16.0" class="f-violet"/><rect x="249" y="63.1" width="32" height="4.2" class="f-orange"/>
+<text x="265" y="59" text-anchor="middle" font-size="11.5" class="halo s-ink"><tspan data-n="c10.all.spend">600,069</tspan></text>
+<text x="100" y="116" text-anchor="middle">7月</text>
+<text x="155" y="116" text-anchor="middle">8月</text>
+<text x="210" y="116" text-anchor="middle">9月</text>
+<text x="265" y="116" text-anchor="middle" font-weight="700">10月</text>
+<text x="265" y="129" text-anchor="middle" font-size="11.5" class="halo s-ink">途中〜<tspan data-n="c10.to">10/16</tspan></text>
+
+<!-- B 有効応募単価 -->
+<text x="4" y="146" class="s-ink2" font-size="11.5">有効応募単価（円）</text>
+<line x1="80" y1="232" x2="300" y2="232" class="st-axis"/>
+<line x1="80" y1="194" x2="300" y2="194" class="st-grid"/>
+<line x1="80" y1="156" x2="300" y2="156" class="st-grid"/>
+<text x="4" y="236" font-size="11.5" class="s-ink2">0</text>
+<text x="4" y="198" font-size="11.5" class="s-ink2">4,000</text>
+<text x="4" y="160" font-size="11.5" class="s-ink2">8,000</text>
+<polyline points="100,200.0 155,163.6 210,164.1" class="c6-line st-blue"/>
+<polyline points="210,164.1 265,164.1" class="c6-line st-blue c6-fade"/>
+<circle cx="100" cy="200.0" r="4" class="f-blue"/><circle cx="155" cy="163.6" r="4" class="f-blue"/><circle cx="210" cy="164.1" r="4" class="f-blue"/><circle cx="265" cy="164.1" r="4" class="f-blue c6-fade"/>
+<polyline points="100,218.9 155,208.9 210,167.0" class="c6-line c6-dash st-orange"/>
+<polyline points="210,167.0 265,173.4" class="c6-line c6-dash st-orange c6-fade"/>
+<rect x="96" y="214.9" width="8" height="8" class="f-orange"/><rect x="151" y="204.9" width="8" height="8" class="f-orange"/><rect x="206" y="163.0" width="8" height="8" class="f-orange"/><rect x="261" y="169.4" width="8" height="8" class="f-orange c6-fade"/>
+<path d="M265,183.5 L270,192.5 L260,192.5 Z" class="f-violet"/>
+<text x="94" y="196" text-anchor="end" font-size="11.5" class="halo s-ink"><tspan data-n="c07.seed.u.valid">3,365</tspan></text>
+<text x="94" y="226" text-anchor="end" font-size="11.5" class="halo s-ink"><tspan data-n="c07.box.u.valid">1,379</tspan></text>
+<text x="155" y="153" text-anchor="middle" font-size="11.5" class="halo s-ink"><tspan data-n="c08.seed.u.valid">7,194</tspan></text>
+<text x="155" y="225" text-anchor="middle" font-size="11.5" class="halo s-ink"><tspan data-n="c08.box.u.valid">2,433</tspan></text>
+<text x="210" y="153" text-anchor="middle" font-size="11.5" class="halo s-ink"><tspan data-n="c09.seed.u.valid">7,143</tspan></text>
+<text x="216" y="187" text-anchor="start" font-size="11.5" class="halo s-ink"><tspan data-n="c09.box.u.valid">6,839</tspan></text>
+<text x="276" y="160" font-size="11.5" class="halo s-ink">SeeD <tspan data-n="c10.seed.u.valid">7,145</tspan></text>
+<text x="276" y="177" font-size="11.5" class="halo s-ink">BOX <tspan data-n="c10.box.u.valid">6,170</tspan></text>
+<text x="276" y="194" font-size="11.5" class="halo s-ink">心 <tspan data-n="c10.shin.u.valid">4,574</tspan></text>
+
+<!-- C 承諾 -->
+<text x="4" y="254" class="s-ink2" font-size="11.5">承諾（人）</text>
+<line x1="4" y1="259" x2="300" y2="259" class="st-grid"/>
+<text x="4" y="274">SeeD</text>
+<text x="100" y="274" text-anchor="middle" font-weight="700"><tspan data-n="c07.seed.acc">3</tspan></text>
+<text x="155" y="274" text-anchor="middle" font-weight="700"><tspan data-n="c08.seed.acc">0</tspan></text>
+<text x="210" y="274" text-anchor="middle" font-weight="700"><tspan data-n="c09.seed.acc">4</tspan></text>
+<text x="265" y="274" text-anchor="middle" class="halo s-ink"><tspan data-n="c10.seed.acc">0</tspan>（途中）</text>
+<text x="4" y="290">求人BOX</text>
+<text x="100" y="290" text-anchor="middle" font-weight="700"><tspan data-n="c07.box.acc">1</tspan></text>
+<text x="155" y="290" text-anchor="middle" font-weight="700"><tspan data-n="c08.box.acc">0</tspan></text>
+<text x="210" y="290" text-anchor="middle" font-weight="700"><tspan data-n="c09.box.acc">1</tspan></text>
+<text x="265" y="290" text-anchor="middle" class="halo s-ink"><tspan data-n="c10.box.acc">0</tspan>（途中）</text>
+<text x="4" y="306">心</text>
+<text x="100" y="306" text-anchor="middle" font-size="11.5" class="s-ink2">開設前</text>
+<text x="155" y="306" text-anchor="middle" font-size="11.5" class="s-ink2">開設前</text>
+<text x="210" y="306" text-anchor="middle" font-size="11.5" class="s-ink2">開設前</text>
+<text x="265" y="306" text-anchor="middle" class="halo s-ink"><tspan data-n="c10.shin.acc">0</tspan>（途中）</text>
+</g>
+</svg>
+<figcaption>8月の0人は届く時期を過ぎての0人、10月の0人は届く前の0人。</figcaption>
+</figure>
+<p>承諾は応募から <span data-n="lag.lo">2</span>〜<span data-n="lag.hi">8</span> 週遅れて（中央 <span data-n="lag.med">3</span> 週）届きます。10月の数は打ち切り（途中までの数）なので、0人は「まだ来ていない」と読みます。求人BOX の有効応募単価は 7〜8月は SeeD の半分以下でしたが、9月にはほぼ並びました。10月は SeeD を絞り、心が加わっています。</p>
+
+<h2 id="sec-6-3">承諾単価の勝ち負けはまだ言えない</h2>
+<figure id="fig-6-3">
+<p class="tag"><b>何</b>: アカウント別の承諾単価と承諾の人数｜<b>期間</b>: 暦月 <span data-n="c07.from">7/1</span>〜9/30 と、10月は <span data-n="c10.from">10/1</span>〜<span data-n="c10.to">10/16</span>（途中）｜<b>時点</b>: <span data-n="meta.page_time">10/22 17:06</span>｜<b>範囲</b>: SeeD・求人BOX。承諾は MK 経由以外の経路も含む｜<b>定義</b>: 承諾単価＝その月の広告費 ÷ その月の応募者のうち承諾した人数。●は承諾1人</p>
+<p class="legend"><span>下の2つの箱: 実線＝比べられる・点線＝人数が少なくまだ言えない（表のマスは、どの月も比べるには人数が少ない）</span></p>
+<svg class="w-s" viewBox="0 0 360 286" role="img" aria-labelledby="t-6-3"><title id="t-6-3">承諾単価の表。7月 SeeD 233,333 円（3人）・求人BOX 180,690 円（1人）。8月はどちらも承諾0人で単価は割れない。9月 SeeD 250,000 円（4人）・求人BOX 246,207 円（1人）。10月は途中。人数が月0〜4人なので勝ち負けは言えない。比べられるのは人数の多い有効応募単価で、9月は SeeD 7,143 円（140人）、求人BOX 6,839 円（36人）。</title>
+<g font-size="12">
+<text x="4" y="18" class="s-ink2">応募月</text>
+<text x="150" y="18" text-anchor="middle" font-weight="700">SeeD</text>
+<text x="285" y="18" text-anchor="middle" font-weight="700">求人BOX</text>
+
+<text x="4" y="49">7月</text>
+<rect x="82" y="28" width="136" height="38" rx="4" class="c6-cell"/>
+<text x="150" y="44" text-anchor="middle" font-weight="700"><tspan data-n="c07.seed.u.acc">233,333</tspan>円</text>
+<text x="140" y="60" text-anchor="end" font-size="11.5" class="s-ink2">承諾 <tspan data-n="c07.seed.acc">3</tspan> 人</text>
+<circle cx="150" cy="56" r="3.5" class="f-blue"/><circle cx="160" cy="56" r="3.5" class="f-blue"/><circle cx="170" cy="56" r="3.5" class="f-blue"/>
+<rect x="222" y="28" width="126" height="38" rx="4" class="c6-cell"/>
+<text x="285" y="44" text-anchor="middle" font-weight="700"><tspan data-n="c07.box.u.acc">180,690</tspan>円</text>
+<text x="275" y="60" text-anchor="end" font-size="11.5" class="s-ink2">承諾 <tspan data-n="c07.box.acc">1</tspan> 人</text>
+<circle cx="285" cy="56" r="3.5" class="f-orange"/>
+
+<text x="4" y="93">8月</text>
+<rect x="82" y="72" width="136" height="38" rx="4" class="c6-cell"/>
+<text x="150" y="88" text-anchor="middle" class="s-ink2">割れない</text>
+<text x="150" y="104" text-anchor="middle" font-size="11.5" class="s-ink2">承諾 <tspan data-n="c08.seed.acc">0</tspan> 人</text>
+<rect x="222" y="72" width="126" height="38" rx="4" class="c6-cell"/>
+<text x="285" y="88" text-anchor="middle" class="s-ink2">割れない</text>
+<text x="285" y="104" text-anchor="middle" font-size="11.5" class="s-ink2">承諾 <tspan data-n="c08.box.acc">0</tspan> 人</text>
+
+<text x="4" y="137">9月</text>
+<rect x="82" y="116" width="136" height="38" rx="4" class="c6-cell"/>
+<text x="150" y="132" text-anchor="middle" font-weight="700"><tspan data-n="c09.seed.u.acc">250,000</tspan>円</text>
+<text x="140" y="148" text-anchor="end" font-size="11.5" class="s-ink2">承諾 <tspan data-n="c09.seed.acc">4</tspan> 人</text>
+<circle cx="150" cy="144" r="3.5" class="f-blue"/><circle cx="160" cy="144" r="3.5" class="f-blue"/><circle cx="170" cy="144" r="3.5" class="f-blue"/><circle cx="180" cy="144" r="3.5" class="f-blue"/>
+<rect x="222" y="116" width="126" height="38" rx="4" class="c6-cell"/>
+<text x="285" y="132" text-anchor="middle" font-weight="700"><tspan data-n="c09.box.u.acc">246,207</tspan>円</text>
+<text x="275" y="148" text-anchor="end" font-size="11.5" class="s-ink2">承諾 <tspan data-n="c09.box.acc">1</tspan> 人</text>
+<circle cx="285" cy="144" r="3.5" class="f-orange"/>
+
+<text x="4" y="175">10月</text>
+<text x="4" y="189" font-size="11.5" class="s-ink2">〜<tspan data-n="c10.to">10/16</tspan></text>
+<rect x="82" y="160" width="136" height="38" rx="4" fill="url(#hatch6b)" class="st-grid"/>
+<text x="150" y="176" text-anchor="middle" class="halo s-ink">途中</text>
+<text x="150" y="192" text-anchor="middle" font-size="11.5" class="halo s-ink">いまは承諾 <tspan data-n="c10.seed.acc">0</tspan> 人</text>
+<rect x="222" y="160" width="126" height="38" rx="4" fill="url(#hatch6b)" class="st-grid"/>
+<text x="285" y="176" text-anchor="middle" class="halo s-ink">途中</text>
+<text x="285" y="192" text-anchor="middle" font-size="11.5" class="halo s-ink">いまは承諾 <tspan data-n="c10.box.acc">0</tspan> 人</text>
+
+<rect x="4" y="212" width="170" height="68" rx="6" class="c6-ok"/>
+<text x="12" y="230" font-weight="700">比べられる</text>
+<text x="12" y="246" font-size="11.5">9月の有効応募単価</text>
+<text x="12" y="261" font-size="11.5">SeeD <tspan data-n="c09.seed.u.valid">7,143</tspan>円（<tspan data-n="c09.seed.valid">140</tspan>人）</text>
+<text x="12" y="275" font-size="11.5">BOX <tspan data-n="c09.box.u.valid">6,839</tspan>円（<tspan data-n="c09.box.valid">36</tspan>人）</text>
+<rect x="182" y="212" width="174" height="68" rx="6" class="c6-not"/>
+<text x="190" y="230" font-weight="700">まだ言えない</text>
+<text x="190" y="246" font-size="11.5">承諾単価</text>
+<text x="190" y="261" font-size="11.5">承諾は月 0〜4 人で、</text>
+<text x="190" y="275" font-size="11.5">1人で数万円ずつ動く（7章）</text>
+</g>
+<defs><pattern id="hatch6b" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" class="st-ink2" style="stroke-width:1.5;stroke-opacity:.35"/></pattern></defs>
+</svg>
+<figcaption>承諾単価は1人で大きく動く。比べるのは人数の多い段まで。</figcaption>
+</figure>
+<p>承諾は月に0〜4人なので、1人の増減で<a href="glossary.html#cpacc">承諾単価</a>は数万円単位で動きます。9月の SeeD <span data-n="c09.seed.u.acc">250,000</span> 円と求人BOX <span data-n="c09.box.u.acc">246,207</span> 円の差は、どちらが安いと言える差ではありません。比べるなら人数の多い有効応募単価までにします。少ない件数の読み方は<a href="ch7.html">7章</a>で扱います。</p>
+
+<h2 id="sec-6-4">10月の心: 応募では安く、面談では並ぶ</h2>
+<figure id="fig-6-4">
+<p class="tag"><b>何</b>: 10月の SeeD と心の段ごとの単価｜<b>期間</b>: 暦月 10月＝応募日 <span data-n="c10.from">10/1</span>〜<span data-n="c10.to">10/16</span>（途中）｜<b>時点</b>: <span data-n="meta.page_time">10/22 17:06</span>｜<b>範囲</b>: SeeD・心｜<b>定義</b>: 単価＝10月の広告費 ÷ その段まで進んだ10月の応募者。目盛りは10倍ごと（等間隔に見えても1目盛りで10倍）</p>
+<p class="legend"><span>青●＝SeeD（上に数字）・紫▲＝心（下に数字）</span></p>
+<svg class="w-s" viewBox="0 0 360 206" role="img" aria-labelledby="t-6-4"><title id="t-6-4">10月の段ごとの単価を10倍ごとの目盛りで比べた図。応募単価は心 1,409 円が SeeD 2,491 円より安い。有効応募単価も心 4,574 円、SeeD 7,145 円。面談まで進むと SeeD 30,168 円（9人）と心 32,587 円（8人）でほぼ並び、推薦は SeeD 271,510 円（1人）と心 260,694 円（1人）。</title>
+<g font-size="12">
+<text x="4" y="14" class="s-ink2" font-size="11.5">単価（円）</text>
+<line x1="80" y1="28" x2="80" y2="182" class="st-grid"/>
+<line x1="185" y1="28" x2="185" y2="182" class="st-grid"/>
+<line x1="290" y1="28" x2="290" y2="182" class="st-grid"/>
+<text x="80" y="198" text-anchor="middle" font-size="11.5" class="s-ink2">1千</text>
+<text x="185" y="198" text-anchor="middle" font-size="11.5" class="s-ink2">1万</text>
+<text x="290" y="198" text-anchor="middle" font-size="11.5" class="s-ink2">10万</text>
+
+<text x="4" y="54">応募</text>
+<line x1="80" y1="50" x2="340" y2="50" class="st-grid"/>
+<circle cx="121.6" cy="50" r="4.5" class="f-blue"/>
+<path d="M95.6,45 L100.6,54 L90.6,54 Z" class="f-violet"/>
+<text x="121.6" y="42" text-anchor="middle" font-size="11.5" class="halo s-ink"><tspan data-n="c10.seed.u.app">2,491</tspan>円 <tspan data-n="c10.seed.app">109</tspan>件</text>
+<text x="95.6" y="67" text-anchor="middle" font-size="11.5" class="halo s-ink"><tspan data-n="c10.shin.u.app">1,409</tspan>円 <tspan data-n="c10.shin.app">185</tspan>件</text>
+<text x="196" y="54" font-size="11.5" class="s-ink2">← 心が安い</text>
+
+<text x="4" y="94">有効応募</text>
+<line x1="80" y1="90" x2="340" y2="90" class="st-grid"/>
+<circle cx="169.6" cy="90" r="4.5" class="f-blue"/>
+<path d="M149.3,85 L154.3,94 L144.3,94 Z" class="f-violet"/>
+<text x="169.6" y="82" text-anchor="middle" font-size="11.5" class="halo s-ink"><tspan data-n="c10.seed.u.valid">7,145</tspan>円 <tspan data-n="c10.seed.valid">38</tspan>人</text>
+<text x="149.3" y="107" text-anchor="middle" font-size="11.5" class="halo s-ink"><tspan data-n="c10.shin.u.valid">4,574</tspan>円 <tspan data-n="c10.shin.valid">57</tspan>人</text>
+
+<text x="4" y="134">面談</text>
+<line x1="80" y1="130" x2="340" y2="130" class="st-grid"/>
+<circle cx="235.3" cy="130" r="4.5" class="f-blue"/>
+<path d="M238.8,125 L243.8,134 L233.8,134 Z" class="f-violet"/>
+<text x="235.3" y="122" text-anchor="middle" font-size="11.5" class="halo s-ink"><tspan data-n="c10.seed.u.iv1">30,168</tspan>円 <tspan data-n="c10.seed.iv1">9</tspan>人</text>
+<text x="238.8" y="147" text-anchor="middle" font-size="11.5" class="halo s-ink"><tspan data-n="c10.shin.u.iv1">32,587</tspan>円 <tspan data-n="c10.shin.iv1">8</tspan>人</text>
+<text x="96" y="134" font-size="11.5" class="s-ink2">ほぼ並ぶ →</text>
+
+<text x="4" y="174">推薦</text>
+<line x1="80" y1="170" x2="340" y2="170" class="st-grid"/>
+<circle cx="335.5" cy="170" r="4.5" class="f-blue"/>
+<path d="M333.6,165 L338.6,174 L328.6,174 Z" class="f-violet"/>
+<text x="344" y="162" text-anchor="end" font-size="11.5" class="halo s-ink"><tspan data-n="c10.seed.u.rec">271,510</tspan>円 <tspan data-n="c10.seed.rec">1</tspan>人</text>
+<text x="344" y="187" text-anchor="end" font-size="11.5" class="halo s-ink"><tspan data-n="c10.shin.u.rec">260,694</tspan>円 <tspan data-n="c10.shin.rec">1</tspan>人</text>
+</g>
+</svg>
+<figcaption>心は応募で安く、面談で並ぶ。面談は1桁、推薦は1人ずつ。</figcaption>
+</figure>
+<p>10月に開いた心は、応募単価では SeeD より安く、面談まで進むとほぼ並びます。MK はこれを新着効果（<a href="ch3.html">3章</a>）とみていますが、仮説です。Indeed が新しい求人をどう扱うかは公開されておらず、面談は1桁の人数です。同じ10月、SeeD はエンジニアの広告を絞り（使った額は9月 <span data-n="mk09.seed.c.eng.spend">600,000</span> 円、10月は10/15までで <span data-n="mk10.seed.c.eng.spend">178,759</span> 円）、営業の広告を止めました。</p>
+<details class="phys"><summary>物理でいうと: 減衰を dB で足す</summary><p>図6-4 の目盛りは10倍ごとで、光ファイバの損失を dB で書くのと同じです。段と段の間隔がその段の「減衰」で、間隔を足すと応募から推薦までの全体の減衰になります。心は入口（応募）の位置が低いだけで、面談までの減衰が SeeD より大きいので、面談の位置で追いつかれます。</p></details>
+
+<section class="quiz-block" id="quiz"><h2>確認クイズ</h2>
+<div class="quiz" id="q1"><p class="qq"><span class="qno">Q1</span> 9月の求人BOX で、単価がいちばん大きく跳ねたのはどの段？</p>
+<ol class="opts">
+<li><button class="opt" type="button" data-ok="0">応募から有効応募</button><p class="why" hidden>有効にならない応募は目につきやすいですが、単価は約2倍で、跳ね方は小さめです。</p></li>
+<li><button class="opt" type="button" data-ok="1">有効応募から面談</button><p class="why" hidden>正解です。有効応募 <span data-n="c09.box.valid">36</span> 人のうち面談まで来たのは <span data-n="c09.box.iv1">6</span> 人で、単価が約6倍になりました。</p></li>
+<li><button class="opt" type="button" data-ok="0">推薦から承諾</button><p class="why" hidden>最後の段は金額が大きいので跳ねて見えますが、倍率では約2倍です。</p></li>
+</ol>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 求人BOX の有効応募単価 <span data-n="c09.box.u.valid">6,839</span> 円が、面談では <span data-n="c09.box.u.iv1">41,034</span> 円になりました。<a href="#fig-6-1">図6-1へ</a></p></div>
+</div>
+<div class="quiz" id="q2"><p class="qq"><span class="qno">Q2</span> 10月の承諾は、どのアカウントも0人。どう読む？</p>
+<ol class="opts">
+<li><button class="opt" type="button" data-ok="0">8月と同じで、10月の応募は承諾につながらない</button><p class="why" hidden>同じ0人でも、8月は承諾が届く時期を過ぎての0人です。10月はまだその時期の手前です。</p></li>
+<li><button class="opt" type="button" data-ok="1">まだ途中で、これから増えうる</button><p class="why" hidden>正解です。10月の応募はページの時点で応募から1〜3週しかたっていません。</p></li>
+<li><button class="opt" type="button" data-ok="0">心を足したせいで、ほかのアカウントが悪くなった</button><p class="why" hidden>同じ月に起きたことはつなげたくなりますが、0人は時期の問題で説明がつきます。</p></li>
+</ol>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 承諾の多くは応募から <span data-n="lag.lo">2</span>〜<span data-n="lag.hi">8</span> 週あと。10月の分は <span data-n="c10.from">10/1</span>〜<span data-n="c10.to">10/16</span> の応募です。<a href="#fig-6-2">図6-2へ</a></p></div>
+</div>
+<div class="quiz" id="q3"><p class="qq"><span class="qno">Q3</span> 9月の承諾単価は SeeD <span data-n="c09.seed.u.acc">250,000</span> 円（4人）、求人BOX <span data-n="c09.box.u.acc">246,207</span> 円（1人）。言えるのは？</p>
+<ol class="opts">
+<li><button class="opt" type="button" data-ok="0">求人BOX のほうが安いので、求人BOX に予算を寄せる</button><p class="why" hidden>小さい数字が勝ちに見えますが、1人で決まった単価です。もう1人いれば半分、いなければ割れません。</p></li>
+<li><button class="opt" type="button" data-ok="1">人数が少なく、どちらが安いかはまだ言えない</button><p class="why" hidden>正解です。比べるなら人数の多い有効応募単価までにします。</p></li>
+<li><button class="opt" type="button" data-ok="0">ほぼ同じなので、どちらも同じ力がある</button><p class="why" hidden>同じに見えるのも偶然でありえます。「同じ」もまだ言えません。</p></li>
+</ol>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 承諾は SeeD <span data-n="c09.seed.acc">4</span> 人、求人BOX <span data-n="c09.box.acc">1</span> 人。少ない件数の読み方は7章。<a href="#fig-6-3">図6-3へ</a></p></div>
+</div>
+</section>
+
+<details class="src"><summary>出典と定義</summary>
+<ul>
+<li>Gooner の MK 向け集計ページ（取得 <span data-n="meta.fetched">2026-10-22 17:18</span> JST・ページの時点 <span data-n="meta.page_time">10/22 17:06</span>）。図6-1〜6-4 は暦月（<span data-n="c07.from">7/1</span>〜7/31、8/1〜8/31、<span data-n="c09.from">9/1</span>〜<span data-n="c09.to">9/30</span>、<span data-n="c10.from">10/1</span>〜<span data-n="c10.to">10/16</span>）の応募者を取得時点まで追った件数・人数と、その月の広告費。</li>
+<li>応募は Gooner の記録で、MK の報告とは数％ずれる。面談は新規面談。承諾と売上は MK 経由以外の経路も含む。</li>
+<li>承諾までの帯（<span data-n="lag.lo">2</span>〜<span data-n="lag.hi">8</span> 週・中央 <span data-n="lag.med">3</span> 週）は、承諾が決まった <span data-n="lag.n">15</span> 件の応募日から承諾日までの間隔。</li>
+<li>SeeD エンジニアの使った額は MK の報告（9月は月全体、10月は <span data-n="mk10.seed.last">10/15</span> まで）。予算の設定額は載せていない。</li>
+<li>心は10月に開設。7〜9月は「開設前」で、0件ではない。新着効果は MK の仮説で、Indeed の内部の扱いは公開されていない。</li>
+</ul>
+</details>
+</main>
+<nav class="pn" aria-label="前後の章"><a href="ch5.html"><span class="d">前へ</span>5章 お金</a><a class="next" href="ch7.html"><span class="d">次へ</span>7章 少ない件数の読み方</a></nav>
+<footer>社内向けの勉強用ページ。数字は <span data-n="meta.page_time">10/22 17:06</span> 時点の断面です。</footer>
+</div></body></html>

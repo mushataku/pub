@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>広告運用の勉強サイト｜2章 オークションとクリック単価</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="site.css">
+<script src="data.js"></script>
+<script src="site.js"></script>
+<script src="sims.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><a class="home" href="index.html">広告運用の勉強サイト</a><button class="theme-btn" type="button">配色: 自動</button></header>
+<nav class="here" data-here="spend,click" aria-label="全体の中の今ここ">全体の流れ: 広告費 → クリック（この章）→ 応募 → 有効応募 → 面談 → 推薦 → 承諾 → 紹介料</nav>
+<main>
+<h1><span class="chno">2章</span>オークションとクリック単価: 最後の1件は平均より高い</h1>
+<p class="lead">クリック単価が競りで決まる仕組みと、予算を増やすほど最後の1件が高くなる理由。</p>
+
+<h2 id="sec-2-1">クリック単価は競りで決まる</h2>
+<figure id="fig-2-1">
+<p class="tag"><b>何</b>: クリック単価の決まり方｜<b>期間</b>: なし（仕組みの図）｜<b>時点</b>: 公式の説明を 2026-10-22 に確認｜<b>範囲</b>: Indeed（公式）と Google 広告（類推）｜<b>定義</b>: 図に数字は使わない</p>
+<p class="legend"><span class="role media">媒体の自動</span></p>
+<svg class="w-s" viewBox="0 0 360 262" role="img" aria-labelledby="t-2-1"><title id="t-2-1">広告主ごとの上限入札が媒体の非公開の競りに入り、表示順が決まる。表示順は入札の順と一致するとは限らない。払うのはクリックされたときだけで、実際の単価はふつう上限より安く、需要と競合で毎回変わる。</title>
+<defs><marker id="ah2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" class="arrowhead"/></marker></defs>
+<text x="8" y="18" font-size="12" class="s-ink2">広告主の上限入札</text>
+<text x="8" y="44" font-size="12">A社</text>
+<rect x="60" y="31" width="80" height="18" rx="3" class="f-blue"/>
+<text x="8" y="76" font-size="12">B社</text>
+<rect x="60" y="63" width="56" height="18" rx="3" class="f-blue"/>
+<text x="8" y="108" font-size="12">Gooner</text>
+<rect x="60" y="95" width="70" height="18" rx="3" class="f-blue"/>
+<line x1="146" y1="40" x2="166" y2="52" class="arrow" marker-end="url(#ah2)"/>
+<line x1="146" y1="72" x2="166" y2="72" class="arrow" marker-end="url(#ah2)"/>
+<line x1="146" y1="104" x2="166" y2="92" class="arrow" marker-end="url(#ah2)"/>
+<rect x="170" y="28" width="100" height="92" rx="6" class="n-media"/>
+<text x="220" y="56" font-size="13" font-weight="700" text-anchor="middle">競り</text>
+<text x="220" y="76" font-size="12" text-anchor="middle">媒体が自動で</text>
+<text x="220" y="92" font-size="12" text-anchor="middle">順位を決める</text>
+<text x="220" y="110" font-size="12" text-anchor="middle" class="s-muted">中身は非公開</text>
+<line x1="272" y1="74" x2="290" y2="74" class="arrow" marker-end="url(#ah2)"/>
+<text x="296" y="40" font-size="12" font-weight="700" class="s-ink2">表示順</text>
+<text x="296" y="62" font-size="12">1 A社</text>
+<text x="296" y="82" font-size="12">2 B社</text>
+<text x="296" y="102" font-size="12">3 Gooner</text>
+<text x="296" y="122" font-size="12" class="s-muted">（類推）</text>
+<line x1="8" y1="138" x2="352" y2="138" class="st-grid" stroke-width="1"/>
+<text x="8" y="158" font-size="12">払うのはクリックされたときだけ<tspan class="s-muted">（公式）</tspan></text>
+<text x="8" y="183" font-size="12" class="s-ink2">上限</text>
+<rect x="44" y="170" width="150" height="16" rx="3" fill="none" class="st-blue" stroke-width="2"/>
+<text x="8" y="207" font-size="12" class="s-ink2">実際</text>
+<rect x="44" y="194" width="104" height="16" rx="3" class="f-orange"/>
+<text x="206" y="186" font-size="12">実際の単価は</text>
+<text x="206" y="202" font-size="12">ふつう上限より安い</text>
+<text x="206" y="218" font-size="12" class="s-muted">（類推）</text>
+<text x="8" y="246" font-size="12">単価は需要と競合で毎回変わる<tspan class="s-muted">（公式）</tspan></text>
+</svg>
+<figcaption>競りの中身は非公開。図は Google 広告の公開説明からの類推。Gooner の棒は B社より長いのに表示順は最後＝入札の順と表示の順は一致しない。Indeed では予算を決め、単価は「自動調節」の設定で媒体に任せられる（公式・下の段落）。</figcaption>
+</figure>
+<p>Indeed はクリックされたときだけ料金が発生し、単価は需要と競合で毎回変わります（公式）。予算に合わせて単価を調整する「自動調節」の設定があり、平均日額は厳密な上限ではありません。並び順の決め方は公開されていません。</p>
+
+<h2 id="sec-2-2">予算を増やすと1件が高くなる</h2>
+<figure id="fig-2-2">
+<p class="tag"><b>何</b>: 予算を増やしたときに起きること｜<b>期間</b>: なし（仕組みの図）｜<b>時点</b>: 2026-10-22 に調べた範囲｜<b>範囲</b>: 求人広告全般｜<b>定義</b>: 応募単価＝クリック単価÷応募率</p>
+<p class="legend"><span class="role media">媒体の自動</span></p>
+<svg class="w-s" viewBox="0 0 360 236" role="img" aria-labelledby="t-2-2"><title id="t-2-2">予算を増やすと、①競りで上の枠を取りに行くのでクリック単価が上がり、②関心の薄い人にも届くので応募率が下がる。応募単価はクリック単価÷応募率なので、増やした分の1件が高くなる。</title>
+<defs><marker id="ah2b" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" class="arrowhead"/></marker></defs>
+<rect x="110" y="8" width="140" height="30" rx="6" class="f-tag"/>
+<text x="180" y="28" font-size="13" font-weight="700" text-anchor="middle">予算を増やす</text>
+<line x1="150" y1="40" x2="96" y2="66" class="arrow" marker-end="url(#ah2b)"/>
+<line x1="210" y1="40" x2="264" y2="66" class="arrow" marker-end="url(#ah2b)"/>
+<rect x="8" y="70" width="164" height="84" rx="6" class="n-media"/>
+<text x="90" y="94" font-size="12" font-weight="700" text-anchor="middle">① クリック単価が上がる</text>
+<text x="90" y="114" font-size="12" text-anchor="middle">競りで上の枠を取りに行く</text>
+<text x="90" y="134" font-size="12" text-anchor="middle" class="s-muted">代理店の観測と報告あり</text>
+<rect x="188" y="70" width="164" height="84" rx="6" class="n-media"/>
+<text x="270" y="94" font-size="12" font-weight="700" text-anchor="middle">② 応募率が下がる</text>
+<text x="270" y="114" font-size="12" text-anchor="middle">関心の薄い人にも届く</text>
+<text x="270" y="134" font-size="12" text-anchor="middle" class="s-muted">仮説</text>
+<line x1="90" y1="156" x2="146" y2="180" class="arrow" marker-end="url(#ah2b)"/>
+<line x1="270" y1="156" x2="214" y2="180" class="arrow" marker-end="url(#ah2b)"/>
+<rect x="40" y="184" width="280" height="46" rx="6" class="f-tag"/>
+<text x="180" y="204" font-size="13" font-weight="700" text-anchor="middle">応募単価 ＝ CPC↑ ÷ CVR↓</text>
+<text x="180" y="222" font-size="12" text-anchor="middle">増やした分の1件が高くなる（限界CPA）</text>
+</svg>
+<figcaption>①は代理店の観測と利用者の報告、②は仮説。どちらも媒体の公式説明はない。</figcaption>
+</figure>
+<p>応募単価はクリック単価÷応募率です。予算を厚くすると、上の枠を取りに行ってクリック単価が上がり（①）、関心の薄い人にも届いて応募率が下がる（②）と考えられます。分子と分母が両方とも悪い向きに動くので、増やした分の1件ほど高くなります。</p>
+
+<h2 id="sec-2-3">平均と限界: 弦と接線</h2>
+<figure id="fig-2-3">
+<p class="tag"><b>何</b>: 広告費と応募数の関係（模式図）｜<b>期間</b>: なし｜<b>時点</b>: なし｜<b>範囲</b>: 1つの広告｜<b>定義</b>: 平均CPA＝広告費÷応募数、限界CPA＝次の1件に要る広告費</p>
+<svg class="w-s" viewBox="0 0 360 262" role="img" aria-labelledby="t-2-3"><title id="t-2-3">広告費を増やすと応募数は増えるが、増え方は寝ていき上限に近づく。原点から今の点への弦の傾きは1÷平均CPA、今の点の接線の傾きは1÷限界CPA。接線のほうが緩いので、限界CPAは平均CPAより高い。</title>
+<line x1="48" y1="200" x2="342" y2="200" class="st-axis" stroke-width="1.2"/>
+<line x1="48" y1="200" x2="48" y2="22" class="st-axis" stroke-width="1.2"/>
+<text x="52" y="16" font-size="12" class="s-ink2">応募数 ↑</text>
+<line x1="48" y1="40" x2="342" y2="40" class="st-ink2" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="56" y="34" font-size="12" class="s-muted">上限（これ以上は増えない）</text>
+<polyline points="48,200.0 56,188.8 64,178.3 72,168.6 80,159.6 88,151.2 96,143.4 104,136.2 112,129.4 120,123.1 128,117.3 136,111.9 144,106.8 152,102.2 160,97.8 168,93.7 176,90.0 184,86.5 192,83.2 200,80.2 208,77.4 216,74.7 224,72.3 232,70.0 240,67.9 248,66.0 256,64.1 264,62.5 272,60.9 280,59.4 288,58.1 296,56.8 304,55.6 312,54.5 320,53.5 328,52.5 336,51.7 340,51.3" fill="none" class="st-ink2" stroke-width="2"/>
+<line x1="48" y1="200" x2="178" y2="89.1" class="st-ink2" stroke-width="1.6" stroke-dasharray="5 4"/>
+<line x1="118" y1="115.8" x2="258" y2="53.4" class="st-violet" stroke-width="2.4"/>
+<circle cx="178" cy="89.1" r="5" class="f-violet" stroke="var(--surface)" stroke-width="1.5"/>
+<text x="112" y="118" font-size="12" text-anchor="end">接線</text>
+<text x="128" y="162" font-size="12">弦</text>
+<text x="196" y="150" font-size="12">曲線が寝ていくので</text>
+<text x="196" y="168" font-size="12" font-weight="700">限界CPA ＞ 平均CPA</text>
+<line x1="178" y1="200" x2="178" y2="205" class="st-axis" stroke-width="1.2"/>
+<text x="178" y="218" font-size="12" text-anchor="middle" font-weight="700">いま</text>
+<text x="342" y="218" font-size="12" text-anchor="end" class="s-ink2">広告費 →</text>
+<line x1="8" y1="236" x2="30" y2="236" class="st-ink2" stroke-width="1.6" stroke-dasharray="5 4"/>
+<text x="36" y="240" font-size="12">弦: 傾き＝1÷平均CPA（1円あたりの応募）</text>
+<line x1="8" y1="254" x2="30" y2="254" class="st-violet" stroke-width="2.4"/>
+<text x="36" y="258" font-size="12">接線: 傾き＝1÷限界CPA（次の1円の応募）</text>
+</svg>
+<figcaption>曲線は仕組みの説明用で、実数への当てはめではない。</figcaption>
+</figure>
+<p>原点から今の点への線（弦）の傾きは平均CPAの逆数、今の点での接線の傾きは限界CPAの逆数です。曲線が寝ていくので接線は弦より緩く、限界CPAは平均CPAより高くなります。予算を足すかどうかは、平均でなく限界で決めます。</p>
+
+<h2 id="sec-2-4">Gooner の実数: 2点の差から見る限界</h2>
+<figure id="fig-2-4">
+<p class="tag"><b>何</b>: SeeD エンジニア職の広告費と応募数｜<b>期間</b>: 9月＝9/1〜9/30、10月＝10/1〜<span data-n="mk10.seed.last">10/15</span> の実数×2｜<b>時点</b>: 取得 <span data-n="meta.fetched">2026-10-22 17:18</span>｜<b>範囲</b>: SeeD アカウントのエンジニア職の広告｜<b>定義</b>: 応募は MK の数え。平均＝広告費÷応募</p>
+<svg class="w-s" viewBox="0 0 360 262" role="img" aria-labelledby="t-2-4"><title id="t-2-4">9月は広告費60万円で138件（平均4,348円/件）。10月前半を2倍した月換算は357,518円で92件（平均3,886円/件）。2点の差は242,482円で46件、1件あたり約5,271円で平均より高い。条件が違う2点の推定で因果ではない。</title>
+<line x1="48" y1="196" x2="344" y2="196" class="st-axis" stroke-width="1.2"/>
+<line x1="48" y1="196" x2="48" y2="18" class="st-axis" stroke-width="1.2"/>
+<text x="52" y="14" font-size="12" class="s-ink2">応募数（件）↑</text>
+<line x1="48" y1="196" x2="298.3" y2="58" class="st-ink2" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="48" y1="196" x2="197.1" y2="104" class="st-ink2" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="197.1" y1="104" x2="298.3" y2="58" class="st-orange" stroke-width="3"/>
+<circle cx="298.3" cy="58" r="6" class="f-orange" stroke="var(--surface)" stroke-width="1.5"/>
+<path d="M197.1,97 L204.1,104 L197.1,111 L190.1,104 z" class="f-orange" stroke="var(--surface)" stroke-width="1.5"/>
+<text x="344" y="22" font-size="12" text-anchor="end">● 9月 <tspan data-n="mk09.seed.c.eng.spend">600,000</tspan> 円で <tspan data-n="mk09.seed.c.eng.app">138</tspan> 件</text>
+<text x="344" y="38" font-size="12" text-anchor="end" class="s-ink2">平均 <tspan data-n="mk09.seed.c.eng.cpa">4,348</tspan> 円/件</text>
+<text x="184" y="66" font-size="12" text-anchor="end">◆ 10月前半×2</text>
+<text x="184" y="82" font-size="12" text-anchor="end"><tspan data-n="f.spend10x2">357,518</tspan> 円で <tspan data-n="f.app10x2">92</tspan> 件</text>
+<text x="184" y="98" font-size="12" text-anchor="end" class="s-ink2">平均 <tspan data-n="f.cpa10x2">3,886</tspan> 円/件</text>
+<text x="352" y="130" font-size="12" text-anchor="end" font-weight="700">2点の差（太い実線）</text>
+<text x="352" y="148" font-size="12" text-anchor="end"><tspan data-n="f.dspend">242,482</tspan> 円で <tspan data-n="f.dapp">46</tspan> 件</text>
+<text x="352" y="166" font-size="12" text-anchor="end">＝1件 <tspan data-n="f.marg">5,271</tspan> 円（推定・条件が違う）</text>
+<text x="344" y="214" font-size="12" text-anchor="end" class="s-ink2">広告費（月）→</text>
+<line x1="8" y1="236" x2="30" y2="236" class="st-ink2" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="36" y="240" font-size="12">点線の傾き＝平均（1円あたりの応募）</text>
+<line x1="8" y1="254" x2="30" y2="254" class="st-orange" stroke-width="3"/>
+<text x="36" y="258" font-size="12">太い実線の傾き＝2点の差（限界の推定）</text>
+</svg>
+<figcaption>10月は前半を2倍した月換算。10月のほうが広告費は少ない＝時間の順では減らした向き。求人・競合・季節も違うので、差は推定で因果ではない。</figcaption>
+</figure>
+<p>9月は <span data-n="mk09.seed.c.eng.spend">600,000</span> 円で <span data-n="mk09.seed.c.eng.app">138</span> 件、10月前半を2倍すると <span data-n="f.spend10x2">357,518</span> 円で <span data-n="f.app10x2">92</span> 件です。差をとると1件 <span data-n="f.marg">5,271</span> 円で、平均の <span data-n="mk09.seed.c.eng.cpa">4,348</span> 円より高くなります。</p>
+
+<h2 id="sec-2-5">模型Bで動かす</h2>
+<div class="sim" data-sim="B"></div>
+<p>模型Bの曲線は丸めた仮の値で作ってあり、たまたま図2-4の2点の近くを通ります（当てはめではありません）。模型が出す限界CPAは曲線から計算した値で、図2-4の <span data-n="f.marg">5,271</span> 円（2点の差・推定）とは別物です。予算を動かすと平均CPAと限界CPAが離れていきます。予算を足してよいのは、最後の1万円で増える応募に、応募1件が生む売上の期待値を掛けて1万円を超えるあいだです（5章）。</p>
+
+<details class="phys"><summary>物理でいうと: 飽和と接線</summary>
+<p>A(b)＝Amax(1−e^(−b/b0)) は RC 回路の充電と同じ飽和の形です。平均は A/b（弦）、限界は dA/db（接線）で、上に凸なら dA/db ＜ A/b。媒体どうしで限界をそろえるのが、ラグランジュ乗数の条件です（8章）。</p>
+</details>
+
+<section class="quiz-block" id="quiz"><h2>確認クイズ</h2>
+<div class="quiz" id="q1"><p class="qq"><span class="qno">Q1</span> SeeD エンジニア職の9月の平均は <span data-n="mk09.seed.c.eng.cpa">4,348</span> 円/件、2点の差から推した限界は <span data-n="f.marg">5,271</span> 円/件。予算を足すか決めるとき、応募1件の価値と比べるのは？</p>
+<ol class="opts">
+<li><button class="opt" type="button" data-ok="0">平均の <span data-n="mk09.seed.c.eng.cpa">4,348</span> 円</button><p class="why" hidden>レポートに載っていて見慣れた数字なので選びやすいのですが、平均にはもう払い終えた安い分が混ざっています。</p></li>
+<li><button class="opt" type="button" data-ok="1">限界（推定）の <span data-n="f.marg">5,271</span> 円</button><p class="why" hidden>正解です。足す1万円が生むのは、次に増える応募だけです。</p></li>
+<li><button class="opt" type="button" data-ok="0">クリック単価</button><p class="why" hidden>払う単位なので比べたくなりますが、クリックは応募ではありません。応募率で割ってからでないと比べられません。</p></li>
+</ol>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 判断は限界で。平均は弦、限界は接線の傾きです。上に凸の曲線では限界のほうが高くなります。<a href="#fig-2-3">図2-3へ</a></p></div>
+</div>
+<div class="quiz" id="q2"><p class="qq"><span class="qno">Q2</span> 予算を増やしていくと、限界CPAと平均CPAの差はどうなる？</p>
+<ol class="opts">
+<li><button class="opt" type="button" data-ok="1">広がる</button><p class="why" hidden>正解です。曲線が寝ていくので、接線は弦より速く緩くなります。</p></li>
+<li><button class="opt" type="button" data-ok="0">縮まる</button><p class="why" hidden>どちらも上がるので追いつくように見えますが、接線（限界）の緩み方のほうが速く、差は開いていきます。</p></li>
+<li><button class="opt" type="button" data-ok="0">変わらない</button><p class="why" hidden>平均と限界が一定の差で並ぶのは、曲線がまっすぐ（飽和しない）ときだけです。</p></li>
+</ol>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 曲線が寝ていくほど、接線の傾きは弦の傾きより速く落ちます。予算を足すほど限界CPAは平均CPAから離れます。模型Bで予算を動かすと確かめられます。<a href="#fig-2-3">図2-3へ</a></p></div>
+</div>
+<div class="quiz" id="q3"><p class="qq"><span class="qno">Q3</span> 10月前半の SeeD で、エンジニア職のクリック単価は <span data-n="mk10.seed.c.eng.cpc">221</span> 円、IT事務職は <span data-n="mk10.seed.c.jim.cpc">63</span> 円でした。言えることは？</p>
+<ol class="opts">
+<li><button class="opt" type="button" data-ok="0">エンジニア職の求人の出来が悪い</button><p class="why" hidden>単価が高いと原稿のせいに見えやすいのですが、単価は競りの相手と需要で動くので、出来の良し悪しはこの数字だけでは分かりません。</p></li>
+<li><button class="opt" type="button" data-ok="1">職種ごとに競りの相手と需要が違うので値段も違う。中身は非公開なので理由は断定できない</button><p class="why" hidden>正解です。言えるのは「違う競りに出ている」までです。</p></li>
+<li><button class="opt" type="button" data-ok="0">MK がエンジニア職だけ入札を上げた</button><p class="why" hidden>ありそうな話ですが、入札の設定はこの数字からは見えません。確かめるなら MK に設定を聞きます。</p></li>
+</ol>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 単価は需要と競合で毎回変わり（公式）、並び順の決め方は非公開です。職種が違えば競りも別物です。<a href="#fig-2-1">図2-1へ</a></p></div>
+</div>
+</section>
+
+<details class="src"><summary>出典と定義</summary>
+<ul>
+<li>MK の月次広告レポート 9月分（9/1〜9/30）と 10月分（10/1〜<span data-n="mk10.seed.last">10/15</span>）。SeeD アカウントの職種別の広告費・応募・クリック単価。応募は MK の数え。</li>
+<li>Gooner の MK 向け集計ページ（取得 <span data-n="meta.fetched">2026-10-22 17:18</span> JST・ページの時点 <span data-n="meta.page_time">10/22 17:06</span>）。上の月次レポートの数字をここから読んだ。</li>
+<li>10月前半×2・差・1件あたりは、上の数字から割り算で出した値（丸める前の値で計算）。</li>
+<li>Indeed 公式「料金の仕組み」: クリックされたときだけ料金が発生し、単価は需要や競合で変わる。<a href="https://jp.indeed.com/%E6%B1%82%E4%BA%BA%E5%BA%83%E5%91%8A/c/info/indeeds-pricing-model">jp.indeed.com</a></li>
+<li>Indeed 公式「予算の設定」: 自動調節の設定、平均日額の扱い。<a href="https://jp.indeed.com/%E6%B1%82%E4%BA%BA%E5%BA%83%E5%91%8A/c/info/budget-setting">jp.indeed.com</a></li>
+<li>類推の元（Google 広告のヘルプ）: 掲載順位は入札・広告の質・競合で決まる。入札は上限で、実際の単価はふつうそれより安い。<a href="https://support.google.com/google-ads/answer/1752122?hl=ja">support.google.com</a> ／ <a href="https://support.google.com/google-ads/answer/6297?hl=ja">support.google.com</a></li>
+<li>予算を厚く積むと単価が上がる: 運用代理店の解説と利用者の報告（複数）。媒体の公式説明は [未到達]。求人ボックスの単価の決め方の公式説明も [未到達]。</li>
+<li>飽和の形: 広告費と効果の関係を飽和曲線で表す手法（Jin ほか 2017, Google Research「Bayesian Methods for Media Mix Modeling with Carryover and Shape Effects」）。</li>
+<li>作りの根拠: 章末の小テストで思い出すと残る（Roediger &amp; Karpicke 2006, DOI 10.1111/j.1467-9280.2006.01693.x）。</li>
+</ul>
+</details>
+</main>
+<nav class="pn" aria-label="前後の章"><a href="ch1.html"><span class="d">前へ</span>1章 基礎</a><a class="next" href="ch3.html"><span class="d">次へ</span>3章 媒体とアカウント</a></nav>
+<footer>社内向けの勉強用ページ。数字は <span data-n="meta.page_time">10/22 17:06</span> 時点の断面です。</footer>
+</div></body></html>

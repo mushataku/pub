@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>広告運用の勉強サイト｜8章 応用</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="site.css">
+<script src="data.js"></script>
+<script src="site.js"></script>
+<script src="sims.js"></script>
+<style>
+table.qtab { min-width: 0; width: 100%; table-layout: fixed; }
+table.qtab th, table.qtab td { white-space: normal; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+table.qtab th:first-child, table.qtab td:first-child { width: 34%; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><a class="home" href="index.html">広告運用の勉強サイト</a><button class="theme-btn" type="button">配色: 自動</button></header>
+<nav class="here" data-here="spend,app,acc,fee" aria-label="全体の中の今ここ">全体の流れ: 広告費（この章）→ クリック → 応募（この章）→ 有効応募 → 面談 → 推薦 → 承諾（この章）→ 紹介料（この章）</nav>
+<main>
+<h1><span class="chno">8章</span>応用: 予算の配り方・比べ方・MK に聞くこと</h1>
+<p class="lead">ここまでの道具で3つの問いに答える。予算はどこに足すか。変えた結果をどう比べるか。MK の担当者に何を聞くか。</p>
+
+<h2 id="sec-8-1">予算は「最後の1万円」で配る</h2>
+<figure id="fig-8-1">
+<p class="tag"><b>何</b>: 予算と応募の関係（形は模式）｜<b>期間</b>: 実数は9月と10月前半｜<b>範囲</b>: <a href="glossary.html#seed">SeeD</a> の2<a href="glossary.html#campaign">キャンペーン</a>｜<b>定義</b>: 平均＝広告費÷応募、最後の分＝9月と10月前半×2の広告費の差÷応募の差（推計）</p>
+<svg class="w-s" viewBox="0 0 360 300" role="img" aria-labelledby="t-8-1"><title id="t-8-1">模式図。横軸は予算、縦軸は応募。口1と口2の曲線はどちらも予算を足すほど伸びが鈍る。紫の接線は最後の1万円で増える応募で、2つの口で傾きが同じになる所が止めどころ。口1と口2は実数の2つと対応させていない。実数はエンジニア系が平均 CPA 4,348 円、最後の分 5,271 円（推計）。事務系は平均 2,000 円、最後の分は未取得（10月から心アカウントでも出していて、SeeD だけの差では測れない）。</title>
+<g font-size="12">
+<line x1="44" y1="190" x2="336" y2="190" class="st-axis" style="stroke-width:1"/>
+<line x1="44" y1="190" x2="44" y2="40" class="st-axis" style="stroke-width:1"/>
+<text x="336" y="206" text-anchor="end" class="s-ink2">予算 →</text>
+<text x="48" y="36" class="s-ink2">応募 ↑</text>
+<polyline fill="none" class="st-blue" style="stroke-width:2.5" points="44,190 64,160 84,136 104,118 124,104 144,93 164,85 184,79 204,74 224,70 244,67 264,65 284,63 304,62 324,61"/>
+<polyline fill="none" class="st-orange" style="stroke-width:2.5" points="44,190 64,178 84,167 104,157 124,148 144,140 164,133 184,127 204,122 224,118 244,114 264,111 284,108 304,106 324,104"/>
+<line x1="139" y1="95.5" x2="229" y2="62.5" class="st-violet" style="stroke-width:3.5"/>
+<line x1="119" y1="149.5" x2="209" y2="116.5" class="st-violet" style="stroke-width:3.5"/>
+<circle cx="184" cy="79" r="5" class="f-violet"/>
+<circle cx="164" cy="133" r="5" class="f-violet"/>
+<text x="52" y="54" class="s-ink">紫＝最後の1万円で増える応募</text>
+<text x="328" y="58" text-anchor="end" class="s-ink">口1</text>
+<text x="328" y="100" text-anchor="end" class="s-ink">口2</text>
+<text x="200" y="166" class="s-ink2">傾きが同じ＝止めどころ</text>
+<rect x="8" y="222" width="344" height="70" rx="6" class="f-tag"/>
+<text x="16" y="242" class="s-ink2">実数（1件あたりの広告費・円）</text>
+<text x="16" y="262">エンジニア系 平均 <tspan data-n="mk09.seed.c.eng.cpa">4,348</tspan>｜最後の分 <tspan data-n="f.marg">5,271</tspan>（推計）</text>
+<text x="16" y="282">事務系 平均 <tspan data-n="mk09.seed.c.jim.cpa">2,000</tspan>｜最後の分 [未取得]</text>
+</g>
+</svg>
+<figcaption>曲線の形は模式で、口1・口2は実数の2つと対応させていません。実数は曲線の下の箱だけです。</figcaption>
+</figure>
+<p>予算を足すほど、1万円あたりの応募は減ります（<a href="ch2.html">2章</a>の飽和）。だから足す先は平均 CPA でなく、<a href="glossary.html#marginal">限界 CPA</a>（＝最後の分）で選びます。エンジニア系は平均 <span data-n="mk09.seed.c.eng.cpa">4,348</span> 円。9月と10月前半×2の差で割ると、減らした約24万円は1件 <span data-n="f.marg">5,271</span> 円でした。8-2 の前後比較と同じ差なので、季節の変化も混ざった推計です。</p>
+<p>2つの口（予算を別々に決めるキャンペーン）で「最後の1万円で増える応募」がそろった所が止めどころです。そろう前に上限や下限に当たれば、当たった端で止めます（<a href="glossary.html#corner">角の解</a>）。どこまで足せば元が取れるかは <a href="ch5.html">5章</a>の損益分岐で決めます。事務系は10月から心アカウントでも出していて、SeeD だけの差では最後の分になりません。心と合わせて測るまで、2つの口の間で予算を動かす向きは決めません。</p>
+<details class="phys"><summary>物理でいうと: ラグランジュ乗数と温度</summary>
+<p>予算の合計を固定して応募の合計 ΣA_i(b_i) を最大にすると、どの口でも dA_i/db_i = λ になります。λ は予算1円の影の価格です。接触した2つの系の温度がそろうと熱が流れなくなるのと同じ形で、不等式の制約まで入れたものが KKT 条件です。</p>
+</details>
+
+<h2 id="sec-8-2">変えた結果をどう比べるか</h2>
+<figure id="fig-8-2">
+<p class="tag"><b>何</b>: 比べ方3つ｜<b>例</b>: エンジニア系の予算を減らした前後｜<b>定義</b>: 10月前半は〜10/15（CPA は比なので2倍しない）</p>
+<svg class="w-s" viewBox="0 0 360 318" role="img" aria-labelledby="t-8-2"><title id="t-8-2">比べ方3つ。1 前後比較: 9月の CPA 4,348 円から10月前半の 3,886 円へ -10.6%。季節や原稿の変化も混ざる。2 ホールドアウト: 出す、2週止める、出す、で広告だけの差を見る。3 A/B: 同じ期間に原稿Aと原稿Bを並べる。下ほど広告以外の差が混ざりにくい。</title>
+<g font-size="12">
+<text x="8" y="20" class="s-ink" font-weight="700">① 前後比較</text>
+<rect x="8" y="30" width="150" height="40" rx="6" class="f-surface st-blue" style="stroke-width:2"/>
+<text x="83" y="55" text-anchor="middle" class="s-ink">9月 <tspan data-n="mk09.seed.c.eng.cpa">4,348</tspan> 円</text>
+<line x1="162" y1="50" x2="194" y2="50" class="arrow"/>
+<path d="M194,45 L202,50 L194,55 Z" class="arrowhead"/>
+<rect x="204" y="30" width="148" height="40" rx="6" class="f-surface st-blue" style="stroke-width:2"/>
+<text x="278" y="55" text-anchor="middle" class="s-ink">10月前半 <tspan data-n="f.cpa10x2">3,886</tspan> 円</text>
+<text x="8" y="90" class="s-ink2">差 <tspan data-n="f.cpa_change">-10.6%</tspan>。季節・原稿・相場の変化も混ざる</text>
+
+<text x="8" y="124" class="s-ink" font-weight="700">② ホールドアウト（止めて比べる）</text>
+<rect x="8" y="134" width="108" height="36" rx="6" class="f-surface st-aqua" style="stroke-width:2"/>
+<rect x="126" y="134" width="108" height="36" rx="6" class="f-grid"/>
+<rect x="244" y="134" width="108" height="36" rx="6" class="f-surface st-aqua" style="stroke-width:2"/>
+<text x="62" y="157" text-anchor="middle" class="s-ink">出す</text>
+<text x="180" y="157" text-anchor="middle" class="s-ink">2週止める</text>
+<text x="298" y="157" text-anchor="middle" class="s-ink">出す</text>
+<text x="8" y="190" class="s-ink2">止めた間も来る応募＝広告が無くても来る分</text>
+
+<text x="8" y="224" class="s-ink" font-weight="700">③ A/B（同じ期間に並べる）</text>
+<rect x="8" y="234" width="168" height="36" rx="6" class="f-surface st-orange" style="stroke-width:2"/>
+<rect x="184" y="234" width="168" height="36" rx="6" class="f-surface st-violet" style="stroke-width:2"/>
+<text x="92" y="257" text-anchor="middle" class="s-ink">原稿A</text>
+<text x="268" y="257" text-anchor="middle" class="s-ink">原稿B</text>
+<text x="8" y="290" class="s-ink2">季節は両方に同じだけ乗る</text>
+<text x="8" y="310" class="s-ink2">下ほど、広告以外の差が混ざりにくい</text>
+</g>
+</svg>
+</figure>
+<p>①の <a href="glossary.html#prepost">前後比較</a> は手軽ですが、9月と10月では季節も原稿も違います。CPA が <span data-n="f.cpa_change">-10.6%</span> 動いたうち、予算を減らした分がどれだけかは分けられません。</p>
+<p>広告だけの差を取り出すなら②の <a href="glossary.html#holdout">ホールドアウト</a> です。止めた2週にも来る応募が、広告を出すこと自体が生む差の基準になります。原稿の良し悪しは③で比べます。件数が少ないうちの読み方は <a href="ch7.html">7章</a>、時間差は <a href="ch4.html">4章</a>です。<span class="hedge">注意</span> Indeed の中で表示の配り方がどう変わるかは外から見えません。</p>
+
+<h2 id="sec-8-3">比べる前に確かめる4つ</h2>
+<figure id="fig-8-3">
+<p class="tag"><b>何</b>: 比べると誤る4つの型と実例｜<b>時点</b>: <span data-n="meta.page_time">10/22 17:06</span></p>
+<svg class="w-s" viewBox="0 0 360 296" role="img" aria-labelledby="t-8-3"><title id="t-8-3">比べる前の4つの確認。期間: 有効応募は 8/18〜9/16、承諾は 9/1〜9/30 で数える。時間差: 10/1〜10/16 の応募の承諾は 0 人だがまだ途中。件数: SeeD のエンジニア系 ROAS 178%、事務系 418% はどちらも承諾 2 人。定義: 9月の応募は MK 395 件、Gooner 419 件で +6.1% ずれる。</title>
+<g font-size="12">
+<rect x="8" y="8" width="344" height="64" rx="6" class="f-tag"/>
+<text x="16" y="28" class="s-ink" font-weight="700">期間: 同じ「9月」でも窓が違う</text>
+<text x="16" y="48">有効応募 <tspan data-n="per.09.valid">8/18〜9/16</tspan></text>
+<text x="16" y="64">承諾 <tspan data-n="per.09.acc">9/1〜9/30</tspan></text>
+<rect x="8" y="80" width="344" height="64" rx="6" class="f-tag"/>
+<text x="16" y="100" class="s-ink" font-weight="700">時間差: もう出そろったか</text>
+<text x="16" y="120"><tspan data-n="c10.from">10/1</tspan>〜<tspan data-n="c10.to">10/16</tspan> の応募の承諾 <tspan data-n="c10.all.acc">0</tspan> 人</text>
+<text x="16" y="136" class="s-ink2">まだ途中で、これから増えうる</text>
+<rect x="8" y="152" width="344" height="64" rx="6" class="f-tag"/>
+<text x="16" y="172" class="s-ink" font-weight="700">件数: 差を語れるだけあるか</text>
+<text x="16" y="192">ROAS <tspan data-n="c09.seed.eng.roas">178%</tspan> 対 <tspan data-n="c09.seed.jim.roas">418%</tspan></text>
+<text x="16" y="208" class="s-ink2">承諾はどちらも <tspan data-n="c09.seed.eng.acc">2</tspan> 人と <tspan data-n="c09.seed.jim.acc">2</tspan> 人</text>
+<rect x="8" y="224" width="344" height="64" rx="6" class="f-tag"/>
+<text x="16" y="244" class="s-ink" font-weight="700">定義: 同じものを数えたか</text>
+<text x="16" y="264">9月の応募 MK <tspan data-n="c09.all.mk_app">395</tspan>｜Gooner <tspan data-n="c09.all.gn_app">419</tspan></text>
+<text x="16" y="280" class="s-ink2">ずれ <tspan data-n="c09.all.gap">+6.1%</tspan></text>
+</g>
+</svg>
+</figure>
+<p>期間の窓は誤りではなく社内の数え方です。ただ承諾÷有効応募は、分子と分母が別の窓になります。承諾2人どうしの ROAS の差は、1人増えるだけで入れ替わります。数字の差を見たら、まずこの4つのどれかで説明がつかないかを確かめます。</p>
+
+<h2 id="sec-8-4">MK の担当者に聞くこと</h2>
+<figure id="fig-8-4">
+<div class="tbl-wrap">
+<table class="qtab">
+<caption>聞くことと、返答で判断がどう変わるか</caption>
+<thead><tr><th scope="col">聞くこと</th><th scope="col">なぜ聞くか</th><th scope="col">返答で判断がどう変わるか</th></tr></thead>
+<tbody>
+<tr><td>各口の最後に足した予算で、応募が何件増えたか</td><td>平均でなく最後の分で配るため（8-1）</td><td>最後の分の1件あたりが高い口から、安い口へ予算を移す</td></tr>
+<tr><td>先月から何を変えたか（原稿・単価・配信先）</td><td>前後比較に混ざる差を知るため（8-2）</td><td>変えた物が多ければ、予算の差とは読まない</td></tr>
+<tr><td>1つの口を2週止められるか</td><td>広告だけの差を測るため（8-2）</td><td>時間差の窓（<a href="ch4.html">4章</a>）を置いても減らなければ、削る候補にする</td></tr>
+<tr><td>応募を数える定義は Gooner と同じか</td><td>件数のずれを説明するため（8-3）</td><td>定義が違えば、CPA はそろえてから比べる</td></tr>
+<tr><td>来月の<a href="glossary.html#cpc">クリック単価</a>と<a href="glossary.html#cvr">応募率</a>の見通し</td><td>単価が上がると、同じ予算で増える応募が減るため</td><td>上がる見通しなら、足す前に最後の分を測る</td></tr>
+</tbody>
+</table>
+</div>
+</figure>
+<p>どの問いも、答えが返ると予算の動かし方が変わるものだけにしました。「今月どうでしたか」より、判断を変える問いを先に聞きます。</p>
+
+<section class="quiz-block" id="quiz"><h2>確認クイズ</h2>
+<div class="quiz" id="q1"><p class="qq"><span class="qno">Q1</span> 2つの口のどちらに予算を足すか。何で選ぶ？</p>
+<ol class="opts">
+<li><button class="opt" type="button" data-ok="0">平均 CPA が安い口</button><p class="why" hidden>平均には、安く取れた最初の分が含まれます。次の1万円で増える応募とは別です。</p></li>
+<li><button class="opt" type="button" data-ok="1">最後の分の CPA が安い口</button><p class="why" hidden>正解です。足した分で増える応募が多い口に足します。</p></li>
+<li><button class="opt" type="button" data-ok="0">応募の総数が多い口</button><p class="why" hidden>大きい口ほど飽和していて、足しても伸びにくいことがあります。</p></li>
+</ol>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> エンジニア系は平均 <span data-n="mk09.seed.c.eng.cpa">4,348</span> 円、最後の分 <span data-n="f.marg">5,271</span> 円（推計）。<a href="#fig-8-1">図8-1へ</a></p></div>
+</div>
+<div class="quiz" id="q2"><p class="qq"><span class="qno">Q2</span> 予算を減らしたら CPA が <span data-n="f.cpa_change">-10.6%</span>。どう読む？</p>
+<ol class="opts">
+<li><button class="opt" type="button" data-ok="0">減らしたおかげで CPA が下がった</button><p class="why" hidden>そうかもしれませんが、9月と10月では季節や原稿も違い、前後比較だけでは分けられません。</p></li>
+<li><button class="opt" type="button" data-ok="1">予算の差と、ほかの変化が混ざっている</button><p class="why" hidden>正解です。広告だけの差はホールドアウト、原稿の差は A/B で取り出します。</p></li>
+<li><button class="opt" type="button" data-ok="0">10月のほうが原稿が良い</button><p class="why" hidden>原稿の比較は、同じ期間に並べないと言えません。</p></li>
+</ol>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 9月 <span data-n="mk09.seed.c.eng.cpa">4,348</span> 円 → 10月前半 <span data-n="f.cpa10x2">3,886</span> 円は前後比較です。<a href="#fig-8-2">図8-2へ</a></p></div>
+</div>
+<div class="quiz" id="q3"><p class="qq"><span class="qno">Q3</span> SeeD の ROAS がエンジニア系 <span data-n="c09.seed.eng.roas">178%</span>、事務系 <span data-n="c09.seed.jim.roas">418%</span>。事務系に寄せるべき？</p>
+<ol class="opts">
+<li><button class="opt" type="button" data-ok="0">2倍以上違うので寄せる</button><p class="why" hidden>差は大きく見えますが、承諾はどちらも2人で、1人の増減で入れ替わります。</p></li>
+<li><button class="opt" type="button" data-ok="1">承諾が2人ずつなので、まだ決めない</button><p class="why" hidden>正解です。件数が増えるのを待つか、最後の分を測ってから決めます。</p></li>
+<li><button class="opt" type="button" data-ok="0">エンジニア系を止める</button><p class="why" hidden>ROAS が100%を超えていて、広告費は紹介料で回収できている口です。</p></li>
+</ol>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 承諾は <span data-n="c09.seed.eng.acc">2</span> 人と <span data-n="c09.seed.jim.acc">2</span> 人。<a href="#fig-8-3">図8-3へ</a></p></div>
+</div>
+</section>
+
+<details class="src"><summary>出典と定義</summary>
+<ul>
+<li>Gooner の MK 向け集計ページ（取得 <span data-n="meta.fetched">2026-10-22 17:18</span> JST・ページの時点 <span data-n="meta.page_time">10/22 17:06</span>）と MK の月次広告レポート。図8-3 の期間は社内の KPI 用語集「KPIの集計期間」による。</li>
+<li>最後の分の CPA は、エンジニア系の9月と10月前半（〜10/15 を2倍）の広告費の差を応募の差で割った推計。半月を2倍し季節も違うので、因果の測定ではない。</li>
+<li>口ごとの限界をそろえる条件は、制約付き最適化（ラグランジュ乗数・KKT 条件）の帰結。</li>
+<li>止めて比べる方法は Vaver &amp; Koehler (2011, Google の技術報告) の地域実験、前後比較と実験の差は Gordon ほか (2019, Marketing Science 38(2)) による。</li>
+</ul>
+</details>
+</main>
+<nav class="pn" aria-label="前後の章"><a href="ch7.html"><span class="d">前へ</span>7章 少ない件数の読み方</a><a class="next" href="glossary.html"><span class="d">次へ</span>用語集</a></nav>
+<footer>社内向けの勉強用ページ。数字は <span data-n="meta.page_time">10/22 17:06</span> 時点の断面です。</footer>
+</div>
+</body>
+</html>

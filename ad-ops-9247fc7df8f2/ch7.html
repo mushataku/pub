@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>広告運用の勉強サイト｜7章 少ない件数の読み方</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="site.css">
+<script src="data.js"></script>
+<script src="site.js"></script>
+<script src="sims.js"></script>
+<style>/* 模型C の区間図で右端の「100%」が 1〜3px 切れるのを見えるようにする（本直しは sims.js＝parts/ch7.md） */
+.sim[data-sim="C"] svg { overflow: visible; }</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><a class="home" href="index.html">広告運用の勉強サイト</a><button class="theme-btn" type="button">配色: 自動</button></header>
+<nav class="here" data-here="rec,acc" aria-label="全体の中の今ここ">全体の流れ: 広告費 → クリック → 応募 → 有効応募 → 面談 → 推薦（この章）→ 承諾 → 紹介料</nav>
+<main>
+<h1><span class="chno">7章</span>少ない件数の読み方: 差は区間で読む</h1>
+<p class="lead">件数が10件前後の月に、件数や率の差をどこまで信じてよいか。答えは「区間が重なるか」で読みます。</p>
+
+<h2 id="sec-7-1">件数は同じ条件でも ±√件 ぶれる</h2>
+<figure id="fig-7-1">
+<p class="tag"><b>何</b>: 平均6件の月が実際に何件になるか（理論）｜<b>期間</b>: なし（仕組みの図）｜<b>時点</b>: 平均の6件は <span data-n="meta.page_time">10/22 17:06</span> の9月の内定｜<b>範囲</b>: SeeD アカウント｜<b>定義</b>: 件数はポアソン分布、帯は 平均±√平均</p>
+<p class="legend"><span class="role gn">Gooner</span></p>
+<svg class="w-s" viewBox="0 0 360 226" role="img" aria-labelledby="t-7-1"><title id="t-7-1">平均6件の月が何件になるかの確率の棒グラフ。6±2.4件の帯（4〜8件）の中に入る月は約7割、外に出る月は約3割。3件以下になる月も約15%ある。</title>
+<text x="8" y="16" font-size="12" class="s-ink2">平均6件の月の件数の出やすさ（%）</text>
+<rect x="110" y="26" width="110" height="136" class="f-tag"/>
+<text x="165" y="40" font-size="12" text-anchor="middle">帯 6±2.4件</text>
+<line x1="20" y1="162" x2="352" y2="162" class="st-axis" stroke-width="1"/>
+<rect x="24" y="161" width="18" height="1" class="f-orange"/>
+<rect x="46" y="152" width="18" height="10" class="f-orange"/>
+<rect x="68" y="130" width="18" height="32" class="f-orange"/>
+<rect x="90" y="100" width="18" height="62" class="f-orange"/>
+<rect x="112" y="68" width="18" height="94" class="f-violet"/>
+<rect x="134" y="50" width="18" height="112" class="f-violet"/>
+<rect x="156" y="50" width="18" height="112" class="f-violet"/>
+<rect x="178" y="65" width="18" height="97" class="f-violet"/>
+<rect x="200" y="90" width="18" height="72" class="f-violet"/>
+<rect x="222" y="114" width="18" height="48" class="f-orange"/>
+<rect x="244" y="133" width="18" height="29" class="f-orange"/>
+<rect x="266" y="146" width="18" height="16" class="f-orange"/>
+<rect x="288" y="154" width="18" height="8" class="f-orange"/>
+<rect x="310" y="159" width="18" height="3" class="f-orange"/>
+<rect x="332" y="161" width="18" height="1" class="f-orange"/>
+<text x="33" y="178" font-size="12" text-anchor="middle">0</text>
+<text x="77" y="178" font-size="12" text-anchor="middle">2</text>
+<text x="121" y="178" font-size="12" text-anchor="middle">4</text>
+<text x="165" y="178" font-size="12" text-anchor="middle">6</text>
+<text x="209" y="178" font-size="12" text-anchor="middle">8</text>
+<text x="253" y="178" font-size="12" text-anchor="middle">10</text>
+<text x="297" y="178" font-size="12" text-anchor="middle">12</text>
+<text x="341" y="178" font-size="12" text-anchor="middle">14</text>
+<text x="352" y="196" font-size="12" text-anchor="end" class="s-ink2">その月の件数 →</text>
+<rect x="8" y="207" width="12" height="12" class="f-violet"/>
+<text x="26" y="218" font-size="12">帯の中 約7割</text>
+<rect x="124" y="207" width="12" height="12" class="f-orange"/>
+<text x="142" y="218" font-size="12">帯の外 約3割</text>
+</svg>
+<figcaption>条件が同じでも、件数はこれだけ散らばる。理論値で、実データの月ではない。</figcaption>
+</figure>
+<p>9月の SeeD の内定は <span data-n="c09.seed.offer">6</span> 件でした。条件がまったく同じでも、月の件数は平均のまわりで ±√6 ≈ ±2.4 件ほど揺らぎます。帯の外に出る月も約3割あります。翌月が3件でも、それだけで悪化とは言えません。</p>
+
+<h2 id="sec-7-2">率は区間で読む</h2>
+<figure id="fig-7-2">
+<p class="tag"><b>何</b>: SeeD の書類通過率と承諾率の、8月と9月の 95% 区間｜<b>期間</b>: 暦月 <span data-n="c08.from">8/1</span>〜<span data-n="c08.to">8/31</span>・<span data-n="c09.from">9/1</span>〜<span data-n="c09.to">9/30</span> に応募した人を 10/22 まで追った件数｜<b>時点</b>: <span data-n="meta.page_time">10/22 17:06</span>｜<b>範囲</b>: SeeD アカウント・承諾は MK 経由｜<b>定義</b>: 書類通過率＝書類通過÷推薦、承諾率＝承諾÷内定。区間は Wilson の 95%</p>
+<p class="legend"><span class="role gn">Gooner</span></p>
+<svg class="w-s" viewBox="0 0 360 250" role="img" aria-labelledby="t-7-2"><title id="t-7-2">書類通過率は8月 5/11 が 45%（区間 21〜72%）、9月 11/12 が 92%（区間 65〜99%）で、区間が重なる。承諾率は8月 0/2 が 0%（区間 0〜66%）、9月 4/6 が 67%（区間 30〜90%）で、これも重なる。重なるうちは差があるとは言い切れない。</title>
+<text x="8" y="16" font-size="12" class="s-ink2">書類通過率（書類通過÷推薦）</text>
+<rect x="257.6" y="26" width="18.1" height="56" class="f-tag"/>
+<text x="8" y="40" font-size="12">8月 <tspan data-n="c08.seed.doc">5</tspan>/<tspan data-n="c08.seed.rec">11</tspan></text>
+<line x1="152" y1="36" x2="275.7" y2="36" class="st-violet" stroke-width="3"/>
+<circle cx="211" cy="36" r="4.5" class="f-violet"/>
+<text x="214" y="54" font-size="12" text-anchor="middle" class="s-ink2">45%（21〜72%）</text>
+<text x="8" y="76" font-size="12">9月 <tspan data-n="c09.seed.doc">11</tspan>/<tspan data-n="c09.seed.rec">12</tspan></text>
+<line x1="257.6" y1="72" x2="340.3" y2="72" class="st-orange" stroke-width="3"/>
+<circle cx="323.7" cy="72" r="4.5" class="f-orange"/>
+<text x="352" y="92" font-size="12" text-anchor="end" class="s-ink2">92%（65〜99%）</text>
+<text x="8" y="108" font-size="12" font-weight="700">重なる＝言い切れない</text>
+<text x="8" y="136" font-size="12" class="s-ink2">承諾率（承諾÷内定）</text>
+<text x="8" y="160" font-size="12">8月 <tspan data-n="c08.seed.acc">0</tspan>/<tspan data-n="c08.seed.offer">2</tspan></text>
+<line x1="100" y1="156" x2="260.6" y2="156" class="st-violet" stroke-width="3"/>
+<circle cx="100" cy="156" r="4.5" class="f-violet"/>
+<text x="180" y="174" font-size="12" text-anchor="middle" class="s-ink2">0%（0〜66%）</text>
+<text x="8" y="196" font-size="12">9月 <tspan data-n="c09.seed.acc">4</tspan>/<tspan data-n="c09.seed.offer">6</tspan></text>
+<line x1="173.2" y1="192" x2="320.3" y2="192" class="st-orange" stroke-width="3"/>
+<circle cx="262.7" cy="192" r="4.5" class="f-orange"/>
+<text x="247" y="210" font-size="12" text-anchor="middle" class="s-ink2">67%（30〜90%）</text>
+<line x1="100" y1="222" x2="344" y2="222" class="st-axis" stroke-width="1"/>
+<text x="100" y="238" font-size="12" text-anchor="middle">0%</text>
+<text x="222" y="238" font-size="12" text-anchor="middle">50%</text>
+<text x="344" y="238" font-size="12" text-anchor="end">100%</text>
+</svg>
+<figcaption>点が率、線が 95% 区間。8月の応募者は 9/3 より前の書類・面接が記録なしなので、8月の率は低めに出ている可能性もある。</figcaption>
+</figure>
+<p>SeeD の書類通過率は、8月 <span data-n="c08.seed.r.doc">45.5%</span> から9月 <span data-n="c09.seed.r.doc">91.7%</span> へ倍に見えます。ただ推薦が11件と12件では、95% の信頼区間は 21〜72% と 65〜99% と広く、重なっています。重なるうちは「差があるとは言い切れない」と読みます。承諾率の 0/2 と 4/6 も同じです。</p>
+
+<h2 id="sec-7-3">件数が10倍なら、同じ率でも分かれる</h2>
+<figure id="fig-7-3">
+<p class="tag"><b>何</b>: 図7-2 の書類通過率と同じ率で、件数だけ10倍にした仮の数｜<b>期間</b>: なし（仮の数）｜<b>時点</b>: 元の率は <span data-n="meta.page_time">10/22 17:06</span>｜<b>範囲</b>: SeeD アカウント｜<b>定義</b>: 区間は Wilson の 95%</p>
+<svg class="w-s" viewBox="0 0 360 200" role="img" aria-labelledby="t-7-3"><title id="t-7-3">同じ率で件数を10倍にした仮の数。5/11 の区間 21〜72% は 50/110 で 37〜55% に、11/12 の区間 65〜99% は 110/120 で 85〜95% に縮み、二つの区間は離れる。</title>
+<text x="8" y="16" font-size="12" class="s-ink2">書類通過率: 細い線が実際、太い線が10倍</text>
+<text x="8" y="40" font-size="12" class="s-muted">5/11</text>
+<line x1="152" y1="36" x2="275.7" y2="36" class="st-violet" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="8" y="64" font-size="12">50/110</text>
+<line x1="189.1" y1="60" x2="233.7" y2="60" class="st-violet" stroke-width="5"/>
+<circle cx="211" cy="60" r="4.5" class="f-violet"/>
+<text x="211" y="78" font-size="12" text-anchor="middle" class="s-ink2">37〜55%</text>
+<text x="8" y="102" font-size="12" class="s-muted">11/12</text>
+<line x1="257.6" y1="98" x2="340.3" y2="98" class="st-orange" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="8" y="126" font-size="12">110/120</text>
+<line x1="308.1" y1="122" x2="332.8" y2="122" class="st-orange" stroke-width="5"/>
+<circle cx="323.7" cy="122" r="4.5" class="f-orange"/>
+<text x="320" y="140" font-size="12" text-anchor="middle" class="s-ink2">85〜95%</text>
+<text x="8" y="160" font-size="12" font-weight="700">離れた＝差があると言える（目安）</text>
+<line x1="100" y1="172" x2="344" y2="172" class="st-axis" stroke-width="1"/>
+<text x="100" y="188" font-size="12" text-anchor="middle">0%</text>
+<text x="222" y="188" font-size="12" text-anchor="middle">50%</text>
+<text x="344" y="188" font-size="12" text-anchor="end">100%</text>
+</svg>
+<figcaption>率は同じ。変えたのは件数だけ。</figcaption>
+</figure>
+<p>区間の幅は、件数の平方根に反比例して縮みます。同じ率でも件数が10倍なら幅は約3分の1になり、二つの区間は離れます。少ない月は判断を保留し、月を足して件数を増やしてから読みます。</p>
+
+<h2 id="sec-7-4">模型Cで動かす</h2>
+<div class="sim" data-sim="C"></div>
+<p>模型Cは9月の内定 <span data-n="c09.seed.offer">6</span> 件と、8月・9月の書類通過の件数から始まります。推薦を10倍にして、区間が離れるところを確かめてください。6章で「言い切れない」と書いた差は、この意味です。</p>
+
+<details class="phys"><summary>物理でいうと: 計数の統計</summary>
+<p>放射線の計数と同じで、平均 N 件の数え上げの揺らぎは √N、相対誤差は 1/√N です。率は二項分布で、Wilson の区間は 0〜100% の端からはみ出さないように正規近似を直したものです。</p>
+</details>
+
+<section class="quiz-block" id="quiz"><h2>確認クイズ</h2>
+<div class="quiz" id="q1"><p class="qq"><span class="qno">Q1</span> 9月の SeeD の内定は <span data-n="c09.seed.offer">6</span> 件でした。翌月が3件だったら？</p>
+<ol class="opts">
+<li><button class="opt" type="button" data-ok="0">半分になったので悪化した</button><p class="why" hidden>半分という言い方は大きく聞こえますが、6件の揺らぎは ±2.4 件あり、3件以下の月は条件が同じでも約15%起きます。</p></li>
+<li><button class="opt" type="button" data-ok="1">揺らぎの範囲に近く、それだけでは悪化と言い切れない</button><p class="why" hidden>正解です。数か月続くか、件数を足して区間で見ます。</p></li>
+<li><button class="opt" type="button" data-ok="0">3件は帯の外なので、必ず原因がある</button><p class="why" hidden>帯の外は「珍しい」の目安で、「原因がある」の証明ではありません。帯の外に出る月は条件が同じでも約3割あります。</p></li>
+</ol>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 平均6件なら帯は 6±2.4件。帯の外も約3割の月で起きます。<a href="#fig-7-1">図7-1へ</a></p></div>
+</div>
+<div class="quiz" id="q2"><p class="qq"><span class="qno">Q2</span> SeeD の書類通過率は8月 <span data-n="c08.seed.r.doc">45.5%</span>（<span data-n="c08.seed.doc">5</span>/<span data-n="c08.seed.rec">11</span>）、9月 <span data-n="c09.seed.r.doc">91.7%</span>（<span data-n="c09.seed.doc">11</span>/<span data-n="c09.seed.rec">12</span>）。言えることは？</p>
+<ol class="opts">
+<li><button class="opt" type="button" data-ok="0">9月に書類通過率が上がった</button><p class="why" hidden>率が倍なので上がったと読みたくなりますが、11件と12件では区間が重なっていて、偶然の差と区別できません。</p></li>
+<li><button class="opt" type="button" data-ok="1">区間が重なるので、差があるとは言い切れない</button><p class="why" hidden>正解です。言えるのは「この件数では分からない」までです。</p></li>
+<li><button class="opt" type="button" data-ok="0">9月は推薦の質が上がった</button><p class="why" hidden>ありそうな理由ですが、差そのものが言い切れないうえ、理由はこの数字からは見えません。</p></li>
+</ol>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 区間は 21〜72% と 65〜99%。重なるうちは差を言い切りません。<a href="#fig-7-2">図7-2へ</a></p></div>
+</div>
+<div class="quiz" id="q3"><p class="qq"><span class="qno">Q3</span> 率は同じまま件数を10倍にすると、95% 区間の幅はどうなる？</p>
+<ol class="opts">
+<li><button class="opt" type="button" data-ok="0">約10分の1になる</button><p class="why" hidden>件数に比例して縮むと考えやすいのですが、幅は件数の平方根で縮みます。</p></li>
+<li><button class="opt" type="button" data-ok="1">約3分の1になる</button><p class="why" hidden>正解です。√10 ≈ 3.2 なので約3分の1です。</p></li>
+<li><button class="opt" type="button" data-ok="0">率が同じなので変わらない</button><p class="why" hidden>率だけ見ると同じですが、区間の幅は件数で決まります。</p></li>
+</ol>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 5/11 の区間 21〜72% が、50/110 では 37〜55% になります。<a href="#fig-7-3">図7-3へ</a></p></div>
+</div>
+</section>
+
+<details class="src"><summary>出典と定義</summary>
+<ul>
+<li>Gooner の MK 向け集計ページ（取得 <span data-n="meta.fetched">2026-10-22 17:18</span> JST・ページの時点 <span data-n="meta.page_time">10/22 17:06</span>）。暦月 8月・9月に応募した人を取得時点まで追った SeeD アカウントの推薦・書類通過・内定・承諾の件数。承諾は MK 経由。書類と面接は 9/3 より前が記録なし。</li>
+<li>区間は Wilson の 95% 区間（z＝1.96）を上の件数から計算した値。帯と「帯の外に出る確率」はポアソン分布の理論値。</li>
+<li>Wilson の区間: Wilson, E. B. (1927) "Probable Inference, the Law of Succession, and Statistical Inference", Journal of the American Statistical Association 22(158), DOI 10.1080/01621459.1927.10502953。少ない件数で通常の区間より当たりやすいことの比較: Brown, Cai &amp; DasGupta (2001) "Interval Estimation for a Binomial Proportion", Statistical Science 16(2), DOI 10.1214/ss/1009213286。</li>
+<li>区間が重なる＝言い切れない、は目安。区間が少し重なっていても差が有意なことはある（Schenker &amp; Gentleman (2001) "On Judging the Significance of Differences by Examining the Overlap Between Confidence Intervals", The American Statistician 55, 182–186）。</li>
+</ul>
+</details>
+</main>
+<nav class="pn" aria-label="前後の章"><a href="ch6.html"><span class="d">前へ</span>6章 Gooner でいま起きていること</a><a class="next" href="ch8.html"><span class="d">次へ</span>8章 応用</a></nav>
+<footer>社内向けの勉強用ページ。数字は <span data-n="meta.page_time">10/22 17:06</span> 時点の断面です。</footer>
+</div></body></html>

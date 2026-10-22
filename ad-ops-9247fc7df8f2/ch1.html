@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>広告運用の勉強サイト｜1章 基礎</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="site.css">
+<script src="data.js"></script>
+<script src="site.js"></script>
+<script src="sims.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><a class="home" href="index.html">広告運用の勉強サイト</a><button class="theme-btn" type="button">配色: 自動</button></header>
+<nav class="here" data-here="spend,click,app" aria-label="全体の中の今ここ">全体の流れ: 広告費 → クリック → 応募（この章）→ 有効応募 → 面談 → 推薦 → 承諾 → 紹介料</nav>
+<main>
+<h1><span class="chno">1章</span>基礎: 応募単価は2つの数字の割り算</h1>
+<p class="lead">広告費・クリック・応募をつなぐ率と、応募単価から内定承諾単価までを1本の式で見る方法。</p>
+
+<h2 id="sec-1-1">表示 → クリック → 応募</h2>
+<figure id="fig-1-1">
+<p class="tag"><b>何</b>: 9月の表示回数・クリック・応募と、応募単価の分解｜<b>期間</b>: 暦月 9/1〜9/30｜<b>時点</b>: 表示・クリック・広告費は MK の月次レポート 9月分、応募は Gooner の集計（<span data-n="meta.page_time">10/22 17:06</span>）｜<b>範囲</b>: 全アカウント（SeeD と求人BOX）｜<b>定義</b>: 応募は Gooner の数え。応募単価＝広告費÷応募</p>
+<p class="legend"><span class="role media">媒体の自動</span><span class="role mk">MK</span><span>色は誰が決めるか（媒体の自動＝Indeed などの仕組みが自動で決める）</span></p>
+<svg class="w-s" viewBox="0 0 360 300" role="img" aria-labelledby="t-1-1">
+<title id="t-1-1">9月は表示 290,575 回、クリック 15,703 回、応募 419 件（Gooner の数え）。応募単価はクリック単価 79 円を応募率 2.67% で割った約 2,974 円。CTR は応募単価の式に出てこない。</title>
+<defs><marker id="ah1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" class="arrowhead"/></marker></defs>
+<g>
+<rect x="8" y="8" width="200" height="34" rx="6" class="n-media"/>
+<text x="18" y="30" font-size="13" class="s-ink2">表示回数</text>
+<text x="200" y="30" font-size="12" text-anchor="end" class="s-ink2"><tspan data-n="mk09.tot.imp">290,575</tspan> 回</text>
+<text x="218" y="29" font-size="12">媒体が自動で出す</text>
+</g>
+<line x1="108" y1="44" x2="108" y2="68" class="arrow" marker-end="url(#ah1)"/>
+<text x="118" y="60" font-size="12" class="s-ink2">× CTR <tspan data-n="mk09.tot.ctr">5.40%</tspan></text>
+<g>
+<rect x="8" y="70" width="200" height="34" rx="6" class="n-media"/>
+<text x="18" y="92" font-size="14" font-weight="700">クリック</text>
+<text x="200" y="92" font-size="13" text-anchor="end"><tspan data-n="mk09.tot.clicks">15,703</tspan> 回</text>
+<text x="218" y="84" font-size="12" font-weight="700">ここで課金</text>
+<text x="218" y="100" font-size="12">1回 <tspan data-n="mk09.tot.cpc">79</tspan> 円（CPC）</text>
+</g>
+<line x1="108" y1="106" x2="108" y2="130" class="arrow" marker-end="url(#ah1)"/>
+<text x="118" y="122" font-size="12" class="s-ink2">× 応募率（CVR）<tspan data-n="f.gn_cvr">2.67%</tspan></text>
+<g>
+<rect x="8" y="132" width="200" height="34" rx="6" class="n-mk"/>
+<text x="18" y="154" font-size="14" font-weight="700">応募</text>
+<text x="200" y="154" font-size="13" text-anchor="end"><tspan data-n="c09.all.app">419</tspan> 件</text>
+<text x="218" y="153" font-size="12">Gooner の数え</text>
+</g>
+<rect x="8" y="184" width="344" height="104" rx="8" class="f-tag"/>
+<text x="20" y="206" font-size="13" font-weight="700">応募単価（CPA）＝ 広告費 ÷ 応募</text>
+<text x="20" y="228" font-size="12">＝（広告費÷クリック）÷（応募÷クリック）</text>
+<text x="20" y="252" font-size="13" font-weight="700">＝ CPC ÷ CVR ＝ <tspan data-n="mk09.tot.cpc">79</tspan> 円 ÷ <tspan data-n="f.gn_cvr">2.67%</tspan> ≒ <tspan data-n="c09.all.u.app">2,974</tspan> 円</text>
+<text x="20" y="276" font-size="12" class="s-ink2">CTR は式に出てこない（払うのはクリックだけ）</text>
+</svg>
+<figcaption>割り算は丸める前の値です（表示の <span data-n="mk09.tot.cpc">79</span> 円と <span data-n="f.gn_cvr">2.67%</span> で割ると少しずれます）。MK のレポートは同じ月の応募を <span data-n="mk09.tot.app">395</span> 件と数え、応募単価は <span data-n="mk09.tot.cpa">3,155</span> 円です（数え方の違いは用語集「MK の数え／Gooner の数え」）。このサイトは Gooner の数えにそろえます。</figcaption>
+</figure>
+<p>表示だけでは料金はかからず、クリックの回数だけ払います（Indeed の公式説明。求人ボックスも MK のレポートはクリック単価で報告）。9月は1クリック平均 <span data-n="mk09.tot.cpc">79</span> 円で、クリックした人のうち <span data-n="f.gn_cvr">2.67%</span> が応募しました。応募単価は「クリック単価 ÷ 応募率」に分解でき、どちらを動かしても応募単価が変わります。</p>
+
+<h2 id="sec-1-2">応募1件はクリック約<span data-n="f.clk_per_app_r">37</span>回ぶん</h2>
+<figure id="fig-1-2">
+<p class="tag"><b>何</b>: 応募1件に要るクリックの数｜<b>期間</b>: 暦月 9/1〜9/30｜<b>時点</b>: クリックは MK の月次レポート 9月分、応募は Gooner の集計（<span data-n="meta.page_time">10/22 17:06</span>）｜<b>範囲</b>: 全アカウント｜<b>定義</b>: 1 ÷ 応募率（クリック ÷ 応募・応募は Gooner の数え）</p>
+<svg class="w-s" viewBox="0 0 360 150" role="img" aria-labelledby="t-1-2">
+<title id="t-1-2">クリック約 37 回のうち応募になるのは 1 回。79 円 × 約 37 回 ≒ 2,974 円が応募単価。</title>
+<g class="f-grid">
+<circle cx="18" cy="18" r="7"/><circle cx="40" cy="18" r="7"/><circle cx="62" cy="18" r="7"/><circle cx="84" cy="18" r="7"/><circle cx="106" cy="18" r="7"/><circle cx="128" cy="18" r="7"/><circle cx="150" cy="18" r="7"/><circle cx="172" cy="18" r="7"/>
+<circle cx="18" cy="40" r="7"/><circle cx="40" cy="40" r="7"/><circle cx="62" cy="40" r="7"/><circle cx="84" cy="40" r="7"/><circle cx="106" cy="40" r="7"/><circle cx="128" cy="40" r="7"/><circle cx="150" cy="40" r="7"/><circle cx="172" cy="40" r="7"/>
+<circle cx="18" cy="62" r="7"/><circle cx="40" cy="62" r="7"/><circle cx="62" cy="62" r="7"/><circle cx="84" cy="62" r="7"/><circle cx="106" cy="62" r="7"/><circle cx="128" cy="62" r="7"/><circle cx="150" cy="62" r="7"/><circle cx="172" cy="62" r="7"/>
+<circle cx="18" cy="84" r="7"/><circle cx="40" cy="84" r="7"/><circle cx="62" cy="84" r="7"/><circle cx="84" cy="84" r="7"/><circle cx="106" cy="84" r="7"/><circle cx="128" cy="84" r="7"/><circle cx="150" cy="84" r="7"/><circle cx="172" cy="84" r="7"/>
+<circle cx="18" cy="106" r="7"/><circle cx="40" cy="106" r="7"/><circle cx="62" cy="106" r="7"/><circle cx="84" cy="106" r="7"/>
+</g>
+<rect x="98" y="98" width="16" height="16" rx="2" class="f-orange"/>
+<text x="198" y="30" font-size="13">クリック約 <tspan data-n="f.clk_per_app_r">37</tspan> 回で</text>
+<text x="198" y="50" font-size="15" font-weight="700">応募 1 件</text>
+<text x="198" y="80" font-size="13"><tspan data-n="mk09.tot.cpc">79</tspan> 円 × 約 <tspan data-n="f.clk_per_app_r">37</tspan> 回</text>
+<text x="198" y="100" font-size="15" font-weight="700">≒ <tspan data-n="c09.all.u.app">2,974</tspan> 円</text>
+<circle cx="15" cy="136" r="6" class="f-grid"/>
+<text x="26" y="140" font-size="12">クリック</text>
+<rect x="84" y="129" width="13" height="13" rx="2" class="f-orange"/>
+<text x="103" y="140" font-size="12">応募になったクリック</text>
+</svg>
+<figcaption>正確には 1 ÷ <span data-n="f.gn_cvr">2.67%</span> ＝ <span data-n="f.clk_per_app">37.5</span> 回です。</figcaption>
+</figure>
+<p>応募率 <span data-n="f.gn_cvr">2.67%</span> は、クリック約 <span data-n="f.clk_per_app_r">37</span> 回で応募が1件という意味です。応募単価は、この<span data-n="f.clk_per_app_r">37</span>回ぶんのクリック代です。応募率が2倍になればクリックは約<span data-n="f.clk_per_app_half">19</span>回で済み、応募単価は約半分になります。</p>
+
+<h2 id="sec-1-3">応募単価から内定承諾単価へ</h2>
+<figure id="fig-1-3">
+<p class="tag"><b>何</b>: 応募単価・10段の率・内定承諾単価｜<b>期間</b>: 暦月 9/1〜9/30 に応募した人を 10/22 まで追った件数｜<b>時点</b>: <span data-n="meta.page_time">10/22 17:06</span>｜<b>範囲</b>: 全アカウント・承諾は MK 経由｜<b>定義</b>: 率は1つ前の段に対する割合（Gooner の数え）</p>
+<p class="legend"><span class="role mk">MK</span><span class="role gn">Gooner</span><span class="role co">企業</span></p>
+<svg viewBox="0 0 360 228" role="img" aria-labelledby="t-1-3">
+<title id="t-1-3">応募単価 2,974 円を、10段の率の積 1.19% で割ると内定承諾単価 249,241 円。率は有効 42.0%、設定可能 98.3%、面談設定 49.7%、新規面談 67.4%、共有面談 32.8%、推薦 73.7%、書類通過 92.9%、企業面接 84.6%、内定 63.6%、承諾 71.4%。応募 83.8 件に承諾 1 件。</title>
+<defs><marker id="ah1b" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" class="arrowhead"/></marker></defs>
+<rect x="8" y="8" width="104" height="44" rx="6" class="n-mk"/>
+<text x="60" y="25" font-size="12" text-anchor="middle">応募単価</text>
+<text x="60" y="44" font-size="14" font-weight="700" text-anchor="middle"><tspan data-n="c09.all.u.app">2,974</tspan> 円</text>
+<text x="123" y="36" font-size="16" font-weight="700" text-anchor="middle">÷</text>
+<rect x="134" y="8" width="92" height="44" rx="6" class="f-tag"/>
+<text x="180" y="25" font-size="12" text-anchor="middle">10段の率の積</text>
+<text x="180" y="44" font-size="14" font-weight="700" text-anchor="middle"><tspan data-n="f.prod09">1.19%</tspan></text>
+<text x="237" y="36" font-size="16" font-weight="700" text-anchor="middle">＝</text>
+<rect x="248" y="8" width="104" height="44" rx="6" class="n-gn"/>
+<text x="300" y="25" font-size="12" text-anchor="middle">内定承諾単価</text>
+<text x="300" y="44" font-size="14" font-weight="700" text-anchor="middle"><tspan data-n="c09.all.u.acc">249,241</tspan> 円</text>
+<line x1="180" y1="68" x2="180" y2="56" class="arrow" marker-end="url(#ah1b)"/>
+<path d="M8,76 V68 H352 V76" fill="none" class="st-ink2" stroke-width="1.5"/>
+<g font-size="12" text-anchor="middle">
+<rect x="8" y="82" width="64" height="44" rx="6" class="n-mk"/><text x="40" y="99">有効</text><text x="40" y="117" font-size="13" font-weight="700"><tspan data-n="c09.all.r.valid">42.0%</tspan></text>
+<rect x="78" y="82" width="64" height="44" rx="6" class="n-gn"/><text x="110" y="99">設定可能</text><text x="110" y="117" font-size="13" font-weight="700"><tspan data-n="c09.all.r.settable">98.3%</tspan></text>
+<rect x="148" y="82" width="64" height="44" rx="6" class="n-gn"/><text x="180" y="99">面談設定</text><text x="180" y="117" font-size="13" font-weight="700"><tspan data-n="c09.all.r.set">49.7%</tspan></text>
+<rect x="218" y="82" width="64" height="44" rx="6" class="n-gn"/><text x="250" y="99">新規面談</text><text x="250" y="117" font-size="13" font-weight="700"><tspan data-n="c09.all.r.iv1">67.4%</tspan></text>
+<rect x="288" y="82" width="64" height="44" rx="6" class="n-gn"/><text x="320" y="99">共有面談</text><text x="320" y="117" font-size="13" font-weight="700"><tspan data-n="c09.all.r.iv2">32.8%</tspan></text>
+<rect x="8" y="134" width="64" height="44" rx="6" class="n-gn"/><text x="40" y="151">推薦</text><text x="40" y="169" font-size="13" font-weight="700"><tspan data-n="c09.all.r.rec">73.7%</tspan></text>
+<rect x="78" y="134" width="64" height="44" rx="6" class="n-co"/><text x="110" y="151">書類通過</text><text x="110" y="169" font-size="13" font-weight="700"><tspan data-n="c09.all.r.doc">92.9%</tspan></text>
+<rect x="148" y="134" width="64" height="44" rx="6" class="n-co"/><text x="180" y="151">企業面接</text><text x="180" y="169" font-size="13" font-weight="700"><tspan data-n="c09.all.r.iv3">84.6%</tspan></text>
+<rect x="218" y="134" width="64" height="44" rx="6" class="n-co"/><text x="250" y="151">内定</text><text x="250" y="169" font-size="13" font-weight="700"><tspan data-n="c09.all.r.offer">63.6%</tspan></text>
+<rect x="288" y="134" width="64" height="44" rx="6" class="n-gn"/><text x="320" y="151">承諾</text><text x="320" y="169" font-size="13" font-weight="700"><tspan data-n="c09.all.r.acc">71.4%</tspan></text>
+</g>
+<text x="8" y="198" font-size="12" class="s-ink2">↑ この10個を全部掛ける（色は誰の持ち場か・図0-1と同じ）</text>
+<text x="8" y="220" font-size="13" font-weight="700">1 ÷ <tspan data-n="f.prod09">1.19%</tspan> ＝ 応募 <tspan data-n="f.app_per_acc09">83.8</tspan> 件に承諾 1 件</text>
+</svg>
+<figcaption>応募単価 <span data-n="c09.all.u.app">2,974</span> 円は Gooner の数えの応募 <span data-n="c09.all.app">419</span> 件で割った値です。</figcaption>
+</figure>
+<p>応募のあとも、段ごとに一部しか次へ進みません。10段の率を全部掛けた <span data-n="f.prod09">1.19%</span> が、応募が承諾になる割合です。だから内定承諾単価は、応募単価をこの率の積で割った値になります。応募単価が安くても、途中の率が低ければ承諾単価は高くなります。</p>
+
+<h2 id="sec-1-4">模型Aで動かす</h2>
+<div class="sim" data-sim="A"></div>
+<p>上の模型は、ここまでの式を1本にしたものです。数字を変えると、各段の件数と単価、承諾数、売上、ROAS（売上÷広告費）が一緒に動きます。率は掛け算でつながっているので、どの率を10%良くしても ROAS は同じ10%上がります。クリック単価だけは逆向きで、10%上がると ROAS は約9%下がります（÷1.1）。</p>
+
+<details class="phys"><summary>物理でいうと: 対数微分</summary>
+<p>承諾数 N ＝ 広告費 ÷ CPC × Π率 なので、ln N ＝ ln 広告費 − ln CPC ＋ Σ ln 率。微分すると δN/N ＝ δ広告費/広告費 − δCPC/CPC ＋ Σ δr/r で、どの率も弾力性は +1、CPC だけ −1 です（広告費の +1 は、クリック単価が予算で動かない場合。2章）。</p>
+</details>
+
+<section class="quiz-block" id="quiz"><h2>確認クイズ</h2>
+<div class="quiz" id="q1"><p class="qq"><span class="qno">Q1</span> クリック単価が同じまま応募率が2倍になると、応募単価は？</p>
+<ol class="opts">
+<li><button class="opt" type="button" data-ok="0">2倍になる</button><p class="why" hidden>「率が上がる＝数字が大きくなる」と連想しやすいのですが、応募単価は応募率で割るので逆に動きます。</p></li>
+<li><button class="opt" type="button" data-ok="1">約半分（約 <span data-n="f.cpa_half">1,487</span> 円）</button><p class="why" hidden>正解です。分母が2倍なので半分です。</p></li>
+<li><button class="opt" type="button" data-ok="0">変わらない</button><p class="why" hidden>広告費が同じなら単価も同じに感じますが、同じ広告費で応募が2倍に増えるので、1件あたりは半分です。</p></li>
+</ol>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 応募単価 ＝ CPC ÷ CVR。CVR が2倍なら、<span data-n="c09.all.u.app">2,974</span> 円の約半分です。クリックが約<span data-n="f.clk_per_app_r">37</span>回から約<span data-n="f.clk_per_app_half">19</span>回で済むからです。<a href="#fig-1-1">図1-1へ</a></p></div>
+</div>
+<div class="quiz" id="q2"><p class="qq"><span class="qno">Q2</span> 9月の面談設定率だけを1割（10%）良くすると、ROAS <span data-n="ret09.mk.roas">203%</span> はどうなる？</p>
+<ol class="opts">
+<li><button class="opt" type="button" data-ok="0">10ポイント上がって <span data-n="f.roas_p10">213%</span></button><p class="why" hidden>「1割」を足し算で考えると選びやすい答えです。率は掛け算でつながるので、ROAS も1.1倍になります。</p></li>
+<li><button class="opt" type="button" data-ok="1">約 <span data-n="f.roas_x11">223%</span></button><p class="why" hidden>正解です。承諾数も売上も1.1倍になります。</p></li>
+<li><button class="opt" type="button" data-ok="0">変わらない（面談は広告の外）</button><p class="why" hidden>面談は広告のレポートに出てこないので外に見えますが、承諾数を通じて売上が増え、ROAS も上がります。</p></li>
+</ol>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 承諾数 ＝ 応募 × 率の積。率の1つが1.1倍なら承諾も売上も1.1倍で、<span data-n="ret09.mk.roas">203%</span> × 1.1 ≒ <span data-n="f.roas_x11">223%</span> です。<a href="#fig-1-3">図1-3へ</a></p></div>
+</div>
+<div class="quiz" id="q3"><p class="qq"><span class="qno">Q3</span> MK のレポートの数字のうち、応募単価の式（クリック単価 ÷ 応募率）に直接は入らないのはどれ？</p>
+<ol class="opts">
+<li><button class="opt" type="button" data-ok="0">クリック単価（CPC）</button><p class="why" hidden>式の左側そのものです。</p></li>
+<li><button class="opt" type="button" data-ok="0">応募率（CVR）</button><p class="why" hidden>式の右側そのものです。</p></li>
+<li><button class="opt" type="button" data-ok="1">CTR（表示のうちクリックされた割合）</button><p class="why" hidden>正解です。レポートでは目立つ欄ですが、払うのはクリックだけなので応募単価の式には入りません。</p></li>
+</ol>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> CTR が上がると同じ表示回数でクリックが増えますが、1クリックの値段と応募率が同じなら応募単価は変わりません（表示の回数には関わります）。<a href="#fig-1-1">図1-1へ</a></p></div>
+</div>
+</section>
+
+<details class="src"><summary>出典と定義</summary>
+<ul>
+<li>MK の月次広告レポート 9月分（9/1〜9/30）。表示回数・CTR・クリック・クリック単価。MK の数えの応募（<span data-n="mk09.tot.app">395</span> 件）は図1-1の注だけに使い、本文の応募・応募率・応募単価は Gooner の数え（次の項目）。</li>
+<li>Gooner の MK 向け集計ページ（取得 <span data-n="meta.fetched">2026-10-22 17:18</span> JST・ページの時点 <span data-n="meta.page_time">10/22 17:06</span>）。9/1〜9/30 に応募した人を取得時点まで追った件数と率。応募は Gooner の数え（<span data-n="c09.all.app">419</span> 件）。</li>
+<li>率の積と承諾単価は、上の件数から割り算で出した値（丸める前の値で計算）。</li>
+<li>Indeed 公式「料金の仕組み」: クリックされたときだけ料金が発生し、単価は需要や競合で変わる。<a href="https://jp.indeed.com/%E6%B1%82%E4%BA%BA%E5%BA%83%E5%91%8A/c/info/indeeds-pricing-model">jp.indeed.com</a></li>
+<li>作りの根拠: 章末の小テストで思い出すと残る（Roediger &amp; Karpicke 2006, DOI 10.1111/j.1467-9280.2006.01693.x ／ Dunlosky ほか 2013, DOI 10.1177/1529100612453266）。実数の例題を完成形で見せてから動かす（Sweller &amp; Cooper 1985）。</li>
+</ul>
+</details>
+</main>
+<nav class="pn" aria-label="前後の章"><a href="index.html"><span class="d">前へ</span>0章 地図</a><a class="next" href="ch2.html"><span class="d">次へ</span>2章 オークションとクリック単価</a></nav>
+<footer>社内向けの勉強用ページ。数字は <span data-n="meta.page_time">10/22 17:06</span> 時点の断面です。</footer>
+</div>
+</body>
+</html>
