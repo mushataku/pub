@@ -94,7 +94,14 @@ function saveBest(v){ try{ localStorage.setItem('breakout_best', String(v)); }ca
 
 // ---------- 状態 ----------
 const state = { mode:'title', score:0, best:loadBest(), lives:3, level:1, combo:0,
-  shake:0, slowT:0, clearT:0, overT:0, bonus:0, newRecord:false };
+  shake:0, slowT:0, clearT:0, overT:0, bonus:0, newRecord:false, turbo:false };
+const TURBO_BTN = { x:300, y:14, w:66, h:30 };
+function toggleTurbo(){
+  ensureAudio();
+  state.turbo = !state.turbo;
+  float(W/2, H/2, state.turbo ? '⚡ 2倍速 ON' : '2倍速 OFF', state.turbo ? '#fde047' : '#e8ecf8', 26);
+  jingle(state.turbo ? [523, 784, 1047] : [784, 523], 70);
+}
 const paddle = { x:W/2, y:H-60, w:90, h:14, targetX:W/2, wideT:0 };
 let balls = [], bricks = [], drops = [], particles = [], floats = [];
 
@@ -294,6 +301,7 @@ window.addEventListener('keydown', e => {
   if (e.repeat) return;
   if (k === ' ' || k === 'Enter'){ primary(); e.preventDefault(); }
   else if (k === 'p' || k === 'P' || k === 'Escape'){ togglePause(); }
+  else if (k === 'f' || k === 'F'){ toggleTurbo(); }
   else if (k === 'm' || k === 'M'){ muted = !muted; float(W/2, H/2, muted ? '音 OFF' : '音 ON', '#e8ecf8', 20); }
 });
 window.addEventListener('keyup', e => {
@@ -303,7 +311,14 @@ window.addEventListener('keyup', e => {
 });
 function pointerX(e){ const r = cv.getBoundingClientRect(); return (e.clientX - r.left) / r.width * W; }
 window.addEventListener('pointermove', e => { paddle.targetX = pointerX(e); });
-cv.addEventListener('pointerdown', e => { paddle.targetX = pointerX(e); primary(); e.preventDefault(); });
+cv.addEventListener('pointerdown', e => {
+  e.preventDefault();
+  const r = cv.getBoundingClientRect();
+  const px = (e.clientX - r.left) / r.width * W, py = (e.clientY - r.top) / r.height * H;
+  const B = TURBO_BTN;
+  if (px >= B.x - 6 && px <= B.x + B.w + 6 && py >= B.y - 6 && py <= B.y + B.h + 6){ toggleTurbo(); return; }
+  paddle.targetX = px; primary();
+});
 document.addEventListener('visibilitychange', () => { if (document.hidden && state.mode === 'play') state.mode = 'pause'; });
 
 // ---------- 更新 ----------
@@ -339,7 +354,7 @@ function update(dt){
 
   if (paddle.wideT > 0) paddle.wideT -= dt;
   if (state.slowT > 0) state.slowT -= dt;
-  const mul = state.slowT > 0 ? 0.6 : 1;
+  const mul = (state.slowT > 0 ? 0.6 : 1) * (state.turbo ? 2 : 1);
 
   for (const b of balls){
     if (b.stuck) continue;
@@ -352,7 +367,7 @@ function update(dt){
   }
 
   for (const d of drops){
-    d.y += 150*dt;
+    d.y += 150*dt*(state.turbo ? 2 : 1);
     if (d.y + 8 >= paddle.y - paddle.h/2 && d.y - 8 <= paddle.y + paddle.h/2 &&
         Math.abs(d.x - paddle.x) <= paddle.w/2 + 17){ d.dead = true; applyPower(d.kind); }
     else if (d.y > H + 20) d.dead = true;
@@ -392,6 +407,14 @@ function drawHUD(){
   text('SCORE', 16, 22, 11, '#8a93b2', 600, 'left');  text(state.score, 16, 45, 20, '#e8ecf8', 800, 'left');
   text('BEST', 130, 22, 11, '#8a93b2', 600, 'left');  text(Math.max(state.best, state.score), 130, 45, 20, '#e8ecf8', 800, 'left');
   text('LEVEL', 250, 22, 11, '#8a93b2', 600, 'left'); text(state.level, 250, 45, 20, '#e8ecf8', 800, 'left');
+  const B = TURBO_BTN;
+  ctx.fillStyle = state.turbo ? '#fde047' : 'rgba(255,255,255,0.08)';
+  rr(B.x, B.y, B.w, B.h, 8); ctx.fill();
+  ctx.strokeStyle = state.turbo ? '#fde047' : 'rgba(255,255,255,0.25)'; ctx.lineWidth = 1;
+  rr(B.x + 0.5, B.y + 0.5, B.w - 1, B.h - 1, 8); ctx.stroke();
+  ctx.textBaseline = 'middle';
+  text(state.turbo ? '⚡×2' : '×2', B.x + B.w/2, B.y + B.h/2 + 1, 14, state.turbo ? '#0b1020' : '#c7cde3', 900);
+  ctx.textBaseline = 'alphabetic';
   text('LIVES', W-16, 22, 11, '#8a93b2', 600, 'right');
   ctx.fillStyle = '#f472b6';
   for (let i=0; i<state.lives; i++){ ctx.beginPath(); ctx.arc(W - 22 - i*16, 38, 5.5, 0, Math.PI*2); ctx.fill(); }
@@ -471,7 +494,7 @@ function draw(now){
     text('ブロック崩し', W/2, 240, 46, '#ffffff', 900);
     text('B R E A K O U T', W/2, 274, 13, '#5eead4', 700);
     if (Math.sin(t*4) > -0.2) text('クリック / タップでスタート', W/2, 350, 19, '#e8ecf8', 700);
-    ['操作：マウス / 指でドラッグ / ← →', '発射：クリック / タップ / Space', '一時停止：P　　音：M'].forEach((s,i) =>
+    ['操作：マウス / 指でドラッグ / ← →', '発射：クリック / タップ / Space', '一時停止：P　音：M　2倍速：F / 右上の×2'].forEach((s,i) =>
       text(s, W/2, 410 + i*24, 13, '#8a93b2', 500));
     Object.keys(POWER).forEach((k,i) => {
       const p = POWER[k], x = W/2 - 165 + i*110, y = 530;
