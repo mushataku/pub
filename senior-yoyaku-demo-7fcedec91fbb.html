@@ -6,65 +6,102 @@
 <meta name="robots" content="noindex, nofollow">
 <title>運動教室の予約</title>
 <style>
-:root{--bg:#f5f7f4;--card:#fff;--ink:#1c2420;--sub:#56625b;--line:#dde3de;--accent:#2f7d5b;--accent-ink:#fff;--ok:#2f7d5b;--warn:#a8640a;--full:#8f9892;--chip:#e6f2ec;--alert:#c2410c;--shadow:0 1px 3px rgba(0,0,0,.06)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121614;--card:#1b211e;--ink:#eef3f0;--sub:#a5b2ab;--line:#2d3632;--accent:#5cc497;--accent-ink:#0b1a13;--ok:#5cc497;--warn:#e8a94a;--full:#5f6964;--chip:#1f3328;--alert:#fb8a5a;--shadow:none}}
-:root[data-theme="dark"]{--bg:#121614;--card:#1b211e;--ink:#eef3f0;--sub:#a5b2ab;--line:#2d3632;--accent:#5cc497;--accent-ink:#0b1a13;--ok:#5cc497;--warn:#e8a94a;--full:#5f6964;--chip:#1f3328;--alert:#fb8a5a;--shadow:none}
+:root{--bg:#f5f7f4;--card:#fff;--ink:#1c2420;--sub:#56625b;--line:#dde3de;--accent:#2f7d5b;--accent-ink:#fff;--ok:#2f7d5b;--warn:#a8640a;--full:#8f9892;--chip:#e6f2ec;--skin:#f3c9a5;--alert:#c2410c;--shadow:0 1px 3px rgba(0,0,0,.06)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121614;--card:#1b211e;--ink:#eef3f0;--sub:#a5b2ab;--line:#2d3632;--accent:#5cc497;--accent-ink:#0b1a13;--ok:#5cc497;--warn:#e8a94a;--full:#5f6964;--chip:#1f3328;--skin:#d9a77f;--alert:#fb8a5a;--shadow:none}}
+:root[data-theme="dark"]{--bg:#121614;--card:#1b211e;--ink:#eef3f0;--sub:#a5b2ab;--line:#2d3632;--accent:#5cc497;--accent-ink:#0b1a13;--ok:#5cc497;--warn:#e8a94a;--full:#5f6964;--chip:#1f3328;--skin:#d9a77f;--alert:#fb8a5a;--shadow:none}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.65;font-size:17px}
+html.big main,html.big .panel{zoom:1.18}
 header{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
-.bar{max-width:720px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.bar{max-width:720px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px 12px;flex-wrap:wrap}
 .brand{font-weight:700;font-size:19px}
 .demo{font-size:12px;font-weight:600;background:var(--chip);color:var(--accent);padding:2px 8px;border-radius:99px;margin-left:6px;vertical-align:2px}
+.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 nav{display:flex;gap:4px;background:var(--bg);padding:3px;border-radius:10px}
-nav button{border:0;background:transparent;color:var(--sub);font:inherit;font-size:15px;padding:8px 14px;border-radius:8px;cursor:pointer}
+nav button{border:0;background:transparent;color:var(--sub);font:inherit;font-size:15px;padding:8px 12px;border-radius:8px;cursor:pointer}
 nav button.on{background:var(--card);color:var(--ink);font-weight:700;box-shadow:var(--shadow)}
+.zoomBtn{border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:14px;padding:7px 10px;border-radius:10px;cursor:pointer}
+.zoomBtn[aria-pressed="true"]{border-color:var(--accent);background:var(--chip);color:var(--accent);font-weight:700}
 main{max-width:720px;margin:0 auto;padding:16px}
-h2{font-size:22px;margin:4px 0 2px}
+h2{font-size:23px;margin:4px 0 2px}
+h3{font-size:19px;margin:22px 0 10px}
 .lead{color:var(--sub);margin:0 0 14px;font-size:16px}
+/* 予約の流れ（図解） */
+.flow{display:flex;align-items:stretch;gap:4px;margin:4px 0 18px}
+.step{flex:1;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 2px;text-align:center}
+.step .ic{font-size:28px;line-height:1.25;display:block}
+.step .n{font-size:12px;color:var(--accent);font-weight:700;display:block}
+.step .l{font-size:13px;font-weight:700;display:block;line-height:1.3}
+.arrow{align-self:center;color:var(--sub);font-size:14px;flex:0 0 auto}
 .days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
 .day{flex:0 0 auto;min-width:80px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:8px 6px;text-align:center;cursor:pointer;font:inherit}
-.day b{display:block;font-size:18px}
+.day b{display:block;font-size:19px}
 .day small{font-size:13px;color:var(--sub)}
 .day.on{border-color:var(--accent);background:var(--chip)}
 .day.on small{color:var(--accent)}
 .day:disabled{opacity:.45;cursor:default}
-.slots{display:grid;gap:12px;margin-top:14px}
-.slot{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow);flex-wrap:wrap}
-.time{font-size:24px;font-weight:700;min-width:70px;font-variant-numeric:tabular-nums}
-.info{flex:1;min-width:150px}
-.info b{display:block;font-size:19px}
-.info span{font-size:15px;color:var(--sub)}
-.badge{font-size:14px;font-weight:700;padding:3px 10px;border-radius:99px;display:inline-block;margin-top:6px}
+.slots{display:grid;gap:14px}
+.slot{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:grid;grid-template-columns:100px 1fr;gap:12px 14px;box-shadow:var(--shadow)}
+.slot svg{width:100px;height:100px}
+.info{min-width:0}
+.time{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums}
+.time small{font-size:15px;font-weight:600;color:var(--sub);margin-left:4px}
+.info b{display:block;font-size:20px;line-height:1.35}
+.info .tgt{font-size:14px;color:var(--sub)}
+.desc{grid-column:1/-1;font-size:16px;margin:0}
+.meta{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.lv{font-size:14px;color:var(--sub)}
+.lv i{font-style:normal;color:var(--accent);letter-spacing:2px;font-size:15px}
+.slot .btn{grid-column:1/-1;width:100%}
+.badge{font-size:14px;font-weight:700;padding:3px 10px;border-radius:99px;display:inline-block}
 .b-ok{color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,transparent)}
 .b-warn{color:var(--warn);background:color-mix(in srgb,var(--warn) 15%,transparent)}
 .b-full{color:var(--full);background:color-mix(in srgb,var(--full) 18%,transparent)}
-.btn{border:0;background:var(--accent);color:var(--accent-ink);font:inherit;font-weight:700;font-size:18px;padding:14px 20px;min-height:52px;border-radius:12px;cursor:pointer;white-space:nowrap}
+.btn{border:0;background:var(--accent);color:var(--accent-ink);font:inherit;font-weight:700;font-size:19px;padding:14px 20px;min-height:56px;border-radius:14px;cursor:pointer;white-space:nowrap}
 .btn:disabled{background:var(--line);color:var(--full);cursor:default}
-.ghost{border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:16px;padding:12px 16px;min-height:48px;border-radius:12px;cursor:pointer}
+.ghost{border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:16px;padding:12px 16px;min-height:52px;border-radius:14px;cursor:pointer}
 .empty{background:var(--card);border:1px dashed var(--line);border-radius:16px;padding:24px;text-align:center;color:var(--sub)}
+/* 当日の流れ（図解） */
+.guide{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:4px 16px 16px;margin-top:22px}
+.tl{list-style:none;margin:0;padding:0}
+.tl li{display:flex;gap:14px;align-items:center;position:relative;padding:7px 0}
+.tl li:not(:last-child)::after{content:"";position:absolute;left:26px;top:60px;height:calc(100% - 52px);width:3px;border-radius:2px;background:var(--line)}
+.tl .ic{flex:0 0 54px;width:54px;height:54px;border-radius:50%;background:var(--chip);display:grid;place-items:center;font-size:27px}
+.tl b{display:block;font-size:17px}
+.tl span{font-size:14px;color:var(--sub)}
+.items{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.item{background:var(--bg);border-radius:14px;padding:10px 4px;text-align:center;font-size:14px;font-weight:600}
+.item .ic{font-size:30px;display:block;line-height:1.3}
+/* 入力シート */
 .sheet{position:fixed;inset:0;background:rgba(10,14,12,.5);display:flex;align-items:flex-end;justify-content:center;z-index:20}
 .sheet[hidden]{display:none}
 .panel{background:var(--card);width:100%;max-width:540px;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:20px 16px 24px}
 @media (min-width:600px){.sheet{align-items:center}.panel{border-radius:20px}}
-.sum{background:var(--chip);border-radius:12px;padding:12px 14px;margin:8px 0 14px;font-size:16px}
+.stepTag{display:inline-block;font-size:14px;font-weight:700;color:var(--accent);background:var(--chip);border-radius:99px;padding:2px 10px}
+.sum{background:var(--chip);border-radius:14px;padding:12px 14px;margin:8px 0 14px;font-size:16px;display:flex;gap:12px;align-items:center}
+.sum svg{width:64px;height:64px;flex:0 0 64px}
 .sum b{font-size:18px}
-label{display:block;font-size:16px;font-weight:700;margin:14px 0 6px}
+label{display:block;font-size:17px;font-weight:700;margin:16px 0 6px}
 label .req{color:var(--alert);font-weight:700;margin-left:6px;font-size:13px}
-input,select,textarea{width:100%;font:inherit;font-size:18px;padding:12px 14px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}
+label .ic{margin-right:6px}
+input,select,textarea{width:100%;font:inherit;font-size:19px;padding:12px 14px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}
 textarea{min-height:76px;resize:vertical}
 input:focus,select:focus,textarea:focus{outline:3px solid var(--accent);outline-offset:1px}
 .choice{display:flex;gap:10px}
-.choice label{flex:1;margin:0;font-weight:600;border:2px solid var(--line);border-radius:12px;padding:12px;display:flex;align-items:center;gap:8px;cursor:pointer;background:var(--bg)}
-.choice input{width:22px;height:22px;margin:0;accent-color:var(--accent)}
-.choice label:has(input:checked){border-color:var(--accent);background:var(--chip)}
-.err{color:var(--alert);font-size:16px;font-weight:600;min-height:1em;margin-top:10px}
+.choice label{position:relative;flex:1;margin:0;font-weight:600;border:2px solid var(--line);border-radius:14px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;background:var(--bg);text-align:center}
+.choice label .big{font-size:30px;line-height:1.2}
+.choice input{position:absolute;opacity:0;width:1px;height:1px}
+.choice label:has(input:checked){border-color:var(--accent);background:var(--chip);color:var(--accent)}
+.choice label:has(input:focus-visible){outline:3px solid var(--accent);outline-offset:1px}
+.err{color:var(--alert);font-size:17px;font-weight:700;min-height:1em;margin-top:10px}
 .row{display:flex;gap:10px;margin-top:18px}
 .row>*{flex:1}
-.check{font-size:48px;line-height:1;text-align:center;margin:4px 0}
+.check{font-size:52px;line-height:1;text-align:center;margin:4px 0}
 .center{text-align:center}
-.no{font-family:ui-monospace,Menlo,monospace;font-size:20px;font-weight:700;letter-spacing:.06em}
+.no{font-family:ui-monospace,Menlo,monospace;font-size:21px;font-weight:700;letter-spacing:.06em}
 .msg{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;font-size:16px;white-space:pre-wrap;margin-top:6px}
 .cap{font-size:14px;color:var(--sub);margin-top:14px}
+/* スタッフ画面 */
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 6px;text-align:center}
 .stat b{display:block;font-size:26px;font-variant-numeric:tabular-nums}
@@ -82,20 +119,43 @@ input:focus,select:focus,textarea:focus{outline:3px solid var(--accent);outline-
 .cx button{font:inherit;font-size:15px;padding:8px 12px;border-radius:10px;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink)}
 .cx .danger{border-color:var(--alert);color:var(--alert)}
 footer{max-width:720px;margin:0 auto;padding:8px 16px 32px;font-size:13px;color:var(--sub)}
+/* 絵 */
+.i-bg{fill:var(--chip)}
+.i-ln{stroke:var(--accent);fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.i-th{stroke:var(--sub);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.i-hd{fill:var(--skin);stroke:var(--accent);stroke-width:3}
+.i-tx{fill:var(--accent);font:700 13px system-ui,sans-serif}
 </style>
 </head>
 <body>
 <header><div class="bar">
   <div class="brand">🌿 いきいき運動教室<span class="demo">デモ</span></div>
-  <nav><button data-tab="book" class="on">予約する</button><button data-tab="staff">スタッフ画面</button></nav>
+  <div class="tools">
+    <button type="button" class="zoomBtn" id="zoomBtn" aria-pressed="false">🔍 文字を大きく</button>
+    <nav><button data-tab="book" class="on">予約する</button><button data-tab="staff">スタッフ画面</button></nav>
+  </div>
 </div></header>
 
 <main>
   <section id="book">
     <h2>トレーニングのご予約</h2>
-    <p class="lead">日にちを選んで、空いている時間の「予約する」を押してください。ご家族の方の代理予約もできます。</p>
+    <p class="lead">ご家族の方の代理予約もできます。かんたん4ステップです。</p>
+    <div class="flow" aria-label="予約の流れ">
+      <div class="step"><span class="ic">📅</span><span class="n">1</span><span class="l">日にちを<br>えらぶ</span></div><span class="arrow">▶</span>
+      <div class="step"><span class="ic">🕙</span><span class="n">2</span><span class="l">クラスを<br>えらぶ</span></div><span class="arrow">▶</span>
+      <div class="step"><span class="ic">✍️</span><span class="n">3</span><span class="l">お名前を<br>入れる</span></div><span class="arrow">▶</span>
+      <div class="step"><span class="ic">✅</span><span class="n">4</span><span class="l">予約<br>完了</span></div>
+    </div>
+    <h3 style="margin-top:0">📅 ① 日にちをえらぶ</h3>
     <div id="days" class="days"></div>
+    <h3 id="dayTitle"></h3>
     <div id="slots" class="slots"></div>
+    <div class="guide">
+      <h3>🔰 はじめての方へ　当日の流れ</h3>
+      <ul class="tl" id="guideTl"></ul>
+      <h3>🎒 持ち物</h3>
+      <div class="items" id="guideItems"></div>
+    </div>
   </section>
 
   <section id="staff" hidden>
@@ -112,26 +172,27 @@ footer{max-width:720px;margin:0 auto;padding:8px 16px 32px;font-size:13px;color:
 <div id="sheet" class="sheet" hidden>
   <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
     <div id="formView">
-      <h2 id="sheetTitle">ご予約内容の入力</h2>
+      <span class="stepTag">ステップ 3 / 4</span>
+      <h2 id="sheetTitle">✍️ お名前などを入れてください</h2>
       <div id="sum" class="sum"></div>
       <form id="form" novalidate>
-        <label for="f-name">ご利用者のお名前<span class="req">必須</span></label>
+        <label for="f-name"><span class="ic">👤</span>ご利用者のお名前<span class="req">必須</span></label>
         <input id="f-name" autocomplete="name" placeholder="例）山田 一郎">
-        <label for="f-level">介護度<span class="req">必須</span></label>
+        <label for="f-level"><span class="ic">📋</span>介護度<span class="req">必須</span></label>
         <select id="f-level">
           <option value="">選んでください</option>
           <option>自立</option><option>要支援1</option><option>要支援2</option>
           <option>要介護1</option><option>要介護2</option><option>要介護3</option><option>要介護4</option><option>要介護5</option>
           <option>わからない</option>
         </select>
-        <label>送迎<span class="req">必須</span></label>
+        <label><span class="ic">🚐</span>送迎（お迎え）<span class="req">必須</span></label>
         <div class="choice">
-          <label><input type="radio" name="bus" value="希望する">希望する</label>
-          <label><input type="radio" name="bus" value="希望しない">希望しない</label>
+          <label><input type="radio" name="bus" value="希望する"><span class="big">🚐</span>お迎えに<br>来てほしい</label>
+          <label><input type="radio" name="bus" value="希望しない"><span class="big">🚶</span>自分で<br>行く</label>
         </div>
-        <label for="f-tel">連絡先の電話番号（ご本人・ご家族）<span class="req">必須</span></label>
+        <label for="f-tel"><span class="ic">📞</span>連絡先の電話番号（ご本人・ご家族）<span class="req">必須</span></label>
         <input id="f-tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="例）090-1234-5678">
-        <label for="f-memo">体調で気をつけてほしいこと（任意）</label>
+        <label for="f-memo"><span class="ic">💬</span>体調で気をつけてほしいこと（任意）</label>
         <textarea id="f-memo" placeholder="例）右ひざが痛い／血圧の薬を飲んでいる"></textarea>
         <div id="err" class="err" role="alert"></div>
         <div class="row">
@@ -141,11 +202,14 @@ footer{max-width:720px;margin:0 auto;padding:8px 16px 32px;font-size:13px;color:
       </form>
     </div>
     <div id="doneView" hidden>
+      <span class="stepTag">ステップ 4 / 4</span>
       <div class="check">✅</div>
       <h2 class="center">ご予約を受け付けました</h2>
       <p class="center" style="margin:4px 0 12px">予約番号 <span id="doneNo" class="no"></span></p>
       <div id="doneSum" class="sum"></div>
-      <div class="cap" style="margin-top:4px">↓ 予約が入った瞬間に、ご本人・ご家族へ自動で送る確認メッセージ（例）</div>
+      <h3>当日の流れ</h3>
+      <ul class="tl" id="doneTl"></ul>
+      <div class="cap">↓ 予約が入った瞬間に、ご本人・ご家族へ自動で送る確認メッセージ（例）</div>
       <div id="doneMsg" class="msg"></div>
       <div class="row"><button type="button" class="btn" data-close>閉じる</button></div>
     </div>
@@ -153,12 +217,36 @@ footer{max-width:720px;margin:0 auto;padding:8px 16px 32px;font-size:13px;color:
 </div>
 
 <script>
-// 時間割: [開始, クラス名, 対象, 分, 定員]
-const SCHEDULE = {
-  weekday: [["10:00","転倒予防体操","自立〜要支援",45,10],["11:00","マシントレーニング","要支援・要介護1〜2",50,6],["13:30","脳トレ体操","どなたでも",40,12],["14:30","個別リハビリ","要支援・要介護",30,2]],
-  sat: [["10:00","転倒予防体操","自立〜要支援",45,10],["11:00","マシントレーニング","要支援・要介護1〜2",50,6]]
+// クラスの絵（人が運動している図）
+const ART = {
+  balance: '<circle class="i-bg" cx="60" cy="60" r="57"/><line class="i-th" x1="30" y1="102" x2="90" y2="102"/><path class="i-th" d="M84 58v44M84 58h12v44M84 80h12"/><circle class="i-hd" cx="58" cy="28" r="10"/><path class="i-ln" d="M58 39v33M58 50L36 44M58 50L84 58M58 72l-2 30M58 72l16 8-2 12"/>',
+  machine: '<circle class="i-bg" cx="60" cy="60" r="57"/><path class="i-th" d="M22 30v72M22 30h14v72M36 80h34M100 50l-6 30"/><circle class="i-hd" cx="54" cy="34" r="10"/><path class="i-ln" d="M53 45l-4 32M49 77h24l20-10M52 56l-14 10"/>',
+  brain: '<circle class="i-bg" cx="60" cy="60" r="57"/><circle class="i-th" cx="88" cy="30" r="17"/><circle class="i-th" cx="70" cy="50" r="3"/><circle class="i-th" cx="63" cy="57" r="2"/><text class="i-tx" x="88" y="35" text-anchor="middle">1+2</text><circle class="i-hd" cx="46" cy="44" r="10"/><path class="i-ln" d="M46 55v26M46 62L30 48M46 62l16 6M46 81l-8 20M46 81l12 16"/>',
+  rehab: '<circle class="i-bg" cx="60" cy="60" r="57"/><circle class="i-hd" cx="38" cy="32" r="10"/><path class="i-ln" d="M38 43v33M38 76l-8 24M38 76l8 24M38 54l24 8"/><circle class="i-hd" cx="76" cy="42" r="10"/><path class="i-ln" d="M76 53l-2 26M74 79l-6 21M74 79l8 21M76 60l16 12"/><path class="i-th" d="M92 72l2 28"/>'
 };
+function art(key, size) { return '<svg viewBox="0 0 120 120" role="img" aria-hidden="true" width="' + size + '" height="' + size + '">' + ART[key] + '</svg>'; }
+
+// 時間割: [開始, クラス名, 対象, 分, 定員, 絵, 説明, 運動のつよさ(1-3)]
+const CLASSES = {
+  balance: ["転倒予防体操","自立〜要支援",45,10,"balance","いすにつかまりながら、バランスと足の力をきたえます。はじめての方におすすめ。",1],
+  machine: ["マシントレーニング","要支援・要介護1〜2",50,6,"machine","座ったまま使える機械で、足腰の筋力をつけます。重さはスタッフが合わせます。",2],
+  brain: ["脳トレ体操","どなたでも",40,12,"brain","手足を動かしながら、計算やしりとりで頭も使います。笑い声の多いクラスです。",1],
+  rehab: ["個別リハビリ","要支援・要介護",30,2,"rehab","スタッフと1対1。ひざ・腰など、気になるところに合わせて行います。",2]
+};
+const SCHEDULE = {
+  weekday: [["10:00","balance"],["11:00","machine"],["13:30","brain"],["14:30","rehab"]],
+  sat: [["10:00","balance"],["11:00","machine"]]
+};
+const GUIDE = [
+  ["🚐","お迎え（送迎ありの方）","はじまる40分前ごろ、ご自宅まで伺います"],
+  ["🩺","体温・血圧をはかります","その日の体調をスタッフが確かめます"],
+  ["🤸","運動","クラスごとに30〜50分。無理はしません"],
+  ["🍵","お茶でひと休み","水分をとって、おしゃべりも"],
+  ["🏠","ご自宅までお送りします","送迎なしの方はここで解散です"]
+];
+const ITEMS = [["👟","室内履き"],["🥤","飲み物"],["🧺","タオル"],["📕","お薬手帳"]];
 const KEY = "demo-senior-yoyaku-v1";
+const ZKEY = "demo-senior-yoyaku-zoom";
 const WD = "日月火水木金土";
 
 let store = [];
@@ -176,7 +264,10 @@ function days() {
 }
 function slotsFor(d) {
   const w = d.getDay(); if (w === 0) return [];
-  return (w === 6 ? SCHEDULE.sat : SCHEDULE.weekday).map(s => ({ time: s[0], name: s[1], target: s[2], min: s[3], cap: s[4] }));
+  return (w === 6 ? SCHEDULE.sat : SCHEDULE.weekday).map(([time, k]) => {
+    const c = CLASSES[k];
+    return { time, name: c[0], target: c[1], min: c[2], cap: c[3], art: c[4], desc: c[5], lv: c[6] };
+  });
 }
 function seed(key, cap) { let h = 7; for (const c of key) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h % (cap + 1); }
 function booked(date, time) { return store.filter(r => r.date === date && r.time === time).length; }
@@ -192,11 +283,15 @@ function el(tag, attrs, ...kids) {
   if (attrs) for (const k in attrs) {
     const v = attrs[k];
     if (k === "class") n.className = v;
+    else if (k === "html") n.innerHTML = v;
     else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
     else if (v !== false && v != null) n.setAttribute(k, v === true ? "" : v);
   }
   for (const c of kids) { if (c == null || c === false) continue; n.append(c.nodeType ? c : String(c)); }
   return n;
+}
+function renderTimeline(box) {
+  box.replaceChildren(...GUIDE.map(g => el("li", null, el("span", { class: "ic" }, g[0]), el("div", null, el("b", null, g[1]), el("span", null, g[2])))));
 }
 
 let selDay = 0;
@@ -215,6 +310,7 @@ function renderDays() {
 function renderSlots() {
   const box = document.getElementById("slots"); box.replaceChildren();
   const d = days()[selDay]; const ss = slotsFor(d);
+  document.getElementById("dayTitle").textContent = "🕙 ② " + label(d) + " のクラス";
   if (ss.length === 0) { box.append(el("div", { class: "empty" }, "この日はお休みです")); return; }
   ss.forEach(s => {
     const past = isPast(d, s.time); const r = remain(ymd(d), s);
@@ -224,28 +320,34 @@ function renderSlots() {
     else if (r <= 2) badge = el("span", { class: "badge b-warn" }, "残りわずか（あと" + r + "名）");
     else badge = el("span", { class: "badge b-ok" }, "空きあり（あと" + r + "名）");
     box.append(el("div", { class: "slot" },
-      el("div", { class: "time" }, s.time),
-      el("div", { class: "info" }, el("b", null, s.name), el("span", null, s.target + "・" + s.min + "分"), el("br"), badge),
-      el("button", { class: "btn", disabled: past || r === 0, onclick: () => openForm(d, s) }, past || r === 0 ? "予約できません" : "予約する")));
+      el("div", { html: art(s.art, 100) }),
+      el("div", { class: "info" }, el("div", { class: "time" }, s.time, el("small", null, s.min + "分")), el("b", null, s.name), el("span", { class: "tgt" }, "対象：" + s.target)),
+      el("p", { class: "desc" }, s.desc),
+      el("div", { class: "meta" }, el("span", { class: "lv" }, "運動のつよさ ", el("i", null, "●".repeat(s.lv) + "○".repeat(3 - s.lv))), badge),
+      el("button", { class: "btn", disabled: past || r === 0, onclick: () => openForm(d, s) }, past || r === 0 ? "予約できません" : "このクラスを予約する")));
   });
 }
 function renderBook() { renderDays(); renderSlots(); }
 
 let current = null;
 const sheet = document.getElementById("sheet");
+function sumNodes(dlabel, s, extra) {
+  return [el("div", { html: art(s.art, 64) }), el("div", null, el("b", null, dlabel + " " + s.time + "〜"), el("br"), s.name + "（" + s.min + "分）", extra ? el("br") : null, extra || null)];
+}
 function openForm(d, s) {
   current = { date: ymd(d), dlabel: label(d), slot: s };
-  document.getElementById("sum").replaceChildren(el("b", null, current.dlabel + " " + s.time + "〜"), el("br"), s.name + "（" + s.target + "・" + s.min + "分）");
+  document.getElementById("sum").replaceChildren(...sumNodes(current.dlabel, s));
   document.getElementById("form").reset();
   document.getElementById("err").textContent = "";
   document.getElementById("submitBtn").disabled = false;
   document.getElementById("formView").hidden = false;
   document.getElementById("doneView").hidden = true;
   sheet.hidden = false;
+  document.querySelector(".panel").scrollTop = 0;
   setTimeout(() => document.getElementById("f-name").focus(), 50);
 }
 function closeSheet() { sheet.hidden = true; current = null; }
-sheet.addEventListener("click", e => { if (e.target === sheet || e.target.hasAttribute("data-close")) closeSheet(); });
+sheet.addEventListener("click", e => { if (e.target === sheet || e.target.closest("[data-close]")) closeSheet(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !sheet.hidden) closeSheet(); });
 
 document.getElementById("form").addEventListener("submit", e => {
@@ -259,7 +361,7 @@ document.getElementById("form").addEventListener("submit", e => {
   const telDigits = tel.replace(/[０-９]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0)).replace(/[^0-9]/g, "");
   if (!name) { err.textContent = "ご利用者のお名前を入れてください"; document.getElementById("f-name").focus(); return; }
   if (!level) { err.textContent = "介護度を選んでください（わからなければ「わからない」）"; document.getElementById("f-level").focus(); return; }
-  if (!bus) { err.textContent = "送迎を希望するかどうかを選んでください"; return; }
+  if (!bus) { err.textContent = "お迎えが必要かどうかを選んでください"; return; }
   if (!/^0\d{9,10}$/.test(telDigits)) { err.textContent = "電話番号は 0 から始まる10〜11桁で入れてください"; document.getElementById("f-tel").focus(); return; }
   if (remain(current.date, s) === 0) { err.textContent = "申し訳ありません、たった今満員になりました。別の時間をお選びください"; return; }
   if (store.some(r => r.date === current.date && r.time === s.time && r.name === name)) { err.textContent = "同じ方の予約がこの時間にすでに入っています"; return; }
@@ -267,7 +369,7 @@ document.getElementById("form").addEventListener("submit", e => {
   const no = "R-" + Math.random().toString(36).slice(2, 6).toUpperCase();
   store.push({ no, date: current.date, time: s.time, cls: s.name, min: s.min, name, level, bus, tel: telDigits, memo, at: Date.now() }); save();
   document.getElementById("doneNo").textContent = no;
-  document.getElementById("doneSum").replaceChildren(el("b", null, current.dlabel + " " + s.time + "〜"), el("br"), s.name + "／" + name + " 様（" + level + "）／送迎" + bus);
+  document.getElementById("doneSum").replaceChildren(...sumNodes(current.dlabel, s, name + " 様／" + (bus === "希望する" ? "🚐 " + pickup(s.time) + " ごろお迎え" : "🚶 送迎なし")));
   document.getElementById("doneMsg").textContent =
     name + " 様\n\nご予約ありがとうございます。\n\n" +
     "■ 日時：" + current.dlabel + " " + s.time + "〜（" + s.min + "分）\n" +
@@ -279,6 +381,7 @@ document.getElementById("form").addEventListener("submit", e => {
     "当日、体調がすぐれないときは無理をせず、お電話でお知らせください。";
   document.getElementById("formView").hidden = true;
   document.getElementById("doneView").hidden = false;
+  document.querySelector(".panel").scrollTop = 0;
   renderBook(); renderStaff();
 });
 
@@ -327,6 +430,19 @@ document.querySelectorAll("nav button").forEach(b => b.addEventListener("click",
   window.scrollTo(0, 0);
 }));
 
+const zoomBtn = document.getElementById("zoomBtn");
+function setZoom(on) {
+  document.documentElement.classList.toggle("big", on);
+  zoomBtn.setAttribute("aria-pressed", on ? "true" : "false");
+  zoomBtn.textContent = on ? "🔍 文字を元に戻す" : "🔍 文字を大きく";
+  try { localStorage.setItem(ZKEY, on ? "1" : "0"); } catch (e) {}
+}
+zoomBtn.addEventListener("click", () => setZoom(!document.documentElement.classList.contains("big")));
+try { if (localStorage.getItem(ZKEY) === "1") setZoom(true); } catch (e) {}
+
+renderTimeline(document.getElementById("guideTl"));
+renderTimeline(document.getElementById("doneTl"));
+document.getElementById("guideItems").replaceChildren(...ITEMS.map(it => el("div", { class: "item" }, el("span", { class: "ic" }, it[0]), it[1])));
 renderBook(); renderStaff();
 </script>
 </body>
