@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<title>ブロック崩し</title>
+<style>
+  html,body{margin:0;height:100%;background:#070b18;color:#e8ecf8;overflow:hidden;
+    touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+  #wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  canvas{display:block;border-radius:14px;box-shadow:0 0 0 1px #ffffff14,0 24px 70px #000a;cursor:none}
+  @media (max-width:520px){canvas{border-radius:0;box-shadow:none}}
+</style>
+</head>
+<body>
+<div id="wrap"><canvas id="c"></canvas></div>
+<script>
+(() => {
+'use strict';
+const W = 480, H = 720, TOP = 56;
+const FONT = 'system-ui,-apple-system,"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif';
+const ROW_COLORS = ['#f87171','#fb923c','#fbbf24','#a3e635','#34d399','#22d3ee','#60a5fa','#a78bfa','#f472b6'];
+const POWER = {
+  wide:  {color:'#38bdf8', label:'W',  name:'ワイド',       weight:3},
+  multi: {color:'#e879f9', label:'×3', name:'マルチボール', weight:3},
+  slow:  {color:'#4ade80', label:'S',  name:'スロー',       weight:2},
+  life:  {color:'#f87171', label:'♥',  name:'1UP',          weight:1},
+};
+
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+
+// ---------- 画面サイズ ----------
+function resize(){
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const pad = vw <= 520 ? 0 : 24;
+  const scale = Math.min((vw - pad*2) / W, (vh - pad*2) / H);
+  cv.style.width = (W*scale) + 'px';
+  cv.style.height = (H*scale) + 'px';
+  cv.width = Math.round(W*scale*dpr);
+  cv.height = Math.round(H*scale*dpr);
+  ctx.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0);
+}
+window.addEventListener('resize', resize);
+resize();
+
+// ---------- 小道具 ----------
+const clamp = (v,a,b) => v < a ? a : v > b ? b : v;
+const rand = (a,b) => a + Math.random()*(b-a);
+function rr(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+function text(s,x,y,size,color,weight,align){
+  ctx.font = `${weight||700} ${size}px ${FONT}`;
+  ctx.fillStyle = color || '#e8ecf8';
+  ctx.textAlign = align || 'center';
+  ctx.fillText(String(s), x, y);
+}
+
+// ---------- 音 ----------
+let actx = null, muted = false;
+function ensureAudio(){
+  try{
+    if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
+    if (actx.state === 'suspended') actx.resume();
+  }catch(e){}
+}
+function beep(freq, dur, type, vol){
+  if (muted || !actx) return;
+  try{
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.type = type || 'square';
+    o.frequency.value = freq;
+    const t = actx.currentTime;
+    g.gain.setValueAtTime(vol || 0.06, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + (dur || 0.06));
+    o.connect(g); g.connect(actx.destination);
+    o.start(t); o.stop(t + (dur || 0.06) + 0.02);
+  }catch(e){}
+}
+function jingle(notes, step){ notes.forEach((f,i) => setTimeout(() => beep(f, 0.12, 'triangle', 0.08), i*(step||90))); }
+
+// ---------- 記録 ----------
+function loadBest(){ try{ return +localStorage.getItem('breakout_best') || 0; }catch(e){ return 0; } }
+function saveBest(v){ try{ localStorage.setItem('breakout_best', String(v)); }catch(e){} }
+
+// ---------- 状態 ----------
+const state = { mode:'title', score:0, best:loadBest(), lives:3, level:1, combo:0,
+  shake:0, slowT:0, clearT:0, overT:0, bonus:0, newRecord:false };
+const paddle = { x:W/2, y:H-60, w:90, h:14, targetX:W/2, wideT:0 };
+let balls = [], bricks = [], drops = [], particles = [], floats = [];
+
+function baseSpeed(){ return Math.min(360 + (state.level-1)*35, 620); }
+function maxSpeed(){ return baseSpeed() * 1.4; }
+
+function buildLevel(n){
+  bricks = [];
+  const cols = 10, rows = Math.min(4 + Math.ceil(n/2), 9);
+  const m = 18, gap = 5, top = 92;
+  const bw = (W - m*2 - gap*(cols-1)) / cols, bh = 20;
+  const k = (n-1) % 4;
+  for (let r=0; r<rows; r++){
+    for (let c=0; c<cols; c++){
+      let hp = 1;
+      if (k === 1){
+        if ((r+c) % 2 === 1) continue;
+        hp = r < 2 ? 2 : 1;
+      } else if (k === 2){
+        const cx = (cols-1)/2, cy = (rows-1)/2;
+        const d = Math.abs(c-cx)/(cx+0.5) + Math.abs(r-cy)/(cy+0.5);
+        if (d > 1) continue;
+        hp = d < 0.35 ? 3 : d < 0.7 ? 2 : 1;
+      } else if (k === 3){
+        if ((c === 4 || c === 5) && r % 2 === 0) continue;
+        hp = r === 0 ? 3 : r < 3 ? 2 : 1;
+      }
+      if (n > 4 && Math.random() < 0.25) hp = Math.min(hp+1, 3);
+      bricks.push({ x:m + c*(bw+gap), y:top + r*(bh+gap), w:bw, h:bh, hp, max:hp,
+        color:ROW_COLORS[r % ROW_COLORS.length], flash:0, dead:false });
+    }
+  }
+}
+
+function resetBall(){
+  balls = [{ x:paddle.x, y:paddle.y - paddle.h/2 - 8, vx:0, vy:0, r:7, stuck:true, ox:0, trail:[] }];
+}
+function launch(b){
+  const a = rand(-0.35, 0.35);
+  const sp = baseSpeed();
+  b.vx = sp*Math.sin(a); b.vy = -sp*Math.cos(a);
+  b.stuck = false; b.trail = [];
+  beep(520, 0.06, 'sine', 0.07);
+}
+function fixAngle(b){
+  const sp = Math.hypot(b.vx, b.vy);
+  if (Math.abs(b.vy) < sp*0.3){
+    const sy = b.vy < 0 ? -1 : 1, sx = b.vx < 0 ? -1 : 1;
+    b.vy = sy*sp*0.3;
+    b.vx = sx*Math.sqrt(sp*sp - b.vy*b.vy);
+  }
+}
+
+function startGame(){
+  Object.assign(state, { score:0, lives:3, level:1, combo:0, slowT:0, newRecord:false, mode:'play' });
+  paddle.wideT = 0; drops = []; floats = [];
+  buildLevel(1); resetBall();
+  jingle([523, 659, 784], 80);
+}
+
+// ---------- 演出 ----------
+function burst(x, y, color, n){
+  for (let i=0; i<n; i++){
+    const a = rand(0, Math.PI*2), s = rand(60, 320);
+    particles.push({ x, y, vx:Math.cos(a)*s, vy:Math.sin(a)*s - 80, life:rand(0.35,0.8), max:0.8, color, size:rand(2,4.5) });
+  }
+  if (particles.length > 500) particles.splice(0, particles.length - 500);
+}
+function float(x, y, s, color, size){ floats.push({ x, y, s, color:color||'#fff', size:size||14, t:0.9, max:0.9 }); }
+
+// ---------- ゲーム処理 ----------
+function hitBrick(b){
+  for (const br of bricks){
+    if (br.dead) continue;
+    if (b.x + b.r > br.x && b.x - b.r < br.x + br.w && b.y + b.r > br.y && b.y - b.r < br.y + br.h) return br;
+  }
+  return null;
+}
+function speedUp(b){
+  const sp = Math.hypot(b.vx, b.vy), mx = maxSpeed();
+  if (sp < mx){ const f = Math.min(1.006, mx/sp); b.vx *= f; b.vy *= f; }
+}
+function damage(br){
+  br.hp--; br.flash = 0.12;
+  state.combo++;
+  if (br.hp <= 0){
+    br.dead = true;
+    const pts = 10*br.max + 5*Math.min(state.combo-1, 20);
+    state.score += pts;
+    float(br.x + br.w/2, br.y + br.h/2, '+' + pts, '#ffffff', 13);
+    burst(br.x + br.w/2, br.y + br.h/2, br.color, 14);
+    state.shake = Math.max(state.shake, 3);
+    if (Math.random() < 0.15) spawnDrop(br.x + br.w/2, br.y + br.h/2);
+    beep(440 + Math.min(state.combo, 20)*40, 0.07, 'square', 0.05);
+    if (state.combo % 5 === 0) float(W/2, 330, 'COMBO ×' + state.combo, '#fde047', 26);
+  } else {
+    state.score += 5;
+    beep(240, 0.05, 'triangle', 0.08);
+  }
+}
+function spawnDrop(x, y){
+  const ks = Object.keys(POWER);
+  let total = ks.reduce((s,k) => s + POWER[k].weight, 0), r = Math.random()*total, kind = ks[0];
+  for (const k of ks){ r -= POWER[k].weight; if (r <= 0){ kind = k; break; } }
+  drops.push({ x, y, kind, dead:false });
+}
+function applyPower(kind){
+  if (kind === 'wide'){ paddle.wideT = 12; float(paddle.x, paddle.y - 30, 'WIDE!', POWER.wide.color, 18); }
+  else if (kind === 'multi'){ multiball(); float(paddle.x, paddle.y - 30, 'MULTI BALL!', POWER.multi.color, 18); }
+  else if (kind === 'slow'){ state.slowT = 10; float(paddle.x, paddle.y - 30, 'SLOW', POWER.slow.color, 18); }
+  else if (kind === 'life'){ state.lives = Math.min(state.lives + 1, 6); float(paddle.x, paddle.y - 30, '1UP!', POWER.life.color, 18); }
+  jingle([660, 990], 70);
+}
+function multiball(){
+  const add = [];
+  for (const b of balls){
+    if (b.stuck) launch(b);
+    for (const da of [-0.4, 0.4]){
+      const c = Math.cos(da), s = Math.sin(da);
+      const nb = { x:b.x, y:b.y, vx:b.vx*c - b.vy*s, vy:b.vx*s + b.vy*c, r:b.r, stuck:false, ox:0, trail:[] };
+      fixAngle(nb);
+      add.push(nb);
+    }
+  }
+  balls.push(...add);
+  if (balls.length > 12) balls.length = 12;
+}
+
+function stepBall(b, dt){
+  // 横方向
+  b.x += b.vx*dt;
+  if (b.x - b.r < 0){ b.x = b.r; b.vx = Math.abs(b.vx); beep(300, 0.03, 'sine', 0.04); }
+  else if (b.x + b.r > W){ b.x = W - b.r; b.vx = -Math.abs(b.vx); beep(300, 0.03, 'sine', 0.04); }
+  let br = hitBrick(b);
+  if (br){
+    b.x = b.vx > 0 ? br.x - b.r : br.x + br.w + b.r;
+    b.vx = -b.vx; damage(br); speedUp(b);
+  }
+  // 縦方向
+  b.y += b.vy*dt;
+  if (b.y - b.r < TOP){ b.y = TOP + b.r; b.vy = Math.abs(b.vy); beep(300, 0.03, 'sine', 0.04); }
+  br = hitBrick(b);
+  if (br){
+    b.y = b.vy > 0 ? br.y - b.r : br.y + br.h + b.r;
+    b.vy = -b.vy; damage(br); speedUp(b);
+  }
+  // パドル
+  const pt = paddle.y - paddle.h/2, pb = paddle.y + paddle.h/2;
+  if (b.vy > 0 && b.y + b.r >= pt && b.y - b.r <= pb &&
+      b.x >= paddle.x - paddle.w/2 - b.r && b.x <= paddle.x + paddle.w/2 + b.r){
+    const rel = clamp((b.x - paddle.x) / (paddle.w/2), -1, 1);
+    const ang = rel * (Math.PI/3);
+    const sp = Math.hypot(b.vx, b.vy);
+    b.vx = sp*Math.sin(ang); b.vy = -sp*Math.cos(ang);
+    b.y = pt - b.r;
+    state.combo = 0;
+    beep(200, 0.05, 'sine', 0.08);
+  }
+}
+
+function loseLife(){
+  state.lives--; state.shake = 10; state.combo = 0;
+  drops = []; paddle.wideT = 0; state.slowT = 0;
+  beep(140, 0.35, 'sawtooth', 0.08);
+  if (state.lives <= 0){
+    state.mode = 'over'; state.overT = 0.8;
+    if (state.score > state.best){ state.best = state.score; state.newRecord = true; saveBest(state.best); }
+  } else {
+    resetBall();
+  }
+}
+function levelClear(){
+  state.mode = 'clear'; state.clearT = 1.8;
+  state.bonus = 100*state.level;
+  state.score += state.bonus;
+  if (state.score > state.best){ state.best = state.score; saveBest(state.best); }
+  jingle([523, 659, 784, 1047], 110);
+}
+
+// ---------- 入力 ----------
+const keys = { left:false, right:false };
+function primary(){
+  ensureAudio();
+  if (state.mode === 'title'){ startGame(); return; }
+  if (state.mode === 'over'){ if (state.overT <= 0) startGame(); return; }
+  if (state.mode === 'pause'){ state.mode = 'play'; return; }
+  if (state.mode === 'play'){ for (const b of balls) if (b.stuck) launch(b); }
+}
+function togglePause(){
+  if (state.mode === 'play') state.mode = 'pause';
+  else if (state.mode === 'pause') state.mode = 'play';
+}
+window.addEventListener('keydown', e => {
+  const k = e.key;
+  if (k === 'ArrowLeft' || k === 'a' || k === 'A'){ keys.left = true; e.preventDefault(); return; }
+  if (k === 'ArrowRight' || k === 'd' || k === 'D'){ keys.right = true; e.preventDefault(); return; }
+  if (e.repeat) return;
+  if (k === ' ' || k === 'Enter'){ primary(); e.preventDefault(); }
+  else if (k === 'p' || k === 'P' || k === 'Escape'){ togglePause(); }
+  else if (k === 'm' || k === 'M'){ muted = !muted; float(W/2, H/2, muted ? '音 OFF' : '音 ON', '#e8ecf8', 20); }
+});
+window.addEventListener('keyup', e => {
+  const k = e.key;
+  if (k === 'ArrowLeft' || k === 'a' || k === 'A') keys.left = false;
+  if (k === 'ArrowRight' || k === 'd' || k === 'D') keys.right = false;
+});
+function pointerX(e){ const r = cv.getBoundingClientRect(); return (e.clientX - r.left) / r.width * W; }
+window.addEventListener('pointermove', e => { paddle.targetX = pointerX(e); });
+cv.addEventListener('pointerdown', e => { paddle.targetX = pointerX(e); primary(); e.preventDefault(); });
+document.addEventListener('visibilitychange', () => { if (document.hidden && state.mode === 'play') state.mode = 'pause'; });
+
+// ---------- 更新 ----------
+function update(dt){
+  if (keys.left) paddle.targetX -= 560*dt;
+  if (keys.right) paddle.targetX += 560*dt;
+  const wantW = paddle.wideT > 0 ? 140 : 90;
+  paddle.w += (wantW - paddle.w) * Math.min(1, dt*10);
+  paddle.targetX = clamp(paddle.targetX, paddle.w/2, W - paddle.w/2);
+  paddle.x += (paddle.targetX - paddle.x) * Math.min(1, dt*30);
+
+  for (const p of particles){ p.vy += 600*dt; p.x += p.vx*dt; p.y += p.vy*dt; p.life -= dt; }
+  particles = particles.filter(p => p.life > 0);
+  for (const f of floats){ f.y -= 35*dt; f.t -= dt; }
+  floats = floats.filter(f => f.t > 0);
+  for (const br of bricks) if (br.flash > 0) br.flash -= dt;
+  state.shake = Math.max(0, state.shake - dt*30);
+  if (state.overT > 0) state.overT -= dt;
+
+  for (const b of balls){
+    if (b.stuck){ b.x = clamp(paddle.x + b.ox, b.r, W - b.r); b.y = paddle.y - paddle.h/2 - b.r - 1; }
+  }
+
+  if (state.mode === 'clear'){
+    state.clearT -= dt;
+    if (state.clearT <= 0){
+      state.level++; buildLevel(state.level); resetBall(); drops = [];
+      state.mode = 'play';
+    }
+    return;
+  }
+  if (state.mode !== 'play') return;
+
+  if (paddle.wideT > 0) paddle.wideT -= dt;
+  if (state.slowT > 0) state.slowT -= dt;
+  const mul = state.slowT > 0 ? 0.6 : 1;
+
+  for (const b of balls){
+    if (b.stuck) continue;
+    const dist = Math.hypot(b.vx, b.vy) * dt * mul;
+    const n = Math.max(1, Math.ceil(dist / 4));
+    const sdt = dt * mul / n;
+    for (let i=0; i<n; i++){ stepBall(b, sdt); if (b.y - b.r > H) break; }
+    b.trail.push({ x:b.x, y:b.y });
+    if (b.trail.length > 10) b.trail.shift();
+  }
+
+  for (const d of drops){
+    d.y += 150*dt;
+    if (d.y + 8 >= paddle.y - paddle.h/2 && d.y - 8 <= paddle.y + paddle.h/2 &&
+        Math.abs(d.x - paddle.x) <= paddle.w/2 + 17){ d.dead = true; applyPower(d.kind); }
+    else if (d.y > H + 20) d.dead = true;
+  }
+  drops = drops.filter(d => !d.dead);
+  bricks = bricks.filter(br => !br.dead);
+  balls = balls.filter(b => b.y - b.r <= H);
+
+  if (balls.length === 0) loseLife();
+  else if (bricks.length === 0) levelClear();
+}
+
+// ---------- 描画 ----------
+function drawBrick(b){
+  ctx.globalAlpha = b.hp < b.max ? 0.72 : 1;
+  ctx.fillStyle = b.color;
+  rr(b.x, b.y, b.w, b.h, 4); ctx.fill();
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = 'rgba(255,255,255,0.28)';
+  rr(b.x + 3, b.y + 2, b.w - 6, 4, 2); ctx.fill();
+  if (b.max > 1){
+    ctx.strokeStyle = 'rgba(255,255,255,0.75)'; ctx.lineWidth = 1.5;
+    rr(b.x + 0.75, b.y + 0.75, b.w - 1.5, b.h - 1.5, 4); ctx.stroke();
+    ctx.fillStyle = 'rgba(0,0,0,0.4)';
+    for (let i=0; i<b.hp; i++){
+      ctx.beginPath(); ctx.arc(b.x + b.w/2 + (i - (b.hp-1)/2)*7, b.y + b.h/2 + 2, 2.2, 0, Math.PI*2); ctx.fill();
+    }
+  }
+  if (b.flash > 0){
+    ctx.fillStyle = `rgba(255,255,255,${Math.min(1, b.flash*6)})`;
+    rr(b.x, b.y, b.w, b.h, 4); ctx.fill();
+  }
+}
+function drawHUD(){
+  ctx.fillStyle = 'rgba(255,255,255,0.04)'; ctx.fillRect(0, 0, W, TOP);
+  ctx.fillStyle = 'rgba(255,255,255,0.10)'; ctx.fillRect(0, TOP-1, W, 1);
+  text('SCORE', 16, 22, 11, '#8a93b2', 600, 'left');  text(state.score, 16, 45, 20, '#e8ecf8', 800, 'left');
+  text('BEST', 130, 22, 11, '#8a93b2', 600, 'left');  text(Math.max(state.best, state.score), 130, 45, 20, '#e8ecf8', 800, 'left');
+  text('LEVEL', 250, 22, 11, '#8a93b2', 600, 'left'); text(state.level, 250, 45, 20, '#e8ecf8', 800, 'left');
+  text('LIVES', W-16, 22, 11, '#8a93b2', 600, 'right');
+  ctx.fillStyle = '#f472b6';
+  for (let i=0; i<state.lives; i++){ ctx.beginPath(); ctx.arc(W - 22 - i*16, 38, 5.5, 0, Math.PI*2); ctx.fill(); }
+}
+function overlay(a){ ctx.fillStyle = `rgba(5,8,20,${a})`; ctx.fillRect(0, 0, W, H); }
+
+function draw(now){
+  const t = now / 1000;
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, '#111a3a'); g.addColorStop(1, '#070b18');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+
+  ctx.save();
+  if (state.shake > 0) ctx.translate(rand(-1,1)*state.shake, rand(-1,1)*state.shake);
+
+  ctx.strokeStyle = 'rgba(255,255,255,0.035)'; ctx.lineWidth = 1;
+  ctx.beginPath();
+  for (let x=0; x<=W; x+=32){ ctx.moveTo(x+0.5, TOP); ctx.lineTo(x+0.5, H); }
+  for (let y=TOP; y<=H; y+=32){ ctx.moveTo(0, y+0.5); ctx.lineTo(W, y+0.5); }
+  ctx.stroke();
+
+  for (const b of bricks) if (!b.dead) drawBrick(b);
+
+  for (const d of drops){
+    const p = POWER[d.kind];
+    ctx.shadowColor = p.color; ctx.shadowBlur = 12;
+    ctx.fillStyle = p.color; rr(d.x - 17, d.y - 8, 34, 16, 8); ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.textBaseline = 'middle'; text(p.label, d.x, d.y + 1, 11, '#0b1020', 900); ctx.textBaseline = 'alphabetic';
+  }
+
+  for (const p of particles){
+    ctx.globalAlpha = Math.max(0, p.life / p.max);
+    ctx.fillStyle = p.color; ctx.fillRect(p.x - p.size/2, p.y - p.size/2, p.size, p.size);
+  }
+  ctx.globalAlpha = 1;
+
+  ctx.shadowColor = '#5eead4'; ctx.shadowBlur = 18;
+  const pg = ctx.createLinearGradient(0, paddle.y - paddle.h/2, 0, paddle.y + paddle.h/2);
+  pg.addColorStop(0, '#99f6e4'); pg.addColorStop(1, '#14b8a6');
+  ctx.fillStyle = pg; rr(paddle.x - paddle.w/2, paddle.y - paddle.h/2, paddle.w, paddle.h, 7); ctx.fill();
+  ctx.shadowBlur = 0;
+
+  for (const b of balls){
+    const n = b.trail.length;
+    for (let i=0; i<n; i++){
+      const p = b.trail[i], k = (i+1)/n;
+      ctx.globalAlpha = k*0.3; ctx.fillStyle = state.slowT > 0 ? '#4ade80' : '#93c5fd';
+      ctx.beginPath(); ctx.arc(p.x, p.y, b.r*k, 0, Math.PI*2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    ctx.shadowColor = '#ffffff'; ctx.shadowBlur = 14; ctx.fillStyle = '#ffffff';
+    ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI*2); ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+
+  for (const f of floats){
+    ctx.globalAlpha = Math.max(0, f.t / f.max);
+    text(f.s, f.x, f.y, f.size, f.color, 800);
+  }
+  ctx.globalAlpha = 1;
+  ctx.restore();
+
+  drawHUD();
+
+  // 効果の残り時間
+  let sx = 16;
+  if (paddle.wideT > 0 && state.mode === 'play'){ text('WIDE ' + Math.ceil(paddle.wideT) + 's', sx, H - 16, 12, POWER.wide.color, 700, 'left'); sx += 80; }
+  if (state.slowT > 0 && state.mode === 'play'){ text('SLOW ' + Math.ceil(state.slowT) + 's', sx, H - 16, 12, POWER.slow.color, 700, 'left'); }
+
+  if (state.mode === 'play' && balls.some(b => b.stuck)){
+    text('クリック / タップ / Space で発射', W/2, paddle.y + 44, 13, '#8a93b2', 600);
+  }
+
+  if (state.mode === 'title'){
+    overlay(0.74);
+    text('ブロック崩し', W/2, 240, 46, '#ffffff', 900);
+    text('B R E A K O U T', W/2, 274, 13, '#5eead4', 700);
+    if (Math.sin(t*4) > -0.2) text('クリック / タップでスタート', W/2, 350, 19, '#e8ecf8', 700);
+    ['操作：マウス / 指でドラッグ / ← →', '発射：クリック / タップ / Space', '一時停止：P　　音：M'].forEach((s,i) =>
+      text(s, W/2, 410 + i*24, 13, '#8a93b2', 500));
+    Object.keys(POWER).forEach((k,i) => {
+      const p = POWER[k], x = W/2 - 165 + i*110, y = 530;
+      ctx.fillStyle = p.color; rr(x - 17, y - 8, 34, 16, 8); ctx.fill();
+      ctx.textBaseline = 'middle'; text(p.label, x, y + 1, 11, '#0b1020', 900); ctx.textBaseline = 'alphabetic';
+      text(p.name, x, y + 28, 12, '#c7cde3', 600);
+    });
+    if (state.best > 0) text('BEST  ' + state.best, W/2, 620, 15, '#fde047', 700);
+    text('made with Claude Code', W/2, H - 22, 11, '#5b6488', 500);
+  } else if (state.mode === 'pause'){
+    overlay(0.6);
+    text('PAUSE', W/2, H/2 - 10, 40, '#ffffff', 900);
+    text('クリック / タップ / P で再開', W/2, H/2 + 30, 15, '#8a93b2', 600);
+  } else if (state.mode === 'clear'){
+    overlay(0.45);
+    text(`LEVEL ${state.level} CLEAR!`, W/2, H/2 - 10, 38, '#5eead4', 900);
+    text(`ボーナス +${state.bonus}`, W/2, H/2 + 28, 17, '#fde047', 700);
+  } else if (state.mode === 'over'){
+    overlay(0.75);
+    text('GAME OVER', W/2, 280, 46, '#f87171', 900);
+    text('SCORE', W/2, 340, 12, '#8a93b2', 600);
+    text(state.score, W/2, 380, 40, '#ffffff', 900);
+    if (state.newRecord) text('NEW RECORD!', W/2, 420, 18, '#fde047', 800);
+    text(`LEVEL ${state.level} まで到達`, W/2, 455, 14, '#8a93b2', 600);
+    if (state.overT <= 0 && Math.sin(t*4) > -0.2) text('クリック / タップでもう一回', W/2, 530, 18, '#e8ecf8', 700);
+  }
+}
+
+// ---------- ループ ----------
+buildLevel(1); resetBall();
+let last = performance.now();
+function frame(now){
+  let dt = (now - last) / 1000; last = now;
+  if (dt > 1/20) dt = 1/20;
+  if (dt < 0) dt = 0;
+  update(dt);
+  draw(now);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+window.__breakout = { state, paddle, get balls(){ return balls; }, get bricks(){ return bricks; } };
+})();
+</script>
+</body>
+</html>
