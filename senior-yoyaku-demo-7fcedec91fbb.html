@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>運動教室の予約</title>
+<style>
+:root{--bg:#f5f7f4;--card:#fff;--ink:#1c2420;--sub:#56625b;--line:#dde3de;--accent:#2f7d5b;--accent-ink:#fff;--ok:#2f7d5b;--warn:#a8640a;--full:#8f9892;--chip:#e6f2ec;--alert:#c2410c;--shadow:0 1px 3px rgba(0,0,0,.06)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121614;--card:#1b211e;--ink:#eef3f0;--sub:#a5b2ab;--line:#2d3632;--accent:#5cc497;--accent-ink:#0b1a13;--ok:#5cc497;--warn:#e8a94a;--full:#5f6964;--chip:#1f3328;--alert:#fb8a5a;--shadow:none}}
+:root[data-theme="dark"]{--bg:#121614;--card:#1b211e;--ink:#eef3f0;--sub:#a5b2ab;--line:#2d3632;--accent:#5cc497;--accent-ink:#0b1a13;--ok:#5cc497;--warn:#e8a94a;--full:#5f6964;--chip:#1f3328;--alert:#fb8a5a;--shadow:none}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.65;font-size:17px}
+header{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+.bar{max-width:720px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-weight:700;font-size:19px}
+.demo{font-size:12px;font-weight:600;background:var(--chip);color:var(--accent);padding:2px 8px;border-radius:99px;margin-left:6px;vertical-align:2px}
+nav{display:flex;gap:4px;background:var(--bg);padding:3px;border-radius:10px}
+nav button{border:0;background:transparent;color:var(--sub);font:inherit;font-size:15px;padding:8px 14px;border-radius:8px;cursor:pointer}
+nav button.on{background:var(--card);color:var(--ink);font-weight:700;box-shadow:var(--shadow)}
+main{max-width:720px;margin:0 auto;padding:16px}
+h2{font-size:22px;margin:4px 0 2px}
+.lead{color:var(--sub);margin:0 0 14px;font-size:16px}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.day{flex:0 0 auto;min-width:80px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:8px 6px;text-align:center;cursor:pointer;font:inherit}
+.day b{display:block;font-size:18px}
+.day small{font-size:13px;color:var(--sub)}
+.day.on{border-color:var(--accent);background:var(--chip)}
+.day.on small{color:var(--accent)}
+.day:disabled{opacity:.45;cursor:default}
+.slots{display:grid;gap:12px;margin-top:14px}
+.slot{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow);flex-wrap:wrap}
+.time{font-size:24px;font-weight:700;min-width:70px;font-variant-numeric:tabular-nums}
+.info{flex:1;min-width:150px}
+.info b{display:block;font-size:19px}
+.info span{font-size:15px;color:var(--sub)}
+.badge{font-size:14px;font-weight:700;padding:3px 10px;border-radius:99px;display:inline-block;margin-top:6px}
+.b-ok{color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,transparent)}
+.b-warn{color:var(--warn);background:color-mix(in srgb,var(--warn) 15%,transparent)}
+.b-full{color:var(--full);background:color-mix(in srgb,var(--full) 18%,transparent)}
+.btn{border:0;background:var(--accent);color:var(--accent-ink);font:inherit;font-weight:700;font-size:18px;padding:14px 20px;min-height:52px;border-radius:12px;cursor:pointer;white-space:nowrap}
+.btn:disabled{background:var(--line);color:var(--full);cursor:default}
+.ghost{border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:16px;padding:12px 16px;min-height:48px;border-radius:12px;cursor:pointer}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:16px;padding:24px;text-align:center;color:var(--sub)}
+.sheet{position:fixed;inset:0;background:rgba(10,14,12,.5);display:flex;align-items:flex-end;justify-content:center;z-index:20}
+.sheet[hidden]{display:none}
+.panel{background:var(--card);width:100%;max-width:540px;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:20px 16px 24px}
+@media (min-width:600px){.sheet{align-items:center}.panel{border-radius:20px}}
+.sum{background:var(--chip);border-radius:12px;padding:12px 14px;margin:8px 0 14px;font-size:16px}
+.sum b{font-size:18px}
+label{display:block;font-size:16px;font-weight:700;margin:14px 0 6px}
+label .req{color:var(--alert);font-weight:700;margin-left:6px;font-size:13px}
+input,select,textarea{width:100%;font:inherit;font-size:18px;padding:12px 14px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}
+textarea{min-height:76px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:3px solid var(--accent);outline-offset:1px}
+.choice{display:flex;gap:10px}
+.choice label{flex:1;margin:0;font-weight:600;border:2px solid var(--line);border-radius:12px;padding:12px;display:flex;align-items:center;gap:8px;cursor:pointer;background:var(--bg)}
+.choice input{width:22px;height:22px;margin:0;accent-color:var(--accent)}
+.choice label:has(input:checked){border-color:var(--accent);background:var(--chip)}
+.err{color:var(--alert);font-size:16px;font-weight:600;min-height:1em;margin-top:10px}
+.row{display:flex;gap:10px;margin-top:18px}
+.row>*{flex:1}
+.check{font-size:48px;line-height:1;text-align:center;margin:4px 0}
+.center{text-align:center}
+.no{font-family:ui-monospace,Menlo,monospace;font-size:20px;font-weight:700;letter-spacing:.06em}
+.msg{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;font-size:16px;white-space:pre-wrap;margin-top:6px}
+.cap{font-size:14px;color:var(--sub);margin-top:14px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 6px;text-align:center}
+.stat b{display:block;font-size:26px;font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--sub)}
+.group h3{font-size:16px;color:var(--sub);margin:18px 0 6px}
+.res{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.res .t{font-weight:700;min-width:54px;font-size:18px;font-variant-numeric:tabular-nums}
+.res .d{flex:1;min-width:180px;font-size:16px}
+.res .d b{font-size:17px}
+.res .d div{color:var(--sub);font-size:15px;word-break:break-all}
+.tag{display:inline-block;font-size:13px;font-weight:700;padding:1px 8px;border-radius:99px;margin-left:4px;background:var(--chip);color:var(--accent)}
+.tag.bus{background:color-mix(in srgb,var(--warn) 16%,transparent);color:var(--warn)}
+.note{color:var(--alert)!important;font-weight:600}
+.cx{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;margin-left:auto}
+.cx button{font:inherit;font-size:15px;padding:8px 12px;border-radius:10px;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.cx .danger{border-color:var(--alert);color:var(--alert)}
+footer{max-width:720px;margin:0 auto;padding:8px 16px 32px;font-size:13px;color:var(--sub)}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <div class="brand">🌿 いきいき運動教室<span class="demo">デモ</span></div>
+  <nav><button data-tab="book" class="on">予約する</button><button data-tab="staff">スタッフ画面</button></nav>
+</div></header>
+
+<main>
+  <section id="book">
+    <h2>トレーニングのご予約</h2>
+    <p class="lead">日にちを選んで、空いている時間の「予約する」を押してください。ご家族の方の代理予約もできます。</p>
+    <div id="days" class="days"></div>
+    <div id="slots" class="slots"></div>
+  </section>
+
+  <section id="staff" hidden>
+    <h2>スタッフ画面</h2>
+    <p class="lead">入った予約が日付順に並びます。送迎の有無と体調のメモもここで見られます。</p>
+    <div id="stats" class="stats"></div>
+    <div id="list"></div>
+    <div id="resetBox" style="margin-top:20px"></div>
+  </section>
+</main>
+
+<footer>このページはデモです。予約はこの端末のブラウザの中にだけ保存され、どこにも送信されません。</footer>
+
+<div id="sheet" class="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div id="formView">
+      <h2 id="sheetTitle">ご予約内容の入力</h2>
+      <div id="sum" class="sum"></div>
+      <form id="form" novalidate>
+        <label for="f-name">ご利用者のお名前<span class="req">必須</span></label>
+        <input id="f-name" autocomplete="name" placeholder="例）山田 一郎">
+        <label for="f-level">介護度<span class="req">必須</span></label>
+        <select id="f-level">
+          <option value="">選んでください</option>
+          <option>自立</option><option>要支援1</option><option>要支援2</option>
+          <option>要介護1</option><option>要介護2</option><option>要介護3</option><option>要介護4</option><option>要介護5</option>
+          <option>わからない</option>
+        </select>
+        <label>送迎<span class="req">必須</span></label>
+        <div class="choice">
+          <label><input type="radio" name="bus" value="希望する">希望する</label>
+          <label><input type="radio" name="bus" value="希望しない">希望しない</label>
+        </div>
+        <label for="f-tel">連絡先の電話番号（ご本人・ご家族）<span class="req">必須</span></label>
+        <input id="f-tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="例）090-1234-5678">
+        <label for="f-memo">体調で気をつけてほしいこと（任意）</label>
+        <textarea id="f-memo" placeholder="例）右ひざが痛い／血圧の薬を飲んでいる"></textarea>
+        <div id="err" class="err" role="alert"></div>
+        <div class="row">
+          <button type="button" class="ghost" data-close>戻る</button>
+          <button type="submit" class="btn" id="submitBtn">予約を確定する</button>
+        </div>
+      </form>
+    </div>
+    <div id="doneView" hidden>
+      <div class="check">✅</div>
+      <h2 class="center">ご予約を受け付けました</h2>
+      <p class="center" style="margin:4px 0 12px">予約番号 <span id="doneNo" class="no"></span></p>
+      <div id="doneSum" class="sum"></div>
+      <div class="cap" style="margin-top:4px">↓ 予約が入った瞬間に、ご本人・ご家族へ自動で送る確認メッセージ（例）</div>
+      <div id="doneMsg" class="msg"></div>
+      <div class="row"><button type="button" class="btn" data-close>閉じる</button></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// 時間割: [開始, クラス名, 対象, 分, 定員]
+const SCHEDULE = {
+  weekday: [["10:00","転倒予防体操","自立〜要支援",45,10],["11:00","マシントレーニング","要支援・要介護1〜2",50,6],["13:30","脳トレ体操","どなたでも",40,12],["14:30","個別リハビリ","要支援・要介護",30,2]],
+  sat: [["10:00","転倒予防体操","自立〜要支援",45,10],["11:00","マシントレーニング","要支援・要介護1〜2",50,6]]
+};
+const KEY = "demo-senior-yoyaku-v1";
+const WD = "日月火水木金土";
+
+let store = [];
+try { store = JSON.parse(localStorage.getItem(KEY) || "[]"); if (!Array.isArray(store)) store = []; } catch (e) { store = []; }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
+
+function ymd(d) { return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0"); }
+function label(d) { return (d.getMonth()+1) + "月" + d.getDate() + "日（" + WD[d.getDay()] + "）"; }
+function short(d) { return (d.getMonth()+1) + "/" + d.getDate(); }
+function fromYmd(s) { const p = s.split("-").map(Number); return new Date(p[0], p[1]-1, p[2]); }
+function days() {
+  const out = []; const t = new Date(); t.setHours(0,0,0,0);
+  for (let i = 0; i < 14; i++) { const d = new Date(t); d.setDate(t.getDate()+i); out.push(d); }
+  return out;
+}
+function slotsFor(d) {
+  const w = d.getDay(); if (w === 0) return [];
+  return (w === 6 ? SCHEDULE.sat : SCHEDULE.weekday).map(s => ({ time: s[0], name: s[1], target: s[2], min: s[3], cap: s[4] }));
+}
+function seed(key, cap) { let h = 7; for (const c of key) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h % (cap + 1); }
+function booked(date, time) { return store.filter(r => r.date === date && r.time === time).length; }
+function remain(date, s) { return Math.max(0, s.cap - seed(date + s.time, s.cap) - booked(date, s.time)); }
+function isPast(d, time) {
+  const now = new Date(); if (ymd(d) !== ymd(now)) return false;
+  const [h, m] = time.split(":").map(Number);
+  return h * 60 + m <= now.getHours() * 60 + now.getMinutes();
+}
+function pickup(time) { const [h, m] = time.split(":").map(Number); const t = h * 60 + m - 40; return Math.floor(t / 60) + ":" + String(t % 60).padStart(2, "0"); }
+function el(tag, attrs, ...kids) {
+  const n = document.createElement(tag);
+  if (attrs) for (const k in attrs) {
+    const v = attrs[k];
+    if (k === "class") n.className = v;
+    else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+    else if (v !== false && v != null) n.setAttribute(k, v === true ? "" : v);
+  }
+  for (const c of kids) { if (c == null || c === false) continue; n.append(c.nodeType ? c : String(c)); }
+  return n;
+}
+
+let selDay = 0;
+(function initDay() { const ds = days(); for (let i = 0; i < ds.length; i++) { if (slotsFor(ds[i]).some(s => !isPast(ds[i], s.time))) { selDay = i; return; } } })();
+
+function renderDays() {
+  const box = document.getElementById("days"); box.replaceChildren();
+  days().forEach((d, i) => {
+    const ss = slotsFor(d);
+    const left = ss.filter(s => !isPast(d, s.time)).reduce((a, s) => a + remain(ymd(d), s), 0);
+    const sub = ss.length === 0 ? "お休み" : (left === 0 ? "受付終了" : "空き" + left);
+    box.append(el("button", { class: "day" + (i === selDay ? " on" : ""), disabled: ss.length === 0, onclick: () => { selDay = i; renderBook(); } },
+      el("small", null, i === 0 ? "今日" : i === 1 ? "明日" : WD[d.getDay()] + "曜"), el("b", null, short(d)), el("small", null, sub)));
+  });
+}
+function renderSlots() {
+  const box = document.getElementById("slots"); box.replaceChildren();
+  const d = days()[selDay]; const ss = slotsFor(d);
+  if (ss.length === 0) { box.append(el("div", { class: "empty" }, "この日はお休みです")); return; }
+  ss.forEach(s => {
+    const past = isPast(d, s.time); const r = remain(ymd(d), s);
+    let badge;
+    if (past) badge = el("span", { class: "badge b-full" }, "受付終了");
+    else if (r === 0) badge = el("span", { class: "badge b-full" }, "満員");
+    else if (r <= 2) badge = el("span", { class: "badge b-warn" }, "残りわずか（あと" + r + "名）");
+    else badge = el("span", { class: "badge b-ok" }, "空きあり（あと" + r + "名）");
+    box.append(el("div", { class: "slot" },
+      el("div", { class: "time" }, s.time),
+      el("div", { class: "info" }, el("b", null, s.name), el("span", null, s.target + "・" + s.min + "分"), el("br"), badge),
+      el("button", { class: "btn", disabled: past || r === 0, onclick: () => openForm(d, s) }, past || r === 0 ? "予約できません" : "予約する")));
+  });
+}
+function renderBook() { renderDays(); renderSlots(); }
+
+let current = null;
+const sheet = document.getElementById("sheet");
+function openForm(d, s) {
+  current = { date: ymd(d), dlabel: label(d), slot: s };
+  document.getElementById("sum").replaceChildren(el("b", null, current.dlabel + " " + s.time + "〜"), el("br"), s.name + "（" + s.target + "・" + s.min + "分）");
+  document.getElementById("form").reset();
+  document.getElementById("err").textContent = "";
+  document.getElementById("submitBtn").disabled = false;
+  document.getElementById("formView").hidden = false;
+  document.getElementById("doneView").hidden = true;
+  sheet.hidden = false;
+  setTimeout(() => document.getElementById("f-name").focus(), 50);
+}
+function closeSheet() { sheet.hidden = true; current = null; }
+sheet.addEventListener("click", e => { if (e.target === sheet || e.target.hasAttribute("data-close")) closeSheet(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !sheet.hidden) closeSheet(); });
+
+document.getElementById("form").addEventListener("submit", e => {
+  e.preventDefault();
+  if (!current) return;
+  const s = current.slot;
+  const v = id => document.getElementById(id).value.trim();
+  const name = v("f-name"), level = v("f-level"), tel = v("f-tel"), memo = v("f-memo");
+  const busEl = document.querySelector('input[name="bus"]:checked'); const bus = busEl ? busEl.value : "";
+  const err = document.getElementById("err");
+  const telDigits = tel.replace(/[０-９]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0)).replace(/[^0-9]/g, "");
+  if (!name) { err.textContent = "ご利用者のお名前を入れてください"; document.getElementById("f-name").focus(); return; }
+  if (!level) { err.textContent = "介護度を選んでください（わからなければ「わからない」）"; document.getElementById("f-level").focus(); return; }
+  if (!bus) { err.textContent = "送迎を希望するかどうかを選んでください"; return; }
+  if (!/^0\d{9,10}$/.test(telDigits)) { err.textContent = "電話番号は 0 から始まる10〜11桁で入れてください"; document.getElementById("f-tel").focus(); return; }
+  if (remain(current.date, s) === 0) { err.textContent = "申し訳ありません、たった今満員になりました。別の時間をお選びください"; return; }
+  if (store.some(r => r.date === current.date && r.time === s.time && r.name === name)) { err.textContent = "同じ方の予約がこの時間にすでに入っています"; return; }
+  document.getElementById("submitBtn").disabled = true;
+  const no = "R-" + Math.random().toString(36).slice(2, 6).toUpperCase();
+  store.push({ no, date: current.date, time: s.time, cls: s.name, min: s.min, name, level, bus, tel: telDigits, memo, at: Date.now() }); save();
+  document.getElementById("doneNo").textContent = no;
+  document.getElementById("doneSum").replaceChildren(el("b", null, current.dlabel + " " + s.time + "〜"), el("br"), s.name + "／" + name + " 様（" + level + "）／送迎" + bus);
+  document.getElementById("doneMsg").textContent =
+    name + " 様\n\nご予約ありがとうございます。\n\n" +
+    "■ 日時：" + current.dlabel + " " + s.time + "〜（" + s.min + "分）\n" +
+    "■ クラス：" + s.name + "\n" +
+    "■ 送迎：" + (bus === "希望する" ? "あり（ご自宅へ " + pickup(s.time) + " ごろお迎えにあがります）" : "なし") + "\n" +
+    "■ 予約番号：" + no + "\n\n" +
+    "室内履き・飲み物・タオルをお持ちください。お薬手帳もあると安心です。\n" +
+    (memo ? "体調のこと（「" + memo + "」）は担当スタッフに伝えておきます。\n" : "") +
+    "当日、体調がすぐれないときは無理をせず、お電話でお知らせください。";
+  document.getElementById("formView").hidden = true;
+  document.getElementById("doneView").hidden = false;
+  renderBook(); renderStaff();
+});
+
+function renderStaff() {
+  const today = ymd(new Date());
+  const todays = store.filter(r => r.date === today);
+  document.getElementById("stats").replaceChildren(
+    el("div", { class: "stat" }, el("b", null, store.length), el("span", null, "新しく入った予約")),
+    el("div", { class: "stat" }, el("b", null, todays.length), el("span", null, "今日の予約")),
+    el("div", { class: "stat" }, el("b", null, todays.filter(r => r.bus === "希望する").length), el("span", null, "今日の送迎")));
+  const list = document.getElementById("list"); list.replaceChildren();
+  if (store.length === 0) { list.append(el("div", { class: "empty" }, "まだ予約はありません。「予約する」タブから入れてみてください。")); }
+  const sorted = store.slice().sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+  let lastDate = null, group = null;
+  sorted.forEach(r => {
+    if (r.date !== lastDate) { lastDate = r.date; group = el("div", { class: "group" }, el("h3", null, label(fromYmd(r.date)))); list.append(group); }
+    const cx = el("div", { class: "cx" });
+    const askCancel = () => {
+      cx.replaceChildren(el("span", { style: "font-size:15px;align-self:center" }, "取り消しますか？"),
+        el("button", { class: "danger", onclick: () => { store = store.filter(x => x.no !== r.no); save(); renderStaff(); renderBook(); } }, "取り消す"),
+        el("button", { onclick: () => cx.replaceChildren(el("button", { onclick: askCancel }, "取消")) }, "戻る"));
+    };
+    cx.append(el("button", { onclick: askCancel }, "取消"));
+    group.append(el("div", { class: "res" },
+      el("div", { class: "t" }, r.time),
+      el("div", { class: "d" },
+        el("b", null, r.name + " 様"), el("span", { class: "tag" }, r.level), r.bus === "希望する" ? el("span", { class: "tag bus" }, "🚐 送迎 " + pickup(r.time)) : null,
+        el("div", null, r.cls + "　☎ " + r.tel + "　#" + r.no),
+        r.memo ? el("div", { class: "note" }, "⚠ " + r.memo) : null),
+      cx));
+  });
+  const rb = document.getElementById("resetBox"); rb.replaceChildren();
+  if (store.length) {
+    const askReset = () => rb.replaceChildren(el("span", { style: "font-size:15px;margin-right:8px" }, "デモの予約を全部消しますか？"),
+      el("button", { class: "ghost", style: "border-color:var(--alert);color:var(--alert)", onclick: () => { store = []; save(); renderStaff(); renderBook(); } }, "全部消す"), " ",
+      el("button", { class: "ghost", onclick: renderStaff }, "戻る"));
+    rb.append(el("button", { class: "ghost", onclick: askReset }, "デモの予約を全部消す"));
+  }
+}
+
+document.querySelectorAll("nav button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("nav button").forEach(x => x.classList.toggle("on", x === b));
+  document.getElementById("book").hidden = b.dataset.tab !== "book";
+  document.getElementById("staff").hidden = b.dataset.tab !== "staff";
+  if (b.dataset.tab === "staff") renderStaff(); else renderBook();
+  window.scrollTo(0, 0);
+}));
+
+renderBook(); renderStaff();
+</script>
+</body>
+</html>
