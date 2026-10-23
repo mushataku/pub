@@ -54,6 +54,11 @@
   .goal-foot{font-size:.88rem;color:var(--sub)}
   table.cf td.num{white-space:nowrap;font-weight:700}
   table.cf tr.big td{background:#eef4ff}
+  table.cf td.out{color:#b3261e}
+  table.cf td.in{color:#1d6b41}
+  table.cf td.bal{white-space:nowrap;color:var(--sub)}
+  h3{font-size:1rem;margin:16px 0 6px}
+  .lead{margin:0 0 8px;font-size:.88rem;color:var(--sub)}
   .pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:.78rem;white-space:nowrap;border:1px solid}
   .pill.done{background:var(--ok);border-color:var(--okb);color:#1d6b41}
   .pill.plan{background:var(--ev);border-color:var(--evb);color:var(--evb)}
@@ -90,6 +95,8 @@
       <li><div class="when">10/26（月）ごろ</div><div class="what"><b>日本交通の結果を受け取る</b><span>連絡が来たら、すぐLINEで教えてください</span></div></li>
       <li><div class="when">10/29（木）15時</div><div class="what"><b>BREXA様へのお返事の期限</b><span>日本交通の結果をふまえて、一緒に決めましょう</span></div></li>
       <li><div class="when">10/31（土）<br>11/1（日）</div><div class="what"><b>どちらか1日を空けておく（MNP）</b><span>お電話でお話しした件です</span></div></li>
+      <li><div class="when">11/24（火）まで</div><div class="what"><b>引き落とし口座に約6万円を入れておく</b><span>回線の料金が11/25〜11/30に引き落とされます（下の「お金の出入りの予定」）</span></div></li>
+      <li><div class="when">分かりしだい</div><div class="what"><b>今の職場の最後のお給料の日と額を教える</b><span>お金の出入りの表に入れます</span></div></li>
       <li><div class="when">分かりしだい</div><div class="what"><b>教習所の時間と日数を教える</b><span>朝の運送の便に入れるかどうかが決まります</span></div></li>
     </ul>
   </section>
@@ -128,6 +135,8 @@
       <div class="bar"><i style="width:27%"></i></div>
       <div class="goal-foot">見込みを入れて約8万円。<b>残りは約22万円</b></div>
     </div>
+    <h3>① 稼ぐ額の見通し（どの仕事で、いくら稼ぐか）</h3>
+    <p class="lead">お金が実際に入る日・出る日とは別に、「その仕事でいくら残るか」を並べた表です。</p>
     <table class="cf">
       <tr><th>時期</th><th>中身</th><th>手元に残る額</th><th>状態</th></tr>
       <tr><td>10月</td><td>池袋の案件（1回目）</td><td class="num">約4万円</td><td><span class="pill done">済み</span></td></tr>
@@ -146,10 +155,26 @@
       </ul>
       <span>運送のほかにも、手元に多く残る案件があれば優先して回します。表の11/2〜4の額は運送日給8,500円×3日で計算した目安です。</span>
     </div>
-    <p style="margin:10px 0 0;font-size:.85rem;color:var(--sub)">池袋の案件は、売上が先に入って経費があとから引き落とされる形なので、手元のお金が先に増えます。12月のお給料が入るまでのやりくりにも使えます。研修の日給が11月中に入るのか、12月のお給料に含まれるのかは確認中です。</p>
+    <h3>② お金の出入りの予定（いつ入って、いつ出るか）</h3>
+    <p class="lead">池袋の案件は、現金を先にお渡しして、回線の料金があとから相田さんの口座から引き落とされる形です。<b>お渡しした現金のうち、引き落とし分は口座に残しておいてください。</b></p>
+    <table class="cf">
+      <tr><th>日付</th><th>中身</th><th>出入り</th><th>池袋の案件の残り</th></tr>
+      <tr><td>10/18（日）〜</td><td>池袋の案件の現金のお渡し（ここまでの合計）</td><td class="num in">＋80,000円</td><td class="bal">80,000円</td></tr>
+      <tr><td>10/31（土）か<br>11/1（日）</td><td>池袋の案件（2回目）</td><td class="num">額は当日お伝えします</td><td class="bal">—</td></tr>
+      <tr><td>11/25（水）</td><td>UQ の引き落とし（回線の料金）</td><td class="num out">−20,208円</td><td class="bal">59,792円</td></tr>
+      <tr><td>11/27（金）</td><td>楽天の引き落とし</td><td class="num out">−4,312円</td><td class="bal">55,480円</td></tr>
+      <tr><td>11/30（月）</td><td>ドコモ・au の引き落とし</td><td class="num out">−35,836円</td><td class="bal">19,644円</td></tr>
+      <tr><td>12/27（日）<br>か翌営業日</td><td>楽天の引き落とし（解約の手数料）</td><td class="num out">−4,312円</td><td class="bal">15,332円</td></tr>
+      <tr><td>日付は確認中</td><td>ドコモの解約の料金</td><td class="num out">−2,200円</td><td class="bal">13,132円</td></tr>
+      <tr><td>教えてください</td><td>今の職場の最後のお給料</td><td class="num">入る日と額</td><td class="bal">—</td></tr>
+      <tr><td>確認中</td><td>運送のお給料（締め日・支払日）</td><td class="num">1日 8,000〜9,000円</td><td class="bal">—</td></tr>
+      <tr><td>確認中</td><td>日本交通の研修の日給（11月中か12月のお給料に入るか）</td><td class="num">日給1万円</td><td class="bal">—</td></tr>
+      <tr class="big"><td>12月<br>（日にちは確認中）</td><td>日本交通の初めての月給</td><td class="num in">約40万円</td><td class="bal">—</td></tr>
+    </table>
+    <p style="margin:10px 0 0;font-size:.85rem;color:var(--sub)">引き落としは11/25〜11/30に集中します（3回で合計60,356円）。<b>11/24（火）までに、引き落とし口座へ約6万円</b>を入れておいてください。引き落とし日が土日・祝日にあたると翌営業日になることがあります。日付や額が決まったものから、この表を更新します。</p>
   </section>
 
-  <footer>作成：Gooner 武者野（2026年10月23日）</footer>
+  <footer>作成：Gooner 武者野（2026年10月23日・10月24日更新）</footer>
 </main>
 <script>
 const D = {
