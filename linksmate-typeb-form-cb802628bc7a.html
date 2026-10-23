@@ -18,6 +18,7 @@
       --v:#ff9a57; --v-soft:#3a2415; --k:#8fa19b; --k-soft:#243035; --n:#7fb0ff; --n-soft:#17283f;
     }
   }
+  .eidwarn{border:2px solid var(--warn); border-radius:10px; background:var(--warn-soft); color:var(--err-ink); padding:8px 12px; margin:0 0 10px; font-size:15px; line-height:1.55}
   *{box-sizing:border-box}
   body{
     margin:0; background:var(--paper); color:var(--ink);
@@ -208,6 +209,7 @@
     </fieldset>
 
     <fieldset>
+      <div class="eidwarn" role="note"><b>⚠️ 1つの EID は1つの依頼（名義人さん1人）にだけ使ってください。名義の違う複数の依頼に同じ EID を入れると、LinksMate の両方のアカウントが停止（BAN）されます。</b><br>回線が何本でも、この依頼に入れる EID は1つです。<br>おすすめの用意の仕方: MNP で受け取った端末の EID、または名義人さんが普段使っているスマホの EID を聞いてください（ほかの依頼に使ったことのない端末のもの）。</div>
       <label class="field" for="eid">名義人さんの端末の EID<span class="opt-tag">任意</span>
         <span class="hint">数字32桁（ハイフンや空白があっても大丈夫です）。後からでも大丈夫です。申込が完了したらお願いします</span></label>
       <input type="text" id="eid" name="eid" inputmode="numeric" autocomplete="off" maxlength="80" enterkeyhint="done">
