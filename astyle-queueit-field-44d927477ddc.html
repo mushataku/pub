@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>待合室の実地記録</title>
+<style>
+:root{--bg:#fff;--fg:#1d1d1f;--mut:#666;--line:#ddd;--card:#f6f7f9;--blue:#3b82f6;--org:#f59e0b;--red:#ef4444;--gry:#a3a3a3;--grn:#10b981}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141414;--fg:#eee;--mut:#aaa;--line:#333;--card:#1e1e1e}}
+:root[data-theme="dark"]{--bg:#141414;--fg:#eee;--mut:#aaa;--line:#333;--card:#1e1e1e}
+body{background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Hiragino Sans","Yu Gothic UI",sans-serif;line-height:1.75;margin:0;padding:0 16px}
+main{max-width:880px;margin:0 auto;padding:24px 0 64px}
+h1{font-size:1.5rem;margin:.2em 0}
+h2{font-size:1.2rem;margin-top:2.2em;border-bottom:2px solid var(--line);padding-bottom:.2em}
+.sub{color:var(--mut);font-size:.9rem}
+.lead{background:var(--card);border-left:5px solid var(--red);padding:14px 18px;border-radius:6px;font-size:1.05rem}
+.card{background:var(--card);border-radius:8px;padding:12px 16px;margin:12px 0}
+figure{margin:16px 0;overflow-x:auto}
+figcaption{color:var(--mut);font-size:.88rem;margin-top:6px}
+svg text{fill:var(--fg);font-size:12px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:10px 0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--card)}
+code{font-size:.85em;background:var(--card);padding:1px 4px;border-radius:3px;word-break:break-all}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.88rem}
+.flow span{border:1px solid var(--line);border-radius:6px;padding:6px 8px;background:var(--card)}
+.flow b{color:var(--mut)}
+.k{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:4px}
+ul li{margin:.25em 0}
+</style>
+</head>
+<body><main>
+<p class="sub">2026年10月23日（金） ANAショッピング A-style「ちいかわ×ANA」発売日の実地記録 ／ 3つのブラウザで並んで、通信を全部記録した</p>
+<h1>仮想待合室（Queue-it）を実地で並んでみてわかったこと</h1>
+<p class="sub">待合室そのものの仕組み（番号札とリストバンドの Cookie など）は、前に作った解説 <a href="virtual-waiting-room-eb3405b874ec.html">仮想待合室のしくみ</a> と <a href="waiting-room-holes-eb3405b874ec.html">待合室の穴と塞ぎ方</a> にある。このページは、今日の実地で<strong>実際に観測したこと</strong>だけを書く。</p>
+
+<div class="lead">整理券を失ったのは 10:00 の抽選のせいではない。<br><strong>09:50 に、並んでいた全員の画面が「私はロボットではありません」に切り替わった。それを約2分以内に解かなかった窓は、待合室から追い出された（「お客様のアクセスは無効です」）。</strong><br>後から来た人も、着いた瞬間に同じ確認が出て、同じく2分で切られた。</div>
+
+<h2>1. 朝の時系列（3つの窓）</h2>
+<figure>
+<svg viewBox="0 0 840 190" width="840" height="190" role="img" aria-label="朝の3つの窓の時系列">
+  <line x1="70" y1="150" x2="830" y2="150" stroke="var(--line)"/>
+  <g font-size="11">
+    <text x="70" y="166" text-anchor="middle">9:25</text>
+    <text x="175" y="166" text-anchor="middle">9:30</text>
+    <text x="280" y="166" text-anchor="middle">9:35</text>
+    <text x="385" y="166" text-anchor="middle">9:40</text>
+    <text x="490" y="166" text-anchor="middle">9:45</text>
+    <text x="595" y="166" text-anchor="middle">9:50</text>
+    <text x="700" y="166" text-anchor="middle">9:55</text>
+    <text x="805" y="166" text-anchor="middle">10:00</text>
+  </g>
+  <line x1="175" y1="18" x2="175" y2="150" stroke="var(--mut)" stroke-dasharray="3 3"/>
+  <line x1="595" y1="18" x2="595" y2="150" stroke="var(--org)" stroke-dasharray="3 3"/>
+  <line x1="805" y1="18" x2="805" y2="150" stroke="var(--mut)" stroke-dasharray="3 3"/>
+  <text x="178" y="14" font-size="11">9:30 待合室が開く</text>
+  <text x="520" y="14" font-size="11">9:50 ロボット確認が一斉に</text>
+  <text x="760" y="14" font-size="11">10:00 抽選</text>
+  <text x="4" y="44">窓1</text>
+  <rect x="133" y="32" width="513" height="18" fill="var(--gry)" rx="3"/>
+  <text x="140" y="45" font-size="11" style="fill:#fff">ログイン画面 → ANA会員登録（並ばずに登録作業）</text>
+  <rect x="646" y="32" width="44" height="18" fill="var(--org)" rx="3"/>
+  <rect x="690" y="32" width="136" height="18" fill="var(--red)" rx="3"/>
+  <text x="4" y="84">窓2</text>
+  <rect x="70" y="72" width="167" height="18" fill="var(--gry)" rx="3"/>
+  <rect x="237" y="72" width="371" height="18" fill="var(--blue)" rx="3"/>
+  <text x="244" y="85" font-size="11" style="fill:#fff">待合室で待機（30秒ごとに順番を問い合わせ）</text>
+  <rect x="608" y="72" width="43" height="18" fill="var(--org)" rx="3"/>
+  <rect x="651" y="72" width="175" height="18" fill="var(--red)" rx="3"/>
+  <text x="4" y="124">窓3</text>
+  <rect x="70" y="112" width="171" height="18" fill="var(--gry)" rx="3"/>
+  <rect x="241" y="112" width="371" height="18" fill="var(--blue)" rx="3"/>
+  <rect x="612" y="112" width="41" height="18" fill="var(--org)" rx="3"/>
+  <rect x="653" y="112" width="173" height="18" fill="var(--red)" rx="3"/>
+  <text x="700" y="125" font-size="11" style="fill:#fff">無効（er=7）</text>
+</svg>
+<figcaption><span class="k" style="background:var(--gry)"></span>店のページ／登録作業 <span class="k" style="background:var(--blue)"></span>待合室で待機 <span class="k" style="background:var(--org)"></span>ロボット確認の画面 <span class="k" style="background:var(--red)"></span>「お客様のアクセスは無効です」。窓2・3は 9:33 から並んで 9:50 まで普通に待っていたが、確認画面に切り替わってから約2分で無効になった。窓1は並ばずに会員登録をしていて、9:52 に商品ページを開いた瞬間に確認画面へ飛ばされ、やはり2分で無効になった。</figcaption>
+</figure>
+
+<h2>2. 何が起きているか（観測した通信の順番）</h2>
+<div class="flow">
+<span>商品ページを開く</span><b>→</b>
+<span>店のサーバが 302 で待合室へ転送<br><code>waiting.astyle.jp</code></span><b>→</b>
+<span>列に入る <code>…/enqueue</code><br>番号（UUID）がもらえる</span><b>→</b>
+<span>30秒ごとに <code>…/status</code></span><b>→</b>
+<span style="border-color:var(--org)">9:50 確認画面 <code>/softblock/</code></span><b>→</b>
+<span>+60秒 <code>fraudprotection/status</code></span><b>→</b>
+<span style="border-color:var(--red)">+120秒 <code>challengesolvetimeout</code> → <code>error?er=7</code></span>
+</div>
+<ul>
+<li><strong>待合室の正体</strong>: Queue-it。店のドメインの下の <code>waiting.astyle.jp</code> に置かれ、イベント名は <code>prod202610231</code>。店の入口の CDN（CloudFront）に Queue-it の確認係（KnownUser コネクタ）が組み込まれていて、商品ページへのアクセスを 302 で待合室へ回す。</li>
+<li><strong>確認画面の中身</strong>: Google の reCAPTCHA ではなく、Queue-it 独自の bot 確認（<code>dual.challenge.queue-it.net</code>）。チェックを押すと、まず <strong>計算問題（proof-of-work。ブラウザに数秒ぶんの計算をさせる）</strong> を取りに行き（<code>/pow/get</code>）、答えを返す（<code>/pow/verify</code>）。そのあと<strong>絵（アイコン）を選ぶ問題</strong>（<code>/icon/get</code>）に進む、2段構えだった。</li>
+<li><strong>店側のログイン画面</strong>には別に Google の reCAPTCHA Enterprise が入っている（待合室とは別物）。</li>
+</ul>
+
+<h2>3. 測った数字</h2>
+<table>
+<tr><th>項目</th><th>値</th><th>根拠</th></tr>
+<tr><td>確認画面が出てから無効になるまで</td><td><strong>116〜124秒（約2分）</strong></td><td>7回すべて同じだった（朝 3回・午後 4回）。毎回、ちょうど60秒目に「解けたか」の問い合わせが1回入り、120秒前後で <code>challengesolvetimeout</code> に転送される</td></tr>
+<tr><td>待機中に順番を問い合わせる間隔</td><td>中央値 30.3秒（最小25・最大33）</td><td>窓2・3でそれぞれ36回</td></tr>
+<tr><td>確認画面の切り替わり</td><td>9:50:38（窓2）・9:50:49（窓3）</td><td>開始10分前。<strong>既に並んでいた人にも出る</strong>（番号を持ったまま確認画面へ）</td></tr>
+<tr><td>後から来た人</td><td>商品ページを開いた瞬間に確認画面</td><td>窓1は 9:52、午後は 14:49 と 15:00。どれも2分で無効</td></tr>
+<tr><td>列に入るための通行証（<code>enqueuetoken</code>）の有効期限</td><td>発行から240秒（4分）</td><td>トークンの中身の発行時刻と期限の差</td></tr>
+</table>
+
+<h2>4. ブラウザに置かれた Cookie（名前と期限だけ・値は記録していない）</h2>
+<table>
+<tr><th>どこに</th><th>名前</th><th>いつ・期限</th><th>役割（推定）</th></tr>
+<tr><td>店 <code>www.astyle.jp</code></td><td><code>QueueITAccepted-SDFrts345E-V3_prod202610231</code></td><td>9:23〜9:28 に、まだ待合室が開く前の店のページで発行。期限は24時間</td><td>「通ってよい」のリストバンド。<strong>ただし 9:52 には、これを持っていた窓1も待合室へ回された</strong>＝開始前に配られたリストバンドでは素通りできなかった</td></tr>
+<tr><td>待合室 <code>waiting.astyle.jp</code></td><td><code>Queue-it-&lt;番号&gt;</code></td><td>列に入った時刻。期限1時間</td><td>整理券の番号そのもの</td></tr>
+<tr><td>待合室</td><td><code>Queue-it-astyle______________prod202610231</code></td><td>待機中、約1分ごとに期限が延びる（常に24時間先）</td><td>待っている間の状態</td></tr>
+<tr><td>待合室</td><td><code>Queue-it-visitorsession</code></td><td>ブラウザを閉じるまで</td><td>訪問者のセッション</td></tr>
+<tr><td>店全体 <code>.astyle.jp</code></td><td><code>q_i_t_u_i</code></td><td>確認画面が出た瞬間（9:50）</td><td>確認の対象になった印と思われる</td></tr>
+<tr><td>待合室</td><td><code>queueitsoftblock_&lt;番号&gt;</code></td><td>午後、朝の番号のまま確認を解いた直後（14:41〜14:42）。期限24時間</td><td>「この番号は確認を通った」印。ただし番号自体が朝に失効済みで、解いても無効のままだった</td></tr>
+</table>
+
+<h2>5. 午後に解いても通らなかった理由</h2>
+<div class="card">
+<p><strong>14:41〜14:42</strong>：窓2・3を開き直すと、<strong>朝の番号のついた</strong>確認画面が出た（URL に朝の <code>q=</code> が残っていた）。拓也が解くと「確認を通った」印（<code>queueitsoftblock_&lt;番号&gt;</code>）は付いたが、結果は無効ページだった。番号そのものが 9:52 に失効していたので、解いても戻れなかったと読める。<strong>拓也の「整理券が無効になった」という読みは記録と合う。</strong></p>
+<p><strong>14:49</strong>：新しく3窓を並ばせ直した（今度は番号なしの新規）。窓3は 14:51:03 にチェックが押され、計算問題までは進んだ。しかし同じ瞬間（14:51:08）に2分の期限が来て無効になった。<strong>あと5秒足りなかった。</strong></p>
+<p>「Claude が操作する設定で起動した Chrome だから bot と判定された」という可能性は、今日は確かめられていない。期限内に解けた回が1度も無く、比べる材料が無いため。</p>
+</div>
+
+<h2>6. 次に同じことをやるなら</h2>
+<ul>
+<li><strong>人の待機は 9:45〜9:55 が本番</strong>。確認画面は開始10分前に全員へ一斉に出て、2分で切れる。解く人がその時間帯に画面の前に居ないと、早く並んだ意味が全部消える。合図はポップアップと音で知らせる（今日は面談と重なった）。</li>
+<li><strong>アカウントは前日までに作っておく</strong>。A-style のログインには ANA マイレージクラブ会員（お客様番号＋Web パスワード）が要る。新規登録は1人約15分で、最後にメールで届く「絵文字のワンタイムパスワード」を選ぶ段がある（メールの単語と画像の説明文が一致するので、機械で選べた）。1人目は完了した。2人目・3人目はその確認メールが、手元で読める受信箱のどこにも届かず、止まっている。</li>
+<li><strong>窓の数＝整理券の数</strong>。番号はブラウザ（Cookie）ごとに1つ。3人分なら3つの別プロファイルで並ぶ。確認画面も窓ごとに出るので、3つを2分以内に解く必要がある。</li>
+<li>確認画面の自動突破はしない（今日もしていない）。人が解く前提で、解く人の動線（窓を並べる・合図・順番）を短くするのが打ち手。</li>
+</ul>
+
+<p class="sub">記録の元：3つのブラウザの通信・Cookie 名・30秒ごとの画面写真（朝 9:27〜10:42、午後 14:49〜15:19）。個人情報と Cookie の値は記録していない。</p>
+</main></body></html>
