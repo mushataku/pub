@@ -13,52 +13,20 @@
 </head>
 <body>
 <div class="wrap">
-<header class="top"><a class="home" href="index.html">広告運用の勉強サイト</a><button class="theme-btn" type="button">配色: 自動</button></header>
+<header class="top"><a class="home" href="index.html">広告運用の勉強サイト</a><span class="tools"><a class="abbr-link" href="glossary.html#g-abbr">略語表</a><button class="theme-btn" type="button">配色: 自動</button></span></header>
 <nav class="here" data-here="spend,acc,fee" aria-label="全体の中の今ここ">全体の流れ: 広告費（この章）→ クリック → 応募 → 有効応募 → 面談 → 推薦 → 承諾（この章）→ 紹介料（この章）</nav>
 <main>
 <h1><span class="chno">5章</span>お金: 広告は元を取れているか</h1>
-<p class="lead">承諾1件にかかった広告費と、承諾1件で入る紹介料を比べる（5-1・5-2 節）。新しい月の ROAS が低く見える理由（5-3 節）と、予算を足すときに見る数字（5-4 節）まで。</p>
+<p class="lead">承諾1人にかかる広告費と、入る紹介料を比べる。新しい月の ROAS が低く見える理由と、予算を足すときに見る数字まで。</p>
 
-<h2 id="sec-5-1">承諾1件にかかった広告費</h2>
-<figure id="fig-5-1">
-<p class="tag"><b>何</b>: 9月の内定承諾単価を2通りで出す｜<b>期間</b>: 暦月 9/1〜9/30 に応募した人を追った件数｜<b>時点</b>: <span data-n="meta.page_time">10/22 17:06</span>｜<b>範囲</b>: 全アカウント・承諾は MK 経由｜<b>定義</b>: 率は1つ前の段に対する割合（Gooner の数え）</p>
-<p class="legend"><span class="role mk">MK</span><span class="role gn">Gooner</span><span>色は誰の持ち場か（目安）・図1-3と同じ</span></p>
-<svg class="w-s" viewBox="0 0 360 206" role="img" aria-labelledby="t-5-1">
-<title id="t-5-1">9月の広告費 1,246,207 円を承諾 5 人で割ると内定承諾単価 249,241 円。これを分解すると、応募単価 2,974 円 ÷ 率の積 1.19%（丸める前は 1.193%）。応募 419 件に 1.19% を掛けると承諾約 5 人。</title>
-<text x="8" y="16" font-size="12" class="s-ink2">① そのまま割る</text>
-<rect x="8" y="24" width="104" height="44" rx="6" class="n-mk"/>
-<text x="60" y="41" font-size="12" text-anchor="middle">広告費</text>
-<text x="60" y="60" font-size="13" font-weight="700" text-anchor="middle"><tspan data-n="c09.all.spend">1,246,207</tspan> 円</text>
-<text x="123" y="52" font-size="16" font-weight="700" text-anchor="middle">÷</text>
-<rect x="134" y="24" width="92" height="44" rx="6" class="n-gn"/>
-<text x="180" y="41" font-size="12" text-anchor="middle">承諾</text>
-<text x="180" y="60" font-size="14" font-weight="700" text-anchor="middle"><tspan data-n="c09.all.acc">5</tspan> 人</text>
-<text x="237" y="52" font-size="16" font-weight="700" text-anchor="middle">＝</text>
-<rect x="248" y="24" width="104" height="122" rx="6" class="n-gn"/>
-<text x="300" y="72" font-size="12" text-anchor="middle">内定承諾単価</text>
-<text x="300" y="94" font-size="14" font-weight="700" text-anchor="middle"><tspan data-n="c09.all.u.acc">249,241</tspan> 円</text>
-<text x="300" y="114" font-size="12" text-anchor="middle" class="s-ink2">②は①の分解</text>
-<text x="8" y="94" font-size="12" class="s-ink2">② 分解する（1章の模型A）</text>
-<rect x="8" y="102" width="104" height="44" rx="6" class="n-mk"/>
-<text x="60" y="119" font-size="12" text-anchor="middle">応募単価</text>
-<text x="60" y="138" font-size="14" font-weight="700" text-anchor="middle"><tspan data-n="c09.all.u.app">2,974</tspan> 円</text>
-<text x="123" y="130" font-size="16" font-weight="700" text-anchor="middle">÷</text>
-<rect x="134" y="102" width="92" height="44" rx="6" class="f-tag"/>
-<text x="180" y="119" font-size="12" text-anchor="middle">率の積</text>
-<text x="180" y="138" font-size="14" font-weight="700" text-anchor="middle"><tspan data-n="f.prod09">1.19%</tspan></text>
-<text x="237" y="130" font-size="16" font-weight="700" text-anchor="middle">＝</text>
-<text x="8" y="174" font-size="13" font-weight="700">応募 <tspan data-n="c09.all.app">419</tspan> 件 × <tspan data-n="f.prod09">1.19%</tspan> ≒ 承諾 <tspan data-n="c09.all.acc">5</tspan> 人</text>
-<text x="8" y="196" font-size="12" class="s-ink2">率の積が半分になると、承諾単価は2倍になる</text>
-</svg>
-<figcaption>率の積は、1章 図1-3 の率をすべて掛けた値です。表示は丸めた 1.19% で、計算は丸める前の <span data-c="prod3">1.193%</span> でほぼ合います。</figcaption>
-</figure>
-<p>承諾は、求職者が内定を受けた件数です。この章では MK 経由で決まった承諾を数えます。内定承諾単価は、広告費を承諾の人数で割った値で、9月は約25万円でした。1章の「応募単価 ÷ 率の積」はこれを分解した形です。</p>
+<h2 id="sec-5-1">承諾1人にかかった広告費</h2>
+<p>この章の承諾は、MK 経由の記録だけを数えます。9月は広告費 <span data-n="c09.all.spend">1,246,207</span> 円を承諾 <span data-n="c09.all.acc">5</span> 人で割って、内定承諾単価は <span data-n="c09.all.u.acc">249,241</span> 円でした。1章 <a href="ch1.html#fig-1-3">図1-3</a> の「応募単価 <span data-n="c09.all.u.app">2,974</span> 円 ÷ 率の積 <span data-n="f.prod09">1.19%</span>」と同じ値で、率の積が半分になれば承諾単価は2倍です。</p>
 
 <h2 id="sec-5-2">ROAS 100% が損益分岐: 棒が線より左なら回収</h2>
-<figure id="fig-5-2">
-<p class="tag"><b>何</b>: 9月の内定承諾単価と平均紹介料｜<b>期間</b>: 暦月 9/1〜9/30 に応募した人｜<b>時点</b>: <span data-n="meta.page_time">10/22 17:06</span>｜<b>範囲</b>: 広告費は全アカウント、承諾と紹介料は MK 経由の <span data-n="ret09.mk.n">5</span> 件｜<b>定義</b>: 平均紹介料＝紹介料の合計÷承諾数</p>
-<svg class="w-s" viewBox="0 0 360 196" role="img" aria-labelledby="t-5-2">
-<title id="t-5-2">9月の内定承諾単価 249,241 円の棒は、平均紹介料 506,400 円の線より左にある。紹介料は承諾単価の約2倍（2.03）で、これが ROAS 203%。8月と10月は承諾 0 人で棒を描けない。</title>
+<figure id="fig-5-1">
+<p class="tag"><span class="fno">図5-1</span><b>何</b>: 9月の内定承諾単価と平均紹介料｜<b>期間</b>: 暦月 9/1〜9/30 に応募した人｜<b>時点</b>: <span data-n="meta.page_time">10/22 17:06</span>｜<b>範囲</b>: 広告費は全アカウント、承諾と紹介料は MK 経由の同じ <span data-n="ret09.mk.n">5</span> 人｜<b>定義</b>: 平均紹介料＝紹介料の合計÷承諾数。金額の分からない人がいるかは合計の行からは読めず、いれば 0 円で入る（下限）</p>
+<svg class="w-s" viewBox="0 0 360 196" role="img" aria-labelledby="t-5-1">
+<title id="t-5-1">9月の内定承諾単価 249,241 円の棒は、平均紹介料 506,400 円の線より左にある。紹介料は承諾単価の約2倍（2.03）で、これが ROAS 203%。8月と10月は承諾 0 人で棒を描けない。</title>
 <line x1="20" y1="112" x2="340" y2="112" class="st-axis" stroke-width="1.2"/>
 <g font-size="12" class="s-ink2" text-anchor="middle">
 <line x1="20" y1="112" x2="20" y2="117" class="st-axis"/><text x="20" y="130">0</text>
@@ -72,18 +40,18 @@
 <text x="286" y="16" font-size="12" text-anchor="end">平均紹介料</text>
 <text x="286" y="32" font-size="12" font-weight="700" text-anchor="end"><tspan data-n="ret09.mk.avg">506,400</tspan> 円</text>
 <text x="160" y="78" font-size="12" class="s-ink2">← 回収できている側</text>
-<text x="8" y="158" font-size="13" font-weight="700"><tspan data-n="ret09.mk.avg">506,400</tspan> ÷ <tspan data-n="c09.all.u.acc">249,241</tspan> ≒ 約2倍（<tspan data-c="ratio09">2.03</tspan>）＝ ROAS <tspan data-n="ret09.mk.roas">203%</tspan></text>
+<text x="8" y="158" font-size="13" font-weight="700"><tspan data-n="ret09.mk.avg">506,400</tspan> ÷ <tspan data-n="c09.all.u.acc">249,241</tspan> ≒ 約2倍（<tspan data-n="f.ratio09">2.03</tspan>）＝ ROAS <tspan data-n="ret09.mk.roas">203%</tspan></text>
 <text x="8" y="182" font-size="12" class="s-ink2">8月・10月は承諾 0 人（10/22 時点）で棒を描けない</text>
 </svg>
-<figcaption>売上に MK 以外の経路の決定 <span data-n="ret09.other.n">1</span> 件も入れると、9月の ROAS は <span data-n="ret09.all.roas">251%</span> です（図5-3 の9月）。この1件は承諾の数には入っていません。</figcaption>
+<figcaption>MK 以外の経路で決まった紹介料 <span data-n="ret09.other.n">1</span> 件も足すと、9月の ROAS は <span data-n="ret09.all.roas">251%</span> です（<a href="#fig-5-2">図5-2</a> の9月）。この1件の人は承諾の数に入りません。</figcaption>
 </figure>
-<p>9月は承諾1件に約25万円かかり、紹介料は平均約51万円入りました。承諾単価が平均紹介料より低いうちは、広告費を紹介料で回収できています。2本の比がROASで、約2倍＝203%です。ただし承諾は月に5件ほどしかなく、1件増減するだけでROASは約<span data-c="per1">41</span>ポイント動きます。また100%は広告費だけの損益分岐で、CA の人件費を入れると分岐はもっと上にあります。</p>
+<p>棒（承諾単価 約25万円）が線（平均紹介料 約51万円）より左なら、広告費を紹介料で回収できています。2本の比が ROAS で、約2倍＝203%です。ただし承諾は月に5人ほどしかなく、1人増減するだけでROASは約<span data-n="f.per1acc09">41</span>ポイント動きます。また100%は広告費だけの損益分岐で、CA の人件費を入れるともっと上です。</p>
 
 <h2 id="sec-5-3">月ごとの ROAS は遅れて決まる</h2>
-<figure id="fig-5-3">
-<p class="tag"><b>何</b>: 月ごとの ROAS｜<b>期間</b>: 暦月（10月は <span data-n="c10.from">10/1</span>〜<span data-n="c10.to">10/16</span>）に応募した人｜<b>時点</b>: <span data-n="meta.page_time">10/22 17:06</span>｜<b>範囲</b>: 全アカウント・売上は全経路の紹介料（MK 経由に限らない）｜<b>定義</b>: ROAS＝売上÷広告費。10月はページの集計が 10/16 まで</p>
-<svg class="w-s" viewBox="0 0 360 250" role="img" aria-labelledby="t-5-3">
-<title id="t-5-3">ROAS は 7月 156%、8月 68%、9月 251%、10月前半 0%。100% が損益分岐。承諾は応募から多くが 2〜8 週あとなので、10月の 0% はまだ届いていないだけで、9月もまだ増えうる。</title>
+<figure id="fig-5-2">
+<p class="tag"><span class="fno">図5-2</span><b>何</b>: 月ごとの ROAS｜<b>期間</b>: 暦月（10月は <span data-n="c10.from">10/1</span>〜<span data-n="c10.to">10/16</span>）に応募した人｜<b>時点</b>: <span data-n="meta.page_time">10/22 17:06</span>｜<b>範囲</b>: 全アカウント・売上は全経路の紹介料（MK 経由に限らない）｜<b>定義</b>: ROAS＝売上÷広告費。10月はページの集計が 10/16 まで</p>
+<svg class="w-s" viewBox="0 0 360 268" role="img" aria-labelledby="t-5-2">
+<title id="t-5-2">ROAS は 7月 156%、8月 68%、9月 251%、10月前半 0%。100% が損益分岐。売上は全経路の紹介料で、MK 経由だけを数える承諾の人数とは範囲が違う。承諾は応募から多くが 2〜8 週あとなので、10月の 0% はまだ届いていないだけで、9月もまだ増えうる。</title>
 <g font-size="12" class="s-ink2" text-anchor="end">
 <text x="36" y="174">0%</text><text x="36" y="124">100%</text><text x="36" y="74">200%</text><text x="36" y="24">300%</text>
 </g>
@@ -107,101 +75,78 @@
 <text x="80" y="218" class="s-ink2">出そろった</text><text x="150" y="218" class="s-ink2">出そろった</text><text x="220" y="218" class="s-ink2">増えうる</text><text x="290" y="218" class="s-ink2">届かない</text>
 </g>
 <text x="8" y="242" font-size="12" class="s-ink2">承諾は応募から多くが <tspan data-n="lag.lo">2</tspan>〜<tspan data-n="lag.hi">8</tspan> 週あと（中央値 約 <tspan data-n="lag.med">3</tspan> 週・4章）</text>
+<text x="8" y="262" font-size="12" font-weight="700">売上は全経路の紹介料。承諾の人数（MK 経由）とは範囲が別</text>
 </svg>
-<figcaption>出そろい具合は4章 図4-2 と同じ読み。7〜9月をまとめると ROAS <span data-c="pool">158%</span>（9月分はまだ増えうるので下限寄り）。</figcaption>
+<figcaption>出そろい具合は4章 <a href="ch4.html#fig-4-2">図4-2</a> と同じ読み。7〜9月をまとめると ROAS <span data-n="f.pool0709">158%</span>（9月分はまだ増えうるので下限寄り）。</figcaption>
 </figure>
-<p>月のROASは、その月に応募した人が後で生んだ紹介料を、その月の広告費で割ります。承諾は応募から2〜8週あとに来るので、新しい月ほど売上が届いていません。10月の0%は失敗ではなく、まだ数えられないだけです（打ち切り）。月どうしを比べるのは、出そろった月どうしに限ります。ほぼ出そろった8月は68%で、100%を割りました。8月は MK 経由の承諾が<span data-n="c08.all.acc">0</span>人で、68%はすべてほかの経路の紹介料です。承諾が月0〜5件と少ないので、1か月で良し悪しを決めず、数か月まとめて見ます。</p>
+<p>月の ROAS は、その月の応募者が後で生んだ紹介料をその月の広告費で割ります。承諾は応募の数週あと（4章）なので、10月の0%は失敗でなく、まだ数えられないだけです（打ち切り）。出そろった8月は68%で100%を割りましたが、MK 経由の承諾は<span data-n="c08.all.acc">0</span>人で、すべてほかの経路の紹介料です。比べるのは出そろった月を数か月まとめてからです。</p>
 
 <h2 id="sec-5-4">足すか決めるのは最後の1万円</h2>
-<figure id="fig-5-4">
-<p class="tag"><b>何</b>: SeeD エンジニア職の予算全体の平均と、最後に足した1万円の ROAS｜<b>期間</b>: 9月と10月前半×2（2章 図2-4）｜<b>時点</b>: <span data-n="meta.page_time">10/22 17:06</span>｜<b>範囲</b>: SeeD のエンジニア職の広告｜<b>定義</b>: 1万円で増える応募 × 応募1件の売上期待値 ÷ 1万円（推定）</p>
-<svg class="w-s" viewBox="0 0 360 214" role="img" aria-labelledby="t-5-4">
-<title id="t-5-4">応募1件の売上期待値は平均紹介料 506,400 円 × 率の積 1.193% ≒ 6,043 円。SeeD エンジニア職の予算全体の平均は1万円で応募 2.3 件なので ROAS 約 139%。最後の1万円は応募 1.9 件なので約 115%。どちらも 100% は超えるが、最後の1万円の余裕は平均より小さい。推定。</title>
+<figure id="fig-5-3">
+<p class="tag"><span class="fno">図5-3</span><b>何</b>: SeeD エンジニア職の予算全体の平均と、最後に足した1万円の ROAS｜<b>期間</b>: 9月と10月前半×2（2章 <a href="ch2.html#fig-2-4">図2-4</a>）｜<b>時点</b>: <span data-n="meta.page_time">10/22 17:06</span>｜<b>範囲</b>: SeeD のエンジニア職の広告｜<b>定義</b>: 1万円で増える応募 × 応募1件の売上期待値 ÷ 1万円（推定）</p>
+<svg class="w-s" viewBox="0 0 360 214" role="img" aria-labelledby="t-5-3">
+<title id="t-5-3">応募1件の売上期待値は平均紹介料 506,400 円 × 率の積 1.193% ≒ 6,043 円。SeeD エンジニア職の予算全体の平均は1万円で応募 2.3 件なので ROAS 約 139%。最後の1万円は応募 1.9 件なので約 115%。どちらも 100% は超えるが、最後の1万円の余裕は平均より小さい。推定。</title>
 <text x="8" y="18" font-size="12">エンジニア職の平均: 1万円で応募 <tspan data-n="f.app_per_10k_avg">2.3</tspan> 件</text>
 <rect x="8" y="26" width="191.1" height="28" rx="3" class="f-blue"/>
-<text x="205" y="45" font-size="13" font-weight="700">約 <tspan data-c="aroas">139%</tspan></text>
+<text x="205" y="45" font-size="13" font-weight="700">約 <tspan data-n="f.aroas09">139%</tspan></text>
 <text x="8" y="80" font-size="12">最後の1万円: 応募 <tspan data-n="f.app_per_10k">1.9</tspan> 件</text>
-<rect x="8" y="88" width="157.6" height="28" rx="3" class="f-orange"/>
-<text x="171" y="107" font-size="13" font-weight="700">約 <tspan data-c="mroas">115%</tspan></text>
+<rect x="8" y="88" width="157.6" height="28" rx="3" class="f-violet"/>
+<text x="171" y="107" font-size="13" font-weight="700">約 <tspan data-n="f.mroas09">115%</tspan></text>
 <line x1="145.5" y1="24" x2="145.5" y2="56" class="st-ink2" stroke-width="2" stroke-dasharray="5 4"/>
 <line x1="145.5" y1="86" x2="145.5" y2="124" class="st-ink2" stroke-width="2" stroke-dasharray="5 4"/>
 <text x="145.5" y="138" font-size="12" text-anchor="middle" class="s-ink2">100%</text>
 <rect x="8" y="150" width="344" height="56" rx="8" class="f-tag"/>
 <text x="18" y="172" font-size="12">応募1件の売上期待値 ＝ 平均紹介料 × 率の積</text>
-<text x="18" y="194" font-size="13" font-weight="700">＝ <tspan data-n="ret09.mk.avg">506,400</tspan> 円 × <tspan data-c="prod3">1.193%</tspan> ≒ <tspan data-c="rev09">6,043</tspan> 円</text>
+<text x="18" y="194" font-size="13" font-weight="700">＝ <tspan data-n="ret09.mk.avg">506,400</tspan> 円 × <tspan data-n="f.prod09_3">1.193%</tspan> ≒ <tspan data-n="f.rev09">6,043</tspan> 円</text>
 </svg>
-<figcaption>応募の増え方は2章の推定、下流の率と紹介料は9月の全アカウントの値を借りています。条件の違う2点の差なので因果ではありません。「最後の1万円は平均より下」という向きは、応募が予算に対して飽和するという前提から来ていて、2点の差はそれと矛盾しない一例です。</figcaption>
+<figcaption>応募の増え方は2章の推定、下流の率と紹介料は9月の全アカウントの値。条件の違う2点の差で因果ではなく、「最後の1万円は平均より下」は応募が予算に対して飽和するという前提から来る向きです。実績の ROAS は <span data-n="c09.seed.eng.roas">178%</span>（紹介料は全経路・承諾 <span data-n="c09.seed.eng.acc">2</span> 人・8章 <a href="ch8.html#fig-8-3">図8-3</a>）。少人数なので率の積で推定しました。</figcaption>
 </figure>
-<p>図5-4 はSeeD のエンジニア職だけの広告です。応募単価が約<span data-c="cpa_avg">4,348</span>円と全アカウントの2,974円より高いので、平均でも139%と、9月の 203%（全アカウント・MK 経由）より低く出ます。2章では、最後に足した1万円で増える応募は約1.9件で、平均の2.3件より少ないと見積もりました（推定）。限界ROASは約115%で、平均より低くなります。値は粗いですが、飽和がある限り、余裕は平均で見るより小さくなります。予算を決めるときは、平均でなくこの最後の1万円を見ます（<a href="ch2.html#sec-2-5">2章 模型B</a>）。</p>
+<p><a href="#fig-5-3">図5-3</a> はSeeD のエンジニア職だけの広告です。応募単価が約<span data-n="f.cpa_avg_seedeng">4,348</span>円と全アカウントの<span data-n="c09.all.u.app">2,974</span>円より高いので、平均でも<span data-n="f.aroas09">139%</span>と、9月の <span data-n="ret09.mk.roas">203%</span>（全アカウント・MK 経由）より低く出ます。最後に足した1万円で増える応募は約<span data-n="f.app_per_10k">1.9</span>件と平均の<span data-n="f.app_per_10k_avg">2.3</span>件より少なく（<a href="ch2.html#sec-2-5">2章</a>の推定）、限界ROASは約<span data-n="f.mroas09">115%</span>です。予算は平均でなく最後の1万円で決めます。</p>
 
 <details class="phys"><summary>物理でいうと: ポテンシャルの停留点</summary>
-<p>広告費 b で売上 R(b)、応募 N(b)、応募1件に人件費 c なら、利益 π ＝ R(b) − b − c·N(b)。停留点は π′(b) ＝ 0、つまり R′(b) ＝ 1 + c·N′(b)。人件費を入れると、限界ROAS の分岐は 100% より上に移ります。R が飽和して上に凸（R″ ＜ 0）なら R′(b) ＜ R(b)/b なので、平均ROASが分岐を超えていても、限界はもう割っていることがあります。売上を R ＝ v·N（v＝応募1件の売上期待値）と置くと π″ ＝ (v − c)·N″ で、N が飽和（N″ ＜ 0）していれば v ＞ c のとき π″ ＜ 0、つまり停留点は最大です。</p>
+<p>利益 π ＝ R − b − c·N（広告費 b・売上 R・応募 N・応募1件の人件費 c）。停留点は R′ ＝ 1 + c·N′ で、分岐は 100% より上。R ＝ v·N（v は応募1件の売上期待値）なら π″ ＝ (v − c)·N″ ＜ 0（N 飽和・v ＞ c）で、停留点は最大。上に凸な R は R′ ＜ R/b なので、平均が分岐を超えても限界は先に割ります。</p>
 </details>
 
 <section class="quiz-block" id="quiz"><h2>確認クイズ</h2>
-<div class="quiz" id="q1"><p class="qq"><span class="qno">Q1</span> 10月前半の ROAS が <span data-n="c10.all.roas">0%</span>。正しい読み方は？</p>
+<div class="quiz" id="q1"><p class="qq"><span class="qno">Q1</span> CA の人件費も費用に入れると、損益分岐の ROAS は？</p>
 <ol class="opts">
-<li><button class="opt" type="button" data-ok="0">10月の広告は失敗した</button><p class="why" hidden>0% は一番悪い数字に見えますが、売上はまだ届いていないだけかもしれません。承諾は応募から数週あとです。</p></li>
-<li><button class="opt" type="button" data-ok="1">承諾がまだ届いていないので、判断できない</button><p class="why" hidden>正解です。応募から承諾までは多くが2〜8週かかります。</p></li>
-<li><button class="opt" type="button" data-ok="0">広告費が少なかったから0%になった</button><p class="why" hidden>広告費が少ないと売上も少なそうですが、ROAS は割り算なので、広告費が少ないだけでは 0% になりません。</p></li>
+<li><button class="opt" type="button" data-ok="0">100% のまま</button><p class="why" hidden>ROAS の式に人件費が出てこないので変わらないように見えますが、分岐は「売上＝費用」の点で、費用が増えれば動きます。</p></li>
+<li><button class="opt" type="button" data-ok="1">100% より上</button><p class="why" hidden>正解です。紹介料で広告費と人件費の両方を回収するには、広告費の1倍では足りません。</p></li>
+<li><button class="opt" type="button" data-ok="0">100% より下</button><p class="why" hidden>人件費は広告とは別の財布に見えますが、払うお金が増えるので、分岐は下でなく上に動きます。</p></li>
 </ol>
-<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 月の ROAS は、その月の応募者が後で生む紹介料を待ってはじめて決まります。新しい月ほど低く見えます。<a href="#fig-5-3">図5-3へ</a></p></div>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 100% は広告費だけの損益分岐です。人件費を入れた分岐の値は、人件費のデータがまだ無く [未取得] です。<a href="#fig-5-1">図5-1へ</a></p></div>
 </div>
 <div class="quiz" id="q2"><p class="qq"><span class="qno">Q2</span> 承諾単価が約25万円、平均紹介料が約51万円。ROAS はおよそ？</p>
 <ol class="opts">
 <li><button class="opt" type="button" data-ok="0">約49%（25 ÷ 51）</button><p class="why" hidden>小さい数を大きい数で割りたくなりますが、ROAS は売上÷広告費なので、紹介料を承諾単価で割ります。</p></li>
 <li><button class="opt" type="button" data-ok="0">約104%（差26万円 ÷ 25万円）</button><p class="why" hidden>「元を取ったか」を差で考えると選びたくなります。これは利益÷広告費の考え方で、ROAS は紹介料の全額を広告費で割ります。</p></li>
-<li><button class="opt" type="button" data-ok="1">約203%（51 ÷ 25）</button><p class="why" hidden>正解です。承諾1件あたりで見ても、全体で見ても同じ比になります。</p></li>
+<li><button class="opt" type="button" data-ok="1">約203%（51 ÷ 25）</button><p class="why" hidden>正解です。承諾1人あたりで見ても、全体で見ても同じ比になります。</p></li>
 </ol>
-<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> <span data-n="ret09.mk.avg">506,400</span> ÷ <span data-n="c09.all.u.acc">249,241</span> ≒ <span data-c="ratio09">2.03</span> で、ROAS <span data-n="ret09.mk.roas">203%</span> です。100% が損益分岐です。<a href="#fig-5-2">図5-2へ</a></p></div>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> <span data-n="ret09.mk.avg">506,400</span> ÷ <span data-n="c09.all.u.acc">249,241</span> ≒ <span data-n="f.ratio09">2.03</span> で、ROAS <span data-n="ret09.mk.roas">203%</span> です。100% が損益分岐です。<a href="#fig-5-1">図5-1へ</a></p></div>
 </div>
 <div class="quiz" id="q3"><p class="qq"><span class="qno">Q3</span> SeeD のエンジニア職の予算をもう1万円増やすか。判断に使うのは？</p>
 <ol class="opts">
-<li><button class="opt" type="button" data-ok="0">エンジニア職の平均 ROAS 約 <span data-c="aroas">139%</span></button><p class="why" hidden>手元で一番よく見る数字ですが、平均には前半の安い応募が入っています。</p></li>
-<li><button class="opt" type="button" data-ok="1">最後の1万円の ROAS 約 <span data-c="mroas">115%</span></button><p class="why" hidden>正解です。増やす分が生む売上と、増やす1万円を比べます。</p></li>
+<li><button class="opt" type="button" data-ok="0">エンジニア職の平均ROAS 約 <span data-n="f.aroas09">139%</span></button><p class="why" hidden>手元で一番よく見る数字ですが、平均には前半の安い応募が入っています。</p></li>
+<li><button class="opt" type="button" data-ok="1">最後の1万円の ROAS 約 <span data-n="f.mroas09">115%</span></button><p class="why" hidden>正解です。増やす分が生む売上と、増やす1万円を比べます。</p></li>
 <li><button class="opt" type="button" data-ok="0">9月の全経路 ROAS <span data-n="c09.all.roas">251%</span></button><p class="why" hidden>大きくて安心できる数字ですが、全アカウント・全経路の平均で、増やす1万円が生む売上ではありません。</p></li>
 </ol>
-<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 予算は限界で決めます。飽和があるので、最後の1万円で増える応募は平均より少なくなります。<a href="#fig-5-4">図5-4へ</a></p></div>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 予算は限界で決めます。飽和があるので、最後の1万円で増える応募は平均より少なくなります。<a href="#fig-5-3">図5-3へ</a></p></div>
 </div>
 </section>
 
 <details class="src"><summary>出典と定義</summary>
 <ul>
-<li>Gooner の MK 向け集計ページ（取得 <span data-n="meta.fetched">2026-10-22 17:18</span> JST・ページの時点 <span data-n="meta.page_time">10/22 17:06</span>）。広告費・応募・承諾・率・単価・月ごとの ROAS は暦月（<span data-n="c07.from">7/1</span>〜7/31、8/1〜8/31、9/1〜9/30、<span data-n="c10.from">10/1</span>〜<span data-n="c10.to">10/16</span>）に応募した人を追った値。応募は Gooner の数え。</li>
-<li>紹介料: MK への返却 CSV の集計行。9月は全 <span data-n="ret09.all.n">6</span> 件 <span data-n="ret09.all.sales">3,132,000</span> 円、うち MK 経由 <span data-n="ret09.mk.n">5</span> 件 <span data-n="ret09.mk.sales">2,532,000</span> 円。平均紹介料 <span data-n="ret09.mk.avg">506,400</span> 円は MK 経由だけ。月ごとの ROAS（図5-3）は全経路。</li>
-<li>図5-4 の応募の増え方は 2章 図2-4（SeeD のエンジニア職、9月と 10月前半×2 の差）。率の積 1.193%・売上期待値・平均と最後の1万円の ROAS・承諾1件分の ROAS・7〜9月まとめの ROAS は、data.js の値からこのページで計算した値（<code>data-c</code> の数字）。</li>
-<li>承諾までの遅れは、承諾が決まった <span data-n="lag.n">15</span> 件の応募日から承諾日までの間隔（4章）。</li>
+<li>Gooner が MK に渡している集計ページ（取得 <span data-n="meta.fetched">2026-10-22 17:18</span> JST・ページの時点 <span data-n="meta.page_time">10/22 17:06</span>）。広告費・応募・承諾・率・単価・月ごとの ROAS は暦月（<span data-n="c07.from">7/1</span>〜7/31、8/1〜8/31、9/1〜9/30、<span data-n="c10.from">10/1</span>〜<span data-n="c10.to">10/16</span>）に応募した人を追った値。応募は Gooner の数え。</li>
+<li>紹介料: Gooner が MK に渡している、決まった人と紹介料の表の合計の行。9月は全 <span data-n="ret09.all.n">6</span> 件 <span data-n="ret09.all.sales">3,132,000</span> 円、うち MK 経由 <span data-n="ret09.mk.n">5</span> 件 <span data-n="ret09.mk.sales">2,532,000</span> 円。合計の行には金額不明・一覧に無い人の列が無く、そういう人がいれば 0 円で入る（下限）。平均紹介料 <span data-n="ret09.mk.avg">506,400</span> 円は MK 経由だけ。月ごとの ROAS（<a href="#fig-5-2">図5-2</a>）と、アカウント別・職種別の売上（8章）は全経路の紹介料。SeeD の行（全経路）が MK 経由の合計と同じ <span data-n="c09.seed.sales">2,532,000</span> 円なのは、求人BOX の行の <span data-n="c09.box.sales">600,000</span> 円と MK 以外の <span data-n="ret09.other.sales">600,000</span> 円が同額だからで、MK 経由の 5 人の紹介料をアカウントに分けることは合計の行からはできない。</li>
+<li><a href="#fig-5-3">図5-3</a> の応募の増え方は 2章 <a href="ch2.html#fig-2-4">図2-4</a>（SeeD のエンジニア職、9月と 10月前半×2 の差）。計算した値の式: 率の積＝応募単価÷内定承諾単価。売上期待値＝平均紹介料×率の積。平均と最後の1万円の ROAS＝1万円で増える応募×売上期待値÷1万円。承諾1人分の ROAS＝平均紹介料÷広告費。7〜9月まとめの ROAS＝3か月の売上の合計÷広告費の合計。</li>
+<li>承諾までの遅れは、承諾が決まった <span data-n="lag.n">15</span> 人の応募日から承諾日までの間隔（4章）。</li>
 <li>ROAS は売上（紹介料）÷広告費。利益ではなく、CA の人件費などは入っていない。</li>
 </ul>
 </details>
 
-<nav class="pn" aria-label="前後の章"><a href="ch4.html"><span class="d">前へ</span>4章 応募のあと</a><a class="next" href="ch6.html"><span class="d">次へ</span>6章 Gooner でいま起きていること</a></nav>
 </main>
+<nav class="pn" aria-label="前後の章"><a href="ch4.html"><span class="d">前へ</span>4章 応募のあと</a><a class="next" href="ch6.html"><span class="d">次へ</span>6章 Gooner でいま起きていること</a></nav>
 <footer>社内向けの勉強用ページ。数字は <span data-n="meta.page_time">10/22 17:06</span> 時点の断面です。</footer>
 </div>
-<script>
-/* この章だけの計算値（data.js の値から出す。共有に上げる候補は parts/ch5.md） */
-(function () {
-  var r = (window.AD && window.AD.raw) || {};
-  function g(k) { var v = r[k]; return typeof v === 'number' ? v : NaN; }
-  var prod = g('c09.all.u.app') / g('c09.all.u.acc');
-  var rev = g('ret09.mk.avg') * prod;
-  var v = {
-    ratio09: (g('ret09.mk.avg') / g('c09.all.u.acc')).toFixed(2),
-    prod3: (prod * 100).toFixed(3) + '%',
-    per1: String(Math.round(g('ret09.mk.avg') / g('c09.all.spend') * 100)),
-    pool: Math.round((g('c07.all.sales') + g('c08.all.sales') + g('c09.all.sales')) / (g('c07.all.spend') + g('c08.all.spend') + g('c09.all.spend')) * 100) + '%',
-    cpa_avg: Math.round(10000 / g('f.app_per_10k_avg')).toLocaleString('ja-JP'),
-    rev09: Math.round(rev).toLocaleString('ja-JP'),
-    aroas: Math.round(g('f.app_per_10k_avg') * rev / 100) + '%',
-    mroas: Math.round(g('f.app_per_10k') * rev / 100) + '%'
-  };
-  var els = document.querySelectorAll('[data-c]');
-  for (var i = 0; i < els.length; i++) {
-    var s = v[els[i].getAttribute('data-c')];
-    els[i].textContent = (s && s.indexOf('NaN') < 0) ? s : '[未取得]';
-  }
-})();
-</script>
 </body>
 </html>

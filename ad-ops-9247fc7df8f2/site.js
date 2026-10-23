@@ -99,20 +99,21 @@
     nav.appendChild(cap);
   }
 
-  /* ---- 用語集への自動リンク（各ページの最初の1回だけ） ---- */
+  /* ---- 用語集への自動リンク（各ページの最初の1回だけ。英字の略語は早見表の行 ab-* へ、日本語の語は定義へ） ---- */
   var GLOSS = [
-    ['内定承諾単価', 'cpacc'], ['平均紹介料', 'avgfee'], ['紹介料', 'fee'], ['内定承諾', 'acc'], ['承諾', 'acc'],
+    ['内定承諾単価', 'cpacc'], ['承諾単価', 'cpacc'], ['平均紹介料', 'avgfee'], ['紹介料', 'fee'], ['内定承諾', 'acc'], ['承諾', 'acc'],
     ['内定', 'offer'], ['企業面接', 'iv3'], ['書類選考通過', 'doc'], ['書類通過', 'doc'], ['推薦', 'rec'],
     ['共有面談', 'iv2'], ['新規面談', 'iv1'], ['面談設定', 'set'], ['設定可能応募', 'settable'], ['有効応募', 'valid'],
-    ['応募単価', 'cpa'], ['CPA', 'cpa'], ['応募率', 'cvr'], ['CVR', 'cvr'], ['CTR', 'ctr'], ['クリック単価', 'cpc'],
-    ['CPC', 'cpc'], ['表示回数', 'imp'], ['ROAS', 'roas'], ['損益分岐', 'breakeven'], ['オークション', 'auction'],
+    ['応募単価', 'cpa'], ['CPA', 'ab-cpa'], ['応募率', 'cvr'], ['CVR', 'ab-cvr'], ['CTR', 'ab-ctr'], ['クリック単価', 'cpc'],
+    ['CPC', 'ab-cpc'], ['表示回数', 'imp'], ['ROAS', 'ab-roas'], ['損益分岐', 'breakeven'], ['オークション', 'auction'],
     ['入札', 'bid'], ['限界CPA', 'marginal'], ['平均CPA', 'marginal'], ['限界ROAS', 'mroas'], ['飽和', 'saturation'],
     ['新着効果', 'fresh'], ['スポンサー求人', 'sponsored'], ['無料掲載', 'organic'], ['キャンペーン', 'campaign'],
-    ['アカウント', 'account'], ['原稿', 'posting'], ['暦月', 'calmonth'], ['KPI月', 'kpimonth'], ['集計期間', 'period'],
-    ['遅れ', 'lag'], ['打ち切り', 'censor'], ['信頼区間', 'ci'], ['Wilson', 'wilson'], ['揺らぎ', 'noise'],
-    ['増分', 'incr'], ['A/Bテスト', 'ab'], ['弾力性', 'elasticity'], ['日予算', 'budget'], ['ファネル', 'funnel'],
+    ['アカウント', 'account'], ['原稿', 'posting'], ['暦月', 'calmonth'], ['KPI シート', 'kpisheet'], ['KPI月', 'kpimonth'], ['KPI', 'ab-kpi'], ['KGI', 'ab-kgi'], ['集計期間', 'period'],
+    ['遅れ', 'lag'], ['打ち切り', 'censor'], ['信頼区間', 'ci'], ['Wilson', 'ab-wilson'], ['揺らぎ', 'noise'],
+    ['増分', 'incr'], ['A/Bテスト', 'ab'], ['A/B', 'ab-abtest'], ['KKT', 'ab-kkt'], ['段の単価', 'stepcost'], ['跳ねる段', 'jump'], ['10倍の目盛り', 'logscale'],
+    ['角の解', 'corner'], ['前後比較', 'prepost'], ['ホールドアウト', 'holdout'], ['ポアソン分布', 'poisson'], ['弾力性', 'elasticity'], ['日予算', 'budget'], ['ファネル', 'funnel'],
     ['有効率', 'rates'], ['承諾率', 'rates'], ['消化', 'spend'], ['応募開始率', 'startrate'], ['応募完了率', 'startrate'],
-    ['MK', 'mk'], ['Gooner', 'gooner'], ['求人ボックス', 'kbox'], ['求人BOX', 'kbox'], ['Indeed', 'indeed'], ['SeeD', 'seed']
+    ['MK', 'ab-mk'], ['CA', 'ab-ca'], ['Gooner', 'gooner'], ['求人ボックス', 'kbox'], ['求人BOX', 'ab-kbox'], ['Indeed', 'indeed'], ['SeeD', 'ab-seed']
   ];
   window.AD_GLOSS = GLOSS;
   var SKIP = 'figure, .quiz-block, details.src, .sim, nav, a, span[data-n], code, h1, h2, h3, .tag, table, header, footer, dl.gl, .here-cap, button, label';
@@ -149,9 +150,14 @@
     if (!main) return;
     var sorted = GLOSS.slice().sort(function (a, b) { return b[0].length - a[0].length; });
     var done = {};
+    /* 本文に手で張ったリンクがある語は、同じページでもう張らない */
+    var hand = {};
+    main.querySelectorAll('a[href^="glossary.html#"]').forEach(function (a) {
+      hand[a.getAttribute('href').split('#')[1]] = true;
+    });
     sorted.forEach(function (pair) {
       var term = pair[0], id = pair[1];
-      if (done[id + '|' + term]) return;
+      if (hand[id] || done[id + '|' + term]) return;
       var nodes = textNodes(main);
       for (var x = 0; x < nodes.length; x++) {
         var s = nodes[x].nodeValue, i = s.indexOf(term);
@@ -205,8 +211,24 @@
     }
   }
 
+  /* ---- 早見表: 狭い幅で畳んだ 読み・日本語・式 を開く ---- */
+  function setupAbbrMore() {
+    var btns = document.querySelectorAll('button.abbr-more');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('click', function (ev) {
+        var b = ev.currentTarget;
+        var tbl = b.closest('table');
+        var open = !tbl.classList.contains('open');
+        tbl.classList.toggle('open', open);
+        b.setAttribute('aria-pressed', open ? 'true' : 'false');
+        b.textContent = open ? '読み・日本語・式を畳む' : '読み・日本語・式も出す';
+      });
+    }
+  }
+
   function init() {
     setupTheme();
+    setupAbbrMore();
     var nav = document.querySelector('nav.here[data-here]');
     if (nav) buildHere(nav);
     linkGlossary();

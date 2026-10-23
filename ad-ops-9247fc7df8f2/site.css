@@ -89,6 +89,8 @@ figcaption { font-size: 14px; color: var(--ink2); margin-top: 8px; line-height: 
   border-radius: 6px; padding: 6px 8px; margin: 0 0 8px;
 }
 .tag b { color: var(--ink); font-weight: 600; }
+.fno { font-weight: 700; color: var(--ink); margin-right: 8px; white-space: nowrap; }
+figure[id] { scroll-margin-top: 12px; }
 
 /* 役割（媒体の自動・MK・Gooner）。色だけに頼らず、枠の形と文字で区別する */
 .role { display: inline-block; font-size: 12px; font-weight: 700; padding: 0 6px; border-radius: 4px; line-height: 1.7; vertical-align: 1px; color: var(--ink); }
@@ -114,11 +116,22 @@ figcaption { font-size: 14px; color: var(--ink2); margin-top: 8px; line-height: 
 .st-violet { stroke: var(--violet); } .st-red { stroke: var(--red); } .st-ink2 { stroke: var(--ink2); } .st-ink { stroke: var(--ink); }
 .arrow { stroke: var(--ink2); stroke-width: 1.6; fill: none; }
 .arrowhead { fill: var(--ink2); }
+.flow { stroke: var(--muted); stroke-width: 1; fill: none; }
 .st-grid { stroke: var(--grid); } .st-axis { stroke: var(--axis); }
 .f-surface { fill: var(--surface); } .f-tag { fill: var(--violet); fill-opacity: .16; }
 .halo { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
 .f-good { fill: var(--good); } .f-warn { fill: var(--warn); } .f-serious { fill: var(--serious); } .f-critical { fill: var(--critical); }
 .st-good { stroke: var(--good); } .st-critical { stroke: var(--critical); }
+/* 文字を載せる箱は f-surface＋st-<色> で描く（色の塗りつぶしの上の文字はダークで 4.5 を割る）。
+   viewBox の幅 360 の図は font-size 12 以上（375 幅で図は 333px＝11.5 だと 10.6px になる） */
+/* 6章の図（比べられるマス／まだ言えないマス・飛び） */
+.c6-cell { fill: var(--surface); stroke: var(--grid); stroke-width: 1; }
+.c6-jump { fill: var(--surface); stroke: var(--ink); stroke-width: 2.5; }
+.c6-ok { fill: var(--surface); stroke: var(--ink2); stroke-width: 1.5; }
+.c6-not { fill: var(--surface); stroke: var(--ink2); stroke-width: 1.5; stroke-dasharray: 5 3; }
+.c6-line { fill: none; stroke-width: 2.5; }
+.c6-dash { stroke-dasharray: 6 4; }
+.c6-fade { opacity: .55; }
 .sim svg { display: block; width: 100%; height: auto; max-width: 600px; margin: 4px auto; }
 .sim svg text { font-family: inherit; }
 .sim h4 { font-size: 15px; margin: 14px 0 4px; }
@@ -140,6 +153,10 @@ th, td { padding: 5px 8px; border-bottom: 1px solid var(--grid); text-align: rig
 th:first-child, td:first-child { text-align: left; }
 thead th { color: var(--ink2); font-weight: 600; border-bottom: 2px solid var(--axis); }
 caption { text-align: left; font-size: 13px; color: var(--ink2); padding-bottom: 4px; }
+/* 文の入る表（8章の問いの表）は折り返して幅に収める */
+table.qtab { min-width: 0; width: 100%; table-layout: fixed; }
+table.qtab th, table.qtab td { white-space: normal; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+table.qtab th:first-child, table.qtab td:first-child { width: 34%; }
 
 /* クイズ */
 section.quiz-block { margin-top: 40px; }
@@ -207,8 +224,6 @@ ol.toc a { display: block; text-decoration: none; background: var(--surface); bo
 ol.toc a:hover { border-color: var(--axis); }
 ol.toc .no { display: inline-block; min-width: 2.6em; font-weight: 700; color: var(--violet); }
 ol.toc .d { display: block; font-size: 13px; color: var(--ink2); margin-left: 2.6em; line-height: 1.5; }
-ol.toc .soon { display: block; border: 1px dashed var(--line); border-radius: 10px; padding: 10px 12px; color: var(--ink2); }
-ol.toc .soon .no { color: var(--ink2); }
 
 /* 用語集 */
 dl.gl dt { font-weight: 700; margin-top: 18px; scroll-margin-top: 12px; }
@@ -219,6 +234,30 @@ dl.gl dd .first { display: block; font-size: 13px; color: var(--ink2); margin-to
 nav.gl-toc { font-size: 14px; line-height: 2; margin: 8px 0 0; }
 h2[id^="g-"] { scroll-margin-top: 12px; }
 a.gl { color: inherit; text-decoration: underline dotted var(--violet); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+
+/* 略語の早見表。狭い幅では1行を1枚のカードに組み直す */
+table.abbr { min-width: 0; width: 100%; font-size: 13px; }
+table.abbr th, table.abbr td { white-space: normal; text-align: left; vertical-align: top; overflow-wrap: anywhere; padding: 5px 6px; }
+table.abbr tbody th { font-size: 15px; white-space: nowrap; overflow-wrap: normal; }
+tr[id^="ab-"] { scroll-margin-top: 12px; }
+tr[id^="ab-"]:target > * { background: var(--tag-bg); }
+table.abbr tr.grp th { font-size: 13px; font-weight: 600; color: var(--ink2); padding-top: 12px; white-space: normal; }
+button.abbr-more { display: none; margin: 6px 0 0; font: inherit; font-size: 13px; padding: 4px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); cursor: pointer; }
+header.top .tools { display: flex; align-items: center; gap: 8px; }
+header.top .abbr-link { font-size: 13px; }
+@media (max-width: 640px) {
+  table.abbr thead { display: none; }
+  table.abbr caption { display: block; width: auto; }
+  table.abbr, table.abbr tbody, table.abbr tr, table.abbr th, table.abbr td { display: block; width: auto; }
+  table.abbr tr { border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; margin: 0 0 8px; background: var(--surface); }
+  table.abbr tr:target, table.abbr tr:target > * { background: var(--tag-bg); }
+  table.abbr th, table.abbr td { border: 0; padding: 1px 0; }
+  table.abbr td::before { content: attr(data-h) "："; color: var(--ink2); font-size: 12px; font-weight: 600; margin-right: 4px; }
+  table.abbr td.more { display: none; }
+  table.abbr.open td.more, table.abbr tr:target td.more { display: block; }
+  table.abbr tr.grp { border: 0; background: none; padding: 6px 0 0; }
+  button.abbr-more { display: block; }
+}
 
 @media (max-width: 480px) {
   h1 { font-size: 22px; }

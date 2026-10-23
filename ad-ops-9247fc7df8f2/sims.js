@@ -384,7 +384,7 @@
   function drawStages(s, c, ch) {
     var W = 340, y0 = 30, rh = 22, n = STAGES.length;
     var H = y0 + n * rh + 66;
-    var svg = svgBox(W, H, '段階ごとの件数と1件あたりの費用（承諾 ' + or(fmtCount(c.acc), '計算不可') + '件・内定承諾単価 ' + or(fmtYen(c.cpacc), '承諾0件') + '）');
+    var svg = svgBox(W, H, '段階ごとの件数と1件あたりの費用（承諾 ' + or(fmtCount(c.acc), '計算不可') + '人・内定承諾単価 ' + or(fmtYen(c.cpacc), '承諾0人') + '）');
     var maxC = ok(c.counts[0]) ? Math.max(c.counts[0], 1) : 1;
     var hi = Math.max(5, Math.ceil(Math.log(maxC) / Math.LN10)), lo = -1, bx = 64, bw = 116;
     function bxw(v) { if (!ok(v) || v <= 0) return 0; var t = (Math.log(v) / Math.LN10 - lo) / (hi - lo); return Math.max(2, Math.min(1, t) * bw); }
@@ -450,16 +450,21 @@
       var ns = copy(s), a = s[key], b = Math.min(100, a * 1.1);
       ns[key] = b;
       var note = a >= 100 ? '100%・上限' : (fmtFixed(a, 1) + '→' + (a * 1.1 > 100 ? '100%・上限' : fmtFixed(b, 1) + '%'));
-      return { label: label, d: rel(ns), note: note };
+      return { label: label, d: rel(ns), note: note, cap: a * 1.1 > 100 };
     }
-    var rows = RK.map(function (k, i) { return capped(RATE_SHORT[i], 'r_' + k); });
-    rows.push(capped('応募率', 'cvr'));
+    var rates = RK.map(function (k, i) { return capped(RATE_SHORT[i], 'r_' + k); });
+    rates.push(capped('応募率', 'cvr'));
+    /* 上限に当たらない率は全部同じ +10%（弾力性1）なので1行にまとめ、上限に当たった率だけ別の行に出す */
+    var free = rates.filter(function (r) { return !r.cap; }), hit = rates.filter(function (r) { return r.cap; });
+    var rows = [];
+    if (free.length) rows.push({ label: hit.length ? 'ほかの率' : 'どの率も', d: free[0].d, note: free.length + '本' });
+    rows = rows.concat(hit);
     var nf = copy(s); nf.fee = s.fee * 1.1;
     rows.push({ label: '紹介料', d: rel(nf), note: '' });
     var nc = copy(s); nc.cpc = s.cpc * 0.9;
     rows.push({ label: 'CPC', d: rel(nc), note: '−10%' });
     var ns = copy(s); ns.spend = s.spend * 1.1;
-    rows.push({ label: '広告費', d: rel(ns), note: '模型では不変' });
+    rows.push({ label: '広告費', d: rel(ns), note: '承諾は+10%・比は不変' });
     return rows;
   }
   function drawSens(s, base) {
@@ -471,7 +476,7 @@
       var y = y0 + i * rh;
       txt(svg, 66, y + 15, r.label, { anchor: 'end' });
       var str;
-      if (!ok(r.d)) str = '—（承諾0件）';
+      if (!ok(r.d)) str = '—（承諾0人）';
       else {
         var pct = r.d * 100, w = Math.max(0, Math.min(12, pct)) * k;
         if (w > 0) rect(svg, bx, y + 4, w, 13, 'f-violet', { rx: 2 });
@@ -489,14 +494,14 @@
     var c = calcA(s);
     var box = h('div', { 'class': 'kpis' });
     kpi(box, '応募単価（CPA）', or(fmtYen(c.cpa), s.spend <= 0 ? '広告費0' : '応募0件'));
-    kpi(box, '内定承諾単価', or(fmtYen(c.cpacc), c.acc > 0 ? '大きすぎて表示できない' : '承諾0件'));
+    kpi(box, '内定承諾単価', or(fmtYen(c.cpacc), c.acc > 0 ? '大きすぎて表示できない' : '承諾0人'));
     var accs = fmtCount(c.acc);
-    kpi(box, '承諾数', accs == null ? '—（計算不可）' : accs + '件');
+    kpi(box, '承諾数', accs == null ? '—（計算不可）' : accs + '人');
     kpi(box, '売上（承諾×平均紹介料）', or(fmtYen(c.sales), '計算不可'));
     kpi(box, 'ROAS（売上÷広告費）', ok(c.roas) ? (c.roas >= 1 ? '✓ ' : '✗ ') + fmtFixed(c.roas * 100, 0) + '%' : '—（広告費0）');
     kpi(box, '損益分岐の内定承諾単価（＝平均紹介料）', or(fmtYen(s.fee), '計算不可'));
     var need = s.fee > 0 ? fmtCount(s.spend / s.fee) : null;
-    kpi(box, '広告費を回収するのに要る承諾数', need == null ? '—（紹介料0）' : need + '件');
+    kpi(box, '広告費を回収するのに要る承諾数', need == null ? '—（紹介料0）' : need + '人');
     out.appendChild(box);
 
     var f = h('p', { 'class': 'formula' });
@@ -519,7 +524,7 @@
     out.appendChild(h('h4', null, 'どこを10%良くすると ROAS がどれだけ動くか'));
     out.appendChild(h('p', { 'class': 'cav' }, 'どの率も10%良くなれば ROAS は同じ10%上がる（弾力性1・CPC だけ −1）'));
     out.appendChild(drawSens(s, c));
-    out.appendChild(h('p', { 'class': 'cav' }, '広告費を増やしても、この模型では応募単価が変わらないので ROAS は動かない。実際は増やすほど1件が高くなる（章2の飽和）。上限100%に当たった率は10%伸ばせないので短くなる。'));
+    out.appendChild(h('p', { 'class': 'cav' }, '広告費を増やしても、この模型では応募単価が変わらないので ROAS は動かない。実際は増やすほど1件が高くなる（2章の飽和）。上限100%に当たる率は10%伸ばせないので、その率だけ別の行に出しています。'));
     srcLine(out, '9月は暦月（9/1〜9/30）の広告費・クリック・応募と、各段の集計期間の件数から率を出した。応募は Gooner の数え（' +
       or(fmtFixed(R('c09.all.gn_app'), 0), '[未取得]') + '件）で、MK の数えは ' + or(fmtFixed(R('c09.all.mk_app'), 0), '[未取得]') + '件');
   }
@@ -601,15 +606,16 @@
     for (var i = 0; i <= 100; i++) { var b = ax.max * i / 100; pts.push([X(b), Y(s.amax * (1 - Math.exp(-b / s.b0)))]); }
     poly(svg, pts, 'st-ink2', { 'stroke-width': 2 });
     if (ok(rp.p1.b) && ok(rp.p2.b) && ok(rp.p1.a) && ok(rp.p2.a)) {
-      line(svg, X(rp.p2.b), Y(rp.p2.a), X(rp.p1.b), Y(rp.p1.a), 'st-orange', { 'stroke-width': 2, 'stroke-dasharray': '4 3' });
-      circle(svg, X(rp.p1.b), Y(rp.p1.a), 5, 'f-orange', { stroke: 'var(--surface)', 'stroke-width': 1.5 });
-      diamond(svg, X(rp.p2.b), Y(rp.p2.a), 6, 'f-orange', { stroke: 'var(--surface)', 'stroke-width': 1.5 });
+      line(svg, X(rp.p2.b), Y(rp.p2.a), X(rp.p1.b), Y(rp.p1.a), 'st-violet', { 'stroke-width': 2, 'stroke-dasharray': '4 3' });
+      circle(svg, X(rp.p1.b), Y(rp.p1.a), 5, 'f-blue', { stroke: 'var(--surface)', 'stroke-width': 1.5 });
+      diamond(svg, X(rp.p2.b), Y(rp.p2.a), 6, 'f-blue', { stroke: 'var(--surface)', 'stroke-width': 1.5 });
       txt(svg, X(rp.p1.b) + 7, Y(rp.p1.a) + 17, '9月', { size: 12 });
       txt(svg, X(rp.p2.b) + 7, Y(rp.p2.a) + 17, '10月×2', { size: 12 });
     }
     var xb = X(Math.min(s.b, ax.max));
-    line(svg, xb, P.y0, xb, P.y1, 'st-violet', { 'stroke-width': 1.5, 'stroke-dasharray': '2 3' });
-    circle(svg, xb, Y(c.A), 5, 'f-violet', { stroke: 'var(--surface)', 'stroke-width': 1.5 });
+    /* 紫は限界CPAの色なので、いまの広告費の点と線は灰にする */
+    line(svg, xb, P.y0, xb, P.y1, 'st-axis', { 'stroke-width': 1.5, 'stroke-dasharray': '2 3' });
+    circle(svg, xb, Y(c.A), 5, 's-ink2', { stroke: 'var(--surface)', 'stroke-width': 1.5 });
     nowLabel(svg, xb, P.y0 - 4, W);
     return svg;
   }
@@ -645,8 +651,8 @@
     if (lastA) txt(svg, lastA[0], lastA[1] - 7, '平均CPA', { size: 12, anchor: 'end', weight: '700' });
     if (exitX != null) txt(svg, Math.min(exitX + 4, P.x1 - 50), P.y0 + 12, '限界CPA', { size: 12, weight: '700' });
     else if (pm.length) { var lm = pm[pm.length - 1]; txt(svg, lm[0], lm[1] + 16, '限界CPA', { size: 12, anchor: 'end', weight: '700' }); }
-    if (ok(rp.p1.b) && ok(rp.p1.c) && rp.p1.c <= ay.max) circle(svg, X(rp.p1.b), Y(rp.p1.c), 5, 'f-orange', { stroke: 'var(--surface)', 'stroke-width': 1.5 });
-    if (ok(rp.p2.b) && ok(rp.p2.c) && rp.p2.c <= ay.max) diamond(svg, X(rp.p2.b), Y(rp.p2.c), 6, 'f-orange', { stroke: 'var(--surface)', 'stroke-width': 1.5 });
+    if (ok(rp.p1.b) && ok(rp.p1.c) && rp.p1.c <= ay.max) circle(svg, X(rp.p1.b), Y(rp.p1.c), 5, 'f-blue', { stroke: 'var(--surface)', 'stroke-width': 1.5 });
+    if (ok(rp.p2.b) && ok(rp.p2.c) && rp.p2.c <= ay.max) diamond(svg, X(rp.p2.b), Y(rp.p2.c), 6, 'f-blue', { stroke: 'var(--surface)', 'stroke-width': 1.5 });
     var xb = X(Math.min(s.b, ax.max));
     line(svg, xb, P.y0, xb, P.y1, 'st-axis', { 'stroke-width': 1.5, 'stroke-dasharray': '2 3' });
     nowLabel(svg, xb, P.y0 - 4, W);
@@ -733,7 +739,7 @@
     function X(i) { return P.x0 + (i + 0.5) * (P.x1 - P.x0) / 12; }
     var outN = 0, lo = s.lam - sq, hi = s.lam + sq;
     xs.forEach(function (v) { if (v < lo || v > hi) outN++; });
-    var svg = svgBox(W, H, '12か月の件数のばらつき: 平均 λ=' + fmtFixed(s.lam, 1) + '・帯の外 ' + outN + '/12か月');
+    var svg = svgBox(W, H, '12か月の人数のばらつき: 平均 λ=' + fmtFixed(s.lam, 1) + '・帯の外 ' + outN + '/12か月');
     plotFrame(svg, P, { step: 1, n: 0, max: 1 }, ay, function () { return ''; }, function (v) { return fmtFixed(v, 0); });
     rect(svg, P.x0, Y(hi), P.x1 - P.x0, Y(Math.max(0, lo)) - Y(hi), 'f-tag');
     line(svg, P.x0, Y(s.lam), P.x1, Y(s.lam), 'st-ink2', { 'stroke-width': 1.5, 'stroke-dasharray': '5 4' });
@@ -744,7 +750,7 @@
     } else txt(svg, P.x1 + 4, Y(s.lam) + 4, 'λ±√λ', { size: 12, weight: '700' });
     xs.forEach(function (v, i) {
       var outside = v < lo || v > hi;
-      if (outside) circle(svg, X(i), Y(v), 5.5, 'f-violet', { stroke: 'var(--surface)', 'stroke-width': 1.5 });
+      if (outside) circle(svg, X(i), Y(v), 5.5, 'f-orange', { stroke: 'var(--surface)', 'stroke-width': 1.5 }); /* 図7-1 と同じく帯の外＝橙 */
       else circle(svg, X(i), Y(v), 5, 'f-surface st-ink2', { 'stroke-width': 2 });
       txt(svg, X(i), Y(v) - 9, String(v), { size: 12, anchor: 'middle', weight: outside ? '700' : null });
       txt(svg, X(i), P.y1 + 16, String(i + 1), { size: 12, anchor: 'middle', cls: 's-ink2' });
@@ -753,12 +759,12 @@
     return { svg: svg, outN: outN };
   }
   function drawC2(s, w1, w2) {
-    var W = 340, H = 118, x0 = 96, x1 = 326;
+    var W = 360, H = 118, x0 = 96, x1 = 326; /* 右に余白を取り、「100%」と長い区間ラベルを枠の中に収める */
     function X(p) { return x0 + (x1 - x0) * p; }
     var svg = svgBox(W, H, '書類通過率の95%区間（Wilson）: 8月 ' + s.k1 + '/' + s.n1 + '・9月 ' + s.k2 + '/' + s.n2);
     [0, 0.5, 1].forEach(function (p) {
       line(svg, X(p), 14, X(p), 92, 'st-grid', { 'stroke-width': 1 });
-      txt(svg, X(p), 108, fmtFixed(p * 100, 0) + '%', { size: 12, anchor: 'middle', cls: 's-ink2' });
+      txt(svg, X(p), 108, fmtFixed(p * 100, 0) + '%', { size: 13, anchor: 'middle', cls: 's-ink2' });
     });
     [[w1, s.k1, s.n1, '8月 SeeD', 38], [w2, s.k2, s.n2, '9月 SeeD', 78]].forEach(function (r) {
       var w = r[0], y = r[4];
@@ -768,23 +774,24 @@
       line(svg, X(w.hi), y - 6, X(w.hi), y + 6, 'st-ink2', { 'stroke-width': 2 });
       circle(svg, X(w.p), y, 5, 'f-violet', { stroke: 'var(--surface)', 'stroke-width': 1.5 });
       var label = r[1] + '/' + r[2] + '＝' + fmtFixed(w.p * 100, 0) + '%（' + fmtFixed(w.lo * 100, 0) + '〜' + fmtFixed(w.hi * 100, 0) + '%）';
-      var cx = Math.min(Math.max((X(w.lo) + X(w.hi)) / 2, x0 + 66), W - 70);
-      txt(svg, cx, y - 10, label, { size: 12, anchor: 'middle' });
+      /* 390px 幅では svg が約0.9倍に縮むので 13 で描く（11px を割らない）。幅の広がった分だけ端の寄せ幅も広げる */
+      var cx = Math.min(Math.max((X(w.lo) + X(w.hi)) / 2, x0 + 80), W - 80);
+      txt(svg, cx, y - 10, label, { size: 13, anchor: 'middle' });
     });
     return svg;
   }
   function drawC(s, ch, out) {
     var xs = drawsC(s), sq = Math.sqrt(s.lam), po = pOut(s.lam);
     var box = h('div', { 'class': 'kpis' });
-    kpi(box, '平均 λ', fmtFixed(s.lam, 1) + '件/月');
-    kpi(box, '揺らぎの目安 √λ', fmtFixed(sq, 1) + '件（λの ' + fmtFixed(sq / s.lam * 100, 0) + '%）');
+    kpi(box, '平均 λ', fmtFixed(s.lam, 1) + '人/月');
+    kpi(box, '揺らぎの目安 √λ', fmtFixed(sq, 1) + '人（λの ' + fmtFixed(sq / s.lam * 100, 0) + '%）');
     var r = drawC1(s, xs);
     kpi(box, '帯の外に出た月', r.outN + '/12か月');
     kpi(box, '帯の外に出る確率（理論）', fmtFixed(po * 100, 0) + '%（12か月で平均 ' + fmtFixed(po * 12, 1) + 'か月）');
     out.appendChild(box);
-    out.appendChild(h('h4', null, '同じ条件でも毎月の件数はこれだけぶれる'));
+    out.appendChild(h('h4', null, '同じ条件でも毎月の人数はこれだけぶれる'));
     out.appendChild(r.svg);
-    out.appendChild(h('p', { 'class': 'cav' }, '帯＝λ±√λ。●（塗り）＝帯の外、○（白抜き）＝帯の中。「12か月を引き直す」で偶然だけの別の1年が出ます。'));
+    out.appendChild(h('p', { 'class': 'cav' }, '帯＝λ±√λ。橙の●＝帯の外、白抜きの○＝帯の中（図7-1 と同じ色）。「12か月を引き直す」で偶然だけの別の1年が出ます。'));
     var w1 = wilson(s.k1, s.n1), w2 = wilson(s.k2, s.n2);
     out.appendChild(h('h4', null, '書類通過率の 95% 区間（Wilson）'));
     out.appendChild(drawC2(s, w1, w2));
@@ -802,13 +809,13 @@
     }
     buildSim(root, {
       id: 'simC', title: '模型C　少ない件数は偶然でこれだけ動く',
-      intro: ['λ は「本当の平均」。毎月の件数はそこから偶然でぶれます。下の k/n には SeeD の実数が入っています。'],
+      intro: ['λ は「本当の平均」。毎月の人数はそこから偶然でぶれます。下の k/n には SeeD の実数が入っています。'],
       params: [
-        { key: 'lam', label: '平均の件数 λ', unit: '件/月', min: 1, max: 200, dec: 1, slider: { min: 1, max: 200, step: 1 } },
-        { key: 'k1', label: '8月 SeeD 書類通過 k', unit: '件', int: true, min: 0, max: function (s) { return s.n1; }, group: 'ci' },
-        { key: 'n1', label: '8月 SeeD 推薦 n', unit: '件', int: true, min: 1, max: 100000, group: 'ci' },
-        { key: 'k2', label: '9月 SeeD 書類通過 k', unit: '件', int: true, min: 0, max: function (s) { return s.n2; }, group: 'ci' },
-        { key: 'n2', label: '9月 SeeD 推薦 n', unit: '件', int: true, min: 1, max: 100000, group: 'ci' }
+        { key: 'lam', label: '平均の人数 λ', unit: '人/月', min: 1, max: 200, dec: 1, slider: { min: 1, max: 200, step: 1 } },
+        { key: 'k1', label: '8月 SeeD 書類通過 k', unit: '人', int: true, min: 0, max: function (s) { return s.n1; }, group: 'ci' },
+        { key: 'n1', label: '8月 SeeD 推薦 n', unit: '人', int: true, min: 1, max: 100000, group: 'ci' },
+        { key: 'k2', label: '9月 SeeD 書類通過 k', unit: '人', int: true, min: 0, max: function (s) { return s.n2; }, group: 'ci' },
+        { key: 'n2', label: '9月 SeeD 推薦 n', unit: '人', int: true, min: 1, max: 100000, group: 'ci' }
       ],
       defaults: { lam: lam, seed: 20261022, k1: k1, n1: n1, k2: k2, n2: n2 },
       groups: { ci: { title: '区間の k/n（推薦→書類通過）を変える', open: true } },
