@@ -226,9 +226,50 @@
     }
   }
 
+  // 見出しの帯: 章（h1）と、いま読んでいる節（h2）を header.top に出し続ける。
+  function setupCrumb() {
+    var head = document.querySelector('header.top');
+    var h1 = document.querySelector('main h1');
+    if (!head || !h1) return;
+    var no = h1.querySelector('.chno');
+    var chTxt = ((no ? no.textContent + ' ' : '') + h1.textContent.replace(no ? no.textContent : '', '')).replace(/\s+/g, ' ').trim();
+    var crumb = document.createElement('div');
+    crumb.className = 'crumb';
+    var ch = document.createElement('span'); ch.className = 'c-ch'; ch.textContent = chTxt;
+    var sec = document.createElement('span'); sec.className = 'c-sec';
+    crumb.appendChild(ch); crumb.appendChild(sec);
+    head.appendChild(crumb);
+    var h2s = document.querySelectorAll('main h2');
+    if (!h2s.length) return;
+    var last = null;
+    function update() {
+      var line = head.getBoundingClientRect().height + 8, cur = null;
+      for (var i = 0; i < h2s.length; i++) {
+        if (h2s[i].getBoundingClientRect().top <= line) cur = h2s[i]; else break;
+      }
+      if (cur === last) return;
+      last = cur;
+      sec.textContent = cur ? cur.textContent.replace(/\s+/g, ' ').trim() : '';
+      crumb.title = ch.textContent + (sec.textContent ? ' › ' + sec.textContent : '');
+    }
+    var ticking = false;
+    function sched() { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; update(); }); } }
+    if ('IntersectionObserver' in window) {
+      var h = Math.round(head.getBoundingClientRect().height + 8);
+      var io = new IntersectionObserver(sched, { rootMargin: '-' + h + 'px 0px 0px 0px', threshold: [0, 1] });
+      for (var j = 0; j < h2s.length; j++) io.observe(h2s[j]);
+    } else {
+      window.addEventListener('scroll', sched, { passive: true });
+    }
+    window.addEventListener('resize', sched);
+    window.addEventListener('hashchange', sched);
+    update();
+  }
+
   function init() {
     setupTheme();
     setupAbbrMore();
+    setupCrumb();
     var nav = document.querySelector('nav.here[data-here]');
     if (nav) buildHere(nav);
     linkGlossary();

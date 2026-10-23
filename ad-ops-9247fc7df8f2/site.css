@@ -37,7 +37,8 @@
 }
 
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: 12px; }
+html { -webkit-text-size-adjust: 100%; --bar-h: 64px; scroll-padding-top: calc(var(--bar-h) + 8px); }
+@media (min-width: 641px) { html { --bar-h: 44px; } }
 body {
   margin: 0; background: var(--page); color: var(--ink);
   font-family: system-ui, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Meiryo", "Noto Sans JP", sans-serif;
@@ -48,8 +49,24 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
   outline: 3px solid var(--focus); outline-offset: 2px;
 }
 .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px 48px; }
-header.top { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 0 4px; }
-header.top .home { font-size: 14px; color: var(--ink2); text-decoration: none; }
+/* 見出しの帯: サイト名・章・いまの節をスクロールしても出し続ける（高さ上限 幅375で64px・幅1280で44px） */
+header.top {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0 8px; padding: 6px 16px; margin: 0 -16px;
+  position: sticky; top: 0; z-index: 50; background: var(--page); border-bottom: 1px solid var(--grid);
+  max-height: var(--bar-h); overflow: hidden;
+}
+header.top .tools { order: 2; margin-left: auto; }
+header.top .crumb { order: 3; flex: 1 1 100%; min-width: 0; display: flex; gap: 6px; font-size: 13px; line-height: 1.5; white-space: nowrap; }
+header.top .crumb .c-ch { flex: 0 1 auto; max-width: 60%; overflow: hidden; text-overflow: ellipsis; color: var(--ink2); }
+header.top .crumb .c-sec { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; color: var(--ink); font-weight: 600; }
+header.top .crumb .c-sec:empty { display: none; }
+header.top .crumb .c-sec::before { content: "› "; color: var(--ink2); font-weight: 400; }
+@media (min-width: 641px) {
+  header.top { flex-wrap: nowrap; }
+  header.top .crumb { order: 2; flex: 1 1 0; }
+  header.top .tools { order: 3; margin-left: 0; }
+}
+header.top .home { font-size: 14px; white-space: nowrap; color: var(--ink2); text-decoration: none; }
 header.top .home:hover { text-decoration: underline; }
 .theme-btn {
   font: inherit; font-size: 13px; color: var(--ink); background: var(--surface);
@@ -268,4 +285,6 @@ header.top .abbr-link { font-size: 13px; }
 }
 @media print {
   .theme-btn, nav.pn { display: none; }
+  header.top { position: static; }
+  header.top .crumb { display: none; }
 }
