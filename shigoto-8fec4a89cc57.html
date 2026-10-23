@@ -5,138 +5,164 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>空いた日に入れる仕事</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#faf8f4;--paper:#ffffff;--ink:#22201c;--sub:#6e6a62;--line:#e8e3da;--hl:#e8590c;--hl-soft:#fff1e6;--calm:#f3efe7}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171614;--paper:#201f1c;--ink:#eeebe5;--sub:#a39e94;--line:#34312c;--hl:#ff8a4c;--hl-soft:#33231a;--calm:#26241f}}
-:root[data-theme="dark"]{--bg:#171614;--paper:#201f1c;--ink:#eeebe5;--sub:#a39e94;--line:#34312c;--hl:#ff8a4c;--hl-soft:#33231a;--calm:#26241f}
+:root{--bg:#ffffff;--ink:#1f2329;--sub:#5b616b;--line:#e2e5e9;--rule:#1f2329;--tint:#f2f4f7;--link:#2346c8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15171b;--ink:#e9eaec;--sub:#a3a9b2;--line:#2d3138;--rule:#e9eaec;--tint:#1e2127;--link:#93a8ff}}
+:root[data-theme="dark"]{--bg:#15171b;--ink:#e9eaec;--sub:#a3a9b2;--line:#2d3138;--rule:#e9eaec;--tint:#1e2127;--link:#93a8ff}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic UI",sans-serif;font-size:16px;line-height:1.8;font-feature-settings:"palt"}
-main{max-width:640px;margin:0 auto;padding:0 16px 72px}
-header{padding:48px 0 28px}
-header p.kicker{margin:0 0 10px;font-size:13px;color:var(--sub);letter-spacing:.08em}
-h1{margin:0;font-size:32px;line-height:1.35;font-weight:900;letter-spacing:.02em}
-header p.sub{margin:14px 0 0;color:var(--sub)}
-.relief{background:var(--calm);border-radius:6px;padding:16px 18px;font-size:15px}
-.relief strong{font-weight:700}
-.jump{display:flex;gap:8px;margin:20px 0 0}
-.jump a{flex:1;text-align:center;text-decoration:none;color:var(--ink);border:1.5px solid var(--ink);border-radius:999px;padding:10px 8px;font-weight:700;font-size:15px}
-section{margin-top:56px}
-h2{font-size:24px;font-weight:900;margin:0 0 4px;line-height:1.4}
-h2 + .lede{margin:0 0 20px;color:var(--sub)}
-.facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--ink);border-bottom:1px solid var(--line)}
-.facts div{padding:12px 6px 12px 0}
-.facts div + div{padding-left:12px;border-left:1px solid var(--line)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic UI",Meiryo,sans-serif;font-size:16px;line-height:1.75}
+main{max-width:600px;margin:0 auto;padding:0 16px 64px}
+.nw{white-space:nowrap}
+.num{font-variant-numeric:tabular-nums}
+a{color:var(--link)}
+a:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+
+h1{margin:0;padding:28px 0 16px;font-size:26px;line-height:1.35;font-weight:800}
+
+/* 冒頭の2行＝そのままジャンプ */
+.pick{list-style:none;margin:0;padding:0;border-top:2px solid var(--rule)}
+.pick a{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 12px;padding:14px 2px;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none}
+.pick .job{font-size:18px;font-weight:800;line-height:1.4}
+.pick .pay{grid-column:1;font-size:15px;line-height:1.5}
+.pick .pay b{font-size:17px}
+.pick .go{grid-column:2;grid-row:1/3;font-size:14px;color:var(--link);font-weight:700}
+.pick a:active{background:var(--tint)}
+.calm{margin:18px 0 0;font-size:15.5px}
+
+section{margin-top:64px;scroll-margin-top:12px}
+h2{margin:0;padding-top:14px;border-top:3px solid var(--rule);font-size:24px;line-height:1.4;font-weight:800}
+.lede{margin:6px 0 20px;color:var(--sub);font-size:15px}
+
+.req{margin:0;border-top:1px solid var(--line)}
+.req div{display:grid;grid-template-columns:7em 1fr;gap:8px;padding:9px 0;border-bottom:1px solid var(--line)}
+.req dt{color:var(--sub);font-size:14px;padding-top:1px}
+.req dd{margin:0;font-weight:700}
+.req dd small{display:block;font-weight:400;font-size:14px;color:var(--sub)}
+
+.tip{margin:20px 0 0}
+.tip p{margin:0 0 8px}
+
+h3{margin:44px 0 0;font-size:19px;line-height:1.4;font-weight:800}
+h3 + .from{margin:2px 0 10px;font-size:14px;color:var(--sub)}
+h3 + .rows{margin-top:10px}
+
+.rows{list-style:none;margin:0;padding:0;border-top:2px solid var(--rule)}
+.rows li{display:grid;grid-template-columns:1fr auto;column-gap:14px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.rows .t{font-size:17px;font-weight:700;line-height:1.45}
+.rows .t .d{font-size:14.5px;font-weight:500;margin-left:.6em}
+.rows .n{grid-column:1;font-size:15px;line-height:1.5;color:var(--sub)}
+.rows .only .n,.rows .n.main{color:var(--ink);font-size:16px;font-weight:700}
+.rows .y{grid-column:2;grid-row:1/3;font-size:19px;font-weight:800;text-align:right;line-height:1.3}
+.rows .y small{font-size:13px;font-weight:500;margin-left:1px}
+
+.steps{list-style:none;margin:12px 0 0;padding:0;counter-reset:s}
+.steps li{position:relative;padding:8px 0 8px 36px;counter-increment:s}
+.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--ink);font-size:13px;font-weight:700;line-height:21px;text-align:center}
+.steps b{display:block}
+
+.facts{display:grid;grid-template-columns:1fr 1fr;border-top:2px solid var(--rule)}
+.facts div{padding:10px 10px 10px 0;border-bottom:1px solid var(--line)}
+.facts div:nth-child(even){padding-left:12px;border-left:1px solid var(--line)}
 .facts b{display:block;font-size:17px;line-height:1.4}
-.facts span{font-size:12px;color:var(--sub)}
-.combo{margin:24px 0;border-left:4px solid var(--hl);background:var(--hl-soft);padding:14px 16px;border-radius:0 6px 6px 0}
-.combo b{color:var(--hl)}
-.combo p{margin:0}
-h3{font-size:17px;font-weight:700;margin:32px 0 2px}
-h3 + .note{margin:0 0 8px;font-size:14px;color:var(--sub)}
-.rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-.rows li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
-.rows .name{font-weight:500}
-.rows .when{display:block;font-size:13px;color:var(--sub)}
-.rows .yen{font-weight:700;font-size:17px;white-space:nowrap;font-variant-numeric:tabular-nums}
-.rows .yen small{font-size:12px;font-weight:500;color:var(--sub)}
-.flow{list-style:none;margin:8px 0 0;padding:0}
-.flow li{display:grid;grid-template-columns:6.5em 1fr;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line)}
-.flow li:last-child{border-bottom:0}
-.flow .t{font-weight:700;font-size:14px;color:var(--hl)}
-.more{display:inline-block;margin-top:14px;color:var(--ink);font-weight:700;text-decoration:none;border-bottom:2px solid var(--hl)}
-.closing{margin-top:64px;padding-top:24px;border-top:2px solid var(--ink);font-size:15px}
-.closing p{margin:0 0 12px}
-.closing .ask{font-weight:700;font-size:17px;margin-top:20px}
-@media (max-width:380px){h1{font-size:27px}.facts b{font-size:15px}}
+.facts span{font-size:13.5px;color:var(--sub)}
+.more{display:block;margin-top:20px;padding:13px 16px;border:1.5px solid var(--ink);border-radius:8px;text-align:center;font-weight:700;color:var(--ink);text-decoration:none}
+.more:active{background:var(--tint)}
+
+.closing{margin-top:72px;padding-top:18px;border-top:3px solid var(--rule);font-size:15px}
+.closing p{margin:0 0 10px}
+.closing .ask{margin-top:18px;font-size:17px;font-weight:800}
+
+@media (min-width:700px){
+  h1{font-size:30px;padding-top:44px}
+  main{padding-bottom:96px}
+}
 </style>
 </head>
 <body>
 <main>
 
-<header>
-  <p class="kicker">ご紹介できるお仕事</p>
-  <h1>空いた日に、<br>入れる仕事。</h1>
-  <p class="sub">いま紹介できるのは「配送ドライバー」と「解体の手元」の2つです。入れる日だけ、1日単位で働けます。</p>
-  <nav class="jump"><a href="#haiso">配送ドライバー</a><a href="#kaitai">解体の手元</a></nav>
-</header>
+<h1>空いた日に入れる仕事</h1>
 
-<div class="relief">どちらも、重いものを抱えて走り回るような仕事ではありません。<strong>女性が働いた実績もあります。</strong></div>
+<ul class="pick">
+  <li><a href="#haiso">
+    <span class="job">配送ドライバー</span>
+    <span class="pay"><b class="num nw">1回3,000円〜</b>　<span class="nw">高いコースは11,000円</span><br><span class="nw">朝早いコースが多い</span></span>
+    <span class="go">くわしく</span>
+  </a></li>
+  <li><a href="#kaitai">
+    <span class="job">解体の手元</span>
+    <span class="pay"><b class="num nw">日当12,000円前後</b>　<span class="nw">平日 9:00〜夕方</span></span>
+    <span class="go">くわしく</span>
+  </a></li>
+</ul>
+
+<p class="calm">どちらも、重いものを抱えて走り回るような仕事ではありません。女性が働いた実績もあります。</p>
 
 <section id="haiso">
   <h2>配送ドライバー</h2>
-  <p class="lede">市場で荷物を積んで、都内のお店に届けます。2〜3時間で終わるコースもあります。</p>
+  <p class="lede">市場などで荷物を積んで、都内のお店に届けます。</p>
 
-  <div class="facts">
-    <div><b>AT限定OK</b><span>普通免許</span></div>
-    <div><b>会社持ち</b><span>車・ガソリン・高速代</span></div>
-    <div><b>1回3,000円〜</b><span>高いコースは11,000円</span></div>
-  </div>
+  <dl class="req">
+    <div><dt>免許</dt><dd>普通免許（AT限定OK）</dd></div>
+    <div><dt>車・ガソリン・<wbr><span class="nw">高速代</span></dt><dd>会社持ち</dd></div>
+    <div><dt>金額</dt><dd><span class="num nw">1回3,000円〜</span><small>高いコースは11,000円</small></dd></div>
+  </dl>
 
-  <div class="combo">
-    <p>朝のコースは昼前に終わるものが多いので、午後にもう1つ入れれば<b>1日15,000円以上</b>も狙えます。午後はこちらのコースでなくても、自分で見つけた仕事でかまいません。</p>
+  <div class="tip">
+    <p>朝のコースは昼前に終わるものが多いので、午後にもう1つ入れれば<b class="nw">1日15,000円以上</b>も狙えます。</p>
+    <p>午後はこちらのコースでなくても、自分で見つけた仕事でかまいません。</p>
   </div>
 
   <h3>野菜の配送</h3>
-  <p class="note">板橋の野菜市場で積んで、新宿・渋谷・文京・千代田の飲食店へ</p>
-  <ul class="rows">
-    <li><span class="name">新宿・文京<span class="when">4:00〜10:00／月火木金土</span></span><span class="yen">9,000<small>円</small></span></li>
-    <li><span class="name">新宿・渋谷<span class="when">7:30〜11:30／日</span></span><span class="yen">6,000<small>円</small></span></li>
-    <li><span class="name">新宿か渋谷（空きが出た日）<span class="when">朝</span></span><span class="yen">6,000<small>円</small></span></li>
-    <li><span class="name">千代田<span class="when">14:30〜16:30／水日</span></span><span class="yen">3,000<small>円</small></span></li>
+  <p class="from">板橋の野菜市場から出発して、新宿・渋谷・文京・千代田の飲食店へ</p>
+  <ul class="rows num">
+    <li><span class="t"><span class="nw">4:00〜10:00</span><span class="d nw">月火木金土</span></span><span class="n">新宿・文京</span><span class="y nw">9,000<small>円</small></span></li>
+    <li><span class="t"><span class="nw">7:30〜11:30</span><span class="d nw">日</span></span><span class="n">新宿・渋谷</span><span class="y nw">6,000<small>円</small></span></li>
+    <li><span class="t"><span class="nw">朝</span><span class="d nw">空きが出た日</span></span><span class="n">新宿か渋谷</span><span class="y nw">6,000<small>円</small></span></li>
+    <li><span class="t"><span class="nw">14:30〜16:30</span><span class="d nw">水日</span></span><span class="n">千代田</span><span class="y nw">3,000<small>円</small></span></li>
   </ul>
 
   <h3>市場からお店へ</h3>
-  <p class="note">大田市場・豊洲市場で、果物・野菜や魚を積んで</p>
-  <ul class="rows">
-    <li><span class="name">青果　大田→日比谷<span class="when">5:30〜9:30／火木</span></span><span class="yen">9,500<small>円</small></span></li>
-    <li><span class="name">青果　大田→池袋<span class="when">6:30〜9:30／月金</span></span><span class="yen">8,500<small>円</small></span></li>
-    <li><span class="name">青果　大田→立川<span class="when">7:30〜11:00</span></span><span class="yen">6,500<small>円</small></span></li>
-    <li><span class="name">青果　大田→吉祥寺<span class="when">7:30〜10:00</span></span><span class="yen">5,000<small>円</small></span></li>
-    <li><span class="name">鮮魚　豊洲（1日）<span class="when">6:30〜17:00</span></span><span class="yen">11,000<small>円</small></span></li>
-    <li><span class="name">鮮魚　豊洲（半日）<span class="when">9:30〜13:30／水・日・祝は休み</span></span><span class="yen">8,000<small>円</small></span></li>
+  <ul class="rows num">
+    <li><span class="t"><span class="nw">5:30〜9:30</span><span class="d nw">火木</span></span><span class="n">青果　大田→日比谷</span><span class="y nw">9,500<small>円</small></span></li>
+    <li><span class="t"><span class="nw">6:30〜9:30</span><span class="d nw">月金</span></span><span class="n">青果　大田→池袋</span><span class="y nw">8,500<small>円</small></span></li>
+    <li><span class="t"><span class="nw">7:30〜11:00</span></span><span class="n">青果　大田→立川</span><span class="y nw">6,500<small>円</small></span></li>
+    <li><span class="t"><span class="nw">7:30〜10:00</span></span><span class="n">青果　大田→吉祥寺</span><span class="y nw">5,000<small>円</small></span></li>
+    <li><span class="t"><span class="nw">6:30〜17:00</span></span><span class="n">鮮魚　豊洲（1日）</span><span class="y nw">11,000<small>円</small></span></li>
+    <li><span class="t"><span class="nw">9:30〜13:30</span></span><span class="n">鮮魚　豊洲（半日）　<span class="nw">水・日・祝は休み</span></span><span class="y nw">8,000<small>円</small></span></li>
   </ul>
 
   <h3>そのほか</h3>
-  <ul class="rows">
-    <li><span class="name">洋菓子店へ（新木場から）<span class="when">5:30〜13:30／月水金か火木土</span></span><span class="yen">11,000<small>円</small></span></li>
-    <li><span class="name">物流会社の固定便<span class="when">5:30〜17:00／月〜金</span></span><span class="yen">11,000<small>円</small></span></li>
-    <li><span class="name">飲食店への食材配送<span class="when">コースによる</span></span><span class="yen">4,500〜7,000<small>円</small></span></li>
-    <li><span class="name">クリーニング品の配送<span class="when">コースによる</span></span><span class="yen">5,500<small>円</small></span></li>
-    <li><span class="name">壁紙の配送<span class="when">11:30〜14:00 ほか</span></span><span class="yen">3,500〜4,000<small>円</small></span></li>
+  <ul class="rows num">
+    <li><span class="t"><span class="nw">5:30〜13:30</span><span class="d nw">月水金か火木土</span></span><span class="n">洋菓子店へ（新木場から）</span><span class="y nw">11,000<small>円</small></span></li>
+    <li><span class="t"><span class="nw">5:30〜17:00</span><span class="d nw">月〜金</span></span><span class="n">物流会社の固定便</span><span class="y nw">11,000<small>円</small></span></li>
+    <li><span class="t"><span class="nw">11:30〜14:00 ほか</span></span><span class="n">壁紙の配送</span><span class="y nw">3,500〜4,000<small>円</small></span></li>
+    <li class="only"><span class="n">飲食店への食材配送</span><span class="y nw">4,500〜7,000<small>円</small></span></li>
+    <li class="only"><span class="n">クリーニング品の配送</span><span class="y nw">5,500<small>円</small></span></li>
   </ul>
 
   <h3>入ってからの流れ</h3>
-  <ul class="flow">
-    <li><span class="t">はじめに</span><span>働ける日を伝えておきます</span></li>
-    <li><span class="t">前日の夜</span><span>翌日のコースと集合時間が届きます</span></li>
-    <li><span class="t">最初の数回</span><span>先輩と同じ日に入り、一緒に回って覚えます</span></li>
-    <li><span class="t">当日</span><span>出発や配達の終了は、スマホのボタンを押すだけで報告できます</span></li>
-  </ul>
+  <ol class="steps">
+    <li><b>はじめに</b>働ける日を伝えておきます</li>
+    <li><b>前日の夜</b>翌日のコースと集合時間が届きます</li>
+    <li><b>最初の数回</b>先輩と同じ日に入り、一緒に回って覚えます</li>
+    <li><b>当日</b>出発や配達の終了は、スマホのボタンを押して報告します</li>
+  </ol>
 </section>
 
 <section id="kaitai">
   <h2>解体の手元</h2>
-  <p class="lede">内装解体の現場で、職人さんの補助をします。壊すのは職人さんで、手元は物を渡したり片付けたりが中心です。</p>
+  <p class="lede">内装解体の現場で、職人さんの補助をします。壊すのは職人さんで、手元は道具を渡したり片付けたりが中心です。</p>
 
-  <div class="facts">
-    <div><b>12,000円前後</b><span>日当</span></div>
+  <div class="facts num">
+    <div><b class="nw">12,000円前後</b><span>日当</span></div>
     <div><b>交通費あり</b><span>日当とは別</span></div>
-    <div><b>平日のみ</b><span>月〜金</span></div>
+    <div><b class="nw">9:00〜夕方</b><span>8:30集合</span></div>
+    <div><b>平日のみ</b><span>月〜金・1日単位</span></div>
   </div>
 
-  <h3>1日の流れ</h3>
-  <ul class="flow">
-    <li><span class="t">前日のお昼</span><span>連絡が来て、行く現場が決まります</span></li>
-    <li><span class="t">前日の午後</span><span>住所・現場の担当さん・持ち物が届きます</span></li>
-    <li><span class="t">8:30</span><span>現場の前に集合</span></li>
-    <li><span class="t">9:00〜夕方</span><span>作業。早ければ15時ごろに終わります</span></li>
-  </ul>
-  <p style="margin:12px 0 0;font-size:14px;color:var(--sub)">現場は新宿・虎ノ門・銀座・品川・世田谷・府中など、東京都内です。</p>
-  <a class="more" href="https://mushataku.github.io/pub/kaitai-tenmoto-f742cf0d38be.html">持ち物や現場のルールを見る →</a>
+  <a class="more" href="https://mushataku.github.io/pub/kaitai-tenmoto-f742cf0d38be.html">流れ・持ち物・ルールを見る</a>
 </section>
 
 <div class="closing">
