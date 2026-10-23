@@ -57,6 +57,19 @@
   table.cf td.out{color:#b3261e}
   table.cf td.in{color:#1d6b41}
   table.cf td.bal{white-space:nowrap;color:var(--sub)}
+  .tag.min{background:#e8f6ee;color:#1d6b41;font-weight:700}
+  .tag.mout{background:#fdecea;color:#b3261e;font-weight:700}
+  .tag.min,.tag.mout{white-space:pre-line;word-break:keep-all;letter-spacing:-.04em;padding:1px 1px}
+  @media(max-width:400px){.tag.min,.tag.mout{font-size:.88em}}
+  .ledger-wrap{overflow-x:auto}
+  table.ledger{font-size:.86rem}
+  table.ledger th,table.ledger td{padding:6px 6px}
+  table.ledger td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+  table.ledger td.in{color:#1d6b41;font-weight:700}
+  table.ledger td.out{color:#b3261e;font-weight:700}
+  table.ledger td.bal{font-weight:700;white-space:normal;text-align:right}
+  table.ledger td small{display:block;color:var(--sub);font-size:.78rem;font-weight:400}
+  table.ledger tr.sum td{background:#eef4ff}
   h3{font-size:1rem;margin:16px 0 6px}
   .lead{margin:0 0 8px;font-size:.88rem;color:var(--sub)}
   .pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:.78rem;white-space:nowrap;border:1px solid}
@@ -102,13 +115,15 @@
   </section>
 
   <section>
-    <h2>カレンダー（10月末〜11月）</h2>
+    <h2>カレンダー（10月末〜12月）</h2>
     <div class="note">日本交通に入社する場合の予定です。教習所の時間はまだ分からないため、黄色の日は「時間しだい」で運送に入れるかが変わります。</div>
     <div class="legend">
       <span><i class="sw" style="background:var(--ok);border-color:var(--okb)"></i>運送に入れそうな日</span>
       <span><i class="sw" style="background:var(--ask);border-color:var(--askb)"></i>時間しだい・確認中</span>
       <span><i class="sw" style="background:var(--ng);border-color:var(--ngb)"></i>予定あり</span>
       <span><i class="sw" style="background:var(--ev);border-color:var(--evb)"></i>大事な予定</span>
+      <span style="color:#1d6b41;font-weight:700">＋ 着金</span>
+      <span style="color:#b3261e;font-weight:700">− 引き落とし</span>
     </div>
     <div id="cal"></div>
   </section>
@@ -131,16 +146,16 @@
     <h2>お金の見通し（キャッシュフロー）</h2>
     <p style="margin:0 0 10px;font-size:.92rem">今の職場は10月いっぱい、日本交通の初めての月給は12月です。<b>12月のお給料が入るまでのつなぎとして、合計30万円</b>を目標にします（今の職場を休んだ分も含めて、これまでと同じくらいになる額）。</p>
     <div class="goal">
-      <div class="goal-head"><span>つなぎの目標</span><b>約8万円 ／ 30万円</b></div>
+      <div class="goal-head"><span>つなぎの目標</span><b>約7〜9万円 ／ 30万円</b></div>
       <div class="bar"><i style="width:27%"></i></div>
-      <div class="goal-foot">見込みを入れて約8万円。<b>残りは約22万円</b></div>
+      <div class="goal-foot">見込みを入れて約7〜9万円。<b>残りは約21〜23万円</b></div>
     </div>
     <h3>① 稼ぐ額の見通し（どの仕事で、いくら稼ぐか）</h3>
     <p class="lead">お金が実際に入る日・出る日とは別に、「その仕事でいくら残るか」を並べた表です。</p>
     <table class="cf">
       <tr><th>時期</th><th>中身</th><th>手元に残る額</th><th>状態</th></tr>
       <tr><td>10月</td><td>池袋の案件（1回目）</td><td class="num">約4万円</td><td><span class="pill done">済み</span></td></tr>
-      <tr><td>10/31（土）か<br>11/1（日）</td><td>MNP（2回目）</td><td class="num">約4万円</td><td><span class="pill plan">予定</span></td></tr>
+      <tr><td>10/31（土）か<br>11/1（日）</td><td>MNP（2回目）</td><td class="num">3〜5万円</td><td><span class="pill plan">予定</span></td></tr>
       <tr><td>11/2（月）〜4（水）</td><td>朝の運送 3日</td><td class="num">約2.5万円</td><td><span class="pill plan">調整中</span></td></tr>
       <tr><td>11/5〜11/17</td><td>朝の運送（教習所の時間しだい）・土日の運送</td><td class="num">1日 8,000〜9,000円</td><td><span class="pill wait">時間待ち</span></td></tr>
       <tr><td>11/20〜</td><td>日本交通の研修</td><td class="num">日給1万円</td><td><span class="pill wait">支払日を確認</span></td></tr>
@@ -148,30 +163,37 @@
       <tr class="big"><td>12月</td><td>日本交通の初めての月給</td><td class="num">約40万円</td><td><span class="pill wait">見込み</span></td></tr>
     </table>
     <div class="calc">
-      <b>残り約22万円を作る目安</b>
+      <b>残り約21〜23万円を作る目安</b>
       <ul>
-        <li>1日1万円なら<b>約22日</b></li>
-        <li>1日1.5万円なら<b>約15日</b>（＝半月ほど）</li>
+        <li>1日1万円なら<b>約21〜23日</b></li>
+        <li>1日1.5万円なら<b>約14〜15日</b>（＝半月ほど）</li>
       </ul>
       <span>運送のほかにも、手元に多く残る案件があれば優先して回します。表の11/2〜4の額は運送日給8,500円×3日で計算した目安です。</span>
     </div>
     <h3>② お金の出入りの予定（いつ入って、いつ出るか）</h3>
     <p class="lead">池袋の案件は、現金を先にお渡しして、回線の料金があとから相田さんの口座から引き落とされる形です。<b>お渡しした現金のうち、引き落とし分は口座に残しておいてください。</b></p>
-    <table class="cf">
-      <tr><th>日付</th><th>中身</th><th>出入り</th><th>池袋の案件の残り</th></tr>
-      <tr><td>10/18（日）〜</td><td>池袋の案件の現金のお渡し（ここまでの合計）</td><td class="num in">＋80,000円</td><td class="bal">80,000円</td></tr>
-      <tr><td>10/31（土）か<br>11/1（日）</td><td>池袋の案件（2回目）</td><td class="num">額は当日お伝えします</td><td class="bal">—</td></tr>
-      <tr><td>11/25（水）</td><td>UQ の引き落とし（回線の料金）</td><td class="num out">−20,208円</td><td class="bal">59,792円</td></tr>
-      <tr><td>11/27（金）</td><td>楽天の引き落とし</td><td class="num out">−4,312円</td><td class="bal">55,480円</td></tr>
-      <tr><td>11/30（月）</td><td>ドコモ・au の引き落とし</td><td class="num out">−35,836円</td><td class="bal">19,644円</td></tr>
-      <tr><td>12/27（日）<br>か翌営業日</td><td>楽天の引き落とし（解約の手数料）</td><td class="num out">−4,312円</td><td class="bal">15,332円</td></tr>
-      <tr><td>日付は確認中</td><td>ドコモの解約の料金</td><td class="num out">−2,200円</td><td class="bal">13,132円</td></tr>
-      <tr><td>教えてください</td><td>今の職場の最後のお給料</td><td class="num">入る日と額</td><td class="bal">—</td></tr>
-      <tr><td>確認中</td><td>運送のお給料（締め日・支払日）</td><td class="num">1日 8,000〜9,000円</td><td class="bal">—</td></tr>
-      <tr><td>確認中</td><td>日本交通の研修の日給（11月中か12月のお給料に入るか）</td><td class="num">日給1万円</td><td class="bal">—</td></tr>
-      <tr class="big"><td>12月<br>（日にちは確認中）</td><td>日本交通の初めての月給</td><td class="num in">約40万円</td><td class="bal">—</td></tr>
+    <div class="ledger-wrap">
+    <table class="ledger">
+      <tr><th>日付</th><th>着金</th><th>引き落とし</th><th>所持金</th></tr>
+      <tr><td>10/18（日）〜<small>池袋の案件・ここまでの現金</small></td><td class="n in">＋80,000</td><td class="n"></td><td class="n bal">80,000</td></tr>
+      <tr><td>10/31（土）か11/1（日）<small>MNP（2回目）</small></td><td class="n in">＋30,000<br>〜50,000</td><td class="n"></td><td class="n bal">110,000<br>〜130,000</td></tr>
+      <tr><td>11/25（水）<small>UQ</small></td><td class="n"></td><td class="n out">−20,208</td><td class="n bal">89,792<br>〜109,792</td></tr>
+      <tr><td>11/27（金）<small>楽天</small></td><td class="n"></td><td class="n out">−4,312</td><td class="n bal">85,480<br>〜105,480</td></tr>
+      <tr><td>11/30（月）<small>ドコモ・au</small></td><td class="n"></td><td class="n out">−35,836</td><td class="n bal">49,644<br>〜69,644</td></tr>
+      <tr><td>12/27（日）か翌営業日<small>楽天（解約の手数料）</small></td><td class="n"></td><td class="n out">−4,312</td><td class="n bal">45,332<br>〜65,332</td></tr>
+      <tr><td>日付は確認中<small>ドコモの解約の料金</small></td><td class="n"></td><td class="n out">−2,200</td><td class="n bal">43,132<br>〜63,132</td></tr>
+      <tr class="sum"><td><b>合計</b></td><td class="n in">＋110,000<br>〜130,000</td><td class="n out">−66,868</td><td class="n bal">43,132<br>〜63,132</td></tr>
     </table>
-    <p style="margin:10px 0 0;font-size:.85rem;color:var(--sub)">引き落としは11/25〜11/30に集中します（3回で合計60,356円）。<b>11/24（火）までに、引き落とし口座へ約6万円</b>を入れておいてください。引き落とし日が土日・祝日にあたると翌営業日になることがあります。日付や額が決まったものから、この表を更新します。</p>
+    </div>
+    <p style="margin:8px 0 0;font-size:.82rem;color:var(--sub)">単位は円。所持金は「この表のお金だけで見た額」です（今の職場・運送・研修のお給料はまだ入れていません）。2回目のMNPで新しく増える回線の料金は、決まりしだい足します。</p>
+    <p style="margin:10px 0 4px;font-size:.9rem"><b>日にちが決まったら表に足すもの</b></p>
+    <ul style="margin:0;padding-left:1.2em;font-size:.88rem">
+      <li>今の職場の最後のお給料（入る日と額を教えてください）</li>
+      <li>運送のお給料（1日 8,000〜9,000円・締め日と支払日を確認中）</li>
+      <li>日本交通の研修の日給（1日1万円・11月中か12月のお給料に入るか確認中）</li>
+      <li>日本交通の初めての月給（12月・約40万円）</li>
+    </ul>
+    <p style="margin:10px 0 0;font-size:.85rem;color:var(--sub)">引き落としは11/25〜11/30に集中します（3回で合計60,356円）。<b>11/24（火）までに、引き落とし口座へ約6万円</b>を入れておいてください。引き落とし日が土日・祝日にあたると翌営業日になることがあります。カレンダーにも同じ額を書き込んであります。</p>
   </section>
 
   <footer>作成：Gooner 武者野（2026年10月23日・10月24日更新）</footer>
@@ -185,8 +207,8 @@ const D = {
   "2026-10-28":{s:"ng",t:["現職"]},
   "2026-10-29":{s:"ng",t:["現職"],e:["BREXA返事 15時"]},
   "2026-10-30":{s:"ng",t:["現職"]},
-  "2026-10-31":{s:"ask",t:["MNP（どちらか1日）"]},
-  "2026-11-01":{s:"ask",t:["MNP（どちらか1日）"]},
+  "2026-10-31":{s:"ask",t:["MNP（どちらか1日）"],m:["＋3〜\n5万"]},
+  "2026-11-01":{s:"ask",t:["MNP（どちらか1日）"],m:["＋3〜\n5万"]},
   "2026-11-02":{s:"ok",t:["終日あき"]},
   "2026-11-03":{s:"ok",t:["終日あき"]},
   "2026-11-04":{s:"ok",t:["終日あき"]},
@@ -209,13 +231,14 @@ const D = {
   "2026-11-21":{s:"ok",t:["休みなら運送"]},
   "2026-11-22":{s:"ok",t:["休みなら運送"]},
   "2026-11-23":{s:"ng",t:["研修"]},
-  "2026-11-24":{s:"ng",t:["研修"]},
-  "2026-11-25":{s:"ng",t:["研修"]},
+  "2026-11-24":{s:"ng",e:["口座に約6万円"],t:["研修"]},
+  "2026-11-25":{s:"ng",t:["研修"],m:["UQ\n−2.0万"]},
   "2026-11-26":{s:"ng",t:["研修"]},
-  "2026-11-27":{s:"ng",t:["研修"]},
+  "2026-11-27":{s:"ng",t:["研修"],m:["楽天\n−0.4万"]},
   "2026-11-28":{s:"ok",t:["休みなら運送"]},
   "2026-11-29":{s:"ok",t:["休みなら運送"]},
-  "2026-11-30":{s:"ng",t:["研修"]},
+  "2026-11-30":{s:"ng",t:["研修"],m:["ドコモ\nau\n−3.6万"]},
+  "2026-12-27":{m:["楽天\n−0.4万"]},
 };
 const pad=n=>String(n).padStart(2,"0");
 const key=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
@@ -233,12 +256,14 @@ function month(y,m,from,to){
     c.innerHTML=`<span class="d">${d}</span>`;
     (v.e||[]).forEach(x=>{const s=document.createElement("span");s.className="tag ev";s.textContent=x;c.appendChild(s);});
     (v.t||[]).forEach(x=>{const s=document.createElement("span");s.className="tag";s.textContent=x;c.appendChild(s);});
+    (v.m||[]).forEach(x=>{const s=document.createElement("span");s.className="tag "+(x.includes("−")?"mout":"min");s.textContent=x;c.appendChild(s);});
     g.appendChild(c);
   }
   cal.appendChild(g);
 }
 month(2026,10,24,31);
 month(2026,11,1,30);
+month(2026,12,1,31);
 </script>
 </body>
 </html>
