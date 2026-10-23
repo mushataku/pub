@@ -6,9 +6,9 @@
 <meta name="robots" content="noindex, nofollow">
 <title>入れる日に働けるお仕事</title>
 <style>
-:root{--bg:#f6f5f1;--card:#fff;--ink:#1f2328;--sub:#5b6370;--line:#e3e1da;--accent:#b4541a;--accent-bg:#fbeee4;--blue:#1f5f9e;--blue-bg:#e6eff8}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16181c;--card:#1f2228;--ink:#e6e8eb;--sub:#a0a7b2;--line:#323741;--accent:#f0915a;--accent-bg:#3a2619;--blue:#7fb3ea;--blue-bg:#18283a}}
-:root[data-theme="dark"]{--bg:#16181c;--card:#1f2228;--ink:#e6e8eb;--sub:#a0a7b2;--line:#323741;--accent:#f0915a;--accent-bg:#3a2619;--blue:#7fb3ea;--blue-bg:#18283a}
+:root{--bg:#f6f5f1;--card:#fff;--ink:#1f2328;--sub:#5b6370;--line:#e3e1da;--accent:#b4541a;--accent-bg:#fbeee4;--blue:#1f5f9e;--blue-bg:#e6eff8;--green:#1f7a4d;--green-bg:#e6f4ec}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16181c;--card:#1f2228;--ink:#e6e8eb;--sub:#a0a7b2;--line:#323741;--accent:#f0915a;--accent-bg:#3a2619;--blue:#7fb3ea;--blue-bg:#18283a;--green:#6fd39f;--green-bg:#16301f}}
+:root[data-theme="dark"]{--bg:#16181c;--card:#1f2228;--ink:#e6e8eb;--sub:#a0a7b2;--line:#323741;--accent:#f0915a;--accent-bg:#3a2619;--blue:#7fb3ea;--blue-bg:#18283a;--green:#6fd39f;--green-bg:#16301f}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif;line-height:1.75;font-size:16px}
 main{max-width:720px;margin:0 auto;padding:28px 16px 64px}
@@ -22,6 +22,9 @@ h3{font-size:16px;margin:0 0 6px}
 .pick a span{font-size:13px;color:var(--sub)}
 .pick .k{border-top:5px solid var(--accent)}
 .pick .u{border-top:5px solid var(--blue)}
+.pick .p{border-top:5px solid var(--green);grid-column:1 / -1}
+.sec-p h2{border-left:5px solid var(--green);padding-left:10px}
+.sec-p .chips li{background:var(--green-bg);color:var(--green)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:10px 0}
 .sec-k h2{border-left:5px solid var(--accent);padding-left:10px}
 .sec-u h2{border-left:5px solid var(--blue);padding-left:10px}
@@ -47,11 +50,12 @@ td:last-child{font-weight:700;white-space:nowrap}
 <body>
 <main>
 <h1>入れる日に働けるお仕事</h1>
-<p class="lead">転職活動と並行して、空いている日に入れるお仕事をまとめました。気になるものがあれば担当に声をかけてください。</p>
+<p class="lead">空いている日に入れるお仕事をまとめました。気になるものがあれば担当に声をかけてください。</p>
 
 <div class="pick">
   <a class="k" href="#kaitai"><b>解体の手元</b><span>内装解体の補助・日当12,000円前後・9時〜夕方</span></a>
   <a class="u" href="#unso"><b>配送ドライバー</b><span>1回 2,500円〜13,000円・AT限定OK・経費は会社持ち</span></a>
+  <a class="p" href="#pc"><b>パソコンの簡単な作業</b><span>入力・整理などの事務作業</span></a>
 </div>
 
 <section class="sec-k" id="kaitai">
@@ -126,6 +130,14 @@ td:last-child{font-weight:700;white-space:nowrap}
     <li>最初は先輩と同じ日に入って、コースを一緒に回りながら覚えます</li>
     <li>当日は出発・各店の終了・業務終了を、スマホのボタンで報告します（文章を打たなくて済みます）</li>
   </ol>
+</div>
+</section>
+
+<section class="sec-p" id="pc">
+<h2>パソコンの簡単な作業</h2>
+<div class="card">
+  <ul class="chips"><li>未経験OK</li><li>体を使わない仕事</li></ul>
+  <p>パソコンを使った、データの入力や整理などの簡単な事務作業です。現場の仕事と組み合わせて入ることもできます。内容はその時に必要な作業によって変わるので、担当から具体的にご説明します。</p>
 </div>
 </section>
 
