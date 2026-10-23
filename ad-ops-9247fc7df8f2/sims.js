@@ -4,6 +4,11 @@
   var SVGNS = 'http://www.w3.org/2000/svg';
   var HAS = Object.prototype.hasOwnProperty;
 
+  function adn(k, fallback) {
+    var n = window.AD && window.AD.n;
+    return (n && HAS.call(n, k)) ? String(n[k]) : fallback;
+  }
+
   function R(k) {
     var raw = window.AD && window.AD.raw;
     if (!raw) return null;
@@ -610,7 +615,7 @@
       circle(svg, X(rp.p1.b), Y(rp.p1.a), 5, 'f-blue', { stroke: 'var(--surface)', 'stroke-width': 1.5 });
       diamond(svg, X(rp.p2.b), Y(rp.p2.a), 6, 'f-blue', { stroke: 'var(--surface)', 'stroke-width': 1.5 });
       txt(svg, X(rp.p1.b) + 7, Y(rp.p1.a) + 17, '9月', { size: 12 });
-      txt(svg, X(rp.p2.b) + 7, Y(rp.p2.a) + 17, '10月×2', { size: 12 });
+      txt(svg, X(rp.p2.b) + 7, Y(rp.p2.a) + 17, '10月×' + adn('f.mult', '2'), { size: 12 });
     }
     var xb = X(Math.min(s.b, ax.max));
     /* 紫は限界CPAの色なので、いまの広告費の点と線は灰にする */
@@ -676,7 +681,7 @@
     out.appendChild(h('h4', null, '平均CPA と 限界CPA'));
     out.appendChild(drawB2(s, c, rp));
     var ptxt = '● 9月 SeeD エンジニア: ' + or(fmtMan(rp.p1.b), '[未取得]') + '円で ' + or(fmtFixed(rp.p1.a, 0), '[未取得]') + '件（1件 ' + or(fmtYen(rp.p1.c), '[未取得]') + '）。' +
-      '◆ 10月前半（15日）を2倍した月換算: ' + or(fmtMan(rp.p2.b), '[未取得]') + '円で ' + or(fmtFixed(rp.p2.a, 0), '[未取得]') + '件（1件 ' + or(fmtYen(rp.p2.c), '[未取得]') + '）。' +
+      '◆ ' + adn('f.p10', '10月前半') + '（' + adn('f.p10_days', '15日') + '）を' + adn('f.mult', '2') + '倍した月換算: ' + or(fmtMan(rp.p2.b), '[未取得]') + '円で ' + or(fmtFixed(rp.p2.a, 0), '[未取得]') + '件（1件 ' + or(fmtYen(rp.p2.c), '[未取得]') + '）。' +
       '点線＝2点の差から出した傾き ≈' + or(fmtYen(rp.marg), '[未取得]') + '/件（推定で、因果の証明ではない）。';
     out.appendChild(h('p', { 'class': 'cav' }, ptxt));
     srcLine(out, '点は ' + ((window.AD && window.AD.meta && window.AD.meta.mk_src) || 'MK の月次広告レポート') + ' の SeeD エンジニア枠');
