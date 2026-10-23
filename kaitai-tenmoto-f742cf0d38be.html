@@ -5,44 +5,55 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>解体の手元</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#faf8f4;--ink:#22201c;--sub:#6e6a62;--line:#e8e3da;--hl:#e8590c;--calm:#f3efe7}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171614;--ink:#eeebe5;--sub:#a39e94;--line:#34312c;--hl:#ff8a4c;--calm:#26241f}}
-:root[data-theme="dark"]{--bg:#171614;--ink:#eeebe5;--sub:#a39e94;--line:#34312c;--hl:#ff8a4c;--calm:#26241f}
+:root{--bg:#ffffff;--ink:#1f2329;--sub:#5b616b;--line:#e2e5e9;--rule:#1f2329;--tint:#f2f4f7;--link:#2346c8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15171b;--ink:#e9eaec;--sub:#a3a9b2;--line:#2d3138;--rule:#e9eaec;--tint:#1e2127;--link:#93a8ff}}
+:root[data-theme="dark"]{--bg:#15171b;--ink:#e9eaec;--sub:#a3a9b2;--line:#2d3138;--rule:#e9eaec;--tint:#1e2127;--link:#93a8ff}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic UI",sans-serif;font-size:16px;line-height:1.8;font-feature-settings:"palt"}
-main{max-width:640px;margin:0 auto;padding:0 16px 72px}
-.back{display:inline-block;margin-top:20px;font-size:14px;color:var(--sub);text-decoration:none}
-header{padding:28px 0 24px}
-header p.kicker{margin:0 0 10px;font-size:13px;color:var(--sub);letter-spacing:.08em}
-h1{margin:0;font-size:32px;line-height:1.35;font-weight:900}
-header p.sub{margin:14px 0 0;color:var(--sub)}
-.facts{display:grid;grid-template-columns:1fr 1fr;border-top:2px solid var(--ink)}
-.facts div{padding:12px 8px 12px 0;border-bottom:1px solid var(--line)}
-.facts div:nth-child(even){padding-left:14px;border-left:1px solid var(--line)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic UI",Meiryo,sans-serif;font-size:16px;line-height:1.75}
+main{max-width:600px;margin:0 auto;padding:0 16px 64px}
+.nw{white-space:nowrap}
+.num{font-variant-numeric:tabular-nums}
+a{color:var(--link)}
+a:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+
+.back{display:inline-block;margin-top:14px;padding:6px 0;font-size:15px;font-weight:700;text-decoration:none}
+h1{margin:0;padding:10px 0 6px;font-size:28px;line-height:1.35;font-weight:800}
+.lede{margin:0 0 20px;font-size:16px}
+
+.facts{display:grid;grid-template-columns:1fr 1fr;border-top:2px solid var(--rule)}
+.facts div{padding:10px 10px 10px 0;border-bottom:1px solid var(--line)}
+.facts div:nth-child(even){padding-left:12px;border-left:1px solid var(--line)}
 .facts b{display:block;font-size:18px;line-height:1.4}
-.facts span{font-size:12px;color:var(--sub)}
-section{margin-top:48px}
-h2{font-size:21px;font-weight:900;margin:0 0 12px;line-height:1.4}
+.facts span{font-size:14px;color:var(--sub)}
+
+section{margin-top:52px}
+h2{margin:0 0 12px;padding-top:12px;border-top:2px solid var(--rule);font-size:21px;line-height:1.4;font-weight:800}
 p{margin:0 0 12px}
-.relief{background:var(--calm);border-radius:6px;padding:16px 18px}
-.relief p:last-child{margin:0}
-.flow{list-style:none;margin:0;padding:0}
-.flow li{display:grid;grid-template-columns:6.5em 1fr;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line)}
+
+.flow{list-style:none;margin:0;padding:0;counter-reset:s}
+.flow li{position:relative;padding:10px 0 12px 36px;border-bottom:1px solid var(--line);counter-increment:s}
 .flow li:last-child{border-bottom:0}
-.flow .t{font-weight:700;font-size:14px;color:var(--hl)}
-.small{font-size:14px;color:var(--sub)}
-.bring{margin:0;padding:0;list-style:none;columns:2;column-gap:16px}
-.bring li{padding:6px 0;border-bottom:1px solid var(--line);break-inside:avoid}
-.rules{margin:0;padding-left:1.2em}
-.rules li{margin:4px 0}
-.closing{margin-top:56px;padding-top:24px;border-top:2px solid var(--ink);font-size:15px}
-.closing .ask{font-weight:700;font-size:17px;margin-top:16px}
-@media (max-width:380px){h1{font-size:27px}.facts b{font-size:16px}}
+.flow li::before{content:counter(s);position:absolute;left:0;top:13px;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--ink);font-size:13px;font-weight:700;line-height:21px;text-align:center}
+.flow b{display:block;font-size:16.5px}
+.note{margin-top:14px;font-size:14.5px;color:var(--sub)}
+
+.bring{margin:0;padding-left:1.3em}
+.bring li{margin:2px 0}
+.rules{margin:0;padding-left:1.3em}
+.rules li{margin:6px 0}
+
+.closing{margin-top:64px;padding-top:18px;border-top:3px solid var(--rule);font-size:15px}
+.closing p{margin:0 0 10px}
+.closing .ask{margin-top:16px;font-size:17px;font-weight:800}
+.closing .back{margin-top:10px}
+
+@media (min-width:700px){
+  h1{font-size:32px}
+  .bring{columns:2;column-gap:32px}
+  main{padding-bottom:96px}
+}
 </style>
 </head>
 <body>
@@ -50,39 +61,33 @@ p{margin:0 0 12px}
 
 <a class="back" href="https://mushataku.github.io/pub/shigoto-8fec4a89cc57.html">← お仕事一覧へ</a>
 
-<header>
-  <p class="kicker">入れる日だけ働ける現場仕事</p>
-  <h1>解体の手元</h1>
-  <p class="sub">お店やマンションの内装を新しくする工事で、解体の職人さんの補助をします。経験・資格はいりません。</p>
-</header>
+<h1>解体の手元</h1>
+<p class="lede">内装解体の現場で、解体の職人さんの補助をします。経験・資格はいりません。</p>
 
-<div class="facts">
-  <div><b>12,000円前後</b><span>日当</span></div>
+<div class="facts num">
+  <div><b class="nw">12,000円前後</b><span>日当</span></div>
   <div><b>交通費あり</b><span>日当とは別に出ます</span></div>
-  <div><b>9:00〜夕方</b><span>早ければ15時ごろ終わり</span></div>
+  <div><b class="nw">9:00〜夕方</b><span>早ければ15時ごろ</span></div>
   <div><b>平日のみ</b><span>月〜金・1日単位</span></div>
 </div>
 
 <section>
-  <h2>どんな仕事？</h2>
-  <div class="relief">
-    <p>「解体」と聞くと力仕事を想像するかもしれませんが、重いものを持ち続けるような仕事ではありません。</p>
-    <p>壊すのは職人さんです。手元は、言われた道具を渡したり、出たゴミを片付けたりが中心です。</p>
-  </div>
-  <p style="margin-top:16px">現場はマンションの一室、戸建て、お店、ホテルなど。基本は1つの現場に1人で入ります。</p>
+  <h2>仕事の中身</h2>
+  <p>重いものを持ち続けるような仕事ではありません。壊すのは職人さんで、手元は言われた道具を渡したり、出たゴミを片付けたりが中心です。</p>
+  <p>現場はマンションの一室、戸建て、お店、ホテルなど。基本は1つの現場に1人で入ります。</p>
 </section>
 
 <section>
   <h2>1日の流れ</h2>
-  <ul class="flow">
-    <li><span class="t">事前</span><span>働ける日を伝えておきます（「来週は月・火・木なら行けます」など）</span></li>
-    <li><span class="t">前日のお昼</span><span>「明日、◯◯の現場をお願いします」と連絡が来て、行く場所が決まります</span></li>
-    <li><span class="t">前日の午後</span><span>現場の住所、現場の担当さんの名前、持ち物が届きます。行き方を調べておきます</span></li>
-    <li><span class="t">当日 8:30</span><span>現場の前に集合。近くに着いたら担当さんに連絡します</span></li>
-    <li><span class="t">9:00〜夕方</span><span>職人さんの指示を聞きながら作業。早い日は15時ごろに終わります</span></li>
-    <li><span class="t">終わったら</span><span>そのまま帰ってOKです</span></li>
-  </ul>
-  <p class="small" style="margin-top:12px">これまでの現場：新宿・虎ノ門・銀座・品川・世田谷・府中など、東京都内。土日祝は基本お休みです。</p>
+  <ol class="flow">
+    <li><b>事前</b>働ける日を伝えておきます（「来週は月・火・木なら行けます」など）</li>
+    <li><b>前日のお昼</b>「明日、◯◯の現場をお願いします」と連絡が来て、行く場所が決まります</li>
+    <li><b>前日の午後</b>現場の住所、現場の担当さんの名前、持ち物が届きます。行き方を調べておきます</li>
+    <li><b class="num">当日 8:30</b>現場の前に集合。近くに着いたら担当さんに連絡します</li>
+    <li><b class="num">9:00〜夕方</b>職人さんの指示を聞きながら作業。早い日は15時ごろに終わります</li>
+    <li><b>終わったら</b>そのまま帰ってOKです</li>
+  </ol>
+  <p class="note">これまでの現場：新宿・虎ノ門・銀座・品川・世田谷・府中など、東京都内。土日祝は基本お休みです。</p>
 </section>
 
 <section>
@@ -110,6 +115,7 @@ p{margin:0 0 12px}
 <div class="closing">
   <p>雇用の形などの細かい条件は、お繋ぎしたあとに先方から説明があります。</p>
   <p class="ask">気になったら、担当まで気軽に聞いてください。</p>
+  <a class="back" href="https://mushataku.github.io/pub/shigoto-8fec4a89cc57.html">← お仕事一覧へ</a>
 </div>
 
 </main>
