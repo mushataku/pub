@@ -9,6 +9,7 @@
   --role-media-bg: #e8f0fb; --role-mk-bg: #fdeee7; --role-gn-bg: #e4f6ef;
   --link: #1f5fae; --focus: #6250d6;
   --tag-bg: #f0efe9;
+  --band-bg: #ece9fb; --band-accent: #5b48d0; --chip-ink: #ffffff;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -21,6 +22,7 @@
     --role-media-bg: #14243a; --role-mk-bg: #3a1d10; --role-gn-bg: #0f2f23;
     --link: #8ab8f0; --focus: #9085e9;
     --tag-bg: #232321;
+  --band-bg: #1f1b3a; --band-accent: #9a90f0; --chip-ink: #0d0d0d;
     color-scheme: dark;
   }
 }
@@ -33,6 +35,7 @@
   --role-media-bg: #14243a; --role-mk-bg: #3a1d10; --role-gn-bg: #0f2f23;
   --link: #8ab8f0; --focus: #9085e9;
   --tag-bg: #232321;
+  --band-bg: #1f1b3a; --band-accent: #9a90f0; --chip-ink: #0d0d0d;
   color-scheme: dark;
 }
 
@@ -52,15 +55,20 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 /* 見出しの帯: サイト名・章・いまの節をスクロールしても出し続ける（高さ上限 幅375で64px・幅1280で44px） */
 header.top {
   display: flex; flex-wrap: wrap; align-items: center; gap: 0 8px; padding: 6px 16px; margin: 0 -16px;
-  position: sticky; top: 0; z-index: 50; background: var(--page); border-bottom: 1px solid var(--grid);
+  position: sticky; top: 0; z-index: 50; background: var(--band-bg); border-bottom: 3px solid var(--band-accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .18);
   max-height: var(--bar-h); overflow: hidden;
 }
 header.top .tools { order: 2; margin-left: auto; }
-header.top .crumb { order: 3; flex: 1 1 100%; min-width: 0; display: flex; gap: 6px; font-size: 13px; line-height: 1.5; white-space: nowrap; }
-header.top .crumb .c-ch { flex: 0 1 auto; max-width: 60%; overflow: hidden; text-overflow: ellipsis; color: var(--ink2); }
-header.top .crumb .c-sec { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; color: var(--ink); font-weight: 600; }
+header.top .crumb { order: 3; flex: 1 1 100%; min-width: 0; display: flex; align-items: center; gap: 8px; font-size: 15px; line-height: 1.5; white-space: nowrap; }
+header.top .crumb .c-ch {
+  flex: 0 1 auto; max-width: 55%; overflow: hidden; text-overflow: ellipsis;
+  font-size: 13px; font-weight: 700; color: var(--chip-ink); background: var(--band-accent);
+  border-radius: 6px; padding: 1px 8px;
+}
+header.top .crumb .c-sec { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; color: var(--ink); font-weight: 700; }
 header.top .crumb .c-sec:empty { display: none; }
-header.top .crumb .c-sec::before { content: "› "; color: var(--ink2); font-weight: 400; }
+header.top .crumb .c-sec::before { content: ""; }
 @media (min-width: 641px) {
   header.top { flex-wrap: nowrap; }
   header.top .crumb { order: 2; flex: 1 1 0; }
