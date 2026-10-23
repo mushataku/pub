@@ -144,7 +144,7 @@
 
     <fieldset>
       <label class="field" for="kana_family">名義人の姓（カナ）<span class="req">必須</span>
-        <span class="hint">カタカナで（ひらがなでも直します）。姓と名は別の欄に入れてください。漢字は要りません</span></label>
+        <span class="hint">カタカナで（ひらがなでも直します）。姓と名は別の欄に入れてください（漢字は下の欄に）</span></label>
       <input type="text" id="kana_family" name="kana_family" autocomplete="off" enterkeyhint="next">
     </fieldset>
 
@@ -152,6 +152,18 @@
       <label class="field" for="kana_first">名義人の名（カナ）<span class="req">必須</span>
         <span class="hint">カタカナで（ひらがなでも直します）</span></label>
       <input type="text" id="kana_first" name="kana_first" autocomplete="off" enterkeyhint="next">
+    </fieldset>
+
+    <fieldset>
+      <label class="field" for="kanji_family">名義人の姓（漢字）<span class="req">必須</span>
+        <span class="hint">免許証・カードに書かれているとおりの漢字で。姓と名は別の欄に入れてください（免許証の外字などが画面で「□」になるため、こちらでもお預かりします）</span></label>
+      <input type="text" id="kanji_family" name="kanji_family" autocomplete="off" maxlength="40" enterkeyhint="next">
+    </fieldset>
+
+    <fieldset>
+      <label class="field" for="kanji_first">名義人の名（漢字）<span class="req">必須</span>
+        <span class="hint">免許証・カードに書かれているとおりの漢字で</span></label>
+      <input type="text" id="kanji_first" name="kanji_first" autocomplete="off" maxlength="40" enterkeyhint="next">
     </fieldset>
 
     <fieldset>
@@ -240,6 +252,16 @@
   function normKana(s){
     return oneLine(s).replace(/[ぁ-ゖ]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) + 0x60); });
   }
+  // 氏名の漢字の1語: 字は変えない（NFKC しない）。前後の空白だけ落とす（業者コンソール name_kanji.norm_kanji と同じ）
+  function normKanji(s){ return String(s || '').normalize('NFC').replace(/^[\s\u0085\u00a0\u3000]+|[\s\u0085\u00a0\u3000]+$/g, ''); }
+  // 業者コンソール name_kanji.kanji_part_err と同じ誤り（空・空白・20字超・代替記号や私用領域の字）。問題が無ければ ''
+  function kanjiProblem(label, v){
+    if (!v) return label + 'が空です';
+    if (/[\s\u0085\u00a0\u3000]/.test(v)) return label + 'に空白が入っています（姓と名は別の欄に入れてください）';
+    if (Array.from(v).length > 20) return label + 'が長すぎます（20字まで）';
+    if (/[□■?？\ufffd〓\ue000-\uf8ff\u2150-\u218f\u2460-\u24ff\u3200-\u33ff\ufa0e-\ufaff]/.test(v)) return label + 'に LinksMate の画面へ入れられない字（機種依存文字・互換漢字・外字）があります。使える字に直してください（例: 﨑→崎）';
+    return '';
+  }
   function normPhone(s){ return String(s).normalize('NFKC').replace(/[^0-9]/g, ''); }
   // EID: 全角数字→半角・空白とハイフン類を除く。★NFKC はかけない（丸数字・上付き数字が数字に化けない＝業者コンソールの Python 側 eid_check と同じ字の集合・試験で突き合わせる）
   function normEid(s){
@@ -312,6 +334,8 @@
       client: oneLine($('client').value),
       kanaFamily: normKana($('kana_family').value),
       kanaFirst: normKana($('kana_first').value),
+      kanjiFamily: normKanji($('kanji_family').value),
+      kanjiFirst: normKanji($('kanji_first').value),
       kadobiRaw: $('kadobi').value,
       kadobi: normBirthday($('kadobi').value),
       birthdayRaw: $('birthday').value,
@@ -340,6 +364,10 @@
       if (!f[1]) errs.push({id:f[0], t:f[2] + 'が空です'});
       else if (/ /.test(f[1])) errs.push({id:f[0], t:f[2] + 'に空白が入っています（姓と名は別の欄に入れてください）'});
       else if (!/^[ァ-ヶー]+$/.test(f[1])) errs.push({id:f[0], t:f[2] + 'はカタカナで入れてください'});
+    });
+    [['kanji_family', v.kanjiFamily, '姓（漢字）'], ['kanji_first', v.kanjiFirst, '名（漢字）']].forEach(function(f){
+      var kp2 = kanjiProblem(f[2], f[1]);
+      if (kp2) errs.push({id:f[0], t:kp2});
     });
     var bp = birthdayProblem(v.birthdayRaw);
     if (bp) errs.push({id:'birthday', t:bp});
@@ -373,6 +401,8 @@
       '⑧ 本人確認書類：' + v.doc,
       '⑨ 回線数：' + v.lines,
       '⑩ EID：' + (v.eid || EID_NOTE),  // 空で出すときは注釈（業者コンソールの貼り付けはこの注釈のままを「後で」と読む＝paste_parse.FORMAT_TEMPLATE と一字一句同じ）
+      '⑪ 姓（漢字）：' + v.kanjiFamily,
+      '⑫ 名（漢字）：' + v.kanjiFirst,
       '※住所と本人確認書類の写真は不要です。',
       '名義人の同意（名義での申込と事務の代行）: はい',
       '本人確認は名義人本人が行う: はい'
@@ -381,7 +411,7 @@
 
   function clearErrors(){
     $('errors').style.display = 'none'; $('errors').innerHTML = '';
-    ['client','kadobi','kana_family','kana_first','birthday','phone','postal','lines','eid'].forEach(function(id){ $(id).removeAttribute('aria-invalid'); });
+    ['client','kadobi','kana_family','kana_first','kanji_family','kanji_first','birthday','phone','postal','lines','eid'].forEach(function(id){ $(id).removeAttribute('aria-invalid'); });
   }
   function hideResult(){ $('result').style.display = 'none'; $('status').textContent = ''; }
 
@@ -392,7 +422,7 @@
     var ul = document.createElement('ul');
     errs.forEach(function(e){
       var li = document.createElement('li'); li.textContent = e.t; ul.appendChild(li);
-      if (['client','kadobi','kana_family','kana_first','birthday','phone','postal','lines','eid'].indexOf(e.id) >= 0) $(e.id).setAttribute('aria-invalid', 'true');
+      if (['client','kadobi','kana_family','kana_first','kanji_family','kanji_first','birthday','phone','postal','lines','eid'].indexOf(e.id) >= 0) $(e.id).setAttribute('aria-invalid', 'true');
     });
     box.appendChild(ul);
     box.style.display = 'block';
@@ -439,7 +469,7 @@
   });
 
   $('again').addEventListener('click', function(){
-    $('kana_family').value = ''; $('kana_first').value = ''; $('birthday').value = ''; $('bdEcho').textContent = ''; $('kadobi').value = ''; $('kdEcho').textContent = ''; $('phone').value = ''; $('postal').value = ''; $('lines').value = '1'; $('eid').value = '';
+    $('kana_family').value = ''; $('kana_first').value = ''; $('kanji_family').value = ''; $('kanji_first').value = ''; $('birthday').value = ''; $('bdEcho').textContent = ''; $('kadobi').value = ''; $('kdEcho').textContent = ''; $('phone').value = ''; $('postal').value = ''; $('lines').value = '1'; $('eid').value = '';
     Array.prototype.forEach.call(document.querySelectorAll('input[name=doc]:checked'), function(d){ d.checked = false; });
     var sx = document.querySelector('input[name=sex]:checked'); if (sx) sx.checked = false;
     $('agree1').checked = false; $('agree2').checked = false;
