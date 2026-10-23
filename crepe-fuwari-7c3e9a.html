@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>クレープ屋 ふわり 予約</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=M+PLUS+1p:wght@400;700&display=swap">
+<style>
+/* layout: 1カラムの予約フロー（メニュー→日時→お客様情報→確定）＋店舗側の予約台帳タブ */
+:root{
+  --bg:#fff8f3; --card:#ffffff; --fg:#3a2a22; --muted:#8a7468; --line:#f0dccd;
+  --accent:#e0607e; --accent-ink:#fff; --soft:#fde6ec; --ok:#2f8a5b; --full:#c9b8ad;
+  --display:"Zen Maru Gothic","Hiragino Maru Gothic ProN",sans-serif;
+  --body:"M PLUS 1p","Hiragino Sans","Yu Gothic",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#211915; --card:#2c221d; --fg:#f6e9e0; --muted:#bba597; --line:#45362e;
+  --accent:#f07c97; --accent-ink:#211915; --soft:#43262d; --ok:#6fcf9b; --full:#5a4a41; color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:max(24px,env(safe-area-inset-bottom,0px))}
+.wrap{max-width:640px;margin:0 auto;padding-block:20px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.logo{width:52px;height:52px;flex:none}
+h1{font-family:var(--display);font-weight:900;font-size:1.6rem;margin:0;letter-spacing:.02em}
+.sub{color:var(--muted);font-size:.85rem;margin:0}
+.tabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:18px}
+.tabs button{flex:1;border:0;background:transparent;color:var(--muted);font:700 .95rem var(--body);padding:9px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
+section.step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px}
+h2{font-family:var(--display);font-size:1.1rem;margin:0 0 10px;display:flex;gap:8px;align-items:center}
+h2 .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--soft);color:var(--accent);font-size:.85rem}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.item{border:1.5px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.item.on{border-color:var(--accent);background:var(--soft)}
+.item .nm{font-weight:700;font-size:.95rem}
+.item .pr{color:var(--muted);font-size:.85rem;font-variant-numeric:tabular-nums}
+.qty{display:flex;align-items:center;gap:8px;margin-top:auto}
+.qty button{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--accent);background:var(--card);color:var(--accent);font-size:1.1rem;font-weight:700;cursor:pointer}
+.qty span{min-width:1.5em;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.day{flex:none;border:1.5px solid var(--line);background:var(--card);color:var(--fg);border-radius:12px;padding:8px 12px;text-align:center;cursor:pointer;font:inherit}
+.day b{display:block;font-size:1.05rem}
+.day.on{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.day.closed{opacity:.45;cursor:not-allowed}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px;margin-top:12px}
+.slot{border:1.5px solid var(--line);background:var(--card);color:var(--fg);border-radius:10px;padding:8px 4px;font:700 .95rem var(--body);cursor:pointer;font-variant-numeric:tabular-nums}
+.slot small{display:block;font-weight:400;font-size:.72rem;color:var(--muted)}
+.slot.on{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.slot.on small{color:var(--accent-ink)}
+.slot:disabled{background:var(--bg);color:var(--full);cursor:not-allowed;text-decoration:line-through}
+label{display:block;font-size:.85rem;color:var(--muted);margin:8px 0 4px}
+input,textarea{width:100%;border:1.5px solid var(--line);background:var(--bg);color:var(--fg);border-radius:10px;padding:10px;font:inherit}
+input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.err{color:var(--accent);font-size:.82rem;min-height:1.2em;margin:2px 0 0}
+.bar{position:sticky;bottom:max(10px,env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px}
+.bar .sum{flex:1;min-width:0;font-size:.85rem}
+.bar .sum b{font-size:1.15rem;font-variant-numeric:tabular-nums}
+.bar button{border:0;background:var(--accent);color:var(--accent-ink);font:700 1rem var(--body);padding:12px 18px;border-radius:12px;cursor:pointer}
+.bar button:disabled{opacity:.4;cursor:not-allowed}
+.done{text-align:center;padding:28px 16px}
+.done .no{font-family:var(--display);font-size:2.4rem;font-weight:900;color:var(--accent);letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.done dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;text-align:left;max-width:360px;margin:16px auto}
+.done dt{color:var(--muted)}
+.ghost{border:1.5px solid var(--accent);background:transparent;color:var(--accent);font:700 .95rem var(--body);padding:10px 16px;border-radius:12px;cursor:pointer}
+.list{display:flex;flex-direction:column;gap:10px}
+.rsv{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
+.rsv .t{font-family:var(--display);font-weight:900;font-size:1.1rem;font-variant-numeric:tabular-nums;text-align:center;line-height:1.2}
+.rsv .t small{display:block;font-family:var(--body);font-weight:400;font-size:.72rem;color:var(--muted)}
+.rsv .who{min-width:0}
+.rsv .who b{display:block}
+.rsv .who span{color:var(--muted);font-size:.82rem;word-break:break-all}
+.tag{font-size:.7rem;border-radius:999px;padding:1px 8px;background:var(--soft);color:var(--accent);margin-left:6px}
+.rsv button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:8px;padding:6px 10px;font:inherit;font-size:.8rem;cursor:pointer}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center}
+.stat b{display:block;font-family:var(--display);font-size:1.4rem;font-variant-numeric:tabular-nums}
+.stat span{font-size:.75rem;color:var(--muted)}
+.empty{color:var(--muted);text-align:center;padding:24px}
+.note{color:var(--muted);font-size:.78rem;text-align:center;margin-top:16px}
+@media (max-width:380px){.menu{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M32 60 L10 22 A24 24 0 0 1 54 22 Z" fill="#f3c98b"/>
+      <path d="M10 22 A24 24 0 0 1 54 22 Q48 30 40 24 Q32 32 24 24 Q16 30 10 22Z" fill="#fff4e8" stroke="#e8b878" stroke-width="1.5"/>
+      <circle cx="24" cy="15" r="5" fill="#e0607e"/><circle cx="36" cy="12" r="5" fill="#e0607e"/><circle cx="44" cy="18" r="4" fill="#7a4a2e"/>
+      <path d="M32 60 L22 40 M32 60 L42 40" stroke="#e8b878" stroke-width="1.5" fill="none"/>
+    </svg>
+    <div>
+      <h1>クレープ屋 ふわり</h1>
+      <p class="sub">焼きたてを待たずに受け取り｜営業 11:00〜19:00・火曜定休</p>
+    </div>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button id="tab-book" role="tab" aria-selected="true">ご予約</button>
+    <button id="tab-shop" role="tab" aria-selected="false">お店の予約台帳</button>
+  </div>
+
+  <main id="view-book">
+    <div id="form-area">
+      <section class="step">
+        <h2><span class="n">1</span>メニューを選ぶ</h2>
+        <div class="menu" id="menu"></div>
+      </section>
+      <section class="step">
+        <h2><span class="n">2</span>受け取り日時</h2>
+        <div class="days" id="days"></div>
+        <div class="slots" id="slots"></div>
+        <p class="err" id="slot-note"></p>
+      </section>
+      <section class="step">
+        <h2><span class="n">3</span>お名前と連絡先</h2>
+        <label for="nm">お名前</label>
+        <input id="nm" autocomplete="name" placeholder="例）山田 花子">
+        <label for="tel">電話番号</label>
+        <input id="tel" inputmode="tel" autocomplete="tel" placeholder="例）090-1234-5678">
+        <p class="err" id="tel-err"></p>
+        <label for="memo">ご要望（任意）</label>
+        <textarea id="memo" rows="2" placeholder="例）生クリーム少なめ／アレルギー：くるみ"></textarea>
+      </section>
+      <div class="bar">
+        <div class="sum" id="sum">メニューを選んでください</div>
+        <button id="go" disabled>予約する</button>
+      </div>
+    </div>
+    <section class="step done" id="done" hidden></section>
+  </main>
+
+  <main id="view-shop" hidden>
+    <div class="stats" id="stats"></div>
+    <div class="days" id="shop-days"></div>
+    <div class="list" id="list" style="margin-top:12px"></div>
+    <p class="note">デモ用：予約はこの端末のブラウザにだけ保存されます</p>
+  </main>
+</div>
+
+<script>
+const MENU=[
+  {id:"ichigo",nm:"いちご生クリーム",pr:620},
+  {id:"choco",nm:"チョコバナナ",pr:580},
+  {id:"caramel",nm:"塩キャラメルナッツ",pr:650},
+  {id:"matcha",nm:"抹茶あずき白玉",pr:680},
+  {id:"tuna",nm:"ツナチーズ（食事系）",pr:600},
+  {id:"lemon",nm:"レモンシュガー",pr:480},
+];
+const CAP=4;               // 15分枠あたりに焼ける数（個）
+const OPEN=11, CLOSE=19;   // 営業時間
+const CLOSED_DOW=2;        // 火曜定休
+const KEY="fuwari-rsv-v1";
+const WD="日月火水木金土";
+const $=id=>document.getElementById(id);
+const yen=n=>"¥"+n.toLocaleString();
+const ymd=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const fmtDay=s=>{const d=new Date(s+"T00:00");return (d.getMonth()+1)+"/"+d.getDate()+"（"+WD[d.getDay()]+"）"};
+
+function days(){const out=[],t=new Date();t.setHours(0,0,0,0);for(let i=0;i<8;i++){const d=new Date(t);d.setDate(t.getDate()+i);out.push(d)}return out}
+function load(){try{const v=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(v))return v}catch(e){}return seed()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(R))}catch(e){}}
+function seed(){
+  const ds=days().filter(d=>d.getDay()!==CLOSED_DOW).map(ymd);
+  return [
+    {no:"F-0412",day:ds[0],time:"12:00",nm:"見本 さくら",tel:"090-0000-0001",items:{ichigo:2},memo:"",sample:1},
+    {no:"F-0413",day:ds[0],time:"12:00",nm:"見本 たろう",tel:"080-0000-0002",items:{choco:1,lemon:1},memo:"",sample:1},
+    {no:"F-0414",day:ds[0],time:"15:30",nm:"見本 みどり",tel:"070-0000-0003",items:{matcha:3,caramel:1},memo:"白玉多め",sample:1},
+    {no:"F-0415",day:ds[1],time:"13:15",nm:"見本 けんた",tel:"090-0000-0004",items:{tuna:2},memo:"",sample:1},
+  ];
+}
+let R=load();
+const S={items:{},day:null,time:null};
+
+function used(day,time){return R.filter(r=>r.day===day&&r.time===time).reduce((a,r)=>a+count(r.items),0)}
+function count(it){return Object.values(it).reduce((a,b)=>a+b,0)}
+function total(it){return Object.entries(it).reduce((a,[k,v])=>a+MENU.find(m=>m.id===k).pr*v,0)}
+function itemText(it){return Object.entries(it).filter(([,v])=>v>0).map(([k,v])=>MENU.find(m=>m.id===k).nm+"×"+v).join("、")}
+
+function renderMenu(){
+  $("menu").innerHTML="";
+  MENU.forEach(m=>{
+    const q=S.items[m.id]||0, el=document.createElement("div");
+    el.className="item"+(q?" on":"");
+    el.innerHTML=`<div class="nm"></div><div class="pr">${yen(m.pr)}</div><div class="qty"><button aria-label="減らす">−</button><span>${q}</span><button aria-label="増やす">＋</button></div>`;
+    el.querySelector(".nm").textContent=m.nm;
+    const [minus,plus]=el.querySelectorAll("button");
+    minus.onclick=()=>{S.items[m.id]=Math.max(0,q-1);if(!S.items[m.id])delete S.items[m.id];refresh()};
+    plus.onclick=()=>{if(count(S.items)>=CAP){$("slot-note").textContent="1回のご予約は"+CAP+"個までです";return}S.items[m.id]=q+1;refresh()};
+    $("menu").appendChild(el);
+  });
+}
+function renderDays(box,cur,onPick,allowClosed){
+  box.innerHTML="";
+  days().forEach((d,i)=>{
+    const s=ymd(d),b=document.createElement("button"),closed=d.getDay()===CLOSED_DOW;
+    b.className="day"+(s===cur?" on":"")+(closed?" closed":"");
+    b.innerHTML=`<small>${i===0?"今日":i===1?"明日":WD[d.getDay()]}</small><b>${d.getMonth()+1}/${d.getDate()}</b>`;
+    if(closed&&!allowClosed){b.disabled=true;b.title="定休日"} else b.onclick=()=>onPick(s);
+    box.appendChild(b);
+  });
+}
+function renderSlots(){
+  const box=$("slots");box.innerHTML="";
+  if(!S.day){box.innerHTML='<p class="sub">日付を選ぶと空き時間が出ます</p>';return}
+  const need=Math.max(1,count(S.items)),now=new Date();
+  for(let h=OPEN;h<CLOSE;h++)for(let m=0;m<60;m+=15){
+    const t=String(h).padStart(2,"0")+":"+String(m).padStart(2,"0");
+    const left=CAP-used(S.day,t);
+    const past=S.day===ymd(now)&&new Date(S.day+"T"+t)<new Date(now.getTime()+20*60000);
+    const b=document.createElement("button");
+    b.className="slot"+(S.time===t?" on":"");
+    b.innerHTML=`${t}<small>${past?"受付終了":left<=0?"満席":"残り"+left}</small>`;
+    b.disabled=past||left<need;
+    b.onclick=()=>{S.time=t;refresh()};
+    box.appendChild(b);
+  }
+}
+const telOk=v=>/^0\d{9,10}$/.test(v.replace(/[-ー－\s]/g,""));
+function renderBar(){
+  const n=count(S.items);
+  let msg="メニューを選んでください";
+  if(n) msg=`<b>${yen(total(S.items))}</b>　${n}個`+(S.day&&S.time?`<br>${fmtDay(S.day)} ${S.time} 受け取り`:"<br>受け取り日時を選んでください");
+  $("sum").innerHTML=msg;
+  $("go").disabled=!(n&&S.day&&S.time&&$("nm").value.trim()&&telOk($("tel").value));
+}
+function refresh(){
+  if(S.day&&S.time&&CAP-used(S.day,S.time)<Math.max(1,count(S.items)))S.time=null;
+  $("slot-note").textContent="";renderMenu();renderDays($("days"),S.day,s=>{S.day=s;S.time=null;refresh()});renderSlots();renderBar();
+}
+$("nm").oninput=renderBar;
+$("tel").oninput=()=>{$("tel-err").textContent="";renderBar()};
+$("tel").onblur=()=>{const v=$("tel").value;$("tel-err").textContent=v&&!telOk(v)?"電話番号は数字10〜11桁で入力してください":""};
+$("go").onclick=()=>{
+  if(CAP-used(S.day,S.time)<count(S.items)){$("slot-note").textContent="その時間は直前に埋まりました。別の時間を選んでください";S.time=null;refresh();return}
+  const max=R.reduce((a,r)=>Math.max(a,parseInt(r.no.slice(2))),411);
+  const r={no:"F-"+String(max+1).padStart(4,"0"),day:S.day,time:S.time,nm:$("nm").value.trim(),tel:$("tel").value.trim(),items:{...S.items},memo:$("memo").value.trim()};
+  R.push(r);save();
+  const d=$("done");d.hidden=false;$("form-area").hidden=true;
+  d.innerHTML=`<p class="sub">ご予約を受け付けました</p><div class="no">${r.no}</div><p class="sub">受け取り時にこの番号をお伝えください</p><dl>
+  <dt>日時</dt><dd></dd><dt>お名前</dt><dd></dd><dt>内容</dt><dd></dd><dt>お会計</dt><dd>${yen(total(r.items))}（店頭でお支払い）</dd></dl>
+  <button class="ghost" id="again">もう1件予約する</button>`;
+  const dd=d.querySelectorAll("dd");dd[0].textContent=fmtDay(r.day)+" "+r.time;dd[1].textContent=r.nm+" 様";dd[2].textContent=itemText(r.items);
+  $("again").onclick=()=>{S.items={};S.time=null;["nm","tel","memo"].forEach(i=>$(i).value="");d.hidden=true;$("form-area").hidden=false;refresh();scrollTo(0,0)};
+  scrollTo(0,0);
+};
+
+let shopDay=ymd(new Date());
+function renderShop(){
+  const today=R.filter(r=>r.day===shopDay).sort((a,b)=>a.time.localeCompare(b.time));
+  $("stats").innerHTML=`<div class="stat"><b>${today.length}</b><span>予約件数</span></div><div class="stat"><b>${today.reduce((a,r)=>a+count(r.items),0)}</b><span>焼く枚数</span></div><div class="stat"><b>${yen(today.reduce((a,r)=>a+total(r.items),0))}</b><span>売上見込み</span></div>`;
+  renderDays($("shop-days"),shopDay,s=>{shopDay=s;renderShop()},true);
+  const L=$("list");L.innerHTML="";
+  if(!today.length){L.innerHTML='<p class="empty">この日の予約はまだありません</p>';return}
+  today.forEach(r=>{
+    const el=document.createElement("div");el.className="rsv";
+    el.innerHTML=`<div class="t">${r.time}<small>${r.no}</small></div><div class="who"><b></b><span></span></div><button>取消</button>`;
+    el.querySelector("b").textContent=r.nm+" 様";
+    if(r.sample){const t=document.createElement("span");t.className="tag";t.textContent="見本";el.querySelector("b").appendChild(t)}
+    el.querySelector(".who span").textContent=itemText(r.items)+"｜"+yen(total(r.items))+"｜"+r.tel+(r.memo?"｜"+r.memo:"");
+    const btn=el.querySelector("button");
+    btn.onclick=()=>{if(btn.dataset.arm){R=R.filter(x=>x.no!==r.no);save();renderShop()}else{btn.dataset.arm=1;btn.textContent="本当に取消";btn.style.color="var(--accent)";btn.style.borderColor="var(--accent)"}};
+    L.appendChild(el);
+  });
+}
+function tab(which){
+  $("tab-book").setAttribute("aria-selected",which==="book");$("tab-shop").setAttribute("aria-selected",which==="shop");
+  $("view-book").hidden=which!=="book";$("view-shop").hidden=which!=="shop";
+  if(which==="shop")renderShop();else refresh();
+}
+$("tab-book").onclick=()=>tab("book");$("tab-shop").onclick=()=>tab("shop");
+refresh();
+</script>
+</body>
+</html>
