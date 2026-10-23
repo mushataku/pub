@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入社までの予定表</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--sub:#5f6670;--line:#dde1e6;--accent:#2f6fde;
+    --ok:#dcf3e2;--okb:#2e8b57;--ask:#fff3c9;--askb:#b8860b;--ng:#eceef1;--ngb:#8a9099;--ev:#e2ebff;--evb:#2f55c4}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;line-height:1.65}
+  main{max-width:860px;margin:0 auto;padding:20px 16px 56px}
+  header{background:linear-gradient(135deg,#2f6fde,#5b8ff0);color:#fff;border-radius:14px;padding:20px 18px;margin-bottom:18px}
+  header h1{font-size:1.35rem;margin:0 0 6px}
+  header p{margin:0;font-size:.92rem;opacity:.95}
+  section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 16px}
+  h2{font-size:1.08rem;margin:0 0 10px;padding-left:10px;border-left:4px solid var(--accent)}
+  .todo{list-style:none;margin:0;padding:0}
+  .todo li{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line)}
+  .todo li:last-child{border-bottom:none}
+  .todo .when{flex:0 0 7.2em;font-weight:700;color:var(--accent)}
+  .todo .what b{display:block}
+  .todo .what span{color:var(--sub);font-size:.88rem}
+  .note{background:#fff8e6;border-left:4px solid var(--askb);border-radius:6px;padding:10px 12px;font-size:.9rem;margin:0 0 12px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin:0 0 10px;font-size:.84rem}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:14px;height:14px;border-radius:3px;border:1px solid;display:inline-block}
+  h3{font-size:1rem;margin:14px 0 6px}
+  .grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+  .dow{font-size:.78rem;text-align:center;color:var(--sub)}
+  .dow.sat{color:#2f5fd0}.dow.sun{color:#c0392b}
+  .day{min-height:88px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:4px;font-size:.74rem;overflow-wrap:anywhere}
+  .day.blank{background:transparent;border:none}
+  .day .d{font-weight:700;font-size:.88rem}
+  .day.ok{background:var(--ok);border-color:var(--okb)}
+  .day.ask{background:var(--ask);border-color:var(--askb)}
+  .day.ng{background:var(--ng);border-color:var(--ngb)}
+  .day.today{outline:3px solid #e67e22}
+  .tag{display:block;margin-top:2px;padding:1px 3px;border-radius:4px;background:rgba(255,255,255,.75);line-height:1.35}
+  .tag.ev{background:var(--ev);color:var(--evb);font-weight:700}
+  table{border-collapse:collapse;width:100%;font-size:.9rem}
+  th,td{border:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+  th{background:#f1f3f6;white-space:nowrap}
+  .money{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .money div{border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .money b{display:block;font-size:1.05rem}
+  .money span{color:var(--sub);font-size:.85rem}
+  footer{color:var(--sub);font-size:.8rem;text-align:center;margin-top:20px}
+  @media (max-width:640px){.day{min-height:74px;font-size:.62rem;padding:3px}.day .d{font-size:.78rem}.todo .when{flex-basis:6em}}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>相田さん　入社までの予定表</h1>
+    <p>10月23日のお電話の内容と、いただいた「入社日前後スケジュール」（11-2期）をまとめました。予定が決まりしだい、このページを更新します。</p>
+  </header>
+
+  <section>
+    <h2>これからやること</h2>
+    <ul class="todo">
+      <li><div class="when">10/26（月）</div><div class="what"><b>戸籍謄本を取る</b><span>お仕事の合間に役所へ。取れたらLINEで教えてください</span></div></li>
+      <li><div class="when">10/26（月）ごろ</div><div class="what"><b>日本交通の結果を受け取る</b><span>連絡が来たら、すぐLINEで教えてください</span></div></li>
+      <li><div class="when">10/29（木）15時</div><div class="what"><b>BREXA様へのお返事の期限</b><span>日本交通の結果をふまえて、一緒に決めましょう</span></div></li>
+      <li><div class="when">10/31（土）<br>11/1（日）</div><div class="what"><b>どちらか1日を空けておく</b><span>お電話でお話しした件です</span></div></li>
+      <li><div class="when">分かりしだい</div><div class="what"><b>教習所の時間と日数を教える</b><span>朝の運送の便に入れるかどうかが決まります</span></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>カレンダー（10月末〜11月）</h2>
+    <div class="note">日本交通に入社する場合の予定です。教習所の時間はまだ分からないため、黄色の日は「時間しだい」で運送に入れるかが変わります。</div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--ok);border-color:var(--okb)"></i>運送に入れそうな日</span>
+      <span><i class="sw" style="background:var(--ask);border-color:var(--askb)"></i>時間しだい・確認中</span>
+      <span><i class="sw" style="background:var(--ng);border-color:var(--ngb)"></i>予定あり</span>
+      <span><i class="sw" style="background:var(--ev);border-color:var(--evb)"></i>大事な予定</span>
+    </div>
+    <div id="cal"></div>
+  </section>
+
+  <section>
+    <h2>日本交通の流れ（11-2期）</h2>
+    <table>
+      <tr><th>日付</th><th>内容</th></tr>
+      <tr><td>11/5（木）</td><td>入社手続き</td></tr>
+      <tr><td>11/6（金）〜</td><td>教習所（3〜5日の予定・銀座近くの提携校）</td></tr>
+      <tr><td>11/18（水）</td><td>前日説明</td></tr>
+      <tr><td>11/19（木）</td><td>入社</td></tr>
+      <tr><td>11/20（金）〜</td><td>研修（日給1万円）</td></tr>
+      <tr><td>12/11（金）</td><td>選任（銀座の営業所の所長を乗せるテスト）</td></tr>
+      <tr><td>2027/3/15（月）</td><td>試用期間の終わり → 専属ハイヤーへ</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>お金の見通し</h2>
+    <div class="money">
+      <div><b>朝の運送（つなぎ）</b><span>朝4時〜10時・日給8,000〜9,000円が目安。シフトは弊社の運送担当と調整中です</span></div>
+      <div><b>研修中（11/20〜）</b><span>日給1万円</span></div>
+      <div><b>初めての月給（12月）</b><span>約40万円（お電話で伺った見込み）</span></div>
+    </div>
+    <p style="margin:10px 0 0;font-size:.88rem;color:var(--sub)">12月のお給料までのつなぎとして、空いている日になるべく入れるよう手配します。</p>
+  </section>
+
+  <footer>作成：Gooner 武者野（2026年10月23日）</footer>
+</main>
+<script>
+const D = {
+  "2026-10-26":{s:"ng",t:["現職"],e:["戸籍謄本","日本交通の結果"]},
+  "2026-10-27":{s:"ng",t:["現職"]},
+  "2026-10-28":{s:"ng",t:["現職"]},
+  "2026-10-29":{s:"ng",t:["現職"],e:["BREXA返事 15時"]},
+  "2026-10-30":{s:"ng",t:["現職"]},
+  "2026-10-31":{s:"ask",t:["どちらか1日空ける"]},
+  "2026-11-01":{s:"ask",t:["どちらか1日空ける"]},
+  "2026-11-02":{s:"ok",t:["終日あき"]},
+  "2026-11-03":{s:"ok",t:["終日あき"]},
+  "2026-11-04":{s:"ok",t:["終日あき"]},
+  "2026-11-05":{s:"ask",e:["入社手続き"]},
+  "2026-11-06":{s:"ask",e:["教習所スタート"]},
+  "2026-11-07":{s:"ask",t:["教習所"]},
+  "2026-11-08":{s:"ask",t:["教習所"]},
+  "2026-11-09":{s:"ask",t:["教習所"]},
+  "2026-11-10":{s:"ask",t:["教習所"]},
+  "2026-11-11":{s:"ask",t:["延びたら教習所"]},
+  "2026-11-12":{s:"ask",t:["延びたら教習所"]},
+  "2026-11-13":{s:"ask",t:["空きそう"]},
+  "2026-11-14":{s:"ask",t:["空きそう"]},
+  "2026-11-15":{s:"ask",t:["空きそう"]},
+  "2026-11-16":{s:"ask",t:["空きそう"]},
+  "2026-11-17":{s:"ask",t:["空きそう"]},
+  "2026-11-18":{s:"ng",e:["前日説明"]},
+  "2026-11-19":{s:"ng",e:["入社"]},
+  "2026-11-20":{s:"ng",t:["研修"]},
+  "2026-11-21":{s:"ask",t:["研修の休み?"]},
+  "2026-11-22":{s:"ask",t:["研修の休み?"]},
+  "2026-11-23":{s:"ng",t:["研修"]},
+  "2026-11-24":{s:"ng",t:["研修"]},
+  "2026-11-25":{s:"ng",t:["研修"]},
+  "2026-11-26":{s:"ng",t:["研修"]},
+  "2026-11-27":{s:"ng",t:["研修"]},
+  "2026-11-28":{s:"ask",t:["研修の休み?"]},
+  "2026-11-29":{s:"ask",t:["研修の休み?"]},
+  "2026-11-30":{s:"ng",t:["研修"]},
+};
+const pad=n=>String(n).padStart(2,"0");
+const key=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const today=key(new Date());
+const cal=document.getElementById("cal");
+function month(y,m,from,to){
+  const h=document.createElement("h3");h.textContent=`${y}年${m}月`;cal.appendChild(h);
+  const g=document.createElement("div");g.className="grid";
+  ["月","火","水","木","金","土","日"].forEach((w,i)=>{const c=document.createElement("div");c.className="dow"+(i==5?" sat":i==6?" sun":"");c.textContent=w;g.appendChild(c);});
+  const off=(new Date(y,m-1,from).getDay()+6)%7;
+  for(let i=0;i<off;i++){const b=document.createElement("div");b.className="day blank";g.appendChild(b);}
+  for(let d=from;d<=to;d++){
+    const k=key(new Date(y,m-1,d)),v=D[k]||{};
+    const c=document.createElement("div");c.className="day"+(v.s?" "+v.s:"")+(k===today?" today":"");
+    c.innerHTML=`<span class="d">${d}</span>`;
+    (v.e||[]).forEach(x=>{const s=document.createElement("span");s.className="tag ev";s.textContent=x;c.appendChild(s);});
+    (v.t||[]).forEach(x=>{const s=document.createElement("span");s.className="tag";s.textContent=x;c.appendChild(s);});
+    g.appendChild(c);
+  }
+  cal.appendChild(g);
+}
+month(2026,10,26,31);
+month(2026,11,1,30);
+</script>
+</body>
+</html>
