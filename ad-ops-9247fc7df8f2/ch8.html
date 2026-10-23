@@ -21,7 +21,7 @@
 
 <h2 id="sec-8-1">予算は「最後の1万円」で配る</h2>
 <figure id="fig-8-1">
-<p class="tag"><span class="fno">図8-1</span><b>何</b>: 予算と応募の関係（形は模式）｜<b>期間</b>: 実数は9月＝9/1〜9/30 と10月前半＝10/1〜<span data-n="mk10.seed.last">10/15</span>｜<b>時点</b>: 取得 <span data-n="meta.fetched">2026-10-22 17:18</span>｜<b>範囲</b>: <a href="glossary.html#ab-seed">SeeD</a> の2<a href="glossary.html#campaign">キャンペーン</a>｜<b>定義</b>: 口＝予算を別々に決めるキャンペーン。応募は MK の数え。平均＝広告費÷応募、最後の分＝9月と10月前半×2の広告費の差÷応募の差（推計）</p>
+<p class="tag"><span class="fno">図8-1</span><b>何</b>: 予算と応募の関係（形は模式）｜<b>期間</b>: 実数は9月＝9/1〜9/30 と<span data-n="f.p10">10月前半</span>＝10/1〜<span data-n="mk10.seed.last">10/15</span>｜<b>時点</b>: 取得 <span data-n="meta.fetched">2026-10-22 17:18</span>｜<b>範囲</b>: <a href="glossary.html#ab-seed">SeeD</a> の2<a href="glossary.html#campaign">キャンペーン</a>｜<b>定義</b>: 口＝予算を別々に決めるキャンペーン。応募は MK の数え。平均＝広告費÷応募、最後の分＝9月と<span data-n="f.p10">10月前半</span>×<span data-n="f.mult">2</span>の広告費の差÷応募の差（推計）</p>
 <svg class="w-s" viewBox="0 0 360 300" role="img" aria-labelledby="t-8-1"><title id="t-8-1">模式図。横軸は予算、縦軸は応募。口1と口2の曲線はどちらも予算を足すほど伸びが鈍る。紫の接線は最後の1万円で増える応募で、2つの口で傾きが同じになる所が止めどころ。口1と口2は実数の2つと対応させていない。実数はエンジニア職が平均CPA 4,348 円、最後の分 5,271 円（推計）。IT事務職は平均 2,000 円、最後の分は未取得（10月から心アカウントでも出していて、SeeD だけの差では測れない）。</title>
 <g font-size="12">
 <line x1="44" y1="190" x2="336" y2="190" class="st-axis" style="stroke-width:1"/>
@@ -46,7 +46,7 @@
 </svg>
 <figcaption>曲線の形は模式で、口1・口2は実数の2つと対応させていません。実数は曲線の下の箱だけです。</figcaption>
 </figure>
-<p>予算を足すほど、1万円あたりの応募は減ります（<a href="ch2.html">2章</a>の飽和）。だから足す先は平均CPA でなく、<a href="glossary.html#marginal">限界CPA</a>（＝最後の分）で選びます。エンジニア職は平均 <span data-n="mk09.seed.c.eng.cpa">4,348</span> 円に対し、減らした約24万円ぶんは1件 <span data-n="f.marg">5,271</span> 円でした（9月と10月前半×2の差。季節も混ざった推計）。</p>
+<p>予算を足すほど、1万円あたりの応募は減ります（<a href="ch2.html">2章</a>の飽和）。だから足す先は平均CPA でなく、<a href="glossary.html#marginal">限界CPA</a>（＝最後の分）で選びます。エンジニア職は平均 <span data-n="mk09.seed.c.eng.cpa">4,348</span> 円に対し、減らした約<span data-n="f.dspend_man">24</span>万円ぶんは1件 <span data-n="f.marg">5,271</span> 円でした（9月と<span data-n="f.p10">10月前半</span>×<span data-n="f.mult">2</span>の差。季節も混ざった推計）。</p>
 <p>2つの<a class="gl" href="glossary.html#kuchi" title="用語集へ">口</a>（予算を別々に決めるキャンペーン）で「最後の1万円で増える応募」がそろった所が止めどころです。そろう前に上限や下限に当たれば、当たった端で止めます（<a href="glossary.html#corner">角の解</a>）。IT事務職は10月から心アカウントでも出していて、SeeD だけの差では最後の分になりません。心と合わせて測るまで、2つの口の間で予算を動かす向きは決めません。</p>
 <details class="phys"><summary>物理でいうと: ラグランジュ乗数と温度</summary>
 <p>予算の合計を固定して応募の合計 ΣA_i(b_i) を最大にすると、どの口でも dA_i/db_i = λ になります。λ は予算1円の影の価格です。接触した2つの系の温度がそろうと熱が流れなくなるのと同じ形で、不等式の制約まで入れたものが KKT 条件です。</p>
@@ -54,7 +54,7 @@
 
 <h2 id="sec-8-2">変えた結果をどう比べるか</h2>
 <figure id="fig-8-2">
-<p class="tag"><span class="fno">図8-2</span><b>何</b>: 比べ方3つ（①の実例はエンジニア職の予算を減らした前後）｜<b>期間</b>: 9月＝9/1〜9/30、10月前半＝10/1〜<span data-n="mk10.seed.last">10/15</span>｜<b>時点</b>: 取得 <span data-n="meta.fetched">2026-10-22 17:18</span>｜<b>範囲</b>: SeeD アカウントのエンジニア職の広告｜<b>定義</b>: CPA＝広告費÷応募（MK の数え）。比なので10月前半を2倍しない</p>
+<p class="tag"><span class="fno">図8-2</span><b>何</b>: 比べ方3つ（①の実例はエンジニア職の予算を減らした前後）｜<b>期間</b>: 9月＝9/1〜9/30、<span data-n="f.p10">10月前半</span>＝10/1〜<span data-n="mk10.seed.last">10/15</span>｜<b>時点</b>: 取得 <span data-n="meta.fetched">2026-10-22 17:18</span>｜<b>範囲</b>: SeeD アカウントのエンジニア職の広告｜<b>定義</b>: CPA＝広告費÷応募（MK の数え）。比なので<span data-n="f.p10">10月前半</span>を<span data-n="f.mult">2</span>倍しない</p>
 <svg class="w-s" viewBox="0 0 360 318" role="img" aria-labelledby="t-8-2"><title id="t-8-2">比べ方3つ。1 前後比較: 9月の CPA 4,348 円から10月前半の 3,886 円へ -10.6%。季節や原稿の変化も混ざる。2 ホールドアウト: 出す、2週止める、出す、で広告だけの差を見る。3 A/B: 同じ期間に原稿Aと原稿Bを並べる。下ほど広告以外の差が混ざりにくい。</title>
 <g font-size="12">
 <text x="8" y="20" class="s-ink" font-weight="700">① 前後比較</text>
@@ -63,7 +63,7 @@
 <line x1="162" y1="50" x2="194" y2="50" class="arrow"/>
 <path d="M194,45 L202,50 L194,55 Z" class="arrowhead"/>
 <rect x="204" y="30" width="148" height="40" rx="6" class="f-surface st-blue" style="stroke-width:2"/>
-<text x="278" y="55" text-anchor="middle" class="s-ink">10月前半 <tspan data-n="f.cpa10x2">3,886</tspan> 円</text>
+<text x="278" y="55" text-anchor="middle" class="s-ink"><tspan data-n="f.p10">10月前半</tspan> <tspan data-n="f.cpa10x2">3,886</tspan> 円</text>
 <text x="8" y="90" class="s-ink2">差 <tspan data-n="f.cpa_change">-10.6%</tspan>。季節・原稿・相場の変化も混ざる</text>
 
 <text x="8" y="124" class="s-ink" font-weight="700">② ホールドアウト（止めて比べる）</text>
@@ -147,7 +147,7 @@
 <li><button class="opt" type="button" data-ok="1">予算の差と、ほかの変化が混ざっている</button><p class="why" hidden>正解です。広告だけの差はホールドアウト、原稿の差は A/B で取り出します。</p></li>
 <li><button class="opt" type="button" data-ok="0">10月のほうが原稿が良い</button><p class="why" hidden>原稿の比較は、同じ期間に並べないと言えません。</p></li>
 </ol>
-<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 9月 <span data-n="mk09.seed.c.eng.cpa">4,348</span> 円 → 10月前半 <span data-n="f.cpa10x2">3,886</span> 円は前後比較です。<a href="#fig-8-2">図8-2へ</a></p></div>
+<div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 9月 <span data-n="mk09.seed.c.eng.cpa">4,348</span> 円 → <span data-n="f.p10">10月前半</span> <span data-n="f.cpa10x2">3,886</span> 円は前後比較です。<a href="#fig-8-2">図8-2へ</a></p></div>
 </div>
 <div class="quiz" id="q3"><p class="qq"><span class="qno">Q3</span> 9月の応募は MK のレポートで <span data-n="c09.all.mk_app">395</span> 件、Gooner の数えで <span data-n="c09.all.gn_app">419</span> 件。CPA を比べる前に MK の担当者に聞くのは？</p>
 <ol class="opts">
@@ -163,7 +163,7 @@
 <ul>
 <li>Gooner が MK に渡している集計ページ（取得 <span data-n="meta.fetched">2026-10-22 17:18</span> JST・ページの時点 <span data-n="meta.page_time">10/22 17:06</span>）と MK の月次広告レポート。<a href="#fig-8-3">図8-3</a> の期間は社内の KPI 用語集「KPIの集計期間」による。</li>
 <li><a href="#fig-8-3">図8-3</a> の ROAS は、集計ページのアカウント×職種の行の9月の紹介料÷広告費。エンジニア職 <span data-n="c09.seed.eng.sales">1,070,000</span> 円÷<span data-n="c09.seed.eng.spend">600,000</span> 円、IT事務職 <span data-n="c09.seed.jim.sales">1,462,000</span> 円÷<span data-n="c09.seed.jim.spend">350,000</span> 円。この紹介料は全経路（MK 以外の経路で決まった分も入りうる）で、5章の MK 経由の紹介料をアカウントに分けた値ではない。</li>
-<li>最後の分の CPA は、エンジニア職の9月と10月前半（〜10/15 を2倍）の広告費の差を応募の差で割った推計。半月を2倍し季節も違うので、因果の測定ではない。</li>
+<li>最後の分の CPA は、エンジニア職の9月と<span data-n="f.p10">10月前半</span>（〜<span data-n="mk10.seed.last">10/15</span> を<span data-n="f.mult">2</span>倍）の広告費の差を応募の差で割った推計。<span data-n="f.p10_len">半月</span>を<span data-n="f.mult">2</span>倍し季節も違うので、因果の測定ではない。</li>
 <li>口ごとの限界をそろえる条件は、制約付き最適化（ラグランジュ乗数・KKT 条件）の帰結。</li>
 <li>止めて比べる方法は Vaver &amp; Koehler (2011, Google の技術報告) の地域実験、前後比較と実験の差は Gordon ほか (2019, Marketing Science 38(2)) による。</li>
 </ul>

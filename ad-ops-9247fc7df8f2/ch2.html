@@ -121,7 +121,7 @@
 
 <h2 id="sec-2-4">Gooner の実数: 2点の差から見る限界</h2>
 <figure id="fig-2-4">
-<p class="tag"><span class="fno">図2-4</span><b>何</b>: SeeD エンジニア職の広告費と応募数｜<b>期間</b>: 9月＝9/1〜9/30、10月＝10/1〜<span data-n="mk10.seed.last">10/15</span> の実数×2｜<b>時点</b>: 取得 <span data-n="meta.fetched">2026-10-22 17:18</span>｜<b>範囲</b>: SeeD アカウントのエンジニア職の広告｜<b>定義</b>: 応募は MK の数え。平均＝広告費÷応募</p>
+<p class="tag"><span class="fno">図2-4</span><b>何</b>: SeeD エンジニア職の広告費と応募数｜<b>期間</b>: 9月＝9/1〜9/30、10月＝10/1〜<span data-n="mk10.seed.last">10/15</span> の実数×<span data-n="f.mult">2</span>｜<b>時点</b>: 取得 <span data-n="meta.fetched">2026-10-22 17:18</span>｜<b>範囲</b>: SeeD アカウントのエンジニア職の広告｜<b>定義</b>: 応募は MK の数え。平均＝広告費÷応募</p>
 <svg class="w-s" viewBox="0 0 360 262" role="img" aria-labelledby="t-2-4"><title id="t-2-4">9月は広告費60万円で138件（平均4,348円/件）。10月前半を2倍した月換算は357,518円で92件（平均3,886円/件）。2点の差は242,482円で46件、1件あたり約5,271円で平均より高い。条件が違う2点の推定で因果ではない。</title>
 <line x1="48" y1="196" x2="344" y2="196" class="st-axis" stroke-width="1.2"/>
 <line x1="48" y1="196" x2="48" y2="18" class="st-axis" stroke-width="1.2"/>
@@ -133,7 +133,7 @@
 <path d="M197.1,97 L204.1,104 L197.1,111 L190.1,104 z" class="f-blue" stroke="var(--surface)" stroke-width="1.5"/>
 <text x="344" y="22" font-size="12" text-anchor="end">● 9月 <tspan data-n="mk09.seed.c.eng.spend">600,000</tspan> 円で <tspan data-n="mk09.seed.c.eng.app">138</tspan> 件</text>
 <text x="344" y="38" font-size="12" text-anchor="end" class="s-ink2">平均 <tspan data-n="mk09.seed.c.eng.cpa">4,348</tspan> 円/件</text>
-<text x="184" y="66" font-size="12" text-anchor="end">◆ 10月前半×2</text>
+<text x="184" y="66" font-size="12" text-anchor="end">◆ <tspan data-n="f.p10">10月前半</tspan>×<tspan data-n="f.mult">2</tspan></text>
 <text x="184" y="82" font-size="12" text-anchor="end"><tspan data-n="f.spend10x2">357,518</tspan> 円で <tspan data-n="f.app10x2">92</tspan> 件</text>
 <text x="184" y="98" font-size="12" text-anchor="end" class="s-ink2">平均 <tspan data-n="f.cpa10x2">3,886</tspan> 円/件</text>
 <text x="352" y="130" font-size="12" text-anchor="end" font-weight="700">2点の差（太い実線）</text>
@@ -145,9 +145,9 @@
 <line x1="8" y1="254" x2="30" y2="254" class="st-violet" stroke-width="3"/>
 <text x="36" y="258" font-size="12">太い実線の傾き＝2点の差（限界の推定）</text>
 </svg>
-<figcaption>10月は前半を2倍した月換算。10月のほうが広告費は少ない＝時間の順では減らした向き。求人・競合・季節も違うので、差は推定で因果ではない。</figcaption>
+<figcaption><span data-n="f.p10">10月前半</span>を<span data-n="f.mult">2</span>倍した月換算。10月のほうが広告費は少ない＝時間の順では減らした向き。求人・競合・季節も違うので、差は推定で因果ではない。</figcaption>
 </figure>
-<p>SeeD（Indeed に出している名義の1つ。3章）のエンジニア職は、9月は <span data-n="mk09.seed.c.eng.spend">600,000</span> 円で <span data-n="mk09.seed.c.eng.app">138</span> 件、10月前半を2倍すると <span data-n="f.spend10x2">357,518</span> 円で <span data-n="f.app10x2">92</span> 件です。差をとると1件 <span data-n="f.marg">5,271</span> 円で、平均の <span data-n="mk09.seed.c.eng.cpa">4,348</span> 円より高くなります。</p>
+<p>SeeD（Indeed に出している名義の1つ。3章）のエンジニア職は、9月は <span data-n="mk09.seed.c.eng.spend">600,000</span> 円で <span data-n="mk09.seed.c.eng.app">138</span> 件、<span data-n="f.p10">10月前半</span>を<span data-n="f.mult">2</span>倍すると <span data-n="f.spend10x2">357,518</span> 円で <span data-n="f.app10x2">92</span> 件です。差をとると1件 <span data-n="f.marg">5,271</span> 円で、平均の <span data-n="mk09.seed.c.eng.cpa">4,348</span> 円より高くなります。</p>
 
 <h2 id="sec-2-5">模型Bで動かす</h2>
 <div class="sim" data-sim="B"></div>
@@ -174,7 +174,7 @@
 </ol>
 <div class="ans" hidden aria-live="polite"><p><span class="verdict"></span> 曲線が寝ていくほど、接線の傾きは弦の傾きより速く落ちます。予算を足すほど限界CPAは平均CPAから離れます。模型Bで予算を動かすと確かめられます。<a href="#fig-2-3">図2-3へ</a></p></div>
 </div>
-<div class="quiz" id="q3"><p class="qq"><span class="qno">Q3</span> 10月前半の SeeD で、エンジニア職のクリック単価は <span data-n="mk10.seed.c.eng.cpc">221</span> 円、IT事務職は <span data-n="mk10.seed.c.jim.cpc">63</span> 円でした。言えることは？</p>
+<div class="quiz" id="q3"><p class="qq"><span class="qno">Q3</span> <span data-n="f.p10">10月前半</span>の SeeD で、エンジニア職のクリック単価は <span data-n="mk10.seed.c.eng.cpc">221</span> 円、IT事務職は <span data-n="mk10.seed.c.jim.cpc">63</span> 円でした。言えることは？</p>
 <ol class="opts">
 <li><button class="opt" type="button" data-ok="0">エンジニア職の求人の出来が悪い</button><p class="why" hidden>単価が高いと原稿のせいに見えやすいのですが、単価は競りの相手と需要で動くので、出来の良し悪しはこの数字だけでは分かりません。</p></li>
 <li><button class="opt" type="button" data-ok="1">職種ごとに競りの相手と需要が違うので値段も違う。中身は非公開なので理由は断定できない</button><p class="why" hidden>正解です。言えるのは「違う競りに出ている」までです。</p></li>
@@ -188,7 +188,7 @@
 <ul>
 <li>MK の月次広告レポート 9月分（9/1〜9/30）と 10月分（10/1〜<span data-n="mk10.seed.last">10/15</span>）。SeeD アカウントの職種別の広告費・応募・クリック単価。応募は MK の数え。</li>
 <li>Gooner が MK に渡している集計ページ（取得 <span data-n="meta.fetched">2026-10-22 17:18</span> JST・ページの時点 <span data-n="meta.page_time">10/22 17:06</span>）。上の月次レポートの数字をここから読んだ。</li>
-<li>10月前半×2・差・1件あたりは、上の数字から割り算で出した値（丸める前の値で計算）。</li>
+<li><span data-n="f.p10">10月前半</span>×<span data-n="f.mult">2</span>・差・1件あたりは、上の数字から割り算で出した値（丸める前の値で計算）。</li>
 <li>Indeed 公式「料金の仕組み」: クリックされたときだけ料金が発生し、単価は需要や競合で変わる。<a href="https://jp.indeed.com/%E6%B1%82%E4%BA%BA%E5%BA%83%E5%91%8A/c/info/indeeds-pricing-model">jp.indeed.com</a></li>
 <li>Indeed 公式「予算の設定」: 自動調節の設定、平均日額の扱い。<a href="https://jp.indeed.com/%E6%B1%82%E4%BA%BA%E5%BA%83%E5%91%8A/c/info/budget-setting">jp.indeed.com</a></li>
 <li>類推の元（Google 広告のヘルプ）: 掲載順位は入札・広告の質・競合で決まる。入札は上限で、実際の単価はふつうそれより安い。<a href="https://support.google.com/google-ads/answer/1752122?hl=ja">support.google.com</a> ／ <a href="https://support.google.com/google-ads/answer/6297?hl=ja">support.google.com</a></li>
