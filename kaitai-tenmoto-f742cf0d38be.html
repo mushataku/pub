@@ -4,119 +4,114 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>解体現場の手元のお仕事</title>
+<title>解体の手元</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f6f5f1;--card:#fff;--ink:#1f2328;--sub:#5b6370;--line:#e3e1da;--accent:#b4541a;--accent-bg:#fbeee4;--ok:#1f7a4d;--ok-bg:#e6f4ec}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16181c;--card:#1f2228;--ink:#e6e8eb;--sub:#a0a7b2;--line:#323741;--accent:#f0915a;--accent-bg:#3a2619;--ok:#6fd39f;--ok-bg:#16301f}}
-:root[data-theme="dark"]{--bg:#16181c;--card:#1f2228;--ink:#e6e8eb;--sub:#a0a7b2;--line:#323741;--accent:#f0915a;--accent-bg:#3a2619;--ok:#6fd39f;--ok-bg:#16301f}
+:root{--bg:#faf8f4;--ink:#22201c;--sub:#6e6a62;--line:#e8e3da;--hl:#e8590c;--calm:#f3efe7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171614;--ink:#eeebe5;--sub:#a39e94;--line:#34312c;--hl:#ff8a4c;--calm:#26241f}}
+:root[data-theme="dark"]{--bg:#171614;--ink:#eeebe5;--sub:#a39e94;--line:#34312c;--hl:#ff8a4c;--calm:#26241f}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif;line-height:1.75;font-size:16px}
-main{max-width:720px;margin:0 auto;padding:28px 16px 64px}
-.hero{background:var(--accent-bg);border-radius:14px;padding:22px 20px;margin-bottom:8px}
-.hero small{color:var(--accent);font-weight:700;letter-spacing:.05em}
-h1{font-size:24px;margin:4px 0 8px}
-.hero p{margin:0;color:var(--sub);font-size:15px}
-h2{font-size:18px;margin:32px 0 10px;padding-left:10px;border-left:4px solid var(--accent)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:10px 0}
-.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
-.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-.kpi b{display:block;font-size:20px;color:var(--accent);line-height:1.4}
-.kpi span{font-size:12px;color:var(--sub)}
-dl{margin:0;display:grid;grid-template-columns:7.5em 1fr;row-gap:10px;column-gap:12px}
-dt{color:var(--sub);font-size:14px}
-dd{margin:0}
-ol.flow{counter-reset:s;list-style:none;padding:0;margin:0}
-ol.flow li{counter-increment:s;position:relative;padding:10px 0 10px 44px;border-bottom:1px dashed var(--line)}
-ol.flow li:last-child{border-bottom:0}
-ol.flow li::before{content:counter(s);position:absolute;left:0;top:10px;width:30px;height:30px;border-radius:50%;background:var(--accent-bg);color:var(--accent);font-weight:700;display:grid;place-items:center}
-.items{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none}
-.items li{background:var(--accent-bg);color:var(--accent);border-radius:999px;padding:4px 12px;font-size:14px}
-ul.rules{padding-left:20px;margin:0}
-ul.rules li{margin:4px 0}
-.good{background:var(--ok-bg);border-radius:12px;padding:14px 18px}
-.good ul{margin:0;padding-left:20px}
-.good li{margin:4px 0}
-.end{margin-top:32px;text-align:center;color:var(--sub);font-size:14px}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic UI",sans-serif;font-size:16px;line-height:1.8;font-feature-settings:"palt"}
+main{max-width:640px;margin:0 auto;padding:0 16px 72px}
+.back{display:inline-block;margin-top:20px;font-size:14px;color:var(--sub);text-decoration:none}
+header{padding:28px 0 24px}
+header p.kicker{margin:0 0 10px;font-size:13px;color:var(--sub);letter-spacing:.08em}
+h1{margin:0;font-size:32px;line-height:1.35;font-weight:900}
+header p.sub{margin:14px 0 0;color:var(--sub)}
+.facts{display:grid;grid-template-columns:1fr 1fr;border-top:2px solid var(--ink)}
+.facts div{padding:12px 8px 12px 0;border-bottom:1px solid var(--line)}
+.facts div:nth-child(even){padding-left:14px;border-left:1px solid var(--line)}
+.facts b{display:block;font-size:18px;line-height:1.4}
+.facts span{font-size:12px;color:var(--sub)}
+section{margin-top:48px}
+h2{font-size:21px;font-weight:900;margin:0 0 12px;line-height:1.4}
+p{margin:0 0 12px}
+.relief{background:var(--calm);border-radius:6px;padding:16px 18px}
+.relief p:last-child{margin:0}
+.flow{list-style:none;margin:0;padding:0}
+.flow li{display:grid;grid-template-columns:6.5em 1fr;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.flow li:last-child{border-bottom:0}
+.flow .t{font-weight:700;font-size:14px;color:var(--hl)}
+.small{font-size:14px;color:var(--sub)}
+.bring{margin:0;padding:0;list-style:none;columns:2;column-gap:16px}
+.bring li{padding:6px 0;border-bottom:1px solid var(--line);break-inside:avoid}
+.rules{margin:0;padding-left:1.2em}
+.rules li{margin:4px 0}
+.closing{margin-top:56px;padding-top:24px;border-top:2px solid var(--ink);font-size:15px}
+.closing .ask{font-weight:700;font-size:17px;margin-top:16px}
+@media (max-width:380px){h1{font-size:27px}.facts b{font-size:16px}}
 </style>
 </head>
 <body>
 <main>
 
-<section class="hero">
-  <small>入れる日だけ働ける現場仕事</small>
-  <h1>解体現場の「手元」のお仕事</h1>
-  <p>内装解体・改修工事の現場で、職人さんの補助をするお仕事です。1日単位で、入れる日だけ働けます。</p>
-  <div class="kpis">
-    <div class="kpi"><b>日当 12,000円前後</b><span>1日あたり</span></div>
-    <div class="kpi"><b>9:00〜夕方</b><span>早ければ15時ごろ終わり（8:30集合）</span></div>
-    <div class="kpi"><b>平日 月〜金</b><span>土日祝は基本お休み</span></div>
-    <div class="kpi"><b>1日単位</b><span>入れる日を伝えるだけ</span></div>
+<a class="back" href="https://mushataku.github.io/pub/shigoto-8fec4a89cc57.html">← お仕事一覧へ</a>
+
+<header>
+  <p class="kicker">入れる日だけ働ける現場仕事</p>
+  <h1>解体の手元</h1>
+  <p class="sub">お店やマンションの内装を新しくする工事で、解体の職人さんの補助をします。経験・資格はいりません。</p>
+</header>
+
+<div class="facts">
+  <div><b>12,000円前後</b><span>日当</span></div>
+  <div><b>交通費あり</b><span>日当とは別に出ます</span></div>
+  <div><b>9:00〜夕方</b><span>早ければ15時ごろ終わり</span></div>
+  <div><b>平日のみ</b><span>月〜金・1日単位</span></div>
+</div>
+
+<section>
+  <h2>どんな仕事？</h2>
+  <div class="relief">
+    <p>「解体」と聞くと力仕事を想像するかもしれませんが、重いものを持ち続けるような仕事ではありません。</p>
+    <p>壊すのは職人さんです。手元は、言われた道具を渡したり、出たゴミを片付けたりが中心です。</p>
   </div>
+  <p style="margin-top:16px">現場はマンションの一室、戸建て、お店、ホテルなど。基本は1つの現場に1人で入ります。</p>
 </section>
 
-<h2>どんな仕事？</h2>
-<div class="card">
-  <p style="margin-top:0">「手元（てもと）」は、解体の職人さんの横について作業を手伝う役割です。経験や資格は要りません。</p>
-  <p>「解体」と聞くと力仕事を想像するかもしれませんが、<b>重いものを持ち続けるようなきつい仕事ではありません</b>。壊すのは職人さんで、手元は言われたものを渡す・片付けるといった補助が中心です。</p>
-  <p style="margin-bottom:0">現場はマンションの一室・戸建て・店舗・ホテルなど、建物の中の内装を新しくする工事が中心です。基本は<b>1現場に1名</b>で入ります。</p>
-</div>
-
-<h2>働き方</h2>
-<div class="card">
-<dl>
-  <dt>日当</dt><dd>12,000円前後</dd>
-  <dt>交通費</dt><dd>出ます（日当とは別）</dd>
-  <dt>時間</dt><dd>8:30 現場前に集合、9:00 作業開始。終わりは夕方ごろまで（早ければ15時ごろに終わる日もあります）</dd>
-  <dt>曜日</dt><dd>平日 月〜金。土日祝は基本お休み（現場の都合で出ることもあります）</dd>
-  <dt>シフト</dt><dd>働ける日を先に伝えておき、仕事がある日は前日のお昼ごろに連絡が来ます</dd>
-  <dt>場所</dt><dd>東京都内の現場（これまでの例：新宿区・港区 虎ノ門・中央区 銀座・品川区・世田谷区・府中市など）。日によって変わります</dd>
-</dl>
-</div>
-
-<h2>1日の流れ</h2>
-<div class="card">
-<ol class="flow">
-  <li><b>事前</b>　働ける日を伝えておきます（例：「来週は月・火・木なら行けます」）</li>
-  <li><b>前日のお昼ごろ</b>　「明日、◯◯の現場をお願いします」と連絡が来て、<b>行く場所が決まります</b></li>
-  <li><b>前日の午後</b>　現場の住所・集合場所・現場の担当さんの名前・持ち物が届きます。経路を調べておきます</li>
-  <li><b>当日 8:30</b>　現場前に集合。近くに着いたら現場の担当さんに連絡します</li>
-  <li><b>9:00〜夕方</b>　作業開始。職人さんの指示に沿って補助をします。早ければ15時ごろに終わります</li>
-  <li><b>終わったら</b>　そのまま帰宅します</li>
-</ol>
-</div>
-
-<h2>持ち物</h2>
-<div class="card">
-  <ul class="items">
-    <li>ヘルメット</li><li>防塵マスク</li><li>皮手袋</li><li>カッター</li><li>安全靴</li><li>外履き（サンダル可）</li>
+<section>
+  <h2>1日の流れ</h2>
+  <ul class="flow">
+    <li><span class="t">事前</span><span>働ける日を伝えておきます（「来週は月・火・木なら行けます」など）</span></li>
+    <li><span class="t">前日のお昼</span><span>「明日、◯◯の現場をお願いします」と連絡が来て、行く場所が決まります</span></li>
+    <li><span class="t">前日の午後</span><span>現場の住所、現場の担当さんの名前、持ち物が届きます。行き方を調べておきます</span></li>
+    <li><span class="t">当日 8:30</span><span>現場の前に集合。近くに着いたら担当さんに連絡します</span></li>
+    <li><span class="t">9:00〜夕方</span><span>職人さんの指示を聞きながら作業。早い日は15時ごろに終わります</span></li>
+    <li><span class="t">終わったら</span><span>そのまま帰ってOKです</span></li>
   </ul>
+  <p class="small" style="margin-top:12px">これまでの現場：新宿・虎ノ門・銀座・品川・世田谷・府中など、東京都内。土日祝は基本お休みです。</p>
+</section>
+
+<section>
+  <h2>持ち物</h2>
+  <ul class="bring">
+    <li>ヘルメット</li>
+    <li>防塵マスク</li>
+    <li>皮手袋</li>
+    <li>カッター</li>
+    <li>安全靴</li>
+    <li>外履き（サンダル可）</li>
+  </ul>
+</section>
+
+<section>
+  <h2>現場で守ること</h2>
+  <ul class="rules">
+    <li>集合時間は必ず守る（遅刻は厳禁です）</li>
+    <li>手袋は皮手袋</li>
+    <li>半袖にアームカバーはNG。長袖で行きます</li>
+    <li>現場のまわりで飲食・喫煙はしない</li>
+  </ul>
+</section>
+
+<div class="closing">
+  <p>雇用の形などの細かい条件は、お繋ぎしたあとに先方から説明があります。</p>
+  <p class="ask">気になったら、担当まで気軽に聞いてください。</p>
 </div>
 
-<h2>現場のルール</h2>
-<div class="card">
-<ul class="rules">
-  <li>遅刻厳禁・集合時間は必ず守る</li>
-  <li>手袋は皮手袋</li>
-  <li>半袖の上にアームカバーはNG（長袖で）</li>
-  <li>現場の近くに着いたら担当さんへ連絡</li>
-  <li>現場の周りでの飲食・喫煙は禁止</li>
-</ul>
-</div>
-
-<h2>こんな人に向いています</h2>
-<div class="good">
-<ul>
-  <li>体を動かす仕事がしたい</li>
-  <li>働く日を自分で決めたい・他の仕事と組み合わせたい</li>
-  <li>朝が早くても大丈夫</li>
-  <li>職人さんの指示を聞いて素直に動ける</li>
-</ul>
-</div>
-
-<div class="card" style="margin-top:32px">
-  <p style="margin:0">雇用の形などの細かい条件は、お繋ぎしたあとに先方から直接ご説明があります。</p>
-</div>
-<p class="end">気になったら担当まで気軽に聞いてください。</p>
 </main>
 </body>
 </html>
