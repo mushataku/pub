@@ -50,6 +50,24 @@ main{max-width:1160px;margin:0 auto;padding:12px 16px 24px}
 .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
 .cards .n{font-size:clamp(18px,2.4vw,22px)}
 @media (max-width:760px){.cards{grid-template-columns:1fr 1fr}}
+:root{--ok:#dcf3e2;--okb:#2e8b57;--ask:#fff3c9;--askb:#b8860b;--ngc:#eceef1;--ngb:#8a9099;--ev:#e2ebff;--evb:#2f55c4}
+@media (prefers-color-scheme:dark){:root{--ok:#1d3a28;--okb:#4fd18a;--ask:#3d3418;--askb:#e0b84a;--ngc:#2a2b30;--ngb:#7a7f88;--ev:#1f2a4a;--evb:#8aa8ff}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;font-size:13px;margin:6px 0 10px;color:var(--sub)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.sw{width:14px;height:14px;border-radius:3px;border:1px solid;display:inline-block}
+.sw.ok,.day.ok{background:var(--ok);border-color:var(--okb)}
+.sw.ask,.day.ask{background:var(--ask);border-color:var(--askb)}
+.sw.ng,.day.ng{background:var(--ngc);border-color:var(--ngb)}
+.sw.ev{background:var(--ev);border-color:var(--evb)}
+#cal h3{font-size:15px;margin:12px 0 6px}
+.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.dow{font-size:12px;text-align:center;color:var(--sub)}
+.day{min-height:64px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:3px;font-size:11px;overflow-wrap:anywhere}
+.day.blank{background:transparent;border:none}
+.day .d{font-weight:700;font-size:13px}
+.day.today{outline:3px solid #e67e22}
+.tag{display:block;margin-top:2px;line-height:1.3}
+.tag.ev{background:var(--ev);color:var(--evb);font-weight:700;border-radius:4px;padding:0 3px}
 b.a{color:var(--sd)}b.m{color:var(--gn)}b.e{color:var(--en)}b.u{color:var(--gn)}
 @media (max-width:760px){.cols,.bands{grid-template-columns:1fr}.cols::before,.col::before{display:none}.r3,.r2{grid-template-columns:1fr}}
 </style>
@@ -57,7 +75,7 @@ b.a{color:var(--sd)}b.m{color:var(--gn)}b.e{color:var(--en)}b.u{color:var(--gn)}
 <body>
 <header>
   <h1>運送案件 顔合わせ</h1>
-  <div class="date">2026年10月24日（土）14:00〜</div>
+  <div class="date">2026年10月24日（土）15:00〜</div>
 </header>
 <nav class="tabs">
   <button class="tab on" data-t="t1">Gooner・三田さんの紹介</button>
@@ -69,15 +87,24 @@ b.a{color:var(--sd)}b.m{color:var(--gn)}b.e{color:var(--en)}b.u{color:var(--gn)}
     <div class="n" style="color:var(--sd)">相田さん</div>
   </div>
   <div class="cards">
-    <div class="box sm"><div class="t">いま</div><div class="n">法人営業</div><div class="s">車で回る毎日</div></div>
+    <div class="box sm"><div class="t">いま</div><div class="n">清掃業の法人営業<br>＆ルート配送</div><div class="s">車で回る毎日</div></div>
     <div class="box sm"><div class="t">好き</div><div class="n">車が大好き</div><div class="s">運転・乗り回し</div></div>
     <div class="box sm"><div class="t">住まい</div><div class="n">上尾</div><div class="s">修理を頼んでいる DIA の近く</div></div>
     <div class="box sm"><div class="t">家族</div><div class="n">ご家族あり</div></div>
   </div>
-  <div class="band" style="margin-top:18px">
-    <div class="h">稼働できる日</div>
-    別紙のカレンダー（三田さん向け）で
+  <div class="story" style="margin-top:16px">
+    <span>希望：朝4時〜10時の便</span>
+    <span>11/2〜11/4 終日OK</span>
+    <span>土日はほぼ1日OK</span>
+    <span>11/19 日本交通に入社予定 → 入社後も週1くらい</span>
   </div>
+  <div class="legend">
+    <span><i class="sw ok"></i>出られる</span>
+    <span><i class="sw ask"></i>要相談・可能性あり</span>
+    <span><i class="sw ng"></i>出られない</span>
+    <span><i class="sw ev"></i>本人の予定</span>
+  </div>
+  <div id="cal"></div>
 </main>
 <main id="t1" class="pane">
   <div class="box me">
@@ -180,6 +207,41 @@ b.a{color:var(--sd)}b.m{color:var(--gn)}b.e{color:var(--en)}b.u{color:var(--gn)}
   </div>
 </main>
 <script>
+var D={"2026-10-24":{s:"ask",t:["動けるかも"]},"2026-10-25":{s:"ask",t:["動けるかも"]},
+"2026-10-26":{s:"ng",t:["現職"]},"2026-10-27":{s:"ng",t:["現職"]},"2026-10-28":{s:"ng",t:["現職"]},"2026-10-29":{s:"ng",t:["現職"]},"2026-10-30":{s:"ng",t:["現職"]},
+"2026-10-31":{s:"ask",t:["どちらか1日"]},"2026-11-01":{s:"ask",t:["どちらか1日"]},
+"2026-11-02":{s:"ok",t:["終日OK"]},"2026-11-03":{s:"ok",t:["終日OK"]},"2026-11-04":{s:"ok",t:["終日OK"]},
+"2026-11-05":{s:"ask",e:["入社手続き"],t:["時間しだい"]},"2026-11-06":{s:"ask",e:["教習所"],t:["朝便なら?"]},
+"2026-11-07":{s:"ask",t:["教習所しだい"]},"2026-11-08":{s:"ask",t:["教習所しだい"]},
+"2026-11-09":{s:"ask",t:["教習所","朝便なら?"]},"2026-11-10":{s:"ask",t:["教習所","朝便なら?"]},
+"2026-11-11":{s:"ask",t:["延長の予備"]},"2026-11-12":{s:"ask",t:["延長の予備"]},"2026-11-13":{s:"ask",t:["空く見込み"]},
+"2026-11-14":{s:"ok",t:["ほぼ1日OK"]},"2026-11-15":{s:"ok",t:["ほぼ1日OK"]},"2026-11-16":{s:"ask",t:["空く見込み"]},"2026-11-17":{s:"ask",t:["空く見込み"]},
+"2026-11-18":{s:"ng",e:["前日説明"]},"2026-11-19":{s:"ng",e:["入社"]},"2026-11-20":{s:"ng",t:["研修"]},
+"2026-11-21":{s:"ok",t:["ほぼ1日OK"]},"2026-11-22":{s:"ok",t:["ほぼ1日OK"]},
+"2026-11-23":{s:"ng",t:["研修"]},"2026-11-24":{s:"ng",t:["研修"]},"2026-11-25":{s:"ng",t:["研修"]},"2026-11-26":{s:"ng",t:["研修"]},"2026-11-27":{s:"ng",t:["研修"]},
+"2026-11-28":{s:"ok",t:["ほぼ1日OK"]},"2026-11-29":{s:"ok",t:["ほぼ1日OK"]},"2026-11-30":{s:"ng",t:["研修"]}};
+(function(){
+  function pad(n){return String(n).padStart(2,"0")}
+  function key(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}
+  var today=key(new Date()),cal=document.getElementById("cal");
+  function month(y,m,from,to){
+    var h=document.createElement("h3");h.textContent=y+"年"+m+"月";cal.appendChild(h);
+    var g=document.createElement("div");g.className="grid";
+    ["月","火","水","木","金","土","日"].forEach(function(w){var c=document.createElement("div");c.className="dow";c.textContent=w;g.appendChild(c)});
+    var off=(new Date(y,m-1,from).getDay()+6)%7;
+    for(var i=0;i<off;i++){var b=document.createElement("div");b.className="day blank";g.appendChild(b)}
+    for(var d=from;d<=to;d++){
+      var k=key(new Date(y,m-1,d)),v=D[k]||{},c=document.createElement("div");
+      c.className="day"+(v.s?" "+v.s:"")+(k===today?" today":"");
+      c.innerHTML='<span class="d">'+d+'</span>';
+      (v.e||[]).forEach(function(x){var s=document.createElement("span");s.className="tag ev";s.textContent=x;c.appendChild(s)});
+      (v.t||[]).forEach(function(x){var s=document.createElement("span");s.className="tag";s.textContent=x;c.appendChild(s)});
+      g.appendChild(c);
+    }
+    cal.appendChild(g);
+  }
+  month(2026,10,24,31);month(2026,11,1,30);
+})();
 document.querySelectorAll('.tab').forEach(function(b){b.addEventListener('click',function(){
   document.querySelectorAll('.tab').forEach(function(x){x.classList.toggle('on',x===b)});
   document.querySelectorAll('.pane').forEach(function(p){p.hidden=p.id!==b.dataset.t});
