@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>頻出クイズ100</title>
+<style>
+:root{
+  --bg:#f6f4ef;--card:#ffffff;--ink:#1d1b18;--sub:#6b665e;--line:#e4dfd5;
+  --accent:#e8590c;--accent2:#1c7ed6;--ok:#2f9e44;--ng:#e03131;--okbg:#ebfbee;--ngbg:#fff5f5;
+  --shadow:0 2px 10px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#16161a;--card:#202027;--ink:#f1efe9;--sub:#a29d94;--line:#34343d;
+  --accent:#ff922b;--accent2:#4dabf7;--ok:#51cf66;--ng:#ff6b6b;--okbg:#1d3324;--ngbg:#3a1f22;
+  --shadow:0 2px 10px rgba(0,0,0,.4);
+}}
+:root[data-theme="dark"]{
+  --bg:#16161a;--card:#202027;--ink:#f1efe9;--sub:#a29d94;--line:#34343d;
+  --accent:#ff922b;--accent2:#4dabf7;--ok:#51cf66;--ng:#ff6b6b;--okbg:#1d3324;--ngbg:#3a1f22;
+  --shadow:0 2px 10px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif;line-height:1.6}
+.wrap{max-width:640px;margin:0 auto;padding:16px}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+h1{font-size:22px;margin:0;letter-spacing:.02em}
+h1 span{color:var(--accent)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow);margin-bottom:14px}
+.btn{display:block;width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:16px;font-weight:600;cursor:pointer;text-align:left;transition:transform .08s,background .15s}
+.btn:hover{transform:translateY(-1px);border-color:var(--accent)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);text-align:center}
+.btn.ghost{background:transparent;text-align:center}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.small{font-size:13px;color:var(--sub)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 14px}
+.chip{padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:13px;cursor:pointer}
+.chip.on{background:var(--accent2);border-color:var(--accent2);color:#fff}
+.hud{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--sub);margin-bottom:8px}
+.hud b{color:var(--ink);font-size:18px}
+.combo{color:var(--accent);font-weight:800}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:14px}
+.bar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--ok),var(--accent));transform-origin:left;transition:transform .1s linear}
+.cat{display:inline-block;font-size:12px;padding:2px 10px;border-radius:99px;background:var(--bg);border:1px solid var(--line);color:var(--sub)}
+.q{font-size:20px;font-weight:700;margin:10px 0 16px}
+.choices{display:grid;gap:10px}
+.choice{display:flex;gap:10px;align-items:center}
+.choice .k{flex:none;width:26px;height:26px;border-radius:8px;background:var(--bg);border:1px solid var(--line);display:grid;place-items:center;font-size:13px;color:var(--sub)}
+.choice.ok{background:var(--okbg);border-color:var(--ok)}
+.choice.ng{background:var(--ngbg);border-color:var(--ng)}
+.choice[disabled]{cursor:default}
+.fb{margin-top:14px;min-height:28px;font-weight:700;text-align:center}
+.fb.ok{color:var(--ok)}.fb.ng{color:var(--ng)}
+.big{font-size:44px;font-weight:800;text-align:center;margin:4px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;margin:12px 0}
+.stats div{background:var(--bg);border-radius:12px;padding:10px 4px}
+.stats b{display:block;font-size:20px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+td,th{padding:7px 4px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--sub);font-weight:600}
+td.r,th.r{text-align:right;white-space:nowrap}
+.mark-ok{color:var(--ok);font-weight:800}.mark-ng{color:var(--ng);font-weight:800}
+.catbar{display:grid;grid-template-columns:80px 1fr 64px;gap:8px;align-items:center;font-size:13px;margin:6px 0}
+.catbar .t{height:10px;background:var(--line);border-radius:99px;overflow:hidden}
+.catbar .t i{display:block;height:100%;background:var(--accent2)}
+.hide{display:none}
+.pop{animation:pop .35s ease}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.04)}100%{transform:scale(1)}}
+.shake{animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
+.themebtn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:6px 10px;cursor:pointer}
+</style>
+</head>
+<body>
+<canvas id="confetti"></canvas>
+<div class="wrap">
+<header>
+  <h1>頻出クイズ<span>100</span></h1>
+  <button class="themebtn" id="themeBtn" aria-label="テーマ切替">◐</button>
+</header>
+
+<!-- ホーム -->
+<section id="home">
+  <div class="card">
+    <div class="small">ジャンルを選ぶ（複数可・未選択＝全部）</div>
+    <div class="chips" id="cats"></div>
+    <div class="row">
+      <button class="btn primary" data-n="10">10問チャレンジ</button>
+      <button class="btn primary" data-n="20">20問チャレンジ</button>
+    </div>
+    <div style="height:10px"></div>
+    <div class="row">
+      <button class="btn ghost" id="weakBtn">苦手だけ復習</button>
+      <button class="btn ghost" data-n="100">全問マラソン</button>
+    </div>
+    <p class="small" style="margin:12px 0 0">1問15秒。早く正解するほど高得点。連続正解でコンボボーナス。キーボードの 1〜4 でも答えられます。</p>
+  </div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <b>これまでの記録</b>
+      <span class="small" id="poolInfo"></span>
+    </div>
+    <div class="stats" id="lifeStats"></div>
+    <div id="catStats"></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn ghost" id="csvBtn">記録をCSVで保存</button>
+      <button class="btn ghost" id="resetBtn">記録を消す</button>
+    </div>
+  </div>
+</section>
+
+<!-- 出題 -->
+<section id="play" class="hide">
+  <div class="card" id="qcard">
+    <div class="hud">
+      <span>第 <b id="qi">1</b> / <span id="qn">10</span> 問</span>
+      <span class="combo" id="combo"></span>
+      <span>スコア <b id="score">0</b></span>
+    </div>
+    <div class="bar"><i id="timebar"></i></div>
+    <span class="cat" id="qcat"></span>
+    <div class="q" id="qtext"></div>
+    <div class="choices" id="choices"></div>
+    <div class="fb" id="fb"></div>
+    <button class="btn primary hide" id="nextBtn" style="margin-top:8px">次へ（Enter）</button>
+  </div>
+  <button class="btn ghost" id="quitBtn">やめてホームへ</button>
+</section>
+
+<!-- 結果 -->
+<section id="result" class="hide">
+  <div class="card">
+    <div class="small" style="text-align:center">今回のスコア</div>
+    <div class="big" id="rScore">0</div>
+    <div style="text-align:center;font-weight:700" id="rRank"></div>
+    <div class="stats" id="rStats"></div>
+    <table><thead><tr><th></th><th>問題</th><th class="r">時間</th></tr></thead><tbody id="rTable"></tbody></table>
+  </div>
+  <div class="row">
+    <button class="btn primary" id="againBtn">もう一回</button>
+    <button class="btn ghost" id="homeBtn">ホームへ</button>
+  </div>
+</section>
+</div>
+
+<script>
+// [ジャンル, 問題, 正解, 誤答1, 誤答2, 誤答3]
+const POOL = [
+["地理","日本で一番高い山は？","富士山","北岳","奥穂高岳","槍ヶ岳"],
+["地理","日本で一番長い川は？","信濃川","利根川","石狩川","北上川"],
+["地理","日本で一番大きい湖は？","琵琶湖","霞ヶ浦","サロマ湖","猪苗代湖"],
+["地理","面積が一番大きい都道府県は？","北海道","岩手県","福島県","長野県"],
+["地理","面積が一番小さい都道府県は？","香川県","大阪府","東京都","沖縄県"],
+["地理","世界で一番高い山は？","エベレスト","K2","キリマンジャロ","デナリ"],
+["地理","世界で一番長い川とされるのは？","ナイル川","アマゾン川","長江","ミシシッピ川"],
+["地理","世界で一番面積が大きい国は？","ロシア","カナダ","アメリカ","中国"],
+["地理","オーストラリアの首都は？","キャンベラ","シドニー","メルボルン","パース"],
+["地理","カナダの首都は？","オタワ","トロント","バンクーバー","モントリオール"],
+["地理","ブラジルの首都は？","ブラジリア","リオデジャネイロ","サンパウロ","サルバドール"],
+["地理","トルコの首都は？","アンカラ","イスタンブール","イズミル","アンタルヤ"],
+["地理","スイスの首都は？","ベルン","チューリッヒ","ジュネーブ","バーゼル"],
+["地理","世界で一番広い海洋は？","太平洋","大西洋","インド洋","北極海"],
+["地理","日本の都道府県の数は？","47","43","48","50"],
+["歴史","鎌倉幕府を開いたのは？","源頼朝","足利尊氏","平清盛","源義経"],
+["歴史","江戸幕府を開いたのは？","徳川家康","豊臣秀吉","織田信長","徳川秀忠"],
+["歴史","室町幕府を開いたのは？","足利尊氏","足利義満","源頼朝","北条時宗"],
+["歴史","本能寺の変で織田信長を討ったのは？","明智光秀","豊臣秀吉","柴田勝家","徳川家康"],
+["歴史","関ヶ原の戦いが起きた年は？","1600年","1582年","1615年","1603年"],
+["歴史","十七条の憲法を定めたとされる人物は？","聖徳太子","中大兄皇子","藤原鎌足","蘇我馬子"],
+["歴史","ペリーが浦賀に来航した年は？","1853年","1868年","1841年","1867年"],
+["歴史","大政奉還を行った将軍は？","徳川慶喜","徳川家茂","徳川家定","徳川吉宗"],
+["歴史","『源氏物語』の作者は？","紫式部","清少納言","和泉式部","小野小町"],
+["歴史","『枕草子』の作者は？","清少納言","紫式部","吉田兼好","鴨長明"],
+["歴史","平安京に都を移した天皇は？","桓武天皇","聖武天皇","天武天皇","後醍醐天皇"],
+["歴史","日本の初代内閣総理大臣は？","伊藤博文","大隈重信","山県有朋","黒田清隆"],
+["歴史","アメリカの初代大統領は？","ジョージ・ワシントン","エイブラハム・リンカーン","トーマス・ジェファーソン","ジョン・アダムズ"],
+["歴史","フランス革命が始まった年は？","1789年","1776年","1804年","1848年"],
+["歴史","第二次世界大戦が終わった年は？","1945年","1941年","1939年","1950年"],
+["歴史","ベルリンの壁が崩壊した年は？","1989年","1991年","1985年","1961年"],
+["科学","水の化学式は？","H₂O","CO₂","O₂","H₂O₂"],
+["科学","元素記号「Fe」は何の元素？","鉄","フッ素","金","銅"],
+["科学","元素記号「Au」は何の元素？","金","銀","アルミニウム","銅"],
+["科学","元素記号「Na」は何の元素？","ナトリウム","窒素","ネオン","ニッケル"],
+["科学","太陽系で一番大きい惑星は？","木星","土星","天王星","海王星"],
+["科学","太陽に一番近い惑星は？","水星","金星","火星","地球"],
+["科学","太陽の次に地球に近い恒星は？","プロキシマ・ケンタウリ","シリウス","ベテルギウス","北極星"],
+["科学","光の速さはおよそ秒速何km？","約30万km","約3万km","約300万km","約3000km"],
+["科学","内臓の中で一番重い臓器は？","肝臓","心臓","肺","腎臓"],
+["科学","大人の人間の骨の数はおよそ？","約206個","約106個","約306個","約406個"],
+["科学","1気圧で水が沸騰する温度は？","100℃","90℃","80℃","120℃"],
+["科学","相対性理論を提唱したのは？","アインシュタイン","ニュートン","ガリレオ","ホーキング"],
+["科学","万有引力の法則を発見したのは？","ニュートン","ガリレオ","ケプラー","コペルニクス"],
+["科学","ペニシリンを発見したのは？","フレミング","パスツール","コッホ","北里柴三郎"],
+["科学","空気中に最も多く含まれる気体は？","窒素","酸素","二酸化炭素","アルゴン"],
+["科学","植物が光を使って養分を作るはたらきは？","光合成","呼吸","蒸散","発酵"],
+["科学","DNAの二重らせん構造を発表したのは？","ワトソンとクリック","メンデル","ダーウィン","パスツール"],
+["科学","音が伝わらないのはどこ？","真空中","水中","鉄の中","空気中"],
+["科学","円周率を小数第2位まで書くと？","3.14","3.41","3.15","3.12"],
+["文化","日本の国花とされるのは桜と何？","菊","梅","椿","藤"],
+["文化","旧暦1月の和風月名は？","睦月","如月","弥生","卯月"],
+["文化","旧暦3月の和風月名は？","弥生","卯月","皐月","如月"],
+["文化","旧暦12月の和風月名は？","師走","霜月","神無月","長月"],
+["文化","「還暦」は数え年で何歳のお祝い？","61歳（満60歳）","70歳","77歳","88歳"],
+["文化","「喜寿」は何歳のお祝い？","77歳","70歳","80歳","88歳"],
+["文化","「米寿」は何歳のお祝い？","88歳","77歳","90歳","99歳"],
+["文化","「白寿」は何歳のお祝い？","99歳","100歳","88歳","90歳"],
+["文化","国会議事堂がある東京の地名は？","永田町","霞が関","大手町","赤坂"],
+["文化","2024年発行の新一万円札の肖像は？","渋沢栄一","福沢諭吉","北里柴三郎","津田梅子"],
+["文化","2024年発行の新五千円札の肖像は？","津田梅子","樋口一葉","野口英世","与謝野晶子"],
+["文化","2024年発行の新千円札の肖像は？","北里柴三郎","野口英世","夏目漱石","伊藤博文"],
+["文化","『吾輩は猫である』の作者は？","夏目漱石","森鷗外","芥川龍之介","太宰治"],
+["文化","『人間失格』の作者は？","太宰治","川端康成","三島由紀夫","夏目漱石"],
+["文化","日本人で初めてノーベル賞を受賞したのは？","湯川秀樹","川端康成","朝永振一郎","野口英世"],
+["文化","「モナ・リザ」を描いたのは？","レオナルド・ダ・ヴィンチ","ミケランジェロ","ラファエロ","ゴッホ"],
+["文化","交響曲第5番「運命」の作曲者は？","ベートーヴェン","モーツァルト","バッハ","シューベルト"],
+["文化","作曲家ショパンの出身国は？","ポーランド","フランス","オーストリア","ドイツ"],
+["ことば","「猫に小判」と似た意味のことわざは？","豚に真珠","犬も歩けば棒に当たる","猿も木から落ちる","鬼に金棒"],
+["ことば","「猿も木から落ちる」と似た意味のことわざは？","弘法にも筆の誤り","石の上にも三年","二階から目薬","急がば回れ"],
+["ことば","「情けは人の為ならず」の本来の意味は？","親切は巡り巡って自分に返ってくる","情けをかけると相手のためにならない","人に頼らず生きよ","情けは表に出すな"],
+["ことば","「急がば回れ」の意味は？","急ぐときほど確実な方法を選べ","とにかく早く動け","遠回りは無駄","迷ったら立ち止まれ"],
+["ことば","「土産」の読み方は？","みやげ","どさん","つちさん","みあげ"],
+["ことば","「時雨」の読み方は？","しぐれ","じう","ときさめ","しあめ"],
+["ことば","「海老」の読み方は？","えび","かいろう","うみろう","いせ"],
+["ことば","「秋刀魚」の読み方は？","さんま","たちうお","かつお","さわら"],
+["ことば","「蒲公英」の読み方は？","たんぽぽ","ひまわり","あじさい","すみれ"],
+["ことば","「向日葵」の読み方は？","ひまわり","たんぽぽ","あさがお","ききょう"],
+["ことば","英語で「8月」は？","August","April","October","June"],
+["ことば","「一石二鳥」と似た意味の四字熟語は？","一挙両得","一期一会","一日千秋","一刀両断"],
+["スポーツ","サッカーの1チームの出場人数は？","11人","9人","10人","12人"],
+["スポーツ","野球の守備につく1チームの人数は？","9人","10人","11人","8人"],
+["スポーツ","バスケットボールのコート上の1チーム人数は？","5人","6人","7人","4人"],
+["スポーツ","ラグビー（15人制）の1チーム人数は？","15人","13人","11人","12人"],
+["スポーツ","オリンピックの五輪の色に含まれないのは？","紫","青","黄","緑"],
+["スポーツ","東京で初めて夏季オリンピックが開かれた年は？","1964年","1960年","1972年","1968年"],
+["スポーツ","フルマラソンの距離は？","42.195km","40km","42.915km","41.195km"],
+["スポーツ","大相撲の最高位は？","横綱","大関","関脇","小結"],
+["スポーツ","テニスの4大大会に含まれないのは？","ジャパンオープン","ウィンブルドン","全仏オープン","全米オープン"],
+["スポーツ","ゴルフで規定打数より1打少ないスコアは？","バーディー","イーグル","ボギー","パー"],
+["雑学","1ダースはいくつ？","12","10","20","24"],
+["雑学","一年で一番昼が長い日は？","夏至","冬至","春分","秋分"],
+["雑学","うるう年の2月は何日まで？","29日","28日","30日","31日"],
+["雑学","寿司屋の「ガリ」とは？","生姜の甘酢漬け","お茶","醤油","わさび"],
+["雑学","寿司屋の「あがり」とは？","お茶","お会計","醤油","生姜"],
+["雑学","ジャイアントパンダの主食は？","竹・笹","ユーカリ","果物","魚"],
+["雑学","コアラの主食は？","ユーカリ","竹","ナッツ","昆虫"],
+["雑学","地球上で一番大きい動物は？","シロナガスクジラ","アフリカゾウ","ジンベエザメ","マッコウクジラ"],
+["雑学","陸上で一番速く走る動物は？","チーター","ライオン","ダチョウ","ウマ"],
+["雑学","タコの心臓の数は？","3つ","1つ","2つ","8つ"],
+];
+
+const LIMIT = 15; // 1問の制限秒
+const KEY = "quiz100_records_v1";
+const $ = s => document.querySelector(s);
+const CATS = [...new Set(POOL.map(q => q[0]))];
+let selCats = new Set();
+let game = null, timerId = null;
+
+// ---- 記録（この端末のブラウザだけに保存） ----
+function loadRec(){ try{ return JSON.parse(localStorage.getItem(KEY)) || {answers:[],games:[]}; }catch(e){ return {answers:[],games:[]}; } }
+function saveRec(r){ try{ localStorage.setItem(KEY, JSON.stringify(r)); }catch(e){} }
+let REC = loadRec();
+
+// ---- 汎用 ----
+function shuffle(a){ a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function show(id){ ["home","play","result"].forEach(s => $("#"+s).classList.toggle("hide", s!==id)); window.scrollTo(0,0); }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function pct(a,b){ return b ? Math.round(a/b*100) : 0; }
+
+// ---- ホーム ----
+function renderHome(){
+  $("#cats").innerHTML = CATS.map(c => `<button class="chip ${selCats.has(c)?"on":""}" data-c="${c}">${c}（${POOL.filter(q=>q[0]===c).length}）</button>`).join("");
+  $("#poolInfo").textContent = `問題数 ${POOL.length}`;
+  const A = REC.answers, ok = A.filter(a=>a.ok).length;
+  const avg = A.length ? (A.reduce((s,a)=>s+a.t,0)/A.length).toFixed(1) : "-";
+  const best = REC.games.length ? Math.max(...REC.games.map(g=>g.score)) : 0;
+  $("#lifeStats").innerHTML = `<div><b>${A.length}</b><span class="small">回答数</span></div><div><b>${pct(ok,A.length)}%</b><span class="small">正答率</span></div><div><b>${avg}s</b><span class="small">平均回答時間</span></div>`;
+  $("#catStats").innerHTML = (A.length ? CATS.map(c => {
+    const x = A.filter(a=>POOL[a.id][0]===c), o = x.filter(a=>a.ok).length;
+    return `<div class="catbar"><span>${c}</span><span class="t"><i style="width:${pct(o,x.length)}%"></i></span><span class="small" style="text-align:right">${x.length?pct(o,x.length)+"%":"未挑戦"}</span></div>`;
+  }).join("") : `<p class="small">まだ記録がありません。まずは10問チャレンジ！</p>`) + (best ? `<p class="small">ハイスコア: <b>${best}</b>（${REC.games.length}回プレイ）</p>` : "");
+  $("#weakBtn").textContent = `苦手だけ復習（${weakIds().length}問）`;
+}
+function weakIds(){
+  // 最後の回答が不正解 or 正答率50%未満の問題
+  const by = {};
+  REC.answers.forEach(a => { (by[a.id] ||= []).push(a); });
+  return Object.entries(by).filter(([id,xs]) => !xs[xs.length-1].ok || pct(xs.filter(x=>x.ok).length,xs.length) < 50).map(([id]) => +id);
+}
+$("#cats").addEventListener("click", e => {
+  const c = e.target.dataset.c; if(!c) return;
+  selCats.has(c) ? selCats.delete(c) : selCats.add(c); renderHome();
+});
+document.querySelectorAll("[data-n]").forEach(b => b.addEventListener("click", () => {
+  let ids = POOL.map((_,i)=>i).filter(i => !selCats.size || selCats.has(POOL[i][0]));
+  start(shuffle(ids).slice(0, +b.dataset.n), b.dataset.n === "100" ? "全問マラソン" : `${b.dataset.n}問チャレンジ`);
+}));
+$("#weakBtn").addEventListener("click", () => {
+  const w = weakIds(); if(!w.length){ $("#weakBtn").textContent = "苦手はまだありません！"; return; }
+  start(shuffle(w).slice(0,20), "苦手復習");
+});
+$("#resetBtn").addEventListener("click", () => {
+  const b = $("#resetBtn");
+  if(b.dataset.arm){ REC={answers:[],games:[]}; saveRec(REC); delete b.dataset.arm; b.textContent="記録を消す"; renderHome(); }
+  else { b.dataset.arm="1"; b.textContent="本当に消す？もう一度押す"; setTimeout(()=>{delete b.dataset.arm; b.textContent="記録を消す";},3000); }
+});
+$("#csvBtn").addEventListener("click", () => {
+  const rows = [["日時","ジャンル","問題","正解","選んだ答え","正誤","回答秒"]].concat(
+    REC.answers.map(a => [new Date(a.at).toLocaleString("ja-JP"), POOL[a.id][0], POOL[a.id][1], POOL[a.id][2], a.pick ?? "(時間切れ)", a.ok?"○":"×", a.t]));
+  const csv = "﻿" + rows.map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(",")).join("\n");
+  const url = URL.createObjectURL(new Blob([csv], {type:"text/csv"}));
+  const a = Object.assign(document.createElement("a"), {href:url, download:"quiz_records.csv"}); a.click(); URL.revokeObjectURL(url);
+});
+
+// ---- ゲーム ----
+function start(ids, label){
+  if(!ids.length) return;
+  game = {ids, label, i:0, score:0, combo:0, maxCombo:0, log:[], locked:false};
+  $("#qn").textContent = ids.length; show("play"); ask();
+}
+function ask(){
+  const id = game.ids[game.i], q = POOL[id];
+  game.opts = shuffle(q.slice(2)); game.t0 = performance.now(); game.locked = false;
+  $("#qi").textContent = game.i+1; $("#score").textContent = game.score;
+  $("#combo").textContent = game.combo >= 2 ? `🔥 ${game.combo}コンボ` : "";
+  $("#qcat").textContent = q[0]; $("#qtext").textContent = q[1];
+  $("#fb").textContent = ""; $("#fb").className = "fb"; $("#nextBtn").classList.add("hide");
+  $("#choices").innerHTML = game.opts.map((o,k) => `<button class="btn choice" data-k="${k}"><span class="k">${k+1}</span><span>${esc(o)}</span></button>`).join("");
+  clearInterval(timerId);
+  timerId = setInterval(() => {
+    const el = (performance.now()-game.t0)/1000;
+    $("#timebar").style.transform = `scaleX(${Math.max(0,1-el/LIMIT)})`;
+    if(el >= LIMIT) answer(null);
+  }, 50);
+}
+function answer(k){
+  if(game.locked) return; game.locked = true; clearInterval(timerId);
+  const id = game.ids[game.i], q = POOL[id];
+  const t = Math.min(LIMIT, (performance.now()-game.t0)/1000);
+  const pick = k === null ? null : game.opts[k], ok = pick === q[2];
+  let gain = 0;
+  if(ok){ game.combo++; game.maxCombo = Math.max(game.maxCombo, game.combo);
+    gain = 100 + Math.round((LIMIT-t)/LIMIT*100) + (game.combo>=3 ? 20*(game.combo-2) : 0);
+    game.score += gain;
+  } else game.combo = 0;
+  game.log.push({id, ok, t:+t.toFixed(1), pick});
+  REC.answers.push({id, ok, t:+t.toFixed(1), pick, at:Date.now()}); saveRec(REC);
+  document.querySelectorAll(".choice").forEach((b,i) => {
+    b.disabled = true;
+    if(game.opts[i] === q[2]) b.classList.add("ok");
+    else if(i === k) b.classList.add("ng");
+  });
+  const fb = $("#fb");
+  if(ok){ fb.className="fb ok"; fb.textContent = `正解！ +${gain}点（${t.toFixed(1)}秒）`; $("#qcard").classList.remove("pop"); void $("#qcard").offsetWidth; $("#qcard").classList.add("pop"); if(game.combo>=3) burst(40); }
+  else { fb.className="fb ng"; fb.textContent = (k===null ? "時間切れ… " : "残念… ") + `正解は「${q[2]}」`; $("#qcard").classList.remove("shake"); void $("#qcard").offsetWidth; $("#qcard").classList.add("shake"); }
+  $("#score").textContent = game.score;
+  $("#combo").textContent = game.combo >= 2 ? `🔥 ${game.combo}コンボ` : "";
+  $("#nextBtn").textContent = game.i+1 < game.ids.length ? "次へ（Enter）" : "結果を見る（Enter）";
+  $("#nextBtn").classList.remove("hide"); $("#nextBtn").focus();
+}
+function next(){ game.i++; game.i < game.ids.length ? ask() : finish(); }
+$("#choices").addEventListener("click", e => { const b = e.target.closest(".choice"); if(b && !b.disabled) answer(+b.dataset.k); });
+$("#nextBtn").addEventListener("click", next);
+$("#quitBtn").addEventListener("click", () => { clearInterval(timerId); game=null; renderHome(); show("home"); });
+document.addEventListener("keydown", e => {
+  if($("#play").classList.contains("hide") || !game) return;
+  if(!game.locked && ["1","2","3","4"].includes(e.key)) answer(+e.key-1);
+  else if(game.locked && e.key === "Enter"){ e.preventDefault(); next(); }
+});
+
+function finish(){
+  const L = game.log, ok = L.filter(x=>x.ok).length, n = L.length;
+  const avg = (L.reduce((s,x)=>s+x.t,0)/n).toFixed(1);
+  const okT = L.filter(x=>x.ok).map(x=>x.t), fast = okT.length ? Math.min(...okT).toFixed(1)+"s" : "-";
+  const prevBest = REC.games.length ? Math.max(...REC.games.map(g=>g.score)) : 0;
+  REC.games.push({at:Date.now(), label:game.label, score:game.score, ok, n, avg:+avg}); saveRec(REC);
+  const r = pct(ok,n);
+  $("#rScore").textContent = game.score;
+  $("#rRank").textContent = (game.score > prevBest && prevBest ? "🎉 ハイスコア更新！ " : "") +
+    (r===100 ? "パーフェクト！クイズ王" : r>=80 ? "すごい！上級者" : r>=60 ? "なかなかの物知り" : r>=40 ? "あと一歩！" : "伸びしろしかない！");
+  $("#rStats").innerHTML = `<div><b>${ok}/${n}</b><span class="small">正解</span></div><div><b>${avg}s</b><span class="small">平均時間</span></div><div><b>${game.maxCombo}</b><span class="small">最大コンボ</span></div>`;
+  $("#rTable").innerHTML = L.map(x => `<tr><td class="${x.ok?"mark-ok":"mark-ng"}">${x.ok?"○":"×"}</td><td>${esc(POOL[x.id][1])}<br><span class="small">正解: ${esc(POOL[x.id][2])}${x.ok?"":" ／ あなた: "+esc(x.pick ?? "時間切れ")}</span></td><td class="r">${x.t}s</td></tr>`).join("") +
+    `<tr><td></td><td class="small">最速正解</td><td class="r">${fast}</td></tr>`;
+  show("result"); if(r>=80) burst(120);
+}
+$("#againBtn").addEventListener("click", () => start(shuffle(game.ids), game.label));
+$("#homeBtn").addEventListener("click", () => { renderHome(); show("home"); });
+
+// ---- 紙吹雪 ----
+const cv = $("#confetti"), cx = cv.getContext("2d"); let parts = [], raf = null;
+function burst(n){
+  cv.width = innerWidth; cv.height = innerHeight;
+  const cols = ["#e8590c","#1c7ed6","#2f9e44","#f59f00","#d6336c"];
+  for(let i=0;i<n;i++) parts.push({x:innerWidth/2, y:innerHeight/3, vx:(Math.random()-.5)*12, vy:Math.random()*-10-2, r:Math.random()*6+3, c:cols[i%5], life:90});
+  if(!raf) loop();
+}
+function loop(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  parts.forEach(p => { p.x+=p.vx; p.y+=p.vy; p.vy+=.35; p.life--; cx.fillStyle=p.c; cx.fillRect(p.x,p.y,p.r,p.r*.6); });
+  parts = parts.filter(p => p.life>0 && p.y<cv.height+20);
+  raf = parts.length ? requestAnimationFrame(loop) : (cx.clearRect(0,0,cv.width,cv.height), null);
+}
+
+// ---- テーマ ----
+$("#themeBtn").addEventListener("click", () => {
+  const d = document.documentElement, dark = d.dataset.theme ? d.dataset.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  d.dataset.theme = dark ? "light" : "dark";
+});
+
+renderHome();
+</script>
+</body>
+</html>
