@@ -44,9 +44,10 @@ main{max-width:1160px;margin:0 auto;padding:12px 16px 24px}
 .tie{font-size:13px;font-weight:700;color:var(--sub);border-top:2px solid var(--line);border-bottom:2px solid var(--line);padding:2px 6px;white-space:nowrap}
 .me2{border-color:var(--me)}.me2 .n{color:var(--me)}
 @media (max-width:760px){.duo{grid-template-columns:1fr}.tie{text-align:center;border:none}}
-.tabs{display:flex;gap:8px;justify-content:center;padding:10px 16px 0;flex-wrap:wrap}
-.tab{font:inherit;font-size:15px;padding:8px 16px;border-radius:999px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
-.tab.on{border-color:var(--me);color:var(--me);font-weight:700}
+.tabs{display:flex;gap:4px;justify-content:flex-start;padding:12px 16px 0;border-bottom:2px solid var(--line);max-width:1160px;margin:0 auto}
+.tab{font:inherit;font-size:14px;padding:8px 18px;border:2px solid var(--line);border-bottom:none;border-radius:10px 10px 0 0;background:var(--bg);color:var(--sub);cursor:pointer;margin-bottom:-2px}
+.tab:hover{color:var(--ink)}
+.tab.on{background:var(--card);color:var(--me);font-weight:700;border-color:var(--me);border-bottom:2px solid var(--card)}
 .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
 .cards .n{font-size:clamp(18px,2.4vw,22px)}
 @media (max-width:760px){.cards{grid-template-columns:1fr 1fr}}
@@ -73,14 +74,14 @@ b.a{color:var(--sd)}b.m{color:var(--gn)}b.e{color:var(--en)}b.u{color:var(--gn)}
 </style>
 </head>
 <body>
-<header>
-  <h1>運送案件 顔合わせ</h1>
-  <div class="date">2026年10月24日（土）15:00〜</div>
-</header>
 <nav class="tabs">
   <button class="tab on" data-t="t1">Gooner・三田さんの紹介</button>
   <button class="tab" data-t="t2">相田さんの紹介</button>
 </nav>
+<header>
+  <h1>運送案件 顔合わせ</h1>
+  <div class="date">2026年10月24日（土）15:00〜</div>
+</header>
 <main id="t2" class="pane" hidden>
   <div class="box aida" style="width:min(360px,100%);margin:0 auto">
     <div class="t">三田さんへ</div>
