@@ -44,6 +44,12 @@ main{max-width:1160px;margin:0 auto;padding:12px 16px 24px}
 .tie{font-size:13px;font-weight:700;color:var(--sub);border-top:2px solid var(--line);border-bottom:2px solid var(--line);padding:2px 6px;white-space:nowrap}
 .me2{border-color:var(--me)}.me2 .n{color:var(--me)}
 @media (max-width:760px){.duo{grid-template-columns:1fr}.tie{text-align:center;border:none}}
+.tabs{display:flex;gap:8px;justify-content:center;padding:10px 16px 0;flex-wrap:wrap}
+.tab{font:inherit;font-size:15px;padding:8px 16px;border-radius:999px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.tab.on{border-color:var(--me);color:var(--me);font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.cards .n{font-size:clamp(18px,2.4vw,22px)}
+@media (max-width:760px){.cards{grid-template-columns:1fr 1fr}}
 b.a{color:var(--sd)}b.m{color:var(--gn)}b.e{color:var(--en)}b.u{color:var(--gn)}
 @media (max-width:760px){.cols,.bands{grid-template-columns:1fr}.cols::before,.col::before{display:none}.r3,.r2{grid-template-columns:1fr}}
 </style>
@@ -53,7 +59,27 @@ b.a{color:var(--sd)}b.m{color:var(--gn)}b.e{color:var(--en)}b.u{color:var(--gn)}
   <h1>運送案件 顔合わせ</h1>
   <div class="date">2026年10月24日（土）14:00〜</div>
 </header>
-<main>
+<nav class="tabs">
+  <button class="tab on" data-t="t1">Gooner・三田さんの紹介</button>
+  <button class="tab" data-t="t2">相田さんの紹介</button>
+</nav>
+<main id="t2" class="pane" hidden>
+  <div class="box aida" style="width:min(360px,100%);margin:0 auto">
+    <div class="t">三田さんへ</div>
+    <div class="n" style="color:var(--sd)">相田さん</div>
+  </div>
+  <div class="cards">
+    <div class="box sm"><div class="t">いま</div><div class="n">法人営業</div><div class="s">車で回る毎日</div></div>
+    <div class="box sm"><div class="t">好き</div><div class="n">車が大好き</div><div class="s">運転・乗り回し</div></div>
+    <div class="box sm"><div class="t">住まい</div><div class="n">上尾</div><div class="s">修理を頼んでいる DIA の近く</div></div>
+    <div class="box sm"><div class="t">家族</div><div class="n">ご家族あり</div></div>
+  </div>
+  <div class="band" style="margin-top:18px">
+    <div class="h">稼働できる日</div>
+    別紙のカレンダー（三田さん向け）で
+  </div>
+</main>
+<main id="t1" class="pane">
   <div class="box me">
     <div class="t">フリーランス</div>
     <div class="n">武者野 拓也</div>
@@ -148,5 +174,11 @@ b.a{color:var(--sd)}b.m{color:var(--gn)}b.e{color:var(--en)}b.u{color:var(--gn)}
     </div>
   </div>
 </main>
+<script>
+document.querySelectorAll('.tab').forEach(function(b){b.addEventListener('click',function(){
+  document.querySelectorAll('.tab').forEach(function(x){x.classList.toggle('on',x===b)});
+  document.querySelectorAll('.pane').forEach(function(p){p.hidden=p.id!==b.dataset.t});
+})});
+</script>
 </body>
 </html>
