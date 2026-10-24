@@ -40,6 +40,10 @@ main{max-width:1160px;margin:0 auto;padding:12px 16px 24px}
 .bands{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
 .band{border:2px dashed var(--line);border-radius:14px;padding:12px;text-align:center;font-size:clamp(15px,1.9vw,17px)}
 .band .h{font-size:12px;color:var(--sub)}
+.duo{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
+.tie{font-size:13px;font-weight:700;color:var(--sub);border-top:2px solid var(--line);border-bottom:2px solid var(--line);padding:2px 6px;white-space:nowrap}
+.me2{border-color:var(--me)}.me2 .n{color:var(--me)}
+@media (max-width:760px){.duo{grid-template-columns:1fr}.tie{text-align:center;border:none}}
 b.a{color:var(--sd)}b.m{color:var(--gn)}b.e{color:var(--en)}b.u{color:var(--gn)}
 @media (max-width:760px){.cols,.bands{grid-template-columns:1fr}.cols::before,.col::before{display:none}.r3,.r2{grid-template-columns:1fr}}
 </style>
@@ -63,7 +67,7 @@ b.a{color:var(--sd)}b.m{color:var(--gn)}b.e{color:var(--en)}b.u{color:var(--gn)}
     <div class="col">
       <div class="box sd">
         <div class="t">取引先①</div>
-        <div class="n">SEED</div>
+        <div class="n">株式会社SEED</div>
         <div class="s">社長 山田 直樹さん</div>
       </div>
       <div class="story">
@@ -87,7 +91,7 @@ b.a{color:var(--sd)}b.m{color:var(--gn)}b.e{color:var(--en)}b.u{color:var(--gn)}
     <div class="col">
       <div class="box gn">
         <div class="t">取引先②</div>
-        <div class="n">株式会社Gooner</div>
+        <div class="n">合同会社Gooner</div>
         <div class="s">社長 佐々木 宇宙さん</div>
       </div>
       <div class="story">
@@ -96,8 +100,20 @@ b.a{color:var(--sd)}b.m{color:var(--gn)}b.e{color:var(--en)}b.u{color:var(--gn)}
         <span>社内システム開発を受注</span>
       </div>
       <div class="v"></div>
+      <div class="duo">
+        <div class="box gn hl sm">
+          <div class="n">三田 航大さん</div>
+          <div class="s">Gooner全体のバックエンド業務</div>
+        </div>
+        <div class="tie">二人三脚</div>
+        <div class="box me2 sm">
+          <div class="n">武者野</div>
+          <div class="s">システム：いまは運送事業部<br>→ 今後は全体へ</div>
+        </div>
+      </div>
+      <div class="v"></div>
       <div class="row r3">
-        <div class="box gn hl sm"><div class="n">運送事業部</div><div class="s">拓也：システム担当</div></div>
+        <div class="box gn hl sm"><div class="n">運送事業部</div><div class="s">システム：武者野</div></div>
         <div class="box gn sm"><div class="n">人材事業部</div><div class="s">転職支援</div></div>
         <div class="box barb sm"><div class="n">バー事業部</div><div class="s">歌舞伎町に店舗</div></div>
       </div>
@@ -106,9 +122,8 @@ b.a{color:var(--sd)}b.m{color:var(--gn)}b.e{color:var(--en)}b.u{color:var(--gn)}
         <div class="row r2">
           <div class="box sm"><div class="n">ヤマト運輸パート</div></div>
           <div>
-            <div class="box gn hl sm">
+            <div class="box gn sm">
               <div class="n">企業配パート</div>
-              <div class="s">取りまとめ：<b style="color:var(--gn)">三田 航大さん</b></div>
             </div>
             <div class="v"></div>
             <div class="lbl">取引先</div>
