@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>会社資料コネクタ 設定の手順</title>
+<style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--card:#f6f8fa;--acc:#0969da;--line:#d0d7de}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--card:#161b22;--acc:#4493f8;--line:#30363d}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 system-ui,"Hiragino Sans","Yu Gothic",sans-serif}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 16px;z-index:5}
+header b{font-size:15px}#now{color:var(--mut);font-size:13px;margin-left:8px}
+main{max-width:720px;margin:0 auto;padding:16px}
+section{scroll-margin-top:56px;margin:24px 0}
+h2{font-size:18px;margin:0 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+svg{width:100%;height:auto;max-width:560px;display:block;margin:8px auto}
+svg text{fill:var(--fg);font-size:14px}svg .b{fill:var(--card);stroke:var(--acc);stroke-width:2}svg .a{stroke:var(--acc);stroke-width:2;fill:none}
+.mut{color:var(--mut);font-size:14px}
+</style></head><body>
+<header><b>会社資料コネクタ 設定の手順</b><span id="now"></span></header>
+<main>
+<section id="s0"><h2>これは何</h2>
+<div class="card">紹介先企業の資料（勤務地・待遇・研修など）を、Claude のチャットから聞くだけで引けるようにする設定です。<b>設定は最初の1回だけ・2手</b>です。</div></section>
+
+<section id="s1"><h2>全体の流れ（2手）</h2>
+<svg viewBox="0 0 560 90" role="img" aria-label="接続して、権限を常に許可にする">
+<rect class="b" x="10" y="20" width="230" height="50" rx="10"/><text x="30" y="50">① 接続（Google ログイン）</text>
+<path class="a" d="M240 45H300"/><path class="a" d="M292 38l10 7-10 7"/>
+<rect class="b" x="310" y="20" width="240" height="50" rx="10"/><text x="326" y="50">② ツールを「常に許可」</text></svg>
+<p class="mut">この2手のあとは、新しいチャットでもそのまま聞けます。</p></section>
+
+<section id="s2"><h2>手1: コネクタを足して接続する</h2>
+<div class="card"><ol>
+<li>claude.ai を開き、<b>カスタマイズ → コネクタ → 自分のもの → ＋追加 → カスタムコネクタを追加</b></li>
+<li>名前は「会社資料」、URL は<b>拓也から送られたもの</b>をそのまま貼る（別の形に直さない）</li>
+<li><b>Connect</b> を押し、Google のログインで<b>Gooner の業務アドレス</b>を選ぶ（1タップ）</li>
+<li>「このコネクタを使える人の一覧に入っていない」と出たら、拓也に連絡（アドレスの登録漏れ）</li></ol></div></section>
+
+<section id="s3"><h2>手2: 権限を「常に許可」にする</h2>
+<div class="card"><ol>
+<li>最初に質問したとき「承認が必要」と出る（初期値）</li>
+<li><b>常に許可</b>を選ぶ（3つのツールをまとめて切り替わる・1回だけ）</li></ol>
+<p class="mut">3つとも読むだけのツールです。資料は書き換わりません。</p></div></section>
+
+<section id="s4"><h2>使い方</h2>
+<div class="card">普通にチャットで聞きます。例:「入社時に契約社員から始まる紹介先は？」「HIT は既往歴があっても選考できる？」<br>
+答えに<b>資料の名前（どの文書か）</b>が出ます。出なかったら「どの文書に書いてある？」と聞き返してください。</div></section>
+
+<section id="s5"><h2>困ったとき</h2>
+<div class="card"><ul>
+<li>「到達できませんでした」→ URL の貼り間違い。送られた URL をそのまま貼り直す</li>
+<li>呼び出されない → チャット下の「＋」→ コネクタで「会社資料」が入っているか見る</li>
+<li>資料に無いこと → 「載っていない」と返るのが正しい動き。推測で答えさせない</li></ul></div></section>
+</main>
+<script>
+(function(){var s=[].slice.call(document.querySelectorAll('section')),n=document.getElementById('now');
+if(!('IntersectionObserver' in window))return;
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){n.textContent='／ '+e.target.querySelector('h2').textContent}})},{rootMargin:'-20% 0px -70% 0px'});
+s.forEach(function(x){io.observe(x)})})();
+</script></body></html>
