@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>AI買取表</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#1c2230;--mute:#6b7280;--line:#e2e5ea;--accent:#d62e2e;--ok:#16a34a;--warn:#d97706;--ai:#6d28d9}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#13161b;--card:#1d222a;--ink:#eef1f5;--mute:#9aa3af;--line:#313744;--accent:#ff5a5a;--ok:#22c55e;--warn:#f59e0b;--ai:#a78bfa}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Hiragino Sans","Yu Gothic UI",sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:16px}
+h1{font-size:22px;margin:0}
+.lead{color:var(--mute);font-size:14px;margin:4px 0 16px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;font-size:13px}
+.step b{display:block;font-size:15px;margin-bottom:2px}
+.step .who{font-size:11px;font-weight:700;padding:1px 6px;border-radius:99px;display:inline-block;margin-bottom:4px}
+.who.h{background:#e0f2fe;color:#075985}.who.a{background:#ede9fe;color:#5b21b6}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:16px}
+.panel h2{font-size:16px;margin:0 0 8px}
+textarea{width:100%;min-height:120px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-size:15px;font-family:inherit}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+button{padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:14px;cursor:pointer}
+button.ai{background:var(--ai);border-color:var(--ai);color:#fff;font-weight:700;font-size:16px}
+button.pr{background:var(--accent);border-color:var(--accent);color:#fff}
+button:disabled{opacity:.5;cursor:default}
+.rate{display:flex;align-items:center;gap:8px;font-size:14px}
+.rate input{width:160px}
+.log{font-size:13px;color:var(--ai);min-height:1.4em;margin-top:8px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{font-size:12px;color:var(--mute);font-weight:600}
+td.num{text-align:right;white-space:nowrap}
+td img{width:44px;height:44px;display:block}
+.tag{font-size:11px;padding:2px 6px;border-radius:99px;white-space:nowrap}
+.tag.ok{background:#dcfce7;color:#166534}.tag.ng{background:#fef3c7;color:#92400e}
+td input{width:96px;padding:6px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font-size:14px;text-align:right}
+.tw{overflow-x:auto}
+.saving{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;margin-top:10px}
+.saving div{background:var(--bg);border-radius:8px;padding:8px 12px}
+.saving b{font-size:20px}
+#sheet{background:#fff;color:#111;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+#sheet .bar{background:#111;color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px}
+#sheet .bar b{font-size:22px}
+#sheet .bar span{font-size:12px;opacity:.8}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1px;background:#ddd}
+.item{background:#fff;padding:10px;text-align:center}
+.item img{width:90px;height:90px}
+.item .nm{font-size:13px;line-height:1.35;min-height:2.7em}
+.item .pr{font-size:22px;font-weight:800;color:#d62e2e}
+.item .pr small{font-size:12px}
+.foot{padding:8px 16px;font-size:11px;color:#666;border-top:1px solid #ddd}
+.empty{padding:30px;text-align:center;color:#999;font-size:14px}
+.note{font-size:12px;color:var(--mute);margin-top:6px}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+@media print{body{background:#fff}.wrap>*:not(#sheetWrap){display:none}#sheet{border:0}.grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>AI買取表</h1>
+  <div class="lead">商品名をざっくり書くだけで、AIが「正式な商品名・画像・相場・買取価格」をそろえて買取表にします。人がやるのは最後の確認だけです。</div>
+
+  <div class="steps">
+    <div class="step"><span class="who h">人</span><b>① ざっくり書く</b>型番でも略称でもOK。1行に1商品。</div>
+    <div class="step"><span class="who a">AI</span><b>② まるっとそろえる</b>正式名・画像・相場を調べて、掛け率で買取価格を出す。</div>
+    <div class="step"><span class="who h">人</span><b>③ 確認して印刷</b>AIが自信のない行だけ黄色で知らせる。</div>
+  </div>
+
+  <div class="panel">
+    <h2>① 今日買い取りたい商品を書く</h2>
+    <textarea id="input">あいふぉん15 128
+iphone14
+スイッチ 有機EL
+PS5
+エアポッズプロ2
+ipad 10世代
+アップルウォッチ SE
+謎のゲーム機</textarea>
+    <div class="btns">
+      <div class="rate">掛け率 <input type="range" id="rate" min="50" max="90" value="70"> <b id="rateV">70%</b></div>
+    </div>
+    <div class="btns">
+      <button class="ai" id="go">✨ AIにおまかせ</button>
+      <button id="clear">入力を消す</button>
+    </div>
+    <div class="log" id="log"></div>
+  </div>
+
+  <div class="panel" id="checkPanel" hidden>
+    <h2>③ 確認（黄色の行だけ見ればOK）</h2>
+    <div class="tw"><table>
+      <thead><tr><th>画像</th><th>AIが特定した商品</th><th>相場</th><th>買取価格</th><th>状態</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table></div>
+    <div class="saving" id="saving"></div>
+    <div class="btns"><button class="pr" id="print">印刷 / PDF保存</button></div>
+  </div>
+
+  <div id="sheetWrap">
+    <div id="sheet">
+      <div class="bar"><b>本日の買取価格表</b><span id="date"></span></div>
+      <div class="grid" id="grid"><div class="empty">「AIにおまかせ」を押すとここに買取表ができます</div></div>
+      <div class="foot">※価格は状態・付属品により変動します。表示は未使用・付属品完備の上限価格です。</div>
+    </div>
+  </div>
+  <div class="note">※これは見本データで動く体験版です（相場の数字は見本）。本番ではAIが店の過去の買取データや相場サイトを読んで価格を出し、写真からも商品を特定できます。</div>
+</div>
+<script>
+const ICON={
+ phone:(c)=>`<svg viewBox="0 0 64 64"><rect x="18" y="4" width="28" height="56" rx="6" fill="${c}"/><rect x="21" y="10" width="22" height="42" rx="2" fill="#cfe3ff"/><circle cx="32" cy="56" r="1.8" fill="#fff"/></svg>`,
+ console:(c)=>`<svg viewBox="0 0 64 64"><rect x="4" y="18" width="56" height="28" rx="8" fill="${c}"/><rect x="18" y="22" width="28" height="20" rx="2" fill="#cfe3ff"/><circle cx="11" cy="28" r="3" fill="#fff"/><circle cx="53" cy="36" r="3" fill="#fff"/></svg>`,
+ box:(c)=>`<svg viewBox="0 0 64 64"><rect x="20" y="6" width="14" height="52" rx="5" fill="${c}"/><rect x="36" y="10" width="10" height="44" rx="3" fill="#333"/><rect x="23" y="12" width="8" height="3" rx="1" fill="#cfe3ff"/></svg>`,
+ buds:(c)=>`<svg viewBox="0 0 64 64"><rect x="10" y="24" width="44" height="30" rx="12" fill="${c}"/><line x1="10" y1="36" x2="54" y2="36" stroke="#bbb"/><circle cx="32" cy="45" r="2" fill="#888"/></svg>`,
+ tablet:(c)=>`<svg viewBox="0 0 64 64"><rect x="8" y="6" width="48" height="52" rx="5" fill="${c}"/><rect x="12" y="10" width="40" height="44" rx="2" fill="#cfe3ff"/></svg>`,
+ watch:(c)=>`<svg viewBox="0 0 64 64"><rect x="24" y="2" width="16" height="60" rx="4" fill="#555"/><rect x="18" y="16" width="28" height="32" rx="8" fill="${c}"/><rect x="21" y="19" width="22" height="26" rx="5" fill="#cfe3ff"/></svg>`,
+ unknown:()=>`<svg viewBox="0 0 64 64"><rect x="6" y="6" width="52" height="52" rx="8" fill="#eee"/><text x="32" y="42" font-size="28" text-anchor="middle" fill="#bbb">?</text></svg>`
+};
+const DB=[
+ {keys:["15","iphone15","あいふぉん15","アイフォン15"],base:"iphone",name:"Apple iPhone 15 128GB",mkt:105000,ic:"phone",col:"#f2b8c6"},
+ {keys:["14","iphone14","あいふぉん14","アイフォン14"],base:"iphone",name:"Apple iPhone 14 128GB",mkt:80000,ic:"phone",col:"#9ec3e6"},
+ {keys:["13","iphone13","あいふぉん13","アイフォン13"],base:"iphone",name:"Apple iPhone 13 128GB",mkt:60000,ic:"phone",col:"#e8d6ef"},
+ {keys:["有機","oled","el"],base:"switch",name:"Nintendo Switch（有機ELモデル）",mkt:37000,ic:"console",col:"#e60012"},
+ {keys:["lite","ライト"],base:"switch",name:"Nintendo Switch Lite",mkt:17000,ic:"console",col:"#f5c518"},
+ {keys:[""],base:"switch",name:"Nintendo Switch（通常モデル）",mkt:28000,ic:"console",col:"#3c3c3c"},
+ {keys:["ps5","プレステ5","ぷれすて5","playstation5"],base:"ps",name:"SONY PlayStation 5",mkt:60000,ic:"box",col:"#f4f4f4"},
+ {keys:["pro","プロ","ぷろ"],base:"airpods",name:"Apple AirPods Pro（第2世代）",mkt:26000,ic:"buds",col:"#f4f4f4"},
+ {keys:[""],base:"airpods",name:"Apple AirPods（第3世代）",mkt:15000,ic:"buds",col:"#f4f4f4"},
+ {keys:["10"],base:"ipad",name:"Apple iPad（第10世代）Wi-Fi 64GB",mkt:50000,ic:"tablet",col:"#7aa7d6"},
+ {keys:["air","エア"],base:"ipad",name:"Apple iPad Air（第5世代）64GB",mkt:62000,ic:"tablet",col:"#b9a9d9"},
+ {keys:["se"],base:"watch",name:"Apple Watch SE（第2世代）40mm",mkt:22000,ic:"watch",col:"#2b2b2b"},
+ {keys:[""],base:"watch",name:"Apple Watch Series 9 41mm",mkt:40000,ic:"watch",col:"#2b2b2b"}
+];
+const BASE={iphone:["iphone","あいふぉん","アイフォン","アイホン"],switch:["switch","スイッチ","すいっち"],ps:["ps5","プレステ","ぷれすて","playstation"],airpods:["airpods","エアポッズ","えあぽっず","エアーポッズ"],ipad:["ipad","アイパッド","あいぱっど"],watch:["watch","ウォッチ","うぉっち"]};
+const $=id=>document.getElementById(id);
+const norm=s=>s.toLowerCase().replace(/[\s　]/g,"").replace(/[０-９ａ-ｚ]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0));
+function identify(line){
+  const n=norm(line);
+  const base=Object.keys(BASE).find(b=>BASE[b].some(k=>n.includes(norm(k))));
+  if(!base)return null;
+  const cands=DB.filter(d=>d.base===base);
+  return cands.find(d=>d.keys.some(k=>k&&n.includes(norm(k))))||cands.find(d=>d.keys.includes(""))||cands[0];
+}
+let rows=[];
+const rate=()=>+$("rate").value/100;
+const round100=n=>Math.floor(n/100)*100;
+const yen=n=>(+n||0).toLocaleString("ja-JP");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+$("rate").oninput=()=>{$("rateV").textContent=$("rate").value+"%";rows.forEach(r=>{if(r.hit&&!r.edited)r.price=round100(r.hit.mkt*rate())});render()};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+$("go").onclick=async()=>{
+  const lines=$("input").value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+  if(!lines.length){$("log").textContent="商品を1行以上書いてください";return}
+  $("go").disabled=true;rows=[];render();$("checkPanel").hidden=false;
+  const t0=performance.now();
+  for(const l of lines){
+    for(const msg of [`「${l}」の商品を特定中…`,`「${l}」の相場を確認中…`,`「${l}」の画像を取得中…`]){$("log").textContent="✨ "+msg;await sleep(180)}
+    const hit=identify(l);
+    rows.push({src:l,hit,price:hit?round100(hit.mkt*rate()):0,edited:false});
+    render();
+  }
+  const sec=((performance.now()-t0)/1000).toFixed(1);
+  const ng=rows.filter(r=>!r.hit).length;
+  $("log").textContent=`✅ ${rows.length}件そろえました（${sec}秒）`+(ng?`／${ng}件はAIが特定できなかったので黄色で表示`:"");
+  $("saving").innerHTML=`<div>手打ちなら<br><b>約${rows.length*3}分</b></div><div>AIなら<br><b>${sec}秒</b>＋確認</div>`;
+  $("go").disabled=false;
+};
+function render(){
+  $("tbody").innerHTML=rows.map((r,i)=>r.hit?`
+   <tr><td>${ICON[r.hit.ic](r.hit.col)}</td><td>${esc(r.hit.name)}<div class="note">入力: ${esc(r.src)}</div></td>
+   <td class="num">${yen(r.hit.mkt)}円</td><td class="num"><input type="number" step="100" data-i="${i}" value="${r.price}"></td><td><span class="tag ok">OK</span></td></tr>`:`
+   <tr style="background:rgba(245,158,11,.12)"><td>${ICON.unknown()}</td><td>${esc(r.src)}<div class="note">候補が見つかりません。型番を足すか、手で入れてください</div></td>
+   <td class="num">—</td><td class="num"><input type="number" step="100" data-i="${i}" value="${r.price||""}" placeholder="手入力"></td><td><span class="tag ng">要確認</span></td></tr>`).join("");
+  const show=rows.filter(r=>r.hit||r.price>0);
+  $("grid").innerHTML=show.length?show.map(r=>`<div class="item">${r.hit?ICON[r.hit.ic](r.hit.col):ICON.unknown()}<div class="nm">${esc(r.hit?r.hit.name:r.src)}</div><div class="pr">${yen(r.price)}<small>円</small></div></div>`).join(""):`<div class="empty">「AIにおまかせ」を押すとここに買取表ができます</div>`;
+  const d=new Date();$("date").textContent=`${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日 更新`;
+}
+$("tbody").addEventListener("input",e=>{const i=e.target.dataset.i;if(i==null)return;rows[i].price=+e.target.value||0;rows[i].edited=true;
+  const show=rows.filter(r=>r.hit||r.price>0);$("grid").innerHTML=show.map(r=>`<div class="item">${r.hit?ICON[r.hit.ic](r.hit.col):ICON.unknown()}<div class="nm">${esc(r.hit?r.hit.name:r.src)}</div><div class="pr">${yen(r.price)}<small>円</small></div></div>`).join("")});
+$("clear").onclick=()=>{$("input").value="";$("input").focus()};
+$("print").onclick=()=>window.print();
+render();
+</script>
+</body>
+</html>
