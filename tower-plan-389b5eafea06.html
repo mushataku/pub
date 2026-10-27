@@ -6,49 +6,78 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>25歳タワマン計画</title>
 <style>
-:root{--bg:#fbfaf7;--card:#fff;--ink:#1f2328;--sub:#5b6370;--line:#e6e2da;--acc:#0b5cad;--acc2:#e8f1fb;--warm:#b45309;--warm2:#fff4e5;--ok:#15803d;--ok2:#eaf7ee}
+:root{--bg:#fbfaf7;--card:#fff;--ink:#1f2328;--sub:#5b6370;--line:#e6e2da;--acc:#0b5cad;--acc2:#e8f1fb;--warm:#b45309;--warm2:#fff4e5;--ok:#15803d;--ok2:#eaf7ee;--ng:#b91c1c;--ng2:#fdecec;--gold:#a16207;--gold2:#fef9e7}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;line-height:1.75;font-size:16px}
-.band{position:sticky;top:0;z-index:10;background:rgba(251,250,247,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:8px 16px;font-size:13px;color:var(--sub);display:flex;gap:8px;align-items:center}
-.band b{color:var(--ink)}
+a{color:var(--acc)}
+.band{position:sticky;top:0;z-index:10;background:rgba(251,250,247,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:8px 16px;font-size:13px;color:var(--sub);display:flex;gap:8px;align-items:center}
+.band b{color:var(--ink);white-space:nowrap}
+.band #cur{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .band .now{margin-left:auto;color:var(--acc);font-weight:700;white-space:nowrap}
-main{max-width:760px;margin:0 auto;padding:16px}
-.hero{background:linear-gradient(160deg,#0b2545 0%,#13315c 55%,#1d4e89 100%);color:#fff;border-radius:16px;padding:28px 22px;margin:8px 0 20px;position:relative;overflow:hidden}
-.hero h1{margin:0 0 8px;font-size:26px;line-height:1.35}
-.hero p{margin:0;opacity:.92}
-.hero .goal{margin-top:16px;background:rgba(255,255,255,.12);border-radius:10px;padding:12px 14px;font-size:15px}
-.hero svg{position:absolute;right:-6px;bottom:-4px;opacity:.25}
+main{max-width:780px;margin:0 auto;padding:16px}
 [data-sec]{scroll-margin-top:52px}
-h2{font-size:20px;margin:32px 0 12px;padding-left:10px;border-left:5px solid var(--acc)}
+.hero{background:linear-gradient(160deg,#0b2545 0%,#13315c 55%,#1d4e89 100%);color:#fff;border-radius:16px;padding:28px 22px;margin:8px 0 20px;position:relative;overflow:hidden}
+.hero h1{margin:0 0 4px;font-size:26px;line-height:1.35}
+.hero .ver{font-size:13px;opacity:.8;margin-bottom:10px}
+.hero p{margin:0;opacity:.94}
+.hero .goal{margin-top:16px;background:rgba(255,255,255,.13);border-radius:10px;padding:12px 14px;font-size:15px;position:relative;z-index:1}
+.hero svg{position:absolute;right:-6px;bottom:-4px;opacity:.22}
+.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:12px 0}
+.toc ol{margin:6px 0 0;padding-left:22px;columns:2;column-gap:24px;font-size:14px}
+.toc li{margin:2px 0;break-inside:avoid}
+@media (max-width:520px){.toc ol{columns:1}}
+h2{font-size:20px;margin:36px 0 12px;padding-left:10px;border-left:5px solid var(--acc);line-height:1.4}
+h3{font-size:16px;margin:18px 0 6px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.num{font-size:28px;font-weight:800;color:var(--acc);line-height:1.2}
-.num small{font-size:14px;font-weight:600;color:var(--sub)}
-.lbl{font-size:13px;color:var(--sub)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.wish{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.wish .q{font-weight:800;margin-bottom:4px}
+.wish .a{font-size:14px;color:var(--ink)}
+.concl{background:var(--acc2);border:1px solid #c9dcf3;border-radius:12px;padding:14px 16px}
+.concl li{margin:6px 0}
+.tier{display:inline-block;font-weight:800;border-radius:6px;padding:0 8px;font-size:13px;color:#fff}
+.t-ume{background:#15803d}.t-take{background:#0b5cad}.t-matsu{background:#a16207}
 .tl{list-style:none;margin:0;padding:0;position:relative}
 .tl:before{content:"";position:absolute;left:15px;top:6px;bottom:6px;width:3px;background:var(--line)}
 .tl li{position:relative;padding:0 0 18px 44px}
 .tl li:before{content:"";position:absolute;left:7px;top:6px;width:19px;height:19px;border-radius:50%;background:#fff;border:4px solid var(--acc)}
 .tl li.here:before{background:var(--warm);border-color:var(--warm)}
 .tl li.goal:before{background:var(--ok);border-color:var(--ok)}
+.tl li.after:before{border-color:#9aa4b2}
 .tl .when{font-weight:800}
 .tl .age{display:inline-block;font-size:12px;background:var(--acc2);color:var(--acc);border-radius:99px;padding:1px 8px;margin-left:6px}
 .tl .yen{font-size:13px;color:var(--sub)}
-.tag{display:inline-block;font-size:12px;border-radius:6px;padding:1px 7px;margin-right:4px;background:#f1efe9}
-.here-tag{background:var(--warm2);color:var(--warm);font-weight:700}
-table{width:100%;border-collapse:collapse;font-size:14px}
+.here-tag{display:inline-block;font-size:12px;border-radius:6px;padding:1px 7px;margin-right:4px;background:var(--warm2);color:var(--warm);font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
 th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
-th{background:#f6f4ef;font-size:13px}
-.scroll{overflow-x:auto}
+th{background:#f6f4ef;font-size:13px;white-space:nowrap}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:10px;background:#fff}
+.hint{font-size:12px;color:var(--sub);margin:4px 0 0}
 .warn{background:var(--warm2);border:1px solid #f3d3a6;border-radius:12px;padding:14px 16px;margin:12px 0}
 .okbox{background:var(--ok2);border:1px solid #bfe5cb;border-radius:12px;padding:14px 16px;margin:12px 0}
-.todo li{margin:6px 0}
-.src{font-size:12px;color:var(--sub)}
+.gold{background:var(--gold2);border:1px solid #f1df9f;border-radius:12px;padding:14px 16px;margin:12px 0}
+ul.tight,ol.tight{margin:0;padding-left:20px}
+ul.tight li,ol.tight li{margin:5px 0}
+.sim{background:var(--card);border:2px solid var(--acc);border-radius:14px;padding:16px;margin:14px 0}
+.sim .presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.sim .presets button{font:inherit;font-size:14px;border:1px solid var(--line);background:#f6f4ef;border-radius:99px;padding:6px 12px;cursor:pointer}
+.sim .presets button[aria-pressed="true"]{background:var(--acc);color:#fff;border-color:var(--acc)}
+.sim .row{margin:10px 0}
+.sim label{display:flex;justify-content:space-between;gap:8px;font-weight:700;font-size:15px}
+.sim output{color:var(--acc);font-weight:800;white-space:nowrap}
+.sim input[type=range]{width:100%;margin:6px 0 0;accent-color:var(--acc);height:28px}
+.res{list-style:none;margin:14px 0 0;padding:0}
+.res li{border-radius:10px;padding:10px 12px;margin:8px 0;font-size:14px;background:#f6f4ef}
+.res li b{font-size:15px}
+.res .ok{background:var(--ok2);border:1px solid #bfe5cb}
+.res .ng{background:var(--ng2);border:1px solid #f5c2c2}
+.res .mid{background:var(--warm2);border:1px solid #f3d3a6}
+.src{font-size:12px;color:var(--sub);padding-left:18px}
+.src li{margin:3px 0;word-break:break-all}
 .src a{color:var(--sub)}
-.bar{height:10px;background:#eee;border-radius:99px;overflow:hidden;margin:4px 0 2px}
-.bar span{display:block;height:100%;background:var(--acc)}
-.bar.ok span{background:var(--ok)}
-footer{margin:40px 0 24px;font-size:12px;color:var(--sub)}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:10px 0}
+details summary{cursor:pointer;font-weight:700}
+footer{margin:40px 0 24px;font-size:13px;color:var(--sub)}
 </style>
 </head>
 <body>
@@ -57,102 +86,318 @@ footer{margin:40px 0 24px;font-size:12px;color:var(--sub)}
 
 <section class="hero" data-sec="はじめに">
   <h1>池田さんの<br>「25歳でタワマン」計画</h1>
-  <p>面談で聞いた「15階以上じゃないと虫が出る。だからタワマンに住みたい。25歳までに」を、本気で数字にしてみました。</p>
-  <div class="goal">🎯 ゴール：<b>2029年11月5日（25歳の誕生日）</b>に、15階以上のお部屋へ引っ越す</div>
+  <div class="ver">くわしい版（2026年10月27日）</div>
+  <p>面談で聞いた「虫が本当に無理。15階以上じゃないと虫が出るから、タワマンに住みたい。25歳までに」を、住まい・虫・仕事・お金・買う場合まで全部調べて、本気の計画にしました。</p>
+  <div class="goal">🎯 ゴール：<b>2029年11月5日（25歳の誕生日）</b>までに、15階以上のお部屋で一人暮らしを始める</div>
   <svg width="150" height="190" viewBox="0 0 150 190" aria-hidden="true"><rect x="40" y="10" width="60" height="180" fill="#fff"/><rect x="100" y="60" width="40" height="130" fill="#fff"/><rect x="5" y="90" width="30" height="100" fill="#fff"/></svg>
 </section>
 
-<section data-sec="ゴールを数字にする">
-<h2>① ゴールを数字にする</h2>
+<nav class="toc" aria-label="目次"><b>目次</b>
+<ol>
+<li><a href="#s1">まず結論</a></li>
+<li><a href="#s2">願いを分けてみる</a></li>
+<li><a href="#s3">15階以上の松竹梅</a></li>
+<li><a href="#s4">虫の本当の話</a></li>
+<li><a href="#s5">入居のカギ（計算機）</a></li>
+<li><a href="#s6">稼ぐ道のり</a></li>
+<li><a href="#s7">4つのシナリオ</a></li>
+<li><a href="#s8">個人事業主になるなら</a></li>
+<li><a href="#s9">池田さんの武器</a></li>
+<li><a href="#s10">ほかの道も知っておく</a></li>
+<li><a href="#s11">買うのは何歳から？</a></li>
+<li><a href="#s12">貯金の計画</a></li>
+<li><a href="#s13">先に知っておいてほしいこと</a></li>
+<li><a href="#s14">10月30日に向けて</a></li>
+</ol></nav>
+
+<section id="s1" data-sec="まず結論">
+<h2>① まず結論</h2>
+<div class="concl"><ul class="tight">
+<li><b>25歳で15階以上は、ちゃんと届きます。</b>いちばん確実なのは、20階建てマンションの15階・1K（家賃11.5万円前後）。年収415万円で審査の目安に届きます。</li>
+<li><b>本八幡のタワー（15階以上は17.5万円〜）</b>は、経験2年での転職か独立が条件。届かなければ26〜27歳で。</li>
+<li><b>実家にいる3年間で毎月8〜10万円</b>貯めれば、引っ越し代も、独立するときの安心資金も用意できます。</li>
+</ul></div>
+</section>
+
+<section id="s2" data-sec="願いを分けてみる">
+<h2>② 願いを分けてみる</h2>
+<p>「25歳でタワマン」の中には、いくつかの願いが入っています。分けると、それぞれに別の叶え方が見えてきます。</p>
+<div class="grid">
+<div class="wish"><div class="q">🐛 虫に会いたくない</div><div class="a">高い階は確かに少ない。ただ「管理の良さ・築浅・1階に飲食店がない」も同じくらい大事です。→ <a href="#s4">④</a></div></div>
+<div class="wish"><div class="q">🏠 一人暮らしをしたい</div><div class="a">25歳で十分届きます。カギは家賃より「入居審査」。→ <a href="#s3">③</a> <a href="#s5">⑤</a></div></div>
+<div class="wish"><div class="q">💰 お金を稼ぎたい</div><div class="a">エンジニア＋AIで作る副業の2本立て。→ <a href="#s6">⑥</a> <a href="#s9">⑨</a></div></div>
+<div class="wish"><div class="q">🚃 満員電車に乗りたくない</div><div class="a">本八幡は都営新宿線の始発で座れる。将来はリモート中心へ（フリーランスのインフラ案件は約9割がリモートあり）。→ <a href="#s8">⑧</a></div></div>
+<div class="wish"><div class="q">🧑‍💼 個人事業主になりたい</div><div class="a">経験2年前後から現実的。ただし「部屋を借りるのが先、独立は後」の順番が大事。→ <a href="#s8">⑧</a></div></div>
+<div class="wish"><div class="q">⏰ 25歳までに</div><div class="a">2029年11月5日まで、あと約3年。攻め・標準・確実の道を用意しました。→ <a href="#s7">⑦</a></div></div>
+</div>
+</section>
+
+<section id="s3" data-sec="15階以上の松竹梅">
+<h2>③ 15階以上の松竹梅（実際の物件）</h2>
+<p>2026年10月27日時点で、実際に募集が出ている（または過去に出ていた）15階以上の一人暮らし向けのお部屋です。</p>
+<div class="scroll"><table>
+<tr><th></th><th>場所・建物</th><th>部屋</th><th>家賃（管理費込み）</th><th>審査の目安年収</th><th>本八幡から</th></tr>
+<tr><td><span class="tier t-ume">梅</span></td><td>南砂町駅（東西線）徒歩12分<br>20階建て</td><td>15〜16階<br>1K・25㎡</td><td><b>11.4〜11.6万円</b><br><span class="hint">募集中</span></td><td><b>約415万円</b></td><td>乗り換え1回・約30分</td></tr>
+<tr><td><span class="tier t-take">竹</span></td><td>西大島駅（都営新宿線）徒歩6分<br>19階建て</td><td>17階<br>1K・26㎡</td><td><b>14.2万円</b><br><span class="hint">募集中</span></td><td><b>約511万円</b></td><td>乗り換えなし・約17分</td></tr>
+<tr><td><span class="tier t-matsu">松</span></td><td>本八幡駅 徒歩1〜3分<br>40階建てタワー</td><td>15階以上<br>1LDK・44㎡</td><td><b>17.5万円〜</b><br><span class="hint">過去の募集</span></td><td><b>約630万円</b></td><td>今の最寄り駅</td></tr>
+</table></div>
+<p class="hint">← 表は横にスクロールできます</p>
 <div class="card">
-  <p style="margin-top:0"><b>いちばんの候補は、実は今の最寄り駅にあります。</b></p>
-  <p>本八幡駅から徒歩1分の40階建て「グランドターミナルタワー本八幡」です。都営新宿線の始発駅なので、<b>今と同じように座って通えます</b>（満員電車が苦手な池田さん向き）。</p>
-  <p class="lbl" style="margin-bottom:0">※ 15階以上の一人暮らし向けの間取りは、家賃15〜18万円前後と見ています（近い物件の相場から推定。募集が出たら実物で確かめます）。</p>
+<ul class="tight">
+<li><b>物件は入れ替わります。</b>引っ越しの半年前に、同じ条件（15階以上・1K〜1LDK）で探し直します。</li>
+<li><b>15階以上の家賃は上がる傾向</b>です（市川の15階以上は3年で+16〜31%）。少し余裕をもって考えます。</li>
+<li><b>UR賃貸も候補です。</b>礼金・仲介手数料・更新料・保証人がいらず、家賃6.25万〜20万円の部屋なら<b>月収25万円（年収300万円）</b>で申し込めます。15階以上の空きが出れば強い味方です。35歳以下向けの割引（U35割）がある部屋もあります。</li>
+</ul>
+</div>
+</section>
+
+<section id="s4" data-sec="虫の本当の話">
+<h2>④ 虫の本当の話</h2>
+<div class="card">
+<p style="margin-top:0"><b>高い階ほど虫は少ない、は本当です。</b>ゴキブリを見た場所の71%が1階、11階以上はわずか0.9%という調査もあります（殺虫剤メーカー監修の調査）。</p>
+<p style="margin-bottom:0"><b>ただ「15階以上ならゼロ」ではありません。</b>海外の研究では21階でも蚊が卵を産んでいました。千葉市の保健所も、チャバネゴキブリは大きなビルや高層マンションに多いと書いています。荷物や段ボール、排水管を通って上がってくるからです。</p>
 </div>
 <div class="grid">
-  <div class="card"><div class="lbl">家賃の目安</div><div class="num">15<small>万円/月</small></div><div class="lbl">管理費込み・推定</div></div>
-  <div class="card"><div class="lbl">入居審査に通る年収</div><div class="num">540<small>万円〜</small></div><div class="lbl">家賃の36倍が審査の目安</div></div>
-  <div class="card"><div class="lbl">無理なく払える年収</div><div class="num">675<small>万円</small></div><div class="lbl">家賃＝手取りの1/3まで</div></div>
-  <div class="card"><div class="lbl">引っ越しに要る貯金</div><div class="num">約100<small>万円</small></div><div class="lbl">初期費用（家賃5〜6か月分）＋家具家電</div></div>
+<div class="card" style="margin:0"><h3 style="margin-top:0">🔍 部屋を選ぶときに見る4つ</h3><ol class="tight">
+<li>建物の管理がきれい（ゴミ置き場・共用部）</li>
+<li>1階に飲食店が入っていない</li>
+<li>築年数が新しい</li>
+<li>川や公園のすぐ横ではない</li></ol></div>
+<div class="card" style="margin:0"><h3 style="margin-top:0">🧰 入居した日にやること</h3><ul class="tight">
+<li>換気口とエアコンのホースに虫よけのキャップ</li>
+<li>排水口にネット</li>
+<li>段ボールはすぐ捨てる</li></ul></div>
 </div>
-<p>つまり、<b>25歳で年収540万円以上・貯金100万円</b>に届けばゴールです。</p>
+<p><b>タワマンの高い階＋この4つ</b>で、虫に会う確率はぐっと下がります。</p>
 </section>
 
-<section data-sec="道のり">
-<h2>② 道のり（いまから25歳まで）</h2>
+<section id="s5" data-sec="入居のカギ（計算機）">
+<h2>⑤ 入居のカギは「審査」と「毎月の暮らし」</h2>
+<div class="grid">
+<div class="card" style="margin:0"><h3 style="margin-top:0">📝 審査</h3>
+<p style="margin:0">ふつうの賃貸は<b>年収が家賃の36倍</b>が目安。<br>11.5万円→415万円／14.2万円→511万円／17.5万円→630万円。<br>URは家賃20万円未満なら<b>月収25万円</b>でOK。</p></div>
+<div class="card" style="margin:0"><h3 style="margin-top:0">🧾 毎月の暮らし</h3>
+<p style="margin:0">一人暮らしの家賃以外のお金は<b>月約13.5万円</b>（40歳未満の一人暮らし女性・国の統計）。<br>家賃11.5万円なら、手取り25万円（年収約380万円）で収支トントンです。</p></div>
+</div>
+<p><b>実は「審査の壁」のほうが高い</b>ので、審査に届く年収をめざせば、暮らしは回ります。下の計算機で試してみてください。</p>
+
+<div class="sim" id="sim" data-sec="入居のカギ（計算機）">
+<div style="font-weight:800;margin-bottom:8px">🧮 タワマン計算機</div>
+<div class="presets" role="group" aria-label="お部屋を選ぶ">
+<button type="button" data-rent="11.5" aria-pressed="true">梅 11.5万円</button>
+<button type="button" data-rent="14.2" aria-pressed="false">竹 14.2万円</button>
+<button type="button" data-rent="17.5" aria-pressed="false">松 17.5万円</button>
+</div>
+<div class="row"><label for="inc">25歳の年収 <output id="o_inc" for="inc"></output></label><input type="range" id="inc" min="250" max="900" step="10" value="420"></div>
+<div class="row"><label for="rent">家賃（管理費込み） <output id="o_rent" for="rent"></output></label><input type="range" id="rent" min="7" max="25" step="0.1" value="11.5"></div>
+<div class="row"><label for="sav">実家にいる間の毎月の貯金 <output id="o_sav" for="sav"></output></label><input type="range" id="sav" min="0" max="15" step="1" value="8"></div>
+<ul class="res" aria-live="polite">
+<li id="r1"></li><li id="r2"></li><li id="r3"></li><li id="r4"></li><li id="r5"></li>
+</ul>
+<p class="hint">手取りは独身・40歳未満の目安（2026年の保険料・税率で概算）。審査の基準は物件や保証会社で変わります。</p>
+</div>
+</section>
+
+<section id="s6" data-sec="稼ぐ道のり">
+<h2>⑥ 稼ぐ道のり（いまから25歳まで）</h2>
 <ul class="tl">
-  <li class="here"><span class="when">今〜10月30日（金）15:00</span><span class="age">21歳</span><br><span class="tag here-tag">いまここ</span>ITパスポートの過去問1回分＋CCNAの問題を触ってみる。<br>→「解いてみてどうだったか」が、エンジニアに行けるかの最初の判断材料です。</li>
-  <li><span class="when">2026年11月</span><span class="age">22歳になる月</span><br>内定をとる。11月中に決めて、12月スタートを目指します。</li>
-  <li><span class="when">2026年12月 入社</span><br>研修でCCNA（ネットワーク）かLPI（サーバー）を勉強。<br><span class="yen">年収の目安 約260〜300万円／実家のうちに毎月3万円ずつ貯金スタート</span></li>
-  <li><span class="when">2027年</span><span class="age">23歳</span><br>現場1年目。最初は運用・監視からが普通です。<b>CCNAを取る</b>（受験料46,860円）。<br>上司には「構築をやりたい」と言い続ける。<br><span class="yen">年収の目安 約290〜300万円</span></li>
-  <li><span class="when">2028年</span><span class="age">24歳</span><br>構築の仕事に入る＋<b>AWSの資格（SAA）</b>。年末で経験2年。<br>ここで<b>分かれ道</b>：①もっと上流の会社へ転職 ②フリーランスとして独立（池田さんの「断然個人事業主」）<br><span class="yen">転職なら年収420〜550万円／フリーランスなら月50〜65万円の案件が見えてくる</span></li>
-  <li class="goal"><span class="when">2029年11月5日</span><span class="age">25歳</span><br>🏙 年収540万円以上＋貯金100万円 → <b>15階以上へ引っ越し</b></li>
+<li class="here"><span class="when">今〜10月30日（金）15:00</span><span class="age">21歳</span><br><span class="here-tag">いまここ</span>ITパスポートの過去問1回分＋CCNAの問題を触ってみる。「解いてみてどうだったか」が最初の判断材料です。</li>
+<li><span class="when">2026年11月</span><span class="age">11月5日で22歳</span><br>内定をとって、12月スタートを目指します。</li>
+<li><span class="when">2026年12月 入社</span><br>研修でCCNA（ネットワーク）かLPI（サーバー）。<br><span class="yen">月給22万円前後〜／実家で毎月8〜10万円の貯金スタート</span></li>
+<li><span class="when">2027年</span><span class="age">23歳</span><br>現場1年目。最初は運用・監視からが普通。<b>CCNAに合格</b>（受験料46,860円）。<br>AIで作る副業をスタート（入社した会社の副業ルールを確認してから）。<br><span class="yen">年収の目安 約290〜300万円</span></li>
+<li><span class="when">2028年</span><span class="age">24歳</span><br><b>構築の仕事＋AWSの資格</b>。年末で経験2年。副業で月5〜10万円が見えてくる。<br><span class="yen">貯金は200万円を超えるころ</span></li>
+<li><span class="when">2029年 前半</span><span class="age">24歳</span><br><b>転職で年収450〜600万円</b>をねらう（クラウドの仕事・自社サービスの会社など）。</li>
+<li class="goal"><span class="when">2029年11月5日</span><span class="age">25歳</span><br>🏙 <b>会社員のうちに入居審査を通して、15階以上へ引っ越し</b></li>
+<li class="after"><span class="when">その先</span><br>独立（インフラのフリーランス案件は平均で月68〜78万円）→ リモート中心・移動はタクシーの生活 → 30歳前後で「買う」も視野に。</li>
 </ul>
 </section>
 
-<section data-sec="3つのルート">
-<h2>③ 25歳時点の年収、3つのルート</h2>
+<section id="s7" data-sec="4つのシナリオ">
+<h2>⑦ 4つのシナリオ</h2>
 <div class="scroll"><table>
-<tr><th>ルート</th><th>25歳の年収の目安</th><th>審査ライン540万円</th></tr>
-<tr><td>同じ会社で続ける</td><td>約380〜430万円</td><td><div class="bar"><span style="width:75%"></span></div>届かない</td></tr>
-<tr><td>経験2年で転職</td><td>約450〜550万円</td><td><div class="bar"><span style="width:95%"></span></div>上振れで届く</td></tr>
-<tr><td>経験2年でフリーランス</td><td>月55〜85万円の案件<br>（年660〜1,000万円相当）</td><td><div class="bar ok"><span style="width:100%"></span></div>届く</td></tr>
+<tr><th>シナリオ</th><th>やること</th><th>25歳の年収</th><th>住める部屋</th></tr>
+<tr><td><b>攻め</b></td><td>2年で構築＋AWS → 転職</td><td>500〜600万円</td><td><span class="tier t-take">竹</span>〜<span class="tier t-matsu">松</span></td></tr>
+<tr><td><b>標準</b></td><td>同じ会社で3年＋副業</td><td>380〜430万円＋副業</td><td><span class="tier t-ume">梅</span>（審査ぎりぎり。URなら余裕）</td></tr>
+<tr><td><b>確実</b></td><td>26歳まで1年のばす</td><td>450〜550万円</td><td><span class="tier t-take">竹</span></td></tr>
+<tr><td><b>寄り道</b></td><td>24歳で築浅10階建て（1K 8〜11万円）で一人暮らしデビュー → 26歳でタワマン</td><td>—</td><td>練習してから本番</td></tr>
 </table></div>
-<p>正直に言うと、<b>普通に会社員を続けるだけだと25歳には間に合いません</b>。間に合わせるには「経験2年で次の階段に飛ぶ」が必須です。<br>そのために、最初の2年で<b>資格（CCNA→AWS）と構築の経験</b>を取り切ります。</p>
+<p class="hint">← 表は横にスクロールできます</p>
+<div class="okbox"><b>どのシナリオでも、15階以上の一人暮らしにはたどり着けます。</b>違うのは「何歳で」「どの部屋か」だけです。<b>25歳は本気で狙う目標、26歳は確実に届く目標</b>として持っておきましょう。</div>
 </section>
 
-<section data-sec="正直なところ">
-<h2>④ 先に知っておいてほしいこと</h2>
-<div class="warn">
-<ul style="margin:0;padding-left:20px">
-<li><b>最初の配属は選べません。</b>運用・監視のままだと年収は400万円台で止まりがちです。だから資格で前に出ます。</li>
-<li><b>入社直後に待機期間（現場が決まるまで）がある</b>ことがあります。その間も勉強を止めないのが差になります。</li>
-<li><b>フリーランス1年目は、賃貸の審査が会社員より厳しい</b>ことがあります（確定申告の実績を見られるため）。貯金を多めに持っておくと安心です。</li>
+<section id="s8" data-sec="個人事業主になるなら">
+<h2>⑧ 個人事業主になるなら（順番が大事）</h2>
+<ol class="tight">
+<li><b>部屋を借りるのが先、独立は後。</b>フリーランス1年目は確定申告の実績がなく、審査で不利になりがちです（家賃の6か月〜1年分の貯金を見られることも）。会社員のうちに入居すれば、独立しても住み続けられます。</li>
+<li><b>独立は経験2年前後から。</b>「1年は厳しい・1年半で可能・2年で十分」が目安です。実例：会社員1年8か月で独立して初案件は月48万円、のちに月88万円。</li>
+<li><b>相場：</b>インフラのフリーランス案件の平均は月68〜78万円（経験年数をならした平均）。</li>
+<li><b>満員電車とさよなら：</b>インフラのフリーランス案件の約9割がリモートあり（フルリモート26%・一部リモート61%）。</li>
+<li><b>副業から始めると「実績」がたまる：</b>開業届を出して確定申告を続けると、独立したときの審査（賃貸・ローン）で見てもらえる実績になります。※入社する会社の副業ルールを先に確認します。</li>
+<li><b>もっと先の話：</b>会社をつくって社宅にする方法もありますが、月60万円くらいの売上だと差はほとんど出ません。年収がもっと上がってからで大丈夫です。</li>
+</ol>
+</section>
+
+<section id="s9" data-sec="池田さんの武器">
+<h2>⑨ 池田さんの武器</h2>
+<div class="grid">
+<div class="card" style="margin:0">📞 <b>電話営業 1日400件・月40件の契約</b><br><span class="hint" style="font-size:14px">量をこなす根性と、数字で動ける力</span></div>
+<div class="card" style="margin:0">🍓 <b>クレープ店で売上目標（月420万円）を2回達成</b><br><span class="hint" style="font-size:14px">目標から逆算して動ける</span></div>
+<div class="card" style="margin:0">🥚 <b>面談の3時間後に、AIで育成ゲームを完成</b><br><span class="hint" style="font-size:14px">たまご→成長・ミニゲーム・図鑑まで。作る力とAIを使いこなす力</span></div>
+<div class="card" style="margin:0">📚 <b>暗記が得意</b><br><span class="hint" style="font-size:14px">資格の勉強は覚えることが中心。ここは強みがそのまま出ます</span></div>
+</div>
+<p>営業職から離れても、営業で鍛えた力は<b>副業のお客さん集め</b>で生きます。営業に戻らずに、営業力を自分のために使う形です。</p>
+</section>
+
+<section id="s10" data-sec="ほかの道も知っておく">
+<h2>⑩ ほかの道も知っておく</h2>
+<div class="scroll"><table>
+<tr><th>仕事</th><th>年収の目安</th><th>ひとこと</th></tr>
+<tr><td>IT事務</td><td>314万円（25歳女性の平均）</td><td>安定。タワマンまでは遠回り</td></tr>
+<tr><td>ヘルプデスク</td><td>362万円（全年齢の平均）</td><td>IT事務からの次の一歩</td></tr>
+<tr><td>テクニカルサポート</td><td>432万円（全年齢の平均）</td><td>電話対応の経験が生きる</td></tr>
+<tr><td>セールスエンジニア</td><td>511万円（全年齢の平均）</td><td>エンジニア2〜3年の後。営業経験がプラスに（営業っぽさは残る）</td></tr>
+<tr><td>インフラ→クラウドの構築</td><td>500〜700万円（経験3〜5年）</td><td>本命の道</td></tr>
+<tr><td>AIで作る副業</td><td>月5〜10万円（1年以内の目安）</td><td>最初の3か月はほぼゼロ。お店のHP・予約システム＋月額の保守で積み上げる</td></tr>
+</table></div>
+<p class="hint">← 表は横にスクロールできます。全年齢の平均は、25歳の実際より高めに出ます。</p>
+</section>
+
+<section id="s11" data-sec="買うのは何歳から？">
+<h2>⑪ 買うのは何歳から？</h2>
+<div class="card">
+<p style="margin-top:0">本八幡のタワーの14階・1LDK（44.5㎡）は<b>売出6,480万円</b>。25歳・年収400〜550万円で借りられる住宅ローンは<b>約2,700〜3,700万円</b>まで。だから<b>25歳は「借りる」が正解</b>です。</p>
+<p style="margin-bottom:0">買うなら<b>28〜30歳以降・勤続3年以上（独立していれば確定申告3年分）・頭金15〜20%</b>が目安です。<br>👉 <b>「25歳で住む、30歳で買う」</b>が次のゴールになります。</p>
+</div>
+<p class="hint">住宅ローンの金利（2026年10月）：変動1.3〜1.6%前後・フラット35は3.83%。金利は上がる方向です。</p>
+</section>
+
+<section id="s12" data-sec="貯金の計画">
+<h2>⑫ 貯金の計画</h2>
+<div class="card">
+<ul class="tight">
+<li>実家にいるうちは<b>毎月8〜10万円</b> → 36か月で<b>288〜360万円</b></li>
+<li>使い道：引っ越しの初期費用（家賃の5〜6か月分。11.5万円なら約63〜69万円）＋家具家電（10〜20万円）</li>
+<li>残りは、独立するときや、もしものときの安心資金に</li>
+<li>給料日に、先に別の口座へ移す<b>「先取り貯金」</b>がおすすめ</li>
+<li>NISAは5年以上置いておく前提のもの（金融庁）。<b>3年後に使う引っ越し資金は預金で</b></li>
 </ul>
 </div>
-<div class="okbox">
-<b>もし25歳ぴったりに間に合わなくても、夢は諦めません。</b><br>経験3〜5年のインフラエンジニアなら、フリーランスで月65〜85万円の相場があります。26歳・27歳でのタワマンは十分に現実的な線です。<b>25歳は「本気で狙う目標」、26歳は「確実に届く目標」</b>として持っておきましょう。
-</div>
 </section>
 
-<section data-sec="貯金計画">
-<h2>⑤ 貯金の計画</h2>
-<div class="card">
-<p style="margin-top:0">引っ越しまで約36か月。<b>毎月3万円 × 36か月 ＝ 108万円</b>で、初期費用と家具家電がまかなえます。</p>
-<p style="margin-bottom:0">実家にいる間が一番貯めやすい時期です。給料日に先に別口座へ移す「先取り貯金」がおすすめです。</p>
-</div>
+<section id="s13" data-sec="先に知っておいてほしいこと">
+<h2>⑬ 先に知っておいてほしいこと</h2>
+<div class="warn"><ul class="tight">
+<li><b>最初の配属は選べません。</b>運用・監視のままだと年収は400万円前後で止まりがち。だから資格で前に出ます。</li>
+<li><b>入社してから現場が決まるまで、待機期間がある</b>ことがあります。その間も勉強を止めないのが差になります。</li>
+<li><b>物件と家賃は3年で動きます。</b>引っ越しの半年前に探し直します。</li>
+<li><b>25歳に間に合わなくても大丈夫。</b>26歳・27歳でも十分に現実的です。夢はそのまま、時期だけ少しずらせばいい。</li>
+</ul></div>
 </section>
 
-<section data-sec="今週やること">
-<h2>⑥ 今週やること</h2>
-<div class="card">
-<ol class="todo" style="margin:0;padding-left:20px">
-<li>ITパスポートの過去問を1回分（いちばん新しい年度・100問）<br><a href="https://www.itpassportsiken.com/ipkakomon.php">ITパスポート過去問道場</a></li>
-<li>CCNAの問題を解ける範囲で触ってみる<br><a href="https://ping-t.com/">Ping-t</a></li>
-<li>BREXA Communications のホームページを見て、気になることがあればLINEで</li>
-<li><b>10月30日（金）15:00</b>の面談で「やってみてどうだったか」を聞かせてください</li>
-</ol>
+<section id="s14" data-sec="10月30日に向けて">
+<h2>⑭ 10月30日（金）15:00に向けて</h2>
+<div class="grid">
+<div class="card" style="margin:0"><h3 style="margin-top:0">✏️ 今週やること</h3><ol class="tight">
+<li>ITパスポートの過去問1回分（いちばん新しい年度・100問）<br><a href="https://www.itpassportsiken.com/ipkakomon.php">ITパスポート過去問道場</a></li>
+<li>CCNAの問題を解ける範囲で<br><a href="https://ping-t.com/">Ping-t</a></li>
+<li>BREXA Communications のホームページを見る</li></ol></div>
+<div class="card" style="margin:0"><h3 style="margin-top:0">💬 面談で教えてほしいこと</h3><ol class="tight">
+<li>今の貯金はどのくらいか</li>
+<li>今の毎月の手取り</li>
+<li>家に入れているお金はあるか</li>
+<li>住むなら本八幡のまま？都心寄りもあり？</li>
+<li>お部屋の広さは1Kで大丈夫か</li></ol>
+<p class="hint">計画をもっと池田さん専用にするために使います。</p></div>
 </div>
-<p>この計画の一歩目は、この過去問です。一緒にタワマンまで行きましょう🏙</p>
+<div class="gold"><b>この計画の一歩目は、今週の過去問です。</b>一緒に15階まで行きましょう🏙</div>
 </section>
 
 <footer data-sec="数字の出どころ">
-<p><b>数字の出どころ</b>（2026年10月時点で調べたもの。家賃・年収は目安です）</p>
+<details><summary>数字の出どころ（2026年10月27日に調べたもの）</summary>
+<p>家賃・年収は目安です。物件は掲載が入れ替わります。</p>
+<b>住まい</b>
 <ul class="src">
-<li>家賃と年収の目安（手取りの1/3）: <a href="https://ieagent.jp/blog/money/nesyuyachin-48258">ieagent</a>／入居審査（年収は家賃の36倍）: <a href="https://www.chintai.net/news/152503/">CHINTAI</a></li>
-<li>初期費用（家賃の5〜6か月分）: <a href="https://smtrc.jp/useful/glossary/detail/n/3157">三井住友トラスト不動産</a></li>
-<li>本八幡駅周辺の1LDK賃料: <a href="https://myhome.nifty.com/rent/ft_1ldk/chiba/motoyawata_st/">@nifty不動産</a>／グランドターミナルタワー本八幡: <a href="https://mansion-market.com/mansions/detail/49182">マンションマーケット</a></li>
-<li>インフラエンジニアの年収（未経験〜3年目〜5年目）: <a href="https://www.geekly.co.jp/column/cat-position/1904_010/">ギークリー</a></li>
-<li>CCNAの受験料・勉強時間: <a href="https://media.theit.co.jp/ccna-jukenryo/">InfraNavi</a>／<a href="https://tenshoku.mynavi.jp/engineer/guide/articles/YKyFJxIAACEALSws">マイナビ転職</a></li>
-<li>フリーランスの単価（経験年数別）: <a href="https://atsoho.com/blog/infra-engineer-freelance-tanka">atsoho</a>／案件は経験2年から: <a href="https://coeteco.jp/articles/12977">コエテコ</a></li>
+<li>本八幡のタワーの家賃の記録：<a href="https://www.homes.co.jp/archive/b-11480587/">LIFULL HOME'S</a>／売出価格：<a href="https://suumo.jp/ms/chuko/chiba/sc_ichikawa/nc_21950510/">SUUMO</a></li>
+<li>南砂町・西大島の15階以上の募集：<a href="https://suumo.jp/chintai/tokyo/sc_koto/">SUUMO（江東区）</a></li>
+<li>築浅の1K（本八幡）：<a href="https://suumo.jp/chintai/chiba/ek_39350/">SUUMO（本八幡駅）</a></li>
+<li>URの申し込み資格：<a href="https://www.ur-net.go.jp/chintai/rent/requirements/">UR賃貸住宅</a>／U35割：<a href="https://www.ur-net.go.jp/chintai/whats/system/u35/">UR賃貸住宅</a></li>
+<li>入居審査（年収は家賃の36倍）：<a href="https://www.chintai.net/news/152503/">CHINTAI</a>／初期費用（家賃の5〜6か月分）：<a href="https://smtrc.jp/useful/glossary/detail/n/3157">三井住友トラスト不動産</a></li>
+<li>開業1年目の審査：<a href="https://www.homes.co.jp/cont/rent/rent_00750/">LIFULL HOME'S</a></li>
 </ul>
+<b>虫</b>
+<ul class="src">
+<li>高層住宅の蚊（21階でも産卵）：<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7557596/">論文（PMC）</a></li>
+<li>ゴキブリと高層マンション：<a href="https://www.city.chiba.jp/hokenfukushi/iryoeisei/hokenjo/kankyo/gokiburi.html">千葉市保健所</a>／コバエと排水：<a href="https://www.city.shinjuku.lg.jp/content/000318673.pdf">新宿区</a></li>
+<li>ゴキブリを見た階（1階71.2%・11階以上0.9%）：<a href="https://weathernews.jp/news/202609/090271/">ウェザーニュース（アース製薬監修）</a></li>
+</ul>
+<b>仕事</b>
+<ul class="src">
+<li>インフラエンジニアの年収（未経験〜3年目〜5年目）：<a href="https://www.geekly.co.jp/column/cat-position/1904_010/">ギークリー</a></li>
+<li>職種別・年齢別の平均年収：<a href="https://doda.jp/guide/heikin/syokusyu/">doda（職種別）</a>／<a href="https://doda.jp/guide/heikin/age/25.html">doda（25歳）</a></li>
+<li>フリーランスの平均単価：<a href="https://freelance.levtech.jp/project/occ-4/">レバテックフリーランス</a>／<a href="https://itpropartners.com/job/engineer/infrastructure-engineer">ITプロパートナーズ</a></li>
+<li>独立できる経験年数の目安：<a href="https://mid-works.com/columns/freelance/problems/1134022">Midworks</a>／リモートの割合：<a href="https://prtimes.jp/main/html/rd/p/000000124.000116595.html">フリーランスボード調査</a></li>
+<li>独立の実例：<a href="https://study-infra.com/quit-ses/">体験記</a>／<a href="https://qiita.com/paeria/items/7cb70e5b0f5e1ea79c87">未経験からインフラ3年の体験記</a></li>
+<li>CCNAの受験料：<a href="https://media.theit.co.jp/ccna-jukenryo/">InfraNavi</a></li>
+<li>副業の収入（中央値月5万円）：<a href="https://www.jil.go.jp/institute/research/2024/documents/0245.pdf">労働政策研究・研修機構</a>／ホームページ制作の案件：<a href="https://www.lancers.jp/work/search/web/homepage">ランサーズ</a></li>
+</ul>
+<b>お金</b>
+<ul class="src">
+<li>一人暮らしの生活費（40歳未満の単身女性）：<a href="https://www.mhlw.go.jp/content/12002000/001662655.pdf">全国家計構造調査2024</a></li>
+<li>20代の貯蓄：<a href="https://www.j-flec.go.jp/data/kakekin_2025/">J-FLEC 家計の金融行動に関する世論調査2025</a></li>
+<li>NISAの保有期間：<a href="https://www.fsa.go.jp/policy/nisa/20170614-2/12.pdf">金融庁</a></li>
+<li>住宅ローン金利：<a href="https://www.simulation.jhf.go.jp/flat35/kinri/index.php/rates/top">フラット35（住宅金融支援機構）</a>／<a href="https://www.boj.or.jp/mopo/mpmdeci/mpr_2026/k260918a.pdf">日本銀行</a></li>
+</ul>
+</details>
 <p>作成：武者野</p>
 </footer>
 </main>
 <script>
-(function(){var secs=[].slice.call(document.querySelectorAll('[data-sec]'));var cur=document.getElementById('cur');
-function upd(){var y=window.scrollY+window.innerHeight*0.4,name=secs[0].getAttribute('data-sec');secs.forEach(function(s){if(s.offsetTop<=y)name=s.getAttribute('data-sec')});cur.textContent=name}
-window.addEventListener('scroll',upd,{passive:true});upd();})();
+(function(){
+  var secs=[].slice.call(document.querySelectorAll('section[data-sec],footer[data-sec]'));
+  var cur=document.getElementById('cur');
+  var jump=null;
+  [].slice.call(document.querySelectorAll('a[href^="#s"]')).forEach(function(a){
+    a.addEventListener('click',function(){jump=document.querySelector(a.getAttribute('href'))})});
+  ['wheel','touchstart','keydown'].forEach(function(ev){window.addEventListener(ev,function(){jump=null},{passive:true})});
+  function upd(){
+    if(jump){var jt=jump.getBoundingClientRect().top;if(jt>-5&&jt<150){cur.textContent=jump.getAttribute('data-sec');return}jump=null}
+    var y=window.scrollY+60,idx=0;
+    secs.forEach(function(s,i){if(s.offsetTop<=y)idx=i});
+    var atBottom=window.scrollY+window.innerHeight>=document.documentElement.scrollHeight-2;
+    if(atBottom){for(var j=secs.length-1;j>idx;j--){if(secs[j].getBoundingClientRect().top<window.innerHeight*0.5){idx=j;break}}}
+    cur.textContent=secs[idx].getAttribute('data-sec')}
+  window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
+
+  var T=[[250,16.9],[300,20.1],[400,26.5],[500,32.8],[600,38.8],[700,44.4],[800,49.8],[900,55.0]];
+  function tedori(inc){if(inc<=T[0][0])return T[0][1];for(var i=1;i<T.length;i++){if(inc<=T[i][0]){var a=T[i-1],b=T[i];return a[1]+(b[1]-a[1])*(inc-a[0])/(b[0]-a[0])}}return T[T.length-1][1]}
+  function f(n){var r=Math.round(n*10)/10;return (r%1===0?r.toFixed(0):r.toFixed(1))}
+  var inc=document.getElementById('inc'),rent=document.getElementById('rent'),sav=document.getElementById('sav');
+  var btns=[].slice.call(document.querySelectorAll('.presets button'));
+  function set(id,cls,html){var el=document.getElementById(id);el.className=cls;el.innerHTML=html}
+  function calc(){
+    var I=parseFloat(inc.value),R=parseFloat(rent.value),S=parseFloat(sav.value);
+    document.getElementById('o_inc').textContent=f(I)+'万円';
+    document.getElementById('o_rent').textContent=f(R)+'万円';
+    document.getElementById('o_sav').textContent=f(S)+'万円';
+    btns.forEach(function(b){b.setAttribute('aria-pressed',Math.abs(parseFloat(b.getAttribute('data-rent'))-R)<0.05?'true':'false')});
+    var need=R*36;
+    if(I>=need)set('r1','ok','<b>✅ ふつうの賃貸の審査：届く目安</b><br>年収'+f(I)+'万円なら家賃'+f(I/36)+'万円まで');
+    else set('r1','ng','<b>❌ ふつうの賃貸の審査：あと年収'+f(need-I)+'万円</b><br>家賃'+f(R)+'万円には年収'+f(need)+'万円が目安');
+    var mon=I/12,urNeed=R<6.25?R*4:(R<20?25:40);
+    if(mon>=urNeed)set('r2','ok','<b>✅ URの基準：届く</b><br>月収'+f(mon)+'万円（基準は月収'+f(urNeed)+'万円）');
+    else set('r2','ng','<b>❌ URの基準：あと月収'+f(urNeed-mon)+'万円</b><br>この家賃の基準は月収'+f(urNeed)+'万円');
+    var t=tedori(I),pct=Math.round(R/t*100);
+    set('r3',pct<=33?'ok':(pct<=45?'mid':'ng'),'<b>毎月の手取り：約'+f(t)+'万円</b><br>家賃はその'+pct+'%'+(pct<=33?'（ちょうどいい）':(pct<=45?'（少し重め）':'（重すぎる）')));
+    var rem=t-R-13.5;
+    if(rem>=0)set('r4',rem>=3?'ok':'mid','<b>家賃＋生活費（13.5万円）を払って毎月 '+f(rem)+'万円 残る</b>');
+    else set('r4','ng','<b>家賃＋生活費（13.5万円）に毎月 '+f(-rem)+'万円 足りない</b>');
+    var tot=S*36,cost=R*5.5+15,left=tot-cost;
+    set('r5',left>=50?'ok':(left>=0?'mid':'ng'),'<b>3年で貯まるお金：'+f(tot)+'万円</b><br>引っ越し費用（約'+f(cost)+'万円）を払って'+(left>=0?'約'+f(left)+'万円が手元に残る':'約'+f(-left)+'万円足りない'));
+  }
+  [inc,rent,sav].forEach(function(el){el.addEventListener('input',calc)});
+  btns.forEach(function(b){b.addEventListener('click',function(){rent.value=b.getAttribute('data-rent');calc()})});
+  calc();
+})();
 </script>
 </body>
 </html>
