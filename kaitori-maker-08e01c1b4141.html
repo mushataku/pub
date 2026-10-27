@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>買取表メーカー</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1d2330;--mute:#6b7280;--line:#e3e6eb;--accent:#d62e2e;--head:#1d2330}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#14171c;--card:#1e232b;--ink:#eef1f5;--mute:#9aa3af;--line:#323844;--accent:#ff5a5a;--head:#0c0e12}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Hiragino Sans","Yu Gothic UI",sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:16px}
+h1{font-size:20px;margin:0 0 4px}
+.sub{color:var(--mute);font-size:13px;margin-bottom:16px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:16px}
+.row{display:grid;grid-template-columns:72px 1fr 120px 36px;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.thumb{width:72px;height:72px;border:1px dashed var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--mute);cursor:pointer;overflow:hidden;background:var(--bg);text-align:center}
+.thumb img{width:100%;height:100%;object-fit:contain}
+input[type=text],input[type=number]{width:100%;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font-size:15px}
+button{padding:8px 12px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink);font-size:14px;cursor:pointer}
+button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.del{padding:6px;color:var(--mute)}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.hint{font-size:12px;color:var(--mute);margin-top:8px}
+#sheet{background:#fff;color:#111;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+#sheet .bar{background:#111;color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+#sheet .bar b{font-size:22px;letter-spacing:.05em}
+#sheet .bar span{font-size:12px;opacity:.8}
+#sheet input.title{background:transparent;border:0;color:#fff;font-size:22px;font-weight:700;padding:0;width:auto;min-width:0;flex:1}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1px;background:#ddd}
+.item{background:#fff;padding:10px;text-align:center}
+.item .im{height:110px;display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+.item .im img{max-width:100%;max-height:110px;object-fit:contain}
+.item .im .ph{width:100%;height:100%;background:#f0f0f0;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#999;font-size:12px}
+.item .nm{font-size:13px;line-height:1.35;min-height:2.7em;word-break:break-word}
+.item .pr{font-size:22px;font-weight:800;color:#d62e2e;margin-top:4px}
+.item .pr small{font-size:12px;font-weight:600;margin-left:1px}
+.foot{padding:8px 16px;font-size:11px;color:#666;border-top:1px solid #ddd}
+@media (max-width:520px){.row{grid-template-columns:56px 1fr 90px 30px}.thumb{width:56px;height:56px}}
+@media print{body{background:#fff}.wrap>*:not(#sheetWrap){display:none}#sheet{border:0}.grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>買取表メーカー</h1>
+  <div class="sub">左で「画像・名前・価格」を入れると、下の買取表がその場でできあがります。印刷ボタンでそのまま紙・PDFにできます。</div>
+
+  <div class="panel">
+    <div id="rows"></div>
+    <div class="tools">
+      <button id="add">＋ 商品を追加</button>
+      <button id="bulk">表から貼り付け</button>
+      <button id="print" class="primary">印刷 / PDF保存</button>
+      <button id="reset">見本に戻す</button>
+    </div>
+    <div class="hint">画像は四角をタップして写真を選ぶか、画像をドラッグで落とします。「表から貼り付け」はスプレッドシートの「名前／価格」2列をコピーして貼るだけで一括登録できます。</div>
+  </div>
+
+  <div id="sheetWrap">
+    <div id="sheet">
+      <div class="bar"><input class="title" id="title" value="本日の買取価格表"><span id="date"></span></div>
+      <div class="grid" id="grid"></div>
+      <div class="foot">※価格は状態・付属品により変動します。表示価格は未使用・付属品完備の上限価格です。</div>
+    </div>
+  </div>
+</div>
+<input type="file" id="file" accept="image/*" hidden>
+<script>
+const SAMPLE=[
+ {name:"iPhone 15 128GB",price:78000,img:""},
+ {name:"iPhone 14 128GB",price:58000,img:""},
+ {name:"Nintendo Switch 有機ELモデル",price:26000,img:""},
+ {name:"PlayStation 5",price:42000,img:""},
+ {name:"AirPods Pro（第2世代）",price:18000,img:""},
+ {name:"iPad（第10世代）64GB",price:36000,img:""}
+];
+let items;
+try{items=JSON.parse(localStorage.getItem("kaitori_items"))||null}catch(e){items=null}
+if(!items)items=SAMPLE.map(x=>({...x}));
+let pick=-1;
+const $=id=>document.getElementById(id);
+function save(){try{localStorage.setItem("kaitori_items",JSON.stringify(items))}catch(e){}}
+function yen(n){n=Number(n)||0;return n.toLocaleString("ja-JP")}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function renderRows(){
+  $("rows").innerHTML=items.map((it,i)=>`
+   <div class="row" data-i="${i}">
+     <div class="thumb" data-i="${i}">${it.img?`<img src="${it.img}" alt="">`:"画像を<br>選ぶ"}</div>
+     <input type="text" data-k="name" data-i="${i}" value="${esc(it.name)}" placeholder="商品名">
+     <input type="number" data-k="price" data-i="${i}" value="${it.price}" placeholder="価格" min="0" step="100">
+     <button class="del" data-i="${i}" title="削除">✕</button>
+   </div>`).join("");
+}
+function renderSheet(){
+  $("grid").innerHTML=items.filter(it=>it.name||it.price).map(it=>`
+   <div class="item">
+     <div class="im">${it.img?`<img src="${it.img}" alt="">`:`<div class="ph">NO IMAGE</div>`}</div>
+     <div class="nm">${esc(it.name||"（名前なし）")}</div>
+     <div class="pr">${yen(it.price)}<small>円</small></div>
+   </div>`).join("");
+  const d=new Date();$("date").textContent=`${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日 更新`;
+}
+function all(){renderRows();renderSheet();save()}
+$("rows").addEventListener("input",e=>{const t=e.target;if(t.dataset.k){items[t.dataset.i][t.dataset.k]=t.dataset.k==="price"?Number(t.value):t.value;renderSheet();save()}});
+$("rows").addEventListener("click",e=>{
+  const del=e.target.closest(".del");if(del){items.splice(del.dataset.i,1);all();return}
+  const th=e.target.closest(".thumb");if(th){pick=+th.dataset.i;$("file").value="";$("file").click()}
+});
+$("rows").addEventListener("dragover",e=>{if(e.target.closest(".thumb"))e.preventDefault()});
+$("rows").addEventListener("drop",e=>{const th=e.target.closest(".thumb");if(!th)return;e.preventDefault();const f=e.dataTransfer.files[0];if(f)loadImg(f,+th.dataset.i)});
+$("file").addEventListener("change",e=>{const f=e.target.files[0];if(f&&pick>=0)loadImg(f,pick)});
+function loadImg(f,i){
+  if(!f.type.startsWith("image/"))return;
+  const r=new FileReader();
+  r.onload=()=>{const im=new Image();im.onload=()=>{const s=Math.min(1,400/Math.max(im.width,im.height));const c=document.createElement("canvas");c.width=im.width*s;c.height=im.height*s;c.getContext("2d").drawImage(im,0,0,c.width,c.height);items[i].img=c.toDataURL("image/jpeg",.85);all()};im.src=r.result};
+  r.readAsDataURL(f);
+}
+$("add").onclick=()=>{items.push({name:"",price:0,img:""});all();const ins=document.querySelectorAll('#rows input[data-k="name"]');ins[ins.length-1].focus()};
+$("print").onclick=()=>window.print();
+$("reset").onclick=()=>{items=SAMPLE.map(x=>({...x}));all()};
+$("bulk").onclick=()=>{
+  const txt=prompt("スプレッドシートの「名前」「価格」の2列をコピーして貼ってください");
+  if(!txt)return;
+  const add=txt.trim().split(/\r?\n/).map(l=>l.split(/\t|,/)).filter(c=>c[0]&&c[0].trim()).map(c=>({name:c[0].trim(),price:Number(String(c[1]||"").replace(/[^\d]/g,""))||0,img:""}));
+  if(add.length){items=items.concat(add);all()}
+};
+all();
+</script>
+</body>
+</html>
