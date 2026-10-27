@@ -150,6 +150,7 @@ function iphone(n){
   const gb=(n.match(/(?<!\d)(64|128|256|512|1 ?tb)(?!\d)/)||[,"128"])[1].replace(" ","");
   const gbMul={"64":0.9,"128":1,"256":1.12,"512":1.28,"1tb":1.45}[gb];
   const dual=/dual|デュアル|でゅある/.test(n);
+  if(dual&&!m){const pm=/max|マックス/.test(n);return {name:`Apple iPhone Dual ${pm?"Pro Max":"Pro"} ${gb==="1tb"?"1TB":(gb==="64"?"128":gb)+"GB"}（最新モデル）`,mkt:Math.round(175000*(pm?1.12:1)*Math.max(1,gbMul)/1000)*1000,ic:"phone",col:"#c8b07a",guess:false}}
   return {name:`Apple iPhone ${gen}${suf} ${gb==="1tb"?"1TB":gb+"GB"}${dual?"（デュアルSIM）":""}`,mkt:Math.round(IP_BASE[gen]*mul*gbMul/1000)*1000,ic:"phone",col:IP_COL[gen%6],guess:!m};
 }
 function estimate(line){
