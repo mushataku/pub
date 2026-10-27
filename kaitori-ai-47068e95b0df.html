@@ -136,10 +136,33 @@ const DB=[
 const BASE={iphone:["iphone","あいふぉん","アイフォン","アイホン"],switch:["switch","スイッチ","すいっち"],ps:["ps5","プレステ","ぷれすて","playstation"],airpods:["airpods","エアポッズ","えあぽっず","エアーポッズ"],ipad:["ipad","アイパッド","あいぱっど"],watch:["watch","ウォッチ","うぉっち"]};
 const $=id=>document.getElementById(id);
 const norm=s=>s.toLowerCase().replace(/[\s　]/g,"").replace(/[０-９ａ-ｚ]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0));
+const IP_BASE={11:30000,12:42000,13:60000,14:80000,15:105000,16:125000,17:145000};
+const IP_COL=["#f2b8c6","#9ec3e6","#e8d6ef","#c9d8c5","#f4e1b8","#2b2b2b"];
+function iphone(n){
+  const m=n.match(/(?<!\d)(1[1-7])(?!\d)/);const gen=m?+m[1]:16;
+  let suf="",mul=1;
+  n=n.replace(/[\s　]+/g," ");
+  if(/pro ?max|プロ ?マックス|ぷろ ?まっくす|max/.test(n)){suf=" Pro Max";mul=1.45}
+  else if(/pro|プロ|ぷろ/.test(n)){suf=" Pro";mul=1.3}
+  else if(/plus|プラス|ぷらす/.test(n)){suf=" Plus";mul=1.12}
+  else if(/mini|ミニ|みに/.test(n)){suf=" mini";mul=0.85}
+  else if(/air|エア|えあ/.test(n)){suf=" Air";mul=1.15}
+  const gb=(n.match(/(?<!\d)(64|128|256|512|1 ?tb)(?!\d)/)||[,"128"])[1].replace(" ","");
+  const gbMul={"64":0.9,"128":1,"256":1.12,"512":1.28,"1tb":1.45}[gb];
+  const dual=/dual|デュアル|でゅある/.test(n);
+  return {name:`Apple iPhone ${gen}${suf} ${gb==="1tb"?"1TB":gb+"GB"}${dual?"（デュアルSIM）":""}`,mkt:Math.round(IP_BASE[gen]*mul*gbMul/1000)*1000,ic:"phone",col:IP_COL[gen%6],guess:!m};
+}
+function estimate(line){
+  let h=0;for(const c of line)h=(h*31+c.charCodeAt(0))>>>0;
+  const n=norm(line);
+  const ic=/ゲーム|game|ds|console/.test(n)?"console":/カメラ|camera/.test(n)?"box":/時計|watch/.test(n)?"watch":/イヤホン|ヘッドホン|bud/.test(n)?"buds":/pc|パソコン|タブレット|tab/.test(n)?"tablet":/スマホ|phone|galaxy|pixel|xperia|aquos/.test(n)?"phone":"box";
+  return {name:line.replace(/\s+/g," ").replace(/\b[a-z]/g,c=>c.toUpperCase()),mkt:(5+h%60)*1000,ic,col:"#9aa3af",guess:true};
+}
 function identify(line){
   const n=norm(line);
   const base=Object.keys(BASE).find(b=>BASE[b].some(k=>n.includes(norm(k))));
-  if(!base)return null;
+  if(base==="iphone")return iphone(line.toLowerCase().replace(/[０-９ａ-ｚ]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)));
+  if(!base)return estimate(line);
   const cands=DB.filter(d=>d.base===base);
   return cands.find(d=>d.keys.some(k=>k&&n.includes(norm(k))))||cands.find(d=>d.keys.includes(""))||cands[0];
 }
@@ -162,15 +185,15 @@ $("go").onclick=async()=>{
     render();
   }
   const sec=((performance.now()-t0)/1000).toFixed(1);
-  const ng=rows.filter(r=>!r.hit).length;
-  $("log").textContent=`✅ ${rows.length}件そろえました（${sec}秒）`+(ng?`／${ng}件はAIが特定できなかったので黄色で表示`:"");
+  const ng=rows.filter(r=>!r.hit||r.hit.guess).length;
+  $("log").textContent=`✅ ${rows.length}件そろえました（${sec}秒）`+(ng?`／${ng}件はAIの推定なので黄色で表示`:"");
   $("saving").innerHTML=`<div>手打ちなら<br><b>約${rows.length*3}分</b></div><div>AIなら<br><b>${sec}秒</b>＋確認</div>`;
   $("go").disabled=false;
 };
 function render(){
   $("tbody").innerHTML=rows.map((r,i)=>r.hit?`
-   <tr><td>${ICON[r.hit.ic](r.hit.col)}</td><td>${esc(r.hit.name)}<div class="note">入力: ${esc(r.src)}</div></td>
-   <td class="num">${yen(r.hit.mkt)}円</td><td class="num"><input type="number" step="100" data-i="${i}" value="${r.price}"></td><td><span class="tag ok">OK</span></td></tr>`:`
+   <tr${r.hit.guess?' style="background:rgba(245,158,11,.12)"':""}><td>${ICON[r.hit.ic](r.hit.col)}</td><td>${esc(r.hit.name)}<div class="note">入力: ${esc(r.src)}${r.hit.guess?"／データに無いのでAIが推定":""}</div></td>
+   <td class="num">${yen(r.hit.mkt)}円</td><td class="num"><input type="number" step="100" data-i="${i}" value="${r.price}"></td><td>${r.hit.guess?'<span class="tag ng">AI推定・要確認</span>':'<span class="tag ok">OK</span>'}</td></tr>`:`
    <tr style="background:rgba(245,158,11,.12)"><td>${ICON.unknown()}</td><td>${esc(r.src)}<div class="note">候補が見つかりません。型番を足すか、手で入れてください</div></td>
    <td class="num">—</td><td class="num"><input type="number" step="100" data-i="${i}" value="${r.price||""}" placeholder="手入力"></td><td><span class="tag ng">要確認</span></td></tr>`).join("");
   const show=rows.filter(r=>r.hit||r.price>0);
