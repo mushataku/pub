@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>チケット事業 資金のご相談</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<!-- 中身の正本は Google スライド 1mZD-d_sIsf9qY_sU7qm-ZjYVvNg4XY0aHaNBvpxOylI（一方通行・この HTML を正本にしない） -->
+<!-- #allow-pii: 載る氏名は作成者本人2名（スライド表紙と同じ）。「事業 資金」の氏名判定は誤検知 -->
+<style>
+:root{
+  --bg:#eef0f3; --paper:#ffffff; --ink:#151a24; --sub:#5b6474; --line:#dfe3ea;
+  --accent:#e8590c; --accent-soft:#fde7d9; --navy:#1f3a5f; --navy-soft:#dfe8f3;
+  --muted:#b9c0cc; --muted-soft:#eceff3; --ok:#2f855a; --ok-soft:#dcf2e5;
+  --ph:#8a5a00; --ph-bg:#fff3cd;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1117; --paper:#171b23; --ink:#e9edf3; --sub:#9aa4b4; --line:#2a303c;
+    --accent:#ff7a33; --accent-soft:#3a2417; --navy:#8fb3e0; --navy-soft:#1c2838;
+    --muted:#4a5262; --muted-soft:#222833; --ok:#5cc28a; --ok-soft:#173226;
+    --ph:#ffd479; --ph-bg:#3a2f12;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1117; --paper:#171b23; --ink:#e9edf3; --sub:#9aa4b4; --line:#2a303c;
+  --accent:#ff7a33; --accent-soft:#3a2417; --navy:#8fb3e0; --navy-soft:#1c2838;
+  --muted:#4a5262; --muted-soft:#222833; --ok:#5cc28a; --ok-soft:#173226;
+  --ph:#ffd479; --ph-bg:#3a2f12;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;line-height:1.6;-webkit-text-size-adjust:100%}
+.num,.big{font-family:Inter,"Noto Sans JP",sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+/* 上部の帯（デッキ名・いまの章・ページ） */
+.band{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:8px 16px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);font-size:13px}
+.band b{font-weight:700;white-space:nowrap}
+.band .now{color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.band .where{font-family:Inter,sans-serif;color:var(--sub);white-space:nowrap}
+.band button{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:6px;padding:2px 8px;font-size:12px;cursor:pointer}
+
+main{max-width:1120px;margin:0 auto;padding:20px 16px 60px;display:flex;flex-direction:column;gap:22px}
+.slide{position:relative;container-type:inline-size;background:var(--paper);border-radius:14px;
+  box-shadow:0 1px 2px rgba(0,0,0,.06),0 8px 28px rgba(0,0,0,.06);aspect-ratio:16/9;overflow:hidden;
+  padding:4.2cqw 5cqw 3.6cqw;display:flex;flex-direction:column;scroll-margin-top:56px;
+  font-size:clamp(14px,1.75cqw,21px)}
+.hd{display:flex;justify-content:space-between;align-items:baseline;font-size:.72em;color:var(--sub);margin-bottom:1.1em;gap:1em}
+.ch{font-weight:500}
+.pg{font-family:Inter,sans-serif;white-space:nowrap}
+h2{font-size:2.05em;line-height:1.3;font-weight:900;letter-spacing:.01em;margin-bottom:.35em}
+h2 em{font-style:normal;color:var(--accent)}
+.lead{color:var(--sub);font-size:1.02em;margin-bottom:1.2em}
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.foot{font-size:.68em;color:var(--sub);margin-top:.8em}
+.ph{background:var(--ph-bg);color:var(--ph);border-radius:.3em;padding:0 .3em;font-weight:700;white-space:nowrap}
+
+/* 表紙 */
+.cover{background:linear-gradient(135deg,var(--navy) 0%,#0f2238 100%);color:#fff;justify-content:center}
+.cover .kicker{font-size:.95em;opacity:.8;letter-spacing:.18em;margin-bottom:1em}
+.cover h1{font-size:3.1em;line-height:1.25;font-weight:900;margin-bottom:.5em}
+.cover h1 em{font-style:normal;color:#ffb27a}
+.cover .who{font-size:1em;opacity:.85}
+.cover .ph{background:rgba(255,255,255,.14);color:#ffd9b8}
+.cover .tag{position:absolute;right:5cqw;bottom:4cqw;font-family:Inter,sans-serif;font-size:.8em;opacity:.55}
+
+/* まとめ：いま と 自前 の比較 */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:3cqw;align-items:end}
+.case h3{font-size:1em;font-weight:700;margin-bottom:.5em}
+.case h3 small{font-weight:400;color:var(--sub);margin-left:.4em}
+.bar{display:flex;height:3.2em;border-radius:.5em;overflow:hidden;font-weight:700}
+.bar span{display:flex;align-items:center;justify-content:center;font-size:.9em;white-space:nowrap}
+.bar .ours{background:var(--accent);color:#fff}
+.bar .theirs{background:var(--muted-soft);color:var(--sub);border:2px dashed var(--muted)}
+
+/* 索引 */
+.toc{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1em 2.2em}
+.toc [data-ch]{display:grid;grid-template-columns:auto 1fr;gap:.2em 1em;padding:.9em 0;border-top:2px solid var(--line)}
+.toc .n{font-family:Inter,sans-serif;font-size:2em;font-weight:800;color:var(--accent);line-height:1;grid-row:span 2}
+.toc .t{font-weight:700;font-size:1.1em}
+.toc .q{color:var(--sub);font-size:.92em}
+
+/* 流れ図 */
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:1em}
+.step{border-radius:.8em;padding:1.1em 1.1em 1em;background:var(--navy-soft);display:flex;flex-direction:column;gap:.3em}
+.step .no{font-family:Inter,sans-serif;font-weight:800;color:var(--navy);font-size:.85em}
+.step .t{font-weight:900;font-size:1.25em}
+.step .m{font-family:Inter,"Noto Sans JP",sans-serif;font-weight:800;font-size:1.5em}
+.step .d{color:var(--sub);font-size:.85em}
+.step.out .m{color:var(--accent)}
+.step.in .m{color:var(--ok)}
+.flow .ar{align-self:center;font-size:1.8em;color:var(--muted)}
+
+/* 2つの軸 */
+.levers{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:1em;align-items:center;text-align:center}
+.lever{border:2px solid var(--line);border-radius:1em;padding:1.2em .8em}
+.lever .ic{font-size:2.2em;line-height:1}
+.lever .t{font-weight:900;font-size:1.3em;margin:.3em 0 .1em}
+.lever .d{color:var(--sub);font-size:.85em}
+.lever.hot{border-color:var(--accent);background:var(--accent-soft)}
+.op{font-family:Inter,sans-serif;font-size:2.2em;font-weight:800;color:var(--sub)}
+
+/* 成功例カード */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1em}
+.card{border-radius:.8em;border:1px solid var(--line);padding:1em;display:flex;flex-direction:column;gap:.2em}
+.card .nm{font-weight:700}
+.card .p{font-family:Inter,"Noto Sans JP",sans-serif;font-size:2.2em;font-weight:800;color:var(--accent);line-height:1.1}
+.card .p small{font-size:.45em;font-weight:700;margin-left:.1em}
+.card .d{font-size:.8em;color:var(--sub)}
+.card .meter{height:.5em;border-radius:.3em;background:var(--muted-soft);margin-top:.5em;overflow:hidden}
+.card .meter i{display:block;height:100%;background:var(--accent)}
+
+/* 表 */
+table{width:100%;border-collapse:collapse;font-size:.92em}
+th,td{padding:.55em .7em;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:.82em;color:var(--sub);font-weight:500}
+th:first-child,td:first-child{text-align:left}
+td.hl{font-weight:800;color:var(--accent)}
+.mult{display:inline-block;min-width:3.4em;text-align:center;border-radius:.3em;background:var(--accent-soft);color:var(--accent);font-weight:800;padding:.05em .3em}
+
+svg{display:block;width:100%;height:auto}
+svg text{font-family:"Noto Sans JP",sans-serif;fill:var(--ink)}
+svg .sub{fill:var(--sub)}
+svg .num{font-family:Inter,sans-serif}
+svg .on{fill:#fff}
+.gm{display:none;flex-direction:column;gap:14px}
+.gr .l{display:flex;justify-content:space-between;gap:1em;font-size:.95em}
+.gr .track{height:14px;border-radius:7px;background:var(--muted-soft);margin:4px 0 2px;overflow:hidden}
+.gr .track i{display:block;height:100%;border-radius:7px;background:var(--accent)}
+.gr .dt{font-size:.78em;color:var(--sub)}
+
+/* プランB の比較 */
+.vs{display:grid;grid-template-columns:1.2fr 1fr;gap:3cqw;align-items:center}
+.vsbars{display:flex;flex-direction:column;gap:1.1em}
+.vsrow .l{font-size:.9em;margin-bottom:.3em;display:flex;justify-content:space-between;align-items:baseline;gap:1em}
+.vsrow .l b{font-family:Inter,"Noto Sans JP",sans-serif;font-size:1.3em;white-space:nowrap}
+.vsrow .track{height:2.2em;background:var(--muted-soft);border-radius:.4em;overflow:hidden}
+.vsrow .fill{height:100%;border-radius:.4em}
+.callout{border-left:.35em solid var(--accent);padding:.6em 1em;background:var(--accent-soft);border-radius:0 .6em .6em 0}
+.callout .big{font-size:3em;font-weight:800;color:var(--accent);line-height:1.05}
+
+/* 4章 */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1.4em}
+.opt{border-radius:1em;border:2px solid var(--line);padding:1.1em 1.2em}
+.opt h3{font-size:1.2em;font-weight:900;margin-bottom:.5em}
+.opt dl{display:grid;grid-template-columns:auto 1fr;gap:.35em 1em;font-size:.9em}
+.opt dt{color:var(--sub)}
+.opt dd{font-weight:500}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);position:relative;gap:1em}
+.timeline:before{content:"";position:absolute;left:4%;right:4%;top:1.05em;height:3px;background:var(--line)}
+.tl{position:relative;text-align:center;padding-top:2.6em}
+.tl:before{content:"";position:absolute;left:50%;top:.45em;width:1.2em;height:1.2em;margin-left:-.6em;border-radius:50%;background:var(--paper);border:3px solid var(--accent)}
+.tl .w{font-weight:900;font-size:1.05em}
+.tl .d{font-size:.85em;color:var(--sub)}
+
+/* 結論 */
+.conclusion{background:linear-gradient(135deg,#2a1608 0%,#14202f 100%);color:#fff}
+.conclusion .hd{color:rgba(255,255,255,.6)}
+.conclusion h2 em{color:#ffb27a}
+.asks{display:grid;grid-template-columns:repeat(3,1fr);gap:1em;margin-top:1.2em}
+.ask{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:.8em;padding:1em}
+.ask .k{font-size:.8em;opacity:.7}
+.ask .v{font-weight:900;font-size:1.25em;margin-top:.2em}
+.conclusion .ph{background:rgba(255,255,255,.14);color:#ffd9b8}
+.colophon ul{list-style:none;display:flex;flex-direction:column;gap:.7em;font-size:.92em}
+.colophon li{padding-left:1.2em;position:relative}
+.colophon li:before{content:"";position:absolute;left:0;top:.65em;width:.5em;height:.5em;border-radius:50%;background:var(--accent)}
+
+/* スマホ幅：16:9 をやめて縦に流す */
+@media (max-width:760px){
+  main{padding:12px 12px 48px;gap:14px}
+  .slide{aspect-ratio:auto;padding:22px 18px 20px;font-size:15px;min-height:0}
+  h2{font-size:1.55em}
+  .cover{min-height:70vh}
+  .cover h1{font-size:2.05em}
+  .cover .tag{position:static;margin-top:1.4em}
+  .split,.vs,.two{grid-template-columns:1fr;gap:18px}
+  .toc{grid-template-columns:1fr;gap:0}
+  .flow,.levers{grid-template-columns:1fr;gap:8px}
+  .flow .ar{transform:rotate(90deg);justify-self:center;font-size:1.4em;line-height:1}
+  .levers .op{font-size:1.4em;line-height:1}
+  .cards{grid-template-columns:1fr 1fr}
+  .asks{grid-template-columns:1fr}
+  .timeline{grid-template-columns:1fr;gap:4px}
+  .timeline:before{left:.6em;right:auto;top:.6em;bottom:.6em;width:3px;height:auto}
+  .tl{text-align:left;padding:0 0 .8em 2.2em}
+  .tl:before{left:.6em;top:.2em}
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .band .now{display:none}
+  #s8 svg{display:none}
+  #s8 .gm{display:flex}
+}
+@media print{
+  .band{display:none}
+  body{background:#fff}
+  main{padding:0;gap:0;max-width:none}
+  .slide{box-shadow:none;border-radius:0;break-after:page;width:100%}
+}
+</style>
+</head>
+<body data-skeleton="lecture">
+<div class="band" role="navigation">
+  <b>資金のご相談</b><span class="now" id="now">表紙</span><span class="where" id="where">01/14</span>
+  <button type="button" id="theme" aria-label="明暗を切り替える">◐</button>
+</div>
+<main>
+
+<!-- 01 表紙 -->
+<section class="slide cover" data-role="cover" id="s1">
+  <div class="kicker">チケット抽選代行事業 ／ 資金のご相談</div>
+  <h1>利益の半分を、<br><em>手放さずに</em>回したい</h1>
+  <div class="who">品川湧登・武者野拓也　<span class="ph">[2026年〇月〇日]</span></div>
+  <div class="tag">ご相談額 <span class="ph">[XXX]万円</span></div>
+</section>
+
+<!-- 02 まとめ（結論） -->
+<section class="slide" data-role="summary" id="s2">
+  <div class="hd"><span>結論</span><span class="pg">02/14</span></div>
+  <h2><span class="ph">[XXX]万円</span>あれば、利益 100万円 → <em>1億円</em>へ</h2>
+  <p class="lead">いまは当選分の支払いを立て替えてもらう代わりに、利益の半分を渡しています。</p>
+  <div class="body">
+    <div class="split">
+      <div class="case">
+        <h3>いま<small>利益100万円のとき</small></h3>
+        <div class="bar"><span class="ours" style="width:50%">手元 50万</span><span class="theirs" style="width:50%">立て替え先へ 50万</span></div>
+      </div>
+      <div class="case">
+        <h3>自前の資金があれば<small>同じ100万円</small></h3>
+        <div class="bar"><span class="ours" style="width:100%">手元 100万</span></div>
+      </div>
+    </div>
+    <p class="foot" style="margin-top:1.4em">残った利益でアカウントと支払い枠を増やし、1案件ごとの利益を伸ばしていきます。</p>
+  </div>
+</section>
+
+<!-- 03 索引 -->
+<section class="slide" data-role="toc" id="s3">
+  <div class="hd"><span>目次</span><span class="pg">03/14</span></div>
+  <h2>4つの問いに順に答えます</h2>
+  <p class="lead">しくみ → 実績 → お金が要る理由 → お返しの順</p>
+  <div class="body">
+    <div class="toc">
+      <div data-ch="1"><span class="n">1</span><span class="t">ビジネスモデル</span><span class="q">どうやって利益が出るのか？</span></div>
+      <div data-ch="2"><span class="n">2</span><span class="t">成功例</span><span class="q">本当に利益は出ているのか？</span></div>
+      <div data-ch="3"><span class="n">3</span><span class="t">お金が必要な理由</span><span class="q">なぜ [XXX]万円が要るのか？</span></div>
+      <div data-ch="4"><span class="n">4</span><span class="t">計画とリターン</span><span class="q">出した人には何が戻るのか？</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 1-1 -->
+<section class="slide" data-sec="1-1" id="s4">
+  <div class="hd"><span class="ch">第1章 ビジネスモデル</span><span class="pg">1-1｜04/14</span></div>
+  <h2>定価で買って、<em>数倍</em>で売る</h2>
+  <p class="lead">応募はタダ。お金が出ていくのは「当選した分を払うとき」だけです。</p>
+  <div class="body">
+    <div class="flow">
+      <div class="step"><span class="no">STEP 1</span><span class="t">応募</span><span class="m">0円</span><span class="d">チケットサイトの大量のアカウントで抽選に出す</span></div>
+      <div class="ar">→</div>
+      <div class="step out"><span class="no">STEP 2</span><span class="t">支払い</span><span class="m">定価</span><span class="d">当選発表から数日以内に払う</span></div>
+      <div class="ar">→</div>
+      <div class="step in"><span class="no">STEP 3</span><span class="t">販売・着金</span><span class="m">数倍</span><span class="d">取引サイト・X で売る。入金は公演の後</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 1-2 -->
+<section class="slide" data-sec="1-2" id="s5">
+  <div class="hd"><span class="ch">第1章 ビジネスモデル</span><span class="pg">1-2｜05/14</span></div>
+  <h2>利益を決めるのは<em>2つ</em>だけ</h2>
+  <p class="lead">アカウントが多いほど当たり、当たった分を払える現金があるほど売れる。</p>
+  <div class="body">
+    <div class="levers">
+      <div class="lever"><div class="ic">👥</div><div class="t">アカウントの数</div><div class="d">多いほど当選が増える<br>（1個 約1,500円）</div></div>
+      <div class="op">×</div>
+      <div class="lever hot"><div class="ic">💴</div><div class="t">払える現金</div><div class="d">当たっても払えなければ<br>その当選は捨てるしかない</div></div>
+      <div class="op">＝</div>
+      <div class="lever"><div class="ic">📈</div><div class="t">利益</div><div class="d">今回のご相談は<br>「払える現金」の話です</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 2-1 -->
+<section class="slide" data-sec="2-1" id="s6">
+  <div class="hd"><span class="ch">第2章 成功例</span><span class="pg">2-1｜06/14</span></div>
+  <h2>直近の4案件で、利益 <em>約178万円</em></h2>
+  <p class="lead">9月〜10月に当選した分。立て替え先へ分ける前の利益です。</p>
+  <div class="body">
+    <div class="cards">
+      <div class="card"><span class="nm">フェデラー</span><span class="p num">112<small>万</small></span><span class="d">当選80件・支払い0円</span><div class="meter"><i style="width:100%"></i></div></div>
+      <div class="card"><span class="nm">野球</span><span class="p num">27.2<small>万</small></span><span class="d">応募150・当選8</span><div class="meter"><i style="width:24.3%"></i></div></div>
+      <div class="card"><span class="nm">刀剣乱舞</span><span class="p num">23.2<small>万</small></span><span class="d">応募100・当選5</span><div class="meter"><i style="width:20.7%"></i></div></div>
+      <div class="card"><span class="nm">あんスタ</span><span class="p num">16<small>万</small></span><span class="d">応募52・当選8</span><div class="meter"><i style="width:14.3%"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 2-2 -->
+<section class="slide" data-sec="2-2" id="s7">
+  <div class="hd"><span class="ch">第2章 成功例</span><span class="pg">2-2｜07/14</span></div>
+  <h2>払った額の <em>2〜4倍</em> で戻ってきた</h2>
+  <p class="lead">支払いがあった3案件。売上 ÷ 支払い ＝ 1円払うと何円になって戻ったか。</p>
+  <div class="body">
+    <div class="tablewrap"><table>
+      <thead><tr><th>案件</th><th>応募</th><th>当選</th><th>支払い</th><th>売上</th><th>利益</th><th>戻り</th></tr></thead>
+      <tbody>
+        <tr><td>野球</td><td class="num">150</td><td class="num">8</td><td class="num">8.8万</td><td class="num">36万</td><td class="num hl">27.2万</td><td><span class="mult num">4.1倍</span></td></tr>
+        <tr><td>あんスタ</td><td class="num">52</td><td class="num">8</td><td class="num">8万</td><td class="num">24万</td><td class="num hl">16万</td><td><span class="mult num">3.0倍</span></td></tr>
+        <tr><td>刀剣乱舞</td><td class="num">100</td><td class="num">5</td><td class="num">20万</td><td class="num">43.3万</td><td class="num hl">23.2万</td><td><span class="mult num">2.2倍</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="foot">フェデラーは支払い0円で利益112万円のため倍率を出していません。</p>
+  </div>
+</section>
+
+<!-- 08 3-1 -->
+<section class="slide" data-sec="3-1" id="s8">
+  <div class="hd"><span class="ch">第3章 お金が必要な理由</span><span class="pg">3-1｜08/14</span></div>
+  <h2>払ってから戻るまで、<em>最大70日</em>お金が寝る</h2>
+  <p class="lead">払うのは当選の数日後、入金は公演の後。オレンジの区間は現金が動けません。</p>
+  <div class="body">
+    <svg viewBox="0 0 1000 310" role="img" aria-label="4案件の 抽選から支払い、支払いから着金までの期間">
+      <g font-size="15">
+        <line x1="160" y1="22" x2="160" y2="250" stroke="var(--line)"/><text x="160" y="276" text-anchor="middle" class="sub">9月</text>
+        <line x1="357" y1="22" x2="357" y2="250" stroke="var(--line)"/><text x="357" y="276" text-anchor="middle" class="sub">10月</text>
+        <line x1="560" y1="22" x2="560" y2="250" stroke="var(--line)"/><text x="560" y="276" text-anchor="middle" class="sub">11月</text>
+        <line x1="757" y1="22" x2="757" y2="250" stroke="var(--line)"/><text x="757" y="276" text-anchor="middle" class="sub">12月</text>
+      </g>
+      <!-- フェデラー 9/9 → 9/25 → 10/14 -->
+      <text x="0" y="56" font-size="18" font-weight="700">フェデラー</text>
+      <line x1="212" y1="50" x2="317" y2="50" stroke="var(--muted)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"/>
+      <rect x="317" y="36" width="125" height="28" rx="6" fill="var(--accent)" opacity=".35"/>
+      <text x="452" y="56" font-size="15" class="sub num">20日・支払い0円</text>
+      <!-- 野球 10/17 → 10/21 → 10/31 -->
+      <text x="0" y="111" font-size="18" font-weight="700">野球</text>
+      <line x1="462" y1="105" x2="488" y2="105" stroke="var(--muted)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"/>
+      <rect x="488" y="91" width="66" height="28" rx="6" fill="var(--accent)"/>
+      <text x="564" y="111" font-size="15" class="sub num">10日・8.8万円</text>
+      <!-- あんスタ 10/20 → 10/27 → 12/27 -->
+      <text x="0" y="166" font-size="18" font-weight="700">あんスタ</text>
+      <line x1="481" y1="160" x2="527" y2="160" stroke="var(--muted)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"/>
+      <rect x="527" y="146" width="400" height="28" rx="6" fill="var(--accent)"/>
+      <text x="727" y="166" font-size="15" text-anchor="middle" class="num on">約60日・8万円</text>
+      <!-- 刀剣乱舞 9/28 → 10/6 → 12/18 -->
+      <text x="0" y="221" font-size="18" font-weight="700">刀剣乱舞</text>
+      <line x1="337" y1="215" x2="390" y2="215" stroke="var(--muted)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"/>
+      <rect x="390" y="201" width="478" height="28" rx="6" fill="var(--accent)"/>
+      <text x="629" y="221" font-size="15" text-anchor="middle" class="num on">約70日・20万円</text>
+      <!-- 凡例 -->
+      <line x1="560" y1="300" x2="600" y2="300" stroke="var(--muted)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"/>
+      <text x="608" y="305" font-size="14" class="sub">抽選→支払い</text>
+      <rect x="770" y="291" width="40" height="16" rx="4" fill="var(--accent)"/>
+      <text x="818" y="305" font-size="14" class="sub">支払い→着金</text>
+    </svg>
+    <div class="gm" aria-hidden="true">
+      <div class="gr"><div class="l"><b>刀剣乱舞</b><span class="num">約70日・20万円</span></div><div class="track"><i style="width:100%"></i></div><div class="dt num">10/6 支払い → 12/18 着金</div></div>
+      <div class="gr"><div class="l"><b>あんスタ</b><span class="num">約60日・8万円</span></div><div class="track"><i style="width:84%"></i></div><div class="dt num">10/27 支払い → 12/27 着金</div></div>
+      <div class="gr"><div class="l"><b>フェデラー</b><span class="num">20日・支払い0円</span></div><div class="track"><i style="width:27%;opacity:.35"></i></div><div class="dt num">9/25 支払い → 10/14 着金</div></div>
+      <div class="gr"><div class="l"><b>野球</b><span class="num">10日・8.8万円</span></div><div class="track"><i style="width:14%"></i></div><div class="dt num">10/21 支払い → 10/31 着金</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 3-2 プランA -->
+<section class="slide" data-sec="3-2" id="s9">
+  <div class="hd"><span class="ch">第3章 お金が必要な理由</span><span class="pg">3-2｜09/14</span></div>
+  <h2>プランA：お金があれば、<em>もっと広げられる</em></h2>
+  <p class="lead">目安 300〜1,000万円。アカウントと支払い枠を同時に増やします。</p>
+  <div class="body">
+    <div class="levers">
+      <div class="lever"><div class="t">アカウント</div><div class="d"><span class="ph">[〇]</span>個 → <span class="ph">[〇]</span>個</div></div>
+      <div class="op">＋</div>
+      <div class="lever hot"><div class="t">支払い枠</div><div class="d"><span class="ph">[〇]</span>万円 → <span class="ph">[〇]</span>万円</div></div>
+      <div class="op">→</div>
+      <div class="lever"><div class="t">1案件の利益</div><div class="d">当選 <span class="ph">[〇]</span>倍<br><span class="ph">[〇]</span>万円 / 案件</div></div>
+    </div>
+    <p class="foot" style="margin-top:1.2em">前提: 当選率 <span class="ph">[〇]%</span>・売値は定価の <span class="ph">[〇]</span>倍</p>
+  </div>
+</section>
+
+<!-- 10 3-3 プランB -->
+<section class="slide" data-sec="3-3" id="s10">
+  <div class="hd"><span class="ch">第3章 お金が必要な理由</span><span class="pg">3-3｜10/14</span></div>
+  <h2>プランB：いまの規模でも、<em>現金が足りていない</em></h2>
+  <p class="lead">目安 10〜100万円。足りない分を立て替えてもらい、利益の半分を渡しています。</p>
+  <div class="body">
+    <div class="vs">
+      <div class="vsbars">
+        <div class="vsrow"><div class="l"><span>いま立て替え先に渡す分（利益の半分）</span><b class="num">33.2万円</b></div><div class="track"><div class="fill" style="width:100%;background:var(--muted)"></div></div></div>
+        <div class="vsrow"><div class="l"><span>同じ額を年15%で借りた場合の利息</span><b class="num" style="color:var(--accent)">約0.8万円</b></div><div class="track"><div class="fill" style="width:2.5%;background:var(--accent)"></div></div></div>
+      </div>
+      <div class="callout"><div>差は</div><div class="big num">約40倍</div><div style="font-size:.85em">借りる期間が短いので、利息にするとごくわずか</div></div>
+    </div>
+    <p class="foot">野球・あんスタ・刀剣乱舞の3案件（支払い 計36.8万円）を、各案件の「支払い→着金」の日数で計算。年15%は比べるための仮の数字です。</p>
+  </div>
+</section>
+
+<!-- 11 4-1 -->
+<section class="slide" data-sec="4-1" id="s11">
+  <div class="hd"><span class="ch">第4章 計画とリターン</span><span class="pg">4-1｜11/14</span></div>
+  <h2>お返しは「<em>利益の半分</em>」より軽い条件で</h2>
+  <p class="lead">融資でも利益を分ける投資でも、いまの半分より安ければ双方に得があります。形はご相談で決めます。</p>
+  <div class="body">
+    <div class="two">
+      <div class="opt"><h3>融資（貸す）</h3><dl>
+        <dt>戻るもの</dt><dd>元本 ＋ 年 <span class="ph">[〇]%</span> の利息</dd>
+        <dt>期間</dt><dd><span class="ph">[〇年〇月]</span>までに返し切る</dd>
+        <dt>うまくいくと</dt><dd>利息分が確実に戻る</dd>
+        <dt>こけても</dt><dd>元本は返す</dd></dl></div>
+      <div class="opt" style="border-color:var(--accent)"><h3>利益を分ける投資</h3><dl>
+        <dt>戻るもの</dt><dd>利益の <span class="ph">[〇]%</span>（50%未満）</dd>
+        <dt>期間</dt><dd><span class="ph">[〇か月]</span>ごとに見直し</dd>
+        <dt>うまくいくと</dt><dd>利益に比例して大きく戻る</dd>
+        <dt>こけたら</dt><dd>分配は減る・元本は <span class="ph">[どう扱うか]</span></dd></dl></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 4-2 -->
+<section class="slide" data-sec="4-2" id="s12">
+  <div class="hd"><span class="ch">第4章 計画とリターン</span><span class="pg">4-2｜12/14</span></div>
+  <h2>この順で回して、<em>返していきます</em></h2>
+  <p class="lead">日付と金額は条件が決まりしだい埋めます。</p>
+  <div class="body">
+    <div class="timeline">
+      <div class="tl"><div class="w"><span class="ph">[〇月〇日]</span></div><div class="d">条件を決める</div></div>
+      <div class="tl"><div class="w"><span class="ph">[〇月]</span></div><div class="d">資金を受け取り、アカウントを増やす</div></div>
+      <div class="tl"><div class="w"><span class="ph">[〇月]</span></div><div class="d">利益 <span class="ph">[〇]</span>万円/月</div></div>
+      <div class="tl"><div class="w"><span class="ph">[〇年〇月]</span></div><div class="d">返済・分配の区切り</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 結論 -->
+<section class="slide conclusion" data-role="conclusion" id="s13">
+  <div class="hd"><span>まとめ</span><span class="pg">13/14</span></div>
+  <h2><span class="ph">[XXX]万円</span>で、渡している<em>利益の半分</em>を、事業を伸ばす側に回したい</h2>
+  <div class="body">
+    <div class="asks">
+      <div class="ask"><div class="k">ご相談額</div><div class="v"><span class="ph">[XXX]万円</span></div></div>
+      <div class="ask"><div class="k">お返し</div><div class="v">融資なら年 <span class="ph">[〇]%</span><br>投資なら利益の <span class="ph">[〇]%</span></div></div>
+      <div class="ask"><div class="k">次の一歩</div><div class="v"><span class="ph">[〇月〇日]</span>までに条件を決め、<span class="ph">[〇月]</span>から回す</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 奥付 -->
+<section class="slide colophon" data-role="colophon" id="s14">
+  <div class="hd"><span>補足</span><span class="pg">14/14</span></div>
+  <h2>数字の出どころ</h2>
+  <div class="body">
+    <ul>
+      <li>4案件の応募数・当選数・支払い・売上・利益・日付は、品川の案件記録（2026年10月29日時点）。元の記録は品川にお声がけください。</li>
+      <li>「戻り」の倍率は 売上 ÷ 支払い で計算しています。</li>
+      <li>3-3 の利息は 支払い額 × 年15% × 支払いから着金までの日数 ÷ 365 で計算した比較用の数字で、実際の条件ではありません。</li>
+      <li><span class="ph">[ ]</span> の黄色い箇所は、ご相談しながら決める数字です。</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide')), total=slides.length;
+  var now=document.getElementById('now'), where=document.getElementById('where'), tgt=null, tm;
+  function label(s){var c=s.querySelector('.ch');var h=s.querySelector('h2,h1');
+    return (c?c.textContent+'｜':'')+(h?h.textContent.replace(/\s+/g,' '):'');}
+  function idx(){var y=window.innerHeight*0.35,best=0;
+    if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4)return total-1;
+    slides.forEach(function(s,i){if(s.getBoundingClientRect().top<y)best=i;});return best;}
+  function upd(){var i=idx();now.textContent=label(slides[i]);
+    where.textContent=String(i+1).padStart(2,'0')+'/'+String(total).padStart(2,'0');}
+  window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
+  document.addEventListener('keydown',function(e){
+    if(e.target.closest&&e.target.closest('input,textarea'))return;
+    var d={ArrowDown:1,ArrowRight:1,PageDown:1,' ':1,ArrowUp:-1,ArrowLeft:-1,PageUp:-1}[e.key];
+    if(!d)return; e.preventDefault(); if(e.shiftKey&&e.key===' ')d=-1;
+    var i=Math.max(0,Math.min(total-1,(tgt===null?idx():tgt)+d));tgt=i;clearTimeout(tm);tm=setTimeout(function(){tgt=null;},900);
+    slides[i].scrollIntoView({behavior:'smooth',block:'start'});});
+  var t=document.getElementById('theme'),root=document.documentElement;
+  try{var v=localStorage.getItem('deck-theme');if(v)root.dataset.theme=v;}catch(e){}
+  t.addEventListener('click',function(){
+    var dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme=dark?'light':'dark';
+    try{localStorage.setItem('deck-theme',root.dataset.theme);}catch(e){}});
+})();
+</script>
+</body>
+</html>
