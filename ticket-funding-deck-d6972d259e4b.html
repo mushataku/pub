@@ -166,6 +166,12 @@ svg .on{fill:#fff}
 .ask .k{font-size:.8em;opacity:.7}
 .ask .v{font-weight:900;font-size:1.25em;margin-top:.2em}
 .conclusion .ph{background:rgba(255,255,255,.14);color:#ffd9b8}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:.4em .6em;margin-top:1.6em;font-size:.9em}
+.path span{background:var(--muted-soft);border-radius:2em;padding:.3em .9em;font-weight:500}
+.path span.goal{background:var(--accent);color:#fff;font-weight:900}
+.path i{font-style:normal;color:var(--sub)}
+tr.sum td{border-top:2px solid var(--ink);font-weight:700}
+.ask.wide{grid-column:1/-1}
 .colophon ul{list-style:none;display:flex;flex-direction:column;gap:.7em;font-size:.92em}
 .colophon li{padding-left:1.2em;position:relative}
 .colophon li:before{content:"";position:absolute;left:0;top:.65em;width:.5em;height:.5em;border-radius:50%;background:var(--accent)}
@@ -233,7 +239,7 @@ svg .on{fill:#fff}
         <div class="bar"><span class="ours" style="width:100%">手元 100万</span></div>
       </div>
     </div>
-    <p class="foot" style="margin-top:1.4em">残った利益でアカウントと支払い枠を増やし、1案件ごとの利益を伸ばしていきます。</p>
+    <div class="path"><span>半分が手元に残る</span><i>→</i><span>アカウントと支払い枠を増やす</span><i>→</i><span>1案件の利益が伸びる</span><i>→</i><span class="goal">目標 1億円</span></div>
   </div>
 </section>
 
@@ -275,11 +281,11 @@ svg .on{fill:#fff}
   <p class="lead">アカウントが多いほど当たり、当たった分を払える現金があるほど売れる。</p>
   <div class="body">
     <div class="levers">
-      <div class="lever"><div class="ic">👥</div><div class="t">アカウントの数</div><div class="d">多いほど当選が増える<br>（1個 約1,500円）</div></div>
+      <div class="lever"><div class="ic">👥</div><div class="t">アカウントの数</div><div class="d">多いほど当選が増える</div></div>
       <div class="op">×</div>
       <div class="lever hot"><div class="ic">💴</div><div class="t">払える現金</div><div class="d">当たっても払えなければ<br>その当選は捨てるしかない</div></div>
       <div class="op">＝</div>
-      <div class="lever"><div class="ic">📈</div><div class="t">利益</div><div class="d">今回のご相談は<br>「払える現金」の話です</div></div>
+      <div class="lever"><div class="ic">📈</div><div class="t">利益</div><div class="d">2つの掛け算で決まる</div></div>
     </div>
   </div>
 </section>
@@ -288,13 +294,13 @@ svg .on{fill:#fff}
 <section class="slide" data-sec="2-1" id="s6">
   <div class="hd"><span class="ch">第2章 成功例</span><span class="pg">2-1｜06/14</span></div>
   <h2>直近の4案件で、利益 <em>約178万円</em></h2>
-  <p class="lead">9月〜10月に当選した分。立て替え先へ分ける前の利益です。</p>
+  <p class="lead">9月〜10月に当選した分（立て替え先へ分ける前）。入金済み <b class="num">112万円</b>・入金待ち <b class="num">66.4万円</b>（10/31〜12/27 予定）。</p>
   <div class="body">
     <div class="cards">
-      <div class="card"><span class="nm">フェデラー</span><span class="p num">112<small>万</small></span><span class="d">当選80件・支払い0円</span><div class="meter"><i style="width:100%"></i></div></div>
-      <div class="card"><span class="nm">野球</span><span class="p num">27.2<small>万</small></span><span class="d">応募150・当選8</span><div class="meter"><i style="width:24.3%"></i></div></div>
-      <div class="card"><span class="nm">刀剣乱舞</span><span class="p num">23.2<small>万</small></span><span class="d">応募100・当選5</span><div class="meter"><i style="width:20.7%"></i></div></div>
-      <div class="card"><span class="nm">あんスタ</span><span class="p num">16<small>万</small></span><span class="d">応募52・当選8</span><div class="meter"><i style="width:14.3%"></i></div></div>
+      <div class="card"><span class="nm">フェデラー</span><span class="p num">112<small>万</small></span><span class="d">当選80件・支払い0円・入金済み</span><div class="meter"><i style="width:100%"></i></div></div>
+      <div class="card"><span class="nm">野球</span><span class="p num">27.2<small>万</small></span><span class="d">応募150・当選8・10/31入金</span><div class="meter"><i style="width:24.3%"></i></div></div>
+      <div class="card"><span class="nm">刀剣乱舞</span><span class="p num">23.2<small>万</small></span><span class="d">応募100・当選5・12/18入金</span><div class="meter"><i style="width:20.7%"></i></div></div>
+      <div class="card"><span class="nm">あんスタ<small style="font-weight:400;color:var(--sub)">（あんさんぶるスターズ）</small></span><span class="p num">16<small>万</small></span><span class="d">応募52・当選8・12/27入金</span><div class="meter"><i style="width:14.3%"></i></div></div>
     </div>
   </div>
 </section>
@@ -302,8 +308,8 @@ svg .on{fill:#fff}
 <!-- 07 2-2 -->
 <section class="slide" data-sec="2-2" id="s7">
   <div class="hd"><span class="ch">第2章 成功例</span><span class="pg">2-2｜07/14</span></div>
-  <h2>払った額の <em>2〜4倍</em> で戻ってきた</h2>
-  <p class="lead">支払いがあった3案件。売上 ÷ 支払い ＝ 1円払うと何円になって戻ったか。</p>
+  <h2>払った額の <em>2〜4倍</em> の売上になる</h2>
+  <p class="lead">お金を払った3案件。売上 ÷ 支払い ＝ 1円払うと何円の売上になるか。</p>
   <div class="body">
     <div class="tablewrap"><table>
       <thead><tr><th>案件</th><th>応募</th><th>当選</th><th>支払い</th><th>売上</th><th>利益</th><th>戻り</th></tr></thead>
@@ -311,17 +317,18 @@ svg .on{fill:#fff}
         <tr><td>野球</td><td class="num">150</td><td class="num">8</td><td class="num">8.8万</td><td class="num">36万</td><td class="num hl">27.2万</td><td><span class="mult num">4.1倍</span></td></tr>
         <tr><td>あんスタ</td><td class="num">52</td><td class="num">8</td><td class="num">8万</td><td class="num">24万</td><td class="num hl">16万</td><td><span class="mult num">3.0倍</span></td></tr>
         <tr><td>刀剣乱舞</td><td class="num">100</td><td class="num">5</td><td class="num">20万</td><td class="num">43.3万</td><td class="num hl">23.2万</td><td><span class="mult num">2.2倍</span></td></tr>
+        <tr class="sum"><td>3案件の合計</td><td class="num">302</td><td class="num">21</td><td class="num">36.8万</td><td class="num">103.3万</td><td class="num hl">66.4万</td><td><span class="mult num">2.8倍</span></td></tr>
       </tbody>
     </table></div>
-    <p class="foot">フェデラーは支払い0円で利益112万円のため倍率を出していません。</p>
+    <p class="foot">当選率は 21/302＝約7%。フェデラーは支払いが0円だった別扱いの案件のため、この表に入れていません。</p>
   </div>
 </section>
 
 <!-- 08 3-1 -->
 <section class="slide" data-sec="3-1" id="s8">
   <div class="hd"><span class="ch">第3章 お金が必要な理由</span><span class="pg">3-1｜08/14</span></div>
-  <h2>払ってから戻るまで、<em>最大70日</em>お金が寝る</h2>
-  <p class="lead">払うのは当選の数日後、入金は公演の後。オレンジの区間は現金が動けません。</p>
+  <h2>払ってから入金まで、<em>長いと約70日</em>お金が寝る</h2>
+  <p class="lead">払うのは当選の後、入金は公演の後。オレンジの区間は現金が動けず、10/27〜10/31 は3案件ぶん <b class="num">36.8万円</b> が同時に寝ていました。</p>
   <div class="body">
     <svg viewBox="0 0 1000 310" role="img" aria-label="4案件の 抽選から支払い、支払いから着金までの期間">
       <g font-size="15">
@@ -354,13 +361,13 @@ svg .on{fill:#fff}
       <line x1="560" y1="300" x2="600" y2="300" stroke="var(--muted)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"/>
       <text x="608" y="305" font-size="14" class="sub">抽選→支払い</text>
       <rect x="770" y="291" width="40" height="16" rx="4" fill="var(--accent)"/>
-      <text x="818" y="305" font-size="14" class="sub">支払い→着金</text>
+      <text x="818" y="305" font-size="14" class="sub">支払い→入金</text>
     </svg>
     <div class="gm" aria-hidden="true">
-      <div class="gr"><div class="l"><b>刀剣乱舞</b><span class="num">約70日・20万円</span></div><div class="track"><i style="width:100%"></i></div><div class="dt num">10/6 支払い → 12/18 着金</div></div>
-      <div class="gr"><div class="l"><b>あんスタ</b><span class="num">約60日・8万円</span></div><div class="track"><i style="width:84%"></i></div><div class="dt num">10/27 支払い → 12/27 着金</div></div>
-      <div class="gr"><div class="l"><b>フェデラー</b><span class="num">20日・支払い0円</span></div><div class="track"><i style="width:27%;opacity:.35"></i></div><div class="dt num">9/25 支払い → 10/14 着金</div></div>
-      <div class="gr"><div class="l"><b>野球</b><span class="num">10日・8.8万円</span></div><div class="track"><i style="width:14%"></i></div><div class="dt num">10/21 支払い → 10/31 着金</div></div>
+      <div class="gr"><div class="l"><b>刀剣乱舞</b><span class="num">約70日・20万円</span></div><div class="track"><i style="width:100%"></i></div><div class="dt num">10/6 支払い → 12/18 入金</div></div>
+      <div class="gr"><div class="l"><b>あんスタ</b><span class="num">約60日・8万円</span></div><div class="track"><i style="width:84%"></i></div><div class="dt num">10/27 支払い → 12/27 入金</div></div>
+      <div class="gr"><div class="l"><b>フェデラー</b><span class="num">20日・支払い0円</span></div><div class="track"><i style="width:27%;opacity:.35"></i></div><div class="dt num">9/25 支払い → 10/14 入金</div></div>
+      <div class="gr"><div class="l"><b>野球</b><span class="num">10日・8.8万円</span></div><div class="track"><i style="width:14%"></i></div><div class="dt num">10/21 支払い → 10/31 入金</div></div>
     </div>
   </div>
 </section>
@@ -385,17 +392,17 @@ svg .on{fill:#fff}
 <!-- 10 3-3 プランB -->
 <section class="slide" data-sec="3-3" id="s10">
   <div class="hd"><span class="ch">第3章 お金が必要な理由</span><span class="pg">3-3｜10/14</span></div>
-  <h2>プランB：いまの規模でも、<em>現金が足りていない</em></h2>
-  <p class="lead">目安 10〜100万円。足りない分を立て替えてもらい、利益の半分を渡しています。</p>
+  <h2>プランB：いまでも、<em>借りた方が約40倍安い</em></h2>
+  <p class="lead">目安 10〜100万円。いまは足りない分を立て替えてもらい、その代わりに利益の半分を渡しています。</p>
   <div class="body">
     <div class="vs">
       <div class="vsbars">
         <div class="vsrow"><div class="l"><span>いま立て替え先に渡す分（利益の半分）</span><b class="num">33.2万円</b></div><div class="track"><div class="fill" style="width:100%;background:var(--muted)"></div></div></div>
         <div class="vsrow"><div class="l"><span>同じ額を年15%で借りた場合の利息</span><b class="num" style="color:var(--accent)">約0.8万円</b></div><div class="track"><div class="fill" style="width:2.5%;background:var(--accent)"></div></div></div>
       </div>
-      <div class="callout"><div>差は</div><div class="big num">約40倍</div><div style="font-size:.85em">借りる期間が短いので、利息にするとごくわずか</div></div>
+      <div class="callout"><div>差は</div><div class="big num">約40倍</div><div style="font-size:.85em">お金が寝るのは長くて約70日。利息にするとごくわずか</div></div>
     </div>
-    <p class="foot">野球・あんスタ・刀剣乱舞の3案件（支払い 計36.8万円）を、各案件の「支払い→着金」の日数で計算。年15%は比べるための仮の数字です。</p>
+    <p class="foot">野球・あんスタ・刀剣乱舞の3案件（支払い 計36.8万円）を、各案件の「支払い→入金」の日数で計算。年15%は比べるための仮の数字です。</p>
   </div>
 </section>
 
@@ -403,7 +410,7 @@ svg .on{fill:#fff}
 <section class="slide" data-sec="4-1" id="s11">
   <div class="hd"><span class="ch">第4章 計画とリターン</span><span class="pg">4-1｜11/14</span></div>
   <h2>お返しは「<em>利益の半分</em>」より軽い条件で</h2>
-  <p class="lead">融資でも利益を分ける投資でも、いまの半分より安ければ双方に得があります。形はご相談で決めます。</p>
+  <p class="lead">いまの立て替え先が受け取る「半分」より軽ければ、出す側には利息か分配が戻り、私たちの手元にも残ります。形はご相談で決めます。</p>
   <div class="body">
     <div class="two">
       <div class="opt"><h3>融資（貸す）</h3><dl>
@@ -444,6 +451,7 @@ svg .on{fill:#fff}
       <div class="ask"><div class="k">ご相談額</div><div class="v"><span class="ph">[XXX]万円</span></div></div>
       <div class="ask"><div class="k">お返し</div><div class="v">融資なら年 <span class="ph">[〇]%</span><br>投資なら利益の <span class="ph">[〇]%</span></div></div>
       <div class="ask"><div class="k">次の一歩</div><div class="v"><span class="ph">[〇月〇日]</span>までに条件を決め、<span class="ph">[〇月]</span>から回す</div></div>
+      <div class="ask wide"><div class="k">お返事</div><div class="v">気になった点・出せそうな額を <span class="ph">[返事の方法]</span> で</div></div>
     </div>
   </div>
 </section>
@@ -454,9 +462,9 @@ svg .on{fill:#fff}
   <h2>数字の出どころ</h2>
   <div class="body">
     <ul>
-      <li>4案件の応募数・当選数・支払い・売上・利益・日付は、品川の案件記録（2026年10月29日時点）。元の記録は品川にお声がけください。</li>
+      <li>4案件の応募数・当選数・支払い・売上・利益・日付（入金は予定日を含む）は、品川の案件記録（2026年10月29日時点）。元の記録は品川にお声がけください。</li>
       <li>「戻り」の倍率は 売上 ÷ 支払い で計算しています。</li>
-      <li>3-3 の利息は 支払い額 × 年15% × 支払いから着金までの日数 ÷ 365 で計算した比較用の数字で、実際の条件ではありません。</li>
+      <li>3-3 の利息は 支払い額 × 年15% × 支払いから入金までの日数 ÷ 365 で計算した比較用の数字で、実際の条件ではありません。</li>
       <li><span class="ph">[ ]</span> の黄色い箇所は、ご相談しながら決める数字です。</li>
     </ul>
   </div>
