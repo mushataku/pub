@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<title>異変の廊下</title>
+<style>
+html,body{margin:0;height:100%;background:#0b0b0d;color:#eee;font-family:system-ui,"Hiragino Sans","Yu Gothic",sans-serif;overflow:hidden;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+#wrap{display:flex;flex-direction:column;align-items:center;height:100%;padding:8px 16px;box-sizing:border-box;gap:8px}
+#hud{width:100%;max-width:480px;display:flex;justify-content:space-between;font-size:14px;opacity:.85}
+#stage{position:relative;width:100%;max-width:480px;flex:1;min-height:0;display:flex;justify-content:center}
+canvas{height:100%;max-width:100%;aspect-ratio:3/4;border-radius:10px;background:#000;display:block}
+#ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(0,0,0,.82);border-radius:10px;padding:20px;box-sizing:border-box;gap:12px}
+#ov h1{margin:0;font-size:28px;letter-spacing:.1em}
+#ov p{margin:0;line-height:1.7;font-size:15px}
+#toast{position:absolute;top:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.75);padding:6px 14px;border-radius:20px;font-size:14px;opacity:0;transition:opacity .3s;white-space:nowrap}
+#btns{display:flex;gap:12px;width:100%;max-width:480px}
+button{flex:1;font-size:18px;padding:14px 0;border-radius:12px;border:0;font-weight:bold;cursor:pointer}
+#back{background:#d84a4a;color:#fff}#go{background:#3a9b5c;color:#fff}
+.start{background:#ffd84a;color:#222;flex:none;padding:12px 40px}
+small{opacity:.6}
+</style></head><body>
+<div id="wrap">
+  <div id="hud"><span id="cnt">出口 0 / 8</span><span id="tm">0.0秒</span></div>
+  <div id="stage">
+    <canvas id="c"></canvas>
+    <div id="toast"></div>
+    <div id="ov">
+      <h1>異変の廊下</h1>
+      <p>同じ廊下がくり返し続く。<br>
+      <b>いつもと違うところ</b>があったら <b style="color:#ff7a7a">引き返す</b>。<br>
+      何もなければ <b style="color:#7be09a">進む</b>。<br>
+      8回連続で正解すると外に出られる。<br>
+      まちがえたら 0 からやり直し。</p>
+      <p><small>最初の廊下（0）はいつも普通。よく覚えて。<br>キーボード：↑ 進む ／ ↓ 引き返す</small></p>
+      <button class="start" id="startBtn">はじめる</button>
+      <p><small>見本で動く体験版</small></p>
+    </div>
+  </div>
+  <div id="btns"><button id="back">↩ 引き返す</button><button id="go">進む ↑</button></div>
+</div>
+<script>
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+const W=360,H=480,DPR=Math.min(2,window.devicePixelRatio||1);
+cv.width=W*DPR;cv.height=H*DPR;
+const bx0=135,bx1=225,by0=175,by1=300;
+const lerp=(a,b,t)=>a+(b-a)*t;
+const L=(t,v)=>[lerp(0,bx0,t),lerp(lerp(0,by0,t),lerp(H,by1,t),v)];
+const R=(t,v)=>[lerp(W,bx1,t),lerp(lerp(0,by0,t),lerp(H,by1,t),v)];
+const C=(t,u)=>[lerp(lerp(0,bx0,t),lerp(W,bx1,t),u),lerp(0,by0,t)];
+const F=(t,u)=>[lerp(lerp(0,bx0,t),lerp(W,bx1,t),u),lerp(H,by1,t)];
+const B=(u,v)=>[lerp(bx0,bx1,u),lerp(by0,by1,v)];
+function poly(pts,fill,stroke){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.stroke()}}
+// 四角(w×h)を3点(左上・右上・左下)に貼る
+function xf(p00,p10,p01,w,h){ctx.transform((p10[0]-p00[0])/w,(p10[1]-p00[1])/w,(p01[0]-p00[0])/h,(p01[1]-p00[1])/h,p00[0],p00[1])}
+function onLeft(t0,t1,v0,v1,w,h,fn){ctx.save();xf(L(t0,v0),L(t1,v0),L(t0,v1),w,h);fn();ctx.restore()}
+function onRight(t0,t1,v0,v1,w,h,fn){ctx.save();xf(R(t1,v0),R(t0,v0),R(t1,v1),w,h);fn();ctx.restore()}
+function onCeil(t0,t1,u0,u1,w,h,fn){ctx.save();xf(C(t0,u0),C(t0,u1),C(t1,u0),w,h);fn();ctx.restore()}
+function onBack(u0,u1,v0,v1,w,h,fn){ctx.save();xf(B(u0,v0),B(u1,v0),B(u0,v1),w,h);fn();ctx.restore()}
+
+const ANOM={
+  light_red:'照明がひとつ赤かった',
+  light_off:'照明がひとつ消えていた',
+  poster_eyes:'ポスターの顔がこっちを見ていた',
+  poster_text:'ポスターの文字が変わっていた',
+  door_open:'ドアが少し開いていた',
+  clock_back:'時計の針が逆に回っていた',
+  no_ext:'消火器がなかった',
+  sign_arrow:'出口の矢印が逆向きだった',
+  man_smile:'歩いてくる人が笑っていた',
+  man_big:'歩いてくる人が大きすぎた',
+  puddle:'床に赤い水たまりがあった',
+  vent_eyes:'天井の通気口に目があった',
+  dark:'廊下がいつもより暗かった',
+};
+const KEYS=Object.keys(ANOM);
+let state='title',count=0,anom=null,lastAnom=null,t0=0,tStart=0,elapsed=0,fade=0;
+
+function newRound(){
+  t0=performance.now();
+  if(count===0){anom=null;return}
+  if(Math.random()<0.6){let k;do{k=KEYS[Math.floor(Math.random()*KEYS.length)]}while(k===lastAnom);anom=k;lastAnom=k}else anom=null;
+}
+function judge(choice){ // choice: 'go' | 'back'
+  const ok=(choice==='back')===(anom!==null);
+  let msg;
+  if(ok){count++;msg=anom?'正解：'+ANOM[anom]:'正解：異変なし'}
+  else{msg=anom?'見逃した…'+ANOM[anom]:'異変はなかった…';count=0}
+  return {ok,msg};
+}
+
+function draw(now){
+  const time=(now-t0)/1000;
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  ctx.clearRect(0,0,W,H);
+  // 面
+  poly([[0,0],[W,0],C(1,1),C(1,0)],'#f1efe8');
+  poly([[0,H],[W,H],F(1,1),F(1,0)],'#b8b2a3');
+  poly([[0,0],L(1,0),L(1,1),[0,H]],'#ddd8cb');
+  poly([[W,0],R(1,0),R(1,1),[W,H]],'#e4dfd2');
+  poly([B(0,0),B(1,0),B(1,1),B(0,1)],'#cdc7b8');
+  // 床のタイル
+  ctx.lineWidth=1;
+  for(const u of[.2,.4,.6,.8]){ctx.beginPath();ctx.moveTo(...F(0,u));ctx.lineTo(...F(1,u));ctx.strokeStyle='rgba(0,0,0,.12)';ctx.stroke()}
+  for(const t of[.08,.2,.34,.5,.68,.86]){ctx.beginPath();ctx.moveTo(...F(t,0));ctx.lineTo(...F(t,1));ctx.stroke()}
+  // 幅木
+  poly([L(0,.96),L(1,.96),L(1,1),L(0,1)],'#5b564c');
+  poly([R(0,.96),R(1,.96),R(1,1),R(0,1)],'#5b564c');
+  // 照明
+  [[.06,.14],[.3,.36],[.52,.57],[.72,.76]].forEach(([a,b],i)=>{
+    let col='#fffbe0';
+    if(anom==='light_red'&&i===1)col='#ff3a3a';
+    if(anom==='light_off'&&i===2)col='#4a4a48';
+    poly([C(a,.38),C(a,.62),C(b,.62),C(b,.38)],col,'rgba(0,0,0,.2)');
+  });
+  // 通気口
+  onCeil(.42,.5,.12,.28,60,40,()=>{
+    ctx.fillStyle='#8a877e';ctx.fillRect(0,0,60,40);
+    ctx.fillStyle='#3d3b36';for(let i=0;i<5;i++)ctx.fillRect(4,4+i*7,52,4);
+    if(anom==='vent_eyes'){ctx.fillStyle='#fff';[[20,20],[40,20]].forEach(([x,y])=>{ctx.beginPath();ctx.ellipse(x,y,7,5,0,0,7);ctx.fill()});ctx.fillStyle='#c00';[[20,20],[40,20]].forEach(([x,y])=>{ctx.beginPath();ctx.arc(x,y,3,0,7);ctx.fill()})}
+  });
+  // 左の壁：ポスター3枚
+  onLeft(.08,.24,.3,.62,100,140,()=>{ // 禁煙
+    ctx.fillStyle='#fff';ctx.fillRect(0,0,100,140);ctx.strokeStyle='#333';ctx.strokeRect(0,0,100,140);
+    ctx.strokeStyle='#d33';ctx.lineWidth=8;ctx.beginPath();ctx.arc(50,58,32,0,7);ctx.stroke();ctx.beginPath();ctx.moveTo(28,36);ctx.lineTo(72,80);ctx.stroke();
+    ctx.fillStyle='#222';ctx.font='bold 22px sans-serif';ctx.textAlign='center';ctx.fillText('禁煙',50,124);
+  });
+  onLeft(.38,.52,.28,.62,100,140,()=>{ // 笑顔の広告
+    ctx.fillStyle='#ffe9a8';ctx.fillRect(0,0,100,140);ctx.strokeStyle='#333';ctx.strokeRect(0,0,100,140);
+    ctx.fillStyle='#f6c37a';ctx.beginPath();ctx.arc(50,58,34,0,7);ctx.fill();
+    ctx.strokeStyle='#333';ctx.lineWidth=3;
+    if(anom==='poster_eyes'){
+      ctx.fillStyle='#fff';[36,64].forEach(x=>{ctx.beginPath();ctx.arc(x,50,9,0,7);ctx.fill()});
+      ctx.fillStyle='#b00';[36,64].forEach(x=>{ctx.beginPath();ctx.arc(x+Math.sin(time*2)*2,51,4,0,7);ctx.fill()});
+      ctx.beginPath();ctx.moveTo(38,76);ctx.lineTo(62,76);ctx.stroke();
+    }else{
+      [36,64].forEach(x=>{ctx.beginPath();ctx.arc(x,52,6,Math.PI,0);ctx.stroke()});
+      ctx.beginPath();ctx.arc(50,66,14,0.15*Math.PI,0.85*Math.PI);ctx.stroke();
+    }
+    ctx.fillStyle='#333';ctx.font='bold 16px sans-serif';ctx.textAlign='center';ctx.fillText('笑顔の毎日',50,124);
+  });
+  onLeft(.66,.78,.3,.6,100,140,()=>{ // 足元注意
+    ctx.fillStyle='#ffd400';ctx.fillRect(0,0,100,140);ctx.strokeStyle='#333';ctx.strokeRect(0,0,100,140);
+    ctx.fillStyle='#222';ctx.font='bold 26px sans-serif';ctx.textAlign='center';
+    if(anom==='poster_text'){ctx.fillStyle='#a00';ctx.fillText('振り',50,52);ctx.fillText('返るな',50,90)}
+    else{ctx.fillText('足元',50,52);ctx.fillText('注意',50,90)}
+  });
+  // 右の壁：消火器・ドア・時計
+  if(anom!=='no_ext') onRight(.12,.17,.72,.95,30,80,()=>{
+    ctx.fillStyle='#d42a2a';ctx.fillRect(4,14,22,64);ctx.fillStyle='#222';ctx.fillRect(10,4,10,12);
+    ctx.fillStyle='#fff';ctx.fillRect(7,34,16,14);
+  });
+  onRight(.3,.43,.28,1,60,140,()=>{
+    ctx.fillStyle='#7c858c';ctx.fillRect(0,0,60,140);
+    if(anom==='door_open'){
+      ctx.fillStyle='#050505';ctx.fillRect(40,0,20,140);
+      ctx.fillStyle='#fff';[[47,52],[54,52]].forEach(([x,y])=>{ctx.beginPath();ctx.arc(x,y,2.4,0,7);ctx.fill()});
+      ctx.fillStyle='#69727a';ctx.fillRect(0,0,40,140);
+    }
+    ctx.strokeStyle='#4b5258';ctx.lineWidth=2;ctx.strokeRect(0,0,60,140);
+    ctx.fillStyle='#ddd';ctx.beginPath();ctx.arc(anom==='door_open'?34:50,74,4,0,7);ctx.fill();
+  });
+  onRight(.56,.63,.12,.27,40,40,()=>{
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(20,20,18,0,7);ctx.fill();ctx.strokeStyle='#222';ctx.lineWidth=2;ctx.stroke();
+    const dir=anom==='clock_back'?-1:1;
+    const sec=(time*dir*6+90)*Math.PI/180; // 1秒6度
+    ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(20,20);ctx.lineTo(20,8);ctx.stroke();
+    ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(20,20);ctx.lineTo(29,20);ctx.stroke();
+    ctx.strokeStyle='#d22';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(20,20);ctx.lineTo(20+15*Math.cos(sec-Math.PI),20+15*Math.sin(sec-Math.PI));ctx.stroke();
+  });
+  // 奥の壁：出口の看板
+  onBack(.2,.8,.06,.3,120,40,()=>{
+    ctx.fillStyle='#1f8a4c';ctx.fillRect(0,0,120,40);
+    ctx.fillStyle='#fff';ctx.font='bold 20px sans-serif';ctx.textAlign='left';ctx.textBaseline='middle';
+    ctx.fillText('出口',8,21);
+    ctx.fillStyle='#ffd84a';ctx.fillRect(58,6,26,28);ctx.fillStyle='#222';ctx.textAlign='center';ctx.fillText(String(count),71,21);
+    ctx.fillStyle='#fff';ctx.fillText(anom==='sign_arrow'?'←':'→',102,21);
+  });
+  // 水たまり
+  if(anom==='puddle'){const p=F(.35,.62);ctx.fillStyle='rgba(150,0,0,.85)';ctx.beginPath();ctx.ellipse(p[0],p[1]-8,34,9,0,0,7);ctx.fill()}
+  // 歩いてくる人
+  const cyc=(time%9)/9, dt=lerp(.92,.2,cyc);
+  const foot=F(dt,.4), top=C(dt,.4);
+  let hgt=(foot[1]-top[1])*.62*(anom==='man_big'?1.45:1);
+  const s=hgt/100, x=foot[0], y=foot[1];
+  ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+  const sw=Math.sin(time*6)*10;
+  ctx.strokeStyle='#22242a';ctx.lineWidth=7;ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(0,-45);ctx.lineTo(-6+sw*.4,0);ctx.moveTo(0,-45);ctx.lineTo(6-sw*.4,0);ctx.stroke();
+  ctx.fillStyle='#2e3440';ctx.fillRect(-13,-80,26,38);
+  ctx.beginPath();ctx.moveTo(-12,-76);ctx.lineTo(-17,-48-sw*.3);ctx.moveTo(12,-76);ctx.lineTo(17,-48+sw*.3);ctx.stroke();
+  ctx.fillStyle='#f0cfa8';ctx.beginPath();ctx.arc(0,-90,11,0,7);ctx.fill();
+  ctx.fillStyle='#222';ctx.fillRect(-11,-102,22,6);
+  if(anom==='man_smile'){
+    ctx.fillStyle='#c00';ctx.beginPath();ctx.arc(-4,-91,1.8,0,7);ctx.arc(4,-91,1.8,0,7);ctx.fill();
+    ctx.strokeStyle='#600';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(0,-87,6,0.1*Math.PI,0.9*Math.PI);ctx.stroke();
+  }else{
+    ctx.fillStyle='#222';ctx.beginPath();ctx.arc(-4,-91,1.3,0,7);ctx.arc(4,-91,1.3,0,7);ctx.fill();
+    ctx.fillRect(-3,-85,6,1.2);
+  }
+  ctx.restore();
+  // 暗さ・ゆらぎ
+  if(anom==='dark'){ctx.fillStyle='rgba(0,0,10,.55)';ctx.fillRect(0,0,W,H)}
+  const g=ctx.createRadialGradient(W/2,H/2,H*.2,W/2,H/2,H*.75);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,.45)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  if(fade>0){ctx.fillStyle=`rgba(0,0,0,${fade})`;ctx.fillRect(0,0,W,H)}
+}
+
+const $=id=>document.getElementById(id);
+function loop(now){
+  if(state==='play'){elapsed=(now-tStart)/1000;$('tm').textContent=elapsed.toFixed(1)+'秒'}
+  draw(now);requestAnimationFrame(loop);
+}
+function toast(msg,ok){const el=$('toast');el.textContent=msg;el.style.color=ok?'#9ff0b5':'#ff9b9b';el.style.opacity=1;clearTimeout(toast.h);toast.h=setTimeout(()=>el.style.opacity=0,1800)}
+function act(choice){
+  if(state!=='play')return;
+  state='trans';
+  const r=judge(choice);
+  toast(r.msg,r.ok);
+  let st=performance.now();
+  (function f(n){const p=(n-st)/350;
+    if(p<1){fade=Math.min(1,p);requestAnimationFrame(f);return}
+    if(count>=8){fade=0;clear();return}
+    newRound();$('cnt').textContent=`出口 ${count} / 8`;
+    const st2=performance.now();(function g(n2){const q=(n2-st2)/350;fade=Math.max(0,1-q);if(q<1)requestAnimationFrame(g);else{fade=0;state='play'}})(st2);
+  })(st);
+}
+function start(){count=0;lastAnom=null;newRound();$('cnt').textContent='出口 0 / 8';$('ov').style.display='none';tStart=performance.now();state='play'}
+function clear(){state='clear';const o=$('ov');o.style.display='flex';
+  o.innerHTML=`<h1>脱出成功！</h1><p>8つの廊下をぬけて、外に出た。<br>タイム：<b style="color:#ffd84a">${elapsed.toFixed(1)}秒</b></p><button class="start" id="again">もう一度</button><p><small>見本で動く体験版</small></p>`;
+  $('again').onclick=start;$('cnt').textContent='出口 8 / 8';}
+$('startBtn').onclick=start;
+$('go').addEventListener('click',()=>act('go'));
+$('back').addEventListener('click',()=>act('back'));
+addEventListener('keydown',e=>{
+  if(['ArrowUp','ArrowDown','Space',' ','w','s'].includes(e.key)||e.code==='Space')e.preventDefault();
+  if(state==='title'&&(e.key==='Enter'||e.code==='Space')){start();return}
+  if(state==='clear'&&(e.key==='Enter'||e.code==='Space')){start();return}
+  if(e.key==='ArrowUp'||e.key==='w')act('go');
+  if(e.key==='ArrowDown'||e.key==='s')act('back');
+},{passive:false});
+newRound();requestAnimationFrame(loop);
+</script>
+</body></html>
