@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Threads運用調査書</title>
+<style>
+:root{
+  --bg:#fbfaf7;--fg:#1f2328;--muted:#5d6670;--line:#d8d4cc;--card:#ffffff;
+  --band:#1f2a37;--bandfg:#ffffff;--band2:#b9c4d0;
+  --a:#2f6fdb;--a-soft:#e3ecfb;--ok:#1f8a4c;--ok-soft:#e1f3e8;--ng:#c2412d;--ng-soft:#fbe6e2;--warn:#a96800;--warn-soft:#fbefd8;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14171b;--fg:#e6e8eb;--muted:#9aa4ae;--line:#2f353c;--card:#1b1f24;
+  --band:#0d1013;--bandfg:#e6e8eb;--band2:#8d99a6;
+  --a:#7aa7f5;--a-soft:#1d2a40;--ok:#5cc58a;--ok-soft:#183024;--ng:#f08a77;--ng-soft:#3a1f1a;--warn:#e7b052;--warn-soft:#3a2e15;
+}}
+:root[data-theme="dark"]{
+  --bg:#14171b;--fg:#e6e8eb;--muted:#9aa4ae;--line:#2f353c;--card:#1b1f24;
+  --band:#0d1013;--bandfg:#e6e8eb;--band2:#8d99a6;
+  --a:#7aa7f5;--a-soft:#1d2a40;--ok:#5cc58a;--ok-soft:#183024;--ng:#f08a77;--ng-soft:#3a1f1a;--warn:#e7b052;--warn-soft:#3a2e15;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.75 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif}
+header.band{position:sticky;top:0;z-index:50;background:var(--band);color:var(--bandfg);padding:6px 16px 7px;border-bottom:3px solid var(--a)}
+header.band .t{font-size:12px;color:var(--band2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:80px}
+header.band .c{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+header.band .s{font-size:12.5px;color:var(--band2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:1.2em}
+main{max-width:760px;margin:0 auto;padding:16px 16px 64px}
+h1{font-size:24px;line-height:1.4;margin:18px 0 6px}
+.lead{color:var(--muted);font-size:14px;margin:0 0 16px}
+h2{font-size:20px;margin:44px 0 6px;padding-top:6px;border-top:2px solid var(--line);scroll-margin-top:84px}
+h3{font-size:16.5px;margin:28px 0 6px;scroll-margin-top:84px}
+p{margin:8px 0}
+figure{margin:12px 0;padding:10px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+figure svg{display:block;width:100%;max-width:460px;height:auto;margin:0 auto}
+figcaption{font-size:12.5px;color:var(--muted);margin-top:6px}
+.toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14.5px}
+.toc ol{margin:4px 0;padding-left:1.4em}
+.toc a{color:var(--a);text-decoration:none}
+.box{border-radius:10px;padding:10px 12px;margin:12px 0;font-size:15px}
+.box.ok{background:var(--ok-soft)}.box.ng{background:var(--ng-soft)}.box.warn{background:var(--warn-soft)}.box.a{background:var(--a-soft)}
+.box b.h{display:block;margin-bottom:2px}
+ul.tight{margin:6px 0;padding-left:1.2em}ul.tight li{margin:2px 0}
+.src{font-size:12px;color:var(--muted)}
+.theme{position:absolute;right:12px;top:8px;background:transparent;border:1px solid var(--band2);color:var(--bandfg);border-radius:6px;font-size:12px;padding:2px 7px}
+.sv-t{fill:var(--fg);font-size:13px}.sv-m{fill:var(--muted);font-size:11.5px}.sv-b{fill:var(--fg);font-size:13px;font-weight:700}
+.sv-box{fill:var(--card);stroke:var(--line);stroke-width:1.5}
+.sv-a{fill:var(--a-soft);stroke:var(--a);stroke-width:1.5}.sv-ok{fill:var(--ok-soft);stroke:var(--ok);stroke-width:1.5}.sv-ng{fill:var(--ng-soft);stroke:var(--ng);stroke-width:1.5}.sv-w{fill:var(--warn-soft);stroke:var(--warn);stroke-width:1.5}
+.sv-line{stroke:var(--muted);stroke-width:1.5;fill:none}.sv-arrow{fill:var(--muted)}
+.sv-bar-a{fill:var(--a)}.sv-bar-ng{fill:var(--ng)}
+</style>
+</head>
+<body>
+<header class="band" id="band">
+  <button class="theme" id="themeBtn" type="button">表示切替</button>
+  <div class="t">Threads運用調査書（一般論とCAの運用）</div>
+  <div class="c" id="bandCh">はじめに</div>
+  <div class="s" id="bandSec"></div>
+</header>
+<main>
+<h1>Threads運用調査書<br><span style="font-size:17px">伸び方の一般論と、うちのCAの回し方</span></h1>
+<p class="lead">2026年10月28日（水）作成。読み手＝人材事業のCA・事業部長。<br>作り方: AIの相談役2人に3往復議論させ、AI（Claude）が司会としてまとめた。<b>CA博士</b>＝CA業務と職業安定法の資料を読んで答えるAI。<b>Threads博士</b>＝Threads運用の資料（Meta公式の発表・第三者の調査・運用ブログを、信用度で分けたもの）を読んで答えるAI。</p>
+
+<div class="box ok"><b class="h">CAの人へ：明日からやること</b>
+<ul class="tight">
+<li>当番の日は、拓也の投稿に30分以内に付いた返信の<b>下書き</b>を作って渡す（やり方は<span style="white-space:nowrap">3-1</span>）。</li>
+<li>Threads経由でLINE登録が来たら、<b>1通目</b>を送る（文例は<span style="white-space:nowrap">3-3</span>）。</li>
+<li>返信欄とLINEで<b>やってはいけないこと</b>を覚える（<span style="white-space:nowrap">3-5</span>）。</li>
+</ul>
+先に読むのは <a href="#s3-1">3-1</a>・<a href="#s3-3">3-3</a>・<a href="#s3-5">3-5</a> の3つ。1章と2章は「なぜそうするか」の根拠。</div>
+
+<div class="box a"><b class="h">結論を3行で</b>
+<ul class="tight">
+<li>投稿と返信は<b>拓也のアカウント1本</b>でやる。CAは返信の下書きとLINEの1通目・面談を持つ。</li>
+<li>全部の投稿を<b>「誰でも一言で答えられる問い」で締める</b>。最初の30日は<b>求人投稿を出さない</b>。</li>
+<li>30日で判断に使うのは<b>LINE登録と初回面談が出たか</b>だけ。続けるか止めるかは90日目に決める。</li>
+</ul></div>
+
+
+<nav class="toc"><b>目次</b>
+<ol>
+<li><a href="#ch1">Threadsの伸び方（一般論）</a></li>
+<li><a href="#ch2">MASTER key の先行CA（T氏）の型を分解する</a></li>
+<li><a href="#ch3">CA運用の方法</a></li>
+<li><a href="#ch4">最初の30日</a></li>
+<li><a href="#ch5">測るもの</a></li>
+<li><a href="#ch6">議論で割れた点と結論</a></li>
+</ol></nav>
+
+<!-- ============ 1 ============ -->
+<h2 id="ch1" data-ch="1. Threadsの伸び方（一般論）">1. Threadsの伸び方（一般論）</h2>
+
+<h3 id="s1-1" data-sec="1-1 返信が付く投稿ほど、遠くまで届く">1-1 返信が付く投稿ほど、遠くまで届く</h3>
+<figure>
+<svg viewBox="0 0 360 347" role="img" aria-label="Metaの3段階: 集める→読む→順位を付ける。読む段で見るのは返信・プロフィールを開いた数・読んでいた時間・同じ人とのやり取り">
+<rect class="sv-box" x="0.0" y="6" width="360.0" height="56" rx="8"/>
+<text class="sv-b" x="10.0" y="28">① 集める</text>
+<text class="sv-m" x="10.0" y="48">候補の投稿を拾う</text>
+<path class="sv-arrow" d="M173.0 72 h14 l-7 9z"/>
+<rect class="sv-a" x="0.0" y="84" width="360.0" height="56" rx="8"/>
+<text class="sv-b" x="10.0" y="106">② 読む</text>
+<text class="sv-m" x="10.0" y="126">反応のシグナルを見る</text>
+<path class="sv-arrow" d="M173.0 150 h14 l-7 9z"/>
+<rect class="sv-box" x="0.0" y="162" width="360.0" height="56" rx="8"/>
+<text class="sv-b" x="10.0" y="184">③ 順位を付ける</text>
+<text class="sv-m" x="10.0" y="204">反応の見込みで並べる</text>
+<rect class="sv-ok" x="0.0" y="226" width="360.0" height="113" rx="8"/>
+<text class="sv-b" x="10.0" y="248">②で見るもの</text>
+<text class="sv-t" x="10.0" y="268">返信</text>
+<text class="sv-t" x="10.0" y="287">プロフィールを開いた数</text>
+<text class="sv-t" x="10.0" y="306">読んでいた時間</text>
+<text class="sv-t" x="10.0" y="325">同じ人とのやり取りの回数</text>
+</svg>
+<figcaption>図1-1 Metaが公式に説明している並べ方。下の段が「読む」で見ているもの。</figcaption>
+</figure>
+<p>Metaは、投稿を「集める→読む→順位を付ける」の3段で並べると公式に説明している。読む段で見ているのは、返信・プロフィールを開いた数・読んでいた時間・同じ人と何度もやり取りしているか、の4つ。Meta公式は<b>「Threadsで見られている物の約半分は返信」</b>と書いている。つまり投稿そのものより、その下の会話が読まれている。</p>
+<p>独立調査（Buffer、12.8万投稿）では、<b>自分の投稿に付いた返信に作者が返すと反応が平均+42%</b>。主要6つのSNSで一番大きい。届く範囲を一番大きく動かすのは、返信を生む投稿と、作者本人の即レスの2つ。</p>
+<p class="src">出所: Meta公式の説明ページ・Meta公式ブログ（2024年10月）／Buffer（SNS管理ツールの会社）の調査（2026年2月）。どちらも信用度は高。</p>
+
+<h3 id="s1-2" data-sec="1-2 フォロワーとの会話が、次の配信先を決める">1-2 フォロワーとの会話が、次の配信先を決める</h3>
+<figure>
+<svg viewBox="0 0 360 300" role="img" aria-label="2024年11月以前はフォロー外へ広く、以後はフォロワーとの会話が中心">
+<rect class="sv-box" x="0" y="4" width="360" height="140" rx="10"/>
+<text class="sv-b" x="10" y="26">〜2024年11月：知らない人へ広く</text>
+<circle cx="180" cy="90" r="20" class="sv-a"/><text class="sv-t" x="180" y="95" text-anchor="middle">自分</text>
+<circle cx="70" cy="60" r="9" class="sv-box"/><circle cx="290" cy="60" r="9" class="sv-box"/><circle cx="70" cy="122" r="9" class="sv-box"/><circle cx="290" cy="122" r="9" class="sv-box"/><circle cx="125" cy="128" r="9" class="sv-box"/><circle cx="235" cy="128" r="9" class="sv-box"/>
+<path class="sv-line" d="M161 84 L79 62 M199 84 L281 62 M161 98 L79 120 M199 98 L281 120 M168 106 L132 122 M192 106 L228 122"/>
+<rect class="sv-box" x="0" y="156" width="360" height="140" rx="10"/>
+<text class="sv-b" x="10" y="178">2024年11月〜：フォロワーとの会話が中心</text>
+<circle cx="180" cy="238" r="20" class="sv-a"/><text class="sv-t" x="180" y="243" text-anchor="middle">自分</text>
+<circle cx="115" cy="222" r="12" class="sv-ok"/><circle cx="245" cy="222" r="12" class="sv-ok"/>
+<circle cx="140" cy="276" r="12" class="sv-ok"/><circle cx="220" cy="276" r="12" class="sv-ok"/>
+<path class="sv-line" style="stroke-width:3" d="M160 233 L127 225 M200 233 L233 225 M166 252 L149 266 M194 252 L211 266"/>
+<circle cx="40" cy="205" r="7" class="sv-box"/><path class="sv-line" style="stroke-dasharray:3 4" d="M160 234 L47 207"/>
+</svg>
+<figcaption>図1-2 青＝自分、緑の丸＝フォロワー、灰の丸＝知らない人、点線＝届きにくい。Instagram・Threadsの責任者が2024年11月に「フォローしている人の投稿を優先する」と公式に発表した。</figcaption>
+</figure>
+<p>以前のThreadsはフォロワー0でも知らない人へ広く届いた。2024年11月からは、<b>フォローしている人の投稿を優先する</b>方向に寄せている。0フォロワーでも最初の露出は出るが、続けて届くかはフォロワーとの会話で決まる。</p>
+<p>だから「誰が返信してくれたか」が大事になる。雑談で集まった人がフォロワーになれば、次の投稿もその人たちに届く。うちが集めたいのは転職を考えている人なので、雑談の話題もそこへ寄せる（3章）。</p>
+<p class="src">出所: Instagram・Threads責任者（Adam Mosseri）本人の投稿（2024年11月21日）・米国のIT系ニュース2紙。信用度は高。</p>
+
+<h3 id="s1-3" data-sec="1-3 言い切ってよい数字・ダメな数字">1-3 言い切ってよい数字・ダメな数字</h3>
+<figure>
+<svg viewBox="0 0 360 229" role="img" aria-label="言い切ってよい数字3つと、言い切らない数字4つ">
+<rect class="sv-ok" x="0.0" y="6" width="360.0" height="94" rx="8"/>
+<text class="sv-b" x="10.0" y="28">言い切ってよい（確度 高）</text>
+<text class="sv-t" x="10.0" y="48">見られている物の約半分は返信</text>
+<text class="sv-t" x="10.0" y="67">作者が返すと +42%</text>
+<text class="sv-t" x="10.0" y="86">2024年11月からフォロー内優先</text>
+<rect class="sv-ng" x="0.0" y="108" width="360.0" height="113" rx="8"/>
+<text class="sv-b" x="10.0" y="130">言い切らない（確度 低）</text>
+<text class="sv-t" x="10.0" y="150">「投稿後◯分が勝負」</text>
+<text class="sv-t" x="10.0" y="169">「朝6時が伸びる」</text>
+<text class="sv-t" x="10.0" y="188">「雑談8：宣伝2」</text>
+<text class="sv-t" x="10.0" y="207">「Instagram併用で+15%」</text>
+</svg>
+<figcaption>図1-3 右側は運用ブログの推定で、Meta公式の裏付けが無い。</figcaption>
+</figure>
+<p>Threadsの攻略情報は数字が食い違うものが多い。<b>左の3つ</b>はMeta公式か独立調査で裏が取れている。<b>右の4つ</b>は運用ブログの推定か出所不明なので、判断の根拠にしない。</p>
+<p>「投稿直後が大事」という方向はどの情報も一致している。ただし分数は割れている（4分〜90分）。実務の結論は1つで、<b>拓也が投稿後1時間ほど張り付ける時間に出す</b>。</p>
+
+<!-- ============ 2 ============ -->
+<h2 id="ch2" data-ch="2. MASTER key の先行CA（T氏）の型">2. MASTER key の先行CA（T氏）の型を分解する</h2>
+
+<h3 id="s2-1" data-sec="2-1 18投稿を1回見て分かったこと">2-1 18投稿を1回見て分かったこと</h3>
+<figure>
+<svg viewBox="0 0 360 250" role="img" aria-label="返信数: 一度は行くべきライブ203、既婚者の方何歳で結婚169、求人投稿は一桁">
+<text class="sv-b" x="2" y="18">投稿ごとの返信数（10月28日に見た値）</text>
+<text class="sv-t" x="2" y="46">一度は行くべきライブ</text>
+<rect class="sv-bar-a" x="2" y="54" width="300" height="20" rx="3"/><text class="sv-t" x="310" y="69">203</text>
+<text class="sv-t" x="2" y="98">既婚者の方、何歳で結婚？</text>
+<rect class="sv-bar-a" x="2" y="106" width="250" height="20" rx="3"/><text class="sv-t" x="260" y="121">169</text>
+<text class="sv-t" x="2" y="150">【山形の方】⚠️求人</text>
+<rect class="sv-bar-ng" x="2" y="158" width="8" height="20" rx="3"/><text class="sv-t" x="18" y="173">一桁</text>
+<line x1="2" y1="192" x2="358" y2="192" class="sv-line" style="stroke-dasharray:4 4"/>
+<text class="sv-m" x="2" y="214">ピン留め1本（分断ネタ）はいいね3.6万。</text>
+<text class="sv-m" x="2" y="232">閲覧107万の大半はこの1本。フォロワー118。</text>
+<text class="sv-m" x="2" y="248">応募が何件来たかは見えていない。</text>
+</svg>
+<figcaption>図2-1 18投稿のうち3本を抜き出した。棒は返信数。返信が多いのは誰でも一言で答えられる問いで、求人投稿はほとんど反応が無い。</figcaption>
+</figure>
+<p>T氏は、うちと同じ MASTER key のグループのCAで、うちより先にThreadsで発信している人。T氏の投稿で返信が集まっているのは、<b>誰でも一言で答えられる問い</b>だった。「何歳で結婚した？」「一度は行くべきライブは？」のような問い。求人投稿「【山形の方】⚠️助けてください…月給35万〜」は反応が一桁だった。</p>
+<p>閲覧107万の大半はピン留めの分断ネタ1本から来ていて、フォロワーは118。<b>応募が何件来ているかは外から見えない</b>。つまり「この型で集客できている」とはまだ言えない。</p>
+
+<h3 id="s2-2" data-sec="2-2 移植できるもの・できないもの">2-2 移植できるもの・できないもの</h3>
+<figure>
+<svg viewBox="0 0 360 127" role="img" aria-label="使う: 一言で答えられる問いで締める・顔の見える個人。使わない: 8対2の比率・助けて型の求人・無関係な雑談・分断ネタ">
+<rect class="sv-ok" x="0.0" y="6" width="176.0" height="113" rx="8"/>
+<text class="sv-b" x="10.0" y="28">うちも使う</text>
+<text class="sv-t" x="10.0" y="48">一言で答えられる</text>
+<text class="sv-t" x="10.0" y="67">問いで締める</text>
+<text class="sv-t" x="10.0" y="86">顔の見える個人が</text>
+<text class="sv-t" x="10.0" y="105">発信する</text>
+<rect class="sv-ng" x="184.0" y="6" width="176.0" height="113" rx="8"/>
+<text class="sv-b" x="194.0" y="28">うちは使わない</text>
+<text class="sv-t" x="194.0" y="48">雑談8：求人2の比率</text>
+<text class="sv-t" x="194.0" y="67">⚠️助けて型の求人</text>
+<text class="sv-t" x="194.0" y="86">転職と無関係な雑談</text>
+<text class="sv-t" x="194.0" y="105">分断・炎上ネタ</text>
+</svg>
+<figcaption>図2-2 使うのは「締め方」だけ。比率と求人の書き方は持ち込まない。</figcaption>
+</figure>
+<p>両博士の結論は、<b>そのままは移植しない</b>。使うのは「投稿を一言で答えられる問いで締める」部分だけで、これはMeta公式の「見られている物の約半分は返信」と合っている。</p>
+<p>「雑談8：求人2」の比率は裏付けが無い。転職と無関係な雑談で集まった人がフォロワーになると、その後の求人もその人たちにしか届かない（1-2）。<b>⚠️助けて型</b>は「実在して採用予定のある求人か」「月給の下限は実際の条件か」が見えず、職業安定法の<b>的確表示</b>（求人の条件を実際と違えず、誤解させずに書く義務）の点で要確認寄り。うちは真似しない。</p>
+
+<!-- ============ 3 ============ -->
+<h2 id="ch3" data-ch="3. CA運用の方法">3. CA運用の方法</h2>
+
+<h3 id="s3-1" data-sec="3-1 誰が何をするか">3-1 誰が何をするか</h3>
+<figure>
+<svg viewBox="0 0 360 312" role="img" aria-label="拓也は投稿と返信、CAは下書き・LINEの1通目・面談、事業部長は週1で数字を見る">
+<rect class="sv-a" x="0.0" y="6" width="360.0" height="94" rx="8"/>
+<text class="sv-b" x="10.0" y="28">拓也</text>
+<text class="sv-t" x="10.0" y="48">投稿（1日1〜2本）</text>
+<text class="sv-t" x="10.0" y="67">返信（全部返す）</text>
+<text class="sv-t" x="10.0" y="86">投稿後1時間張り付く</text>
+<rect class="sv-ok" x="0.0" y="108" width="360.0" height="94" rx="8"/>
+<text class="sv-b" x="10.0" y="130">CA</text>
+<text class="sv-t" x="10.0" y="150">返信の下書きを拓也に渡す</text>
+<text class="sv-t" x="10.0" y="169">LINEの1通目（2時間以内）</text>
+<text class="sv-t" x="10.0" y="188">初回面談・流入経路の記録</text>
+<rect class="sv-box" x="0.0" y="210" width="360.0" height="94" rx="8"/>
+<text class="sv-b" x="10.0" y="232">事業部長</text>
+<text class="sv-t" x="10.0" y="252">週1で数字を見る</text>
+<text class="sv-t" x="10.0" y="271">30日目に求人を試すか決める</text>
+<text class="sv-t" x="10.0" y="290">90日目に続けるか決める</text>
+</svg>
+<figcaption>図3-1 投稿と返信は拓也だけ。CAは拓也のアカウントにログインしない。</figcaption>
+</figure>
+<p>投稿と返信は<b>拓也のアカウント1本</b>でやる。フォロワー0の今、アカウントを分けるとフォロワーも会話も割れる。+42%の効果は「作者本人が返した」場合の数字なので、別の人のアカウントから返しても同じ効果は出ない。</p>
+<p>CAは<b>拓也のアカウントにログインしない</b>。顔が拓也なのに返事を書いているのが別人だと分かれば、信頼を失う。下書きはあくまで材料で、返信は拓也のアカウントから拓也が出す。CAが各自のアカウントを持つかは、拓也のアカウントで10〜30本出して型が見えてから決める。</p>
+<div class="box a"><b class="h">下書きの渡し方（最初の30日の案）</b>
+<ul class="tight"><li><b>担当</b>: その日の当番CA 1人。当番表は第1週に事業部長が作り、下のスレッドの先頭に貼る。当番が面談中なら次の当番に回す。当番が見るのは<b>営業時間内の投稿だけ</b>。営業時間外の投稿は拓也が全部自分で返す。</li><li><b>場所</b>: Slackに専用のスレッドを1つ立てる（第1週に拓也が作る）。拓也は投稿したらそこに貼る。</li><li><b>時間</b>: 下書きするのは<b>投稿から30分以内に付いた返信だけ</b>。当番は付いてから<b>30分以内</b>に1返信につき1〜2行の下書きを同じスレッドに返し、拓也が直して自分で返す。</li><li><b>投稿から30分を過ぎて付いた返信</b>（夜・翌朝など）は拓也が自分で返す。CAは触らない。</li></ul>やり方は第2週に一度見直す。</div>
+
+<h3 id="s3-2" data-sec="3-2 投稿の型と最初の割り振り">3-2 投稿の型と最初の割り振り</h3>
+<figure>
+<svg viewBox="0 0 360 341" role="img" aria-label="1週間9〜10本の割り振り: 転職の手前の問い5、拓也の固有性3、相談受付1〜2、求人0">
+<text class="sv-b" x="2" y="20">1週間の割り振り（目安・9〜10本）</text>
+<rect class="sv-a" x="0.0" y="28" width="360.0" height="75" rx="8"/>
+<text class="sv-b" x="10.0" y="50">転職の手前の問い × 5</text>
+<text class="sv-m" x="10.0" y="70">例「新卒の初任給、手取りで</text>
+<text class="sv-m" x="10.0" y="89">いくらだった？」</text>
+<rect class="sv-ok" x="0.0" y="111" width="360.0" height="75" rx="8"/>
+<text class="sv-b" x="10.0" y="133">拓也の固有性 × 3</text>
+<text class="sv-m" x="10.0" y="153">例「バーと研究室、どっちが</text>
+<text class="sv-m" x="10.0" y="172">向いてそうに見える？」</text>
+<rect class="sv-w" x="0.0" y="194" width="360.0" height="94" rx="8"/>
+<text class="sv-b" x="10.0" y="216">相談受付 × 1〜2</text>
+<text class="sv-m" x="10.0" y="236">例「年収と休み、今どっちが</text>
+<text class="sv-m" x="10.0" y="255">足りない？相談はプロフの</text>
+<text class="sv-m" x="10.0" y="274">LINEで受けてます」</text>
+<rect class="sv-box" x="0.0" y="296" width="360.0" height="37" rx="8"/>
+<text class="sv-b" x="10.0" y="318">求人 × 0（最初の30日）</text>
+</svg>
+<figcaption>図3-2 どの型も最後は一言で答えられる問いで終える。</figcaption>
+</figure>
+<p>型は3つ。一番多いのは<b>転職の手前の問い</b>（初任給・転職回数・夜職から昼職へ等）で、答えてくれる人がそのまま転職を考える層になる。2つ目は<b>拓也の固有性</b>（元バーテンダー・博士課程・ポーカー）で、プロフを見に来てもらうための話。3つ目が<b>相談受付</b>。</p>
+<p>どの型も<b>最後を一言で答えられる問いで締める</b>。「相談受付中です」で終わる告知は、求人と同じで返信が付かない。割り振りは30日間変えない（数字が少なすぎて比べられない）。</p>
+
+<h3 id="s3-3" data-sec="3-3 プロフからLINE、面談まで">3-3 プロフからLINE、面談まで</h3>
+<figure>
+<svg viewBox="0 0 360 456" role="img" aria-label="投稿→プロフ4行→LINE登録と1通目の4問→初回面談（聞く回）">
+<rect class="sv-box" x="0.0" y="6" width="360.0" height="56" rx="8"/>
+<text class="sv-b" x="10.0" y="28">投稿</text>
+<text class="sv-t" x="10.0" y="48">本文にリンクを貼らない</text>
+<path class="sv-arrow" d="M173.0 72 h14 l-7 9z"/>
+<rect class="sv-a" x="0.0" y="84" width="360.0" height="113" rx="8"/>
+<text class="sv-b" x="10.0" y="106">プロフ4行</text>
+<text class="sv-t" x="10.0" y="126">期待値で転職を決める人材紹介</text>
+<text class="sv-t" x="10.0" y="145">年収・休み・働き方の比較を一緒に</text>
+<text class="sv-t" x="10.0" y="164">群馬→東京／元バーテンダー・博士</text>
+<text class="sv-t" x="10.0" y="183">相談はLINEで</text>
+<path class="sv-arrow" d="M173.0 207 h14 l-7 9z"/>
+<rect class="sv-ok" x="0.0" y="219" width="360.0" height="132" rx="8"/>
+<text class="sv-b" x="10.0" y="241">LINE登録 → CAが2時間以内に1通</text>
+<text class="sv-t" x="10.0" y="261">①今の仕事と年数</text>
+<text class="sv-t" x="10.0" y="280">②転職の時期（すぐ／半年／情報収集）</text>
+<text class="sv-t" x="10.0" y="299">③住んでいる都道府県</text>
+<text class="sv-t" x="10.0" y="318">④（任意）きっかけの投稿</text>
+<text class="sv-t" x="10.0" y="337">＋面談の候補日3つ</text>
+<path class="sv-arrow" d="M173.0 361 h14 l-7 9z"/>
+<rect class="sv-w" x="0.0" y="373" width="360.0" height="75" rx="8"/>
+<text class="sv-b" x="10.0" y="395">初回面談＝聞く回</text>
+<text class="sv-t" x="10.0" y="415">社名・年収は出さない</text>
+<text class="sv-t" x="10.0" y="434">扱う業界の話まではしてよい</text>
+</svg>
+<figcaption>図3-3 導線はプロフのLINE 1本。最初の返信欄にもリンクを置かない。</figcaption>
+</figure>
+<p>導線は<b>プロフのLINE 1本</b>。投稿本文や最初の返信欄にはリンクを置かない。プロフは「キャッチ→価値→経歴→誘導」の4行にし、「転職」「年収」のような検索されやすい語を入れる。</p>
+<p>LINEに登録が来たら、CAが2時間以内に1通目を送る（夜や休みの日に来たら、次の営業日の朝いちばん）。聞くのは4つで、<b>1通にまとめる</b>。4つ目の「きっかけの投稿」は答えなくてよい形にして、選択肢と「覚えていない」を添える。</p>
+<div class="box ok"><b class="h">1通目の文例</b>
+登録ありがとうございます。Threadsで発信している武者野と一緒に転職相談を受けている、人材紹介会社GoonerのCAの◯◯です。ここからは私が担当します。<br>
+最初に4つだけ教えてください。<br>
+①今のお仕事と、何年目か<br>
+②転職の時期の感じ（すぐ／半年以内／情報収集中）<br>
+③お住まいの都道府県<br>
+④差し支えなければ、きっかけの投稿（例: 初任給の話／転職回数の話／覚えていない）<br>
+お話しできる日を、◯日◯時・◯日◯時・◯日◯時から選んでもらえると嬉しいです。</div>
+<p>初回面談は今までどおり<b>聞く回</b>（経歴と希望を聞くだけで、求人や社名はまだ出さない回）にする。ただしThreadsから来る人は最初から紹介会社と分かって来るので、「どんな業界を扱っているか」までは話してよい。応募者を管理しているSlackのリストに<b>流入経路</b>（どこから来た人か: Indeed／求人ボックス／Threads）の列を事業部長が第1週に足し、CAは1通目を送った時点で必ず埋める。</p>
+
+<h3 id="s3-4" data-sec="3-4 求人を書くとき（31日目以降）">3-4 求人を書くとき（31日目以降・今は読まなくてよい）</h3>
+<figure>
+<svg viewBox="0 0 360 286" role="img" aria-label="白い求人の書き方: 実在の条件・固定残業代の分け書き・紹介会社経由と許可番号・詳細はLINEで書面">
+<rect class="sv-ok" x="0.0" y="6" width="360.0" height="132" rx="8"/>
+<text class="sv-b" x="10.0" y="28">【群馬・施工管理｜未経験可】</text>
+<text class="sv-t" x="10.0" y="48">月給○万〜○万円（固定残業代</text>
+<text class="sv-t" x="10.0" y="67">○時間分○万円を含む・超過分は</text>
+<text class="sv-t" x="10.0" y="86">別途支給）／勤務地○○市／正社員</text>
+<text class="sv-t" x="10.0" y="105">※人材紹介会社Gooner（許可番号○）</text>
+<text class="sv-t" x="10.0" y="124">経由。社名と詳細はLINEで書面に</text>
+<rect class="sv-box" x="0.0" y="146" width="360.0" height="132" rx="8"/>
+<text class="sv-b" x="10.0" y="168">書く前の確認</text>
+<text class="sv-t" x="10.0" y="188">✔ 実在して採用予定のある求人だけ</text>
+<text class="sv-t" x="10.0" y="207">✔ 条件は企業の書面の値そのまま</text>
+<text class="sv-t" x="10.0" y="226">✔ 紹介会社経由と許可番号を書く</text>
+<text class="sv-t" x="10.0" y="245">✔「急募」「助けて」を使わない</text>
+<text class="sv-t" x="10.0" y="264">✔ 問いの形でも責任は同じ</text>
+</svg>
+<figcaption>図3-4 法に触れない書き方（CA博士の案）。31日目以降、4章の基準を満たしたら月1本だけ試す。</figcaption>
+</figure>
+<p>最初の30日は求人投稿を出さない。出すときは上の形で書く。<b>実在して採用予定のある求人だけ</b>を、企業から受け取った書面の条件そのままで書く。固定残業代があれば時間と金額を分けて書く。</p>
+<p>社名を伏せるなら、<b>人材紹介会社経由であることと許可番号</b>（国から受けた職業紹介の許可の番号）を必ず書く。「この条件で働きたい人いる？」と問いの形にしても、条件を書いた時点で的確表示の責任は変わらない。なお、SNSの投稿が職業安定法5条の4の「広告等」に入るかはまだ一次資料で確かめていないので、入る前提で書く。</p>
+
+<h3 id="s3-5" data-sec="3-5 やってはいけないこと">3-5 やってはいけないこと</h3>
+<figure>
+<svg viewBox="0 0 360 267" role="img" aria-label="やってはいけないこと9つ">
+<rect class="sv-ng" x="0.0" y="6" width="360.0" height="132" rx="8"/>
+<text class="sv-b" x="10.0" y="28">投稿・返信</text>
+<text class="sv-t" x="10.0" y="48">✕ ログイン共有・自動投稿</text>
+<text class="sv-t" x="10.0" y="67">✕ 本文や返信欄にリンク</text>
+<text class="sv-t" x="10.0" y="86">✕ 分断・炎上・「急募」「助けて」</text>
+<text class="sv-t" x="10.0" y="105">✕ 1日3本以上の連投</text>
+<text class="sv-t" x="10.0" y="124">✕ 返信欄で年収・内定・社名を約束</text>
+<rect class="sv-ng" x="0.0" y="146" width="360.0" height="113" rx="8"/>
+<text class="sv-b" x="10.0" y="168">CA業務</text>
+<text class="sv-t" x="10.0" y="188">✕ 返信欄で経歴・連絡先を聞く</text>
+<text class="sv-t" x="10.0" y="207">✕ 年齢・性別で職種を勧める／断る</text>
+<text class="sv-t" x="10.0" y="226">✕ 求職者の実例を匿名化せずにネタに</text>
+<text class="sv-t" x="10.0" y="245">✕ 流入経路欄を空のまま閉じる</text>
+</svg>
+<figcaption>図3-5 左はThreads博士、右はCA博士が挙げた線。</figcaption>
+</figure>
+<p>返信欄は誰でも見られる場所なので、<b>年収・内定・社名を約束しない</b>し、経歴や連絡先も聞かない。個別の話は「LINEで」と移す。</p>
+<p>「女性なら事務」「30代は厳しい」のように<b>属性で職種を勧めたり断ったりしない</b>（職業安定法3条・均等待遇）。紹介してくれた一般の人にお礼を約束する書き方は別の法的論点になるので、使うなら先に専門家に確かめる。</p>
+
+<!-- ============ 4 ============ -->
+<h2 id="ch4" data-ch="4. 最初の30日">4. 最初の30日</h2>
+<h3 id="s4-1" data-sec="4-1 週ごとの動き">4-1 週ごとの動き</h3>
+<figure>
+<svg viewBox="0 0 360 414" role="img" aria-label="第1週から第4週の動きと、数字を見て直すこと">
+<rect class="sv-a" x="0.0" y="6" width="360.0" height="94" rx="8"/>
+<text class="sv-b" x="10.0" y="28">第1週</text>
+<text class="sv-t" x="10.0" y="48">プロフ確定・9〜10本・流入経路欄</text>
+<text class="sv-m" x="10.0" y="67">返信ゼロが3本続いたら</text>
+<text class="sv-m" x="10.0" y="86">→ 締めの問いだけ短くする</text>
+<rect class="sv-a" x="0.0" y="108" width="360.0" height="94" rx="8"/>
+<text class="sv-b" x="10.0" y="130">第2週</text>
+<text class="sv-t" x="10.0" y="150">同じ本数・同じ割り振り</text>
+<text class="sv-m" x="10.0" y="169">1時間以内に返せなかったら</text>
+<text class="sv-m" x="10.0" y="188">→ 投稿する時間をずらす</text>
+<rect class="sv-a" x="0.0" y="210" width="360.0" height="94" rx="8"/>
+<text class="sv-b" x="10.0" y="232">第3週</text>
+<text class="sv-t" x="10.0" y="252">同じ。LINE登録に2時間以内で返す</text>
+<text class="sv-m" x="10.0" y="271">プロフを見に来る人がゼロなら</text>
+<text class="sv-m" x="10.0" y="290">→ プロフ4行を直す</text>
+<rect class="sv-ok" x="0.0" y="312" width="360.0" height="94" rx="8"/>
+<text class="sv-b" x="10.0" y="334">第4週</text>
+<text class="sv-t" x="10.0" y="354">初回面談（聞く回）→ 2回目を設計</text>
+<text class="sv-m" x="10.0" y="373">LINE登録がゼロなら</text>
+<text class="sv-m" x="10.0" y="392">→ 求人より先にプロフの誘導を直す</text>
+</svg>
+<figcaption>図4-1 型の割り振りは30日間変えない。直すのは締め方・時間・プロフだけ。</figcaption>
+</figure>
+<p>第1週にプロフを確定し、1週間に9〜10本（1日1〜2本）出す。同時に、事業部長が応募者のSlackリストに流入経路の列を足す。第2週以降も本数と割り振りは同じにする。</p>
+<p>数字を見て直すのは<b>締め方・投稿する時間・プロフの3つだけ</b>。型の割り振りは30日間いじらない。投稿が数十本では、型どうしの差は偶然の範囲に収まるため。</p>
+<div class="box warn"><b class="h">30日目に求人を試す基準</b>
+次の2つがそろったら、3-4の形で月1本だけ試す。<br>
+① Threads経由のLINE登録が来ている　② LINE登録の後、返事か面談予約で止まっている（「具体的な求人が無いから進まない」が疑える）。</div>
+
+<!-- ============ 5 ============ -->
+<h2 id="ch5" data-ch="5. 測るもの">5. 測るもの</h2>
+<h3 id="s5-1" data-sec="5-1 段ごとの数と、判断に使わない数字">5-1 段ごとの数と、判断に使わない数字</h3>
+<figure>
+<svg viewBox="0 0 360 382" role="img" aria-label="閲覧→返信・プロフィールを開いた数→LINE登録→初回面談→推薦→承諾">
+<rect class="sv-box" x="0.0" y="6" width="360.0" height="56" rx="8"/>
+<text class="sv-b" x="10.0" y="28">閲覧・いいね</text>
+<text class="sv-m" x="10.0" y="48">判断に使わない</text>
+<path class="sv-arrow" d="M173.0 72 h14 l-7 9z"/>
+<rect class="sv-box" x="0.0" y="84" width="360.0" height="56" rx="8"/>
+<text class="sv-b" x="10.0" y="106">返信・プロフィールを開いた数</text>
+<text class="sv-m" x="10.0" y="126">ゼロか、ゼロでないかだけ見る</text>
+<path class="sv-arrow" d="M173.0 150 h14 l-7 9z"/>
+<rect class="sv-a" x="0.0" y="162" width="360.0" height="56" rx="8"/>
+<text class="sv-b" x="10.0" y="184">LINE登録（経路＝Threads）</text>
+<text class="sv-m" x="10.0" y="204">CAが数え、事業部長が週1で見る</text>
+<path class="sv-arrow" d="M173.0 228 h14 l-7 9z"/>
+<rect class="sv-a" x="0.0" y="240" width="360.0" height="56" rx="8"/>
+<text class="sv-b" x="10.0" y="262">初回面談</text>
+<text class="sv-m" x="10.0" y="282">30日の成功の線</text>
+<path class="sv-arrow" d="M173.0 306 h14 l-7 9z"/>
+<rect class="sv-ok" x="0.0" y="318" width="360.0" height="56" rx="8"/>
+<text class="sv-b" x="10.0" y="340">推薦 → 承諾（最終点）</text>
+<text class="sv-m" x="10.0" y="360">Slackリストの流入経路から・90日で判断</text>
+</svg>
+<figcaption>図5-1 最終点は「Threads経由の承諾数」。30日では面談まで、90日で承諾まで見る。</figcaption>
+</figure>
+<p>最終点は<b>Threads経由の承諾数</b>。ただし選考に1〜2か月かかるので、30日で承諾は期待しない。30日の<b>成功の線は、Threads経由の初回面談が数件実施できたこと</b>。推薦まで1件進めば十分以上。</p>
+<p>閲覧数・いいね・型ごとの優劣・時間帯の差は、最初の30日は<b>判断に使わない</b>。判断に使うのはLINE登録と初回面談が出たかだけ。返信やプロフィールを開いた数が「ゼロ」なら、それは直す合図として使う（4章）。30日でLINE登録がほぼゼロでもやめずに型とプロフを直し、続けるかは90日目に決める。</p>
+<p class="src">参考: 面談からの成約率5〜15%は人材会社の発信によるレンジ（n数不明）。目安で、約束ではない。</p>
+
+<!-- ============ 6 ============ -->
+<h2 id="ch6" data-ch="6. 議論で割れた点と結論">6. 議論で割れた点と結論</h2>
+<h3 id="s6-1" data-sec="6-1 割れた点と、どう決めたか">6-1 割れた点と、どう決めたか</h3>
+<figure>
+<svg viewBox="0 0 360 293" role="img" aria-label="割れた点3つと結論">
+<rect class="sv-w" x="0.0" y="6" width="360.0" height="94" rx="8"/>
+<text class="sv-b" x="10.0" y="28">① 最初の30日に求人を出すか</text>
+<text class="sv-t" x="10.0" y="48">CA博士：出さない</text>
+<text class="sv-t" x="10.0" y="67">Threads博士：月1本、問いの形で</text>
+<text class="sv-t" x="10.0" y="86">→ 出さない（問いの形でも責任は同じ）</text>
+<rect class="sv-w" x="0.0" y="108" width="360.0" height="94" rx="8"/>
+<text class="sv-b" x="10.0" y="130">② 求人を解禁する基準</text>
+<text class="sv-t" x="10.0" y="150">転換率の差は30日では誤差</text>
+<text class="sv-t" x="10.0" y="169">→ LINE登録が出たか＋その後で</text>
+<text class="sv-t" x="10.0" y="188">　止まっているか、で決める</text>
+<rect class="sv-w" x="0.0" y="210" width="360.0" height="75" rx="8"/>
+<text class="sv-b" x="10.0" y="232">③ Threadsから来た人の初回面談</text>
+<text class="sv-t" x="10.0" y="252">社名を伏せる理由の一部が消える</text>
+<text class="sv-t" x="10.0" y="271">→ 聞く回は守る。扱う業界の話まで</text>
+</svg>
+<figcaption>図6-1 3往復で残った対立は3つ。どれも結論を出した。</figcaption>
+</figure>
+<p>一番割れたのは<b>最初の30日に求人を出すか</b>。Threads博士は「求人が無いとLINEに来る理由が相談だけになる」と月1本の試しを提案し、CA博士は「投稿1本ごとに的確表示の責任が出るし、拓也の顔が業者の顔になる」と反対した。「問いの形でも責任は変わらない」をThreads博士が受け入れ、30日は出さないで決着した。</p>
+<p>T氏の型の成果（応募数）は外からは見えない。同じ MASTER key のグループの中なので、聞ければこの調査書の2章が強くなる。</p>
+<div class="box a"><b class="h">まだ確かめていないこと</b>
+<ul class="tight">
+<li>SNSの投稿が職業安定法5条の4の「広告等」に入るか（入る前提で運用する）</li>
+<li>「相談受付」投稿が宣伝として配信を抑えられるか（一次の根拠は見つかっていない）</li>
+<li>T氏経由の応募数・面談数（MASTER key のグループ内で聞けば分かる可能性がある）</li>
+</ul></div>
+<p class="src">根拠: Threads運用の正本（2026-07-18 作成・Meta公式／独立調査／運用ブログを層分け）・CA実務の正本（3部15章）。議論＝CA博士×Threads博士×司会の3往復（2026年10月28日）。</p>
+</main>
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById('themeBtn');
+  try{var s=localStorage.getItem('theme');if(s)root.setAttribute('data-theme',s);}catch(e){}
+  btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    var nx=cur==='dark'?'light':'dark';root.setAttribute('data-theme',nx);
+    try{localStorage.setItem('theme',nx);}catch(e){}
+  });
+  var band=document.getElementById('band'),bc=document.getElementById('bandCh'),bs=document.getElementById('bandSec');
+  var heads=[].slice.call(document.querySelectorAll('h2[data-ch],h3[data-sec]'));
+  var ticking=false;
+  function update(){
+    ticking=false;var h=band.getBoundingClientRect().height+10,ch='はじめに',sec='';
+    for(var i=0;i<heads.length;i++){
+      if(heads[i].getBoundingClientRect().top-h<=0){
+        if(heads[i].tagName==='H2'){ch=heads[i].getAttribute('data-ch');sec='';}
+        else sec=heads[i].getAttribute('data-sec');
+      }
+    }
+    bc.textContent=ch;bs.textContent=sec;
+  }
+  function sched(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(sched,{rootMargin:'-'+Math.round(band.getBoundingClientRect().height+8)+'px 0px 0px 0px',threshold:[0,1]});
+    heads.forEach(function(x){io.observe(x);});
+  }
+  window.addEventListener('scroll',sched,{passive:true});
+  window.addEventListener('resize',sched);window.addEventListener('hashchange',sched);
+  update();
+})();
+</script>
+</body>
+</html>
