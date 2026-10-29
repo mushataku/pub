@@ -192,6 +192,41 @@ table.funnel-m td:first-child{font-weight:700}
 .colophon li{padding-left:1.2em;position:relative}
 .colophon li:before{content:"";position:absolute;left:0;top:.65em;width:.5em;height:.5em;border-radius:50%;background:var(--accent)}
 
+
+/* v4: まとめの3つの鎖（揃っている2つ・足りない1つ） */
+.chain{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2em}
+.lk{border-radius:.8em;padding:1.1em 1.2em;display:flex;flex-direction:column;gap:.35em;background:var(--ok-soft)}
+.lk .k{font-size:.85em;color:var(--sub);font-weight:700}
+.lk b{font-size:1.3em;font-weight:900}
+.lk .s{font-weight:700;color:var(--ok)}
+.lk.ng{background:var(--accent-soft);border:2px dashed var(--accent)}
+.lk.ng .s{color:var(--accent)}
+/* v4: 0→1 と 1→100 の対 */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:2em}
+.duo .side{border-top:4px solid var(--muted);padding-top:.8em;display:flex;flex-direction:column;gap:.3em}
+.duo .side.us{border-top-color:var(--accent)}
+.duo .big{font-size:3.2em;font-weight:800;line-height:1.05;color:var(--navy)}
+.duo .us .big{color:var(--accent)}
+.duo b{font-size:1.2em}
+.duo .side span:last-child{color:var(--sub)}
+.step.hot{background:var(--accent-soft);border:2px solid var(--accent)}
+.step.hot .no{color:var(--accent)}
+table.scale td,table.scale th{font-size:1.05em;padding:.5em .8em}
+/* v4: 量→要る資金→戻る利益 の3つの大きな数字 */
+.big3{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:1em}
+.big3 .bx{border-radius:.8em;padding:1em 1.1em;background:var(--navy-soft);display:flex;flex-direction:column;gap:.25em}
+.big3 .bx.hot{background:var(--accent-soft);border:2px solid var(--accent)}
+.big3 .k{font-size:.85em;color:var(--sub);font-weight:700}
+.big3 .v{font-size:2.3em;font-weight:800;line-height:1.1}
+.big3 .v small{font-size:.5em;margin-left:.1em}
+.big3 .hot .v{color:var(--accent)}
+.big3 .d{font-size:.82em;color:var(--sub)}
+.big3 .ar{align-self:center;font-size:1.6em;color:var(--sub)}
+.cards.c3{grid-template-columns:repeat(3,1fr)}
+.slide[data-sec^="B"] h2{text-wrap:balance}
+/* 補足：質疑で開く枚は文字が多くてよい＝16:9 に収めず縦に伸ばす */
+.slide[data-sec^="B"],.slide[data-role="backup"]{aspect-ratio:auto;min-height:0}
+.slide.dense{font-size:clamp(13px,1.5cqw,18px)}
 /* スマホ幅：16:9 をやめて縦に流す */
 @media (max-width:760px){
   main{padding:12px 12px 48px;gap:14px}
@@ -200,7 +235,11 @@ table.funnel-m td:first-child{font-weight:700}
   .cover{min-height:70vh}
   .cover h1{font-size:2.05em}
   .cover .tag{position:static;margin-top:1.4em}
-  .split,.vs,.two{grid-template-columns:1fr;gap:18px}
+  .split,.vs,.two,.duo,.chain{grid-template-columns:1fr;gap:14px}
+  .big3{grid-template-columns:1fr;gap:8px}
+  .big3 .ar{transform:rotate(90deg);justify-self:center;line-height:1}
+  .cards.c3{grid-template-columns:1fr}
+  .slide[data-sec^="B"] table th,.slide[data-sec^="B"] table td{font-size:11px;padding:4px 3px;white-space:normal}
   .toc{grid-template-columns:1fr;gap:0}
   .flow,.levers{grid-template-columns:1fr;gap:8px}
   .flow .ar{transform:rotate(90deg);justify-self:center;font-size:1.4em;line-height:1}
@@ -216,8 +255,8 @@ table.funnel-m td:first-child{font-weight:700}
   .tl:before{left:.6em;top:.2em}
   .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
   .band .now{display:none}
-  [data-sec="3-1"] svg{display:none}
-  [data-sec="3-1"] .gm{display:flex}
+  .gantt svg{display:none}
+  .gantt .gm{display:flex}
 }
 @media print{
   .band{display:none}
@@ -227,96 +266,168 @@ table.funnel-m td:first-child{font-weight:700}
 }
 </style>
 </head>
-<body data-skeleton="lecture">
-<div class="band" role="navigation"><b>資金のご相談</b><span class="now" id="now">表紙</span><span class="where" id="where">01/15</span><button type="button" id="theme" aria-label="明暗を切り替える">◐</button></div>
+<body data-skeleton="talk">
+<div class="band" role="navigation"><b>資金のご相談</b><span class="now" id="now">表紙</span><span class="where" id="where">01/23</span><button type="button" id="theme" aria-label="明暗を切り替える">◐</button></div>
 <main>
 
 <section class="slide cover" data-role="cover" id="s1">
+
 <div class="kicker">チケット抽選代行事業 ／ 資金のご相談</div>
-  <h1>利益の半分を、<br><em>手放さずに</em>回したい</h1>
+  <h1>0→1 は、もうある。<br><em>1→100</em> にする資金を</h1>
   <div class="who">品川湧登・武者野拓也　<span class="ph">[2026年〇月〇日]</span></div>
-  <div class="tag">ご相談額 <span class="ph">[XXX]万円</span></div>
+  <div class="tag">攻め 1,000万円（仮）／ 守り 30〜50万円（仮）</div>
 </section>
 
 <section class="slide" data-role="summary" id="s2">
-<div class="hd"><span>結論</span><span class="pg">02/15</span></div>
-<h2><span class="ph">[XXX]万円</span>あれば、利益 100万円 → <em>1億円</em>へ</h2>
-  <p class="lead">いまは当選分の支払いを立て替えてもらう代わりに、利益の半分を渡しています。</p>
+<div class="hd"><span>結論</span><span class="pg">02/23</span></div>
+<h2>目利きも量も揃った。止まっているのは<em>お金だけ</em></h2>
+  <p class="lead">1円払うと、約70日で 2.8円になる商売です（直近3案件）。いまは払う現金が足りず 1→2、1→3 止まり。1,000万円（仮）で、同じやり方のまま量を約20倍にします。</p>
   <div class="body">
-    <div class="split">
-      <div class="case">
-        <h3>いま<small>利益100万円のとき</small></h3>
-        <div class="bar"><span class="ours" style="width:50%">手元 50万</span><span class="theirs" style="width:50%">立て替え先へ 50万</span></div>
-      </div>
-      <div class="case">
-        <h3>自前の資金があれば<small>同じ100万円</small></h3>
-        <div class="bar"><span class="ours" style="width:100%">手元 100万</span></div>
-      </div>
+    <div class="chain">
+      <div class="lk ok"><span class="k">0→1　何を買うか</span><b>M氏（業界10年）</b><span class="s">✓ ある</span></div>
+      <div class="lk ok"><span class="k">1→100　量を増やす仕組み</span><b>私たち（bot＋手作業）</b><span class="s">✓ ある</span></div>
+      <div class="lk ng"><span class="k">当選分を払う現金</span><b>あなた</b><span class="s">ここが足りない</span></div>
     </div>
-    <div class="path"><span>半分が手元に残る</span><i>→</i><span>アカウントと支払い枠を増やす</span><i>→</i><span>1案件の利益が伸びる</span><i>→</i><span class="goal">目標 1億円</span></div>
   </div>
 </section>
 
 <section class="slide" data-role="toc" id="s3">
-<div class="hd"><span>目次</span><span class="pg">03/15</span></div>
-<h2>4つの問いに順に答えます</h2>
-  <p class="lead">しくみ → 実績 → お金が要る理由 → お返しの順</p>
+<div class="hd"><span>目次</span><span class="pg">03/23</span></div>
+<h2>3つの問いに答えます</h2>
+  <p class="lead">しくみ → いまの結果と壁 → いくらで何が変わるか の順</p>
   <div class="body">
     <div class="toc">
-      <div data-ch="1"><span class="n">1</span><span class="t">ビジネスモデル</span><span class="q">どうやって利益が出るのか？</span></div>
-      <div data-ch="2"><span class="n">2</span><span class="t">成功例</span><span class="q">本当に利益は出ているのか？</span></div>
-      <div data-ch="3"><span class="n">3</span><span class="t">お金が必要な理由</span><span class="q">なぜ [XXX]万円が要るのか？</span></div>
-      <div data-ch="4"><span class="n">4</span><span class="t">計画とリターン</span><span class="q">出した人には何が戻るのか？</span></div>
+      <div data-ch="1"><span class="n">1</span><span class="t">しくみと強み</span><span class="q">何で利益が出て、なぜ私たちなのか？</span></div>
+      <div data-ch="2"><span class="n">2</span><span class="t">実績と壁</span><span class="q">本当に出ているのか？ 何で止まっているのか？</span></div>
+      <div data-ch="3"><span class="n">3</span><span class="t">試算とお願い</span><span class="q">いくらあれば、いくらになるのか？</span></div>
     </div>
   </div>
 </section>
 
 <section class="slide" data-sec="1-1" id="s4">
-<div class="hd"><span class="ch">第1章 ビジネスモデル</span><span class="pg">1-1｜04/15</span></div>
-<h2>4つの段で、定価のチケットを<em>数倍</em>で売る</h2>
-  <p class="lead">応募はタダ。お金が出ていくのは当選分を払うときだけです。各段の難しさを誰が解いているか。</p>
+<div class="hd"><span class="ch">第1章 しくみと強み</span><span class="pg">1-1｜04/23</span></div>
+<h2>0→1 は M氏、<em>1→100</em> は私たち</h2>
+  <p class="lead">定価で当てたチケットを数倍で売る。4つの段のうち、止まっているのは③だけです。</p>
   <div class="body">
     <div class="panel">
-      <div class="stg"><span class="no">① 見つける</span><b>需要のある公演の抽選を探す</b><dl><dt>難しさ</dt><dd>どの抽選に需要があるか</dd><dt>解き手</dt><dd class="who">M氏（情報に強い協力者）が流してくれる</dd></dl></div>
-      <div class="stg"><span class="no">② 応募</span><b>名義とアカウントを用意して大量に出す</b><dl><dt>難しさ</dt><dd>1名義にローチケ・ぴあ・e+ など計5社のアカウント（1名義 1,500円）</dd><dt>解き手</dt><dd class="who">武者野の自動化で大量に作って出す</dd></dl></div>
-      <div class="stg hot"><span class="no">③ 支払い</span><b>当選分を数日以内に定価で払う</b><dl><dt>難しさ</dt><dd>払える現金が当選数の上限</dd><dt>解き手</dt><dd class="who">いま足りない＝今回のご相談</dd></dl></div>
-      <div class="stg"><span class="no">④ 販売</span><b>取引サイト・X で定価の数倍で売る</b><dl><dt>難しさ</dt><dd>入金は公演の後（10〜70日後）</dd><dt>解き手</dt><dd class="who"><span class="ph">[担当]</span></dd></dl></div>
+      <div class="stg"><span class="no">① 見つける　0→1</span><b>需要のある抽選を選ぶ</b><dl><dt>難しさ</dt><dd>何を買うかの目利き</dd><dt>解き手</dt><dd class="who">M氏（業界10年）</dd></dl></div>
+      <div class="stg"><span class="no">② 応募　1→100</span><b>アカウントを作って大量に出す</b><dl><dt>難しさ</dt><dd>アカウントと手間</dd><dt>解き手</dt><dd class="who">私たち（bot＋手作業）</dd></dl></div>
+      <div class="stg hot"><span class="no">③ 支払い</span><b>当選分を数日で定価で払う</b><dl><dt>難しさ</dt><dd>払える現金が当選数の上限</dd><dt>解き手</dt><dd class="who">足りない＝今回のご相談</dd></dl></div>
+      <div class="stg"><span class="no">④ 販売</span><b>取引サイト・X で数倍で売る</b><dl><dt>難しさ</dt><dd>入金は公演の後</dd><dt>解き手</dt><dd class="who"><span class="ph">[担当]</span></dd></dl></div>
     </div>
   </div>
 </section>
 
 <section class="slide" data-sec="1-2" id="s5">
-<div class="hd"><span class="ch">第1章 ビジネスモデル</span><span class="pg">1-2｜05/15</span></div>
-<h2>利益を決めるのは<em>2つ</em>だけ</h2>
-  <p class="lead">アカウントが多いほど当たり、当たった分を払える現金があるほど売れる。</p>
+<div class="hd"><span class="ch">第1章 しくみと強み</span><span class="pg">1-2｜05/23</span></div>
+<h2>アカウントは bot で増やせる。<em>天井は現金だけ</em></h2>
+  <p class="lead">1名義＝電話番号1本（1,500円）で5社分。番号は格安SIM（LinksMate）、増やすのは bot。</p>
   <div class="body">
-    <div class="levers">
-      <div class="lever"><div class="ic">👥</div><div class="t">アカウントの数</div><div class="d">多いほど当選が増える<br>（1名義 1,500円で計5社ぶん）</div></div>
-      <div class="op">×</div>
-      <div class="lever hot"><div class="ic">💴</div><div class="t">払える現金</div><div class="d">当たっても払えなければ<br>その当選は捨てるしかない</div></div>
-      <div class="op">＝</div>
-      <div class="lever"><div class="ic">📈</div><div class="t">利益</div><div class="d">2つの掛け算で決まる</div></div>
+    <div class="vsbars">
+      <div class="vsrow"><div class="l"><span>M氏（業界10年）のローチケ</span><b class="num">約300</b></div><div class="track"><div class="fill" style="width:30%;background:var(--muted)"></div></div></div>
+      <div class="vsrow"><div class="l"><span>業界で強い人</span><b class="num">約1,000</b></div><div class="track"><div class="fill" style="width:100%;background:var(--muted)"></div></div></div>
+      <div class="vsrow"><div class="l"><span>私たち（参入2か月）</span><b class="num" style="color:var(--accent)">約300</b></div><div class="track"><div class="fill" style="width:30%;background:var(--accent)"></div></div></div>
     </div>
+    <p class="foot">参入2か月で約300（大半は手作業・bot は1か月で63名義）。強い人が約1,000で止まる理由は M氏に確認中 → B1-3</p>
   </div>
 </section>
 
 <section class="slide" data-sec="2-1" id="s6">
-<div class="hd"><span class="ch">第2章 成功例</span><span class="pg">2-1｜06/15</span></div>
-<h2>直近の4案件で、利益 <em>約178万円</em></h2>
-  <p class="lead">9月〜10月に当選した分（立て替え先へ分ける前）。入金済み <b class="num">112万円</b>・入金待ち <b class="num">66.4万円</b>（10/31〜12/27 予定）。</p>
+<div class="hd"><span class="ch">第2章 実績と壁</span><span class="pg">2-1｜06/23</span></div>
+<h2>売れた額は、払った額の <em>2.8倍</em></h2>
+  <p class="lead">直近3案件。売れた分の入金は 10/31〜12/27 の予定（立て替え先と分ける前）。合計で 36.8万円払い、売上 103.3万円・利益 66.4万円。</p>
   <div class="body">
-    <div class="cards">
-      <div class="card"><span class="nm">フェデラー</span><span class="p num">112<small>万</small></span><span class="d">当選80件・支払い0円・入金済み</span><div class="meter"><i style="width:100%"></i></div></div>
-      <div class="card"><span class="nm">野球</span><span class="p num">27.2<small>万</small></span><span class="d">応募150・当選8・10/31入金</span><div class="meter"><i style="width:24.3%"></i></div></div>
-      <div class="card"><span class="nm">刀剣乱舞</span><span class="p num">23.2<small>万</small></span><span class="d">応募100・当選5・12/18入金</span><div class="meter"><i style="width:20.7%"></i></div></div>
-      <div class="card"><span class="nm">あんスタ<small style="font-weight:400;color:var(--sub)">（あんさんぶるスターズ）</small></span><span class="p num">16<small>万</small></span><span class="d">応募52・当選8・12/27入金</span><div class="meter"><i style="width:14.3%"></i></div></div>
+    <div class="cards c3">
+      <div class="card"><span class="nm">野球</span><span class="p num">4.1<small>倍</small></span><span class="d">8.8万円払い、利益 27.2万円</span><div class="meter"><i style="width:100%"></i></div></div>
+      <div class="card"><span class="nm">あんスタ</span><span class="p num">3.0<small>倍</small></span><span class="d">8万円払い、利益 16万円</span><div class="meter"><i style="width:73%"></i></div></div>
+      <div class="card"><span class="nm">刀剣乱舞</span><span class="p num">2.2<small>倍</small></span><span class="d">20万円払い、利益 23.2万円</span><div class="meter"><i style="width:54%"></i></div></div>
     </div>
+    <p class="foot">ほかにフェデラー（支払い0円・利益112万円・入金済み）。表と、フェデラーの扱い → B1-1</p>
   </div>
 </section>
 
 <section class="slide" data-sec="2-2" id="s7">
-<div class="hd"><span class="ch">第2章 成功例</span><span class="pg">2-2｜07/15</span></div>
-<h2>払った額の <em>2〜4倍</em> の売上になる</h2>
+<div class="hd"><span class="ch">第2章 実績と壁</span><span class="pg">2-2｜07/23</span></div>
+<h2>当たっても<em>払う現金が無い</em>。だから利益の半分を渡している</h2>
+  <p class="lead">応募はタダ。当選したら数日で定価を払い、売れたお金が入るのは公演の後（長いと約70日後）です。</p>
+  <div class="body">
+    <div class="flow">
+      <div class="step"><span class="no">応募</span><span class="t">タダ</span><span class="d">アカウントの数だけ出せる</span></div>
+      <div class="ar">→</div>
+      <div class="step hot"><span class="no">当選→支払い</span><span class="t">現金が要る</span><span class="d">足りない分は他の業者に払ってもらい、利益を折半</span></div>
+      <div class="ar">→</div>
+      <div class="step"><span class="no">販売→入金</span><span class="t">数倍で戻る</span><span class="d">ただし入金は公演の後</span></div>
+    </div>
+    <p class="foot">約300名義あっても1抽選に出せているのは約100（理由: <span class="ph">[確認中]</span>）。お金が寝る期間 → B2-2／入ったお金の行き先 → B3-1</p>
+  </div>
+</section>
+
+<section class="slide" data-sec="3-1" id="s8">
+<div class="hd"><span class="ch">第3章 試算とお願い</span><span class="pg">3-1｜08/23</span></div>
+<h2>量を<em>20倍</em>にすると、約70日の1巡で 約1,330万円</h2>
+  <p class="lead">直近3案件を、同じ当選率・同じ売値のまま20倍にした試算です。自前の資金なら折半もありません。</p>
+  <div class="body">
+    <div class="big3">
+      <div class="bx"><span class="k">量</span><span class="v num">20<small>倍</small></span><span class="d">1抽選 約100 → 約2,000応募</span></div>
+      <div class="ar">→</div>
+      <div class="bx"><span class="k">要る資金</span><span class="v num">約1,040<small>万</small></span><span class="d">回線 300万＋支払い 736万</span></div>
+      <div class="ar">→</div>
+      <div class="bx hot"><span class="k">戻る利益</span><span class="v num">約1,330<small>万</small></span><span class="d">前提が半分崩れても 約340万</span></div>
+    </div>
+    <p class="foot">崩れうる前提（当選率・売れる量・抽選の数）・10倍/100倍・年1億までの道筋 → B2-1</p>
+  </div>
+</section>
+
+<section class="slide" data-sec="3-2" id="s9">
+<div class="hd"><span class="ch">第3章 試算とお願い</span><span class="pg">3-2｜09/23</span></div>
+<h2>損の上限は<em>入れた資金</em>まで。応募はタダ</h2>
+  <p class="lead">お金が出るのは回線と当選分の定価だけ。お返しは「利益の半分」より軽い条件で。</p>
+  <div class="body">
+    <div class="two">
+      <div class="opt"><h3>融資（貸す）</h3><dl>
+        <dt>戻るもの</dt><dd>元本 ＋ 年 <span class="ph">[〇]%</span> の利息</dd>
+        <dt>期間</dt><dd><span class="ph">[〇年〇月]</span>までに返し切る</dd>
+        <dt>こけたら</dt><dd>元本は <span class="ph">[何で返すか]</span> で返す</dd></dl></div>
+      <div class="opt" style="border-color:var(--accent)"><h3>利益を分ける投資</h3><dl>
+        <dt>戻るもの</dt><dd>利益の <span class="ph">[〇]%</span>（50%未満）</dd>
+        <dt>期間</dt><dd><span class="ph">[〇か月]</span>ごとに見直し</dd>
+        <dt>こけたら</dt><dd>分配は減る・元本は <span class="ph">[どう扱うか]</span></dd></dl></div>
+    </div>
+    <p class="foot">20倍の1巡の損の上限＝回線 300万＋支払い 736万＝約1,040万（当選分が1枚も売れなかったとき）。比べ方と返す順番 → B5-1</p>
+  </div>
+</section>
+
+<section class="slide conclusion" data-role="conclusion" id="s10">
+<div class="hd"><span>まとめ</span><span class="pg">10/23</span></div>
+<h2>0→1 はある。<em>1→100</em> に化けさせるのが、あなたの資金です</h2>
+  <div class="body">
+    <div class="asks">
+      <div class="ask"><div class="k">A 攻め　1,000万円（仮）・片方でも両方でも</div><div class="v">増やす回線と支払い枠 → 量を約20倍に</div></div>
+      <div class="ask"><div class="k">B 守り　30〜50万円（仮）</div><div class="v">開発・回線の固定費と立て替えの精算 → 体制を止めない（→ B3-2）</div></div>
+      <div class="ask"><div class="k">お返し</div><div class="v">融資 年 <span class="ph">[〇]%</span>／投資 利益の <span class="ph">[〇]%</span>（50%未満）→ 3-2</div></div>
+      <div class="ask wide"><div class="k">お返事</div><div class="v">気になった点・出せそうな額を <span class="ph">[返事の方法]</span> で（<span class="ph">[〇月〇日]</span> までに）</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-role="backup" id="s11">
+<div class="hd"><span>補足</span><span class="pg">11/23</span></div>
+<h2>補足：聞かれそうなこと</h2>
+  <p class="lead">ここから先は質問が来たときに開く資料です。</p>
+  <div class="body">
+    <div class="toc">
+      <div data-ch="B1"><span class="n">B1</span><span class="t">数字の中身</span><span class="q">4案件・1抽選あたり・アカウント数の内訳は？</span></div>
+      <div data-ch="B2"><span class="n">B2</span><span class="t">試算の前提</span><span class="q">20倍・100倍は本当に成り立つのか？ お金はどれだけ寝るのか？</span></div>
+      <div data-ch="B3"><span class="n">B3</span><span class="t">守りの中身</span><span class="q">なぜいまの体制でも回っていないのか？ 30〜50万は何に使うのか？</span></div>
+      <div data-ch="B4"><span class="n">B4</span><span class="t">体制と役割</span><span class="q">誰が何をしているのか？ bot と手作業はどう違うのか？</span></div>
+      <div data-ch="B5"><span class="n">B5</span><span class="t">お返しの形</span><span class="q">融資と投資でどう違うのか？ いつ戻るのか？</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sec="B1-1" id="s12">
+<div class="hd"><span class="ch">補足B1 数字の中身</span><span class="pg">B1-1｜12/23</span></div>
+<h2>4案件の数字（払った額の <em>2〜4倍</em> の売上）</h2>
   <p class="lead">売上 ÷ 支払い ＝ 1円払うと何円の売上になるか。</p>
   <div class="body">
     <div class="tablewrap"><table>
@@ -329,38 +440,74 @@ table.funnel-m td:first-child{font-weight:700}
         <tr class="sum"><td>支払いのあった3案件</td><td class="num">302</td><td class="num">21</td><td class="num">36.8万</td><td class="num">103.3万</td><td class="num hl">66.4万</td><td><span class="mult num">2.8倍</span></td></tr>
       </tbody>
     </table></div>
-    <p class="foot">フェデラーは支払いが0円のため倍率を出していません。3案件の当選率は 21/302＝約7%。</p>
+    <p class="foot">フェデラーは支払いが0円のため倍率を出していません（<span class="ph">[支払いが無かった仕組みを1行]</span>）。本編の「2.8倍」は支払いのあった3案件だけで数えています。3案件の当選率は 21/302＝約7%。</p>
   </div>
 </section>
 
-<section class="slide" data-sec="2-3" id="s8">
-<div class="hd"><span class="ch">第2章 成功例</span><span class="pg">2-3｜08/15</span></div>
+<section class="slide" data-sec="B1-2" id="s13">
+<div class="hd"><span class="ch">補足B1 数字の中身</span><span class="pg">B1-2｜13/23</span></div>
 <h2>1抽選で 約100応募 → 約7当選 → <em>約22万円</em></h2>
-  <p class="lead">通常の3案件の平均。月に何回の抽選に出るかを掛けると月の利益になります。プランAの列はご相談しながら埋めます。</p>
+  <p class="lead">通常の3案件の平均。1巡（約70日）に3抽選として掛けると1巡の利益になります。20倍の行は 3-1 の試算と同じ前提です。</p>
   <div class="body">
     <div class="tablewrap"><table class="funnel">
-      <thead><tr><th></th><th>応募数</th><th>当選率</th><th>当選数</th><th>1当選の利益</th><th>1抽選の利益</th><th>月の抽選数</th><th>月の利益</th></tr></thead>
+      <thead><tr><th></th><th>応募数</th><th>当選率</th><th>当選数</th><th>1当選の利益</th><th>1抽選の利益</th><th>1巡の抽選数</th><th>1巡の利益</th></tr></thead>
       <tbody>
-        <tr><td>実績</td><td class="num">約100</td><td class="num">約7%</td><td class="num">約7</td><td class="num">約3.2万</td><td class="num hl">約22万</td><td><span class="ph">[〇]</span></td><td><span class="ph">[〇]万</span></td></tr>
-        <tr><td>プランA</td><td><span class="ph">[〇]</span></td><td><span class="ph">[〇]%</span></td><td><span class="ph">[〇]</span></td><td><span class="ph">[〇]万</span></td><td><span class="ph">[〇]万</span></td><td><span class="ph">[〇]</span></td><td><span class="ph">[〇]万</span> → 年1億</td></tr>
+        <tr><td>実績</td><td class="num">約100</td><td class="num">約7%</td><td class="num">約7</td><td class="num">約3.2万</td><td class="num hl">約22万</td><td class="num">3</td><td class="num">66.4万</td></tr>
+        <tr><td>20倍</td><td class="num">約2,000</td><td class="num">約7%</td><td class="num">約140</td><td class="num">約3.2万</td><td class="num hl">約443万</td><td class="num">3</td><td class="num">約1,330万</td></tr>
       </tbody>
     </table></div>
     <table class="funnel-m">
-      <thead><tr><th></th><th>実績</th><th>プランA</th></tr></thead><tbody>
-        <tr><td>応募数</td><td class="num">約100</td><td><span class="ph">[〇]</span></td></tr>
-        <tr><td>当選率</td><td class="num">約7%</td><td><span class="ph">[〇]%</span></td></tr>
-        <tr><td>当選数</td><td class="num">約7</td><td><span class="ph">[〇]</span></td></tr>
-        <tr><td>1当選の利益</td><td class="num">約3.2万</td><td><span class="ph">[〇]万</span></td></tr>
-        <tr><td>1抽選の利益</td><td class="num hl">約22万</td><td><span class="ph">[〇]万</span></td></tr>
-        <tr><td>月の抽選数</td><td><span class="ph">[〇]</span></td><td><span class="ph">[〇]</span></td></tr>
-        <tr><td>月の利益</td><td><span class="ph">[〇]万</span></td><td><span class="ph">[〇]万</span> → 年1億</td></tr>
+      <thead><tr><th></th><th>実績</th><th>20倍</th></tr></thead><tbody>
+        <tr><td>応募数</td><td class="num">約100</td><td class="num">約2,000</td></tr>
+        <tr><td>当選率</td><td class="num">約7%</td><td class="num">約7%</td></tr>
+        <tr><td>当選数</td><td class="num">約7</td><td class="num">約140</td></tr>
+        <tr><td>1当選の利益</td><td class="num">約3.2万</td><td class="num">約3.2万</td></tr>
+        <tr><td>1抽選の利益</td><td class="num">約22万</td><td class="num">約443万</td></tr>
+        <tr><td>1巡の抽選数</td><td class="num">3</td><td class="num">3</td></tr>
+        <tr><td>1巡の利益</td><td class="num">66.4万</td><td class="num">約1,330万</td></tr>
       </tbody></table>
     <p class="foot">実績＝野球・あんスタ・刀剣乱舞の合計（応募302・当選21・利益66.4万円）を3で割った値。</p>
   </div>
 </section>
 
-<section class="slide" data-sec="3-1" id="s9">
-<div class="hd"><span class="ch">第3章 お金が必要な理由</span><span class="pg">3-1｜09/15</span></div>
+<section class="slide dense" data-sec="B1-3" id="s14">
+<div class="hd"><span class="ch">補足B1 数字の中身</span><span class="pg">B1-3｜14/23</span></div>
+<h2>アカウントは2本立て：ゆうとの手作業＋武者野の bot</h2>
+  <p class="lead">「約300」はローチケのアカウントの数え方。1名義でローチケ・ぴあ・e+ など計5社を作ります。</p>
+  <div class="body">
+    <div class="tablewrap"><table>
+      <thead><tr><th>作り方</th><th>名義の数</th><th>アカウント（5社の合計）</th><th>数えた元</th></tr></thead>
+      <tbody>
+        <tr><td>bot（武者野）</td><td class="num">63</td><td class="num">301</td><td>bot の登録台帳（9/29〜10/29）</td></tr>
+        <tr><td>手作業（ゆうと）</td><td class="num">約240</td><td><span class="ph">[〇]</span></td><td>約300 − 63 の引き算</td></tr>
+        <tr class="sum"><td>合計（ローチケ）</td><td class="num">約300</td><td>—</td><td>口頭の概数（2026-10-29）</td></tr>
+      </tbody>
+    </table></div>
+    <p class="foot">bot の内訳（台帳）: ローチケ 63・ぴあ 63・テレ朝 63・e+ 62・LivePocket 50。bot は 9/29 に1件目を作り、1か月で63名義に。比べた M氏・業界の数字は M氏からの聞き取りです。<br>手で作る人が約1,000で止まるのは <span class="ph">[理由：本人確認・電話番号・手間のどれか]</span>。私たちは電話番号を LinksMate で用意し、作成の手間を bot で消しています。</p>
+  </div>
+</section>
+
+<section class="slide dense" data-sec="B2-1" id="s15">
+<div class="hd"><span class="ch">補足B2 試算の前提</span><span class="pg">B2-1｜15/23</span></div>
+<h2>20倍の試算はこう計算した（崩れうる前提つき）</h2>
+  <p class="lead">実績の3案件（野球・あんスタ・刀剣乱舞）を、そのまま N 倍にしたときの数字です。</p>
+  <div class="body">
+    <div class="tablewrap"><table>
+      <thead><tr><th>量</th><th>1抽選の応募</th><th>回線（1,500円×名義）</th><th>同時に寝る支払い</th><th>要る資金</th><th>同じ3抽選の利益</th></tr></thead>
+      <tbody>
+        <tr><td>1倍</td><td class="num">約100</td><td class="num">15万</td><td class="num">36.8万</td><td class="num">約52万</td><td class="num">66.4万</td></tr>
+        <tr><td>10倍</td><td class="num">約1,000</td><td class="num">150万</td><td class="num">368万</td><td class="num">約520万</td><td class="num">約660万</td></tr>
+        <tr class="sum"><td>20倍</td><td class="num">約2,000</td><td class="num">300万</td><td class="num">736万</td><td class="num">約1,040万</td><td class="num hl">約1,330万</td></tr>
+        <tr><td>20倍・前提が半分崩れる</td><td class="num">約2,000</td><td class="num">300万</td><td class="num">約368万</td><td class="num">約670万</td><td class="num">約340万</td></tr>
+        <tr><td>100倍</td><td class="num">約10,000</td><td class="num">1,500万</td><td class="num">3,680万</td><td class="num">約5,200万</td><td class="num">約6,600万</td></tr>
+      </tbody>
+    </table></div>
+    <p class="foot">式: 回線＝1抽選の応募数×1,500円（今ある約300名義は差し引かない＝多めに見積もり）／支払い＝3案件の支払い36.8万×N（3案件が同時に寝た 10/27〜10/31 を最悪として置く）／利益＝66.4万×N。前提が半分崩れる＝当選率 3.5%・1当選の利益 1.6万円。<br>年1億までの道筋: お金は払ってから最長約70日戻らないので、約1,040万円で回せるのは年に約5巡（20倍のままなら粗利 約6,600万円）。2巡目を約40倍、3巡目を約80倍まで、粗利を次の巡に足して量を増やせば、年1億に届く計算（売れる量の天井が先に来なければ）。<br>崩れうる前提: ①当選率が約7%のまま ②売値が同じで売り切れる（量を増やすと値が下がりうる） ③M氏の情報で出せる抽選の数（1巡＝3抽選で置いた） ④1公演の申込の上限。どれが先に天井になるかは <span class="ph">[〇倍]</span> あたりで試して確かめます。</p>
+  </div>
+</section>
+
+<section class="slide gantt" data-sec="B2-2" id="s16">
+<div class="hd"><span class="ch">補足B2 試算の前提</span><span class="pg">B2-2｜16/23</span></div>
 <h2>払ってから入金まで、<em>長いと約70日</em>お金が寝る</h2>
   <p class="lead">払うのは当選の後、入金は公演の後。オレンジの区間は現金が動けず、10/27〜10/31 は3案件ぶん <b class="num">36.8万円</b> が同時に寝ていました。</p>
   <div class="body">
@@ -406,40 +553,58 @@ table.funnel-m td:first-child{font-weight:700}
   </div>
 </section>
 
-<section class="slide" data-sec="3-2" id="s10">
-<div class="hd"><span class="ch">第3章 お金が必要な理由</span><span class="pg">3-2｜10/15</span></div>
-<h2>プランA：お金があれば、<em>もっと広げられる</em></h2>
-  <p class="lead">目安 300〜1,000万円。アカウントと支払い枠を同時に増やします。</p>
+<section class="slide" data-sec="B3-1" id="s17">
+<div class="hd"><span class="ch">補足B3 守りの中身</span><span class="pg">B3-1｜17/23</span></div>
+<h2>売上を追いすぎて、手元の現金を見ていなかった</h2>
+  <p class="lead">将来の大きな勝ちを追って、いまの体制の支払いが回っていません。</p>
+  <div class="body">
+    <div class="flow">
+      <div class="step"><span class="no">やったこと</span><span class="t">量を優先</span><span class="d">bot・回線・応募を先に増やした</span></div>
+      <div class="ar">→</div>
+      <div class="step hot"><span class="no">結果</span><span class="t">現金が先に出る</span><span class="d">入金は公演の後（最長約70日）</span></div>
+      <div class="ar">→</div>
+      <div class="step"><span class="no">いま</span><span class="t">立て替えが残る</span><span class="d">開発者の立て替え 約30万円（仮）が未精算</span></div>
+    </div>
+    <p class="foot">10/14 に入った112万円の行き先: <span class="ph">[折半 〇万・回線 〇万・精算 〇万・その他 〇万]</span>。このままだと開発体制（bot の改修・アカウントの作成）が止まります。守り（B）はここを埋めるためのお願いです。</p>
+  </div>
+</section>
+
+<section class="slide" data-sec="B3-2" id="s18">
+<div class="hd"><span class="ch">補足B3 守りの中身</span><span class="pg">B3-2｜18/23</span></div>
+<h2>守りの30〜50万円は、この3か所で生きる</h2>
+  <p class="lead">いまの体制の固定費。金額は経費台帳から埋めます。</p>
   <div class="body">
     <div class="levers">
-      <div class="lever"><div class="t">名義</div><div class="d"><span class="ph">[〇]</span> → <span class="ph">[〇]</span><br>（1名義 1,500円）</div></div>
+      <div class="lever"><div class="ic">🛠</div><div class="t">開発費</div><div class="d">Claude（bot の開発）<br><span class="ph">[〇]</span>万円／月</div></div>
       <div class="op">＋</div>
-      <div class="lever hot"><div class="t">支払い枠</div><div class="d"><span class="ph">[〇]</span>万円 → <span class="ph">[〇]</span>万円</div></div>
-      <div class="op">→</div>
-      <div class="lever"><div class="t">1案件の利益</div><div class="d">当選 <span class="ph">[〇]</span>倍<br><span class="ph">[〇]</span>万円 / 案件</div></div>
+      <div class="lever"><div class="ic">📱</div><div class="t">回線</div><div class="d">いまある回線の月額<br><span class="ph">[〇]</span>万円／月</div></div>
+      <div class="op">＋</div>
+      <div class="lever hot"><div class="ic">🧾</div><div class="t">立て替えの精算</div><div class="d">開発者の立て替え<br>約30万円（仮）</div></div>
     </div>
-    <p class="foot" style="margin-top:1.2em">前提: 当選率 <span class="ph">[〇]%</span>・売値は定価の <span class="ph">[〇]</span>倍</p>
+    <p class="foot">当選分の支払い枠（増やす分）は A の側です。内訳の元は経費台帳（品川・武者野が持つ）。</p>
   </div>
 </section>
 
-<section class="slide" data-sec="3-3" id="s11">
-<div class="hd"><span class="ch">第3章 お金が必要な理由</span><span class="pg">3-3｜11/15</span></div>
-<h2>プランB：いまでも、<em>借りた方が約40倍安い</em></h2>
-  <p class="lead">目安 10〜100万円。いまは足りない分を立て替えてもらい、その代わりに利益の半分を渡しています。</p>
+<section class="slide dense" data-sec="B4-1" id="s19">
+<div class="hd"><span class="ch">補足B4 体制と役割</span><span class="pg">B4-1｜19/23</span></div>
+<h2>bot は量、手作業は確実さ。<em>どちらも要る</em></h2>
+  <p class="lead">M氏の経験では、手作業の応募はちゃんと当たる。bot は量を出せるが、当たり外れの振れ幅がまだ大きい。</p>
   <div class="body">
-    <div class="vs">
-      <div class="vsbars">
-        <div class="vsrow"><div class="l"><span>いま立て替え先に渡す分（利益の半分）</span><b class="num">33.2万円</b></div><div class="track"><div class="fill" style="width:100%;background:var(--muted)"></div></div></div>
-        <div class="vsrow"><div class="l"><span>同じ額を年15%で借りた場合の利息</span><b class="num" style="color:var(--accent)">約0.8万円</b></div><div class="track"><div class="fill" style="width:2.5%;background:var(--accent)"></div></div></div>
-      </div>
-      <div class="callout"><div>差は</div><div class="big num">約40倍</div><div style="font-size:.85em">お金が寝るのは長くて約70日。利息にするとごくわずか</div></div>
+    <div class="two">
+      <div class="opt"><h3>手作業（ゆうと）</h3><dl>
+        <dt>やり方</dt><dd>MNP 界隈のつながりで案件を拾い、協力者を募ってフィーを払い応募してもらう</dd>
+        <dt>強み</dt><dd>確実に当たる（M氏の情報）</dd>
+        <dt>弱み</dt><dd>手間がかかり、人の数で頭打ち</dd></dl></div>
+      <div class="opt" style="border-color:var(--accent)"><h3>bot（武者野）</h3><dl>
+        <dt>やり方</dt><dd>アカウント作成と抽選の応募を自動で大量に</dd>
+        <dt>強み</dt><dd>量を増やしても手間が増えない（1か月で63名義）</dd>
+        <dt>弱み</dt><dd>当たり外れの振れ幅が大きい（改善中）</dd></dl></div>
     </div>
-    <p class="foot">野球・あんスタ・刀剣乱舞の3案件（支払い 計36.8万円）を、各案件の「支払い→入金」の日数で計算。年15%は比べるための仮の数字です。</p>
   </div>
 </section>
 
-<section class="slide" data-sec="4-1" id="s12">
-<div class="hd"><span class="ch">第4章 計画とリターン</span><span class="pg">4-1｜12/15</span></div>
+<section class="slide" data-sec="B5-1" id="s20">
+<div class="hd"><span class="ch">補足B5 お返しの形</span><span class="pg">B5-1｜20/23</span></div>
 <h2>お返しは「<em>利益の半分</em>」より軽い条件で</h2>
   <p class="lead">いまの立て替え先が受け取る「半分」より軽ければ、出す側には利息か分配が戻り、私たちの手元にも残ります。形はご相談で決めます。</p>
   <div class="body">
@@ -458,8 +623,24 @@ table.funnel-m td:first-child{font-weight:700}
   </div>
 </section>
 
-<section class="slide" data-sec="4-2" id="s13">
-<div class="hd"><span class="ch">第4章 計画とリターン</span><span class="pg">4-2｜13/15</span></div>
+<section class="slide" data-sec="B5-2" id="s21">
+<div class="hd"><span class="ch">補足B5 お返しの形</span><span class="pg">B5-2｜21/23</span></div>
+<h2>いまの折半より、借りた方が<em>約40倍安い</em></h2>
+  <p class="lead">いまは足りない分を立て替えてもらい、その代わりに利益の半分を渡しています。</p>
+  <div class="body">
+    <div class="vs">
+      <div class="vsbars">
+        <div class="vsrow"><div class="l"><span>いま立て替え先に渡す分（利益の半分）</span><b class="num">33.2万円</b></div><div class="track"><div class="fill" style="width:100%;background:var(--muted)"></div></div></div>
+        <div class="vsrow"><div class="l"><span>同じ額を年15%で借りた場合の利息</span><b class="num" style="color:var(--accent)">約0.8万円</b></div><div class="track"><div class="fill" style="width:2.5%;background:var(--accent)"></div></div></div>
+      </div>
+      <div class="callout"><div>差は</div><div class="big num">約40倍</div><div style="font-size:.85em">お金が寝るのは長くて約70日。利息にするとごくわずか</div></div>
+    </div>
+    <p class="foot">野球・あんスタ・刀剣乱舞の3案件（支払い 計36.8万円）を、各案件の「支払い→入金」の日数で計算。年15%は比べるための仮の数字です。</p>
+  </div>
+</section>
+
+<section class="slide" data-sec="B5-3" id="s22">
+<div class="hd"><span class="ch">補足B5 お返しの形</span><span class="pg">B5-3｜22/23</span></div>
 <h2>この順で回して、<em>返していきます</em></h2>
   <p class="lead">日付と金額は条件が決まりしだい埋めます。</p>
   <div class="body">
@@ -472,29 +653,18 @@ table.funnel-m td:first-child{font-weight:700}
   </div>
 </section>
 
-<section class="slide conclusion" data-role="conclusion" id="s14">
-<div class="hd"><span>まとめ</span><span class="pg">14/15</span></div>
-<h2><span class="ph">[XXX]万円</span>で、渡している<em>利益の半分</em>を、事業を伸ばす側に回したい</h2>
-  <div class="body">
-    <div class="asks">
-      <div class="ask"><div class="k">ご相談額</div><div class="v"><span class="ph">[XXX]万円</span></div></div>
-      <div class="ask"><div class="k">お返し</div><div class="v">融資なら年 <span class="ph">[〇]%</span><br>投資なら利益の <span class="ph">[〇]%</span></div></div>
-      <div class="ask"><div class="k">次の一歩</div><div class="v"><span class="ph">[〇月〇日]</span>までに条件を決め、<span class="ph">[〇月]</span>から回す</div></div>
-      <div class="ask wide"><div class="k">お返事</div><div class="v">気になった点・出せそうな額を <span class="ph">[返事の方法]</span> で</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="slide colophon" data-role="colophon" id="s15">
-<div class="hd"><span>補足</span><span class="pg">15/15</span></div>
+<section class="slide colophon" data-role="colophon" id="s23">
+<div class="hd"><span>奥付</span><span class="pg">23/23</span></div>
 <h2>数字の出どころ</h2>
   <div class="body">
     <ul>
       <li>4案件の応募数・当選数・支払い・売上・利益・日付（入金は予定日を含む）は、品川の案件記録（2026年10月29日時点）。元の記録は品川にお声がけください。</li>
       <li>1名義 1,500円は、1人の名義でローチケ・ぴあ・e+ など計5社のアカウントを用意する経費です。</li>
       <li>「戻り」の倍率は 売上 ÷ 支払い で計算しています。</li>
-      <li>3-3 の利息は 支払い額 × 年15% × 支払いから入金までの日数 ÷ 365 で計算した比較用の数字で、実際の条件ではありません。</li>
+      <li>B5-2 の利息は 支払い額 × 年15% × 支払いから入金までの日数 ÷ 365 で計算した比較用の数字で、実際の条件ではありません。</li>
       <li><span class="ph">[ ]</span> の黄色い箇所は、ご相談しながら決める数字です。</li>
+    <li>アカウント数のうち bot の分は bot の登録台帳（2026年10月29日時点）。M氏・業界の数字と合計の約300は聞き取りの概数です。</li>
+      <li>20倍・100倍の試算は B2-1 の式で計算した見込みで、約束ではありません。（仮）の金額は口頭の目安です。</li>
     </ul>
   </div>
 </section>
