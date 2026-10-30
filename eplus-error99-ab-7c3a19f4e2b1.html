@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>e+ エラー99 A/B</title>
+<style>:root{--bg:#fff;--fg:#1a1a1a;--mut:#666;--bd:#ddd}@media (prefers-color-scheme:dark){:root{--bg:#16181c;--fg:#e8e8e8;--mut:#9a9a9a;--bd:#333}}
+body{background:var(--bg);color:var(--fg);font:15px/1.7 system-ui,sans-serif;margin:0;padding:0 16px 40px;max-width:760px;margin-inline:auto}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--bd);padding:8px 0;font-size:13px;z-index:1}
+header b{font-size:15px}h2{scroll-margin-top:60px;font-size:18px;margin-top:28px}table{border-collapse:collapse;width:100%;font-size:13px;display:block;overflow-x:auto}td,th{border:1px solid var(--bd);padding:4px 6px;text-align:left}
+.m{color:var(--mut);font-size:13px}figure{margin:12px 0}</style></head><body>
+<header><b>e+ エラー99 の犯人の切り分け（A/B・読むだけ）</b> ・ 2026-10-30 09:2x 時点 ・ <span id="cur">結論</span></header>
+<h2 id="s1">1. 結論（いま言えること）</h2>
+<p>まだ「IP 軸」とは言えない。本番と同じ条件の基線（Cloud Run＋own_chrome 画面あり＋patchright）は <b>37回中28回通過（76%）・エラー99 は9回</b>。
+住宅IP（Rayobyte）へ出口だけ替えた腕Aは <b>2回とも エラー99</b>（うち本番と同じブラウザでは1回）。n が小さく決め手にならない＝<b>結論は PC 回線の腕A（n=30・課金なし）待ち</b>。住宅IPはそれまで追加しない。</p>
+<h2 id="s2">2. 腕ごとのログイン成功率</h2>
+<figure><svg viewBox="0 0 420 300" role="img" aria-label="腕ごとのログイン成功率" style="max-width:100%;color:inherit"><line x1="50" x2="410" y1="220" y2="220" stroke="currentColor" stroke-opacity=".2"/><text x="44" y="224" text-anchor="end" font-size="11" fill="currentColor">0%</text><line x1="50" x2="410" y1="120.0" y2="120.0" stroke="currentColor" stroke-opacity=".2"/><text x="44" y="124.0" text-anchor="end" font-size="11" fill="currentColor">50%</text><line x1="50" x2="410" y1="20" y2="20" stroke="currentColor" stroke-opacity=".2"/><text x="44" y="24" text-anchor="end" font-size="11" fill="currentColor">100%</text><rect x="80" y="68.64864864864865" width="80" height="151.35135135135135" fill="#888"/><line x1="120.0" x2="120.0" y1="54.54187558267545" y2="82.75542171462183" stroke="currentColor" stroke-width="2"/><text x="120.0" y="238" text-anchor="middle" font-size="12" fill="currentColor">C（28/37）</text><rect x="200" y="220.0" width="80" height="0.0" fill="#2b7bd6"/><line x1="240.0" x2="240.0" y1="220.0" y2="220" stroke="currentColor" stroke-width="2"/><text x="240.0" y="238" text-anchor="middle" font-size="12" fill="currentColor">A（0/1）</text><line x1="50" x2="410" y1="68.64864864864865" y2="68.64864864864865" stroke="currentColor" stroke-dasharray="5 4"/><text x="408" y="64.64864864864865" text-anchor="end" font-size="11" fill="currentColor">基線 C</text><text x="14" y="120.0" font-size="11" fill="currentColor" transform="rotate(-90 14 120.0)" text-anchor="middle">ログイン成功率（一覧が読めた／撃った）</text></svg><figcaption class="m">縦軸＝ログイン成功率（申込み履歴の一覧が読めた回／撃った回）。誤差棒＝二項の SE。破線＝基線 C。
+C は走行中の当落読み Job（本番・05:55〜09:01 の [READ] 36回）＋この実験の C 1回。A は住宅IP＋本番と同じブラウザの1回（旧定義の住宅IP＋headless の1回は含めない＝下の表）。</figcaption></figure>
+<h2 id="s3">3. 生の判定</h2>
+<table><tr><th>時刻</th><th>行</th><th>腕</th><th>出口IP</th><th>ブラウザ</th><th>結果</th></tr>
+<tr><td>08:52</td><td>2</td><td>旧C（素 playwright headless）</td><td>34.34.226.22</td><td>headless</td><td>通過（落選）</td></tr>
+<tr><td>08:58</td><td>3</td><td>旧A（住宅IP＋headless）</td><td>59.166.239.47</td><td>headless</td><td>エラー99</td></tr>
+<tr><td>09:01</td><td>4</td><td>C（Cloud Run・本番と同じ）</td><td>34.34.226.30</td><td>画面あり patchright</td><td>エラー99</td></tr>
+<tr><td>09:08</td><td>14</td><td>A（住宅IP・本番と同じブラウザ）</td><td>60.116.239.40</td><td>画面あり patchright</td><td>エラー99</td></tr></table>
+<p class="m">基線 Job の内訳: タスク0 14通過/2回99、タスク2 13通過/2回99、タスク1 は行16だけを読み 1通過/4回99（同じアカウントで繰り返し99）。親の実測: PC 回線から 09:05:23 に行76 が冷まし0で通過（Job と同時刻）。</p>
+<h2 id="s4">4. 判断ルール（親が 09:40 に差し替え）</h2>
+<p>子が書いた「PC 側の最初の5行が冷まし0なら IP 軸」は<b>統計的に誤り</b>なので取り消す。基線の通過率は 28/37＝<b>0.757</b>なので、
+IP に何の差が無くても 5 行連続で通る確率は 0.757<sup>5</sup>≒<b>25%</b>。4 行連続（09:34 時点の実測）でも ≒33% で、まったく珍しくない。</p>
+<p>正しい足切り: PC 回線の真の通過率が 1.0 だと仮定しても、基線との差を p&lt;0.05 で言うには
+<b>11 行連続でクリーン</b>が要る（0.757<sup>11</sup>≒0.045）。n=30 を全部クリアすれば 0.757<sup>30</sup>≒2×10<sup>-4</sup> で決着する。
+<b>途中経過の「順調です」を結論に使わない。</b></p>
+<h2 id="s5">5. いま一番筋が良い仮説＝アカウント軸</h2>
+<p>基線の99は 9 回のうち <b>4 回が行16 の1アカウントに集中</b>している（タスク1 は行16 だけを読み 1通過/4回99）。
+一方でタスク0・2 は同じ時刻に通り続けた＝<b>「全体でまとめて数えている」は否定された</b>（この前提で書いた過去のメモは訂正済み）。
+エラー99 は決定的な門ではなく、確率的なリスク判定（IP 評判・TLS/HTTP2 指紋・頻度・対象）の合成とみるのが妥当で、
+単発比較では軸を切り分けられない。実務上の手は <b>①タスクを時間差で起こす（実装済み・8本同時起動で7本99だったのはバースト）
+②同じアカウントで99が続いたらその行を後回しにする（アカウント単位の冷まし・未実装）</b>。</p>
+<script>const h=document.getElementById('cur');const o=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)h.textContent=e.target.textContent})},{rootMargin:'-60px 0px -70% 0px'});document.querySelectorAll('h2').forEach(x=>o.observe(x));</script>
+</body></html>
