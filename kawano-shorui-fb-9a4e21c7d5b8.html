@@ -1,0 +1,88 @@
+<title>書類のフィードバック</title>
+<style>
+:root{
+  --bg:#fdfcfa; --fg:#241f1a; --muted:#7b7168; --line:#e6e0d6;
+  --card:#ffffff; --before:#9a9188; --after:#c2622f; --afterbg:#fdf3ec; --beforebg:#f4f2ef;
+  --good:#2f6b45; --goodbg:#eef6f0;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#191714; --fg:#f0ebe3; --muted:#a89e93; --line:#37322b;
+    --card:#221f1b; --before:#8b8279; --after:#e79b63; --afterbg:#2b201a; --beforebg:#201e1b;
+    --good:#8fd0a6; --goodbg:#1a2620;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#191714; --fg:#f0ebe3; --muted:#a89e93; --line:#37322b;
+  --card:#221f1b; --before:#8b8279; --after:#e79b63; --afterbg:#2b201a; --beforebg:#201e1b;
+  --good:#8fd0a6; --goodbg:#1a2620;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);margin:0;padding:34px 26px 40px;
+  font-family:-apple-system,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic UI",sans-serif;line-height:1.6}
+.wrap{max-width:960px;margin:0 auto}
+h1{font-size:1.7rem;margin:0 0 6px;letter-spacing:.02em}
+.lead{color:var(--muted);font-size:1rem;margin:0 0 26px}
+.pair{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px}
+.col{flex:1 1 380px;min-width:0;border-radius:12px;padding:16px 18px;border:1px solid var(--line)}
+.col.b{background:var(--beforebg)}
+.col.a{background:var(--afterbg);border-color:var(--after)}
+.label{font-size:.82rem;font-weight:700;letter-spacing:.08em;margin:0 0 10px}
+.col.b .label{color:var(--before)}
+.col.a .label{color:var(--after)}
+.quote{font-size:1rem;line-height:1.85;margin:0}
+.quote em{font-style:normal;background:linear-gradient(transparent 62%,rgba(194,98,47,.28) 62%);font-weight:700}
+.sect{margin:36px 0 0;font-size:1.12rem;font-weight:700;color:var(--after)}
+.why{margin:14px 0 0;padding:15px 18px;background:var(--card);border:1px solid var(--line);
+  border-left:4px solid var(--good);border-radius:0 12px 12px 0;font-size:.98rem;line-height:1.8}
+.why .k{font-size:.8rem;font-weight:700;letter-spacing:.14em;color:var(--good);margin-right:.6em}
+.keep{margin:30px 0 0;padding:16px 18px;background:var(--goodbg);border:1px solid var(--line);border-radius:12px;font-size:.98rem;line-height:1.85}
+.keep b{color:var(--good)}
+.foot{margin:34px 0 0;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:12px;font-size:1.02rem;line-height:1.85}
+.foot b{color:var(--after)}
+@media(max-width:720px){h1{font-size:1.3rem}body{padding:24px 16px 32px}.col{flex-basis:100%}}
+</style>
+
+<div class="wrap">
+
+<h1>書類のフィードバック</h1>
+<p class="lead">お送りいただいた履歴書・職務経歴書（10月22日付）を読んで、前回の面談で伺ったお話と合わせて、ここを変えるともっと伝わるという所を3つにまとめました。</p>
+
+<div class="keep">
+<b>そのままで良いところ</b>：職務詳細に「基本設計、詳細設計、実装、テスト」と工程をはっきり書いていること、スクールで学んだことを「言語」と「作ったもの」（ブログサイト・問い合わせフォーム・ECサイト）で並べていること、デジタルハリウッドでの学習まで書いていること。読む人が「何ができる人か」をすぐつかめる書き方なので、ここは変えません。
+</div>
+
+<p class="sect">1. 経歴要約に「チームでの開発」と「スクール」を入れる</p>
+<div class="pair">
+  <div class="col b"><p class="label">いまの書き方（職務経歴書の経歴要約）</p>
+    <p class="quote">現在は、今年の4月からシーレイシステムに入社し、<em>社内seとしてcsvのデータを加工する自動化ツールを設計からテストまで担当しております。</em></p></div>
+  <div class="col a"><p class="label">変えるとしたら</p>
+    <p class="quote">退職後、プログラミングスクールでWeb系の言語を学び、2026年4月にシーレイシステム株式会社へ入社しました。<em>社外研修ではC#/.NETでタスク管理システムをチームで開発し、研修後は社内SEとして、CSVデータを加工する自動化ツールを設計からテストまで一人で担当しています。</em></p></div>
+</div>
+<p class="why"><span class="k">設計思想</span>経歴要約は、読む人が最初の3行で「この人は何をしてきたか」を決める場所です。いまの書き方だとCSVのツールだけが残り、チームで作った経験と、営業事務から開発に進むために自分で学んだ流れが見えません。「社内se」「csv」は、ほかの所と同じく「社内SE」「CSV」と大文字にそろえると、細かいところまで気を配れる人に見えます。</p>
+
+<p class="sect">2. 研修での役割を「切り出し役」の場面で書く</p>
+<div class="pair">
+  <div class="col b"><p class="label">いまの書き方（職務経歴書の取り組み）</p>
+    <p class="quote">グループでは未経験ながらも、<em>開発の進捗管理を担当したり</em>、実装では、打ち合わせた内容以外にも、<em>ユーザーが使いやすい機能を提案する</em>など、開発に積極的に関わることを意識しました。</p></div>
+  <div class="col a"><p class="label">変えるとしたら</p>
+    <p class="quote">グループでは未経験ながら、進捗管理を担当しました。<em>追加機能の案がメンバーから多く出た際には、残りの工数で実装できる範囲を整理し、どの機能を優先するかの取りまとめ役を担いました。</em>実装経験の多いメンバーからも相談を受けるようになり、最終発表では見学に来られた各社の方から好評をいただきました。</p></div>
+</div>
+<p class="why"><span class="k">設計思想</span>前回いちばん伝わってきたのは、「工数がこれだけだから何ができるか」を一緒に考えて決める役をしていた、というお話でした。書けるコードの量ではなく、何を作るかを決められること。これは開発の現場でも、お客さんの課題を解決する仕事でも、一番頼られる力です。いまの「進捗管理」「提案」だけだと、その場面が読む人に届きません。</p>
+
+<p class="sect">3. スクールの期間を、面接で話す内容とそろえる</p>
+<div class="pair">
+  <div class="col b"><p class="label">いまの書き方（職務経歴書の自己PR）</p>
+    <p class="quote">■ プログラミングスクール学習<em>(2025年9月~2026年3月)</em></p></div>
+  <div class="col a"><p class="label">変えるとしたら（前回のお話のとおりなら）</p>
+    <p class="quote">■ プログラミングスクール学習<em>（2025年9月〜12月）</em><br><em>※修了前から転職活動を始め、2026年2月に現職の内定をいただきました。</em></p></div>
+</div>
+<p class="why"><span class="k">設計思想</span>前回は「9月ごろから始めて、12月ごろに区切りがつき、その少し前から転職活動」と伺いました。書類の期間と面接で話す期間が違うと、そこを聞かれたときに説明が1つ増えます。逆に、退職からスクール・転職活動・入社までが1本でつながっていれば、退職後の期間について聞かれても「準備のために使った期間です」と30秒で終わらせられます。どちらが正しい期間か、今日確かめさせてください。</p>
+
+<div class="foot">
+<b>確かめていただきたいのは1点だけです。</b>書いてあることを、面接で全部そのまま自分の言葉で話せるか。違和感のある言い回しがあれば、遠慮なく教えてください。<br>
+もう1つ、CSVの自動化ツールで「手作業のどの作業が、どれくらい（時間・回数など）楽になったか」が分かれば、ひと言足すだけでぐっと強くなります。覚えている範囲で大丈夫です。<br>
+直すのはご自身でも、こちらで反映してお渡しするのでも、どちらでも大丈夫です。受ける会社が決まったら、その会社向けにもう一段仕上げます。
+</div>
+
+</div>
