@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>お仕事のご紹介</title>
+<style>
+:root {
+  --bg: #f6f7f9;
+  --paper: #ffffff;
+  --ink: #1d2433;
+  --sub: #5a6478;
+  --line: #e1e5ec;
+  --accent: #1f6feb;
+  --accent-soft: #e8f0fe;
+  --good: #1a7f4b;
+  --good-soft: #e6f4ec;
+  --note: #8a5a00;
+  --note-soft: #fff6e0;
+  --pass-soft: #eef0f3;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11151c; --paper: #1a202b; --ink: #e8ecf3; --sub: #a3adbf; --line: #2c3444;
+    --accent: #6ea8ff; --accent-soft: #1c2a44; --good: #5cc98f; --good-soft: #17301f;
+    --note: #f0c060; --note-soft: #33290f; --pass-soft: #232a38;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11151c; --paper: #1a202b; --ink: #e8ecf3; --sub: #a3adbf; --line: #2c3444;
+  --accent: #6ea8ff; --accent-soft: #1c2a44; --good: #5cc98f; --good-soft: #17301f;
+  --note: #f0c060; --note-soft: #33290f; --pass-soft: #232a38;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  font-size: 17px; line-height: 1.7;
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding: 32px 16px 48px; }
+header h1 { font-size: 30px; margin: 0 0 4px; letter-spacing: .02em; }
+header { position: relative; }
+header .date { color: var(--sub); margin: 0 0 20px; }
+td small.pr { color: var(--good); }
+.deck-mini {
+  display: inline-block; font-size: 13.5px; font-weight: 600; color: var(--accent);
+  text-decoration: none; white-space: nowrap;
+}
+.deck-mini:hover { text-decoration: underline; }
+.deck-mini:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.card .deck-mini {
+  align-self: flex-start; margin-top: 12px; padding: 4px 14px;
+  border: 1px solid var(--accent); border-radius: 999px;
+}
+.card .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
+td.co .deck-mini { display: block; margin-top: 4px; }
+.axis {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px;
+  padding: 14px 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+}
+.axis .label { font-weight: 700; margin-right: 4px; align-self: center; }
+.chip {
+  display: inline-block; padding: 3px 12px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 15px;
+}
+h2 { font-size: 22px; margin: 36px 0 6px; }
+h2 + .lead { margin: 0 0 14px; color: var(--sub); }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 14px;
+  padding: 18px 18px 16px; display: flex; flex-direction: column;
+}
+.card h3 { margin: 0 0 2px; font-size: 20px; }
+.card .what { margin: 0 0 12px; color: var(--sub); font-size: 15px; }
+.card dl { margin: 0 0 12px; display: grid; grid-template-columns: 4.2em 1fr; gap: 4px 8px; font-size: 15.5px; }
+.card dt { color: var(--sub); }
+.card dd { margin: 0; }
+.card .point {
+  margin-top: auto; padding: 10px 12px; border-radius: 10px;
+  background: var(--good-soft); color: var(--ink); font-size: 15px;
+}
+.card .point b { color: var(--good); }
+.card .caution {
+  margin-top: 8px; padding: 8px 12px; border-radius: 10px;
+  background: var(--note-soft); color: var(--ink); font-size: 14px;
+}
+.chosen {
+  display: inline-block; margin-left: 8px; padding: 2px 10px; border-radius: 999px;
+  background: var(--good-soft); color: var(--good); font-size: 12.5px; font-weight: 700;
+  vertical-align: middle; white-space: nowrap;
+}
+td small { display: block; color: var(--sub); font-size: 14px; }
+.table-wrap { overflow-x: auto; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 15.5px; }
+th, td { text-align: left; vertical-align: top; padding: 11px 14px; border-bottom: 1px solid var(--line); }
+th { color: var(--sub); font-weight: 600; font-size: 14px; background: var(--bg); }
+tr:last-child td { border-bottom: none; }
+td.co { font-weight: 700; }
+td.num { white-space: normal; }
+@media (min-width: 761px) { .table-wrap thead th:nth-child(1) { width: 16%; } .table-wrap thead th:nth-child(2) { width: 34%; } .table-wrap thead th:nth-child(3) { width: 18%; } }
+.also {
+  margin: 12px 0 0; padding: 10px 14px; border-radius: 10px;
+  background: var(--note-soft); color: var(--ink); font-size: 15px;
+}
+.videos { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.videos li { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.videos a { font-weight: 700; color: var(--accent); text-decoration: none; }
+.videos a:hover { text-decoration: underline; }
+.videos .meta { display: block; color: var(--sub); font-size: 14px; margin-top: 2px; }
+.videos .why { display: block; margin-top: 6px; font-size: 15px; }
+footer { margin-top: 32px; color: var(--sub); font-size: 14px; }
+@media (max-width: 860px) {
+  .cards { grid-template-columns: 1fr; }
+  header h1 { font-size: 24px; }
+}
+@media (max-width: 760px) {
+  table { min-width: 0; }
+  .tech td { width: auto !important; }
+  thead { display: none; }
+  tr { display: block; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  tr:last-child { border-bottom: none; }
+  td { display: block; border: none; padding: 1px 0; white-space: normal; }
+  td.co { font-size: 17px; margin-bottom: 2px; }
+  td:nth-child(3)::before { content: "勤務地\3000"; color: var(--sub); }
+  td:nth-child(4)::before { content: "月給\3000"; color: var(--sub); }
+  td:nth-child(5)::before { content: "休日\3000"; color: var(--sub); }
+  td.num br { display: none; }
+}
+@media print {
+  body { background: #fff; }
+  .card, .table-wrap, .axis { break-inside: avoid; }
+}
+.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+#documents .deck-mini { padding: 4px 14px; border: 1px solid var(--accent); border-radius: 999px; }
+#documents .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
+.card .links .deck-mini { margin-top: 0; }
+.thanks { margin: 0 0 20px; padding: 16px 18px; border-radius: 14px; background: var(--good-soft); border: 1px solid var(--line); }
+.thanks p { margin: 0 0 6px; }
+.thanks p:last-child { margin: 0; }
+.flow-box { margin: 0 0 24px; padding: 14px 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+.flow-box h3 { margin: 0 0 6px; font-size: 18px; }
+.flow-box ol { margin: 0; padding-left: 1.4em; }
+.flow-box li { margin: 4px 0; }
+.page-nav { margin: 0 0 24px; }
+.page-nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; }
+.page-nav a {
+  display: inline-block; padding: 6px 14px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); font-weight: 600;
+  font-size: 14.5px; text-decoration: none;
+}
+.page-nav a:hover { text-decoration: underline; }
+.page-nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+section[id] { scroll-margin-top: 16px; }
+.decision {
+  margin: 0 0 32px; padding: 16px 18px; background: var(--paper);
+  border: 1px solid var(--line); border-radius: 14px;
+}
+.decision h2 { margin: 0 0 10px; font-size: 20px; }
+.decision ul { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.decision li { padding: 4px 12px; border-radius: 999px; background: var(--good-soft); color: var(--ink); font-size: 15px; }
+.decision li b { color: var(--good); }
+.decision p { margin: 8px 0 0; font-size: 15px; }
+.decision p.yardstick { color: var(--sub); }
+.decision h3.tier-h { margin: 16px 0 6px; font-size: 16px; }
+.decision h3.tier-h.t-sent { color: var(--good); }
+.decision h3.tier-h.t-next { color: var(--accent); }
+.decision h3.tier-h.t-later { color: var(--note); }
+.decision h3.tier-h.t-pass { color: var(--sub); }
+.decision ul.t-next li { background: var(--accent-soft); }
+.decision ul.t-next li b { color: var(--accent); }
+.decision ul.t-later li { background: var(--note-soft); }
+.decision ul.t-later li b { color: var(--note); }
+.decision ul.t-pass li { background: var(--pass-soft); }
+.decision p.tier-note { margin: 0 0 6px; color: var(--sub); font-size: 14.5px; }
+.decision ul.tier-more { display: block; margin: 0 0 6px; }
+.decision ul.tier-more li { display: block; border-radius: 10px; background: var(--note-soft); margin: 0 0 6px; padding: 6px 12px; font-size: 14.5px; }
+.decision ul.tier-more li b { color: var(--note); }
+.verdict {
+  margin-top: 10px; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--pass-soft); color: var(--ink);
+  font-size: 15px; line-height: 1.65; font-weight: 400; white-space: normal;
+}
+.verdict.is-sent { background: var(--good-soft); border-color: var(--good); }
+.verdict.is-next { background: var(--accent-soft); border-color: var(--accent); }
+.is-next .vbadge { background: var(--accent); color: var(--paper); }
+.verdict.is-later { background: var(--note-soft); border-color: var(--note); }
+.is-later .vbadge { background: var(--note); color: var(--paper); }
+.verdict .vhead { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-bottom: 4px; }
+.verdict .vlabel { font-size: 13px; font-weight: 600; color: var(--sub); }
+.vbadge {
+  display: inline-block; padding: 2px 10px; border-radius: 999px;
+  font-size: 13px; font-weight: 700; white-space: nowrap;
+  background: var(--sub); color: var(--paper);
+}
+.is-sent .vbadge { background: var(--good); color: var(--paper); }
+.verdict p { margin: 0; }
+tr.has-verdict td { border-bottom: none; padding-bottom: 6px; }
+tr.verdict-row td { padding-top: 0; }
+.tech tr.verdict-row td { width: auto; }
+@media (max-width: 760px) {
+  tr.has-verdict { border-bottom: none; padding-bottom: 4px; }
+  tr.verdict-row { padding-top: 0; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>小浦さんにご紹介したいお仕事</h1>
+  <p class="date">2026年10月30日（金）</p>
+</header>
+
+<section class="thanks">
+<p><b>本日はお忙しいところありがとうございました。</b></p>
+  <p>面談で伺ったご希望から、まずは以下の3社をご紹介します。いずれも未経験から事務に進める会社です。</p>
+</section>
+<div class="flow-box">
+  <h3>これからの進め方</h3>
+  <ol><li>このページの会社と資料を見て、気になったところ・引っかかったところをLINEで教えてください</li><li>書類はこちらで用意しますので、小浦さんには面接の練習に集中していただきます</li><li>2週間を目安に、内定まで一緒に進めます</li></ol>
+</div>
+<nav class="page-nav" aria-label="ページ内リンク"><ul><li><a href="#companies">ご紹介した会社</a></li><li><a href="#industry">業界の説明資料</a></li></ul></nav>
+
+<section id="companies" data-section="companies">
+<h2>ご紹介した会社</h2>
+<div class="axis">
+  <span class="label">伺ったこと</span>
+  <span class="chip">電話対応が中心ではない事務</span>
+  <span class="chip">大宮から通えるところ</span>
+  <span class="chip">産休・育休がしっかり取れること</span>
+  <span class="chip">11月中には決めたい</span>
+  
+</div>
+
+<h2>ご紹介する3社</h2>
+<p class="lead">「電話が中心ではない事務」「大宮から通える」「産休・育休」の3つから選びました。</p>
+
+<div class="cards">
+  <article class="card">
+    <h3>スタッフサービス ミラエール推進部</h3>
+    <p class="what">一般事務（人事・総務・経理・貿易・金融・英文事務・受付・データ入力など、案件により内容が変わる）</p>
+    <dl>
+      <dt>勤務地</dt><dd>転勤なし・自宅から90分以内の配属先（東京・神奈川・埼玉・千葉・大阪・京都・滋賀・広島・愛知・兵庫）</dd><dt>通勤</dt><dd>首都圏の配属先（通勤90分以内が目安）。大宮から池袋26分・新宿32分</dd><dt>月給</dt><dd>270万〜330万円ほど（地域別の月給・エリアにより異なる）</dd><dt>休日</dt><dd>土日祝・完全週休2日・年間休日125日（祝日は配属先により異なる）・残業月10時間以下</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　残業がほとんどなく、年間休日は125日。産休・育休の制度が最初から整っている会社です。選考が最短1週間と早いので、11月中に決めたいというご希望にいちばん間に合います。</p>
+    <p class="caution">雇用形態は無期雇用派遣です（スタッフサービスに無期雇用の正社員として雇われ、配属先の企業で働く形）。 配属先・仕事内容は選べない（人事・総務・経理・受付・データ入力など案件により変わる）。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1o31QH1qaAuheG_WwoFBcrVvgKVDLC1iP/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料">会社の資料 →</a></div>
+  </article>
+  <article class="card">
+    <h3>エイトビット</h3>
+    <p class="what">一般事務・営業事務・採用アシスタント・総務事務・経理アシスタント・IT事務（ヘルプデスク含む）のいずれか（配属先と仕事内容は希望と適性をもとに決定。データ入力・電話や来客対応・書類作成・見積書や請求書の作成・アカウント発行やPC管理など）</p>
+    <dl>
+      <dt>勤務地</dt><dd>東京23区内・埼玉・千葉・神奈川（客先常駐・配属先のプロジェクトによって変わる・転居を伴う転勤なし・勤務地は希望を考慮）。本社は東京都豊島区東池袋</dd><dt>通勤</dt><dd>東京23区・埼玉・千葉・神奈川の配属先。条件は「主要都市へ70分以内」で、大宮からは余裕で入ります</dd><dt>条件</dt><dd>最終学歴は高卒以上。就業経験6か月以上（アルバイト可）。半年以上のブランクはNGだが、アルバイトや職業訓練校など何かしら活動をしていればOK。</dd><dt>条件</dt><dd>主要都市（新宿・渋谷・大崎・東京・品川）へ70分以内で通えること。</dd><dt>条件</dt><dd>選考は書類選考→オンライン面接（1〜2回）→内定。</dd><dt>月給</dt><dd>月給21万〜25万円ほど（想定年収267万〜350万円・賞与年2回・昇給年1回）</dd><dt>休日</dt><dd>土日祝休み・年間休日123日・勤務は9:00〜18:00・月平均残業20時間以下</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　正社員での採用で、配属先と仕事内容を希望と適性をもとに決めてくれます。「電話が中心ではない事務がいい」を先にお伝えできる会社です。資格の受験費用は会社負担で、取得すると手当も付きます（基本情報技術者で月1万円）。</p>
+    <p class="caution">勤務は客先常駐で、配属先のプロジェクトによって勤務地や休みが変わる。 業種に「人材派遣」を含む会社で、配属先は希望と適性をもとに会社が決める。 想定年収267万円は未経験・入社1年目の例（残業代は別途支給）。310万円は入社3年目の例。 入社後3か月は試用期間（待遇・給与の変更なし）。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://eightbit.co.jp/" target="_blank" rel="noopener" aria-label="エイトビットのホームページ">会社のHP →</a></div>
+  </article>
+  <article class="card">
+    <h3>リクルートスタッフィング キャリアウィンク事業部</h3>
+    <p class="what">一般事務（データ入力・集計・各種資料作成・電話やメール対応・受発注サポートなど。テレフォンアポインター・コールセンターオペレーター・専門事務業務を含む）</p>
+    <dl>
+      <dt>勤務地</dt><dd>東京・神奈川・千葉・埼玉・愛知・大阪・兵庫・京都・北海道・宮城（仙台近郊の在住者のみ・下記条件）・福岡の有名企業・グループ企業（駅近オフィス中心・転勤なし・本拠地から片道120分以内の配属先）</dd><dt>通勤</dt><dd>ご自宅から片道120分以内の配属先（駅近オフィス中心・転勤なし）</dd><dt>条件</dt><dd>最終学歴は高卒以上が必須。</dd><dt>条件</dt><dd>宮城は在住地で可否が分かれる（求人票の記載）＝仙台市内5区（泉・青葉・太白・若林・宮城野）は基本OK／多賀城市・塩釜市・利府町・名取市・岩沼市は車通勤が可能ならOK／それ以外の地域は基本NG。</dd><dt>月給</dt><dd>月給17.1万〜22.4万円ほど（勤務地により異なる・東京都は20.1万〜22.5万円・想定年収241万〜310万円・賞与年2回）</dd><dt>休日</dt><dd>土日祝休み（配属先に準ずる）・年間休日122日・残業月平均6時間（最大20時間）</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　リクルートグループの大手就業先が中心で、内定率は50%以上、産休・育休の取得率は100%です。ただし配属先と仕事内容は選べず、コールセンターの業務が含まれることがあります。そこだけ先にお伝えしたうえで、受けるかどうかを決めていただければと思います。</p>
+    <p class="caution">雇用形態は「正社員」表記だが、実際はリクルートスタッフィングに無期雇用され取引先企業で働く「無期雇用派遣」。 配属先・仕事内容は選べない（一般事務・営業事務・コールセンター等、会社が指示する業務に従事）。 選考にWEB適性検査があり、入社前研修3日間は自分のパソコンが必要（無い場合はネットカフェ等での受講を案内される）。 宮城の仙台エリアは、求人票に「面接枠充足のため募集を停止（2026年7月現在）」とある＝今の募集状況は不明なので、出す前に募集の再開を確認する。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.r-staffing.co.jp/corporate/" target="_blank" rel="noopener" aria-label="リクルートスタッフィング キャリアウィンク事業部のホームページ">会社のHP →</a></div>
+  </article>
+</div>
+
+</section>
+<section id="industry" data-section="industry">
+<h2>業界の説明資料</h2>
+<ul class="videos">
+  <li><a href="https://drive.google.com/file/d/1aaqbrGWGHvvOBhfCRVNETd7fdiUqzovh/view" target="_blank" rel="noopener">機械系エンジニアの仕事</a>
+    <span class="meta">機械系エンジニア（開発設計・組み込み・ものづくり）の仕事内容と将来性をまとめた資料</span></li>
+  <li><a href="https://drive.google.com/file/d/1rMe1E4_EpphASnW63x9ubO1gtUm55174/view" target="_blank" rel="noopener">インフラエンジニアの仕事</a>
+    <span class="meta">インフラエンジニアの仕事内容と将来性をまとめた資料</span></li>
+  <li><a href="https://drive.google.com/file/d/1hH4k9m57BCrY0_OQTSqg1CsMrRuFJVHK/view" target="_blank" rel="noopener">営業の仕事</a>
+    <span class="meta">営業の仕事内容と将来性をまとめた資料</span></li>
+</ul>
+</section>
+
+<footer>※条件は各社の求人票・会社資料（2026年10月時点）に書かれている内容です。月給の幅は、これまでの経験と選考での評価で決まります。<br>※「会社のHP →」は各社の公式ホームページに、「会社の資料 →」は会社説明の資料（PDF）につながります。</footer>
+
+</div>
+</body>
+</html>
