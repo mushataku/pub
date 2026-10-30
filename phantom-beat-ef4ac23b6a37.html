@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>PHANTOM BEAT</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--red:#e60012;--red2:#ff2b3d;--blk:#0a0a0a;--wht:#fff}
+html,body{height:100%}
+body{
+  background:var(--blk);color:var(--wht);overflow:hidden;
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,"Noto Sans JP",sans-serif;
+  font-weight:900;letter-spacing:.02em;user-select:none;
+}
+#bg{position:fixed;inset:-20%;background:
+  repeating-linear-gradient(115deg,#111 0 60px,#000 60px 120px);
+  animation:slide 14s linear infinite;z-index:0}
+@keyframes slide{to{transform:translateX(-120px)}}
+#bg2{position:fixed;inset:-30%;z-index:0;opacity:.5;background:
+  repeating-linear-gradient(-65deg,transparent 0 80px,rgba(230,0,18,.22) 80px 92px);
+  animation:slide2 9s linear infinite}
+@keyframes slide2{to{transform:translateY(-92px)}}
+#app{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;max-width:760px;margin:0 auto;padding:8px 10px env(safe-area-inset-bottom)}
+
+/* ---- 見出し ---- */
+.hdr{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+.logo{transform:skewX(-10deg);background:var(--red);padding:3px 12px;font-size:clamp(15px,4.2vw,22px);font-style:italic;box-shadow:4px 4px 0 #000}
+.wave{transform:skewX(-10deg);background:#fff;color:#000;padding:3px 10px;font-size:clamp(11px,3vw,14px)}
+.demo{margin-left:auto;font-size:10px;font-weight:700;opacity:.75;letter-spacing:0}
+
+/* ---- 敵 ---- */
+#foes{flex:1 1 auto;display:flex;gap:7px;align-items:center;justify-content:center;padding:6px 0;min-height:0}
+.foe{position:relative;flex:1 1 0;max-width:200px;transform:skewX(-7deg);
+  background:linear-gradient(160deg,#1b1b1b,#000);border:3px solid #fff;
+  padding:8px 6px;text-align:center;cursor:pointer;transition:.12s;box-shadow:5px 5px 0 var(--red)}
+.foe.sel{background:linear-gradient(160deg,var(--red),#7a0009);transform:skewX(-7deg) translateY(-6px) scale(1.04)}
+.foe.down{filter:grayscale(.4);opacity:.72;transform:skewX(-7deg) rotate(-5deg)}
+.foe.dead{opacity:0;transform:skewX(-7deg) scale(.4) rotate(25deg);pointer-events:none}
+.face{font-size:clamp(28px,9vw,46px);line-height:1.15;filter:drop-shadow(0 0 7px var(--red2))}
+.fname{font-size:clamp(10px,2.8vw,13px);margin-top:2px}
+.hpbar{height:7px;background:#333;margin-top:5px;border:1px solid #fff}
+.hpbar i{display:block;height:100%;background:var(--red2);transition:.25s}
+.weak{font-size:10px;margin-top:3px;min-height:13px;color:#ffe14d}
+.dtag{position:absolute;top:-12px;left:50%;transform:translateX(-50%) skewX(7deg) rotate(-8deg);
+  background:#ffe14d;color:#000;font-size:10px;padding:1px 6px}
+
+/* ---- ダメージ ---- */
+.pop{position:absolute;z-index:9;font-size:clamp(20px,6vw,32px);font-style:italic;
+  text-shadow:3px 3px 0 #000;pointer-events:none;animation:pop .85s ease-out forwards}
+@keyframes pop{0%{transform:translate(-50%,0) scale(.5)}25%{transform:translate(-50%,-26px) scale(1.25)}100%{transform:translate(-50%,-56px) scale(1);opacity:0}}
+
+/* ---- 味方 ---- */
+#party{flex:0 0 auto;display:flex;gap:6px;margin-bottom:6px}
+.pc{flex:1;transform:skewX(-7deg);border:2px solid #fff;background:#111;padding:5px 6px;transition:.15s}
+.pc.act{background:var(--red);box-shadow:0 0 0 3px #fff inset;transform:skewX(-7deg) translateY(-4px)}
+.pc.ko{opacity:.35}
+.pcn{font-size:clamp(10px,2.8vw,12px);display:flex;justify-content:space-between;gap:4px}
+.pcn b{font-weight:900}
+.bar{height:5px;background:#333;margin-top:3px}
+.bar i{display:block;height:100%;transition:.25s}
+.hp i{background:#3ddc84}.sp i{background:#4da6ff}
+
+/* ---- コマンド ---- */
+#cmd{flex:0 0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6px;min-height:118px;align-content:start}
+.btn{transform:skewX(-10deg);background:#fff;color:#000;border:none;padding:9px 8px;font:inherit;
+  font-size:clamp(12px,3.3vw,15px);text-align:left;cursor:pointer;box-shadow:4px 4px 0 var(--red);transition:.1s}
+.btn:active,.btn.hot{background:var(--red);color:#fff;transform:skewX(-10deg) translate(3px,3px);box-shadow:1px 1px 0 #fff}
+.btn:disabled{background:#444;color:#888;box-shadow:4px 4px 0 #222;cursor:default}
+.btn small{display:block;font-size:10px;font-weight:700;opacity:.8}
+.btn.big{grid-column:1/-1;background:#ffe14d;box-shadow:5px 5px 0 var(--red);text-align:center;font-size:clamp(14px,4vw,19px)}
+#log{flex:0 0 auto;font-size:clamp(10px,2.9vw,12px);font-weight:700;min-height:34px;padding:5px 7px;
+  background:rgba(0,0,0,.65);border-left:4px solid var(--red);margin:6px 0}
+
+/* ---- 幕 ---- */
+#flash{position:fixed;inset:0;z-index:30;display:none;place-items:center;pointer-events:none}
+#flash.on{display:grid}
+#flash b{font-size:clamp(34px,13vw,88px);font-style:italic;transform:skewX(-10deg) rotate(-7deg);
+  background:var(--red);padding:6px 24px;box-shadow:9px 9px 0 #000,0 0 50px rgba(230,0,18,.9);animation:bang .5s ease-out}
+@keyframes bang{0%{transform:skewX(-10deg) rotate(-7deg) scale(.2);opacity:0}60%{transform:skewX(-10deg) rotate(-7deg) scale(1.18)}100%{transform:skewX(-10deg) rotate(-7deg) scale(1)}}
+#veil{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.93);display:grid;place-items:center;text-align:center;padding:20px}
+#veil.off{display:none}
+#veil h1{font-size:clamp(30px,10vw,62px);font-style:italic;transform:skewX(-10deg);background:var(--red);padding:4px 18px;box-shadow:8px 8px 0 #fff;margin-bottom:14px}
+#veil p{font-size:clamp(12px,3.4vw,15px);font-weight:700;line-height:1.9;margin-bottom:18px}
+#veil .btn{display:inline-block;text-align:center;font-size:clamp(14px,4vw,18px);padding:12px 26px}
+.kbd{font-size:10px;font-weight:700;opacity:.6;margin-top:10px;letter-spacing:0}
+@media(max-height:560px){.face{font-size:30px}#cmd{min-height:100px}}
+</style>
+</head>
+<body>
+<div id="bg"></div><div id="bg2"></div>
+<div id="app">
+  <div class="hdr"><div class="logo">PHANTOM BEAT</div><div class="wave" id="wv">WAVE 1</div><div class="demo">見本で動く体験版</div></div>
+  <div id="foes"></div>
+  <div id="log">敵をタップして選択 → 技を選ぶ。<b style="color:#ffe14d">弱点</b>を突くと「1 MORE」でもう一度動ける。</div>
+  <div id="party"></div>
+  <div id="cmd"></div>
+</div>
+
+<div id="flash"><b id="flashT">1 MORE!</b></div>
+
+<div id="veil">
+  <div>
+    <h1>PHANTOM BEAT</h1>
+    <p>怪盗団スタイルのターン制バトル。<br>
+    <b style="color:#ffe14d">弱点</b>を突く → もう一度行動（1 MORE）<br>
+    敵全員をダウンさせたら <b style="color:#ffe14d">総攻撃</b>。<br>3ウェーブ勝ち抜けば勝利。</p>
+    <button class="btn big" id="startB">バトル開始</button>
+    <div class="kbd">スマホ=タップ ／ PC=数字キー1〜4・Enter</div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s), el=(t,c)=>{const e=document.createElement(t);if(c)e.className=c;return e;};
+const EL={fire:"炎",ice:"氷",elec:"電撃",wind:"疾風",phys:"物理",heal:"回復"};
+const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+
+/* ---- 音（外部ファイルなし） ---- */
+let AC=null;
+function beep(f,d,type,vol){
+  try{ AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type||"square";o.frequency.value=f;
+    g.gain.setValueAtTime(vol||.07,AC.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);
+    o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d);
+  }catch(e){}
+}
+
+/* ---- データ ---- */
+const PARTY=[
+  {n:"ZERO", p:"ノワール", hp:120,sp:60, weak:"wind",
+   sk:[{n:"斬撃",e:"phys",c:0,pw:26},{n:"アギラ",e:"fire",c:8,pw:34},{n:"ブレイズ斬",e:"phys",c:12,pw:42}]},
+  {n:"ミオ", p:"セレネ", hp:95,sp:80, weak:"elec",
+   sk:[{n:"打撃",e:"phys",c:0,pw:20},{n:"ブフレイ",e:"ice",c:8,pw:34},{n:"メディア",e:"heal",c:12,pw:42}]},
+  {n:"ガク", p:"ライコウ", hp:135,sp:55, weak:"ice",
+   sk:[{n:"豪腕",e:"phys",c:0,pw:30},{n:"ジオンガ",e:"elec",c:8,pw:34},{n:"ガルーラ",e:"wind",c:8,pw:32}]}
+];
+const FOES=[
+  {n:"ハイピクシー",f:"👺"},{n:"シャドウ・メイド",f:"👻"},{n:"オーブ",f:"🎭"},
+  {n:"ジャックランタン",f:"🎃"},{n:"ナイトメア",f:"😈"},{n:"アイアンゴーレム",f:"🗿"}
+];
+const WAVES=[
+  {num:2,hp:[70,90],atk:[12,18]},
+  {num:3,hp:[85,110],atk:[15,22]},
+  {num:1,hp:[320,320],atk:[26,34],boss:true}
+];
+
+let S=null, busy=false, menuMode="skill";
+
+function newGame(){
+  S={wave:0, party:PARTY.map(p=>({...p,sk:p.sk.map(s=>({...s})),maxhp:p.hp,maxsp:p.sp,cur:p.hp,sp:p.sp,ko:false,down:false})),
+     foes:[], order:[], oi:0, one:false, target:0};
+  buildWave();
+}
+function buildWave(){
+  const w=WAVES[S.wave];
+  const els=["fire","ice","elec","wind"];
+  S.foes=[];
+  for(let i=0;i<w.num;i++){
+    const b=w.boss?{n:"シャドウ・キング",f:"👑"}:pick(FOES);
+    const hp=rnd(w.hp[0],w.hp[1]);
+    S.foes.push({n:b.n,f:b.f,maxhp:hp,hp:hp,weak:pick(els),atk:w.atk,down:false,dead:false,known:false,boss:!!w.boss});
+  }
+  $("#wv").textContent = w.boss?"BOSS":"WAVE "+(S.wave+1);
+  S.target=0;
+  startTurn();
+}
+
+/* ---- 描画 ---- */
+function draw(){
+  const f=$("#foes");f.innerHTML="";
+  S.foes.forEach((e,i)=>{
+    const d=el("div","foe"+(i===S.target&&!e.dead?" sel":"")+(e.down?" down":"")+(e.dead?" dead":""));
+    d.dataset.i=i;
+    d.innerHTML='<div class="face">'+e.f+'</div><div class="fname">'+e.n+'</div>'+
+      '<div class="hpbar"><i style="width:'+Math.max(0,e.hp/e.maxhp*100)+'%"></i></div>'+
+      '<div class="weak">'+(e.known?"弱点 "+EL[e.weak]:"弱点 ？")+'</div>'+
+      (e.down&&!e.dead?'<div class="dtag">DOWN</div>':'');
+    d.onclick=()=>{ if(busy||e.dead)return; S.target=i; beep(680,.05); draw(); };
+    f.appendChild(d);
+  });
+  const p=$("#party");p.innerHTML="";
+  S.party.forEach((c,i)=>{
+    const act=!busy&&S.order[S.oi]===i;
+    const d=el("div","pc"+(act?" act":"")+(c.ko?" ko":""));
+    d.innerHTML='<div class="pcn"><b>'+c.n+'</b><span>'+(c.ko?"DOWN":c.cur+"/"+c.maxhp)+'</span></div>'+
+      '<div class="bar hp"><i style="width:'+Math.max(0,c.cur/c.maxhp*100)+'%"></i></div>'+
+      '<div class="bar sp"><i style="width:'+(c.sp/c.maxsp*100)+'%"></i></div>';
+    p.appendChild(d);
+  });
+  drawCmd();
+}
+function drawCmd(){
+  const c=$("#cmd");c.innerHTML="";
+  if(busy)return;
+  const me=S.party[S.order[S.oi]];
+  if(!me)return;
+  if(menuMode==="allout"){
+    const b=el("button","btn big");b.innerHTML="⚡ 総攻撃！！";
+    b.onclick=allOut;c.appendChild(b);
+    const g=el("button","btn");g.innerHTML="やめる<small>通常の行動に戻る</small>";
+    g.onclick=()=>{menuMode="skill";drawCmd();};c.appendChild(g);
+    return;
+  }
+  me.sk.forEach((s,i)=>{
+    const b=el("button","btn");
+    b.innerHTML=(i+1)+". "+s.n+"<small>"+EL[s.e]+(s.c?" / SP"+s.c:" / SP0")+"</small>";
+    b.disabled = s.c>me.sp;
+    b.onclick=()=>act(s);
+    c.appendChild(b);
+  });
+  const g=el("button","btn");
+  g.innerHTML="4. 防御<small>ダメージ半減</small>";
+  g.onclick=()=>act({n:"防御",e:"guard",c:0,pw:0});
+  c.appendChild(g);
+}
+function log(t){$("#log").innerHTML=t;}
+function flash(t,ms){
+  $("#flashT").textContent=t;$("#flash").classList.add("on");
+  setTimeout(()=>$("#flash").classList.remove("on"),ms||700);
+}
+function pop(node,txt,col){
+  const s=el("div","pop");s.textContent=txt;s.style.color=col||"#fff";
+  const r=node.getBoundingClientRect();
+  s.style.left=(r.left+r.width/2)+"px";s.style.top=(r.top+r.height/3)+"px";s.style.position="fixed";
+  document.body.appendChild(s);setTimeout(()=>s.remove(),880);
+}
+function foeNode(i){return document.querySelectorAll(".foe")[i];}
+
+/* ---- 戦闘 ---- */
+function startTurn(){
+  S.party.forEach(c=>{ if(c.ko&&c.cur>0)c.ko=false; });
+  S.order=S.party.map((c,i)=>i).filter(i=>S.party[i].cur>0&&!S.party[i].ko);
+  S.oi=0;S.one=false;menuMode="skill";
+  if(!S.order.length){ return foeTurn(); }
+  busy=false;draw();
+}
+function nextActor(){
+  menuMode="skill";
+  if(S.foes.every(f=>f.dead))return winWave();
+  if(S.one){ S.one=false; busy=false;
+    if(S.foes.some(f=>!f.dead)&&S.foes.filter(f=>!f.dead).every(f=>f.down)){menuMode="allout";}
+    draw();return;
+  }
+  S.oi++;
+  while(S.oi<S.order.length && S.party[S.order[S.oi]].cur<=0)S.oi++;
+  if(S.oi>=S.order.length){ foeTurn(); } else { busy=false;draw(); }
+}
+function act(s){
+  if(busy)return;busy=true;
+  const me=S.party[S.order[S.oi]];
+  me.sp-=s.c;
+  if(s.e==="heal"){
+    const t=S.party.filter(c=>c.cur>0).sort((a,b)=>a.cur/a.maxhp-b.cur/b.maxhp)[0]||me;
+    const h=s.pw+rnd(0,10);t.cur=Math.min(t.maxhp,t.cur+h);
+    beep(880,.18,"sine",.09);
+    log('<b>'+me.n+'</b> の '+s.n+'！ <b style="color:#3ddc84">'+t.n+' を '+h+' 回復</b>');
+    draw();setTimeout(nextActor,650);return;
+  }
+  if(s.e==="guard"){
+    me.guard=true;beep(300,.12,"triangle");
+    log('<b>'+me.n+'</b> は身構えた。');
+    draw();setTimeout(nextActor,480);return;
+  }
+  let t=S.foes[S.target];
+  if(!t||t.dead){ const i=S.foes.findIndex(f=>!f.dead); if(i<0)return winWave(); S.target=i;t=S.foes[i]; }
+  const weak=(t.weak===s.e);
+  let dmg=Math.round(s.pw*(0.9+Math.random()*0.25)*(weak?2.1:1)*(t.down?1.15:1));
+  t.hp-=dmg;
+  if(weak){t.known=true;t.down=true;}
+  beep(weak?1100:520,weak?.22:.12,weak?"sawtooth":"square",weak?.1:.07);
+  draw();
+  const node=foeNode(S.target);
+  if(node)pop(node,(weak?"WEAK! ":"")+dmg,weak?"#ffe14d":"#fff");
+  let msg='<b>'+me.n+'</b> の '+s.n+'！ '+dmg+' ダメージ';
+  if(t.hp<=0){t.hp=0;t.dead=true;t.down=false;msg+=' … <b style="color:#ff2b3d">撃破！</b>';}
+  else if(weak){ msg+=' <b style="color:#ffe14d">弱点ヒット！</b>'; S.one=true; }
+  log(msg);
+  setTimeout(()=>{
+    draw();
+    if(S.foes.every(f=>f.dead))return winWave();
+    if(S.one){ flash("1 MORE!",650); beep(1400,.12,"sine",.08); setTimeout(nextActor,520); }
+    else nextActor();
+  },560);
+}
+function allOut(){
+  busy=true;menuMode="skill";S.one=false;
+  flash("総攻撃！！",900);beep(1600,.35,"sawtooth",.11);
+  setTimeout(()=>{
+    S.foes.forEach((f,i)=>{ if(f.dead)return;
+      const d=Math.round(f.maxhp*0.55+rnd(10,30));f.hp-=d;f.down=false;
+      const n=foeNode(i);if(n)pop(n,d,"#ffe14d");
+      if(f.hp<=0){f.hp=0;f.dead=true;}
+    });
+    log('<b style="color:#ffe14d">総攻撃！</b> 怪盗団が一斉に斬り込んだ！');
+    draw();
+    setTimeout(()=>{ if(S.foes.every(f=>f.dead))return winWave(); foeTurn(); },700);
+  },520);
+}
+function foeTurn(){
+  busy=true;menuMode="skill";draw();
+  const live=S.foes.filter(f=>!f.dead);
+  let i=0;
+  (function step(){
+    if(i>=live.length){
+      S.foes.forEach(f=>f.down=false);
+      S.party.forEach(c=>{c.guard=false;});
+      return setTimeout(startTurn,420);
+    }
+    const f=live[i++];
+    if(f.down){ f.down=false; log('<b>'+f.n+'</b> は体勢を立て直している…'); draw(); return setTimeout(step,420); }
+    const tgt=pick(S.party.filter(c=>c.cur>0));
+    if(!tgt)return lose();
+    const e=pick(["fire","ice","elec","wind","phys"]);
+    const weak=(tgt.weak===e);
+    let d=rnd(f.atk[0],f.atk[1])*(weak?2:1);
+    if(tgt.guard)d=Math.round(d/2);
+    tgt.cur=Math.max(0,tgt.cur-d);
+    beep(weak?240:360,.14,"triangle",.08);
+    log('<b style="color:#ff2b3d">'+f.n+'</b> の '+EL[e]+'攻撃！ '+tgt.n+' に '+d+' ダメージ'+(weak?' <b style="color:#ffe14d">痛恨！</b>':''));
+    if(tgt.cur<=0){tgt.ko=true;log($("#log").innerHTML+' … <b>'+tgt.n+' ダウン</b>');}
+    draw();
+    if(S.party.every(c=>c.cur<=0))return setTimeout(lose,700);
+    setTimeout(step,620);
+  })();
+}
+function winWave(){
+  busy=true;draw();
+  S.wave++;
+  if(S.wave>=WAVES.length)return setTimeout(win,500);
+  flash("WAVE CLEAR",900);
+  S.party.forEach(c=>{ if(c.cur>0){c.cur=Math.min(c.maxhp,c.cur+30);c.sp=Math.min(c.maxsp,c.sp+20);} });
+  log('<b style="color:#ffe14d">WAVE CLEAR！</b> HP+30 / SP+20 回復。次の敵が来る…');
+  setTimeout(buildWave,1100);
+}
+function win(){ end("YOU WIN","全ウェーブ制圧。心の怪盗、仕事完了。"); }
+function lose(){ end("GAME OVER","怪盗団は全滅した…もう一度挑もう。"); }
+function end(t,msg){
+  busy=true;
+  $("#veil").classList.remove("off");
+  $("#veil h1").textContent=t;
+  $("#veil p").innerHTML=msg;
+  $("#startB").textContent="もう一度";
+}
+
+/* ---- 入力 ---- */
+$("#startB").onclick=()=>{ $("#veil").classList.add("off"); beep(900,.12); newGame(); };
+document.addEventListener("keydown",e=>{
+  if([" ","ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(e.key))e.preventDefault();
+  if($("#veil").classList.contains("off")===false){
+    if(e.key==="Enter"||e.key===" ")$("#startB").click();
+    return;
+  }
+  if(busy)return;
+  if(e.key>="1"&&e.key<="4"){
+    const b=document.querySelectorAll("#cmd .btn")[+e.key-1];
+    if(b&&!b.disabled){b.classList.add("hot");setTimeout(()=>b.classList.remove("hot"),120);b.click();}
+  }
+  if(e.key==="Enter"||e.key===" "){
+    const b=$("#cmd .btn");if(b&&!b.disabled)b.click();
+  }
+  if(e.key==="ArrowRight"||e.key==="ArrowLeft"){
+    const live=S.foes.map((f,i)=>i).filter(i=>!S.foes[i].dead);
+    if(!live.length)return;
+    let k=live.indexOf(S.target);k=(k+(e.key==="ArrowRight"?1:live.length-1)+live.length)%live.length;
+    S.target=live[k];beep(680,.04);draw();
+  }
+});
+})();
+</script>
+</body>
+</html>
