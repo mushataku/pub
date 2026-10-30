@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>お仕事のご紹介</title>
+<style>
+:root {
+  --bg: #f6f7f9;
+  --paper: #ffffff;
+  --ink: #1d2433;
+  --sub: #5a6478;
+  --line: #e1e5ec;
+  --accent: #1f6feb;
+  --accent-soft: #e8f0fe;
+  --good: #1a7f4b;
+  --good-soft: #e6f4ec;
+  --note: #8a5a00;
+  --note-soft: #fff6e0;
+  --pass-soft: #eef0f3;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11151c; --paper: #1a202b; --ink: #e8ecf3; --sub: #a3adbf; --line: #2c3444;
+    --accent: #6ea8ff; --accent-soft: #1c2a44; --good: #5cc98f; --good-soft: #17301f;
+    --note: #f0c060; --note-soft: #33290f; --pass-soft: #232a38;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11151c; --paper: #1a202b; --ink: #e8ecf3; --sub: #a3adbf; --line: #2c3444;
+  --accent: #6ea8ff; --accent-soft: #1c2a44; --good: #5cc98f; --good-soft: #17301f;
+  --note: #f0c060; --note-soft: #33290f; --pass-soft: #232a38;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  font-size: 17px; line-height: 1.7;
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding: 32px 16px 48px; }
+header h1 { font-size: 30px; margin: 0 0 4px; letter-spacing: .02em; }
+header { position: relative; }
+header .date { color: var(--sub); margin: 0 0 20px; }
+td small.pr { color: var(--good); }
+.deck-mini {
+  display: inline-block; font-size: 13.5px; font-weight: 600; color: var(--accent);
+  text-decoration: none; white-space: nowrap;
+}
+.deck-mini:hover { text-decoration: underline; }
+.deck-mini:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.card .deck-mini {
+  align-self: flex-start; margin-top: 12px; padding: 4px 14px;
+  border: 1px solid var(--accent); border-radius: 999px;
+}
+.card .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
+td.co .deck-mini { display: block; margin-top: 4px; }
+.axis {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px;
+  padding: 14px 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+}
+.axis .label { font-weight: 700; margin-right: 4px; align-self: center; }
+.chip {
+  display: inline-block; padding: 3px 12px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 15px;
+}
+h2 { font-size: 22px; margin: 36px 0 6px; }
+h2 + .lead { margin: 0 0 14px; color: var(--sub); }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 14px;
+  padding: 18px 18px 16px; display: flex; flex-direction: column;
+}
+.card h3 { margin: 0 0 2px; font-size: 20px; }
+.card .what { margin: 0 0 12px; color: var(--sub); font-size: 15px; }
+.card dl { margin: 0 0 12px; display: grid; grid-template-columns: 4.2em 1fr; gap: 4px 8px; font-size: 15.5px; }
+.card dt { color: var(--sub); }
+.card dd { margin: 0; }
+.card .point {
+  margin-top: auto; padding: 10px 12px; border-radius: 10px;
+  background: var(--good-soft); color: var(--ink); font-size: 15px;
+}
+.card .point b { color: var(--good); }
+.card .caution {
+  margin-top: 8px; padding: 8px 12px; border-radius: 10px;
+  background: var(--note-soft); color: var(--ink); font-size: 14px;
+}
+.chosen {
+  display: inline-block; margin-left: 8px; padding: 2px 10px; border-radius: 999px;
+  background: var(--good-soft); color: var(--good); font-size: 12.5px; font-weight: 700;
+  vertical-align: middle; white-space: nowrap;
+}
+td small { display: block; color: var(--sub); font-size: 14px; }
+.table-wrap { overflow-x: auto; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 15.5px; }
+th, td { text-align: left; vertical-align: top; padding: 11px 14px; border-bottom: 1px solid var(--line); }
+th { color: var(--sub); font-weight: 600; font-size: 14px; background: var(--bg); }
+tr:last-child td { border-bottom: none; }
+td.co { font-weight: 700; }
+td.num { white-space: normal; }
+@media (min-width: 761px) { .table-wrap thead th:nth-child(1) { width: 16%; } .table-wrap thead th:nth-child(2) { width: 34%; } .table-wrap thead th:nth-child(3) { width: 18%; } }
+.also {
+  margin: 12px 0 0; padding: 10px 14px; border-radius: 10px;
+  background: var(--note-soft); color: var(--ink); font-size: 15px;
+}
+.videos { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.videos li { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.videos a { font-weight: 700; color: var(--accent); text-decoration: none; }
+.videos a:hover { text-decoration: underline; }
+.videos .meta { display: block; color: var(--sub); font-size: 14px; margin-top: 2px; }
+.videos .why { display: block; margin-top: 6px; font-size: 15px; }
+footer { margin-top: 32px; color: var(--sub); font-size: 14px; }
+@media (max-width: 860px) {
+  .cards { grid-template-columns: 1fr; }
+  header h1 { font-size: 24px; }
+}
+@media (max-width: 760px) {
+  table { min-width: 0; }
+  .tech td { width: auto !important; }
+  thead { display: none; }
+  tr { display: block; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  tr:last-child { border-bottom: none; }
+  td { display: block; border: none; padding: 1px 0; white-space: normal; }
+  td.co { font-size: 17px; margin-bottom: 2px; }
+  td:nth-child(3)::before { content: "勤務地\3000"; color: var(--sub); }
+  td:nth-child(4)::before { content: "月給\3000"; color: var(--sub); }
+  td:nth-child(5)::before { content: "休日\3000"; color: var(--sub); }
+  td.num br { display: none; }
+}
+@media print {
+  body { background: #fff; }
+  .card, .table-wrap, .axis { break-inside: avoid; }
+}
+.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+#documents .deck-mini { padding: 4px 14px; border: 1px solid var(--accent); border-radius: 999px; }
+#documents .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
+.card .links .deck-mini { margin-top: 0; }
+.thanks { margin: 0 0 20px; padding: 16px 18px; border-radius: 14px; background: var(--good-soft); border: 1px solid var(--line); }
+.thanks p { margin: 0 0 6px; }
+.thanks p:last-child { margin: 0; }
+.flow-box { margin: 0 0 24px; padding: 14px 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+.flow-box h3 { margin: 0 0 6px; font-size: 18px; }
+.flow-box ol { margin: 0; padding-left: 1.4em; }
+.flow-box li { margin: 4px 0; }
+.page-nav { margin: 0 0 24px; }
+.page-nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; }
+.page-nav a {
+  display: inline-block; padding: 6px 14px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); font-weight: 600;
+  font-size: 14.5px; text-decoration: none;
+}
+.page-nav a:hover { text-decoration: underline; }
+.page-nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+section[id] { scroll-margin-top: 16px; }
+.decision {
+  margin: 0 0 32px; padding: 16px 18px; background: var(--paper);
+  border: 1px solid var(--line); border-radius: 14px;
+}
+.decision h2 { margin: 0 0 10px; font-size: 20px; }
+.decision ul { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.decision li { padding: 4px 12px; border-radius: 999px; background: var(--good-soft); color: var(--ink); font-size: 15px; }
+.decision li b { color: var(--good); }
+.decision p { margin: 8px 0 0; font-size: 15px; }
+.decision p.yardstick { color: var(--sub); }
+.decision h3.tier-h { margin: 16px 0 6px; font-size: 16px; }
+.decision h3.tier-h.t-sent { color: var(--good); }
+.decision h3.tier-h.t-next { color: var(--accent); }
+.decision h3.tier-h.t-later { color: var(--note); }
+.decision h3.tier-h.t-pass { color: var(--sub); }
+.decision ul.t-next li { background: var(--accent-soft); }
+.decision ul.t-next li b { color: var(--accent); }
+.decision ul.t-later li { background: var(--note-soft); }
+.decision ul.t-later li b { color: var(--note); }
+.decision ul.t-pass li { background: var(--pass-soft); }
+.decision p.tier-note { margin: 0 0 6px; color: var(--sub); font-size: 14.5px; }
+.decision ul.tier-more { display: block; margin: 0 0 6px; }
+.decision ul.tier-more li { display: block; border-radius: 10px; background: var(--note-soft); margin: 0 0 6px; padding: 6px 12px; font-size: 14.5px; }
+.decision ul.tier-more li b { color: var(--note); }
+.verdict {
+  margin-top: 10px; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--pass-soft); color: var(--ink);
+  font-size: 15px; line-height: 1.65; font-weight: 400; white-space: normal;
+}
+.verdict.is-sent { background: var(--good-soft); border-color: var(--good); }
+.verdict.is-next { background: var(--accent-soft); border-color: var(--accent); }
+.is-next .vbadge { background: var(--accent); color: var(--paper); }
+.verdict.is-later { background: var(--note-soft); border-color: var(--note); }
+.is-later .vbadge { background: var(--note); color: var(--paper); }
+.verdict .vhead { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-bottom: 4px; }
+.verdict .vlabel { font-size: 13px; font-weight: 600; color: var(--sub); }
+.vbadge {
+  display: inline-block; padding: 2px 10px; border-radius: 999px;
+  font-size: 13px; font-weight: 700; white-space: nowrap;
+  background: var(--sub); color: var(--paper);
+}
+.is-sent .vbadge { background: var(--good); color: var(--paper); }
+.verdict p { margin: 0; }
+tr.has-verdict td { border-bottom: none; padding-bottom: 6px; }
+tr.verdict-row td { padding-top: 0; }
+.tech tr.verdict-row td { width: auto; }
+@media (max-width: 760px) {
+  tr.has-verdict { border-bottom: none; padding-bottom: 4px; }
+  tr.verdict-row { padding-top: 0; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>髙橋さんにご紹介したいお仕事</h1>
+  <p class="date">2026年10月31日（金）</p>
+</header>
+
+<section class="thanks">
+<p><b>本日はお忙しいところ、ありがとうございました。</b></p>
+  <p>面談で伺った「教育体制をいちばんに見たい」「関東で働きたい」「未経験からITエンジニアへ」という3つの軸から、ご紹介する会社を選びました。</p>
+  <p>それぞれの会社の公式サイトと、会社の資料をこのページにまとめています。気になったところ・引っかかったところを、遠慮なくLINEで教えてください。</p>
+</section>
+<div class="flow-box">
+  <h3>これからの進め方</h3>
+  <ol><li>このページの会社と資料を見て、受けてみたい会社をLINEで教えてください（3社とも受けていただくのがおすすめです）</li><li>こちらで推薦書類を整えて、企業へ提出します</li><li>書類が通ったら、面接対策を1時間お取りします</li></ol>
+</div>
+<nav class="page-nav" aria-label="ページ内リンク"><ul><li><a href="#decision">おすすめの順番</a></li><li><a href="#companies">ご紹介した会社</a></li><li><a href="#industry">業界の説明資料</a></li></ul></nav>
+
+<section class="decision" id="decision">
+<h2>おすすめの順番</h2>
+<p>このページの会社を一社ずつ、面談で伺った条件と照らし合わせて、おすすめの順番に並べました。</p>
+<h3 class="tier-h t-next">次におすすめの3社</h3>
+<p class="tier-note">まずこの3社に書類を出すことをおすすめします。</p>
+<ul class="tier t-next">
+<li><b>ABC</b></li>
+<li><b>BREXA Technology（IT）</b></li>
+<li><b>オープンアップITエンジニア</b></li>
+</ul>
+<h3 class="tier-h t-later">その次におすすめの5社</h3>
+<p class="tier-note">上の3社の進み具合を見て、次にご提案する会社です。</p>
+<ul class="tier t-later">
+<li><b>スタッフサービス・エンジニアリング（IT）</b></li>
+<li><b>BREXA Communications</b></li>
+<li><b>スタッフサービス ミラエール推進部</b></li>
+<li><b>弁護士法人東京新橋法律事務所</b></li>
+<li><b>プラウドデータ</b></li>
+</ul>
+</section>
+<section id="companies" data-section="companies">
+<h2>ご紹介した会社</h2>
+<div class="axis">
+  <span class="label">面談で伺ったこと</span>
+  <span class="chip">いちばん重視するのは教育体制</span>
+  <span class="chip">関東で働きたい（東京が第一）</span>
+  <span class="chip">未経験からITエンジニアに進みたい</span>
+  <span class="chip">入社できるのは12月1日から</span>
+  
+</div>
+
+<h2>まずはこの3社</h2>
+<p class="lead">面談で伺った3つの軸から選びました。1社だけだと、会社側の事情で落ちたときに振り出しに戻ってしまうので、3社とも受けていただくのがおすすめです。</p>
+
+<div class="cards">
+  <article class="card">
+    <h3>ABC</h3>
+    <p class="what">未経験からのインフラエンジニア。要件定義・基本設計・詳細設計・手順書作成・構築・テスト業務が中心（開発・コーディングは業務に含まれない）。</p>
+    <dl>
+      <dt>勤務地</dt><dd>本社もしくは都内の各プロジェクト先（都内勤務可能が必須）</dd><dt>条件</dt><dd>都内勤務可能が必須（地方在住は上京が前提）。</dd><dt>条件</dt><dd>選考は3回（最後の1回はオファー面談）。</dd><dt>月給</dt><dd>月給28万円ほど（基本給20.48万円＋みなし残業手当7.52万円・45時間分）。試用期間中（入社後6.5か月）は月給26.67万円ほど。会社が公開している募集要項（2024年4月実績）の数字。</dd><dt>年収</dt><dd>求人票の想定は336万〜400万円（初級エンジニア・賞与込み）。固定給だけなら年336万円（月給28万円×12・みなし残業45時間分を含む）＋業績賞与（1年目は定期賞与なし。中途向けの求人票には「年2回」とも書かれていて、書き方が割れている）</dd><dt>休日</dt><dd>土日祝・週休2日制・年末年始・有給休暇（初年度10日）・慶弔休暇</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　教育体制をいちばんに見たい、という髙橋さんの軸に最も強く応える会社です。入社後1か月の集中研修に加えて、ビジネス基礎とITインフラの研修が2か月続きます。配属後も独り立ちまで6か月〜1年の支援があり、資格を取得すると取得金が出ます。勤務先が都内に限られるので、東京で働きたいというご希望ともそのまま噛み合います。</p>
+    <p class="caution">月給28万円のうち約27%（7.52万円）は45時間分のみなし残業手当。45時間を超えた分は別途支給される。 1年目は業績賞与のみ（定期賞与は無し）という説明がある。中途向けの求人票には「賞与年2回」という表記もあり、媒体によって書き方が違う。 試用期間（入社後6.5か月）は月給が本採用よりおよそ5%低い。 勤務先は本社のほか、お客様のプロジェクト先（都内）になる。 法定の開示では、2025年の採用24名のうち4名が離職（定着率83.3%）、平均勤続年数は3年。</p>
+    <div class="verdict is-next"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">次点</span></div><p>研修が合計3か月あり、資格の取得金も出ます。勤務先が都内に限られるので、東京で働きたいというご希望と一致します。</p></div>
+    <div class="links"><a class="deck-mini" href="https://ascent-biz.com/" target="_blank" rel="noopener" aria-label="ABCのホームページ">会社のHP →</a></div>
+  </article>
+  <article class="card">
+    <h3>BREXA Technology（IT）</h3>
+    <p class="what">サーバー運用・インフラから始めて、開発へ</p>
+    <dl>
+      <dt>勤務地</dt><dd>東京・神奈川ほか全国</dd><dt>月給</dt><dd>20.5万円〜（想定年収 270万〜400万円）</dd><dt>休日</dt><dd>土日祝休み・年間休日120日以上</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　「今の場所を出て関東で勤めたい」という髙橋さんの状況が、この会社では有利に働きます。導入研修1か月に専門スクールが続き、研修の期間中も給与が支払われます。未経験の入口として設計された枠です。</p>
+    <p class="caution">会社自身は雇用形態を「無期雇用派遣」と説明している（正社員として雇われて客先へ派遣される形）。 求人票の経験者欄には「開発職：テスト工程以上1年以上」の記載があるが、表看板の求人票はインフラエンジニアのみ＝開発職そのものの求人票は無い。 賞与は会社の実績提示（昨年度2.6か月分）と、社員の証言（0.6〜1.5か月分）に幅があり、金額は確定していない。</p>
+    <div class="verdict is-next"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">次点</span></div><p>関東へ出る前提で動いていることが有利に働きます。研修の期間中も給与が出ます。</p></div>
+    <div class="links"><a class="deck-mini" href="https://technology.brexa.com/" target="_blank" rel="noopener" aria-label="BREXA Technology（IT）のホームページ">会社のHP →</a></div>
+  </article>
+  <article class="card">
+    <h3>オープンアップITエンジニア</h3>
+    <p class="what">ITエンジニア（未経験から、インフラ・開発など）</p>
+    <dl>
+      <dt>勤務地</dt><dd>全国（全国／地域限定／通勤限定から選べる）</dd><dt>条件</dt><dd>勤務地区分（全国転勤／地域限定／通勤限定）は書類選考の通りやすさを変えない。</dd><dt>月給</dt><dd>22万円〜（スタート年収 264万円〜）</dd><dt>休日</dt><dd>年間休日122日</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　未経験の方だけを対象にした枠で、選考は基本1回です。他社の選考が進んでいる状況でも、お返事の期限に間に合わせやすいのがこの会社です。「AIに取って代わられるのではなく、自分の市場価値を上げるためにAIを使う」という髙橋さんの言葉と、会社が掲げている方向がそのまま重なります。</p>
+    <p class="caution">「通勤限定」を選ぶと案件の母数が細り、配属までの待機が伸びる傾向がある（採用の可否には影響しない）。 契約上の「変更の範囲」は会社の定める全場所＝地域限定・通勤限定を選んでも契約上は全国異動の可能性が排除されていない。</p>
+    <div class="verdict is-next"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">次点</span></div><p>未経験の方だけの枠で、選考が基本1回です。いちばん早く結果が出ます。</p></div>
+    <div class="links"><a class="deck-mini" href="https://www.openupitengineer.co.jp/" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1X-Vx5IOL5tOttgAh9UkghjaAwBRyZppq/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料">会社の資料 →</a></div>
+  </article>
+</div>
+
+<h2>ITエンジニアの会社（上の3社のほかに）</h2>
+<p class="lead">上の3社と同じく、未経験から研修を受けてITエンジニアになる会社です。</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
+  <tbody>
+    <tr class="has-verdict"><td class="co">スタッフサービス・エンジニアリング（IT）<a class="deck-mini" href="https://www.staffservice-engineering.jp/" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1mvmhuABSzSJRxpq6TI5Bn3TNaD2u9u0L/view" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）の資料">会社の資料 →</a></td><td>ITエンジニア（未経験可）。バックエンド／フロントエンド／インフラ（サーバー・ネットワーク）／運用保守・ヘルプデスクなど、案件に応じて配属される。<small>入社直後の研修（ヒューマンスキル・ITパスポート・信頼性・Excel・ビジネスメール等）。経験の浅い人にはチームのベテランエンジニアがサポートに付く。</small><small>雇用形態は「正社員」だが、実際はスタッフサービスに雇用され就業先企業で働く「無期雇用派遣」。就業先が決まるまでの待機期間中も給与は支給されるが、1か月以上の待機で有給休暇が消滅することがある。</small><small>会社は「案件を選べる」「待機中も給与が出る」と説明しているが、当事者の声には「実際は派遣に近い」「案件を断りづらい」というものもある。</small><small>転勤は「無い」とする記載と「可能性はあるが最大限考慮する」という記載が同じ求人票内にあり、言い切れない。</small><small>賞与は全社の募集要項に項目が無く、求人ごとに書き方が違う（年1回とする説明と、年2回・7月/12月支給と書く求人がある）。</small></td><td class="num">全国46都道府県（居住エリアでの就業率92%）<small>理系（学部・学科卒／工業・高専含む）は経験不問。文系未経験は転居可能・夜勤対応可であることが実質の条件になるが、総合判断のため必須ではない。</small></td><td class="num">月給23万円〜23.5万円ほど（エリアにより異なる・想定年収258万〜480万円）。残業代は全額・1分単位（固定残業の設定なし）。</td><td class="num">年間休日125日・有給取得実績 年12日ほど・月平均残業10時間程度</td></tr>
+<tr class="verdict-row"><td colspan="5"><div class="verdict is-later"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">その次</span></div><p>面接が1回で、学歴の条件もありません。次の候補にしています。</p></div></td></tr>
+<tr class="has-verdict"><td class="co">プラウドデータ<a class="deck-mini" href="http://www.proud-g.jp/" target="_blank" rel="noopener" aria-label="プラウドデータのホームページ">会社のHP →</a></td><td>未経験からのインフラエンジニア（サーバー・ネットワーク）。入社後はヒアリングとOJTで方向性を決め、Linux・ネットワーク基礎やAWSの学習を経て、運用・保守・監視・テクニカルサポート・社内SEなどの現場へ（SES＝客先常駐が中心）<small>入社後ヒアリングのうえ、ビジネスマナー・IT業界理解・PC基礎・Office操作を学び、Linux／ネットワーク基礎・Linuxサーバ構築課題・AWS実習環境での実践学習へ進む。管理営業が伴走し、事業部リーダーと1on1あり</small><small>業種はSIer・SESで、勤務は客先常駐が前提。配属先によって勤務地・勤務時間・休日が変わる。</small><small>賞与は現在なし。基本給21万円〜は初年度は高くない可能性があると求人票に書かれており、昇給は配属先の案件と社内評価しだい。</small><small>最初の方向性（開発・インフラ・検証）は入社後のヒアリングと適性で決まる。</small><small>会社の育成方針は「手をかけすぎない」で、自分で学び続ける姿勢が求められる。</small><small>転勤の可能性は「あるが最大限考慮」と書かれている。</small></td><td class="num">東京・神奈川・千葉・埼玉（一都三県のプロジェクト先。品川・川崎・横浜エリアが中心。客先常駐・配属先で勤務地が変わる。本社は東京都千代田区麹町）<small>日本国籍の方が対象。</small><small>関東圏外にお住まいの場合は引越しが可能なことが選考条件。</small><small>選考は書類選考→面接（対面1回。関東圏外はオンライン可）→内定。適性テストなし。</small></td><td class="num">月給21万円〜（基本給＋職務手当＋諸手当＋交通費。配属先の案件と社内評価に応じて上がる。想定年収280万〜1,000万円）。賞与は現在なし<small>年収 求人票の年収イメージは、未経験入社後に毎年60万円前後の年収アップ実績あり・1年あたり月額5〜8万円の昇給を目指す設計・5〜6年で年収500万〜600万円を目指す想定。年収1,000万円レンジは経験・配属先の案件しだいで、入社時の数字ではない</small></td><td class="num">完全週休2日制（土日祝休み）・年間休日125日・勤務は9:00〜18:00・月平均残業10時間以下（残業代・深夜・休日出勤手当は別途支給）</td></tr>
+<tr class="verdict-row"><td colspan="5"><div class="verdict is-later"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">その次</span></div><p>関東勤務で面接1回、リモートの案件もあります。</p></div></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>IT寄りの事務から入る会社</h2>
+<p class="lead">「まず事務から入って、そこからキャリアを広げる」という進み方もあります。もともとご応募いただいた求人に近いのはこちらです。</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
+  <tbody>
+    <tr class="has-verdict"><td class="co">BREXA Communications<a class="deck-mini" href="https://communications.brexa.com/" target="_blank" rel="noopener" aria-label="BREXA Communicationsのホームページ">会社のHP →</a></td><td>通信インフラの事務サポート（携帯キャリア向け専用システムへのデータ入力・法人顧客からの電話/メール問い合わせ対応・スマホ/タブレットの発注手配や在庫管理・基地局工事の日程調整・申請書類作成・法人営業担当のサポートなど）<small>選考はWEB面接1回のみ。第一級陸上特殊無線技士など専門資格の取得セミナー・対策本を自社で提供。</small><small>雇用形態は「正社員」表記だが、会社自身は移動体通信の「技術者派遣・請負企業」と説明しており、勤務は客先常駐が前提。</small><small>勤務エリアは東京・神奈川・埼玉・千葉のみで選択はできず、配属先は会社が決める。</small></td><td class="num">東京・神奈川・埼玉・千葉（客先常駐・転勤なし・勤務エリアの選択は不可）</td><td class="num">月給22万〜25万円ほど（想定年収320万〜350万円・賞与年2回）</td><td class="num">土日祝休み・年間休日124日・月平均残業10時間以下</td></tr>
+<tr class="verdict-row"><td colspan="5"><div class="verdict is-later"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">その次</span></div><p>ITサポート事務の枠で、もともとご応募いただいた求人にいちばん近い内容です。</p></div></td></tr>
+<tr class="has-verdict"><td class="co">スタッフサービス ミラエール推進部<a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1o31QH1qaAuheG_WwoFBcrVvgKVDLC1iP/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料">会社の資料 →</a></td><td>一般事務（人事・総務・経理・貿易・金融・英文事務・受付・データ入力など、案件により内容が変わる）<small>雇用形態は無期雇用派遣です（スタッフサービスに無期雇用の正社員として雇われ、配属先の企業で働く形）。</small><small>配属先・仕事内容は選べない（人事・総務・経理・受付・データ入力など案件により変わる）。</small></td><td class="num">転勤なし・自宅から90分以内の配属先（東京・神奈川・埼玉・千葉・大阪・京都・滋賀・広島・愛知・兵庫）</td><td class="num">270万〜330万円ほど（地域別の月給・エリアにより異なる）</td><td class="num">土日祝・完全週休2日・年間休日125日（祝日は配属先により異なる）・残業月10時間以下</td></tr>
+<tr class="verdict-row"><td colspan="5"><div class="verdict is-later"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">その次</span></div><p>一般事務の枠です。歯科クリニックで理事長秘書をされていたご経験がそのまま活きます。</p></div></td></tr>
+<tr class="has-verdict"><td class="co">弁護士法人東京新橋法律事務所<a class="deck-mini" href="https://tslaw.or.jp/" target="_blank" rel="noopener" aria-label="弁護士法人東京新橋法律事務所のホームページ">会社のHP →</a></td><td>パラリーガル（法律事務）。刑事事件・交通事故などを担当する弁護士のサポート業務＝事件管理（記録作成・スケジュール管理・文書管理をKintone等のシステムで）・訴訟文書や契約書の作成補助と裁判所などへの提出・電話/来客応対。データ入力など簡単な業務からスタート。<small>教育担当（20代・30代の年の近い先輩）がマンツーマンで育成し、3ヶ月〜半年ほどで独り立ちを目指す。部署ごとのミーティングで弁護士へ直接質問できる。</small><small>月給25万〜30万円には20時間分（3万3,800円以上）のみなし残業代が含まれる。</small><small>勤務時間は10:00〜19:00で、退社は19時ごろ（1日の流れの例）。月平均残業は20時間程度。</small><small>配属される専門分野（債権回収・破産再生・相続問題・刑事事件など）は、希望や適性に応じて事務所が決める。</small></td><td class="num">東京都中央区銀座（自社内勤務・転勤なし）<small>応募可能年齢は20歳〜40歳。</small><small>基本的なPCスキル（WordやExcelでの文字入力ができるレベル）が必須。</small></td><td class="num">月給25万〜30万円（想定年収300万〜360万円・賞与年2回）。月給には20時間分（3万3,800円以上）のみなし残業代を含み、超過分は別途全額支給。<small>年収 求人票の想定は300万〜360万円（経験やスキルを考慮して決定）</small></td><td class="num">土日祝休み・完全週休2日制・年間休日125日（年末年始・夏季・GW休暇あり）・勤務時間10:00〜19:00・月平均残業20時間程度</td></tr>
+<tr class="verdict-row"><td colspan="5"><div class="verdict is-later"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">その次</span></div><p>法律事務所のパラリーガルです。教育担当がマンツーマンで付き、3か月〜半年で独り立ちする育て方をしています。</p></div></td></tr>
+  </tbody>
+</table>
+</div>
+
+</section>
+<section id="industry" data-section="industry">
+<h2>業界の説明資料</h2>
+<ul class="videos">
+  <li><a href="https://drive.google.com/file/d/1rMe1E4_EpphASnW63x9ubO1gtUm55174/view" target="_blank" rel="noopener">インフラエンジニアの仕事</a>
+    <span class="meta">インフラエンジニアの仕事内容と将来性をまとめた資料</span></li>
+  <li><a href="https://drive.google.com/file/d/1aaqbrGWGHvvOBhfCRVNETd7fdiUqzovh/view" target="_blank" rel="noopener">機械系エンジニアの仕事</a>
+    <span class="meta">機械系エンジニア（開発設計・組み込み・ものづくり）の仕事内容と将来性をまとめた資料</span></li>
+  <li><a href="https://drive.google.com/file/d/1hH4k9m57BCrY0_OQTSqg1CsMrRuFJVHK/view" target="_blank" rel="noopener">営業の仕事</a>
+    <span class="meta">営業の仕事内容と将来性をまとめた資料</span></li>
+</ul>
+</section>
+
+<footer>※条件は各社の求人票・会社資料（2026年10月時点）に書かれている内容です。月給の幅は、これまでの経験と選考での評価で決まります。<br>※「会社のHP →」は各社の公式ホームページに、「会社の資料 →」は会社説明の資料（PDF）につながります。</footer>
+
+</div>
+</body>
+</html>
