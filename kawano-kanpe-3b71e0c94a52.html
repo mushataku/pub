@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>河野紘生さん 共有面談カンペ（10/30）</title>
+<!-- ⚠内部資料。本人・企業に見せない。PII含む＝git外。
+     作成: skill shared-interview-prep 2026-10-28 11時台。土台= 20261030_共有面談_進行設計.md（§番号はそちら）／notes.md 人物サマリ・面談ログ。
+     行番号 L### は interviews/20261027_kawano_flat.txt。 -->
+<style>
+  :root{
+    --bg:#12141a; --card:#1b1e26; --line:#2c313d; --tx:#e9edf5; --mute:#98a2b3;
+    --hot:#ff5a5f; --warn:#ffb020; --ok:#35c48b; --key:#5b9dff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:14px;background:var(--bg);color:var(--tx);
+       font-family:"Yu Gothic UI","Meiryo",system-ui,sans-serif;font-size:13.5px;line-height:1.5}
+  h1{font-size:16px;margin:0 0 8px}
+  h1 small{color:var(--mute);font-weight:400;font-size:12px;margin-left:8px}
+  h1 a{color:#8fc0ff;font-size:12px;font-weight:400;margin-left:10px}
+  h2{font-size:13px;margin:0 0 6px;color:var(--key);letter-spacing:.04em}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-items:start;grid-auto-flow:row dense}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 11px;min-width:0}
+  .card.hot{border-color:#5a2b2e}
+  .card.ng{border-color:#5a3a12}
+  .prof{background:#182233;border:1px solid #2f4a7a;border-radius:8px;padding:11px 13px;margin-bottom:10px}
+  .prof h2{color:#8fc0ff}
+  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:0 18px}
+  .alert{background:#3a1f22;border:1px solid #7a2e33;border-radius:8px;padding:8px 12px;margin-bottom:10px}
+  ul,ol{margin:0;padding-left:16px}
+  li{margin:3px 0}
+  .q,.say{color:#fff;background:#242a36;border-left:3px solid var(--key);padding:5px 7px;margin:5px 0;border-radius:3px}
+  .q.hotq{border-left-color:var(--hot)}
+  .quote{color:#d7e3ff;border-left:3px solid #6b5bd6;padding:3px 7px;margin:4px 0;background:#1f2033;border-radius:3px}
+  .hot{color:var(--hot)}
+  .ok{color:var(--ok)}
+  .warn{color:var(--warn)}
+  .mute{color:var(--mute)}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  td,th{border-bottom:1px solid var(--line);padding:3px 4px;text-align:left;vertical-align:top}
+  th{color:var(--mute);font-weight:600;white-space:nowrap}
+  .chk{list-style:none;padding-left:0}
+  .chk li:before{content:"☐ ";color:var(--mute)}
+  .band{display:flex;gap:4px;margin:0 0 10px;font-size:12px;flex-wrap:wrap}
+  .band div{background:#1f2430;border:1px solid var(--line);border-radius:4px;padding:3px 6px;flex:1}
+  .band b{color:var(--key)}
+  .span2{grid-column:span 2}
+  .span3{grid-column:span 3}
+  code{word-break:break-all}
+  @media (max-width:1100px){.grid,.pgrid{grid-template-columns:1fr 1fr}.span2,.span3{grid-column:span 2}}
+  @media (max-width:700px){.grid,.pgrid{grid-template-columns:1fr}.span2,.span3{grid-column:span 1}th{white-space:normal}table{display:block;overflow-x:auto}}
+  @media print{body{background:#fff;color:#111}.card,.prof,.alert{background:#fff;border-color:#bbb}
+    .q,.say,.quote{background:#f2f4f8;color:#111}h2{color:#1a56b3}}
+</style>
+</head>
+<body>
+
+<h1>河野 紘生（カワノ コウキ）さん 共有面談カンペ<small><b class="warn">10/30(金) 22:00–23:00</b> / Zoom（前回と同じURL・ID 999 025 3127）/ CA=武者野・架電=小野</small><a href="20261030_共有面談_進行設計.md">📄 進行設計md</a><a href="https://mushataku.github.io/pub/shigoto-shokai-00e6587ab735.html" target="_blank">🔗 ご紹介したお仕事ページ（公開済み）</a></h1>
+
+<div class="alert">
+  <b class="hot">⚠ 部長の判断（採否・理由・コメント）を面談前にもらう</b>＝<code>20261030_部長コメント.html</code> を部長に見せる（10/21 運用変更・そのまま出せる完成版で書いてある）。直された所だけ直し、OKなら <code>20261030_FB_部長コメント_本人共有用.html</code> として清書→画面共有。<b>本人共有用はまだ作っていない</b>（部長のOK待ち）。<br>
+  <b class="hot">⚠ 応募中の約10社の社名をまだ聞けていない</b>＝<code>teian_eligibility.py</code> の「応募済み」照合ができていない（全枠 ⚠️要確認）。<b>提案の前（ブロック④の冒頭）で必ず社名を聞く</b>。4社のどれかが入っていたら、その社は出さない。<br>
+  <b class="warn">⚠ 本人は「面接対策」のつもりで来る</b>（L145〜L147）。見送りを先に言い、面接対策は「今日の会社の面接に向けて次回しっかり」で引き継ぐ。<br>
+  <span class="mute">22時開始＝仕事のあと・金曜の夜。前回も熱心にメモを取っていた（L84〜L85）。</span>
+</div>
+
+<!-- ━━━━━━━━━ ブロック1: この人はどういう人か（30秒） ━━━━━━━━━ -->
+<div class="prof">
+  <h2>① この人はどういう人か（30秒）</h2>
+  <div class="pgrid">
+    <table>
+      <tr><th>年齢</th><td><b>25歳</b>（2000-11-27・男性）</td></tr>
+      <tr><th>住所</th><td>大阪市内（一人暮らし）／<b>徳島出身</b>（徳島北高）→京都→大阪</td></tr>
+      <tr><th>学歴</th><td><b>京都産業大 経営学部</b> マネジメント学科 2023/3卒（文系）</td></tr>
+      <tr><th>転居</th><td class="warn"><b>大阪にもうしばらくいたい</b>（友人に仕事の悩みを話せる環境を手放したくない L94〜L96）</td></tr>
+    </table>
+    <table>
+      <tr><th>職歴①</th><td><b>テックワーク</b>（京都・機械/電子機器の組立加工）営業事務 2023/4〜2025/7＝見積・受発注・請求・納期調整</td></tr>
+      <tr><th>学習</th><td><b>プログラマカレッジ</b>（無料）2025/9〜＝HTML/CSS/JS・MySQL・PHP・<b>Java（ECサイト）</b>・git</td></tr>
+      <tr><th>職歴②</th><td><b>シーレイシステム</b> 社内SE 2026/4〜（研修でC#/.NETのチーム開発→<b>CSV自動化ツールを設計〜テストまで一人で</b>）</td></tr>
+      <tr><th>いま</th><td>在職・<b>退職願は未提出</b>（決まってから辞める L46）・定時上がり。<b>日曜は昼〜20時 デジハリ</b>（UI/UX・1年・10月〜）</td></tr>
+    </table>
+    <table>
+      <tr><th>年収</th><td>現 <b>200〜250万</b>→「<b>現職と近しい金額</b>が保証されれば」（L92）</td></tr>
+      <tr><th>志望</th><td><b>開発</b>（Web/業務系とも）。現職は<b>来年4月からインフラ案件</b>＝これが動く理由</td></tr>
+      <tr><th>他社</th><td>約10社（Indeed中心・ほぼ中小・開発系）。<b>1社面接済み・結果待ち</b>／残り書類選考中。<b class="hot">社名は未聴取</b></td></tr>
+      <tr><th>開始</th><td>架電=来年1月以降／面談=「<b>なるべく早く決めたい</b>」（L153）</td></tr>
+      <tr><th>架電</th><td><b>小野</b>（10/27 12:10）</td></tr>
+      <tr><th>芯</th><td class="ok"><b>切り出し役</b>（工数の中で何を作るか決める・同期が相談に来る）。初対面は硬いが意思ははっきり言う（L123〜L125）</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="band">
+  <div><b>0-4</b> 再会・聞き直し</div>
+  <div style="flex:1.6"><b>4-12</b> ★社名と条件の回収</div>
+  <div style="flex:1.5"><b>12-20</b> 見送り＋部長FB</div>
+  <div><b>20-24</b> 業界の地図</div>
+  <div style="flex:3"><b>24-44</b> ★★4社の提案</div>
+  <div><b>44-49</b> 2週間・5社の同意</div>
+  <div style="flex:1.4"><b>49-60</b> 書類FB・対策アポ・宿題</div>
+</div>
+
+<div class="grid">
+
+  <!-- ━━━━━━━━━ ブロック2: 前回何を話したか ━━━━━━━━━ -->
+  <div class="card">
+    <h2>② 前回（10/27 新規面談・約65分）何を話したか</h2>
+    <div class="quote">動く理由「来年の…4月度からは…本格的に<b>インフラの案件</b>の方に参画する…開発で関わっていきたいって…考えていた私としては…<b>パスが違うなって</b>」（L42）</div>
+    <div class="quote">開発の根「自分が書いた…コードが実際に…<b>画面に出てきて…ユーザーとして使用できることに…非常にやりがい</b>」（L90）</div>
+    <div class="quote">強み「工数がこんだけやから何ができるかな？みたいな…<b>切り出し役</b>」（L115）／「バリバリコードかける子も…<b>これこうした方がいいかな？</b>みたいな形で聞いてくれたり」（L117）</div>
+    <div class="quote">方向「ゼロ一で作れる…タイプではあんまりなくて…<b>お客さんの課題…どうやったら解決…どうやったら喜んでくれるかな</b>」（L138）／将来「<b>プロジェクトの中心に関われるような人間に</b>」（L142）</div>
+    <div class="quote">勤務地「周りの友人に…仕事の悩み…話しながら頑張って」「<b>大阪でもうしばらくはいたい</b>」（L94〜L96）</div>
+    <h2 style="margin-top:8px">交わした約束</h2>
+    <ul>
+      <li>★<b>推薦を上げる</b>→通ったら事業部長と面接・<b>面接対策</b>をしたい（L145）</li>
+      <li>★<b>予告済み</b>: 見送りなら<b>事業部長のFB</b>＋「<b>希望を叶えつつ輝ける会社</b>」を見つかったら持ってくる（L147〜L150）</li>
+      <li>デジハリ等を<b>推薦書に書いてアピール</b>（L180）→お礼LINEでも「推薦書に書かせていただきます」</li>
+    </ul>
+    <h2 style="margin-top:8px">出した話・反応</h2>
+    <p>未経験が開発に入りにくい理由（1人300万の投資・最初に渡す仕事がAIに置き換わる）→本人が「専門性で挫折」「価値を生めるか」を自分で言った（L50・L52）。<b>拓也は「弊社か現職に残るかの二択ぐらい」</b>「現職でインフラの上流に行けるなら残るのもいい」と率直に言った（L47・L84）。<b>FDE</b>を紹介→「お客さんの課題を解決する方が近い」（L138）。</p>
+  </div>
+
+  <!-- ━━━━━━━━━ ブロック3: 前回以降に起きたこと ━━━━━━━━━ -->
+  <div class="card">
+    <h2>③ 前回以降に起きたこと</h2>
+    <table>
+      <tr><th>10/28 08:14</th><td>お礼LINE＋次回案内（「<b>弊社の選考結果と、そのうえでの今後の進め方</b>」）＋手元の履歴書・職経のお願い（1通）</td></tr>
+      <tr><th class="ok">10/28 08:39</th><td class="ok"><b>本人がL2書類2点を送ってきた</b>（履歴書・職務経歴書 10/22付）＝依頼から25分。メッセージ本文なし</td></tr>
+      <tr><th>宿題</th><td>書類の送付＝<b>回収済み</b></td></tr>
+      <tr><th>メール</th><td class="mute">記録なし</td></tr>
+    </table>
+    <h2 style="margin-top:8px">L2書類で分かったこと</h2>
+    <ul>
+      <li><b>徳島出身</b>（徳島北高）・<b>普通自動車免許</b>（2019/8）</li>
+      <li>テックワーク＝<b>機械・電子機器の組立加工</b>の会社。営業事務で<b>仕様・価格交渉・納期調整</b>まで書いている（面談より広い）</li>
+      <li>スクールで<b>Java（ECサイト）・PHP・MySQL・git</b>まで</li>
+      <li class="warn">スクール期間が<b>職経「2025/9〜2026/3」⇔面談「9〜12月・約4か月」</b>（L33〜L35）＝今日確かめる</li>
+      <li class="warn">面談で一番強かった<b>「切り出し役」が職経に無い</b>／CSVツールの<b>効果の数字が無い</b></li>
+    </ul>
+    <p class="mute" style="margin-top:6px">→ 読み: 依頼から25分で返す＝温度は高い。ただし10社並行で1社は面接済み＝<b>先に決まる可能性がある</b>。冒頭でその1社の結果を必ず聞く。</p>
+    <h2 style="margin-top:8px">★社名と条件の回収（4-12分・提案の前）</h2>
+    <ul class="chk">
+      <li class="hot"><b>①応募中の約10社の社名</b>（特に<b>ラーニンギフト・スタッフサービス・BREXA・HIT</b>が入っていないか）・エージェント経由か直接か</li>
+      <li class="hot"><b>②面接済みの1社</b>の結果・社名・温度（第一志望か）</li>
+      <li><b>③通勤の上限</b>（片道何分まで）・<b>④在宅</b>は 必須／希望／不要</li>
+      <li><b>⑤車通勤</b>できるか（免許はある）<span class="mute">＝SSEの専用項目</span></li>
+      <li><b>⑥スクールの期間</b>（12月修了か3月修了か）</li>
+      <li><b>⑦入社</b>はいつから可能か（1月以降？引き継ぎ期間）</li>
+      <li><b>⑧現職の4月以降</b>: インフラ案件は確定か・上流に行ける見込みは（現職に残る道の材料）</li>
+    </ul>
+  </div>
+
+  <!-- ━━━━━━━━━ ブロック4: 今日やること（3行） ━━━━━━━━━ -->
+  <div class="card hot">
+    <h2>④ 今日やること（3行）</h2>
+    <ol>
+      <li><b>聞き直し＋社名と条件の回収を提案より先に</b>（後で聞くと出した社を引っ込めることになる）</li>
+      <li><b>選考結果（部長の判断どおり）→ 見送りなら4社</b>（本人の希望=<b>ラーニンギフト</b>／僕のおすすめ=<b>SSE（IT）</b>／インフラ経由=<b>BREXA（IT）</b>／Javaで積み直す=<b>HIT</b>）＋<b>2週間・5社前後・1社だけ受けない</b></li>
+      <li><b>同意 → 面接対策アポ</b>（平日22時前後・日曜は不可）＋書類FB3点＋宿題</li>
+    </ol>
+    <p class="mute">資料の順: 部長コメント（OK取れたら）→ IT業界の説明資料（数枚）→ SSE資料 → お仕事ページ（提案の後）→ 書類FB</p>
+    <h2 style="margin-top:8px">冒頭（0-4分）</h2>
+    <div class="say">「お仕事お疲れさまです。金曜の夜遅くにありがとうございます。日曜のデジハリ、課題どうですか？」</div>
+    <div class="q hotq">★聞き直し「<b>この前お話ししてから3日たちましたけど、今の心境どうですか。何か変わりました？</b>」<br><span class="mute">→ 面接済みの1社が進んでいたら最優先で聞く。「現職に残る」に気持ちが寄っていたら、それも選択肢として受け止める（用意した提案の軸を捨ててよい）</span></div>
+    <div class="q hotq">★社名「<b>今受けている10社くらい、差し支えなければ社名を教えてください。同じ会社に二重で応募が行くと、先方に悪い印象になってしまうので</b>」</div>
+    <h2 style="margin-top:8px">2週間・5社の共有（44-49分）</h2>
+    <div class="say">「<b>2週間で決めに行きます</b>。今の10社と合わせて、こちらからは4社。5社くらい受けて1〜2社取る想定です。河野さんは面接の練習、僕は確実に内定を取らせる。役割分担でいきましょう」</div>
+    <div class="say">「<b>全部おすすめです。その中でも特にSSE</b>。1社だけ受けるのはやめてください。7か月の経験を『経験者』と見る会社と『未経験』と見る会社があって、<b>どっちに見られても2社は残る組み方</b>にしてあります。第一歩として全部受けましょう」</div>
+    <div class="say">「僕は会社側じゃなくて<b>河野さんの味方</b>です。だから攻略法を教えます。しんどくなったら言ってください、次を全部探します。内定を取れば、今の会社に残るかどうかも含めて<b>選べる立場</b>になれます」</div>
+  </div>
+
+  <!-- ━━━━━━━━━ 見送り＋部長FB ━━━━━━━━━ -->
+  <div class="card">
+    <h2>選考結果＋部長FB（12-20分）</h2>
+    <p class="hot"><b>★部長のOKが取れていれば</b> <code>20261030_FB_部長コメント_本人共有用.html</code> を画面共有して読む（結果→理由2つ→部長が挙げた3点→締めの言葉→ここからの話）。</p>
+    <p class="warn">▶ 部長の確認が取れなかったら: 結果は部長の判断どおりに伝え、<b>理由も所感も部長の言葉として言わない</b>。良い所は<b>武者野の一人称</b>で言う（下）。</p>
+    <div class="say">「先に結果からお伝えします。弊社のWebエンジニアの求人は、<b>今回は見送り</b>になりました」</div>
+    <div class="say">「<b>僕から見て</b>河野さんの良いところは3つです。限られた工数の中で、何を作るかを切り出して決められること。営業事務から自分で学んで開発の仕事を取って、今もデジハリで学び続けていること。それから、作ったものが使われるところ、お客さんが喜ぶところまで考えていること」</div>
+    <div class="say">「なので、この前お約束した『<b>希望を叶えつつ輝ける会社</b>』を持ってきました。開発の経験を続けられて、大阪で働ける会社です」</div>
+    <p class="mute">面接対策の約束: 「面接対策は、今日の会社の面接に向けて次回しっかりやります」。自社採用になったら（例外）4社の提案はしない＝面接対策の回へ切り替える。</p>
+    <h2 style="margin-top:8px">業界の地図（20-24分）</h2>
+    <div class="say">「この前、開発に未経験で入るのが難しい理由と、インフラからの方が入りやすい理由を話しましたよね。河野さんはもう7か月C#を書いているので、<b>その経験をどう持っていくか</b>で道が3つあります」</div>
+    <ul>
+      <li>①<b>開発の経験として持っていく</b>（経験者として受ける）＝ラーニンギフト</li>
+      <li>②<b>大阪で腰を据えて、開発にも行ける会社で積み直す</b>＝SSE・HIT</li>
+      <li>③<b>インフラの土台から上流へ</b>（この前のFDEの話の土台）＝BREXA。<span class="mute">※現職に残ってインフラから上流を狙うのも同じ道＝否定しない</span></li>
+    </ul>
+    <p class="mute">（IT業界の説明資料を数枚だけ）</p>
+  </div>
+
+  <!-- ━━━━━━━━━ 提案 ━━━━━━━━━ -->
+  <div class="card span3">
+    <h2>★★提案（24-44分）＝4社／主語は河野さん・理由はブロック②の逐語から</h2>
+    <table>
+      <tr><th></th><th>推す言葉（本人の軸→会社）</th><th class="hot">先に言う不利な事実（RJP）</th></tr>
+      <tr><td><b>本人の希望<br>ラーニンギフト</b><br><span class="mute">（直契約・資料なし＝口頭4点・お仕事ページ未掲載）</span></td>
+        <td>「河野さんが言っていた<b>『開発で関わっていきたい』を、そのまま続けられる</b>会社です。経験者の枠が<b>開発かインフラを3か月以上</b>なので、今のC#の7か月を<b>経験として持っていける</b>。扱っている案件に<b>C#やJavaの業務システム</b>があって、今やっていることの延長で探せます。<b>大阪支社（本町）・転勤なし</b>なので、大阪にいたまま。年間休日125日・残業は月6〜7時間ほどと会社は出しているので、日曜のデジハリも続けられます」</td>
+        <td>「働き方は<b>お客さんの会社に常駐する形（SES）</b>が中心です」／「案件によっては商流が深くて、<b>任される作業が小さかった</b>という社員の声もあります」／「給料は経験1年未満で月23万〜（<b>みなし残業30時間込み</b>）」／「受けられる基準が資料で割れているので、<b>受けられるか確認してからご案内</b>します」<span class="mute">（MK確認＝推薦の可否に格上げしない）</span></td></tr>
+      <tr><td><b class="ok">僕のおすすめ<br>SSE（IT）</b></td>
+        <td>「<b>大阪にいたまま、開発にもインフラにも行ける</b>会社です。配属先には<b>バックエンドやフロントエンドの開発</b>から、インフラ・運用保守まであって、<b>住んでいるエリアで働けている人が92%</b>。この前『周りの友達に仕事の悩みを話しながら頑張っている』と言っていましたよね。<b>その環境を手放さずに次の一歩を踏める</b>のがここです。年間休日125日・残業は月10時間程度なので、<b>日曜のデジハリと両立</b>しやすい。経験の浅い人にはベテランが付きます」</td>
+        <td>「『正社員』ですが、<b>スタッフサービスに雇われて、お客さんの会社で働く形</b>（無期雇用派遣）です。待機中も給料は出ます」／「<b>開発の配属は案件次第</b>で、最初はインフラや運用の可能性もあります」／★「文系で未経験の扱いになると、<b>転居できる人が通りやすい</b>傾向があります。大阪に残る前提で出すので、そこは正直に先方に伝えて受けます」／想定年収258万〜480万・賞与の書き方は求人ごとに違う<span class="mute">（言い切らない）</span></td></tr>
+      <tr><td><b>BREXA Technology<br>（IT）</b></td>
+        <td>「この前話した<b>『インフラの土台を知って上流へ』</b>の道を、一番まっすぐ進める会社です。<b>サーバー運用・インフラから始めて開発へ</b>進むコースで、導入研修1か月＋専門スクールで技術研修。<b>研修中も給料保証・賞与年2回</b>。河野さんが『お客さんの課題をどう解決するか』と言っていたFDEみたいな働き方は、<b>基幹システムを分かっている人</b>の方が近いので、その遠回りに見える近道です」</td>
+        <td class="hot">★<b>先に言う</b>「<b>最初は開発ではなく、インフラから</b>です。今の会社で4月から行くことになっている方向と同じなので、<b>それなら今の会社に残るのと何が違うか</b>は一緒に考えましょう」／「無期雇用派遣（客先へ派遣される正社員）」／「<b>転居が前提</b>と書いた資料と、<b>転居歓迎</b>と書いた資料があって食い違っています。関西は対象エリア内です」／賞与は会社の実績2.6か月と社員の声0.6〜1.5か月で幅<span class="mute">（引くなら引かせてよい）</span></td></tr>
+      <tr><td><b>HIT（IT）</b></td>
+        <td>「<b>Javaの研修を自社で受けてから現場に出る</b>形です。スクールで<b>JavaのECサイト</b>を作っていましたよね。それを<b>実務の言語として積み直せる</b>。関西は<b>大阪から90分圏内</b>が勤務エリア＝転居不要です」</td>
+        <td class="hot">★<b>先に言う</b>「中途は<b>最初の6か月が契約社員</b>です。研修の期間は、職種によって<b>販売の仕事から始まることがあります</b>。引越し手当は出ません」／「通勤は90分が基準ですが、<b>超える配属もある</b>と聞いています」</td></tr>
+    </table>
+    <p class="mute" style="margin-top:6px">共通の一言「どの会社も、<b>最初からプロジェクトの中心</b>ではありません。<b>中心に立つ人になるための最初の2〜3年</b>をどこで積むか、の選び方です」（L142 の言葉で返す）。<b>出さない</b>: オープンアップIT（関西は当面推薦を受けていない）・FunClock/GOOYA/ABC（関東のみ）・テクノプロ（エンジニア経験がない方が対象）・施工管理（軸が真逆）。<b>保留</b>: ボードルア系4社（関西で出せるかMK確認後、2周目でLINE追加しうる）。<b>ラーニンギフトはお仕事ページに載っていない</b>（会社カードが台帳に無い）＝口頭とLINEで補う。</p>
+  </div>
+
+  <!-- ━━━━━━━━━ ブロック5: 見せる資料と足す一言 ━━━━━━━━━ -->
+  <div class="card span2">
+    <h2>⑤ 見せる資料と足す一言（順番どおり）</h2>
+    <table>
+      <tr><th>順</th><th>資料（<code>candidates/kawano_kouki/</code>）</th><th>扱い</th><th>足す一言</th></tr>
+      <tr><td>1</td><td><code>20261030_FB_部長コメント_本人共有用.html</code>（<b>部長のOKが出てから清書</b>・今は部長に見せる版 <code>20261030_部長コメント.html</code> のみ）</td><td>画面共有</td><td>部長のOKが取れたときだけ。取れなければ使わない（武者野の一人称で口頭）</td></tr>
+      <tr><td>2</td><td><code>materials/会社説明資料【IT業界について】.pdf</code></td><td>画面共有・数枚だけ</td><td>前回の「開発の入口・インフラの入口」の図として。全部は見せない</td></tr>
+      <tr><td>3</td><td><code>materials/sse_it.pdf</code>（自前の企業説明・画像13p）</td><td>画面共有・送ってよい</td><td>「正社員」は<b>無期雇用派遣</b>と口で添える／開発の配属は<b>案件次第</b>／文系未経験は転居可が通りやすい傾向を口で</td></tr>
+      <tr><td>4</td><td>BREXA（IT）</td><td class="warn">本人向け資料なし（会社カードの <code>file_id</code> が null＝自前PDFに仕入れ元の記載が残っていて外した）</td><td>口頭で「インフラから開発へ・研修1か月＋スクール・無期雇用派遣・転居の食い違い」の4点</td></tr>
+      <tr><td>5</td><td>HIT</td><td class="warn">本人向け資料なし</td><td>口頭で「Java研修・大阪90分圏・契約6か月・入口が販売の可能性」の4点</td></tr>
+      <tr><td>6</td><td>ラーニンギフト</td><td class="warn">資料なし・お仕事ページにも無い</td><td>口頭で「経験者枠3か月以上・C#/Java業務系・大阪支社転勤なし・SES中心」の4点。確認してから案内</td></tr>
+      <tr><td>7</td><td><a href="https://mushataku.github.io/pub/shigoto-shokai-00e6587ab735.html" target="_blank">ご紹介したお仕事ページ</a>（SSE・BREXA・HIT＋業界の説明資料）</td><td>★<b>提案の後</b>にLINEで渡す（拓也の承認）</td><td>「今日の会社と資料を1枚にまとめました。ラーニンギフトは確認が取れたら別でお送りします」。<span class="warn">「あなたの書類」欄は出していない（Drive共有前・推薦用の書類は未作成）</span></td></tr>
+      <tr><td>8</td><td><code>20261030_FB_書類の変化_本人共有用.html</code></td><td>書類の話のとき（49分〜）</td><td>「そのままで良い所（工程・学習内容・デジハリ）」→直す3点（①経歴要約にチーム開発とスクール ②研修の切り出し役 ③スクールの期間をそろえる）＋CSVツールの効果の数字を聞く</td></tr>
+    </table>
+    <p class="mute">⚠資料と食い違い: SSE資料は会社の説明どおり「正社員」と書く＝当事者の声は「実際は派遣に近い・案件を断りづらい」（会社カード）。ラーニンギフトの「年収UP100%」「案件を選べる」は会社の発信＝約束にしない（canon は口コミで年収270〜430万の実例）。</p>
+  </div>
+
+  <!-- ━━━━━━━━━ 地雷 ━━━━━━━━━ -->
+  <div class="card ng">
+    <h2 class="warn">地雷・NG</h2>
+    <ol>
+      <li class="hot"><b>見送りの前に社名を出さない</b>（順序＝見送り→FB→業界の地図→提案）</li>
+      <li class="hot"><b>応募中の社名を聞く前に4社を出さない</b></li>
+      <li class="hot"><b>「すぐ開発に行ける」と言わない</b>（BREXA＝インフラから／SSE＝案件次第／HIT＝入口あり）</li>
+      <li><b>「現職に残る」を否定しない</b>（前回「それもいい」と言っている）</li>
+      <li><b>大阪の希望を崩しにいかない</b>（4社とも大阪で出せる）</li>
+      <li><b>「正社員です」だけで案内しない</b>（SSE・BREXA＝無期雇用派遣・HIT＝契約6か月・ラーニンギフト＝SES中心）</li>
+      <li>ラーニンギフトを「受けられます」と言い切らない（確認してから）</li>
+      <li>年収の上振れの数字を約束にしない</li>
+      <li>現職（シーレイシステム）の悪口を言わない（本人は「ホワイト」と言っている L161）</li>
+    </ol>
+  </div>
+
+  <!-- ━━━━━━━━━ 締め ━━━━━━━━━ -->
+  <div class="card">
+    <h2>締め（49-60分）</h2>
+    <div class="q">「<b>面接対策の回</b>を押さえさせてください。平日の夜でしたよね（日曜はデジハリ）。来週で◯日の◯時はいかがですか」</div>
+    <h2 style="margin-top:8px">宿題（同意が取れたら）</h2>
+    <ul class="chk">
+      <li>CSVツールの効果（<b>何が・どれだけ楽になったか</b>）を思い出してLINEで</li>
+      <li>書類FBの3点を直す（こちらで反映でもOK）</li>
+      <li>応募中の会社で<b>面接日が決まったら</b>教えてもらう（日程を重ねない）</li>
+    </ul>
+  </div>
+
+  <div class="card span2">
+    <h2>面談後（skill shared-interview-followup）</h2>
+    <ul class="chk">
+      <li>notes.md：⚡現在地・条件カード（<b>応募済み欄を社名で</b>・通勤上限・在宅・車）・応募先候補表の状態</li>
+      <li>ステータス遷移＋歩留まり（提案数+1）／面接対策アポのカレンダー</li>
+      <li>同意が取れたら<b>その日に推薦</b>（suisen_playbook P4）。MK確認（ラーニンギフトの経験の数え方・SSE/HITで7か月を未経験に数えるか・BREXAの転居・ボードルアの関西）は推薦前に1回でまとめて</li>
+      <li>応募済み欄を埋めたら <code>teian_eligibility.py --slug kawano_kouki</code> を撃ち直す</li>
+      <li>書類を作る・Drive共有（share_config.json は雛形のまま）→ページ再生成で「あなたの書類」が載る</li>
+      <li>お仕事ページのURLは<b>提案の後</b>にLINE（外部発信＝拓也の承認）</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>
