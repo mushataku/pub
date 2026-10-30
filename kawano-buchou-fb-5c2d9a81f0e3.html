@@ -1,0 +1,89 @@
+<title>部長からのフィードバック</title>
+<style>
+:root{
+  --bg:#fdfcfa; --fg:#241f1a; --muted:#7b7168; --line:#e6e0d6;
+  --card:#ffffff; --before:#9a9188; --after:#c2622f; --afterbg:#fdf3ec; --beforebg:#f4f2ef;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#191714; --fg:#f0ebe3; --muted:#a89e93; --line:#37322b;
+    --card:#221f1b; --before:#8b8279; --after:#e79b63; --afterbg:#2b201a; --beforebg:#201e1b;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#191714; --fg:#f0ebe3; --muted:#a89e93; --line:#37322b;
+  --card:#221f1b; --before:#8b8279; --after:#e79b63; --afterbg:#2b201a; --beforebg:#201e1b;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);margin:0;padding:34px 26px 40px;
+  font-family:-apple-system,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic UI",sans-serif;line-height:1.6}
+.wrap{max-width:960px;margin:0 auto}
+h1{font-size:1.7rem;margin:0 0 6px;letter-spacing:.02em}
+.lead{color:var(--muted);font-size:1rem;margin:0 0 26px}
+.result{background:var(--beforebg);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:0 0 8px}
+.result .label{font-size:.82rem;font-weight:700;letter-spacing:.08em;color:var(--before);margin:0 0 8px}
+.result p{margin:0;font-size:1.06rem;line-height:1.8}
+.reason{margin:14px 0 0;font-size:.95rem;color:var(--muted)}
+.mid{text-align:center;margin:32px 0 10px;font-size:1.12rem;font-weight:700;letter-spacing:.02em}
+.mid span{border-bottom:3px solid var(--after);padding-bottom:3px}
+.three{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0 0}
+.box{flex:1 1 260px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px}
+.box h3{margin:0 0 6px;font-size:.95rem;color:var(--after);letter-spacing:.02em}
+.box p{margin:0;font-size:.93rem;line-height:1.7}
+.box .src{margin:9px 0 0;font-size:.82rem;color:var(--muted)}
+.foot{margin:30px 0 0;padding:20px 22px;background:var(--afterbg);border:1px solid var(--after);border-radius:12px;font-size:1.06rem;line-height:1.9}
+.foot b{color:var(--after)}
+.next{margin:26px 0 0;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+.next h3{margin:0 0 10px;font-size:1rem;letter-spacing:.02em}
+.next ol{margin:0;padding-left:20px;font-size:.97rem;line-height:1.9}
+@media(max-width:720px){h1{font-size:1.4rem}body{padding:24px 16px 32px}}
+</style>
+
+<div class="wrap">
+
+<h1>部長からのフィードバック</h1>
+<p class="lead">前回お約束したとおり、選考の結果と、部長から見てどう映っていたかを伺ってきました。</p>
+
+<div class="result">
+  <p class="label">選考結果</p>
+  <p>弊社のWebエンジニアの求人は、<b>今回は見送り</b>となりました。</p>
+  <p class="reason">理由は2つあって、どちらも<b>河野さんの資質の話ではありません</b>。<b>枠の形と材料</b>の話です。<br><br>
+  1つは<b>枠の形</b>です。今回の募集は「育成前提」、つまりゼロから育てることを前提にした枠でした。すでにC#で設計からテストまでを一人で持っている河野さんを、その枠に入れて一から育てるのは、かえって遠回りになる、という判断です。<br><br>
+  もう1つは<b>材料</b>です。CSVの自動化ツールで「手作業の何が、どれだけ楽になったか」と、研修で担っていた役割が、まだ書類の上に出ていない。お話を聞けば伝わる部分なので、ここは書き方で取り戻せます。</p>
+</div>
+
+<div class="mid"><span>そのうえで、部長が挙げていたこと</span></div>
+
+<div class="three">
+  <div class="box">
+    <h3>限られた工数の中で、何を作るかを切り出せる</h3>
+    <p>研修のチーム開発で、みんなの「こういう機能があったらいい」の中から、<b>工数に収まるものを選んで決める役</b>をしていた。コードをたくさん書ける同期が相談に来て、発表でも好評だった。<b>作る前に「何を作るか」を決められる人</b>は、現場で一番頼られる、と。</p>
+    <p class="src">研修のタスク管理システムのお話から</p>
+  </div>
+  <div class="box">
+    <h3>自分で道を切り開いて、学び続けている</h3>
+    <p>営業事務から、スクールで学んで、自分の力で開発の仕事に就いた。いまも毎週日曜日にデジタルハリウッドでUI/UXを学んでいる。<b>言われる前に次の一歩を自分で取りに行く</b>のは、エンジニアとして長く伸びる人の共通点だ、と。</p>
+    <p class="src">これまでの経歴とデジタルハリウッドのお話から</p>
+  </div>
+  <div class="box">
+    <h3>使う人とお客さんの側から考えている</h3>
+    <p>自分の書いたコードが画面に出て、使えることにやりがいを感じる。0から作るより、お客さんの課題をどう解決するか、どうしたら喜んでくれるかを考える方が近い。<b>作ったものが使われるところまで見ている</b>のは、これからのエンジニアに一番求められる視点だ、と。</p>
+    <p class="src">開発に惹かれた理由と、前回のFDEのお話から</p>
+  </div>
+</div>
+
+<div class="foot">
+  そして部長から、こう言われました。<br>
+  <b>「開発の入口には、もう立っている。次は、この7か月の経験をそのまま積み増せる場所を選ぶこと」</b><br>
+  ——いまの経験を「未経験」に戻さずに続けられる環境か、大阪で腰を据えて開発に近づける環境に身を置くことが、河野さんにとっていちばんの近道ではないか、という話でした。
+</div>
+
+<div class="next">
+  <h3>なので、今日はここからの話をさせてください</h3>
+  <ol>
+    <li><b>開発の経験を続けられて、大阪で働ける会社</b>を持ってきました。前回おっしゃっていた「開発で関わっていきたい」「もうしばらく大阪で」の両方に合わせています。</li>
+    <li><b>これからの進め方</b>——どの会社をどの順で受けて、面接に向けて何を準備するか、一緒に決めさせてください。</li>
+  </ol>
+</div>
+
+</div>
