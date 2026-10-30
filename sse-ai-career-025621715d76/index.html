@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>AIとキャリアの地図</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --muted:#5b636d; --card:#ffffff; --line:#d9d6cf;
+  --accent:#1f6f5c; --accent-soft:#e3f1ec; --warn:#a2541c; --warn-soft:#f8ebe0; --blue:#2f5f9e; --blue-soft:#e6eef8;
+  --band:rgba(251,250,247,.94);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181b; --fg:#e8e6e1; --muted:#a3a9b1; --card:#1f2226; --line:#3a3f45;
+    --accent:#6cc4a8; --accent-soft:#1d332c; --warn:#e2a06e; --warn-soft:#3a2a1e; --blue:#8db4e8; --blue-soft:#1f2a38;
+    --band:rgba(22,24,27,.94);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181b; --fg:#e8e6e1; --muted:#a3a9b1; --card:#1f2226; --line:#3a3f45;
+  --accent:#6cc4a8; --accent-soft:#1d332c; --warn:#e2a06e; --warn-soft:#3a2a1e; --blue:#8db4e8; --blue-soft:#1f2a38;
+  --band:rgba(22,24,27,.94);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",system-ui,sans-serif;line-height:1.85;font-size:16px;-webkit-text-size-adjust:100%}
+.band{position:sticky;top:0;z-index:10;background:var(--band);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.band-in{max-width:720px;margin:0 auto;padding:6px 16px;display:flex;align-items:baseline;gap:10px;min-height:40px}
+.band-title{font-weight:700;font-size:13px;white-space:nowrap;color:var(--accent)}
+.band-sec{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+main{max-width:720px;margin:0 auto;padding:0 16px 64px}
+header.top{padding:28px 0 8px}
+h1{font-size:24px;line-height:1.45;margin:0 0 10px}
+.lead{color:var(--muted);margin:0}
+nav.toc{margin:20px 0 8px;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+nav.toc ol{margin:0;padding-left:1.4em}
+nav.toc a{color:var(--fg);text-decoration:none;border-bottom:1px dotted var(--muted)}
+section{scroll-margin-top:56px;padding-top:28px}
+h2{font-size:20px;line-height:1.5;margin:0 0 12px;padding-left:10px;border-left:4px solid var(--accent)}
+h2 .no{color:var(--accent);margin-right:6px}
+p{margin:0 0 12px}
+.fig{margin:14px 0 16px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+.fig svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.fig figcaption{font-size:13px;color:var(--muted);margin-top:6px;text-align:center}
+.key{font-weight:700;background:linear-gradient(transparent 62%,var(--accent-soft) 62%)}
+.ask{border:2px dashed var(--accent);border-radius:10px;padding:12px 14px;margin:14px 0;background:var(--accent-soft)}
+.ask p{margin:0 0 6px}
+.ask .blank{display:block;border-bottom:1px solid var(--muted);height:1.8em;margin:4px 0 10px}
+.note{font-size:13px;color:var(--muted)}
+.small-list{margin:6px 0 12px;padding-left:1.3em}
+.small-list li{margin:2px 0}
+.quote{margin:20px 0;padding:16px 18px;border-radius:10px;background:var(--card);border:1px solid var(--line);font-size:17px;line-height:1.9}
+.quote .by{display:block;margin-top:8px;font-size:13px;color:var(--muted);text-align:right}
+.steps{counter-reset:s;list-style:none;padding:0;margin:8px 0 12px}
+.steps li{position:relative;padding-left:2.1em;margin:6px 0}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:.15em;width:1.5em;height:1.5em;border-radius:50%;background:var(--accent);color:var(--bg);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+footer{margin-top:36px;font-size:12px;color:var(--muted)}
+/* svg tokens */
+.s-fg{fill:var(--fg)} .s-mu{fill:var(--muted)} .s-ac{fill:var(--accent)} .s-acs{fill:var(--accent-soft)}
+.s-wa{fill:var(--warn)} .s-was{fill:var(--warn-soft)} .s-bl{fill:var(--blue)} .s-bls{fill:var(--blue-soft)} .s-card{fill:var(--card)} .s-bg{fill:var(--bg)}
+.k-ln{stroke:var(--line)} .k-mu{stroke:var(--muted)} .k-ac{stroke:var(--accent)} .k-wa{stroke:var(--warn)} .k-bl{stroke:var(--blue)} .k-fg{stroke:var(--fg)}
+svg text{font-family:inherit}
+.halo{paint-order:stroke;stroke:var(--card);stroke-width:5px;stroke-linejoin:round}
+</style>
+</head>
+<body>
+<div class="band" aria-hidden="false">
+  <div class="band-in">
+    <span class="band-title">AIとキャリアの地図</span>
+    <span class="band-sec" id="bandSec">はじめに</span>
+  </div>
+</div>
+<main>
+<header class="top" id="top" data-title="はじめに">
+  <h1>AIを学びたい。<br>その気持ちを、どこで育てるか</h1>
+  <p class="lead">面談で一緒に見る資料です。あとでスマホで読み返せるように作りました。上から順に、ひとつずつ進みます。</p>
+  <nav class="toc" aria-label="目次">
+    <ol>
+      <li><a href="#s1">いまの3つの道</a></li>
+      <li><a href="#s2">将来性の測り方が変わった</a></li>
+      <li><a href="#s3">だから「学べる場所」で選ぶ</a></li>
+      <li><a href="#s4">実際にこうなった人がいます</a></li>
+      <li><a href="#s5">「無期雇用派遣」という名前で誤解しないでほしい</a></li>
+      <li><a href="#s6">入社した後も、一緒にやります</a></li>
+      <li><a href="#s7">最初の一歩</a></li>
+    </ol>
+  </nav>
+</header>
+
+<!-- §1 -->
+<section id="s1" data-title="1. いまの3つの道">
+  <h2><span class="no">1</span>いまの3つの道</h2>
+  <p>僕のおすすめは2章から書きます。その前に、いま手元にある選択肢を、条件だけ並べます。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 360 250" role="img" aria-label="3つの道の条件比較">
+      <g font-size="12">
+        <rect x="4" y="4" width="112" height="242" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+        <text x="60" y="28" text-anchor="middle" font-weight="700" class="s-fg">ITの会社</text>
+        <text x="60" y="44" text-anchor="middle" class="s-mu" font-size="11.5">スタッフサービス・</text>
+        <text x="60" y="58" text-anchor="middle" class="s-mu" font-size="11.5">エンジニアリング</text>
+        <rect x="18" y="70" width="84" height="22" rx="11" class="s-card k-mu" stroke-width="1"/>
+        <text x="60" y="85" text-anchor="middle" class="s-fg">内定済み</text>
+        <text x="60" y="118" text-anchor="middle" class="s-fg">正社員</text>
+        <text x="60" y="140" text-anchor="middle" class="s-mu" font-size="11.5">現場は</text>
+        <text x="60" y="156" text-anchor="middle" class="s-mu" font-size="11.5">これから決まる</text>
+        <text x="60" y="184" text-anchor="middle" class="s-fg">フルタイム</text>
+        <text x="60" y="210" text-anchor="middle" class="s-fg">月給23.5万円〜</text>
+        <text x="60" y="226" text-anchor="middle" class="s-mu" font-size="11.5">（関東）</text>
+
+        <rect x="124" y="4" width="112" height="242" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+        <text x="180" y="28" text-anchor="middle" font-weight="700" class="s-fg">機械系の会社</text>
+        <text x="180" y="44" text-anchor="middle" class="s-mu" font-size="11.5">（機械の仕事）</text>
+        <rect x="138" y="70" width="84" height="22" rx="11" class="s-card k-mu" stroke-width="1"/>
+        <text x="180" y="85" text-anchor="middle" class="s-fg">選考中</text>
+        <text x="180" y="118" text-anchor="middle" class="s-fg">働く現場は</text>
+        <text x="180" y="134" text-anchor="middle" class="s-fg">これから決まる</text>
+        <text x="180" y="164" text-anchor="middle" class="s-mu">条件は</text>
+        <text x="180" y="180" text-anchor="middle" class="s-mu">結果が出てから</text>
+
+        <rect x="244" y="4" width="112" height="242" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+        <text x="300" y="28" text-anchor="middle" font-weight="700" class="s-fg">教育・ビジネス</text>
+        <text x="300" y="44" text-anchor="middle" font-weight="700" class="s-fg">系の会社</text>
+        <rect x="258" y="70" width="84" height="22" rx="11" class="s-card k-mu" stroke-width="1"/>
+        <text x="300" y="85" text-anchor="middle" class="s-fg">インターン</text>
+        <text x="300" y="118" text-anchor="middle" class="s-fg">週3日×6時間</text>
+        <text x="300" y="134" text-anchor="middle" class="s-mu" font-size="11.5">（週18時間）</text>
+        <text x="300" y="164" text-anchor="middle" class="s-fg">月10万円程度</text>
+        <text x="300" y="194" text-anchor="middle" class="s-fg">正社員になれるのは</text>
+        <text x="300" y="210" text-anchor="middle" class="s-fg" font-size="11">3ヶ月以上働いてから</text>
+      </g>
+    </svg>
+    <figcaption>図1　いま手元にある3つの道（条件だけ）</figcaption>
+  </figure>
+  <p>比べる前に、ひとつ聞かせてください。<span class="key">あなたがどこに惹かれているかで、このあと話す中身が変わります。</span>面談では、ここから始めます。</p>
+  <div class="ask">
+    <p><b>質問1</b>　3つのうち、いちばん気になっているのはどれですか？</p>
+    <span class="blank"></span>
+    <p><b>質問2</b>　その道の、何にいちばん惹かれていますか？　逆に、ひっかかっていることは？</p>
+    <span class="blank"></span>
+  </div>
+  <p class="note">最初にお話しした担当者からは「AIを学べるところに惹かれている」と聞いています。違っていたら、遠慮なく言ってください。そこが違えば、このあとの話も変えます。</p>
+</section>
+
+<!-- §2 -->
+<section id="s2" data-title="2. 将来性の測り方が変わった">
+  <h2><span class="no">2</span>将来性の測り方が変わった</h2>
+  <p>担当者から、あなたが「インフラエンジニアにチャレンジしたい」と話していたと聞きました。インフラは、サーバーやネットワークを止めずに動かし続ける仕事です。「インフラ」という言葉がまだピンと来ていなければ、それも教えてください。そのうえで、<span class="key">その選択は正しい、と僕は考えています。</span>理由を、この地図で見せます。</p>
+  <p>少し前まで、仕事の将来性は「その仕事を欲しがる会社が多いか（市場の大きさ）」の一本で測れました。いまはもう一本、物差しが増えています。<b>その仕事がAIに取られるかどうか</b>です。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 360 270" role="img" aria-label="市場の大きさとAIに取られにくさの二軸の地図">
+      <g font-size="12">
+        <line x1="44" y1="226" x2="344" y2="226" class="k-mu" stroke-width="1.5"/>
+        <line x1="44" y1="226" x2="44" y2="16" class="k-mu" stroke-width="1.5"/>
+        <polygon points="344,226 336,221 336,231" class="s-mu"/>
+        <polygon points="44,16 39,24 49,24" class="s-mu"/>
+        <text x="194" y="250" text-anchor="middle" class="s-fg">市場の大きさ（これまでの軸）→</text>
+        <text x="20" y="121" text-anchor="middle" class="s-fg" transform="rotate(-90 20 121)">AIに取られにくい（新しい軸）→</text>
+        <rect x="196" y="22" width="144" height="96" rx="8" class="s-acs"/>
+        <text x="268" y="40" text-anchor="middle" class="s-ac" font-size="12">将来性が高い場所</text>
+        <circle cx="268" cy="72" r="9" class="s-ac"/>
+        <text x="268" y="98" text-anchor="middle" font-weight="700" class="s-fg">インフラ</text>
+        <text x="268" y="113" text-anchor="middle" class="s-ac" font-size="12">あなたが挙げた道</text>
+        <circle cx="268" cy="190" r="9" class="s-wa"/>
+        <text x="268" y="214" text-anchor="middle" font-weight="700" class="s-fg">開発（コードを書く）</text>
+        <text x="258" y="156" text-anchor="end" class="s-wa" font-size="12">市場は大きい。</text>
+        <text x="258" y="171" text-anchor="end" class="s-wa" font-size="12">でもAIが書き始めた</text>
+      </g>
+    </svg>
+    <figcaption>図2　縦の物差しが増えた。インフラは右上にいる</figcaption>
+  </figure>
+  <p>意外に聞こえると思いますが、いちばん将来性が危ないのは、実はコードを書く開発の仕事です。僕自身、この3ヶ月で自分の手で書いたコードは3行だけで、残りの100万行以上はAIに書かせました。コードを書く腕だけで勝負する道は、細くなっています。</p>
+  <p>インフラが取られにくい理由ははっきりしています。銀行や大きな会社の中心のシステムのような大事な場所ほど、データを海外のサーバーに送るAIツールを入れること自体に慎重になります。だから、インフラの現場には人が残ります。</p>
+  <p>それでも、AIを使う場面はあります。お客様のデータを外に出さない形で、手順書づくりや調べもの、自分の作業の手間を減らすところからです。インフラを足場にして、AIをそこで使う。これが今回の組み立てです。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 360 200" role="img" aria-label="ベテランと未経験で人手不足の向きが逆">
+      <g font-size="12">
+        <text x="90" y="20" text-anchor="middle" font-weight="700" class="s-fg">ベテラン</text>
+        <text x="270" y="20" text-anchor="middle" font-weight="700" class="s-fg">未経験</text>
+        <text x="20" y="62" class="s-mu" font-size="12">仕事</text>
+        <text x="20" y="122" class="s-mu" font-size="12">人</text>
+        <rect x="50" y="46" width="110" height="24" rx="4" class="s-bl"/>
+        <rect x="50" y="106" width="40" height="24" rx="4" class="s-ac"/>
+        <rect x="230" y="46" width="40" height="24" rx="4" class="s-bl"/>
+        <rect x="230" y="106" width="110" height="24" rx="4" class="s-ac"/>
+        <text x="90" y="160" text-anchor="middle" class="s-fg">仕事が余る</text>
+        <text x="90" y="178" text-anchor="middle" class="s-mu" font-size="12">＝選び放題</text>
+        <text x="270" y="160" text-anchor="middle" class="s-fg">人が余る</text>
+        <text x="270" y="178" text-anchor="middle" class="s-mu" font-size="12">＝入口が狭い</text>
+        <line x1="180" y1="30" x2="180" y2="185" class="k-ln" stroke-width="1"/>
+      </g>
+    </svg>
+    <figcaption>図3　「エンジニアは人手不足」はベテラン側の話</figcaption>
+  </figure>
+  <p>よく聞く「エンジニアは人手不足」は、ベテラン側の話です。未経験の入口は、逆に狭くなっています。だから<b>最初の一歩をどこに置くかで、その後が大きく変わります</b>。</p>
+  <p>入口が狭いときに効くのは、自分ができることを証明できるものです。資格や、自分で作ったものがそれに当たります。これは4章と6章で出てきます。</p>
+  <p>介護も、AIに取られにくい仕事です。あなたが介護を離れたのは、ご家族を支えるためでした。そのうえで今、新しい分野に挑戦すると決めた。<b>AIは道具として学び、仕事の足場はインフラに置く。</b>この2本立てを、僕はおすすめします。</p>
+</section>
+
+<!-- §3 -->
+<section id="s3" data-title="3. だから「学べる場所」で選ぶ">
+  <h2><span class="no">3</span>だから「学べる場所」で選ぶ</h2>
+  <p>図3の狭い入口を、あなたの内定はもう通っています。AIに触れられる場所を自分で探してきたのは、いい動きです。そのうえで伝えたいのは、<span class="key">AIを学ぶことと、正社員としてお給料と保険をもらいながら働くことは、両立できる</span>ということです。内定が出ているスタッフサービス・エンジニアリングは、社員が学べる分野に「生成AI（ChatGPT、マイクロソフトのCopilotなど）」を入れています。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 360 300" role="img" aria-label="スタッフサービス・エンジニアリングで使える学びの地図">
+      <g font-size="12">
+        <rect x="110" y="128" width="140" height="44" rx="22" class="s-ac"/>
+        <text x="180" y="147" text-anchor="middle" class="s-bg" font-weight="700">働きながら</text>
+        <text x="180" y="163" text-anchor="middle" class="s-bg" font-weight="700">学べるもの</text>
+        <g class="k-mu" stroke-width="1.2">
+          <line x1="140" y1="128" x2="92" y2="70"/><line x1="220" y1="128" x2="268" y2="70"/>
+          <line x1="110" y1="150" x2="78" y2="150"/><line x1="250" y1="150" x2="282" y2="150"/>
+          <line x1="140" y1="172" x2="92" y2="232"/><line x1="220" y1="172" x2="268" y2="232"/>
+        </g>
+        <rect x="6" y="20" width="168" height="54" rx="8" class="s-acs k-ac" stroke-width="1.5"/>
+        <text x="90" y="42" text-anchor="middle" font-weight="700" class="s-ac">生成AIの講座</text>
+        <text x="90" y="60" text-anchor="middle" class="s-fg" font-size="12">ChatGPT・Copilot など</text>
+        <rect x="186" y="20" width="168" height="54" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+        <text x="270" y="42" text-anchor="middle" font-weight="700" class="s-fg">700講座以上</text>
+        <text x="270" y="60" text-anchor="middle" class="s-mu" font-size="12">動画 約400＋通信講座 約300</text>
+        <rect x="6" y="124" width="72" height="52" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+        <text x="42" y="146" text-anchor="middle" font-weight="700" class="s-fg" font-size="12">研修補助</text>
+        <text x="42" y="164" text-anchor="middle" class="s-mu" font-size="11.5">年2万円</text>
+        <rect x="282" y="124" width="72" height="52" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+        <text x="318" y="146" text-anchor="middle" font-weight="700" class="s-fg" font-size="12">本代補助</text>
+        <text x="318" y="164" text-anchor="middle" class="s-mu" font-size="11.5">年5,000円</text>
+        <rect x="6" y="226" width="168" height="66" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+        <text x="90" y="246" text-anchor="middle" font-weight="700" class="s-fg">資格を取るとお金が出る</text>
+        <text x="90" y="264" text-anchor="middle" class="s-fg" font-size="12">5千円〜30万円・約230資格</text>
+        <text x="90" y="281" text-anchor="middle" class="s-mu" font-size="11.5">ITパスポートなどIT資格も</text>
+        <rect x="186" y="226" width="168" height="66" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+        <text x="270" y="246" text-anchor="middle" font-weight="700" class="s-fg">次の道が見える道具</text>
+        <text x="270" y="264" text-anchor="middle" class="s-fg" font-size="12">約2万人分の実例から</text>
+        <text x="270" y="281" text-anchor="middle" class="s-mu" font-size="11.5">「今できる仕事」の先を表示</text>
+      </g>
+    </svg>
+    <figcaption>図4　働きながら学べるもの</figcaption>
+  </figure>
+  <p>右下の道具は「機会が見えるくん」という名前で、2026年に導入されました。約2万人の社員が実際にたどった道から、あなたが今できる仕事を起点に、次に進める先と、取るとよい資格の順位を見せてくれます。</p>
+  <p>募集している職種には、あなたが挑戦したいインフラ（サーバー・ネットワーク）が入っています。仕事の実例には、電線メーカーで画像を見分けるAI（ディープラーニング）を作る仕事もあります。</p>
+  <p class="note">対象の資格には、ITの入口の国家資格「ITパスポート」や、その次の「基本情報技術者試験」も入っています。</p>
+</section>
+
+<!-- §4 -->
+<section id="s4" data-title="4. 実際にこうなった人がいます">
+  <h2><span class="no">4</span>実際にこうなった人がいます</h2>
+  <p>2021年にこの会社へ入った社員の記録を紹介します。農機の販売、製薬の研究と、ITとは別の仕事をしてきた人です。出発点はあなたと違います。見てほしいのは、①②③の順番です。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 360 290" role="img" aria-label="経験が活きる最初の現場から資格を経て次の仕事へ移る3段の流れ">
+      <g font-size="12">
+        <rect x="20" y="10" width="320" height="58" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+        <text x="36" y="34" font-weight="700" class="s-ac">①</text>
+        <text x="58" y="34" font-weight="700" class="s-fg">今までの経験が活きる最初の現場に入る</text>
+        <text x="58" y="54" class="s-mu" font-size="12">この人は、化学の知識が使える仕事から</text>
+        <line x1="180" y1="68" x2="180" y2="96" class="k-mu" stroke-width="1.5"/>
+        <polygon points="180,104 174,94 186,94" class="s-mu"/>
+        <rect x="20" y="106" width="320" height="86" rx="8" class="s-acs k-ac" stroke-width="2"/>
+        <text x="36" y="130" font-weight="700" class="s-ac">②</text>
+        <text x="58" y="130" font-weight="700" class="s-fg">働きながら資格を取る</text>
+        <text x="58" y="152" class="s-fg" font-size="11.5">ITパスポート → 基本情報技術者</text>
+        <text x="58" y="172" class="s-mu" font-size="12">ほかにデータ分析などあわせて5つ</text>
+        <line x1="180" y1="192" x2="180" y2="220" class="k-ac" stroke-width="2.5"/>
+        <polygon points="180,228 173,217 187,217" class="s-ac"/>
+        <text x="190" y="214" class="s-ac" font-size="12" font-weight="700">資格が、次へ動くきっかけ</text>
+        <rect x="20" y="230" width="320" height="56" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+        <text x="36" y="254" font-weight="700" class="s-ac">③</text>
+        <text x="58" y="254" font-weight="700" class="s-fg">面談で希望を出して、次の現場へ</text>
+        <text x="58" y="274" class="s-mu" font-size="12">大手機械メーカーの業務自動化の開発へ</text>
+      </g>
+    </svg>
+    <figcaption>図5　経験 → 資格 → 次の現場。資格が移動の合図になる</figcaption>
+  </figure>
+  <p>この人は面接の時点で、この3段の道筋を会社から示されています。そして実際に、仕事でプログラミングを使ったことがないまま、手作業でやっていた仕事をプログラムに代わりにやらせる開発の現場へ移りました。<b>未経験から動く道が、会社の仕組みとして用意されている</b>ということです。</p>
+  <p>この人は、2章で「危ない」と書いた開発に進んだ例です。見てほしいのは行き先ではなく、資格を取ったことで現場が動いたところです。この仕組みは、インフラを目指す場合も同じです。あなたの場合、①に当たるのは介護の現場を知っていることです。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 360 150" role="img" aria-label="25歳360万円、35歳603万円、47歳709万円の、別々の3人の年収例">
+      <g font-size="12">
+        <rect x="4" y="8" width="112" height="134" rx="8" class="s-acs k-ac" stroke-width="2"/>
+        <rect x="124" y="8" width="112" height="134" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+        <rect x="244" y="8" width="112" height="134" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+        <text x="60" y="34" text-anchor="middle" class="s-mu">Aの人</text>
+        <text x="180" y="34" text-anchor="middle" class="s-mu">Bの人</text>
+        <text x="300" y="34" text-anchor="middle" class="s-mu">Cの人</text>
+        <text x="60" y="58" text-anchor="middle" class="s-fg">25歳</text>
+        <text x="180" y="58" text-anchor="middle" class="s-fg">35歳</text>
+        <text x="300" y="58" text-anchor="middle" class="s-fg">47歳</text>
+        <text x="60" y="88" text-anchor="middle" font-weight="700" font-size="17" class="s-ac">360万円</text>
+        <text x="180" y="88" text-anchor="middle" font-weight="700" font-size="15" class="s-mu">603万円</text>
+        <text x="300" y="88" text-anchor="middle" font-weight="700" font-size="15" class="s-mu">709万円</text>
+        <text x="60" y="114" text-anchor="middle" class="s-ac" font-size="11.5">IT未経験で入社</text>
+        <text x="180" y="114" text-anchor="middle" class="s-mu" font-size="11.5">チームの</text>
+        <text x="180" y="130" text-anchor="middle" class="s-mu" font-size="11.5">まとめ役</text>
+        <text x="300" y="114" text-anchor="middle" class="s-mu" font-size="11.5">入社10年</text>
+      </g>
+    </svg>
+    <figcaption>図6　会社が公開している年収の例。3人は別々の人です</figcaption>
+  </figure>
+  <p>Aの人は25歳、ITは未経験で入りました。趣味でパソコンを自作していたので、あなたより少しだけ有利な所から始めています。それでも年齢とIT未経験という点は、今のあなたと重なります。3人は別々の人で、同じ人が10年でこうなったという話ではありません。ただ、こういう年収の人が実際にいます。</p>
+  <p>働く条件は次のとおりです（会社の募集要項から）。</p>
+  <ul class="small-list">
+    <li>月給 関東で23万5,000円から（地域・住宅の手当2万円込み）。昇給は年1回</li>
+    <li>残業代は全額出ます。平均の残業は月9時間</li>
+    <li>年間休日125日。有給は平均11日取れています（2024年度）</li>
+    <li>健康保険・厚生年金などの社会保険がそろっています</li>
+    <li>ボーナスは、記載のある求人もあります。この資料では約束しません（7章の確認リストへ）</li>
+  </ul>
+</section>
+
+<!-- §5 -->
+<section id="s5" data-title="5. 「無期雇用派遣」の誤解を解く">
+  <h2><span class="no">5</span>「無期雇用派遣」という名前で誤解しないでほしい</h2>
+  <p>この会社の働き方は「無期雇用派遣」と呼ばれます。「派遣」という字で不安になる人が多いので、先に言います。<span class="key">法律の上では、期間の定めのない、その会社の正社員です。</span>会社の都合で辞めさせるときのルールは、ふつうの会社の正社員と同じです。ふつうの正社員との一番の違いは、働く場所がお客様の会社になることです。もうひとつ、現場と現場の間に「次の現場が決まるまでの期間」があります。その間も学びの制度は使えると会社が書いています。お給料の扱いは、7章の確認リストに入れました。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 360 236" role="img" aria-label="派遣、無期雇用派遣、ふつうの正社員の比較">
+      <g font-size="11.5">
+        <rect x="88" y="6" width="88" height="224" rx="6" class="s-card k-ln" stroke-width="1"/>
+        <rect x="180" y="6" width="88" height="224" rx="6" class="s-acs k-ac" stroke-width="2"/>
+        <rect x="272" y="6" width="84" height="224" rx="6" class="s-card k-ln" stroke-width="1"/>
+        <text x="132" y="28" text-anchor="middle" font-weight="700" class="s-fg">よくある派遣</text>
+        <text x="224" y="28" text-anchor="middle" font-weight="700" class="s-ac">無期雇用派遣</text>
+        <text x="314" y="28" text-anchor="middle" font-weight="700" class="s-fg">ふつうの正社員</text>
+        <text x="4" y="66" class="s-mu">働く期間</text>
+        <text x="132" y="66" text-anchor="middle" class="s-fg">期限あり</text>
+        <text x="224" y="66" text-anchor="middle" class="s-fg" font-weight="700">期限なし</text>
+        <text x="314" y="66" text-anchor="middle" class="s-fg">期限なし</text>
+        <line x1="4" y1="84" x2="356" y2="84" class="k-ln"/>
+        <text x="4" y="110" class="s-mu">雇っている</text>
+        <text x="4" y="126" class="s-mu">会社</text>
+        <text x="132" y="118" text-anchor="middle" class="s-fg">派遣会社</text>
+        <text x="224" y="110" text-anchor="middle" class="s-fg" font-weight="700">派遣会社</text>
+        <text x="224" y="126" text-anchor="middle" class="s-fg" font-size="11.5">（この会社）</text>
+        <text x="314" y="118" text-anchor="middle" class="s-fg">その会社</text>
+        <line x1="4" y1="142" x2="356" y2="142" class="k-ln"/>
+        <text x="4" y="168" class="s-mu">働く場所</text>
+        <text x="132" y="160" text-anchor="middle" class="s-fg">お客様の</text>
+        <text x="132" y="176" text-anchor="middle" class="s-fg">会社</text>
+        <text x="224" y="160" text-anchor="middle" class="s-fg" font-weight="700">お客様の</text>
+        <text x="224" y="176" text-anchor="middle" class="s-fg" font-weight="700">会社</text>
+        <text x="314" y="168" text-anchor="middle" class="s-fg">その会社</text>
+        <line x1="4" y1="186" x2="356" y2="186" class="k-ln"/>
+        <text x="4" y="206" class="s-mu">辞めさせる</text>
+        <text x="4" y="222" class="s-mu">ハードル</text>
+        <text x="132" y="206" text-anchor="middle" class="s-fg" font-size="11.5">期限が来れば</text>
+        <text x="132" y="222" text-anchor="middle" class="s-fg" font-size="11.5">終わりうる</text>
+        <text x="224" y="214" text-anchor="middle" class="s-fg" font-weight="700">正社員と同じ</text>
+        <text x="314" y="206" text-anchor="middle" class="s-fg" font-size="11.5">簡単には</text>
+        <text x="314" y="222" text-anchor="middle" class="s-fg" font-size="10.5">辞めさせられない</text>
+      </g>
+    </svg>
+    <figcaption>図7　よくある派遣との違いは「期間」と「辞めさせるハードル」の行</figcaption>
+  </figure>
+  <p>この形には、未経験の人にとって大きな利点があります。どの分野が自分に合うかは、入ってみないと分かりません。合わないたびに会社を変えると、次の面接で毎回その説明が要ります。この形なら、<b>会社は変えずに現場を変えて、合う分野を見つけられます</b>。</p>
+  <p>規模が大きい会社ならではの理由もあります。小さな会社は、育てた人を手放したがりません。この会社は大きいので、育てた社員がお客様の会社に求められて移っていくことが、そのまま教育の証明になります。実際に、お客様の会社に直接雇われた人は<b>これまでに4,000名、毎年およそ700名</b>います。あなたにとっては、育ったら行きたい会社に移る道も開いている、ということです。</p>
+  <p>もうひとつ、週に何時間働くかで変わるものがあります。失業したときの保険や、将来の年金です。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 360 214" role="img" aria-label="週の労働時間と、雇用保険・社会保険に入れる線">
+      <g font-size="11.5">
+        <line x1="20" y1="40" x2="340" y2="40" class="k-mu" stroke-width="1.5"/>
+        <text x="20" y="28" text-anchor="middle" class="s-mu">0</text>
+        <text x="180" y="28" text-anchor="middle" class="s-fg" font-weight="700">20時間</text>
+        <text x="260" y="28" text-anchor="middle" class="s-fg" font-weight="700">30時間</text>
+        <text x="340" y="28" text-anchor="end" class="s-mu">40時間</text>
+        <text x="20" y="12" class="s-mu" font-size="11.5">1週間に働く時間</text>
+        <line x1="180" y1="34" x2="180" y2="162" class="k-fg" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="260" y1="34" x2="260" y2="162" class="k-fg" stroke-width="1" stroke-dasharray="3 3"/>
+        <text x="20" y="72" class="s-fg halo" font-weight="700">雇用保険（失業したときの保険）</text>
+        <rect x="180" y="80" width="160" height="18" rx="4" class="s-ac"/>
+        <text x="176" y="94" text-anchor="end" class="s-mu" font-size="11.5">入れない</text>
+        <text x="20" y="128" class="s-fg halo" font-weight="700">健康保険・厚生年金（将来の年金）</text>
+        <rect x="260" y="136" width="80" height="18" rx="4" class="s-ac"/>
+        <rect x="180" y="136" width="80" height="18" rx="4" class="s-acs k-ac" stroke-width="1" stroke-dasharray="3 2"/>
+        <text x="220" y="149" text-anchor="middle" class="s-ac" font-size="11.5">条件しだい</text>
+        <text x="176" y="149" text-anchor="end" class="s-mu" font-size="11.5">入れない</text>
+        <text x="20" y="184" class="s-mu" font-size="11.5">点線の範囲：勤め先の従業員数などの条件しだい</text>
+        <text x="20" y="202" class="s-mu" font-size="11.5">フルタイムの正社員（週40時間前後）は、どれにも入ります</text>
+      </g>
+    </svg>
+    <figcaption>図8　週の時間で、入れる保険が変わる（厚生労働省の基準・2026年10月時点）</figcaption>
+  </figure>
+  <p class="note">「入れない」は、会社の保険に入れないという意味です。その場合は自分で国民健康保険・国民年金に入るなどします。雇用保険は週20時間以上・31日以上働く見込みがあれば入ります。健康保険・厚生年金は、フルタイムの4分の3（週40時間の職場なら30時間）以上なら入ります。週20時間から30時間の間は、勤め先の従業員数（2027年9月までは51人以上）などの条件がそろったときだけです。出どころ：厚生労働省「雇用保険制度Q&amp;A」「社会保険適用拡大特設サイト」。</p>
+</section>
+
+<!-- §6 -->
+<section id="s6" data-title="6. 入社した後も、一緒にやります">
+  <h2><span class="no">6</span>入社した後も、一緒にやります</h2>
+  <p>面談では、AIに頼んで道具を作るところを、目の前でお見せします。その次の一歩を、僕と一緒にやりませんか。名前は「AI見習いプログラム」。<span class="key">お金はかかりません。そして、入社がゴールではありません。</span>入社した後も続けます。無償なのは、僕が見ていたいのが入社の日ではなく、3年後のあなただからです。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 360 270" role="img" aria-label="AI見習いプログラムの3つの課題と提出の流れ">
+      <g font-size="12">
+        <rect x="8" y="8" width="252" height="62" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+        <text x="22" y="30" font-weight="700" class="s-ac">課題1　面談の翌週まで</text>
+        <text x="22" y="52" class="s-fg" font-size="11.5">AIに頼んで、動くものを1つ作る</text>
+        <rect x="8" y="92" width="252" height="62" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+        <text x="22" y="114" font-weight="700" class="s-ac">課題2　働き始めるまで</text>
+        <text x="22" y="136" class="s-fg" font-size="11.5">自分の困りごとを1つAIで消す</text>
+        <rect x="8" y="176" width="252" height="62" rx="8" class="s-acs k-ac" stroke-width="2"/>
+        <text x="22" y="198" font-weight="700" class="s-ac">課題3　働き始めた後もずっと</text>
+        <text x="22" y="220" class="s-fg" font-size="11.5">現場で見つけた手間をAIで消す</text>
+        <line x1="134" y1="70" x2="134" y2="88" class="k-mu" stroke-width="1.5"/>
+        <polygon points="134,92 129,84 139,84" class="s-mu"/>
+        <line x1="134" y1="154" x2="134" y2="172" class="k-mu" stroke-width="1.5"/>
+        <polygon points="134,176 129,168 139,168" class="s-mu"/>
+        <rect x="282" y="78" width="72" height="112" rx="10" class="s-bls k-bl" stroke-width="1.5"/>
+        <text x="318" y="110" text-anchor="middle" font-weight="700" class="s-bl">LINEで</text>
+        <text x="318" y="128" text-anchor="middle" font-weight="700" class="s-bl">送る</text>
+        <text x="318" y="152" text-anchor="middle" class="s-fg" font-size="12">僕が見て</text>
+        <text x="318" y="168" text-anchor="middle" class="s-fg" font-size="12">返します</text>
+        <g class="k-bl" stroke-width="1.2" fill="none">
+          <path d="M260 39 C 275 39, 280 60, 300 78"/>
+          <path d="M260 123 L 282 123"/>
+          <path d="M260 207 C 275 207, 280 205, 300 190"/>
+        </g>
+      </g>
+    </svg>
+    <figcaption>図9　3つの課題。どれもLINEで送れば、僕が見ます</figcaption>
+  </figure>
+  <p><b>課題1のやり方</b>（スマホだけでできます）</p>
+  <ol class="steps">
+    <li>Gemini（またはChatGPT）を開いて、「毎月の出費を記録して、合計が自動で出る表を作って。Googleスプレッドシートで使えるように、計算式も入れて」と頼む</li>
+    <li>出てきた表を、Googleスプレッドシート（Excelのような無料の表のアプリ）に移す。Geminiなら表の下の「スプレッドシートにエクスポート（書き出し）」を押す。ChatGPTは表をコピーして貼る方法になり、崩れやすいので、Geminiがおすすめです</li>
+    <li>数字をいくつか入れて、合計が自動で変われば完成</li>
+    <li>その画面のスクリーンショットを、LINEで送る</li>
+  </ol>
+  <p>うまく動かなくても大丈夫です。動かなかった画面を送ってください。直し方を一緒に考えるところまでが課題です。</p>
+  <p>僕は「一歩先、一歩隣」という考え方を大事にしています。一歩先の技術に触れて、一歩隣の人の困りごとに首を突っ込んで面白がれる人なら、そのとき就いている仕事がなくなっても、一緒にやっていけます。</p>
+</section>
+
+<!-- §7 -->
+<section id="s7" data-title="7. 最初の一歩">
+  <h2><span class="no">7</span>最初の一歩</h2>
+  <p>今日やることは、ひとつだけです。</p>
+  <div class="ask">
+    <p><b>このページが届いたLINEに、この2つを一言ずつ返してください。</b>面談で話したことを、一晩おいて改めて聞かせてほしいのです。</p>
+    <p>① 3つの道のうち、いちばん気になっているのはどれですか？</p>
+    <p>② その道の、何にいちばん惹かれていますか？　ひっかかっていることは？</p>
+    <p class="note" style="margin:0">短くて大丈夫です。「まだ迷ってる」も立派な答えです。返事をもらったら、次にお話しする日をLINEで相談します。</p>
+  </div>
+  <p>課題1は、来週までで大丈夫です。</p>
+  <p>僕の側の宿題もあります。次にお話しするまでに、会社に確かめて伝えることです。</p>
+  <ul class="small-list">
+    <li>次の現場が決まるまでの期間の、お給料の扱い</li>
+    <li>介護の現場を知っていることが活きる、最初の現場があるか</li>
+    <li>年収の例と月給の差が、何で埋まっているか</li>
+    <li>ボーナスの記載がある求人かどうか</li>
+  </ul>
+  <div class="quote">
+    一緒に過ごした3年後に、まだ選べる立場にあなたがいないとしたら、それは僕の責任だと思っています。そうならないようにします。
+    <span class="by">Gooner 武者野</span>
+  </div>
+</section>
+
+<footer>
+  <p>数字の出どころ：スタッフサービス・エンジニアリングの公式の採用情報・募集要項・社員紹介記事、厚生労働省の公開資料。この資料は面談用に作ったもので、条件の最終確認は面談と会社の正式な書面で行います。</p>
+</footer>
+</main>
+<script>
+(function(){
+  var band=document.getElementById('bandSec');
+  var secs=[].slice.call(document.querySelectorAll('[data-title]'));
+  if(!('IntersectionObserver' in window)||!band)return;
+  var vis={};
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){vis[e.target.getAttribute('data-title')]=e.isIntersecting?e.boundingClientRect.top:null;});
+    var cur=null;
+    for(var i=0;i<secs.length;i++){var r=secs[i].getBoundingClientRect();if(r.top<=80)cur=secs[i];}
+    band.textContent=(cur||secs[0]).getAttribute('data-title');
+  },{rootMargin:'-60px 0px -60% 0px',threshold:[0,1]});
+  secs.forEach(function(s){io.observe(s)});
+  window.addEventListener('scroll',function(){
+    var cur=null;
+    for(var i=0;i<secs.length;i++){var r=secs[i].getBoundingClientRect();if(r.top<=80)cur=secs[i];}
+    band.textContent=(cur||secs[0]).getAttribute('data-title');
+  },{passive:true});
+})();
+</script>
+</body>
+</html>
