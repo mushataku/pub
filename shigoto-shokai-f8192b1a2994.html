@@ -152,7 +152,6 @@ footer { margin-top: 32px; color: var(--sub); font-size: 14px; }
 }
 .page-nav a:hover { text-decoration: underline; }
 .page-nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-section[id] { scroll-margin-top: 16px; }
 .decision {
   margin: 0 0 32px; padding: 16px 18px; background: var(--paper);
   border: 1px solid var(--line); border-radius: 14px;
@@ -203,17 +202,175 @@ tr.verdict-row td { padding-top: 0; }
   tr.has-verdict { border-bottom: none; padding-bottom: 4px; }
   tr.verdict-row { padding-top: 0; }
 }
+
+:root {
+  --band-offset: 56px;
+  --cat-0: #0b5cad; --cat-1: #b35c00; --cat-2: #08795a; --cat-3: #a3317a; --cat-4: #b8370b; --cat-5: #2b6f97; --cat-6: #5a6478;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --cat-0: #7db4f0; --cat-1: #f0a64d; --cat-2: #49c79f; --cat-3: #e58cc4; --cat-4: #f08a5d; --cat-5: #7cc4ec; --cat-6: #a3adbf;
+  }
+}
+:root[data-theme="dark"] {
+  --cat-0: #7db4f0; --cat-1: #f0a64d; --cat-2: #49c79f; --cat-3: #e58cc4; --cat-4: #f08a5d; --cat-5: #7cc4ec; --cat-6: #a3adbf;
+}
+html { scroll-padding-top: var(--band-offset); }
+.band {
+  position: sticky; top: 0; z-index: 10; background: var(--paper); color: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+.band-in {
+  max-width: 1080px; margin: 0 auto; padding: 0 16px; min-height: 40px;
+  display: flex; align-items: center; gap: 4px 18px; font-size: 14px; line-height: 1.4;
+}
+.band-title {
+  color: var(--ink); font-weight: 700; text-decoration: none; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 0 1 auto;
+}
+.band-ch ol { list-style: none; display: flex; gap: 14px; margin: 0; padding: 0; }
+.band-ch a { color: var(--accent); text-decoration: none; white-space: nowrap; }
+.band-ch a[aria-current] { color: var(--ink); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.band-now { color: var(--sub); margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.band a:focus-visible, .fig a:focus-visible, .cmp a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 760px) {
+  :root { --band-offset: 72px; }
+  .band-in { flex-wrap: wrap; padding: 4px 12px; min-height: 0; font-size: 13.5px; }
+  .band-title { flex: 1 1 100%; }
+  .band-now { flex: 1 1 auto; text-align: right; }
+}
+.band ~ .wrap { padding-top: 18px; }
+.band ~ .wrap header .date { margin-bottom: 12px; }
+.top-layer section { margin: 0 0 20px; }
+.top-layer h2 { margin: 20px 0 8px; }
+.top-layer .thanks { margin: 0 0 12px; }
+svg.lg-ic { width: 18px; height: 18px; flex: none; }
+.cmp-side .lead { margin: 0 0 10px; color: var(--ink); }
+@media (min-width: 900px) {
+  .intro { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; align-items: start; }
+  .intro #flow h2 { margin-top: 0; }
+  .cmp-top { display: grid; grid-template-columns: minmax(0, 560px) minmax(0, 1fr); gap: 0 28px; align-items: start; }
+}
+.fig { margin: 0 0 12px; }
+.fig svg { display: block; width: 100%; height: auto; max-width: 640px; }
+.fig-narrow svg { max-width: 560px; }
+.fig .grid { stroke: var(--line); stroke-width: 1; }
+.fig .axis { stroke: var(--sub); stroke-width: 1.5; }
+.fig .tick { fill: var(--sub); font-size: 15px; }
+.fig .ax-l { fill: var(--ink); font-size: 15px; }
+.fig .mk { fill: var(--paper); stroke-width: 3; }
+.cat-0 { stroke: var(--cat-0); } .cat-1 { stroke: var(--cat-1); } .cat-2 { stroke: var(--cat-2); }
+.cat-3 { stroke: var(--cat-3); } .cat-4 { stroke: var(--cat-4); } .cat-5 { stroke: var(--cat-5); } .cat-6 { stroke: var(--cat-6); }
+.fig .bar { stroke-width: 10; stroke-linecap: round; }
+.fig .ring, .legend .ring { fill: none; stroke: var(--ink); stroke-width: 2; }
+.fig .pt-n { fill: var(--ink); font-size: 16px; font-weight: 700; text-anchor: middle; }
+.fig .lead { stroke: var(--sub); stroke-width: 1; }
+.fig .open-ar { stroke: var(--sub); stroke-width: 2; }
+.cmp .care { font-weight: 600; }
+.fig .true-pos { fill: var(--sub); }
+.fig a.pt:hover .mk, .fig a.pt:focus .mk { stroke-width: 5; }
+.legend .mk { fill: var(--paper); stroke-width: 3; }
+.legend { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 14.5px; color: var(--ink); }
+.legend li { display: inline-flex; align-items: center; gap: 6px; }
+.fig-note { margin: 4px 0 0; font-size: 14.5px; color: var(--ink); }
+.fig .fl-c { fill: var(--paper); stroke: var(--ink); stroke-width: 2; }
+.fig .fl-n { fill: var(--ink); font-size: 16px; font-weight: 700; }
+.fig .fl-t { fill: var(--ink); font-size: 17px; }
+.fig-flow-w svg { max-width: 400px; }
+.fig .fl-l { stroke: var(--sub); stroke-width: 2; }
+.fig .fl-a { fill: var(--sub); }
+.fig .tr-b { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; }
+.fig .tr-t { fill: var(--ink); font-size: 15px; font-weight: 700; }
+.fig .tr-c { fill: var(--sub); font-size: 15px; }
+table.cmp { border-collapse: collapse; width: 100%; font-size: 15px; background: var(--paper); table-layout: fixed; }
+table.cmp caption { text-align: left; font-size: 14px; color: var(--sub); padding: 0 0 6px; }
+table.cmp th, table.cmp td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+table.cmp th { color: var(--sub); font-weight: 600; font-size: 13.5px; background: var(--paper); border-bottom: 1.5px solid var(--sub); }
+table.cmp th:nth-child(1) { width: 20%; } table.cmp th:nth-child(2) { width: 27%; } table.cmp th:nth-child(3) { width: 10%; }
+table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%; }
+.cmp .clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.cmp .clamp.sub { color: var(--sub); font-size: 13.5px; }
+.cmp .main { display: block; }
+.fig-how { margin-top: 6px; font-size: 14.5px; }
+.fig-how summary { cursor: pointer; color: var(--accent); }
+.fig-how summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cmp .no { display: inline-block; min-width: 1.6em; font-weight: 700; }
+.cmp .to-card { color: var(--ink); font-weight: 700; }
+.cmp .cmp-chosen { display: block; font-size: 13px; font-weight: 700; color: var(--ink); }
+.cmp .links { display: flex; flex-wrap: wrap; gap: 2px 10px; margin-top: 4px; }
+.cmp .links .deck-mini { font-size: 13px; }
+.cmp .more { display: block; font-size: 13px; color: var(--accent); }
+.cmp .empty { color: var(--sub); }
+.cmp-key { margin: 6px 0 0; font-size: 13.5px; color: var(--sub); }
+.detail-layer { border-top: 1.5px solid var(--sub); padding-top: 4px; }
+.detail-layer > .detail-lead { margin: 12px 0 0; color: var(--sub); font-size: 15px; }
+@media (max-width: 760px) {
+  table.cmp, table.cmp caption, table.cmp tbody, table.cmp tr, table.cmp td { display: block; width: auto !important; }
+  table.cmp thead { display: none; }
+  table.cmp tr { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  table.cmp td { border: none; padding: 1px 0; }
+  table.cmp td:not(.c-co)::before { content: attr(data-h); display: block; color: var(--sub); font-size: 12.5px; }
+  table.cmp td[data-h="気をつけたいこと"]::before { color: var(--ink); font-weight: 700; font-size: 13.5px; }
+  .fig .tick { font-size: 18px; } .fig .ax-l { font-size: 17px; }
+  .fig .pt-n { font-size: 20px; }
+}
+@media print {
+  .band { position: static; }
+  .cmp .clamp { -webkit-line-clamp: unset; display: block; }
+}
 </style>
 </head>
 <body>
+<div class="band" id="band">
+<div class="band-in">
+  <a class="band-title" href="#top">相田さんにご紹介したいお仕事</a>
+  <nav class="band-ch" aria-label="章"><ol><li><a href="#top" data-ch="intro">はじめに</a></li><li><a href="#compare" data-ch="compare">比べる</a></li><li><a href="#companies" data-ch="detail">詳しく</a></li><li><a href="#industry" data-ch="docs">資料</a></li></ol></nav>
+  <span class="band-now" aria-live="polite"></span>
+</div>
+</div>
+<script>
+(function spy() {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", spy);
+    return;
+  }
+  var MAP = [["top", "intro", "ごあいさつ"], ["flow", "intro", "これからの進め方"], ["compare", "compare", "選んだ会社の比較"], ["companies", "detail", "ご紹介した会社"], ["industry", "docs", "業界の説明資料"]];
+  var band = document.getElementById("band");
+  if (!band || !("IntersectionObserver" in window)) return;
+  var now = band.querySelector(".band-now");
+  var chs = band.querySelectorAll("[data-ch]");
+  var items = MAP.map(function (m) { return [document.getElementById(m[0]), m[1], m[2]]; })
+    .filter(function (m) { return m[0]; });
+  function pick() {
+    var line = window.innerHeight * 0.4, cur = items[0];
+    var atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    items.forEach(function (it) {
+      var top = it[0].getBoundingClientRect().top;
+      if (top <= line || (atEnd && top < window.innerHeight)) cur = it;
+    });
+    if (!cur) return;
+    now.textContent = "いま: " + cur[2];
+    chs.forEach(function (a) {
+      if (a.getAttribute("data-ch") === cur[1]) a.setAttribute("aria-current", "location");
+      else a.removeAttribute("aria-current");
+    });
+  }
+  var io = new IntersectionObserver(pick, { rootMargin: "0px 0px -60% 0px", threshold: [0, 1] });
+  items.forEach(function (it) { io.observe(it[0]); });
+  var foot = document.querySelector("footer");
+  if (foot) new IntersectionObserver(pick).observe(foot);
+  pick();
+})();
+</script>
 <div class="wrap">
 
-<header>
+<header id="top">
   <h1>相田さんにご紹介したいお仕事</h1>
   <p class="date">2026年10月10日（土）</p>
 </header>
 
-<section class="thanks">
+<div class="top-layer" data-layer="top">
+<div class="intro"><section class="thanks" data-no-figure="あいさつの数文">
 <p><b>10月10日（土）の夜に、ご紹介できるお仕事を13社追加しました（下の3つの欄）。</b>追加したのは「お客様から相談される仕事」「パソコンを使う仕事」「年収を大きく上げにいく仕事」の3つで、ページの下の方にあります。13社の「固定給だけなら」の年収は、各欄の最初の説明に書いてあります。これまでの営業6社・施工管理2社は、そのまま残してあります。</p>
   <p><b>ここから「比べるための施工管理の会社（2社）」までは、先にお送りした分です。</b>お電話で伺った「ご自宅から通えて、年収が上がる仕事」を軸に、営業の会社を6社選びました。比べるために、施工管理の会社も2社載せています。</p>
   <p>営業の6社は、成果給や賞与が乗るほど年収が上がる会社です。ただ<b>固定給だけで比べると</b>、会社による差は小さめです。今のお給料（総支給の12か月分）と、下の数字を比べてみてください。</p>
@@ -227,13 +384,37 @@ tr.verdict-row td { padding-top: 0; }
   </ul>
   <p>家計の計算には、この「固定給だけなら」の数字を使ってください。</p>
 </section>
-<div class="flow-box">
-  <h3>これからの進め方</h3>
-  <ol><li>このページを見て、気になった会社をLINEで教えてください（いくつでも大丈夫です）</li><li>気になる点（お休み・残業・配属先・面接の交通費など）は、こちらで会社に確かめてお伝えします</li><li>受ける会社が決まったら、書類はこちらで整えます</li></ol>
+<section id="flow" data-section="flow" data-chapter="intro">
+<h2>これからの進め方</h2>
+<figure class="fig fig-flow-w" data-figure="flow"><svg class="fig-flow" viewBox="0 0 400 260" role="img" aria-labelledby="fig-flow-t fig-flow-d" preserveAspectRatio="xMidYMid meet"><title id="fig-flow-t">これからの進め方</title><desc id="fig-flow-d">1. このページを見て、気になった会社をLINEで教えてください（いくつでも大丈夫です）／2. 気になる点（お休み・残業・配属先・面接の交通費など）は、こちらで会社に確かめてお伝えします／3. 受ける会社が決まったら、書類はこちらで整えます</desc><defs><marker id="fl-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="fl-l" x1="20" y1="38" x2="20" y2="100" marker-end="url(#fl-ar)"/><line class="fl-l" x1="20" y1="138" x2="20" y2="200" marker-end="url(#fl-ar)"/><circle class="fl-c" cx="20" cy="20" r="16"/><text class="fl-n" x="20" y="26" text-anchor="middle">1</text><text class="fl-t" x="46" y="26">このページを見て、気になった会社を</text><text class="fl-t" x="46" y="50">LINEで教えてください（いくつでも大丈</text><text class="fl-t" x="46" y="74">夫です）</text><circle class="fl-c" cx="20" cy="120" r="16"/><text class="fl-n" x="20" y="126" text-anchor="middle">2</text><text class="fl-t" x="46" y="126">気になる点（お休み・残業・配属先・面接</text><text class="fl-t" x="46" y="150">の交通費など）は、こちらで会社に確かめ</text><text class="fl-t" x="46" y="174">てお伝えします</text><circle class="fl-c" cx="20" cy="220" r="16"/><text class="fl-n" x="20" y="226" text-anchor="middle">3</text><text class="fl-t" x="46" y="226">受ける会社が決まったら、書類はこちらで</text><text class="fl-t" x="46" y="250">整えます</text></svg></figure>
+</section>
 </div>
+<section id="compare" data-section="compare" data-chapter="compare">
+<h2>選んだ会社の比較</h2>
+<div class="cmp-top"><figure class="fig" data-figure="compare"><svg class="fig-cmp" viewBox="0 0 560 272" role="img" aria-labelledby="fig-cmp-t fig-cmp-d" preserveAspectRatio="xMidYMid meet"><title id="fig-cmp-t">選んだ5社の比較（2026年10月時点の求人票・会社資料より）</title><desc id="fig-cmp-d">1 いーふらん（おたからや）: 月給のまん中 57.5万円・年間休日 111日／2 カイトル: 月給のまん中 27.5万円・年間休日 124日／3 大東建託: 月給のまん中 29万円・年間休日 125日／4 新日本エネックス: 月給のまん中 28万円・年間休日 115日／5 IDOM（ガリバー）: 月給のまん中 27.5万円・年間休日 125日</desc><defs><marker id="cmp-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="grid" x1="72.0" y1="14" x2="72.0" y2="212"/><text class="tick" x="72.0" y="237" text-anchor="middle">25</text><line class="grid" x1="137.4" y1="14" x2="137.4" y2="212"/><text class="tick" x="137.4" y="237" text-anchor="middle">30</text><line class="grid" x1="202.9" y1="14" x2="202.9" y2="212"/><text class="tick" x="202.9" y="237" text-anchor="middle">35</text><line class="grid" x1="268.3" y1="14" x2="268.3" y2="212"/><text class="tick" x="268.3" y="237" text-anchor="middle">40</text><line class="grid" x1="333.7" y1="14" x2="333.7" y2="212"/><text class="tick" x="333.7" y="237" text-anchor="middle">45</text><line class="grid" x1="399.1" y1="14" x2="399.1" y2="212"/><text class="tick" x="399.1" y="237" text-anchor="middle">50</text><line class="grid" x1="464.6" y1="14" x2="464.6" y2="212"/><text class="tick" x="464.6" y="237" text-anchor="middle">55</text><line class="grid" x1="530.0" y1="14" x2="530.0" y2="212"/><text class="tick" x="530.0" y="237" text-anchor="middle">60</text><line class="grid" x1="72" y1="212.0" x2="530" y2="212.0"/><text class="tick" x="60" y="217.0" text-anchor="end">105</text><line class="grid" x1="72" y1="172.4" x2="530" y2="172.4"/><text class="tick" x="60" y="177.4" text-anchor="end">110</text><line class="grid" x1="72" y1="132.8" x2="530" y2="132.8"/><text class="tick" x="60" y="137.8" text-anchor="end">115</text><line class="grid" x1="72" y1="93.2" x2="530" y2="93.2"/><text class="tick" x="60" y="98.2" text-anchor="end">120</text><line class="grid" x1="72" y1="53.6" x2="530" y2="53.6"/><text class="tick" x="60" y="58.6" text-anchor="end">125</text><line class="grid" x1="72" y1="14.0" x2="530" y2="14.0"/><text class="tick" x="60" y="19.0" text-anchor="end">130</text><line class="axis" x1="72" y1="212" x2="530" y2="212"/><line class="axis" x1="72" y1="14" x2="72" y2="212"/><text class="ax-l" x="301.0" y="264" text-anchor="middle">月給の目安（万円）→</text><text class="ax-l" x="20" y="113.0" text-anchor="middle" transform="rotate(-90 20 113.0)">年間休日（日）→</text><a class="pt" href="#card-ifuran" aria-label="1. いーふらん（おたからや）（カードへ）" data-key="ifuran"><title>1. いーふらん（おたからや）（カードへ）</title><circle class="mk cat-0" cx="497.3" cy="164.5" r="13.0"/><text class="pt-n" x="497.3" y="170.0">1</text></a><a class="pt" href="#card-kaitoru" aria-label="2. カイトル（カードへ）" data-key="kaitoru"><title>2. カイトル（カードへ）</title><circle class="mk cat-0" cx="104.7" cy="61.5" r="13.0"/><text class="pt-n" x="104.7" y="67.0">2</text></a><line class="lead" x1="124.3" y1="53.6" x2="160.3" y2="53.6"/><circle class="true-pos" cx="124.3" cy="53.6" r="3"/><a class="pt" href="#card-daito" aria-label="3. 大東建託（カードへ）" data-key="daito"><title>3. 大東建託（カードへ）</title><circle class="mk cat-0" cx="160.3" cy="53.6" r="13.0"/><text class="pt-n" x="160.3" y="59.1">3</text></a><a class="pt" href="#card-enex" aria-label="4. 新日本エネックス（カードへ）" data-key="enex"><title>4. 新日本エネックス（カードへ）</title><circle class="mk cat-0" cx="111.3" cy="132.8" r="13.0"/><text class="pt-n" x="111.3" y="138.3">4</text></a><line class="lead" x1="104.7" y1="53.6" x2="212.7" y2="53.6"/><circle class="true-pos" cx="104.7" cy="53.6" r="3"/><a class="pt" href="#card-idom" aria-label="5. IDOM（ガリバー）（カードへ）" data-key="idom"><title>5. IDOM（ガリバー）（カードへ）</title><circle class="mk cat-0" cx="212.7" cy="53.6" r="13.0"/><text class="pt-n" x="212.7" y="59.1">5</text></a></svg></figure><div class="cmp-side"><p class="lead">面談の希望から5社を選びました。右ほど月給が高く、上ほど年間休日が多い会社です。番号や社名を押すと詳しい説明に移ります。気になる会社は番号か社名でLINEへ（例「2が気になります」）。</p><ul class="legend" aria-label="図の見方"><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><circle class="mk cat-0" cx="15.0" cy="15.0" r="9.0"/></svg>営業</li></ul><details class="fig-how"><summary>図の見方</summary><p class="fig-note">年間休日の差は最大14日です。月給は書かれた幅のまん中に置いています。</p></details></div></div>
+<table class="cmp">
+  <caption>選んだ5社の比較（2026年10月時点の求人票・会社資料より）</caption>
+  <thead><tr><th>会社</th><th>気をつけたいこと</th><th>仕事の種類</th><th>勤務地</th><th>月給（月額）</th><th>休日（年間）</th></tr></thead>
+  <tbody>
+    <tr data-key="ifuran"><td class="c-co" data-h="会社"><span class="no">1</span><a class="to-card" href="#card-ifuran">いーふらん（おたからや）</a><span class="links"><a class="deck-mini" href="https://e-fran.jp/" target="_blank" rel="noopener" aria-label="いーふらん（おたからや）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/13o52cCzFfOAH3JAgpggwsH5UPJ4HOc_A/view" target="_blank" rel="noopener" aria-label="いーふらん（おたからや）の資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="気をつけたいこと"><span class="care">成果に応じた給与の割合が大きい（求人票の言葉では「完全成果主義」）。</span><a class="more" href="#card-ifuran">気をつけたいことは、あと4件あります →</a></td><td data-h="仕事の種類">営業</td><td data-h="勤務地"><span class="main">全国の直営店</span><span class="clamp sub">（自宅から1時間以内の店舗に配属・原則転居なし）</span></td><td data-h="月給（月額）"><span class="main">35万円〜80万円</span><span class="clamp sub">（35万円のうち8万円は月42時間分の固定残業代）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日111日</span></td></tr>
+<tr data-key="kaitoru"><td class="c-co" data-h="会社"><span class="no">2</span><a class="to-card" href="#card-kaitoru">カイトル</a><span class="links"><a class="deck-mini" href="https://kai-toru.com/" target="_blank" rel="noopener" aria-label="カイトルのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1kGB2sH7UHWCoz8FxWyAIH9fFc9Bw0tBO/view" target="_blank" rel="noopener" aria-label="カイトルの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="気をつけたいこと"><span class="care">最初の6か月は契約社員（その後、正社員）。</span><a class="more" href="#card-kaitoru">気をつけたいことは、あと3件あります →</a></td><td data-h="仕事の種類">営業</td><td data-h="勤務地"><span class="main">首都圏の催事会場</span><span class="clamp sub">（自宅から60〜90分以内の会場に振り分け・転勤なし）</span></td><td data-h="月給（月額）"><span class="main">最初の6か月は27.5万円、その後30万円〜50万円</span><span class="clamp sub">（月20時間分の固定残業代を含む）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日124日</span></td></tr>
+<tr data-key="daito"><td class="c-co" data-h="会社"><span class="no">3</span><a class="to-card" href="#card-daito">大東建託</a><span class="links"><a class="deck-mini" href="https://www.kentaku.co.jp/" target="_blank" rel="noopener" aria-label="大東建託のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1n9sc4RD5Z5xzp473wk-GhRIsP4qT_T5J/view" target="_blank" rel="noopener" aria-label="大東建託の資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="気をつけたいこと"><span class="care">契約が取れないうちは固定給だけ（実績なしの月収例は約30.8万円・残業40時間込み）。</span><a class="more" href="#card-daito">気をつけたいことは、あと2件あります →</a></td><td data-h="仕事の種類">営業</td><td data-h="勤務地"><span class="main">全国の支店</span><span class="clamp sub">（原則転勤なし・希望を考えて配属）</span></td><td data-h="月給（月額）"><span class="main">27.8万円〜30.2万円</span><span class="clamp sub">（入社1年間だけの手当3万円と、35時間分・5.7万円以上の固定残業代を含む）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
+<tr data-key="enex"><td class="c-co" data-h="会社"><span class="no">4</span><a class="to-card" href="#card-enex">新日本エネックス</a><span class="links"><a class="deck-mini" href="https://nj-enex.co.jp/" target="_blank" rel="noopener" aria-label="新日本エネックスのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1guI67c3-WtHAz3Zq_kiklo54x912KYuI/view" target="_blank" rel="noopener" aria-label="新日本エネックスの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="気をつけたいこと"><span class="care">土日は出勤で、休みは火・水。勤務は10時〜20時。</span><a class="more" href="#card-enex">気をつけたいことは、あと3件あります →</a></td><td data-h="仕事の種類">営業</td><td data-h="勤務地"><span class="main">埼玉支店</span><span class="clamp sub">（大宮）ほか</span></td><td data-h="月給（月額）"><span class="main">26万円〜30万円</span><span class="clamp sub">（月45時間分・6.5万円以上の固定残業代を含む）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日115日</span></td></tr>
+<tr data-key="idom"><td class="c-co" data-h="会社"><span class="no">5</span><a class="to-card" href="#card-idom">IDOM（ガリバー）</a><span class="links"><a class="deck-mini" href="https://idom-inc.com/" target="_blank" rel="noopener" aria-label="IDOM（ガリバー）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1fzYT8izJvaO2qauSyxpjsbjUKYfvZovp/view" target="_blank" rel="noopener" aria-label="IDOM（ガリバー）の資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="気をつけたいこと"><span class="care">年収の例はどれも成果給と賞与を含んだ数字。</span><a class="more" href="#card-idom">気をつけたいことは、あと2件あります →</a></td><td data-h="仕事の種類">営業</td><td data-h="勤務地"><span class="main">全国の店舗</span><span class="clamp sub">（埼玉県内だけで24店・転勤はできるだけ考慮）</span></td><td data-h="月給（月額）"><span class="clamp">25万円〜30万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
+  </tbody>
+</table>
+<p class="cmp-key">続きは各社の説明に。</p>
+</section>
 <nav class="page-nav" aria-label="ページ内リンク"><ul><li><a href="#companies">ご紹介した会社</a></li><li><a href="#industry">業界の説明資料</a></li></ul></nav>
-
-<section id="companies" data-section="companies">
+</div>
+<div class="detail-layer" data-layer="detail">
+<p class="detail-lead">ここから下は、各社の詳しい説明と資料です。気になる会社だけ見てください。</p>
+<section id="companies" data-section="companies" data-no-figure="各社カードと表＝詳しい層（図はトップの比較）">
 <h2>ご紹介した会社</h2>
 <div class="axis">
   <span class="label">お電話で伺ったこと</span>
@@ -248,7 +429,7 @@ tr.verdict-row td { padding-top: 0; }
 <p class="lead">上から、固定給だけで見た年収が高い順です。黄色の欄は、先に知っておいてほしい点です。</p>
 
 <div class="cards">
-  <article class="card">
+  <article class="card" id="card-ifuran">
     <h3>いーふらん（おたからや）</h3>
     <p class="what">買取店「おたからや」で、来店されたお客様のブランド品や貴金属を確認して買い取る接客（飛び込み・電話営業なし）</p>
     <dl>
@@ -257,9 +438,10 @@ tr.verdict-row td { padding-top: 0; }
     <p class="point"><b>ここが合う</b>　ガソリンスタンドで鍛えた接客がそのまま活きる、店舗に来られたお客様の対応が中心の仕事です。値段は専門の部署が付けます。固定給は6社の中でいちばん高い35万円からです。</p>
     <p class="caution">成果に応じた給与の割合が大きい（求人票の言葉では「完全成果主義」）。 入社から3か月は試用期間で、期間を区切った雇用になる。 シフト制で、土日に休めるとは限らない。 選考の途中で、今の勤め先などに働きぶりを確かめる手続き（リファレンスチェック）がある。いつ・誰に連絡が行くかは確認が要る。 店舗での接客が基本だが、求人票には出張買取の配属の記載もある。出張買取の配属だと、1か月は本社近くの店舗で研修（遠方なら一時的な滞在が要ると書かれている）。</p>
     
-    <div class="links"><a class="deck-mini" href="https://e-fran.jp/" target="_blank" rel="noopener" aria-label="いーふらん（おたからや）のホームページ">会社のHP →</a></div>
+    <div class="links"><a class="deck-mini" href="https://e-fran.jp/" target="_blank" rel="noopener" aria-label="いーふらん（おたからや）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/13o52cCzFfOAH3JAgpggwsH5UPJ4HOc_A/view" target="_blank" rel="noopener" aria-label="いーふらん（おたからや）の資料（会社説明スライド）">会社説明スライド →</a></div>
   </article>
-  <article class="card">
+  <article class="card" id="card-kaitoru">
     <h3>カイトル</h3>
     <p class="what">スーパーやホームセンターに1週間ずつ買取の特設ブースを出し、来られたお客様の品物を査定して買い取る仕事</p>
     <dl>
@@ -268,9 +450,10 @@ tr.verdict-row td { padding-top: 0; }
     <p class="point"><b>ここが合う</b>　土日休み・年間休日124日で、ご家族との時間を取りながら成果給も狙えます。会場へは直行直帰が基本です。</p>
     <p class="caution">最初の6か月は契約社員（その後、正社員）。 会場が1週間ごとに変わり、通勤時間も週によって変わる。 賞与は業績しだいで、決まった額は無い。 2022年にできた新しい会社。</p>
     
-    <div class="links"><a class="deck-mini" href="https://kai-toru.com/" target="_blank" rel="noopener" aria-label="カイトルのホームページ">会社のHP →</a></div>
+    <div class="links"><a class="deck-mini" href="https://kai-toru.com/" target="_blank" rel="noopener" aria-label="カイトルのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1kGB2sH7UHWCoz8FxWyAIH9fFc9Bw0tBO/view" target="_blank" rel="noopener" aria-label="カイトルの資料（会社説明スライド）">会社説明スライド →</a></div>
   </article>
-  <article class="card">
+  <article class="card" id="card-daito">
     <h3>大東建託</h3>
     <p class="what">土地を持つオーナーに、アパートを建てて貸す土地活用を提案する営業（訪問して関係をつくる）</p>
     <dl>
@@ -279,9 +462,10 @@ tr.verdict-row td { padding-top: 0; }
     <p class="point"><b>ここが合う</b>　契約1件ごとの成果給が大きい会社です。そのぶん、契約が取れるまでは固定給だけになります。土日祝が休みの上場企業です。</p>
     <p class="caution">契約が取れないうちは固定給だけ（実績なしの月収例は約30.8万円・残業40時間込み）。 1日に何十件も訪ねる訪問営業で、飛び込みや夜の訪問もある。夏も外を回る。 月給のうち3万円は入社1年間だけの手当。平均残業は月38時間。</p>
     
-    <div class="links"><a class="deck-mini" href="https://www.kentaku.co.jp/" target="_blank" rel="noopener" aria-label="大東建託のホームページ">会社のHP →</a></div>
+    <div class="links"><a class="deck-mini" href="https://www.kentaku.co.jp/" target="_blank" rel="noopener" aria-label="大東建託のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1n9sc4RD5Z5xzp473wk-GhRIsP4qT_T5J/view" target="_blank" rel="noopener" aria-label="大東建託の資料（会社説明スライド）">会社説明スライド →</a></div>
   </article>
-  <article class="card">
+  <article class="card" id="card-enex">
     <h3>新日本エネックス</h3>
     <p class="what">提携するハウスメーカーの家を定期点検で訪ね、住まいの困りごとを伺って次の打ち合わせにつなぐ営業（太陽光・リフォームなど）</p>
     <dl>
@@ -290,9 +474,10 @@ tr.verdict-row td { padding-top: 0; }
     <p class="point"><b>ここが合う</b>　職場は大宮で、電車で約20分です。訪ねるのは約束の決まったお宅だけで、法人のお客様を定期的に回ってきた経験がそのまま使えます。</p>
     <p class="caution">土日は出勤で、休みは火・水。勤務は10時〜20時。 月給に45時間分の固定残業代を含む。 最終面接は福岡（博多）で、対面（交通費の扱いは確認が要る）。 転勤の可能性はある（希望を聞いて判断すると書かれている）。</p>
     
-    <div class="links"><a class="deck-mini" href="https://nj-enex.co.jp/" target="_blank" rel="noopener" aria-label="新日本エネックスのホームページ">会社のHP →</a></div>
+    <div class="links"><a class="deck-mini" href="https://nj-enex.co.jp/" target="_blank" rel="noopener" aria-label="新日本エネックスのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1guI67c3-WtHAz3Zq_kiklo54x912KYuI/view" target="_blank" rel="noopener" aria-label="新日本エネックスの資料（会社説明スライド）">会社説明スライド →</a></div>
   </article>
-  <article class="card">
+  <article class="card" id="card-idom">
     <h3>IDOM（ガリバー）</h3>
     <p class="what">中古車の「ガリバー」の店舗で、来店や問い合わせのお客様に車の購入・売却を案内する営業（飛び込み・電話営業なし）</p>
     <dl>
@@ -301,9 +486,10 @@ tr.verdict-row td { padding-top: 0; }
     <p class="point"><b>ここが合う</b>　タイヤを月133本売った経験と車好きが、そのまま話の種になる仕事です。来店されたお客様の対応が中心で、査定額は専門の担当が付けます。</p>
     <p class="caution">年収の例はどれも成果給と賞与を含んだ数字。 シフト制で、土日に休めるとは限らない。勤務は10時〜20時。 月給に固定残業代が含まれるかは、求人票に書かれていない。</p>
     
-    <div class="links"><a class="deck-mini" href="https://idom-inc.com/" target="_blank" rel="noopener" aria-label="IDOM（ガリバー）のホームページ">会社のHP →</a></div>
+    <div class="links"><a class="deck-mini" href="https://idom-inc.com/" target="_blank" rel="noopener" aria-label="IDOM（ガリバー）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1fzYT8izJvaO2qauSyxpjsbjUKYfvZovp/view" target="_blank" rel="noopener" aria-label="IDOM（ガリバー）の資料（会社説明スライド）">会社説明スライド →</a></div>
   </article>
-  <article class="card">
+  <article class="card" id="card-nowall">
     <h3>NOWALL（ノーウォール）</h3>
     <p class="what">太陽光発電・蓄電池などの住宅設備を、個人のお宅を訪ねて提案する営業（営業先へは車で移動）</p>
     <dl>
@@ -312,7 +498,7 @@ tr.verdict-row td { padding-top: 0; }
     <p class="point"><b>ここが合う</b>　成果給の割合が大きく、しっかり稼ぎたい人向けの会社です。営業部は22〜30歳のメンバーです。</p>
     <p class="caution">固定給は25万円からで、賞与の記載が無い。年収の多くを成果給が占める。 最初の約3か月は、約束なしで個人のお宅を訪ねて説明する役（飛び込み）。夕方から夜に回り、夏も外を回る。 土日は出勤。月の残業は平均50時間以下と書かれている。 契約社員として採用される場合もある。</p>
     
-    <div class="links"></div>
+    <div class="links"><a class="deck-mini" href="https://drive.google.com/file/d/1dAmTPM5XEwOco8a-32MQQ1vm-9buul7f/view" target="_blank" rel="noopener" aria-label="NOWALL（ノーウォール）の資料（会社説明スライド）">会社説明スライド →</a></div>
   </article>
 </div>
 
@@ -323,8 +509,10 @@ tr.verdict-row td { padding-top: 0; }
 <table>
   <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
   <tbody>
-    <tr><td class="co">エール<a class="deck-mini" href="https://www.yell-inc.com/" target="_blank" rel="noopener" aria-label="エールのホームページ">会社のHP →</a></td><td>施工管理（アシスタントから始めて現場の管理へ）<small>入社後1か月の研修（座学＋現場）</small><small>月給には固定残業代が含まれる求人票がある（例: 月給25.3万円のうち4.8万円が月30時間分の固定残業代）。</small><small>実際の残業時間は口コミで幅がある（会社側は月10h以内を主張するが、口コミ集計では最大月38hという値もある）。</small></td><td class="num">関東（転勤なし）<small>通勤 ご自宅から通える現場に配属（現場へは直行直帰）</small></td><td class="num">22.6万円（残業代は別）／25.3万円（月30時間分の固定残業代込み）※求人票によって書き方が違う<small>年収 1年目の例は375万円（未経験・残業代込み）。固定給だけなら年約271万〜304万円＋賞与。経験3年・資格ありの例は476万円（会社の公式サイト）</small></td><td class="num">完全週休2日・年間休日128日（2026年度カレンダー）</td></tr>
-<tr><td class="co">ワールドコーポレーション<a class="deck-mini" href="https://worldcorp-jp.com/" target="_blank" rel="noopener" aria-label="ワールドコーポレーションのホームページ">会社のHP →</a></td><td>施工管理（社員として建設会社の現場に派遣されて働く）<small>有給の研修あり（入社から180日はチームで新人をサポート）</small><small>正社員として雇われ、建設会社の現場に派遣されて働く形。配属の現場は会社が決める。</small><small>直近1年の退職率は31.1%（会社の公表値）。</small></td><td class="num">首都圏の建設現場（原則、自宅から90分以内）<small>通勤 ご自宅から原則90分以内の現場</small></td><td class="num">25万円（月20時間分・3.34万円の固定残業代を含む・24歳以下の例）<small>年収 会社のモデル年収は25歳で450万円（残業・手当込み）。固定給だけなら年300万円＋賞与</small></td><td class="num">土日祝休み（会社の説明）</td></tr>
+    <tr><td class="co">エール<a class="deck-mini" href="https://www.yell-inc.com/" target="_blank" rel="noopener" aria-label="エールのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1n3g316wsYbwLX7Iq2ke75RzbHmTfS56M/view" target="_blank" rel="noopener" aria-label="エールの資料（会社紹介（採用案内））">会社紹介（採用案内） →</a></td><td>施工管理（アシスタントから始めて現場の管理へ）<small>入社後1か月の研修（座学＋現場）</small><small>月給には固定残業代が含まれる求人票がある（例: 月給25.3万円のうち4.8万円が月30時間分の固定残業代）。</small><small>実際の残業時間は口コミで幅がある（会社側は月10h以内を主張するが、口コミ集計では最大月38hという値もある）。</small></td><td class="num">関東（転勤なし）<small>通勤 ご自宅から通える現場に配属（現場へは直行直帰）</small></td><td class="num">22.6万円（残業代は別）／25.3万円（月30時間分の固定残業代込み）※求人票によって書き方が違う<small>年収 1年目の例は375万円（未経験・残業代込み）。固定給だけなら年約271万〜304万円＋賞与。経験3年・資格ありの例は476万円（会社の公式サイト）</small></td><td class="num">完全週休2日・年間休日128日（2026年度カレンダー）</td></tr>
+<tr><td class="co">ワールドコーポレーション<a class="deck-mini" href="https://worldcorp-jp.com/" target="_blank" rel="noopener" aria-label="ワールドコーポレーションのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1qrSQPPb60-7_gZXqlTCcB4YU2OseIyWr/view" target="_blank" rel="noopener" aria-label="ワールドコーポレーションの資料（会社説明スライド）">会社説明スライド →</a></td><td>施工管理（社員として建設会社の現場に派遣されて働く）<small>有給の研修あり（入社から180日はチームで新人をサポート）</small><small>正社員として雇われ、建設会社の現場に派遣されて働く形。配属の現場は会社が決める。</small><small>直近1年の退職率は31.1%（会社の公表値）。</small></td><td class="num">首都圏の建設現場（原則、自宅から90分以内）<small>通勤 ご自宅から原則90分以内の現場</small></td><td class="num">25万円（月20時間分・3.34万円の固定残業代を含む・24歳以下の例）<small>年収 会社のモデル年収は25歳で450万円（残業・手当込み）。固定給だけなら年300万円＋賞与</small></td><td class="num">土日祝休み（会社の説明）</td></tr>
   </tbody>
 </table>
 </div>
@@ -337,13 +525,20 @@ tr.verdict-row td { padding-top: 0; }
 <table>
   <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
   <tbody>
-    <tr><td class="co">ビーアル（MobileStation）<a class="deck-mini" href="https://b--r.co.jp/" target="_blank" rel="noopener" aria-label="ビーアル（MobileStation）のホームページ">会社のHP →</a></td><td>ベイシアなどの商業施設の中にあるスマホ販売店「MobileStation」で、お客様に合うスマホや通信プランを提案して契約する接客販売（募集の見出しは店長候補）<small>大手携帯会社が行う研修と、自社のマニュアル・先輩のサポート（インカムを使った接客の確認など）で覚える。社員の98%が未経験からのスタートと書かれている</small><small>月給30万円のうち7.7万円〜は月45時間分の固定残業代。実際の残業は月20時間以下と書かれている。</small><small>入社後2か月は試用期間で、月給が26万円になる。</small><small>シフト制で、土日祝に休めるとは限らない。勤務は10:00〜20:00（所定8時間）で、店舗の営業時間は9:00〜20:00のところが多いが、9:00〜21:00・9:00〜22:00の店舗もある。</small><small>インセンティブ（月平均15万円）は会社の説明で、決まった金額ではない。賞与は「業績賞与」で、額の記載がない。</small><small>店舗はショッピング施設の店内にあり、埼玉県内は川島町・行田市・寄居町の3店舗。ほかは群馬・茨城・千葉・愛知で、店舗によって通勤は遠くなる。</small><small>募集の見出しは店長候補で、経験を積むと店舗運営（スタッフ指導・シフト管理・売上や在庫の管理）も任される。設立は2025年の会社。</small></td><td class="num">ベイシア（スーパー）の店内にある店舗（転勤なし）。埼玉県内は川島インター店（川島町）・行田店・寄居北店。ほかに群馬・茨城・千葉・愛知の店舗<small>通勤 ベイシア内の店舗。川島インター店（川島町）は車で約35分、行田店は車で約40分、寄居北店は車で約1時間（群馬・茨城・千葉・愛知の店舗は遠い）</small></td><td class="num">月給30万円（基本給22.3万円〜＋固定残業手当7.7万円〜・月45時間分。超えた分は別に支給）。入社後2か月の試用期間は月給26万円。インセンティブあり（会社の説明では月平均15万円）<small>年収 求人票の想定年収は360万円（月給30万円×12）で、インセンティブ・賞与は別に付く。年収の例は450万円（28歳・店長・月給32万円＋インセンティブ）。固定給だけなら年360万円（固定残業代込み）＋業績賞与（額の記載なし）</small></td><td class="num">シフト制（月8日以上）・年間休日120日・有給は10日〜最大20日。昼の休憩は120分</td></tr>
-<tr><td class="co">水野（まねきや）<a class="deck-mini" href="https://miduno.jp/" target="_blank" rel="noopener" aria-label="水野（まねきや）のホームページ">会社のHP →</a></td><td>ブランド品や宝石の買取専門店「まねきや」で、来店されたお客様の品物を鑑定し、値付けと買取の交渉をする店頭の仕事（1日5〜6組ほどの接客。LINEの問い合わせ対応やアルバイトの管理もある）<small>座学とロールプレイの基本研修（5名前後・元トップセールスが講師）→複数の店舗を回る研修（約2か月）→本配属</small><small>賞与は無く、収入のうち大きな部分がインセンティブ（粗利ベース）。固定給は月30万円からだが、求人票の見出しの35万円とは割れている。</small><small>月給に月45時間分の固定残業代が含まれる。残業は月30時間以下と書かれている。</small><small>シフト制（半月ごと）で月の休みは9日。土日に休めるとは限らない。勤務は10:00〜19:00。</small><small>入社後6か月は試用期間（待遇は変わらない）。</small><small>店舗は社員2名＋アルバイト4〜5名ほどの少人数で、アルバイトの管理も仕事に入る。</small><small>関東の店舗は上野・銀座・小平・横浜・つくば・守谷で、埼玉県内の店舗は求人票に無い。</small></td><td class="num">関東は上野御徒町・銀座・小平・横浜・つくば・守谷の店舗。ほかに静岡・大阪・京都・福岡（転勤は当面なし）。最初に複数の店舗を回る研修（約2か月）があり、そのあとに本配属が決まる<small>通勤 関東の店舗から配属。上野御徒町店は電車で約40分、銀座本店は電車で約1時間。どの店舗かは約2か月の店舗ローテーション研修のあとに決まります</small></td><td class="num">月給30万円〜（基本給23.1万円＋固定残業代6.9万円・月45時間分）。インセンティブあり（最低でも月8万円ほど・2026年5月実績と書かれている）。賞与なし。求人票の見出しと給与欄は月給35万円〜と書かれていて、補足の内訳（30万円〜）と割れている<small>年収 求人票の想定は420万〜650万円（インセンティブ込み・賞与なし）。年収の例は600万円（入社2年目・主任・月給45万円＋インセンティブ）。固定給だけなら年360万円（月給30万円×12・固定残業代込み）で、賞与は無い</small></td><td class="num">シフト制（半月ごと）・月間休日9日・年間休日117日・有給10〜20日</td></tr>
-<tr><td class="co">BuySell Technologies（バイセル）<a class="deck-mini" href="https://buysell-technologies.com/" target="_blank" rel="noopener" aria-label="BuySell Technologies（バイセル）のホームページ">会社のHP →</a></td><td>お問い合わせをくださったお宅へ伺い、着物・ブランド品・時計・ジュエリーなどを査定して買い取る訪問買取（約束を取る担当は別の部署で、テレアポ・飛び込みはない）<small>入社後に東京本社で1か月の研修（地方の人にはマンスリーマンションを用意）。1〜2か月目はビジネスマナーやコミュニケーション・専門知識、3か月目から営業デビュー。求人票の別の箇所には入社後2か月間の研修とも書かれている。フィールドセールスの9割は未経験からのスタート</small><small>お客様のお宅を訪ねて査定する訪問の仕事で、普通自動車運転免許が必要。</small><small>月給に月30時間分の固定残業代（5万円〜5.5万円）が含まれる。残業は月30時間以下と書かれている。</small><small>インセンティブ（毎月）は自分の売上しだいで、年収の例（510万円〜1,000万円）は過去の一部の実績。</small><small>シフト制で、土日に休めるとは限らない。希望休は月2〜3日分で、他のメンバーとの調整により必ず通るとは限らない。</small><small>月給が転勤なしで27万円〜、全国転勤ありで30万円〜と2つあり、どちらで採用されるかは求人票に書かれていない。</small><small>選考では「接客と営業の違い」を聞かれる。</small></td><td class="num">全国の拠点（埼玉は越谷市・白岡市。東京は江戸川区・立川、千葉・柏、群馬・高崎ほか）。配属先は希望を聞いて内定のときに会社が選ぶ。転勤なしの区分と全国転勤ありの区分がある<small>通勤 配属先は希望を聞いて内定のときに決まります。埼玉の拠点（越谷市）は電車で約50分、白岡市は電車で約30分。お客様のお宅へは訪問（車の免許が必要）</small></td><td class="num">転勤なし（エリア採用）は月給27万円〜（基本給20万円＋職務手当2万円＋30時間分の固定残業代5万円）、全国転勤ありは月給30万円〜。毎月のインセンティブと賞与（年2回）あり。社員の平均月収は40万円（会社の説明）<small>年収 求人票の想定は374万〜500万円（インセンティブ・賞与込み）。モデル年収は510万円（23歳・入社1年）・850万円（25歳・入社2年）・1,000万円（28歳・入社3年）で、上のほうは一部の社員の実績。固定給だけなら年324万円（転勤なしの月給27万円×12・固定残業代込み）＋賞与（年2回・額の記載なし）</small></td><td class="num">シフト制（月7〜12日休み）・年間休日128日。公休のうち月2〜3日は希望休を出せるので、土日に休むこともできる（必ず通るとは限らない）</td></tr>
-<tr><td class="co">ソフトバンク<a class="deck-mini" href="https://www.softbank.jp/" target="_blank" rel="noopener" aria-label="ソフトバンクのホームページ">会社のHP →</a></td><td>家電量販店などソフトバンクの取扱店での携帯の販売（声かけ→お話を伺う→提案→契約）。販売イベントの運営や売場の管理もある<small>入社時の研修と、先輩と一緒に行うOJT（研修の日程は職種・地域によって違う）</small><small>契約社員スタート（6か月更新・通算契約期間5年が上限）。正社員登用試験は年2回・最短1年で受験可。</small><small>「当社の販売契約社員として勤務経験のある方は、選考を見送ります」という条件がある。</small><small>土日祝は原則出勤のシフト制（やむを得ない事情は相談できる）。</small><small>正社員になると、エリア内で転居を伴う転勤の可能性がある。</small><small>賞与は夏と冬の年2回だが、額は書かれておらず、支給は社内規定による。</small></td><td class="num">お住まいから通える範囲のソフトバンク取扱店（家電量販店など・希望の勤務地を考慮・転居を伴う転勤なし）<small>通勤 ご自宅から通える範囲のソフトバンク取扱店に配属（どの店舗かは入社時に決まります・転居を伴う転勤なし）</small></td><td class="num">首都圏（東京・神奈川・千葉・埼玉）は月給25.6万円〜（Workstyle支援金4千円を含む・固定残業代なし）。勤務地によって月給は22.4万円〜30万円。賞与は夏と冬の年2回、インセンティブあり<small>年収 求人票の想定は300万〜450万円（契約社員・インセンティブ込み）。入社1年目・東京勤務の例は350万〜400万円。固定給だけなら年307.2万円（首都圏の月給25.6万円×12）＋賞与（夏と冬の年2回・額の記載なし）</small></td><td class="num">シフト制（1日4時間〜9時間30分・平均実働8時間）・土日祝は原則出勤・年間休日124日（2023年度実績）・有給は6か月後に11日</td></tr>
-<tr><td class="co">アルファインターナショナル（携帯ショップ運営）<a class="deck-mini" href="https://www.alpha-international.co.jp/" target="_blank" rel="noopener" aria-label="アルファインターナショナル（携帯ショップ運営）のホームページ">会社のHP →</a></td><td>au・ソフトバンク・楽天モバイルなどの携帯ショップで、お客様に端末や料金プランを案内して手続きをする接客販売（受付→コンシェルジュが対応→契約前にダブルチェック、とチームで進める）<small>座学の研修（約2週間〜1か月）のあと、店舗で先輩とマンツーマンで実務を覚える（いきなり1人にはならない）。入社3〜5年目までは3か月に1回、店長やメンターと面談</small><small>シフト制で、土日祝に休めるとは限らない。希望休は月3日分まで（基本は平日）で、残りの休みは会社がバランスを見て決める。</small><small>月給に月30時間分の固定残業代（約4.7万円）が含まれる。3月と9月（新生活の時期とiPhoneの発売時期）は来客が増えて30時間を超えることもあり、超えた分は給与に上乗せされると書かれている。</small><small>勤務は9:00〜20:00の間のシフト（実働8時間・店舗により時間が違う）。通常月の残業は月10〜20時間ほど。</small><small>月給25万円は入口の金額で、上がるのは「業務習得シート」のレベルを1つずつクリアしたとき（1段階で月1万円・レベル3まで）。賞与は年2回だが、額の記載はない。</small><small>配属先の店舗はご自宅の最寄りから選ばれるが、携帯会社（au・ソフトバンク・楽天モバイル）は店舗によって違い、どこになるかは入社時に決まる。</small></td><td class="num">東京・神奈川・埼玉・千葉・愛知・群馬の店舗（ご自宅の最寄りから配属先を選ぶと書かれている・転勤なし）。埼玉県内は楽天モバイルの大宮ステラタウン店・浦和店・川口・春日部・東松山・富士見の店舗など<small>通勤 ご自宅の最寄りから配属先が選ばれます（どの店舗かは入社時に決まります）。埼玉県内の例は、大宮ステラタウン店が電車で約10分＋徒歩、浦和店が電車で約25分</small></td><td class="num">月給25万円〜45万円（月給25万円のうち約4.7万円は月30時間分の固定残業代）。「業務習得シート」のレベルが1つ上がるごとに月給が1万円上がる（レベル3まで）。インセンティブあり（参考: 最大年40万円）<small>年収 求人票の想定は308万〜585万円（賞与・インセンティブ込み）。初年度の年収は320万〜450万円、モデル年収は390万円（23歳・経験1年）・520万円（27歳・販売管理職・経験5年）。固定給だけなら年300万円（月給25万円×12・固定残業代込み）＋賞与（年2回・額の記載なし）</small></td><td class="num">シフト制（月8〜10日休み）・年間休日126日（2025年の休日119日＋夏季3日＋年末年始3日＋アニバーサリー休暇1日）。月3日分の希望休（基本は平日）を出せる</td></tr>
-<tr><td class="co">アズーム<a class="deck-mini" href="https://azoom.jp/" target="_blank" rel="noopener" aria-label="アズームのホームページ">会社のHP →</a></td><td>月極駐車場を探すお客様（個人・法人）への提案営業。駐車場サイト「CarParking」へのお問い合わせへの対応（反響営業）が中心で、不動産会社やカーディーラーなどへの新規開拓の提案もある<small>人事チームによる導入研修→配属先でのOJT・先輩との同行営業→入社後1年間はビジネスマナー・商材知識・営業手法の研修が定期的にある</small><small>反響営業だけでなく、不動産会社やカーディーラーなどへ自分から連絡して顧客を開拓する新規の営業もある（飛び込みか電話かは求人票に書かれていない）。</small><small>月給25万円にはみなし残業代（5.3万円〜）が含まれる。入社後3か月の試用期間は月給が23万円〜になる。</small><small>駐車場を実際に見に行く（試し入庫）ため、電車で外出する日もある。</small></td><td class="num">東京・新宿（新宿駅南口から徒歩4分）・転勤なし<small>通勤 電車で約40分（湘南新宿ラインで新宿）＋徒歩4分</small></td><td class="num">月給25万〜30万円（月給25万円は基本給19.7万円〜＋みなし残業代5.3万円〜・超えた分は別に支給）。入社後3か月の試用期間は月給23万円〜。インセンティブあり、昇給と賞与は年2回（5月・11月）<small>年収 求人票の想定は330万〜420万円（インセンティブ・賞与込み）。年収の例は1年目330万円（月給25万円＋インセンティブ）・2年目392万円・3年目420万円。固定給だけなら年300万円（月給25万円×12・みなし残業代込み）＋賞与（年2回・額の記載なし）</small></td><td class="num">土日祝休み・年間休日125日・GW休暇・夏季休暇（3日）・年末年始休暇</td></tr>
-<tr><td class="co">エムデジ（携帯ショップ運営）<a class="deck-mini" href="https://www.m-digi.co.jp/" target="_blank" rel="noopener" aria-label="エムデジ（携帯ショップ運営）のホームページ">会社のHP →</a></td><td>ソフトバンク・ドコモ・au・ワイモバイルの携帯ショップで、スマホ・タブレット・インターネット回線の提案販売と案内をするモバイルプランナー。個人のノルマはない<small>入社後は教育担当の先輩がマンツーマンで、接客の基礎・商品知識・ビジネスマナーを指導。携帯会社の研修と自社の研修もある</small><small>東京の店舗は東村山市・小平市の3店舗だけで、ほかは北海道・青森・栃木・長野・新潟。ご自宅から通える店舗はごく限られる。</small><small>「転居を伴う異動は打診、通勤できる範囲では転勤の可能性あり」と書かれている。募集の見出しは「転勤なし」だが、本文の転勤の可能性の欄は「可能性はあるが、最大限考慮」で食い違っている。</small><small>社内の体制しだいで、書かれている店舗以外（ソフトバンクショップなど）に配属される可能性もある。</small><small>シフト制で、土日祝に休めるとは限らない。勤務は9:30〜18:30のほか、10:00〜19:00・11:00〜20:00・12:00〜21:00のパターンがある。</small><small>出張販売や出張イベントの企画・運営も仕事に含まれる。</small></td><td class="num">東京は東村山市・小平市（多摩地区）の店舗。ほかは栃木・長野・新潟・青森・北海道の店舗（中央区八丁堀の店舗は募集が埋まっている）<small>通勤 東京の多摩地区（東村山市・小平市）の店舗なら電車で約1時間20分。栃木・長野・新潟・青森・北海道の店舗は通勤できる距離ではありません</small></td><td class="num">月給24万円〜29万円（基本給21.6万円〜26.6万円。エリア手当は東京2.4万円・栃木と長野は2千円）。携帯会社の資格試験に合格すると最大月8万円の資格手当、シニアスタッフ制度で月2,500円〜2万円の手当<small>年収 求人票の想定は330万〜400万円。年収の例は405万円（25歳・入社3年目・月給30.3万円＋賞与）。固定給だけなら年288万円（月給24万円×12）＋賞与（年2回・額の記載なし）</small></td><td class="num">シフト制・年間休日120日（定休118日＋リフレッシュ休暇2日）。7月と12月は月10日休み、ほかの月は月9日休み</td></tr>
+    <tr><td class="co">ビーアル（MobileStation）<a class="deck-mini" href="https://b--r.co.jp/" target="_blank" rel="noopener" aria-label="ビーアル（MobileStation）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1PL7vPkYrmIKAq34pD2rYez4JjONdKSu7/view" target="_blank" rel="noopener" aria-label="ビーアル（MobileStation）の資料（会社説明スライド）">会社説明スライド →</a></td><td>ベイシアなどの商業施設の中にあるスマホ販売店「MobileStation」で、お客様に合うスマホや通信プランを提案して契約する接客販売（募集の見出しは店長候補）<small>大手携帯会社が行う研修と、自社のマニュアル・先輩のサポート（インカムを使った接客の確認など）で覚える。社員の98%が未経験からのスタートと書かれている</small><small>月給30万円のうち7.7万円〜は月45時間分の固定残業代。実際の残業は月20時間以下と書かれている。</small><small>入社後2か月は試用期間で、月給が26万円になる。</small><small>シフト制で、土日祝に休めるとは限らない。勤務は10:00〜20:00（所定8時間）で、店舗の営業時間は9:00〜20:00のところが多いが、9:00〜21:00・9:00〜22:00の店舗もある。</small><small>インセンティブ（月平均15万円）は会社の説明で、決まった金額ではない。賞与は「業績賞与」で、額の記載がない。</small><small>店舗はショッピング施設の店内にあり、埼玉県内は川島町・行田市・寄居町の3店舗。ほかは群馬・茨城・千葉・愛知で、店舗によって通勤は遠くなる。</small><small>募集の見出しは店長候補で、経験を積むと店舗運営（スタッフ指導・シフト管理・売上や在庫の管理）も任される。設立は2025年の会社。</small></td><td class="num">ベイシア（スーパー）の店内にある店舗（転勤なし）。埼玉県内は川島インター店（川島町）・行田店・寄居北店。ほかに群馬・茨城・千葉・愛知の店舗<small>通勤 ベイシア内の店舗。川島インター店（川島町）は車で約35分、行田店は車で約40分、寄居北店は車で約1時間（群馬・茨城・千葉・愛知の店舗は遠い）</small></td><td class="num">月給30万円（基本給22.3万円〜＋固定残業手当7.7万円〜・月45時間分。超えた分は別に支給）。入社後2か月の試用期間は月給26万円。インセンティブあり（会社の説明では月平均15万円）<small>年収 求人票の想定年収は360万円（月給30万円×12）で、インセンティブ・賞与は別に付く。年収の例は450万円（28歳・店長・月給32万円＋インセンティブ）。固定給だけなら年360万円（固定残業代込み）＋業績賞与（額の記載なし）</small></td><td class="num">シフト制（月8日以上）・年間休日120日・有給は10日〜最大20日。昼の休憩は120分</td></tr>
+<tr><td class="co">水野（まねきや）<a class="deck-mini" href="https://miduno.jp/" target="_blank" rel="noopener" aria-label="水野（まねきや）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1KKdfLgfNMCpwItFNrNUw_9aNXkA-7sLD/view" target="_blank" rel="noopener" aria-label="水野（まねきや）の資料（会社説明スライド）">会社説明スライド →</a></td><td>ブランド品や宝石の買取専門店「まねきや」で、来店されたお客様の品物を鑑定し、値付けと買取の交渉をする店頭の仕事（1日5〜6組ほどの接客。LINEの問い合わせ対応やアルバイトの管理もある）<small>座学とロールプレイの基本研修（5名前後・元トップセールスが講師）→複数の店舗を回る研修（約2か月）→本配属</small><small>賞与は無く、収入のうち大きな部分がインセンティブ（粗利ベース）。固定給は月30万円からで、35万円以上は経験者の水準（求人票の見出しは35万円）。</small><small>月給に月45時間分の固定残業代が含まれる。残業は月30時間以下と書かれている。</small><small>シフト制（半月ごと）で月の休みは9日。土日に休めるとは限らない。勤務は10:00〜19:00。</small><small>入社後6か月は試用期間（待遇は変わらない）。</small><small>店舗は社員2名＋アルバイト4〜5名ほどの少人数で、アルバイトの管理も仕事に入る。</small><small>関東の店舗は上野・銀座・小平・横浜・つくば・守谷で、埼玉県内の店舗は求人票に無い。</small></td><td class="num">関東は上野御徒町・銀座・小平・横浜・つくば・守谷の店舗。ほかに静岡・大阪・京都・福岡（転勤は当面なし）。最初に複数の店舗を回る研修（約2か月）があり、そのあとに本配属が決まる<small>通勤 関東の店舗から配属。上野御徒町店は電車で約40分、銀座本店は電車で約1時間。どの店舗かは約2か月の店舗ローテーション研修のあとに決まります</small></td><td class="num">月給30万円〜（基本給23.1万円＋固定残業代6.9万円・月45時間分）。インセンティブあり（最低でも月8万円ほど・2026年5月実績と書かれている）。賞与なし。公式の募集ページでも保障給は月30万円以上（固定残業代を含む）で、月給35万円〜は経験者の水準（求人票の見出しは35万円〜）<small>年収 求人票の想定は420万〜650万円（インセンティブ込み・賞与なし）。年収の例は600万円（入社2年目・主任・月給45万円＋インセンティブ）。固定給だけなら年360万円（月給30万円×12・固定残業代込み）で、賞与は無い</small></td><td class="num">シフト制（半月ごと）・月間休日9日・年間休日117日・有給10〜20日</td></tr>
+<tr><td class="co">BuySell Technologies（バイセル）<a class="deck-mini" href="https://buysell-technologies.com/" target="_blank" rel="noopener" aria-label="BuySell Technologies（バイセル）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1OXCMCyQi0VxDzmb0DubxdMdp2yr5ke-c/view" target="_blank" rel="noopener" aria-label="BuySell Technologies（バイセル）の資料（会社説明スライド）">会社説明スライド →</a></td><td>お問い合わせをくださったお宅へ伺い、着物・ブランド品・時計・ジュエリーなどを査定して買い取る訪問買取（約束を取る担当は別の部署で、テレアポ・飛び込みはない）<small>入社後に東京本社で1か月の研修（地方の人にはマンスリーマンションを用意）。1〜2か月目はビジネスマナーやコミュニケーション・専門知識、3か月目から営業デビュー。求人票の別の箇所には入社後2か月間の研修とも書かれている。フィールドセールスの9割は未経験からのスタート</small><small>お客様のお宅を訪ねて査定する訪問の仕事で、普通自動車運転免許が必要。</small><small>月給に月30時間分の固定残業代（5万円〜5.5万円）が含まれる。残業は月30時間以下と書かれている。</small><small>インセンティブ（毎月）は自分の売上しだいで、年収の例（510万円〜1,000万円）は過去の一部の実績。</small><small>シフト制で、土日に休めるとは限らない。希望休は月2〜3日分で、他のメンバーとの調整により必ず通るとは限らない。</small><small>月給が転勤なしで27万円〜、全国転勤ありで30万円〜と2つあり、どちらで採用されるかは求人票に書かれていない。</small><small>選考では「接客と営業の違い」を聞かれる。</small></td><td class="num">全国の拠点（埼玉は越谷市・白岡市。東京は江戸川区・立川、千葉・柏、群馬・高崎ほか）。配属先は希望を聞いて内定のときに会社が選ぶ。転勤なしの区分と全国転勤ありの区分がある<small>通勤 配属先は希望を聞いて内定のときに決まります。埼玉の拠点（越谷市）は電車で約50分、白岡市は電車で約30分。お客様のお宅へは訪問（車の免許が必要）</small></td><td class="num">転勤なし（エリア採用）は月給27万円〜（基本給20万円＋職務手当2万円＋30時間分の固定残業代5万円）、全国転勤ありは月給30万円〜。毎月のインセンティブと賞与（年2回）あり。社員の平均月収は40万円（会社の説明）<small>年収 求人票の想定は374万〜500万円（インセンティブ・賞与込み）。モデル年収は510万円（23歳・入社1年）・850万円（25歳・入社2年）・1,000万円（28歳・入社3年）で、上のほうは一部の社員の実績。固定給だけなら年324万円（転勤なしの月給27万円×12・固定残業代込み）＋賞与（年2回・額の記載なし）</small></td><td class="num">シフト制（月7〜12日休み）・年間休日128日。公休のうち月2〜3日は希望休を出せるので、土日に休むこともできる（必ず通るとは限らない）</td></tr>
+<tr><td class="co">ソフトバンク<a class="deck-mini" href="https://www.softbank.jp/" target="_blank" rel="noopener" aria-label="ソフトバンクのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1tMDlvLympIQhgxcolLkhNErrWbULkaAS/view" target="_blank" rel="noopener" aria-label="ソフトバンクの資料（募集概要（販売クルー））">募集概要（販売クルー） →</a></td><td>家電量販店などソフトバンクの取扱店での携帯の販売（声かけ→お話を伺う→提案→契約）。販売イベントの運営や売場の管理もある<small>入社時の研修と、先輩と一緒に行うOJT（研修の日程は職種・地域によって違う）</small><small>契約社員スタート（6か月更新・通算契約期間5年が上限）。正社員登用試験は年2回・最短1年で受験可。</small><small>「当社の販売契約社員として勤務経験のある方は、選考を見送ります」という条件がある。</small><small>土日祝は原則出勤のシフト制（やむを得ない事情は相談できる）。</small><small>正社員になると、エリア内で転居を伴う転勤の可能性がある。</small><small>賞与は夏と冬の年2回だが、額は書かれておらず、支給は社内規定による。</small></td><td class="num">お住まいから通える範囲のソフトバンク取扱店（家電量販店など・希望の勤務地を考慮・転居を伴う転勤なし）<small>通勤 ご自宅から通える範囲のソフトバンク取扱店に配属（どの店舗かは入社時に決まります・転居を伴う転勤なし）</small></td><td class="num">首都圏（東京・神奈川・千葉・埼玉）は月給25.6万円〜（Workstyle支援金4千円を含む・固定残業代なし）。勤務地によって月給は22.4万円〜30万円。賞与は夏と冬の年2回、インセンティブあり<small>年収 求人票の想定は300万〜450万円（契約社員・インセンティブ込み）。入社1年目・東京勤務の例は350万〜400万円。固定給だけなら年307.2万円（首都圏の月給25.6万円×12）＋賞与（夏と冬の年2回・額の記載なし）</small></td><td class="num">シフト制（1日4時間〜9時間30分・平均実働8時間）・土日祝は原則出勤・年間休日124日（2023年度実績）・有給は6か月後に11日</td></tr>
+<tr><td class="co">アルファインターナショナル（携帯ショップ運営）<a class="deck-mini" href="https://www.alpha-international.co.jp/" target="_blank" rel="noopener" aria-label="アルファインターナショナル（携帯ショップ運営）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1JB_XynK8q787s6Ub0BTngQSi-oiI1Wh0/view" target="_blank" rel="noopener" aria-label="アルファインターナショナル（携帯ショップ運営）の資料（会社説明スライド）">会社説明スライド →</a></td><td>au・ソフトバンク・楽天モバイルなどの携帯ショップで、お客様に端末や料金プランを案内して手続きをする接客販売（受付→コンシェルジュが対応→契約前にダブルチェック、とチームで進める）<small>座学の研修（約2週間〜1か月）のあと、店舗で先輩とマンツーマンで実務を覚える（いきなり1人にはならない）。入社3〜5年目までは3か月に1回、店長やメンターと面談</small><small>シフト制で、土日祝に休めるとは限らない。希望休は月3日分まで（基本は平日）で、残りの休みは会社がバランスを見て決める。</small><small>月給に月30時間分の固定残業代（約4.7万円）が含まれる。3月と9月（新生活の時期とiPhoneの発売時期）は来客が増えて30時間を超えることもあり、超えた分は給与に上乗せされると書かれている。</small><small>勤務は9:00〜20:00の間のシフト（実働8時間・店舗により時間が違う）。通常月の残業は月10〜20時間ほど。</small><small>月給25万円は入口の金額で、上がるのは「業務習得シート」のレベルを1つずつクリアしたとき（1段階で月1万円・レベル3まで）。賞与は年2回だが、額の記載はない。</small><small>配属先の店舗はご自宅の最寄りから選ばれるが、携帯会社（au・ソフトバンク・楽天モバイル）は店舗によって違い、どこになるかは入社時に決まる。</small></td><td class="num">東京・神奈川・埼玉・千葉・愛知・群馬の店舗（ご自宅の最寄りから配属先を選ぶと書かれている・転勤なし）。埼玉県内は楽天モバイルの大宮ステラタウン店・浦和店・川口・春日部・東松山・富士見の店舗など<small>通勤 ご自宅の最寄りから配属先が選ばれます（どの店舗かは入社時に決まります）。埼玉県内の例は、大宮ステラタウン店が電車で約10分＋徒歩、浦和店が電車で約25分</small></td><td class="num">月給25万円〜45万円（月給25万円のうち約4.7万円は月30時間分の固定残業代）。「業務習得シート」のレベルが1つ上がるごとに月給が1万円上がる（レベル3まで）。インセンティブあり（参考: 最大年40万円）<small>年収 求人票の想定は308万〜585万円（賞与・インセンティブ込み）。初年度の年収は320万〜450万円、モデル年収は390万円（23歳・経験1年）・520万円（27歳・販売管理職・経験5年）。固定給だけなら年300万円（月給25万円×12・固定残業代込み）＋賞与（年2回・額の記載なし）</small></td><td class="num">シフト制（月8〜10日休み）・年間休日126日（2025年の休日119日＋夏季3日＋年末年始3日＋アニバーサリー休暇1日）。月3日分の希望休（基本は平日）を出せる</td></tr>
+<tr><td class="co">アズーム<a class="deck-mini" href="https://azoom.jp/" target="_blank" rel="noopener" aria-label="アズームのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1qcuriHbLOb8YJoV_IYP7Fcu9yE_kuaMk/view" target="_blank" rel="noopener" aria-label="アズームの資料（会社紹介・採用ピッチ）">会社紹介・採用ピッチ →</a></td><td>月極駐車場を探すお客様（個人・法人）への提案営業。駐車場サイト「CarParking」へのお問い合わせへの対応（反響営業）が中心で、不動産会社やカーディーラーなどへの新規開拓の提案もある<small>人事チームによる導入研修→配属先でのOJT・先輩との同行営業→入社後1年間はビジネスマナー・商材知識・営業手法の研修が定期的にある</small><small>反響営業だけでなく、不動産会社やカーディーラーなどへ自分から連絡して顧客を開拓する新規の営業もある（飛び込みか電話かは求人票に書かれていない）。</small><small>月給25万円にはみなし残業代（5.3万円〜）が含まれる。入社後3か月の試用期間は月給が23万円〜になる。</small><small>駐車場を実際に見に行く（試し入庫）ため、電車で外出する日もある。</small></td><td class="num">東京・新宿（新宿駅南口から徒歩4分）・転勤なし<small>通勤 電車で約40分（湘南新宿ラインで新宿）＋徒歩4分</small></td><td class="num">月給25万〜30万円（月給25万円は基本給19.7万円〜＋みなし残業代5.3万円〜・超えた分は別に支給）。入社後3か月の試用期間は月給23万円〜。インセンティブあり、昇給と賞与は年2回（5月・11月）<small>年収 求人票の想定は330万〜420万円（インセンティブ・賞与込み）。年収の例は1年目330万円（月給25万円＋インセンティブ）・2年目392万円・3年目420万円。固定給だけなら年300万円（月給25万円×12・みなし残業代込み）＋賞与（年2回・額の記載なし）</small></td><td class="num">土日祝休み・年間休日125日・GW休暇・夏季休暇（3日）・年末年始休暇</td></tr>
+<tr><td class="co">エムデジ（携帯ショップ運営）<a class="deck-mini" href="https://www.m-digi.co.jp/" target="_blank" rel="noopener" aria-label="エムデジ（携帯ショップ運営）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1Q8YI18sEu7f65Fv2mQ9j41BgrG9hImuT/view" target="_blank" rel="noopener" aria-label="エムデジ（携帯ショップ運営）の資料（採用ガイド）">採用ガイド →</a></td><td>ソフトバンク・ドコモ・au・ワイモバイルの携帯ショップで、スマホ・タブレット・インターネット回線の提案販売と案内をするモバイルプランナー。個人のノルマはない<small>入社後は教育担当の先輩がマンツーマンで、接客の基礎・商品知識・ビジネスマナーを指導。携帯会社の研修と自社の研修もある</small><small>東京の店舗は東村山市・小平市の3店舗だけで、ほかは北海道・青森・栃木・長野・新潟。ご自宅から通える店舗はごく限られる。</small><small>「転居を伴う異動は打診、通勤できる範囲では転勤の可能性あり」と書かれている。募集の見出しは「転勤なし」だが、本文の転勤の可能性の欄は「可能性はあるが、最大限考慮」で食い違っている。</small><small>社内の体制しだいで、書かれている店舗以外（ソフトバンクショップなど）に配属される可能性もある。</small><small>シフト制で、土日祝に休めるとは限らない。勤務は9:30〜18:30のほか、10:00〜19:00・11:00〜20:00・12:00〜21:00のパターンがある。</small><small>出張販売や出張イベントの企画・運営も仕事に含まれる。</small></td><td class="num">東京は東村山市・小平市（多摩地区）の店舗。ほかは栃木・長野・新潟・青森・北海道の店舗（中央区八丁堀の店舗は募集が埋まっている）<small>通勤 東京の多摩地区（東村山市・小平市）の店舗なら電車で約1時間20分。栃木・長野・新潟・青森・北海道の店舗は通勤できる距離ではありません</small></td><td class="num">月給24万円〜29万円（基本給21.6万円〜26.6万円。エリア手当は東京2.4万円・栃木と長野は2千円）。携帯会社の資格試験に合格すると最大月8万円の資格手当、シニアスタッフ制度で月2,500円〜2万円の手当<small>年収 求人票の想定は330万〜400万円。年収の例は405万円（25歳・入社3年目・月給30.3万円＋賞与）。固定給だけなら年288万円（月給24万円×12）＋賞与（年2回・額の記載なし）</small></td><td class="num">シフト制・年間休日120日（定休118日＋リフレッシュ休暇2日）。7月と12月は月10日休み、ほかの月は月9日休み</td></tr>
   </tbody>
 </table>
 </div>
@@ -356,10 +551,14 @@ tr.verdict-row td { padding-top: 0; }
 <table>
   <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
   <tbody>
-    <tr><td class="co">メルディア（契約書づくりの事務）<a class="deck-mini" href="https://meldia.co.jp/" target="_blank" rel="noopener" aria-label="メルディア（契約書づくりの事務）のホームページ">会社のHP →</a></td><td>不動産の売買で使う契約書や重要事項説明書をつくる内勤の事務（物件の調査・書類の作成・印刷・電話対応など）。宅地建物取引士の資格があれば、契約の場で説明書を読み上げる仕事も加わる<small>休みは火曜・水曜で、土日は休みではない。年間休日115日には計画有給5日が含まれる。</small><small>月給30万円のうち7.45万円はみなし残業代（時間数の記載はない）。勤務は9:30〜18:30で、残業は月20時間以下と書かれているが、1日のスケジュール例は20:30退社まで書かれている。</small><small>雇用元の株式会社メルディアから、グループ会社の株式会社メルディアリアルティへ在籍出向になる。</small><small>入社後5か月は試用期間（待遇は変わらない）。</small></td><td class="num">荻窪本店・横浜・溝の口・朝霞台・足立・江戸川・さいたま・本八幡のいずれかの支店（配属先は応募から内定までの間に決まり、希望は考慮される。転勤なし）<small>通勤 8つの支店から配属（応募〜内定の間に決まります）。さいたま支店なら電車で約10〜30分、朝霞台支店は電車で約1時間（さいたま支店の場所は求人票に書かれていません）</small></td><td class="num">月給30万円〜35万円（下限の月給30万円は基本給22.55万円＋みなし残業代7.45万円）。賞与は年2回（6月・12月）<small>年収 求人票の想定は400万〜500万円（賞与込み）。固定給だけなら年360万円（月給30万円×12・みなし残業代込み）＋賞与（年2回・額の記載なし）</small></td><td class="num">完全週休2日制（火曜・水曜休み）・年間休日115日（計画有給5日を含む）</td></tr>
-<tr><td class="co">キッカケクリエイション<a class="deck-mini" href="https://kikkakecreation.com/" target="_blank" rel="noopener" aria-label="キッカケクリエイションのホームページ">会社のHP →</a></td><td>役員秘書（役員の最終面接や商談に同席して記録をとる・役員と各部署の連絡の取りまとめ・スケジュール管理や会食・出張の手配などの庶務）<small>選考は書類→対面面接＋適性検査の1回のみで、短い選考機会で合否が決まる。</small><small>月給に固定残業代が含まれる（時間数の記載はない）。残業は月30時間以下と書かれている。</small><small>週に1〜2回は、20時開始の面接に同席する日がある。相手は執行役員・官公庁・投資家など役職者が中心で、守秘意識と丁寧な対応が求められる。</small><small>2020年設立の会社で、上場はまだしていない（上場を見据えている段階）。</small></td><td class="num">東京（渋谷駅徒歩7分）・転勤なし<small>通勤 電車で約45分（湘南新宿ラインで渋谷）＋徒歩7分</small></td><td class="num">月給30万円〜50万円（固定残業代を含む・時間数の記載はなく、超えた分は別に支給）。昇給と賞与は年2回（3月・9月）<small>年収 求人票の想定は420万〜700万円（賞与込み）。固定給だけなら年360万円（月給30万円×12・固定残業代込み）＋賞与（年2回・額の記載なし）</small></td><td class="num">土日祝休み・年間休日120日・10:30〜19:30（フレックス制で10:30か11:00の始まり）</td></tr>
-<tr><td class="co">ABC<a class="deck-mini" href="https://ascent-biz.com/" target="_blank" rel="noopener" aria-label="ABCのホームページ">会社のHP →</a></td><td>未経験からのインフラエンジニア。要件定義・基本設計・詳細設計・手順書作成・構築・テスト業務が中心（開発・コーディングは業務に含まれない）。<small>入社後1か月の集中研修＋エンジニア職はさらに2か月（ビジネス基礎研修＋ITインフラ研修）。配属後は6か月〜1年かけて独り立ちをサポート。資格取得時は取得金の支給あり。</small><small>月給28万円のうち約27%（7.52万円）は45時間分のみなし残業手当。45時間を超えた分は別途支給される。</small><small>1年目は業績賞与のみ（定期賞与は無し）という説明がある。中途向けの求人票には「賞与年2回」という表記もあり、媒体によって書き方が違う。</small><small>試用期間（入社後6.5か月）は月給が本採用よりおよそ5%低い。</small><small>勤務先は本社のほか、お客様のプロジェクト先（都内）になる。</small><small>法定の開示では、2025年の採用24名のうち4名が離職（定着率83.3%）、平均勤続年数は3年。</small></td><td class="num">本社もしくは都内の各プロジェクト先（都内勤務可能が必須）<small>通勤 都内のプロジェクト先は電車で約1時間前後（場所は案件しだいで、客先に直行になることがあります）</small></td><td class="num">月給28万円ほど（基本給20.48万円＋みなし残業手当7.52万円・45時間分）。試用期間中（入社後6.5か月）は月給26.67万円ほど。会社が公開している募集要項（2024年4月実績）の数字。<small>年収 求人票の想定は336万〜400万円（初級エンジニア・賞与込み）。固定給だけなら年336万円（月給28万円×12・みなし残業45時間分を含む）＋業績賞与（1年目は定期賞与なし。中途向けの求人票には「年2回」とも書かれていて、書き方が割れている）</small></td><td class="num">土日祝・週休2日制・年末年始・有給休暇（初年度10日）・慶弔休暇</td></tr>
-<tr><td class="co">テクノプロ（テクノプロ・エンジニアリング社）<a class="deck-mini" href="https://www.technopro.com/eng/" target="_blank" rel="noopener" aria-label="テクノプロ（テクノプロ・エンジニアリング社）のホームページ">会社のHP →</a></td><td>完全未経験から始めるITエンジニア（ヘルプデスク・運用/監視業務からスタートし、経験を積みながらIT分野の仕事へ進む）。株式会社テクノプロの社内カンパニー「テクノプロ・エンジニアリング社」の募集。<small>Winスクール（グループ会社）の教育プログラムを自己負担ゼロで受講できる（Word・Excel・プログラミング・ネットワーク等）。配属後もスタンダード研修・カスタマイズ研修を継続受講。先輩エンジニアがキャリア形成を支えるCDA（キャリアデザインアドバイザー）制度あり。</small><small>勤務先は当社支店のほか顧客企業先で、客先常駐になる可能性がある。配属先は希望を最大限考慮するとされているが、転勤の有無は求人票に明記がない。</small><small>完全未経験の入社は、勤務地を政令指定都市の中から選ぶ形になる。熊谷など政令指定都市でない拠点が、この枠で選べるかは求人票からは分からない。</small><small>選考は書類選考、一次面接（オンライン）、二次面接（オンライン）を経て、条件提示、内定の順。原則2回の面接がある（言語化能力が高い場合は面接1回で内定となった実績もあると会社は説明している）。</small><small>祝日のある週は土曜出勤の場合があり、休日は完全な土日祝休みとは限らない。</small><small>月平均の残業は20時間ほど、就業時間は就業先に準ずるため、参画するプロジェクトにより働き方が変わる。</small><small>求人票にある年収例（入社5年目512万円・10年目720万円・15年目810万円）は「一例」で、全員がその金額になる保証ではない。</small></td><td class="num">当社各支店＋全国の顧客企業先（22拠点。熊谷・さいたまを含む。リモートワークを含む）。完全未経験の入社は政令指定都市の中から選択。<small>通勤 さいたま（大宮）の拠点なら電車で約10〜20分、熊谷の拠点なら約30分。客先に常駐する場合は配属先しだい（完全未経験の入社は政令指定都市から勤務地を選ぶので、さいたま市が候補になります）</small></td><td class="num">月給22.5万〜25万円（想定年収360万〜400万円）。賞与は年2回で、実績は4ヶ月（会社の説明）。残業代は全額・1分単位。試用期間は2ヶ月で条件の変更なし。<small>年収 求人票の想定は360万〜400万円（賞与込み）。固定給だけなら年270万円（月給22.5万円×12）＋賞与（年2回・実績は4か月分＝月給下限で約90万円）</small></td><td class="num">完全週休2日制（土日祝。ただし祝日のある週は土曜出勤の場合あり）・年間休日122日・月平均残業20時間ほど・就業時間は9:00〜18:00（就業先や参画プロジェクトにより異なる場合あり）</td></tr>
+    <tr><td class="co">メルディア（契約書づくりの事務）<a class="deck-mini" href="https://meldia.co.jp/" target="_blank" rel="noopener" aria-label="メルディア（契約書づくりの事務）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1lVW_go_m_OqRHxtsg0Us0nQTBJHQT0uq/view" target="_blank" rel="noopener" aria-label="メルディア（契約書づくりの事務）の資料（採用案内）">採用案内 →</a></td><td>不動産の売買で使う契約書や重要事項説明書をつくる内勤の事務（物件の調査・書類の作成・印刷・電話対応など）。宅地建物取引士の資格があれば、契約の場で説明書を読み上げる仕事も加わる<small>休みは火曜・水曜で、土日は休みではない。年間休日115日には計画有給5日が含まれる。</small><small>月給30万円のうち7.45万円はみなし残業代（時間数の記載はない）。勤務は9:30〜18:30で、残業は月20時間以下と書かれているが、1日のスケジュール例は20:30退社まで書かれている。</small><small>雇用元の株式会社メルディアから、グループ会社の株式会社メルディアリアルティへ在籍出向になる。</small><small>入社後5か月は試用期間（待遇は変わらない）。</small></td><td class="num">荻窪本店・横浜・溝の口・朝霞台・足立・江戸川・さいたま・本八幡のいずれかの支店（配属先は応募から内定までの間に決まり、希望は考慮される。転勤なし）<small>通勤 8つの支店から配属（応募〜内定の間に決まります）。さいたま支店なら電車で約10〜30分、朝霞台支店は電車で約1時間（さいたま支店の場所は求人票に書かれていません）</small></td><td class="num">月給30万円〜35万円（下限の月給30万円は基本給22.55万円＋みなし残業代7.45万円）。賞与は年2回（6月・12月）<small>年収 求人票の想定は400万〜500万円（賞与込み）。固定給だけなら年360万円（月給30万円×12・みなし残業代込み）＋賞与（年2回・額の記載なし）</small></td><td class="num">完全週休2日制（火曜・水曜休み）・年間休日115日（計画有給5日を含む）</td></tr>
+<tr><td class="co">キッカケクリエイション<a class="deck-mini" href="https://kikkakecreation.com/" target="_blank" rel="noopener" aria-label="キッカケクリエイションのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1rUbz2y2PjDLnqD2oAzOcNU__rtctZlG2/view" target="_blank" rel="noopener" aria-label="キッカケクリエイションの資料（会社説明スライド）">会社説明スライド →</a></td><td>役員秘書（役員の最終面接や商談に同席して記録をとる・役員と各部署の連絡の取りまとめ・スケジュール管理や会食・出張の手配などの庶務）<small>選考は書類→対面面接＋適性検査の1回のみで、短い選考機会で合否が決まる。</small><small>月給に固定残業代45時間分が含まれる。残業は月30時間以下と書かれている（固定残業45時間分との関係は未確認）。</small><small>週に1〜2回は、20時開始の面接に同席する日がある。相手は執行役員・官公庁・投資家など役職者が中心で、守秘意識と丁寧な対応が求められる。</small><small>2020年設立の会社で、上場はまだしていない（上場を見据えている段階）。</small></td><td class="num">東京（渋谷駅徒歩7分）・転勤なし<small>通勤 電車で約45分（湘南新宿ラインで渋谷）＋徒歩7分</small></td><td class="num">月給30万円〜50万円（固定残業代45時間分を含み、超えた分は別に支給）。昇給と賞与は年2回（賞与は公式採用ページで5月・11月。昇給の時期は公式に記載なし）<small>年収 求人票の想定は420万〜700万円（賞与込み）。固定給だけなら年360万円（月給30万円×12・固定残業代込み）＋賞与（年2回・額の記載なし）</small></td><td class="num">土日祝休み・年間休日120日・10:30〜19:30（フレックス制で10:30か11:00の始まり）</td></tr>
+<tr><td class="co">ABC<a class="deck-mini" href="https://ascent-biz.com/" target="_blank" rel="noopener" aria-label="ABCのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1DHrwtX1AKFims-Gjh29KaQqq7Zopy5Po/view" target="_blank" rel="noopener" aria-label="ABCの資料（会社紹介（採用案内））">会社紹介（採用案内） →</a></td><td>未経験からのインフラエンジニア。要件定義・基本設計・詳細設計・手順書作成・構築・テスト業務が中心（開発・コーディングは業務に含まれない）。<small>入社後1か月の集中研修＋エンジニア職はさらに2か月（ビジネス基礎研修＋ITインフラ研修）。配属後は6か月〜1年かけて独り立ちをサポート。資格取得時は取得金の支給あり。</small><small>月給28万円のうち約27%（7.52万円）は45時間分のみなし残業手当。45時間を超えた分は別途支給される。</small><small>1年目は業績賞与のみ（定期賞与は無し）という説明がある。中途向けの求人票には「賞与年2回」という表記もあり、媒体によって書き方が違う。</small><small>試用期間（入社後6.5か月）は月給が本採用よりおよそ5%低い。</small><small>勤務先は本社のほか、お客様のプロジェクト先（都内）になる。</small><small>法定の開示では、2025年の採用24名のうち4名が離職（定着率83.3%）、平均勤続年数は3年。</small></td><td class="num">本社もしくは都内の各プロジェクト先（都内勤務可能が必須）<small>通勤 都内のプロジェクト先は電車で約1時間前後（場所は案件しだいで、客先に直行になることがあります）</small></td><td class="num">月給28万円ほど（基本給20.48万円＋みなし残業手当7.52万円・45時間分）。試用期間中（入社後6.5か月）は月給26.67万円ほど。会社が公開している募集要項（2024年4月実績）の数字。<small>年収 求人票の想定は336万〜400万円（初級エンジニア・賞与込み）。固定給だけなら年336万円（月給28万円×12・みなし残業45時間分を含む）＋業績賞与（1年目は定期賞与なし。中途向けの求人票には「年2回」とも書かれていて、書き方が割れている）</small></td><td class="num">土日祝・週休2日制・年末年始・有給休暇（初年度10日）・慶弔休暇</td></tr>
+<tr><td class="co">テクノプロ（テクノプロ・エンジニアリング社）<a class="deck-mini" href="https://www.technopro.com/eng/" target="_blank" rel="noopener" aria-label="テクノプロ（テクノプロ・エンジニアリング社）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/10pNTo4flfMTOil1gsD4RBAEVUI04BstE/view" target="_blank" rel="noopener" aria-label="テクノプロ（テクノプロ・エンジニアリング社）の資料（採用情報）">採用情報 →</a></td><td>完全未経験から始めるITエンジニア（ヘルプデスク・運用/監視業務からスタートし、経験を積みながらIT分野の仕事へ進む）。株式会社テクノプロの社内カンパニー「テクノプロ・エンジニアリング社」の募集。<small>Winスクール（グループ会社）の教育プログラムを自己負担ゼロで受講できる（Word・Excel・プログラミング・ネットワーク等）。配属後もスタンダード研修・カスタマイズ研修を継続受講。先輩エンジニアがキャリア形成を支えるCDA（キャリアデザインアドバイザー）制度あり。</small><small>勤務先は当社支店のほか顧客企業先で、客先常駐になる可能性がある。配属先は希望を最大限考慮するとされているが、転勤の有無は求人票に明記がない。</small><small>完全未経験の入社は、勤務地を政令指定都市の中から選ぶ形になる。熊谷など政令指定都市でない拠点が、この枠で選べるかは求人票からは分からない。</small><small>選考は書類選考、一次面接（オンライン）、二次面接（オンライン）を経て、条件提示、内定の順。原則2回の面接がある（言語化能力が高い場合は面接1回で内定となった実績もあると会社は説明している）。</small><small>祝日のある週は土曜出勤の場合があり、休日は完全な土日祝休みとは限らない。</small><small>月平均の残業は20時間ほど、就業時間は就業先に準ずるため、参画するプロジェクトにより働き方が変わる。</small><small>求人票にある年収例（入社5年目512万円・10年目720万円・15年目810万円）は「一例」で、全員がその金額になる保証ではない。</small></td><td class="num">当社各支店＋全国の顧客企業先（22拠点。熊谷・さいたまを含む。リモートワークを含む）。完全未経験の入社は政令指定都市の中から選択。<small>通勤 さいたま（大宮）の拠点なら電車で約10〜20分、熊谷の拠点なら約30分。客先に常駐する場合は配属先しだい（完全未経験の入社は政令指定都市から勤務地を選ぶので、さいたま市が候補になります）</small></td><td class="num">月給22.5万〜25万円（想定年収360万〜400万円）。賞与は年2回で、実績は4ヶ月（会社の説明）。残業代は全額・1分単位。試用期間は2ヶ月で条件の変更なし。<small>年収 求人票の想定は360万〜400万円（賞与込み）。固定給だけなら年270万円（月給22.5万円×12）＋賞与（年2回・実績は4か月分＝月給下限で約90万円）</small></td><td class="num">完全週休2日制（土日祝。ただし祝日のある週は土曜出勤の場合あり）・年間休日122日・月平均残業20時間ほど・就業時間は9:00〜18:00（就業先や参画プロジェクトにより異なる場合あり）</td></tr>
   </tbody>
 </table>
 </div>
@@ -372,22 +571,24 @@ tr.verdict-row td { padding-top: 0; }
 <table>
   <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
   <tbody>
-    <tr><td class="co">メルディア（不動産の売買仲介・土地の仕入れ）<a class="deck-mini" href="https://meldia.co.jp/" target="_blank" rel="noopener" aria-label="メルディア（不動産の売買仲介・土地の仕入れ）のホームページ">会社のHP →</a></td><td>住宅・不動産の営業。配属は適性を見て決まり、①住宅を探すお客様の集客から引き渡しまで担当する売買仲介 ②地主や不動産会社から土地を仕入れる開発営業 ③収益不動産の販売や用地の仕入れをする投資部門、のいずれか（配属の割合は開発4：仲介4：投資2）<small>入社後は映像授業や上司・先輩とのロールプレイで、仕事の流れと営業の方法を学ぶ。入社後の数か月は先輩社員がフォローする</small><small>配属される部署（売買仲介・開発営業・投資部門）と勤務地は、応募から内定までの間に決まる。希望は考慮される。</small><small>休みは部署によって違い、土日に休めるのは投資部門の一部だけ。開発営業は水・土、売買仲介は火・水が休み。</small><small>月給に固定残業代（7.45万円〜）が含まれる。月の平均残業は40時間以下と書かれている。</small><small>売買仲介営業は、平日は10:30〜19:30、土日祝は9:00〜18:00の勤務で、お客様の都合に合わせて土日にも出る。</small><small>売買仲介営業はグループ会社の株式会社メルディアリアルティへ、投資部門は株式会社MAIへ出向になる。</small><small>土地の仕入れ（開発営業）は、地主や不動産会社と自分から関係をつくっていく仕事で、億単位の取引になる。</small><small>入社後5か月は試用期間（待遇は変わらない）。</small></td><td class="num">東京・神奈川・埼玉・千葉・愛知の拠点（埼玉はさいたま市南区・越谷市・川口市）。勤務地は希望を考慮して応募から内定までの間に決まる。転勤の可能性はあるが最大限考慮すると書かれている<small>通勤 拠点は東京・神奈川・埼玉・千葉・愛知。埼玉のさいたま市南区・川口市・越谷市の拠点なら電車で約30〜50分（配属は応募〜内定の間に決まります）。参考: 同じグループの永大（南浦和駅から徒歩2分）は電車で約30分</small></td><td class="num">月給30万円〜80万円（固定残業代7.45万円〜を含む。2026年10月から月40時間分）。賞与は年2回、インセンティブあり<small>年収 求人票の想定は420万〜1,500万円（賞与・インセンティブ込み・上のほうは役職者の例）。年収の例は3年目で1,000万円（月給35万円＋賞与2回）。固定給だけなら年360万円（月給30万円×12・固定残業代込み）＋賞与（年2回・額の記載なし）</small></td><td class="num">完全週休2日制（開発営業は水・土、売買仲介は火・水、投資部門は土日か水・土か水・日）・年間休日115日（2026年10月から。それまでは110日）＋計画有給5日</td></tr>
-<tr><td class="co">NEXT CONSTRUCTION（ネクストコンストラクション）<a class="deck-mini" href="https://nextcons.jp/" target="_blank" rel="noopener" aria-label="NEXT CONSTRUCTION（ネクストコンストラクション）のホームページ">会社のHP →</a></td><td>大手サブコン（設備・電気の工事会社）の現場に入り、工事が予定どおり安全に進むよう管理する施工管理（職人さんへの指示・図面や書類の管理・安全と品質のチェック）。現場に出てからは先輩のアシスタントから始める<small>最初の2週間は本社で基礎研修（専門知識と電気工事の基礎。アプリで国家資格の合格ラインを目指す）。現場に出てからは先輩のアシスタントから。建築技能の講習費の補助あり</small><small>雇用元はNEXT CONSTRUCTIONで、働く場所は配属先の大手サブコンの現場になる。現場は案件によって変わる。</small><small>賞与は無いと書かれている（2026年7月以降の条件）。収入を上げるには資格の取得と残業代が前提になる。</small><small>年収の例は資格を取った場合の数字で、資格が無いうちは月給28万円（年336万円）が基本。</small><small>工事現場に出る仕事で、現場が屋内か屋外かは現場しだい。求人票には書かれていない。</small><small>勤務は8:00〜17:00で、朝礼と安全確認から始まる。月の平均残業は20時間。</small><small>入社後3か月は試用期間（待遇は変わらない）。</small></td><td class="num">東京・神奈川・埼玉・千葉の現場（原則ご自宅から通勤1時間半以内の現場に配属・現場は案件ごとに変わる）。入社後の研修は東京・港区芝の本社<small>通勤 ご自宅から1時間半以内の現場に配属（現場は入社後に決まります）。最初の2週間の研修は東京・港区芝の本社で、電車で約1時間10分</small></td><td class="num">月給28万円（基本給24万円＋施工管理手当2万円＋住宅手当2万円・固定残業なし。2026年7月以降の条件）。残業代は全額支給。資格を取ると資格手当が毎月つく（例: 1級管工事施工管理技士は月5万円・2級は月3万円）。賞与なし<small>年収 求人票の年収の例は、1年目350万〜430万円（1級施工管理技士補を取った場合）・3年目550万〜650万円（2級施工管理技士を取った場合）。固定給だけなら年336万円（月給28万円×12）で賞与は無い。残業が月20時間なら月給は約32万円（年約384万円）</small></td><td class="num">完全週休2日制（土日祝）・年間休日120日以上・年末年始休暇・夏期休暇・勤務は8:00〜17:00</td></tr>
+    <tr><td class="co">メルディア（不動産の売買仲介・土地の仕入れ）<a class="deck-mini" href="https://meldia.co.jp/" target="_blank" rel="noopener" aria-label="メルディア（不動産の売買仲介・土地の仕入れ）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1Qe1ZpkZUWJLFYnXBMiknqhwkKIIgvcAu/view" target="_blank" rel="noopener" aria-label="メルディア（不動産の売買仲介・土地の仕入れ）の資料（会社説明スライド）">会社説明スライド →</a></td><td>住宅・不動産の営業。配属は適性を見て決まり、①住宅を探すお客様の集客から引き渡しまで担当する売買仲介 ②地主や不動産会社から土地を仕入れる開発営業 ③収益不動産の販売や用地の仕入れをする投資部門、のいずれか（配属の割合は開発4：仲介4：投資2）<small>入社後は映像授業や上司・先輩とのロールプレイで、仕事の流れと営業の方法を学ぶ。入社後の数か月は先輩社員がフォローする</small><small>配属される部署（売買仲介・開発営業・投資部門）と勤務地は、応募から内定までの間に決まる。希望は考慮される。</small><small>休みは部署によって違い、土日に休めるのは投資部門の一部だけ。開発営業は水・土、売買仲介は火・水が休み。</small><small>月給に固定残業代（7.45万円〜）が含まれる。月の平均残業は40時間以下と書かれている。</small><small>売買仲介営業は、平日は10:30〜19:30、土日祝は9:00〜18:00の勤務で、お客様の都合に合わせて土日にも出る。</small><small>売買仲介営業はグループ会社の株式会社メルディアリアルティへ、投資部門は株式会社MAIへ出向になる。</small><small>土地の仕入れ（開発営業）は、地主や不動産会社と自分から関係をつくっていく仕事で、億単位の取引になる。</small><small>入社後5か月は試用期間（待遇は変わらない）。</small></td><td class="num">東京・神奈川・埼玉・千葉・愛知の拠点（埼玉はさいたま市南区・越谷市・川口市）。勤務地は希望を考慮して応募から内定までの間に決まる。転勤の可能性はあるが最大限考慮すると書かれている<small>通勤 拠点は東京・神奈川・埼玉・千葉・愛知。埼玉のさいたま市南区・川口市・越谷市の拠点なら電車で約30〜50分（配属は応募〜内定の間に決まります）。参考: 同じグループの永大（南浦和駅から徒歩2分）は電車で約30分</small></td><td class="num">月給30万円〜80万円（固定残業代7.45万円〜を含む。2026年10月から月40時間分）。賞与は年2回、インセンティブあり<small>年収 求人票の想定は420万〜1,500万円（賞与・インセンティブ込み・上のほうは役職者の例）。年収の例は3年目で1,000万円（月給35万円＋賞与2回）。固定給だけなら年360万円（月給30万円×12・固定残業代込み）＋賞与（年2回・額の記載なし）</small></td><td class="num">完全週休2日制（開発営業は水・土、売買仲介は火・水、投資部門は土日か水・土か水・日）・年間休日115日（2026年10月から。それまでは110日）＋計画有給5日</td></tr>
+<tr><td class="co">NEXT CONSTRUCTION（ネクストコンストラクション）<a class="deck-mini" href="https://nextcons.jp/" target="_blank" rel="noopener" aria-label="NEXT CONSTRUCTION（ネクストコンストラクション）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1OlGnJSHL5MDO1rS6KAjpxa15Vl_XZ7O9/view" target="_blank" rel="noopener" aria-label="NEXT CONSTRUCTION（ネクストコンストラクション）の資料（会社説明スライド）">会社説明スライド →</a></td><td>大手サブコン（設備・電気の工事会社）の現場に入り、工事が予定どおり安全に進むよう管理する施工管理（職人さんへの指示・図面や書類の管理・安全と品質のチェック）。現場に出てからは先輩のアシスタントから始める<small>最初の2週間は本社で基礎研修（専門知識と電気工事の基礎。アプリで国家資格の合格ラインを目指す）。現場に出てからは先輩のアシスタントから。建築技能の講習費の補助あり</small><small>雇用元はNEXT CONSTRUCTIONで、働く場所は配属先の大手サブコンの現場になる。現場は案件によって変わる。</small><small>賞与は無いと書かれている（2026年7月以降の条件）。収入を上げるには資格の取得と残業代が前提になる。</small><small>年収の例は資格を取った場合の数字で、資格が無いうちは月給28万円（年336万円）が基本。</small><small>工事現場に出る仕事で、現場が屋内か屋外かは現場しだい。求人票には書かれていない。</small><small>勤務は8:00〜17:00で、朝礼と安全確認から始まる。月の平均残業は20時間。</small><small>入社後3か月は試用期間（待遇は変わらない）。</small></td><td class="num">東京・神奈川・埼玉・千葉の現場（原則ご自宅から通勤1時間半以内の現場に配属・現場は案件ごとに変わる）。入社後の研修は東京・港区芝の本社<small>通勤 ご自宅から1時間半以内の現場に配属（現場は入社後に決まります）。最初の2週間の研修は東京・港区芝の本社で、電車で約1時間10分</small></td><td class="num">月給28万円（基本給24万円＋施工管理手当2万円＋住宅手当2万円・固定残業なし。2026年7月以降の条件）。残業代は全額支給。資格を取ると資格手当が毎月つく（例: 1級管工事施工管理技士は月5万円・2級は月3万円）。賞与なし<small>年収 求人票の年収の例は、1年目350万〜430万円（1級施工管理技士補を取った場合）・3年目550万〜650万円（2級施工管理技士を取った場合）。固定給だけなら年336万円（月給28万円×12）で賞与は無い。残業が月20時間なら月給は約32万円（年約384万円）</small></td><td class="num">完全週休2日制（土日祝）・年間休日120日以上・年末年始休暇・夏期休暇・勤務は8:00〜17:00</td></tr>
   </tbody>
 </table>
 </div>
 <p class="also">メルディアの営業は、部署によって仕事が違います（住宅を探すお客様の対応が中心の売買仲介・地主さんや不動産会社に自分から連絡して土地を仕入れる開発営業・投資部門）。どの部署になるかは応募から内定までの間に決まり、希望は考慮されると書かれています。休みも部署で違い、土日に休めるのは投資部門の一部だけです。</p>
 
 </section>
-<section id="industry" data-section="industry">
+<section id="industry" data-section="industry" data-no-figure="資料へのリンクの一覧">
 <h2>業界の説明資料</h2>
 <ul class="videos">
   <li><a href="https://drive.google.com/file/d/1hH4k9m57BCrY0_OQTSqg1CsMrRuFJVHK/view" target="_blank" rel="noopener">営業の仕事</a>
     <span class="meta">営業の仕事内容と将来性をまとめた資料</span></li>
 </ul>
 </section>
-
+</div>
 <footer>※条件は各社の求人票・会社の公開情報（2026年10月時点）に書かれている内容です。<br>※「年収」は求人票の想定年収や年収の例で、成果給・賞与を含みます。成果によって上下し、約束された金額ではありません。「固定給だけなら」は月給の下限×12か月で計算しています（カイトルは最初の6か月を27.5万円で計算）。固定残業代・みなし残業代が月給に入っている会社は、その分も入れた月給で計算しています。試用期間で月給が下がる会社は、1年目の合計を各欄の最初の説明に書いています。<br>※通勤時間は目安です。<br>※「会社のHP →」は各社の公式ホームページにつながります。</footer>
 
 </div>
