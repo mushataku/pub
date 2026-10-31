@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>スタッフサービス・エンジニアリング 会社説明</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--ac:#0f766e;--lt:#e2f3f0;--ink:#1f2937;--sub:#5b6472;--line:#e5e7eb}
+*{box-sizing:border-box;margin:0;padding:0}
+@page{size:A4 landscape;margin:0}
+html{background:#f3f4f6}
+body{font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic UI","Meiryo","IPAPGothic",sans-serif;color:var(--ink);background:#f3f4f6;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.deck{padding:16px 0}
+.frame{margin:0 auto 16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.slide{width:297mm;height:210mm;background:#fff;transform-origin:top left;overflow:hidden}
+.face{width:100%;height:100%;display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;padding:13mm 16mm 9mm;gap:7mm}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--sub);letter-spacing:.04em}
+.sec{display:flex;align-items:center;gap:10px;color:var(--ac);font-weight:700;font-size:15px}
+.sec b{display:inline-block;background:var(--ac);color:#fff;border-radius:12px;padding:2px 10px;font-size:13px}
+.co{font-size:12px}
+.hl,.cvtag{word-break:auto-phrase;text-wrap:balance}
+.hl{font-size:38px;line-height:1.35;font-weight:800;letter-spacing:.01em;max-height:2.8em;overflow:hidden}
+.main{display:grid;grid-template-columns:40% 1fr;gap:10mm;min-height:0;overflow:hidden;align-items:stretch}
+.main.solo{grid-template-columns:1fr}
+.main.m-figures,.main.m-flow,.main.m-stages{display:flex;flex-direction:column;gap:6mm}
+.main.m-figures .fig,.main.m-flow .fig,.main.m-stages .fig{order:-1;flex:1 1 auto;min-height:0}
+.main.m-figures .body,.main.m-flow .body,.main.m-stages .body{flex:0 0 auto;display:flex;gap:6mm;justify-content:flex-start}
+.main.m-figures .body p,.main.m-flow .body p,.main.m-stages .body p{flex:1;font-size:17px;margin:0}
+.body{min-height:0;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:5mm}
+.body p{font-size:19px;line-height:1.7;padding-left:16px;border-left:5px solid var(--ac);word-break:auto-phrase}
+.foot{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;font-size:11px;color:var(--sub);border-top:1px solid var(--line);padding-top:3mm;min-height:7mm}
+.pg{margin-left:auto;white-space:nowrap;font-size:12px}
+.src{font-size:11px;line-height:1.5;color:var(--sub)}
+.src a{color:var(--sub);text-decoration:none}
+.fig{min-height:0;overflow:hidden}
+/* 数字タイル */
+.tiles{display:grid;gap:6mm;grid-auto-rows:1fr}
+.tiles.n1{grid-template-columns:1fr}.tiles.n2{grid-template-columns:1fr 1fr}.tiles.n3{grid-template-columns:1fr 1fr 1fr}
+.tile{background:var(--lt);border-radius:12px;padding:6mm 4mm;text-align:center;overflow:hidden;display:flex;flex-direction:column;justify-content:center;border-bottom:6px solid var(--ac)}
+.tv{font-weight:900;color:var(--ac);line-height:1.1;white-space:nowrap}
+.tv.s1{font-size:64px}.tv.s2{font-size:46px}.tv.s3{font-size:34px}
+.tl{font-size:19px;font-weight:800;margin-top:12px}
+.tn{font-size:14px;color:var(--sub);margin-top:6px}
+/* 流れ図 */
+.flow{display:flex;align-items:stretch;gap:3mm}
+.step{flex:1;background:var(--lt);border-radius:12px;padding:7mm 6mm;overflow:hidden;border-top:8px solid var(--ac);display:flex;flex-direction:column;justify-content:center}
+.sk{font-size:15px;font-weight:800;color:var(--ac);letter-spacing:.06em}
+.sl{font-size:26px;font-weight:800;margin:8px 0 10px;line-height:1.35;word-break:auto-phrase}
+.sd{font-size:17px;line-height:1.6;color:var(--ink)}
+.main.m-flow{justify-content:center}
+.main.m-flow .fig{flex:0 1 auto}
+.main.m-flow .step{min-height:64mm}
+.arrow{flex:0 0 22px;display:flex;align-items:center}
+.arrow svg{width:22px;height:44px;fill:none;stroke:var(--ac);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+/* 階段 */
+.stairs{display:flex;align-items:flex-end;gap:4mm;height:100%}
+.stage{flex:1;background:var(--lt);border-radius:12px 12px 0 0;padding:6mm 6mm;overflow:hidden;border-top:8px solid var(--ac);display:flex;flex-direction:column}
+.sw{font-size:15px;font-weight:800;color:var(--ac)}
+/* 表 */
+.tbl{display:flex;align-items:center}
+.tbl table{width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;font-size:19px}
+.tbl th{background:var(--ac);color:#fff;text-align:left;padding:5mm 6mm;width:28%;font-weight:700;border-bottom:1px solid rgba(255,255,255,.25)}
+.tbl td{background:var(--lt);padding:5mm 6mm;line-height:1.5;border-bottom:1px solid #fff;font-weight:600}
+/* チップ */
+.chips{display:flex;flex-direction:column;justify-content:center;gap:5mm}
+.chip{display:flex;align-items:center;gap:12px;background:var(--lt);border-radius:12px;padding:5.5mm 6mm;font-size:21px;font-weight:700;line-height:1.45;overflow:hidden}
+.chip svg{flex:0 0 32px;width:32px;height:32px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;background:var(--ac);border-radius:50%;padding:5px}
+/* アイコン */
+.icon{display:flex;align-items:center;justify-content:center}
+.icon svg{height:100%;max-width:100%;fill:none;stroke:var(--ac);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;background:var(--lt);border-radius:24px;padding:8%}
+/* 表紙 */
+.cover .face{background:linear-gradient(90deg,#fff 0,#fff 60%,var(--lt) 60%)}
+.kicker{font-weight:800;color:var(--ac);letter-spacing:.2em}
+.cat{background:var(--ac);color:#fff;border-radius:12px;padding:3px 14px;font-weight:700;font-size:14px}
+.cv{display:grid;grid-template-columns:60% 1fr;align-items:center;min-height:0;overflow:hidden;grid-row:2 / span 2}
+.cvtext{padding-right:10mm;overflow:hidden}
+.cvname{font-size:24px;font-weight:700;color:var(--sub);margin-bottom:7mm}
+.cvtag{font-size:50px;line-height:1.3;font-weight:900;border-left:10px solid var(--ac);padding-left:7mm}
+.cvwhat{font-size:18px;color:var(--sub);margin-top:9mm;line-height:1.6}
+.cvart{width:100%;height:100%;max-height:130mm}
+.cvart .a1{fill:none;stroke:var(--ac);stroke-width:2;opacity:.35}
+.cvart .a2{fill:none;stroke:var(--ac);stroke-width:10;opacity:.18}
+.cvart .a3{fill:var(--ac);opacity:.9}
+.cvart .a4{fill:none;stroke:var(--ac);stroke-width:6;stroke-linecap:round;opacity:.6}
+@media print{html,body{background:#fff}.deck{padding:0}.frame{margin:0;box-shadow:none;width:auto!important;height:auto!important}
+ .slide{transform:none!important;break-after:page;page-break-after:always}}
+</style></head>
+<body><main class="deck"><div class="frame"><section class="slide cover" data-sec="cover"><div class="face">
+<div class="top"><span class="kicker">COMPANY GUIDE</span><span class="cat">機電</span></div>
+<div class="cv">
+  <div class="cvtext" data-box>
+    <div class="cvname">スタッフサービス・エンジニアリング</div>
+    <div class="cvtag">未経験から、図面を描いて考えるエンジニアへ</div>
+    <div class="cvwhat">機械の設計・CADなど（機電エンジニア）</div>
+  </div>
+  <svg class="cvart" viewBox="0 0 300 300" aria-hidden="true">
+    <circle cx="190" cy="150" r="120" class="a1"/><circle cx="190" cy="150" r="80" class="a2"/>
+    <circle cx="190" cy="150" r="40" class="a3"/><path d="M20 260 C110 200 170 230 290 120" class="a4"/>
+  </svg>
+</div>
+<div class="foot"><span class="pg">1 / 6</span></div>
+</div></section></div><div class="frame"><section class="slide" data-sec="company"><div class="face">
+<div class="top"><span class="sec"><b>01</b>どんな会社か</span><span class="co">スタッフサービス・エンジニアリング</span></div>
+<h2 class="hl">全国で機電エンジニアが働く、休みのしっかりした会社</h2>
+<div class="main m-figures"><div class="body" data-box><p>機械の設計やCADを担う、機電のエンジニアが働く会社です。</p><p>勤務地は全国にあり、関東で働く道もあります。</p></div><div data-box class="fig tiles n3"><div class="tile" data-box><div class="tv s1">125日</div><div class="tl">年間休日</div><div class="tn">完全週休2日</div></div><div class="tile" data-box><div class="tv s2">最大30万円</div><div class="tl">資格取得の奨励金</div></div><div class="tile" data-box><div class="tv s1">全国</div><div class="tl">勤務地</div><div class="tn">関東も</div></div></div></div>
+<div class="foot"><span class="pg">2 / 6</span></div>
+</div></section></div><div class="frame"><section class="slide" data-sec="work"><div class="face">
+<div class="top"><span class="sec"><b>02</b>どんな仕事か</span><span class="co">スタッフサービス・エンジニアリング</span></div>
+<h2 class="hl">パソコンで図面を描き、設計の中で考えて解決する</h2>
+<div class="main m-flow"><div class="body" data-box><p>手を動かすだけでなく、図面の中で考える仕事です。</p></div><div data-box class="fig flow"><div class="step" data-box><div class="sk">STEP 1</div><div class="sl">入社研修</div><div class="sd">基礎から学んでスタート</div></div><div class="arrow" aria-hidden="true"><svg viewBox="0 0 20 40"><path d="M4 6l12 14-12 14"/></svg></div><div class="step" data-box><div class="sk">STEP 2</div><div class="sl">CADで図面を描く</div><div class="sd">パソコンで設計の形にする</div></div><div class="arrow" aria-hidden="true"><svg viewBox="0 0 20 40"><path d="M4 6l12 14-12 14"/></svg></div><div class="step" data-box><div class="sk">STEP 3</div><div class="sl">考えて解決する</div><div class="sd">設計の中の課題に向き合う</div></div></div></div>
+<div class="foot"><span class="pg">3 / 6</span></div>
+</div></section></div><div class="frame"><section class="slide" data-sec="conditions"><div class="face">
+<div class="top"><span class="sec"><b>03</b>待遇・休日・勤務地</span><span class="co">スタッフサービス・エンジニアリング</span></div>
+<h2 class="hl">給与・休日・勤務地をひと目で</h2>
+<div class="main solo m-table"><div data-box class="fig tbl"><table><tr><th>給与</th><td>21.5万〜30万円</td></tr><tr><th>勤務地</th><td>全国（関東も）</td></tr><tr><th>休日</th><td>完全週休2日・年間休日125日</td></tr><tr><th>研修</th><td>入社研修と、資格取得の奨励金（最大30万円）</td></tr></table></div></div>
+<div class="foot"><span class="pg">4 / 6</span></div>
+</div></section></div><div class="frame"><section class="slide" data-sec="growth"><div class="face">
+<div class="top"><span class="sec"><b>04</b>研修とキャリア</span><span class="co">スタッフサービス・エンジニアリング</span></div>
+<h2 class="hl">研修で入り、資格を取りながら設計者になっていく</h2>
+<div class="main solo m-stages"><div data-box class="fig stairs"><div class="stage" data-box style="height:46%"><div class="sw">入社後</div><div class="sl">入社研修</div><div class="sd">未経験からの基礎づくり</div></div><div class="stage" data-box style="height:73%"><div class="sw">経験を積みながら</div><div class="sl">資格に挑戦</div><div class="sd">奨励金は最大30万円</div></div><div class="stage" data-box style="height:100%"><div class="sw">その先</div><div class="sl">設計を担う</div><div class="sd">図面で考えて解決する人に</div></div></div></div>
+<div class="foot"><span class="pg">5 / 6</span></div>
+</div></section></div><div class="frame"><section class="slide" data-sec="fit"><div class="face">
+<div class="top"><span class="sec"><b>05</b>ここが合う</span><span class="co">スタッフサービス・エンジニアリング</span></div>
+<h2 class="hl">前職も文系も問わない。図面で考える仕事に入れる</h2>
+<div class="main m-points"><div class="body" data-box><p>考えることが好きな人に向いた仕事です。</p></div><div data-box class="fig chips"><div class="chip" data-box><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>文系・前職を問わず入れる</span></div><div class="chip" data-box><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>営業や製造の仕事から入った人もいる</span></div><div class="chip" data-box><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>年間休日125日・完全週休2日</span></div><div class="chip" data-box><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>資格取得を会社が後押し（最大30万円）</span></div></div></div>
+<div class="foot"><div class="src">出所: <span>公式HP <a href="https://www.staffservice-engineering.jp/">https://www.staffservice-engineering.jp/</a>（2026-09-26 確認）</span></div><span class="pg">6 / 6</span></div>
+</div></section></div></main><script>
+(function(){function fit(){var w=document.documentElement.clientWidth-32;
+document.querySelectorAll('.frame').forEach(function(f){var s=f.firstElementChild;
+var k=Math.min(1,w/s.offsetWidth);s.style.transform=k<1?'scale('+k+')':'';
+f.style.width=(s.offsetWidth*k)+'px';f.style.height=(s.offsetHeight*k)+'px';});}
+window.addEventListener('resize',fit);window.addEventListener('load',fit);fit();})();
+</script></body></html>
