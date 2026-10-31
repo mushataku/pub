@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>歩留まりの数字の出所の地図</title>
+<style>
+  :root{--bg:#fff;--fg:#222;--sub:#555;--line:#ddd;--band:#1a237e;--bandfg:#fff;--ok:#2e7d32;--ng:#b71c1c;--warn:#8a6d00;--card:#f6f7fb}
+  @media (prefers-color-scheme:dark){:root{--bg:#16181d;--fg:#e8e8e8;--sub:#aab;--line:#3a3d46;--band:#0d1445;--bandfg:#fff;--ok:#7bd17f;--ng:#ff8a80;--warn:#ffd54f;--card:#20232b}}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,"Yu Gothic UI","Hiragino Sans",sans-serif;line-height:1.75}
+  .band{position:sticky;top:0;z-index:10;background:var(--band);color:var(--bandfg);padding:8px 16px;font-size:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
+  .band b{font-size:15px}.band .now{opacity:.9}
+  main{max-width:900px;margin:0 auto;padding:0 16px 60px}
+  h1{font-size:22px;margin:18px 0 6px}
+  h2{font-size:18px;margin:34px 0 8px;scroll-margin-top:60px;border-bottom:2px solid var(--line);padding-bottom:4px}
+  p{margin:8px 0}.sub{color:var(--sub);font-size:13px}
+  nav.toc{background:var(--card);border-radius:8px;padding:10px 14px;font-size:14px}
+  nav.toc a{color:inherit;margin-right:12px;white-space:nowrap}
+  svg{max-width:100%;height:auto;display:block;margin:10px auto}
+  svg text{fill:var(--fg);font-size:13px}
+  svg .box{fill:var(--card);stroke:var(--line);stroke-width:1.5}
+  svg .arrow{stroke:var(--sub);stroke-width:2;fill:none}
+  .tbl{overflow-x:auto}
+  table{border-collapse:collapse;font-size:13px;min-width:720px;width:100%}
+  th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+  th{background:var(--card)}
+  .ok{color:var(--ok);font-weight:bold}.ng{color:var(--ng);font-weight:bold}.warn{color:var(--warn);font-weight:bold}
+  .card{background:var(--card);border-radius:8px;padding:10px 14px;margin:10px 0}
+</style>
+</head>
+<body>
+<div class="band" id="band"><b>歩留まりの数字の出所の地図</b><span class="now" id="now">はじめに</span></div>
+<main>
+<h1>歩留まりボードの数字は、どこから来ているか</h1>
+<p class="sub">2026-10-31 時点。正本は repo の <code>domain/yield_coverage.py</code>（信頼の表）。この地図はその読み物版です。</p>
+<nav class="toc"><a href="#s0">全体の流れ</a><a href="#s1">8つの数字の出所</a><a href="#s2">どちらが正か</a><a href="#s3">人が手で入れるところ</a><a href="#s4">いま信頼できる所</a></nav>
+
+<section id="s0" data-title="全体の流れ">
+<h2>全体の流れ：数字の元は2種類ある</h2>
+<svg viewBox="0 0 640 190" role="img" aria-label="業務の操作が記録に変わり画面に出る流れ。別にシートへ人が手で入れる流れもある">
+  <rect class="box" x="10" y="15" width="150" height="55" rx="8"/><text x="20" y="38">業務の操作</text><text x="20" y="58">（推薦を出す等）</text>
+  <rect class="box" x="245" y="15" width="150" height="55" rx="8"/><text x="255" y="38">イベント記録</text><text x="255" y="58">（機械が自動で書く）</text>
+  <rect class="box" x="480" y="15" width="150" height="55" rx="8"/><text x="490" y="38">歩留まりボード</text><text x="490" y="58">（開いた瞬間に集計）</text>
+  <path class="arrow" d="M160 42H245M395 42H480"/>
+  <rect class="box" x="10" y="115" width="150" height="55" rx="8"/><text x="20" y="138">CA本人</text><text x="20" y="158">（毎日の申告）</text>
+  <rect class="box" x="245" y="115" width="150" height="55" rx="8"/><text x="255" y="138">歩留まりシート</text><text x="255" y="158">（daily_氏名 タブ）</text>
+  <path class="arrow" d="M160 142H245"/><path class="arrow" d="M395 142H440V70M440 70H480" stroke-dasharray="5 4"/>
+  <text x="400" y="110" style="font-size:12px">突き合わせるだけ</text>
+</svg>
+<p>画面の数字は<b>イベント記録</b>から作ります。シートは人の申告で、画面とは別物です。両方を日ごとに突き合わせて、差の理由が分かったところだけを「検証済み」として数字を出します。</p>
+</section>
+
+<section id="s1" data-title="8つの数字の出所">
+<h2>8つの数字：どこから・誰が書く・いつから信頼できるか</h2>
+<div class="tbl"><table>
+<tr><th>画面の列</th><th>記録の種類</th><th>書き手（業務の操作 → ファイル:行）</th><th>いつ以降信頼できるか</th></tr>
+<tr><td>被設定</td><td>面談予約（appo）。枠の持ち主で数える</td><td>面談予約を入れたとき → scripts/appo_stages.py:975</td><td class="warn">未検証（シートが多くイベントが0の日が10/4・10/6にある）</td></tr>
+<tr><td>設定(架電)</td><td>面談予約（appo）。架電を取った人で数える</td><td>同上</td><td class="warn">未検証</td></tr>
+<tr><td>着座</td><td>新規面談の実施（interview_done）</td><td>面談を終えて記録したとき → domain/commands.py:303（人手の補正 app/people_sync_human_edit.py:94）</td><td class="ok">武者野：10/1以降 検証済み／他CA：未検証</td></tr>
+<tr><td>共有（提案）</td><td>共有面談（shared_done）</td><td>共有面談を終えたとき → domain/commands.py:317</td><td class="warn">未検証（10/26 はシートの方が多い＝取りこぼしの疑い）</td></tr>
+<tr><td>推薦</td><td>推薦書類の提出（suisen_submitted）</td><td>ブラウザで提出 → scripts/suisen_submit_gates.py:106／MKへ shokai_post で出したあとの後始末 → scripts/suisen_done_record.py:333</td><td class="ng">2026-10-31 以降だけ（それ以前の shokai_post 経由は<b>未記録</b>＝0件ではない）</td></tr>
+<tr><td>面接</td><td>MKリスト観測（senko）の遷移</td><td>夜間バッチがMKリストを読む → recruit_line_bot/senko_list_bridge.py:690</td><td class="warn">未検証</td></tr>
+<tr><td>内定</td><td>同上（内定・内定承諾の観測）</td><td>同上</td><td class="warn">未検証</td></tr>
+<tr><td>決定（承諾）</td><td>同上（内定承諾の観測）</td><td>同上。承諾報告の日付を載せるよう10/31に直した</td><td class="warn">未検証（過去分は今夜の夜間バッチ後）</td></tr>
+</table></div>
+<p class="sub">用語：「記録の種類」は内側の名前（括弧内）。画面の数字は人の数で、選考の件数ではありません。</p>
+</section>
+
+<section id="s2" data-title="どちらが正か">
+<h2>シートとイベント、どちらが正か（指標ごとに違う）</h2>
+<div class="tbl"><table>
+<tr><th>指標</th><th>いま分かっていること</th></tr>
+<tr><td>推薦</td><td>10月分は<b>シートが正</b>（中原4・齋藤・佐藤はイベントが0）。10/31以降はイベントも書く</td></tr>
+<tr><td>承諾</td><td>10/7・10/30 は<b>シートが正</b>（イベントの日付が観測日側へずれていた）</td></tr>
+<tr><td>着座</td><td>武者野は10/1〜10/30で一致（差の理由を分類済み）。10/28は3人別人＝申告漏れ</td></tr>
+<tr><td>被設定・設定・共有・面接・内定</td><td><b>未検証</b>（シートが多い日とイベントが多い日が混在し、理由を分けていない）</td></tr>
+</table></div>
+</section>
+
+<section id="s3" data-title="人が手で入れるところ">
+<h2>人が手で入れるのはどこか</h2>
+<div class="card"><p><b>歩留まりシートの <code>daily_氏名</code> タブ</b>（日ごと・8つの数字）と、<code>◯月MS</code> タブの目標。これは<b>人の申告</b>です。</p>
+<p>機械はこのシートの<b>空のセルしか埋めません</b>（既に値のあるセルは上書きしない）。10/24の武者野の着座が1セルだけ埋めてあります。</p></div>
+<p>イベント記録は機械が自動で書くので、人が手で入れる場所はありません。ただし「記録を忘れた」ときは人が補正します（着座の補正は app/people_sync_human_edit.py）。</p>
+</section>
+
+<section id="s4" data-title="いま信頼できる所">
+<h2>いま画面で数字が出る所・出ない所</h2>
+<div class="card"><p><b>数字が出る</b>：武者野の着座（10/1以降）、推薦（2026-10-31以降）。</p>
+<p><b>「未検証」と出る</b>：他のCA全員、武者野の被設定・設定・共有・面接・内定・決定。</p>
+<p><b>「未記録」と出る</b>：書き手が無い指標、または信頼できる日より前の期間（例：推薦を10/1〜10/31で見たとき）。</p>
+<p class="sub">どちらも「0件」ではありません。画面で触れると1行の理由が出ます。次に直す場所は、この「未検証」の列そのものです。</p></div>
+</section>
+</main>
+<script>
+(function(){
+  var secs=[].slice.call(document.querySelectorAll('section[data-title]')),now=document.getElementById('now');
+  function upd(){var cur='はじめに';secs.forEach(function(s){if(s.getBoundingClientRect().top<120){cur=s.getAttribute('data-title');}});now.textContent='いまの節：'+cur;}
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(upd,{rootMargin:'-100px 0px -60% 0px',threshold:[0,1]});secs.forEach(function(s){io.observe(s);});
+  }
+  window.addEventListener('scroll',upd,{passive:true});upd();
+})();
+</script>
+</body>
+</html>
