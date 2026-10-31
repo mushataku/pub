@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>AI講習 第1回</title>
+<title>AI講習 はじめの3回</title>
 <style>
 :root{
   --bg:#fbfaf7; --fg:#1f2328; --muted:#5b636d; --card:#ffffff; --line:#d9d6cf;
@@ -72,79 +72,88 @@ footer{margin-top:36px;font-size:12px;color:var(--muted)}
 .s-wa{fill:var(--warn)} .s-was{fill:var(--warn-soft)} .s-bl{fill:var(--blue)} .s-bls{fill:var(--blue-soft)} .s-card{fill:var(--card)} .s-bg{fill:var(--bg)} .s-none{fill:none}
 .k-ln{stroke:var(--line)} .k-mu{stroke:var(--muted)} .k-ac{stroke:var(--accent)} .k-wa{stroke:var(--warn)} .k-bl{stroke:var(--blue)} .k-fg{stroke:var(--fg)}
 svg text{font-family:inherit}
+.part{margin:18px 0 6px;font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.05em}
+.rc{margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);scroll-margin-top:56px}
+.rc h3{margin:0 0 6px}
+.rc p{margin:0 0 4px}
+.rc .t{font-size:13px;color:var(--muted)}
+.can{font-weight:700}
+.next{margin:16px 0;padding:12px 14px;border:2px solid var(--blue);border-radius:10px;background:var(--blue-soft)}
+.next a{color:var(--fg);font-weight:700;word-break:break-all}
+a{color:var(--blue)}
+.doors{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0 14px}
+@media (min-width:640px){.doors{grid-template-columns:1fr 1fr}}
+.door{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card)}
+.door.d1{border-top:4px solid var(--accent)}
+.door.d2{border-top:4px solid var(--blue)}
+.door p{margin:0 0 6px}
+.door .dh{font-weight:700;font-size:15px}
+.door.d1 .dh{color:var(--accent)}
+.door.d2 .dh{color:var(--blue)}
+.toc-part{margin:10px 0 2px;font-size:13px;font-weight:700;color:var(--muted)}
+.toc-end{margin-top:10px!important}
+.files{margin:8px 0 12px;padding-left:1.3em}
+.files li{margin:6px 0}
+.files a,.dlbig a,.door a{font-weight:700;word-break:break-all}
+.dlbig{margin:10px 0;padding:10px 14px;border:2px dashed var(--accent);border-radius:10px;text-align:center}
+.os{margin:12px 0 0;font-size:13px;font-weight:700;color:var(--muted)}
+.term pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;word-break:break-all}
+.free{margin:18px 0 0;padding:12px 14px;border-radius:10px;background:var(--accent-soft);border-left:4px solid var(--accent)}
+details.raw{margin:8px 0 14px}
+details.raw summary{cursor:pointer;font-weight:700;color:var(--blue);padding:6px 0}
+details.raw pre{font-size:13px;max-height:320px;overflow:auto}
+.help{margin:12px 0;padding:10px 14px;border-radius:10px;border:2px solid var(--blue);background:var(--blue-soft)}
+.fork{margin:16px 0;padding:12px 14px;border-radius:10px;border:2px dashed var(--warn);background:var(--card)}
+.fork p{margin:0 0 6px}
+details.appendix{margin:24px 0 8px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
 </style>
 </head>
 <body>
 <div class="band">
   <div class="band-in">
-    <span class="band-title">AI講習</span>
+    <span class="band-title">はじめの3回</span>
     <span class="band-chap" id="bandChap">はじめに</span>
     <span class="band-step" id="bandStep"></span>
   </div>
 </div>
 <main>
 <header class="top" id="top" data-chap="はじめに">
-  <h1>AIに、自分の仕事を<br>させてみる</h1>
-  <p>岩澤さん、今日から4回、一緒にAIを使っていきます。今日やるのは第1回だけで、30分以内に終わります。</p>
-  <p>説明はほとんどありません。<span class="key">読むより先に、手を動かす作りにしてあります。</span>まず第1回を、上から順にやってください。</p>
+  <h1>AI講習　はじめの3回</h1>
+  <p>岩澤さん、さっきはありがとうございました。このページは、その続きです。</p>
+  <p>AIの使い方を15回で覚える「<a href="https://mushataku.github.io/pub/ai-practice-5d6c06e1f893/">ひとり仕事のAI実践</a>」という講座があります。ひとりで仕事をしている人向けに作った、どなたでも使える15回です。題材は、自分の暮らしに置き換えて使えます。</p>
+  <p>その講座に入る前の「はじめの3回」を、岩澤さん向けに組み直しました。さっき画面で見たことの続きから入れるようにしてあります。</p>
+  <p>この3回が終わったら、15回のほうに進めます。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 360 172" role="img" aria-label="はじめの3回から、ひとり仕事のAI実践 全15回へ進む">
+      <rect x="6" y="8" width="348" height="58" rx="10" class="s-acs k-ac" stroke-width="2"/>
+      <text x="20" y="32" font-size="14" font-weight="700" class="s-fg">はじめの3回</text>
+      <text x="20" y="54" font-size="12.5" class="s-mu">はじめの入り口だけ組み直した</text>
+      <g><circle cx="276" cy="37" r="11" class="s-ac"/><circle cx="304" cy="37" r="11" class="s-ac"/><circle cx="332" cy="37" r="11" class="s-ac"/>
+      <text x="276" y="42" text-anchor="middle" font-size="12" font-weight="700" class="s-bg">1</text><text x="304" y="42" text-anchor="middle" font-size="12" font-weight="700" class="s-bg">2</text><text x="332" y="42" text-anchor="middle" font-size="12" font-weight="700" class="s-bg">3</text></g>
+      <path d="M180 70 L180 92 M172 84 L180 92 L188 84" class="k-mu" stroke-width="2.5" fill="none"/>
+      <text x="196" y="86" font-size="12" class="s-mu">終わったら</text>
+      <rect x="6" y="96" width="348" height="68" rx="10" class="s-bls k-bl" stroke-width="2"/>
+      <text x="20" y="120" font-size="14" font-weight="700" class="s-fg">ひとり仕事のAI実践　全15回</text>
+      <text x="20" y="142" font-size="12.5" class="s-mu">どなたでも使える講座（もうある）</text>
+      <g class="s-bl"><rect x="232" y="128" width="8" height="20" rx="2"/><rect x="244" y="128" width="8" height="20" rx="2"/><rect x="256" y="128" width="8" height="20" rx="2"/><rect x="268" y="128" width="8" height="20" rx="2"/><rect x="280" y="128" width="8" height="20" rx="2"/><rect x="292" y="128" width="8" height="20" rx="2"/><rect x="304" y="128" width="8" height="20" rx="2"/><rect x="316" y="128" width="8" height="20" rx="2"/><rect x="328" y="128" width="8" height="20" rx="2"/><rect x="340" y="128" width="8" height="20" rx="2"/></g>
+    </svg>
+    <figcaption>図0　はじめの3回から、15回の講座へ進む</figcaption>
+  </figure>
   <nav class="toc" aria-label="目次">
-    <ol start="0">
-      <li><a href="#s0">これから一緒にやること</a></li>
-      <li><a href="#s1">第1回：AIに自分の仕事をさせてみる</a>（今日やる）</li>
-      <li><a href="#s2">第2回〜第4回</a></li>
-      <li><a href="#s3">詰まったら／この先</a></li>
+    <ol>
+      <li><a href="#s1">第1回：さっき一緒に見たものを、自分でやってみる</a>（今日）</li>
+      <li><a href="#s2">第2回：分からないことを、AIに教わる</a>（第1回が終わったら）</li>
+      <li><a href="#s3">第3回：自分の手間を1つ消す</a>（第2回が終わったら）</li>
+      <li><a href="#s4">送り先と、この先</a></li>
     </ol>
   </nav>
 </header>
 
-<!-- §0 -->
-<section id="s0" data-chap="0. これから一緒にやること">
-  <h2>これから一緒にやること</h2>
-  <figure class="fig">
-    <svg viewBox="0 0 360 268" role="img" aria-label="4回の地図。第1回 AIに自分の仕事をさせてみる（今日）、第2回 AIに教わって分からないことを潰す、第3回 AIに作らせる、第4回 自分の手間を1つ消す">
-      <line x1="30" y1="34" x2="30" y2="232" class="k-ln" stroke-width="3"/>
-      <g>
-        <rect x="52" y="10" width="300" height="50" rx="10" class="s-acs k-ac" stroke-width="2"/>
-        <circle cx="30" cy="35" r="16" class="s-ac"/>
-        <text x="30" y="40" text-anchor="middle" font-size="15" font-weight="700" class="s-bg">1</text>
-        <text x="66" y="32" font-size="14" font-weight="700" class="s-fg">AIに自分の仕事をさせてみる</text>
-        <text x="66" y="51" font-size="12.5" class="s-mu">出費の表を作らせる</text>
-        <rect x="290" y="38" width="54" height="18" rx="9" class="s-ac"/>
-        <text x="317" y="51" text-anchor="middle" font-size="11.5" font-weight="700" class="s-bg">今日</text>
-      </g>
-      <g>
-        <rect x="52" y="76" width="300" height="50" rx="10" class="s-card k-ln" stroke-width="1.5"/>
-        <circle cx="30" cy="101" r="16" class="s-card k-ac" stroke-width="2"/>
-        <text x="30" y="106" text-anchor="middle" font-size="15" font-weight="700" class="s-ac">2</text>
-        <text x="66" y="98" font-size="14" font-weight="700" class="s-fg">AIに教わって、分からないことを潰す</text>
-        <text x="66" y="117" font-size="12.5" class="s-mu">インフラ（サーバーなど）の勉強をAIに教わる</text>
-      </g>
-      <g>
-        <rect x="52" y="142" width="300" height="50" rx="10" class="s-card k-ln" stroke-width="1.5"/>
-        <circle cx="30" cy="167" r="16" class="s-card k-ac" stroke-width="2"/>
-        <text x="30" y="172" text-anchor="middle" font-size="15" font-weight="700" class="s-ac">3</text>
-        <text x="66" y="164" font-size="14" font-weight="700" class="s-fg">AIに作らせる</text>
-        <text x="66" y="183" font-size="12.5" class="s-mu">動くものを1つ。プログラムはAIが書く</text>
-      </g>
-      <g>
-        <rect x="52" y="208" width="300" height="50" rx="10" class="s-card k-ln" stroke-width="1.5"/>
-        <circle cx="30" cy="233" r="16" class="s-card k-ac" stroke-width="2"/>
-        <text x="30" y="238" text-anchor="middle" font-size="15" font-weight="700" class="s-ac">4</text>
-        <text x="66" y="230" font-size="14" font-weight="700" class="s-fg">自分の手間を1つ消す</text>
-        <text x="66" y="249" font-size="12.5" class="s-mu">毎日の面倒を1つ選んで、AIで消す</text>
-      </g>
-    </svg>
-    <figcaption>図0　全4回の地図（どの回も30分以内）</figcaption>
-  </figure>
-  <p>全部で4回です。</p>
-  <p>第1回で「AIに頼むと、本当にやってくれる」を自分の手で確かめます。第2回からは同じ頼み方で、勉強して、物を作って、最後に岩澤さんの毎日の面倒を1つ消します。</p>
-  <p>使うのは、岩澤さんがもう触ったことのある <b>Gemini（無料）</b>だけです。新しく登録するものはなく、お金もかかりません。</p>
-</section>
-
 <!-- §1 -->
-<section id="s1" data-chap="1. 第1回（今日）">
-  <h2>第1回：AIに自分の仕事をさせてみる</h2>
-  <p>今日やることは1つ。<span class="key">岩澤さんの1か月の出費を、AIに表にさせます。</span>電卓もExcelも使いません。AIに文を送るだけです。</p>
+<section id="s1" data-chap="第1回（今日）">
+  <h2>第1回：さっき一緒に見たものを、自分でやってみる</h2>
+  <p class="can">できるようになること：AIに文を送って、表を作らせる</p>
+  <p><span class="key">さっき画面で見たことを、今度は岩澤さんの手でやります。</span>やることは1つ。自分の1か月の出費を、AIに表にさせます。電卓もExcelも使いません。</p>
   <figure class="fig">
     <svg viewBox="0 0 360 120" role="img" aria-label="第1回の流れ。手順1から3で約5分、ここでAIが動く。手順4から6で約20分、自分の表にしてLINEで送る">
       <rect x="6" y="30" width="110" height="34" rx="8" class="s-ac"/>
@@ -154,13 +163,13 @@ svg text{font-family:inherit}
       <text x="61" y="20" text-anchor="middle" font-size="12.5" class="s-mu">約5分</text>
       <text x="237" y="20" text-anchor="middle" font-size="12.5" class="s-mu">約20分</text>
       <text x="61" y="88" text-anchor="middle" font-size="12.5" font-weight="700" class="s-wa">ここで</text>
-      <text x="61" y="106" text-anchor="middle" font-size="12.5" font-weight="700" class="s-wa">AIが動く</text>
+      <text x="61" y="106" text-anchor="middle" font-size="12.5" font-weight="700" class="s-wa">表ができる</text>
       <text x="237" y="88" text-anchor="middle" font-size="12.5" class="s-fg">自分の出費に入れかえて、</text>
       <text x="237" y="106" text-anchor="middle" font-size="12.5" class="s-fg">画面をLINEで送る</text>
     </svg>
     <figcaption>図1　第1回の流れ（合わせて30分以内）</figcaption>
   </figure>
-  <p class="mini">用意するもの：スマホかPC、いつも使っているGoogleのアカウント。レシートはいりません。</p>
+  <p class="mini">使うのは、岩澤さんがもう触ったことのある <b>Gemini（無料）</b>です。新しく登録するものはありません。用意するもの：スマホかPC、いつも使っているGoogleのアカウント。レシートはいりません。</p>
 
   <!-- 手順1 -->
   <div class="step" id="st1" data-step="手順1 Geminiを開いて、ここに戻る">
@@ -184,12 +193,12 @@ svg text{font-family:inherit}
       <figcaption>図2　このページとGeminiを行き来しながら進める</figcaption>
     </figure>
     <p>このページは閉じずに、そのまま置いておきます。</p>
-    <p>スマホなら、ホーム画面から<b>Geminiのアプリ</b>を開きます。アプリが無ければ、LINEの中ではなく、SafariかChromeを別に開いて「Gemini」と検索し、一番上（gemini.google.com）を押します。PCなら、新しいタブで gemini.google.com を開きます。</p>
+    <p>スマホなら、ホーム画面から<b>Geminiのアプリ</b>を開きます。アプリが無ければ、いったんホーム画面に戻り、<b>Safari</b>（iPhone）か<b>Chrome</b>（Android）のアプリを開きます。画面の上か下にある、アドレスや検索の言葉を入れる欄に gemini.google.com と打ち込みます。このページはLINEの中で開いたままにしておき、Gemini はそちらのアプリで開きます。PCなら、新しいタブで gemini.google.com を開きます。</p>
     <p class="mini">「有料プランを試す」のような案内が出ても、押さずに閉じてください。この講習は無料の範囲だけで進めます。</p>
     <p>Geminiの画面の下に、文字を入れる欄があればOKです。確かめたら、<b>このページに戻ってきてください。</b>この先は、このページで「コピーする」→Geminiに切り替えて貼る、を繰り返します。</p>
     <p class="mini">このページを見失ったら、LINEで届いたリンクをもう一度押せば開き直せます。</p>
     <div class="stuck">
-      <p><b>ここで止まったら</b>　ログインの画面から先に進めないときは、その画面のスクショを、このページのリンクが届いたLINEのトークに送ってください。こちらで見て、次に押す所を返します。</p>
+      <p><b>ここで止まったら</b>　Geminiが開けない・ログインの画面から先に進めないときは、その画面のスクショを、このページのリンクが届いたLINEのトークに送ってください。こちらで見て、次に押す所を返します。</p>
     </div>
   </div>
 
@@ -224,7 +233,7 @@ svg text{font-family:inherit}
       <figcaption>図3　貼り付けたら、入力欄の右端の矢印（送信）を押す</figcaption>
     </figure>
     <div class="stuck">
-      <p><b>ここで止まったら</b>　貼っても何も出ないときは、もう一度このページで「コピーする」を押してから貼り直してください。それでも貼れなければ、その画面を送ってください。</p>
+      <p><b>ここで止まったら</b>　貼っても何も出ないときは、もう一度このページで「コピーする」を押してから貼り直してください。ボタンで写せないときは、枠の中の文を長押しして「すべて選択」→「コピー」でも写せます。それでも貼れなければ、その画面を送ってください。</p>
     </div>
   </div>
 
@@ -257,7 +266,7 @@ svg text{font-family:inherit}
       <li>「毎日だいたい500円」が、<b>1か月分の15,000円前後</b>になっている</li>
       <li>「2か月に1回 2,000円」が、<b>1か月あたり1,000円</b>になっている</li>
     </ul>
-    <p><span class="key">この計算をしたのはAIです。</span>岩澤さんがやったのは、文を1回送ったことだけです。</p>
+    <p><span class="key">この計算をしたのはAIです。</span>やったのは、文を1回送ったことだけです。</p>
     <p class="mini">1か月を31日で数えて、コンビニが15,500円になることもあります。それでも合っています。分類ごとの合計が別の表で出る、表の下にボタンが出る、など見た目が図と違っても、項目と金額がそろっていれば大丈夫です。</p>
     <div class="stuck">
       <p><b>ここで止まったら</b>　表にならず、文章で返ってきたときは、続けて「表にしてください」とだけ送ってください。それでも違う形なら、その画面を送ってください。</p>
@@ -267,7 +276,7 @@ svg text{font-family:inherit}
 
   <!-- 手順4 -->
   <div class="step" id="st4" data-step="手順4 自分の出費に入れかえる">
-    <h3><span class="no">手順4</span>例の5行を、岩澤さんの出費に入れかえる</h3>
+    <h3><span class="no">手順4</span>例の5行を、自分の出費に入れかえる</h3>
     <p class="mini">最後に画面をLINEで送ってもらいますが、自分の金額を見られたくなければ、送るのは手順3（例の表）の画面でかまいません。安心して自分の数字を書いてください。</p>
     <p>Geminiの同じ画面のまま、続けて送ります。まず下の1行を「コピーする」で貼り、<b>その下に、自分の出費を1行に1つずつ打ち足して</b>から送ってください。</p>
     <div class="prompt">
@@ -307,16 +316,16 @@ svg text{font-family:inherit}
   <!-- 手順5 -->
   <div class="step" id="st5" data-step="手順5 もう1つ頼む">
     <h3><span class="no">手順5</span>続けて、もう1つ頼む</h3>
-    <p>岩澤さんの表ができたら、続けてこれを送ります。</p>
+    <p>自分の表ができたら、続けてこれを送ります。</p>
     <div class="prompt">
 <pre id="p3">この表を見て、来月いちばん減らしやすい出費を1つ選んでください。理由も1行で教えてください。</pre>
       <div class="bar"><button class="copy" type="button" data-target="p3">コピーする</button></div>
     </div>
     <figure class="fig">
-      <svg viewBox="0 0 360 150" role="img" aria-label="岩澤さんが減らしやすい出費を聞き、AIが表を読んで1つ選んで返す">
+      <svg viewBox="0 0 360 150" role="img" aria-label="減らしやすい出費を聞くと、AIが表を読んで1つ選んで返す">
         <rect x="120" y="8" width="230" height="40" rx="12" class="s-acs k-ac" stroke-width="1.5"/>
         <text x="134" y="33" font-size="12.5" class="s-fg">減らしやすい出費を1つ選んで</text>
-        <text x="352" y="64" text-anchor="end" font-size="11.5" class="s-mu">岩澤さん</text>
+        <text x="352" y="64" text-anchor="end" font-size="11.5" class="s-mu">自分</text>
         <rect x="10" y="76" width="250" height="56" rx="12" class="s-card k-bl" stroke-width="1.5"/>
         <text x="24" y="99" font-size="12.5" class="s-fg">いちばん減らしやすいのは「○○」</text>
         <text x="24" y="120" font-size="12.5" class="s-fg">です。理由は…</text>
@@ -361,77 +370,127 @@ svg text{font-family:inherit}
     <li>「来月の出費を3,000円減らすなら、どこをどう削るか、案を3つください。」</li>
     <li>「中学生に説明するつもりで、この表の読み方を3行で書いてください。」</li>
   </ol>
-  <p>今日やったことは3つです。①してほしいことと形（表・3列・合計）を書いて送る ②うまくいかなければ一言足す ③続けて次を頼む。第2回からも、この頼み方をそのまま使います。</p>
+  <p>今日の頼み方は「してほしいことと、形（表・3列・合計）を書いて送る」です。第2回からも、この頼み方をそのまま使います。</p>
+  <div class="goal">第1回はここまでです。返事を待たずに、そのまま第2回に進んでかまいません。画面はあとでまとめて送っても大丈夫です。</div>
 </section>
 
 <!-- §2 -->
-<section id="s2" data-chap="2. 第2回〜第4回">
-  <h2>第2回〜第4回</h2>
+<section id="s2" data-chap="第2回 教わる">
+  <h2>第2回：分からないことを、AIに教わる</h2>
+  <p class="can">できるようになること：分からない言葉を、分かるまでAIに聞き返す</p>
+  <p>題材は、岩澤さんがやってみたいと話していた<b>サーバーとネットワーク</b>です。スマホのアプリやネットを裏で動かしている機械（サーバー）と、それをつなぐ道（ネットワーク）のことです。<span class="mini">30分以内</span></p>
   <figure class="fig">
-    <svg viewBox="0 0 360 150" role="img" aria-label="第2回 教わる、第3回 作らせる、第4回 手間を消す">
-      <g>
-        <rect x="4" y="10" width="112" height="130" rx="10" class="s-card k-ln" stroke-width="1.5"/>
-        <text x="60" y="34" text-anchor="middle" font-size="12.5" class="s-mu">第2回</text>
-        <rect x="38" y="48" width="44" height="34" rx="3" class="s-bls k-bl" stroke-width="2"/>
-        <line x1="60" y1="48" x2="60" y2="82" class="k-bl" stroke-width="2"/>
-        <text x="60" y="110" text-anchor="middle" font-size="14" font-weight="700" class="s-fg">教わる</text>
-        <text x="60" y="128" text-anchor="middle" font-size="11.5" class="s-mu">インフラの勉強</text>
-      </g>
-      <g>
-        <rect x="124" y="10" width="112" height="130" rx="10" class="s-card k-ln" stroke-width="1.5"/>
-        <text x="180" y="34" text-anchor="middle" font-size="12.5" class="s-mu">第3回</text>
-        <rect x="158" y="48" width="44" height="34" rx="4" class="s-acs k-ac" stroke-width="2"/>
-        <path d="M170 60 L164 66 L170 72 M190 60 L196 66 L190 72" class="k-ac" stroke-width="2" fill="none"/>
-        <text x="180" y="110" text-anchor="middle" font-size="14" font-weight="700" class="s-fg">作らせる</text>
-        <text x="180" y="128" text-anchor="middle" font-size="11.5" class="s-mu">動くものを1つ</text>
-      </g>
-      <g>
-        <rect x="244" y="10" width="112" height="130" rx="10" class="s-card k-ln" stroke-width="1.5"/>
-        <text x="300" y="34" text-anchor="middle" font-size="12.5" class="s-mu">第4回</text>
-        <rect x="278" y="48" width="44" height="34" rx="4" class="s-was k-wa" stroke-width="2"/>
-        <path d="M288 58 L312 72 M312 58 L288 72" class="k-wa" stroke-width="2.5"/>
-        <text x="300" y="110" text-anchor="middle" font-size="14" font-weight="700" class="s-fg">手間を消す</text>
-        <text x="300" y="128" text-anchor="middle" font-size="11.5" class="s-mu">毎日の面倒を1つ</text>
-      </g>
+    <svg viewBox="0 0 360 150" role="img" aria-label="AIに教わる、分からない言葉を聞く、自分の言葉で説明してAIに直してもらう、の3段">
+      <rect x="6" y="30" width="104" height="70" rx="10" class="s-acs k-ac" stroke-width="1.5"/>
+      <text x="58" y="58" text-anchor="middle" font-size="13" font-weight="700" class="s-fg">①教わる</text>
+      <text x="58" y="80" text-anchor="middle" font-size="11.5" class="s-mu">例えで5行</text>
+      <path d="M114 65 L134 65 M127 58 L134 65 L127 72" class="k-ac" stroke-width="2.5" fill="none"/>
+      <rect x="138" y="30" width="104" height="70" rx="10" class="s-card k-bl" stroke-width="1.5"/>
+      <text x="190" y="58" text-anchor="middle" font-size="13" font-weight="700" class="s-fg">②聞き返す</text>
+      <text x="190" y="80" text-anchor="middle" font-size="11.5" class="s-mu">知らない言葉を</text>
+      <path d="M246 65 L266 65 M259 58 L266 65 L259 72" class="k-ac" stroke-width="2.5" fill="none"/>
+      <rect x="270" y="30" width="84" height="70" rx="10" class="s-was k-wa" stroke-width="1.5"/>
+      <text x="312" y="58" text-anchor="middle" font-size="13" font-weight="700" class="s-fg">③説明</text>
+      <text x="312" y="80" text-anchor="middle" font-size="11.5" class="s-mu">自分の言葉で</text>
+      <text x="180" y="132" text-anchor="middle" font-size="12" class="s-mu">②は何回やってもいい。分かるまで聞いていい相手です</text>
     </svg>
-    <figcaption>図8　第2回から先（中身は、その回に手順つきで渡します）</figcaption>
+    <figcaption>図8　第2回は3段で進む</figcaption>
   </figure>
-  <dl class="rounds">
-    <dt>第2回　AIに教わって、分からないことを潰す</dt>
-    <dd>やってみたいと話していたインフラの勉強を、AIに教わります。インフラは、スマホのアプリやネットを裏で動かしている機械（サーバー）と、それをつなぐ線（ネットワーク）のことです。分からない言葉が出たら、その場でAIに聞いて埋めます。最後に「サーバーとは何か」を、自分の言葉でAIに説明してみます。</dd>
-    <dt>第3回　AIに作らせる</dt>
-    <dd>動くものを1つ作ります。プログラム（コード）は自分で書かず、AIに書かせます。今日の出費の表を、数字を入れれば合計が勝手に出る形にします。</dd>
-    <dt>第4回　自分の手間を1つ消す</dt>
-    <dd>毎日の中から面倒なことを1つ選び、AIで消します。何を選ぶかは、第3回が終わったときに一緒に決めます。</dd>
-  </dl>
+  <p>まず、Geminiで<b>新しい会話</b>を始めます（左上の三本線 →「新しいチャット」）。そこにこの文を送ります。第1回と同じく、「コピーする」→貼る→送信です。</p>
+  <div class="prompt">
+<pre id="q1">私はサーバーやネットワークを勉強したい初心者です。
+サーバーとは何かを、中学生にも分かる例えを使って5行で教えてください。
+このあと分からない言葉を1つずつ聞くので、そのつど短く答えてください。</pre>
+    <div class="bar"><button class="copy" type="button" data-target="q1">コピーする</button></div>
+  </div>
+  <p>返ってきた説明の中で、知らない言葉を「○○って何ですか」とそのまま送ってください。分かるまで何回聞いてもかまいません。</p>
+  <p class="mini">時間が余ったら、「ネットワークについても同じように教えてください」と送ってみてください。今日はサーバーだけで十分です。</p>
+  <div class="stuck">
+    <p><b>ここで止まったら</b>　答えが長すぎて読めないときは、「もっと短く、3行で」と送ってください。それでも分からなければ、その画面を送ってください。</p>
+  </div>
+  <h3 style="margin-top:20px">時間が余ったら：自分の言葉で説明してみる</h3><p>下の1行を貼り、その下に2〜3行で打ち足して送ります。上手でなくてかまいません。例：「サーバーとは、ネットの向こうでずっと動いているパソコンです。スマホのアプリは、そこからデータをもらっています。」</p>
+  <div class="prompt">
+<pre id="q2">今から私がサーバーを説明します。合っている所と、足りない所を教えてください。</pre>
+    <div class="bar"><button class="copy" type="button" data-target="q2">コピーする</button></div>
+  </div>
+  <p class="mini">AIはときどき、もっともらしい間違いを言います。数字や名前が出てきて気になったら、「それは本当ですか。どこで確かめられますか」と聞き返してください。</p>
+  <p>聞き返したやりとりの画面をスクショして、LINEで送ってください。</p>
 </section>
 
 <!-- §3 -->
-<section id="s3" data-chap="3. 詰まったら／この先">
-  <h2>詰まったら／この先</h2>
+<section id="s3" data-chap="第3回 手間を消す">
+  <h2>第3回：自分の手間を1つ消す</h2>
+  <p class="can">できるようになること：毎日の面倒を1つ選び、AIで短くする</p>
+  <p>第1回で「頼み方」を、第2回で「聞き返し方」を覚えました。第3回はそれを、毎日の中で使います。<span class="mini">30分以内</span></p>
   <figure class="fig">
-    <svg viewBox="0 0 360 190" role="img" aria-label="岩澤さんが画面を送り、返事が来て、次の一手に進む。働き始めたあとも続く">
+    <svg viewBox="0 0 360 200" role="img" aria-label="毎日やるか、5分以上かかるか、の2つで選ぶ。両方に当てはまる右上の箱から1つ選ぶ">
+      <rect x="60" y="10" width="144" height="80" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+      <rect x="208" y="10" width="146" height="80" rx="8" class="s-was k-wa" stroke-width="2.5"/>
+      <rect x="60" y="94" width="144" height="80" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+      <rect x="208" y="94" width="146" height="80" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+      <text x="281" y="38" text-anchor="middle" font-size="13" font-weight="700" class="s-wa">ここから1つ</text>
+      <text x="281" y="58" text-anchor="middle" font-size="11.5" class="s-fg">毎日・5分以上</text>
+      <text x="281" y="78" text-anchor="middle" font-size="11.5" class="s-mu">例：献立を考える</text>
+      <text x="132" y="56" text-anchor="middle" font-size="11.5" class="s-mu">毎日・5分未満</text>
+      <text x="132" y="140" text-anchor="middle" font-size="11.5" class="s-mu">たまに・5分未満</text>
+      <text x="281" y="140" text-anchor="middle" font-size="11.5" class="s-mu">たまに・5分以上</text>
+      <text x="30" y="54" text-anchor="middle" font-size="12" font-weight="700" class="s-fg">毎日</text>
+      <text x="30" y="138" text-anchor="middle" font-size="12" font-weight="700" class="s-fg">たまに</text>
+      <text x="132" y="192" text-anchor="middle" font-size="12" font-weight="700" class="s-fg">5分未満</text>
+      <text x="281" y="192" text-anchor="middle" font-size="12" font-weight="700" class="s-fg">5分以上</text>
+    </svg>
+    <figcaption>図9　選ぶのは右上の箱から1つ</figcaption>
+  </figure>
+  <p>選び方は2つだけです。<b>毎日やっていること</b>で、<b>5分以上かかること</b>。たとえば、献立を考える、買い物のリストを作る、調べものをする、連絡の文を考える、などです。思いつかなければ、昨日の1日を朝から順に思い出してください。</p>
+  <p>1つ決めたら、下の文を貼り、<b>その下に、選んだ面倒なことと、いつもどうやっているかを打ち足して</b>から送ります。第1回の手順4と同じやり方です。</p>
+  <div class="prompt">
+<pre id="q3">毎日やっていて5分以上かかっている面倒なことを、この下に書きます。いつものやり方も書きます。
+これをAIで短くする方法を3つ、すぐ試せる順に教えてください。</pre>
+    <div class="bar"><button class="copy" type="button" data-target="q3">コピーする</button></div>
+  </div>
+  <p class="mini">打ち足すのは2行で十分です。例：「夕飯の献立を考えるのに、毎日10分かかる。」「冷蔵庫を見て、スマホでレシピを探して決めている。」</p>
+  <div class="stuck">
+    <p><b>ここで止まったら</b>　何を選べばいいか決められないときは、それでかまいません。「毎日やっていることを順に書くので、AIで短くできそうなものを選んでください」と送って、AIに選ばせてください。</p>
+  </div>
+  <p>返ってきた3つのうち、1つ目をその場で試します。同じ画面で、続けてこれを送ってください。</p>
+  <div class="prompt">
+<pre id="q4">1つ目のやり方を、いまここで一緒にやってください。私がやることを1つずつ教えてください。</pre>
+    <div class="bar"><button class="copy" type="button" data-target="q4">コピーする</button></div>
+  </div>
+  <p>AIが言うとおりに1つずつ進めます。別のアプリを使う方法しか出てこなかったら、「Geminiだけでできるやり方にしてください」と送ってください。</p>
+  <p>最後の画面をLINEで送ってください。うまくいかなかった画面でもかまいません。</p>
+</section>
+
+<!-- §4 -->
+<section id="s4" data-chap="送り先と、この先">
+  <h2>送り先と、この先</h2>
+  <figure class="fig">
+    <svg viewBox="0 0 360 150" role="img" aria-label="LINEで画面を送ると、武者野が次にやることを返す">
       <rect x="10" y="12" width="100" height="40" rx="10" class="s-acs k-ac" stroke-width="1.5"/>
-      <text x="60" y="37" text-anchor="middle" font-size="13" font-weight="700" class="s-fg">岩澤さん</text>
+      <text x="60" y="37" text-anchor="middle" font-size="13" font-weight="700" class="s-fg">自分</text>
       <rect x="250" y="12" width="100" height="40" rx="10" class="s-card k-bl" stroke-width="1.5"/>
       <text x="300" y="37" text-anchor="middle" font-size="13" font-weight="700" class="s-fg">武者野</text>
       <path d="M114 26 L244 26 M234 18 L244 26 L234 34" class="k-ac" stroke-width="2" fill="none"/>
-      <text x="180" y="18" text-anchor="middle" font-size="11.5" class="s-ac">画面を送る（止まった画面でも）</text>
+      <text x="180" y="18" text-anchor="middle" font-size="11.5" class="s-ac">LINEで画面を送る</text>
       <path d="M246 42 L116 42 M126 34 L116 42 L126 50" class="k-bl" stroke-width="2" fill="none"/>
       <text x="180" y="60" text-anchor="middle" font-size="11.5" class="s-bl">次にやることを返す</text>
-      <rect x="60" y="100" width="240" height="40" rx="10" class="s-was k-wa" stroke-width="1.5"/>
-      <text x="180" y="125" text-anchor="middle" font-size="12.5" font-weight="700" class="s-fg">止まった画面が、いちばん役に立つ</text>
+      <rect x="60" y="92" width="240" height="40" rx="10" class="s-was k-wa" stroke-width="1.5"/>
+      <text x="180" y="117" text-anchor="middle" font-size="12.5" font-weight="700" class="s-fg">止まった画面が、いちばん役に立つ</text>
     </svg>
-    <figcaption>図9　送れば、次にやることが返ってくる</figcaption>
+    <figcaption>図10　送れば、次にやることが返ってくる</figcaption>
   </figure>
-  <p>送る先は、このページのリンクが届いたLINEのトークです。<b>できた画面でも、止まった画面でも</b>送ってください。何回送っても大丈夫です。</p>
-  <p>返事は武者野が返します。画面が届いたら、返事と一緒に第2回を送ります。この講習も質問への返事も、お金はかかりません。</p>
-  <p><span class="key">仕事を始めたあとも、この講習は続けます。</span>働き始めてからのほうが「これ、面倒だな」は増えます。それをAIで消すところまで、一緒にやります。</p>
-  <p>まずは今日、手順1から始めてください。</p>
-  <p><a href="#st1">→ 手順1に戻る</a></p>
+  <p>送る先は、このページのリンクが届いたLINEのトークです。<b>できた画面でも、動かなかった画面でも</b>送ってください。何回送っても大丈夫です。</p>
+  <p>返事は武者野が返します。この講習も質問への返事も、お金はかかりません。</p>
+  <p>3回が終わったら、15回の講座の第1回から進みます。講座の第1回は、Claude という別のAIに登録するところから始まります。登録で止まったら、その画面も送ってください。</p>
+  <div class="next">
+    <p style="margin:0 0 4px">はじめの3回のあとに進む講座</p>
+    <a href="https://mushataku.github.io/pub/ai-practice-5d6c06e1f893/">ひとり仕事のAI実践（全15回）</a>
+  </div>
+  <p>この先、仕事を始めてからも、困ったら同じように画面を送ってください。この講習は続けられます。</p>
+  <p><a href="#st1">→ 第1回の手順1に戻る</a></p>
 </section>
 
-<footer>AI講習 第1回の教材</footer>
+<footer>AI講習　はじめの3回</footer>
 </main>
 <script>
 (function(){
