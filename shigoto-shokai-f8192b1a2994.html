@@ -50,11 +50,6 @@ td small.pr { color: var(--good); }
 }
 .deck-mini:hover { text-decoration: underline; }
 .deck-mini:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
-.card .deck-mini {
-  align-self: flex-start; margin-top: 12px; padding: 4px 14px;
-  border: 1px solid var(--accent); border-radius: 999px;
-}
-.card .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
 td.co .deck-mini { display: block; margin-top: 4px; }
 .axis {
   display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px;
@@ -67,25 +62,6 @@ td.co .deck-mini { display: block; margin-top: 4px; }
 }
 h2 { font-size: 22px; margin: 36px 0 6px; }
 h2 + .lead { margin: 0 0 14px; color: var(--sub); }
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.card {
-  background: var(--paper); border: 1px solid var(--line); border-radius: 14px;
-  padding: 18px 18px 16px; display: flex; flex-direction: column;
-}
-.card h3 { margin: 0 0 2px; font-size: 20px; }
-.card .what { margin: 0 0 12px; color: var(--sub); font-size: 15px; }
-.card dl { margin: 0 0 12px; display: grid; grid-template-columns: 4.2em 1fr; gap: 4px 8px; font-size: 15.5px; }
-.card dt { color: var(--sub); }
-.card dd { margin: 0; }
-.card .point {
-  margin-top: auto; padding: 10px 12px; border-radius: 10px;
-  background: var(--good-soft); color: var(--ink); font-size: 15px;
-}
-.card .point b { color: var(--good); }
-.card .caution {
-  margin-top: 8px; padding: 8px 12px; border-radius: 10px;
-  background: var(--note-soft); color: var(--ink); font-size: 14px;
-}
 .chosen {
   display: inline-block; margin-left: 8px; padding: 2px 10px; border-radius: 999px;
   background: var(--good-soft); color: var(--good); font-size: 12.5px; font-weight: 700;
@@ -112,7 +88,6 @@ td.num { white-space: normal; }
 .videos .why { display: block; margin-top: 6px; font-size: 15px; }
 footer { margin-top: 32px; color: var(--sub); font-size: 14px; }
 @media (max-width: 860px) {
-  .cards { grid-template-columns: 1fr; }
   header h1 { font-size: 24px; }
 }
 @media (max-width: 760px) {
@@ -130,12 +105,11 @@ footer { margin-top: 32px; color: var(--sub); font-size: 14px; }
 }
 @media print {
   body { background: #fff; }
-  .card, .table-wrap, .axis { break-inside: avoid; }
+  .table-wrap, .axis { break-inside: avoid; }
 }
 .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 #documents .deck-mini { padding: 4px 14px; border: 1px solid var(--accent); border-radius: 999px; }
 #documents .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
-.card .links .deck-mini { margin-top: 0; }
 .thanks { margin: 0 0 20px; padding: 16px 18px; border-radius: 14px; background: var(--good-soft); border: 1px solid var(--line); }
 .thanks p { margin: 0 0 6px; }
 .thanks p:last-child { margin: 0; }
@@ -201,6 +175,81 @@ tr.verdict-row td { padding-top: 0; }
 @media (max-width: 760px) {
   tr.has-verdict { border-bottom: none; padding-bottom: 4px; }
   tr.verdict-row { padding-top: 0; }
+}
+
+/* ---- 会社カード（shigoto_card_layer）---- */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 14px;
+  padding: 20px 20px 18px; display: flex; flex-direction: column; min-width: 0;
+  overflow-wrap: anywhere;
+}
+.card h3 { margin: 0 0 4px; font-size: 20px; line-height: 1.4; letter-spacing: .01em; }
+.card .chosen { background: transparent; border: 1px solid var(--good); }
+.card .what { margin: 0 0 12px; color: var(--sub); font-size: 14px; line-height: 1.6; }
+.card dl { margin: 0; }
+.card dd { margin: 0; }
+.card .nums {
+  display: grid; padding: 10px 0; margin: 0 0 12px;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.card .stat { padding-bottom: 10px; }
+.card .stat:last-child { padding-bottom: 0; }
+.card .stat dt { color: var(--sub); font-size: 13px; font-weight: 600; letter-spacing: .04em; line-height: 1.4; }
+.card .s-salary dt::after { content: "（月額）"; font-weight: 400; }
+.card .s-salary.is-yearly dt::after { content: "（年額で記載）"; }
+.card .stat dd { font-size: 17px; font-weight: 700; line-height: 1.45; }
+.card .s-salary dd { font-size: 22px; letter-spacing: .01em; }
+.card .stat dd .main { display: block; }
+.card .stat dd .lead { display: block; color: var(--sub); font-size: 13.5px; font-weight: 600; line-height: 1.5; letter-spacing: 0; }
+.card .stat dd .aside {
+  display: block; margin-top: 3px; color: var(--ink);
+  font-size: 13px; font-weight: 400; line-height: 1.55; letter-spacing: 0;
+}
+.card .place {
+  display: grid; grid-template-columns: 3.6em 1fr; gap: 8px 10px;
+  margin: 0 0 16px; font-size: 14.5px; line-height: 1.65;
+}
+.card .place dt { color: var(--sub); font-size: 13px; font-weight: 600; padding-top: 1px; }
+.card .point, .card .caution {
+  margin: 0 0 12px; padding: 2px 0 2px 12px; font-size: 14.5px; line-height: 1.7;
+  border-left: 2px solid var(--good); color: var(--ink);
+}
+.card .point b { color: var(--good); font-size: 13px; letter-spacing: .04em; }
+.card .caution { border-left: 4px solid var(--note); }
+.card .caution .c-h { margin: 0 0 4px; color: var(--note); font-size: 15px; font-weight: 800; letter-spacing: .04em; }
+.card .caution ul { margin: 0; padding: 0 0 0 1.1em; }
+.card .caution li { margin: 0 0 4px; }
+.card .caution li:last-child { margin-bottom: 0; }
+.card .links { margin-top: auto; padding-top: 12px; }
+.card .deck-mini {
+  align-self: flex-start; padding: 4px 14px;
+  border: 1px solid var(--accent); border-radius: 999px;
+}
+.card .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
+@supports (grid-template-rows: subgrid) {
+  @media (min-width: 861px) {
+    .card { display: grid; grid-template-rows: subgrid; grid-row: span 10; row-gap: 0; align-content: start; }
+    .card > h3 { grid-row: 1 / span 1; }
+    .card > .what { grid-row: 2 / span 1; }
+    .card > .nums { grid-row: 3 / span 3; }
+    .card > .place { grid-row: 6 / span 1; }
+    .card > .point { grid-row: 7 / span 1; }
+    .card > .caution { grid-row: 8 / span 1; }
+    .card > .verdict { grid-row: 9 / span 1; }
+    .card > .links { grid-row: 10 / span 1; }
+    .card > .nums { display: grid; grid-template-rows: subgrid; }
+    .card .s-salary { grid-row: 1; } .card .s-annual { grid-row: 2; } .card .s-holidays { grid-row: 3; }
+    .card > .place { align-content: start; }
+    .card > .point, .card > .caution, .card > .verdict { align-self: start; }
+    .card > .links { align-self: start; margin-top: 0; }
+  }
+}
+@media (max-width: 860px) {
+  .cards { grid-template-columns: 1fr; }
+}
+@media print {
+  .card { break-inside: avoid; }
 }
 
 :root {
@@ -432,11 +481,12 @@ table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%
   <article class="card" id="card-ifuran">
     <h3>いーふらん（おたからや）</h3>
     <p class="what">買取店「おたからや」で、来店されたお客様のブランド品や貴金属を確認して買い取る接客（飛び込み・電話営業なし）</p>
-    <dl>
-      <dt>勤務地</dt><dd>全国の直営店（自宅から1時間以内の店舗に配属・原則転居なし）</dd><dt>通勤</dt><dd>ご自宅から1時間以内の店舗に配属（どの店舗かは入社時に決まります）</dd><dt>月給</dt><dd>35万円〜80万円（35万円のうち8万円は月42時間分の固定残業代）</dd><dt>年収</dt><dd>求人票の想定は500万〜2,000万円（成果給・賞与込み・上のほうは一部の社員の数字）。固定給だけなら年420万円＋賞与（年2回・額の記載なし）</dd><dt>休日</dt><dd>シフト制・年間休日111日（有給と合わせて120日以上と書かれている）</dd>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">35万円〜80万円</span><span class="aside">（35万円のうち8万円は月42時間分の固定残業代）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd><span class="lead">求人票の想定は</span><span class="main">500万〜2,000万円</span><span class="aside">（成果給・賞与込み・上のほうは一部の社員の数字）。固定給だけなら年420万円＋賞与（年2回・額の記載なし）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">シフト制・</span><span class="main">年間休日111日</span><span class="aside">（有給と合わせて120日以上と書かれている）</span></dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>全国の直営店（自宅から1時間以内の店舗に配属・原則転居なし）</dd><dt>通勤</dt><dd>ご自宅から1時間以内の店舗に配属（どの店舗かは入社時に決まります）</dd>
     </dl>
     <p class="point"><b>ここが合う</b>　ガソリンスタンドで鍛えた接客がそのまま活きる、店舗に来られたお客様の対応が中心の仕事です。値段は専門の部署が付けます。固定給は6社の中でいちばん高い35万円からです。</p>
-    <p class="caution">成果に応じた給与の割合が大きい（求人票の言葉では「完全成果主義」）。 入社から3か月は試用期間で、期間を区切った雇用になる。 シフト制で、土日に休めるとは限らない。 選考の途中で、今の勤め先などに働きぶりを確かめる手続き（リファレンスチェック）がある。いつ・誰に連絡が行くかは確認が要る。 店舗での接客が基本だが、求人票には出張買取の配属の記載もある。出張買取の配属だと、1か月は本社近くの店舗で研修（遠方なら一時的な滞在が要ると書かれている）。</p>
+    <div class="caution"><p class="c-h">気をつけたいこと</p><ul><li>成果に応じた給与の割合が大きい（求人票の言葉では「完全成果主義」）。</li><li>入社から3か月は試用期間で、期間を区切った雇用になる。</li><li>シフト制で、土日に休めるとは限らない。</li><li>選考の途中で、今の勤め先などに働きぶりを確かめる手続き（リファレンスチェック）がある。いつ・誰に連絡が行くかは確認が要る。</li><li>店舗での接客が基本だが、求人票には出張買取の配属の記載もある。出張買取の配属だと、1か月は本社近くの店舗で研修（遠方なら一時的な滞在が要ると書かれている）。</li></ul></div>
     
     <div class="links"><a class="deck-mini" href="https://e-fran.jp/" target="_blank" rel="noopener" aria-label="いーふらん（おたからや）のホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/13o52cCzFfOAH3JAgpggwsH5UPJ4HOc_A/view" target="_blank" rel="noopener" aria-label="いーふらん（おたからや）の資料（会社説明スライド）">会社説明スライド →</a></div>
@@ -444,11 +494,12 @@ table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%
   <article class="card" id="card-kaitoru">
     <h3>カイトル</h3>
     <p class="what">スーパーやホームセンターに1週間ずつ買取の特設ブースを出し、来られたお客様の品物を査定して買い取る仕事</p>
-    <dl>
-      <dt>勤務地</dt><dd>首都圏の催事会場（自宅から60〜90分以内の会場に振り分け・転勤なし）</dd><dt>通勤</dt><dd>ご自宅から60〜90分以内の会場（週ごとに変わります）</dd><dt>月給</dt><dd>最初の6か月は27.5万円、その後30万円〜50万円（月20時間分の固定残業代を含む）</dd><dt>年収</dt><dd>求人票の想定は400万〜700万円（成果給込み）。1年目の例は600万円。固定給だけなら1年目は年345万円</dd><dt>休日</dt><dd>土日休み・年間休日124日</dd>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">最初の6か月は27.5万円、その後30万円〜50万円</span><span class="aside">（月20時間分の固定残業代を含む）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd><span class="lead">求人票の想定は</span><span class="main">400万〜700万円</span><span class="aside">（成果給込み）。1年目の例は600万円。固定給だけなら1年目は年345万円</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日休み・年間休日124日</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>首都圏の催事会場（自宅から60〜90分以内の会場に振り分け・転勤なし）</dd><dt>通勤</dt><dd>ご自宅から60〜90分以内の会場（週ごとに変わります）</dd>
     </dl>
     <p class="point"><b>ここが合う</b>　土日休み・年間休日124日で、ご家族との時間を取りながら成果給も狙えます。会場へは直行直帰が基本です。</p>
-    <p class="caution">最初の6か月は契約社員（その後、正社員）。 会場が1週間ごとに変わり、通勤時間も週によって変わる。 賞与は業績しだいで、決まった額は無い。 2022年にできた新しい会社。</p>
+    <div class="caution"><p class="c-h">気をつけたいこと</p><ul><li>最初の6か月は契約社員（その後、正社員）。</li><li>会場が1週間ごとに変わり、通勤時間も週によって変わる。</li><li>賞与は業績しだいで、決まった額は無い。</li><li>2022年にできた新しい会社。</li></ul></div>
     
     <div class="links"><a class="deck-mini" href="https://kai-toru.com/" target="_blank" rel="noopener" aria-label="カイトルのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1kGB2sH7UHWCoz8FxWyAIH9fFc9Bw0tBO/view" target="_blank" rel="noopener" aria-label="カイトルの資料（会社説明スライド）">会社説明スライド →</a></div>
@@ -456,11 +507,12 @@ table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%
   <article class="card" id="card-daito">
     <h3>大東建託</h3>
     <p class="what">土地を持つオーナーに、アパートを建てて貸す土地活用を提案する営業（訪問して関係をつくる）</p>
-    <dl>
-      <dt>勤務地</dt><dd>全国の支店（原則転勤なし・希望を考えて配属）</dd><dt>通勤</dt><dd>通える支店に配属（原則転勤なし）。お客様のお宅へは社用車</dd><dt>月給</dt><dd>27.8万円〜30.2万円（入社1年間だけの手当3万円と、35時間分・5.7万円以上の固定残業代を含む）</dd><dt>年収</dt><dd>求人票の1年目のイメージは500万〜600万円（成果給込み）。契約1件で約200万円の成果給。固定給だけなら1年目は年333.6万円、2年目からは手当3万円が外れて年297.6万円</dd><dt>休日</dt><dd>土日祝休み・年間休日125日（お客様の都合で土日に出ることもある）</dd>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">27.8万円〜30.2万円</span><span class="aside">（入社1年間だけの手当3万円と、35時間分・5.7万円以上の固定残業代を含む）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd><span class="main">求人票の1年目のイメージは500万〜600万円</span><span class="aside">（成果給込み）。契約1件で約200万円の成果給。固定給だけなら1年目は年333.6万円、2年目からは手当3万円が外れて年297.6万円</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">土日祝休み・</span><span class="main">年間休日125日</span><span class="aside">（お客様の都合で土日に出ることもある）</span></dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>全国の支店（原則転勤なし・希望を考えて配属）</dd><dt>通勤</dt><dd>通える支店に配属（原則転勤なし）。お客様のお宅へは社用車</dd>
     </dl>
     <p class="point"><b>ここが合う</b>　契約1件ごとの成果給が大きい会社です。そのぶん、契約が取れるまでは固定給だけになります。土日祝が休みの上場企業です。</p>
-    <p class="caution">契約が取れないうちは固定給だけ（実績なしの月収例は約30.8万円・残業40時間込み）。 1日に何十件も訪ねる訪問営業で、飛び込みや夜の訪問もある。夏も外を回る。 月給のうち3万円は入社1年間だけの手当。平均残業は月38時間。</p>
+    <div class="caution"><p class="c-h">気をつけたいこと</p><ul><li>契約が取れないうちは固定給だけ（実績なしの月収例は約30.8万円・残業40時間込み）。</li><li>1日に何十件も訪ねる訪問営業で、飛び込みや夜の訪問もある。夏も外を回る。</li><li>月給のうち3万円は入社1年間だけの手当。平均残業は月38時間。</li></ul></div>
     
     <div class="links"><a class="deck-mini" href="https://www.kentaku.co.jp/" target="_blank" rel="noopener" aria-label="大東建託のホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1n9sc4RD5Z5xzp473wk-GhRIsP4qT_T5J/view" target="_blank" rel="noopener" aria-label="大東建託の資料（会社説明スライド）">会社説明スライド →</a></div>
@@ -468,11 +520,12 @@ table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%
   <article class="card" id="card-enex">
     <h3>新日本エネックス</h3>
     <p class="what">提携するハウスメーカーの家を定期点検で訪ね、住まいの困りごとを伺って次の打ち合わせにつなぐ営業（太陽光・リフォームなど）</p>
-    <dl>
-      <dt>勤務地</dt><dd>埼玉支店（大宮）ほか</dd><dt>通勤</dt><dd>電車で約20分（大宮）。お客様のお宅へは社用車</dd><dt>月給</dt><dd>26万円〜30万円（月45時間分・6.5万円以上の固定残業代を含む）</dd><dt>年収</dt><dd>求人票の想定は500万〜576万円。1年目の例は500万円（月給28万円＋手当＋成果給）。固定給だけなら年312万円＋賞与（額の記載なし）</dd><dt>休日</dt><dd>火・水休み（土日は出勤）・年間休日115日</dd>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">26万円〜30万円</span><span class="aside">（月45時間分・6.5万円以上の固定残業代を含む）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd><span class="lead">求人票の想定は</span><span class="main">500万〜576万円。</span><span class="aside">1年目の例は500万円（月給28万円＋手当＋成果給）。固定給だけなら年312万円＋賞与（額の記載なし）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">火・水休み（土日は出勤）・</span><span class="main">年間休日115日</span></dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>埼玉支店（大宮）ほか</dd><dt>通勤</dt><dd>電車で約20分（大宮）。お客様のお宅へは社用車</dd>
     </dl>
     <p class="point"><b>ここが合う</b>　職場は大宮で、電車で約20分です。訪ねるのは約束の決まったお宅だけで、法人のお客様を定期的に回ってきた経験がそのまま使えます。</p>
-    <p class="caution">土日は出勤で、休みは火・水。勤務は10時〜20時。 月給に45時間分の固定残業代を含む。 最終面接は福岡（博多）で、対面（交通費の扱いは確認が要る）。 転勤の可能性はある（希望を聞いて判断すると書かれている）。</p>
+    <div class="caution"><p class="c-h">気をつけたいこと</p><ul><li>土日は出勤で、休みは火・水。勤務は10時〜20時。</li><li>月給に45時間分の固定残業代を含む。</li><li>最終面接は福岡（博多）で、対面（交通費の扱いは確認が要る）。</li><li>転勤の可能性はある（希望を聞いて判断すると書かれている）。</li></ul></div>
     
     <div class="links"><a class="deck-mini" href="https://nj-enex.co.jp/" target="_blank" rel="noopener" aria-label="新日本エネックスのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1guI67c3-WtHAz3Zq_kiklo54x912KYuI/view" target="_blank" rel="noopener" aria-label="新日本エネックスの資料（会社説明スライド）">会社説明スライド →</a></div>
@@ -480,11 +533,12 @@ table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%
   <article class="card" id="card-idom">
     <h3>IDOM（ガリバー）</h3>
     <p class="what">中古車の「ガリバー」の店舗で、来店や問い合わせのお客様に車の購入・売却を案内する営業（飛び込み・電話営業なし）</p>
-    <dl>
-      <dt>勤務地</dt><dd>全国の店舗（埼玉県内だけで24店・転勤はできるだけ考慮）</dd><dt>通勤</dt><dd>車で15〜20分ほどの店舗があります（配属店は入社時に決まります）</dd><dt>月給</dt><dd>25万円〜30万円</dd><dt>年収</dt><dd>求人票の想定は450万〜500万円。1年目の例は450万円（月給27万円＋成果給＋賞与）。固定給だけなら年300万円＋賞与（昨年度の実績は3か月分）</dd><dt>休日</dt><dd>シフト制・年間休日125日</dd>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd>25万円〜30万円</dd></div><div class="stat s-annual"><dt>年収</dt><dd><span class="lead">求人票の想定は</span><span class="main">450万〜500万円。</span><span class="aside">1年目の例は450万円（月給27万円＋成果給＋賞与）。固定給だけなら年300万円＋賞与（昨年度の実績は3か月分）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>シフト制・年間休日125日</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>全国の店舗（埼玉県内だけで24店・転勤はできるだけ考慮）</dd><dt>通勤</dt><dd>車で15〜20分ほどの店舗があります（配属店は入社時に決まります）</dd>
     </dl>
     <p class="point"><b>ここが合う</b>　タイヤを月133本売った経験と車好きが、そのまま話の種になる仕事です。来店されたお客様の対応が中心で、査定額は専門の担当が付けます。</p>
-    <p class="caution">年収の例はどれも成果給と賞与を含んだ数字。 シフト制で、土日に休めるとは限らない。勤務は10時〜20時。 月給に固定残業代が含まれるかは、求人票に書かれていない。</p>
+    <div class="caution"><p class="c-h">気をつけたいこと</p><ul><li>年収の例はどれも成果給と賞与を含んだ数字。</li><li>シフト制で、土日に休めるとは限らない。勤務は10時〜20時。</li><li>月給に固定残業代が含まれるかは、求人票に書かれていない。</li></ul></div>
     
     <div class="links"><a class="deck-mini" href="https://idom-inc.com/" target="_blank" rel="noopener" aria-label="IDOM（ガリバー）のホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1fzYT8izJvaO2qauSyxpjsbjUKYfvZovp/view" target="_blank" rel="noopener" aria-label="IDOM（ガリバー）の資料（会社説明スライド）">会社説明スライド →</a></div>
@@ -492,11 +546,12 @@ table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%
   <article class="card" id="card-nowall">
     <h3>NOWALL（ノーウォール）</h3>
     <p class="what">太陽光発電・蓄電池などの住宅設備を、個人のお宅を訪ねて提案する営業（営業先へは車で移動）</p>
-    <dl>
-      <dt>勤務地</dt><dd>東京・秋葉原のオフィス（営業先は首都圏・転勤なし）</dd><dt>通勤</dt><dd>電車で約1時間（秋葉原）。営業先へは車で移動</dd><dt>月給</dt><dd>25万円〜35万円</dd><dt>年収</dt><dd>求人票の想定は500万〜740万円（成果給込み）。固定給だけなら年300万円（賞与の記載なし）</dd><dt>休日</dt><dd>水・木休み（土日は出勤）・年間休日117日</dd>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd>25万円〜35万円</dd></div><div class="stat s-annual"><dt>年収</dt><dd><span class="lead">求人票の想定は</span><span class="main">500万〜740万円</span><span class="aside">（成果給込み）。固定給だけなら年300万円（賞与の記載なし）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">水・木休み（土日は出勤）・</span><span class="main">年間休日117日</span></dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京・秋葉原のオフィス（営業先は首都圏・転勤なし）</dd><dt>通勤</dt><dd>電車で約1時間（秋葉原）。営業先へは車で移動</dd>
     </dl>
     <p class="point"><b>ここが合う</b>　成果給の割合が大きく、しっかり稼ぎたい人向けの会社です。営業部は22〜30歳のメンバーです。</p>
-    <p class="caution">固定給は25万円からで、賞与の記載が無い。年収の多くを成果給が占める。 最初の約3か月は、約束なしで個人のお宅を訪ねて説明する役（飛び込み）。夕方から夜に回り、夏も外を回る。 土日は出勤。月の残業は平均50時間以下と書かれている。 契約社員として採用される場合もある。</p>
+    <div class="caution"><p class="c-h">気をつけたいこと</p><ul><li>固定給は25万円からで、賞与の記載が無い。年収の多くを成果給が占める。</li><li>最初の約3か月は、約束なしで個人のお宅を訪ねて説明する役（飛び込み）。夕方から夜に回り、夏も外を回る。</li><li>土日は出勤。月の残業は平均50時間以下と書かれている。</li><li>契約社員として採用される場合もある。</li></ul></div>
     
     <div class="links"><a class="deck-mini" href="https://drive.google.com/file/d/1dAmTPM5XEwOco8a-32MQQ1vm-9buul7f/view" target="_blank" rel="noopener" aria-label="NOWALL（ノーウォール）の資料（会社説明スライド）">会社説明スライド →</a></div>
   </article>
