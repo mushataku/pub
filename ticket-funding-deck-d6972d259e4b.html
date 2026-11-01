@@ -7,221 +7,292 @@
 <title>チケット事業 資金のご相談</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <!-- 写し: 正本は claude.ai の Artifact（docs/funding/README.md）。ここを直さない -->
 <!-- #allow-pii: 載る氏名は作成者本人2名（スライド表紙と同じ）。「事業 資金」の氏名判定は誤検知 -->
 <style>
 
 
+/* 資金のご相談デッキの見た目。方向＝会場の暗がり（濃紺）と半券の朱、数字は凝縮体で大きく。
+   色・書体はここの :root のトークンだけで決める（個々の規則に生の色を書かない） */
 :root{
-  --bg:#eef0f3; --paper:#ffffff; --ink:#151a24; --sub:#5b6474; --line:#dfe3ea;
-  --accent:#e8590c; --accent-soft:#fde7d9; --navy:#1f3a5f; --navy-soft:#dfe8f3;
-  --muted:#b9c0cc; --muted-soft:#eceff3; --ok:#2f855a; --ok-soft:#dcf2e5;
-  --ph:#8a5a00; --ph-bg:#fff3cd;
+  --bg:#e7eaef; --paper:#ffffff; --ink:#0b1422; --sub:#5c6678; --line:#dbe0e9;
+  --accent:#e2552b; --accent-soft:#fceae3; --navy:#102844; --navy-soft:#e3e9f3;
+  --muted:#aab3c1; --muted-soft:#edeff4; --ok:#1f7a52; --ok-soft:#ddefe6;
+  --ph:#8a5a00; --ph-bg:#fff0c9;
+  --disp:"Zen Kaku Gothic New","Noto Sans JP",system-ui,sans-serif;
+  --numf:Archivo,"Zen Kaku Gothic New","Noto Sans JP",sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0e1117; --paper:#171b23; --ink:#e9edf3; --sub:#9aa4b4; --line:#2a303c;
-    --accent:#ff7a33; --accent-soft:#3a2417; --navy:#8fb3e0; --navy-soft:#1c2838;
-    --muted:#4a5262; --muted-soft:#222833; --ok:#5cc28a; --ok-soft:#173226;
+    color-scheme:dark;
+    --bg:#0a0f18; --paper:#131a26; --ink:#e8edf5; --sub:#97a2b4; --line:#273041;
+    --accent:#ff7044; --accent-soft:#3a1d12; --navy:#9dbce4; --navy-soft:#1a2436;
+    --muted:#485264; --muted-soft:#1c2432; --ok:#52c08a; --ok-soft:#142e22;
     --ph:#ffd479; --ph-bg:#3a2f12;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0e1117; --paper:#171b23; --ink:#e9edf3; --sub:#9aa4b4; --line:#2a303c;
-  --accent:#ff7a33; --accent-soft:#3a2417; --navy:#8fb3e0; --navy-soft:#1c2838;
-  --muted:#4a5262; --muted-soft:#222833; --ok:#5cc28a; --ok-soft:#173226;
+  color-scheme:dark;
+  --bg:#0a0f18; --paper:#131a26; --ink:#e8edf5; --sub:#97a2b4; --line:#273041;
+  --accent:#ff7044; --accent-soft:#3a1d12; --navy:#9dbce4; --navy-soft:#1a2436;
+  --muted:#485264; --muted-soft:#1c2432; --ok:#52c08a; --ok-soft:#142e22;
   --ph:#ffd479; --ph-bg:#3a2f12;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;line-height:1.6;-webkit-text-size-adjust:100%}
-.num,.big{font-family:Inter,"Noto Sans JP",sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+body{background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;line-height:1.62;-webkit-text-size-adjust:100%}
+.num,.big{font-family:var(--numf);font-variant-numeric:tabular-nums;letter-spacing:-.015em}
 
 /* 上部の帯（デッキ名・いまの章・ページ） */
-.band{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;align-items:center;gap:12px;padding:8px 16px;
-  background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);font-size:13px}
-.band b{font-weight:700;white-space:nowrap}
+.band{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;align-items:center;gap:14px;padding:9px 18px;
+  background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);font-size:13px}
+.band b{font-family:var(--disp);font-weight:900;white-space:nowrap;letter-spacing:.02em}
 .band .now{color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
-.band .where{font-family:Inter,sans-serif;color:var(--sub);white-space:nowrap}
-.band button{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:6px;padding:2px 8px;font-size:12px;cursor:pointer}
+.band .where{font-family:var(--numf);font-weight:700;color:var(--sub);white-space:nowrap}
+.band button{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:5px;padding:3px 9px;font-size:12px;cursor:pointer}
+.band button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-main{max-width:1120px;margin:0 auto;padding:20px 16px 60px;display:flex;flex-direction:column;gap:22px}
-.slide{position:relative;container-type:inline-size;background:var(--paper);border-radius:14px;
-  box-shadow:0 1px 2px rgba(0,0,0,.06),0 8px 28px rgba(0,0,0,.06);aspect-ratio:16/9;overflow:hidden;
-  padding:4.2cqw 5cqw 3.6cqw;display:flex;flex-direction:column;scroll-margin-top:56px;
-  font-size:clamp(14px,1.75cqw,21px)}
-.hd{display:flex;justify-content:space-between;align-items:baseline;font-size:.72em;color:var(--sub);margin-bottom:1.1em;gap:1em}
-.ch{font-weight:500}
-.pg{font-family:Inter,sans-serif;white-space:nowrap}
-h2{font-size:2.05em;line-height:1.3;font-weight:900;letter-spacing:.01em;margin-bottom:.35em}
-h2 em{font-style:normal;color:var(--accent)}
-.lead{color:var(--sub);font-size:1.02em;margin-bottom:1.2em}
+main{max-width:1120px;margin:0 auto;padding:22px 16px 64px;display:flex;flex-direction:column;gap:24px}
+.slide{position:relative;container-type:inline-size;background:var(--paper);border-radius:10px;border:1px solid var(--line);
+  box-shadow:0 10px 30px rgba(10,20,40,.07);aspect-ratio:16/9;overflow:hidden;
+  padding:4.4cqw 5.2cqw 3.8cqw;display:flex;flex-direction:column;scroll-margin-top:58px;
+  font-size:clamp(14px,1.78cqw,21px)}
+/* 左に「節番号＋章名」を大きく置く＝いまどこの何を見ているかが一目で分かる。右端はページ番号 */
+.hd{display:flex;align-items:baseline;font-size:.8em;color:var(--sub);
+  margin-bottom:1.05em;padding-bottom:.5em;border-bottom:1px solid var(--line);gap:.8em}
+.sc{font-family:var(--numf);font-weight:900;font-size:1.65em;line-height:1;color:var(--accent);letter-spacing:-.01em}
+.ch{font-family:var(--disp);font-weight:900;font-size:1.22em;color:var(--ink);letter-spacing:.02em;flex:1;min-width:0}
+.lbl:before{content:"";display:inline-block;width:.42em;height:.42em;background:var(--accent);margin-right:.6em;vertical-align:.1em}
+.pg{font-family:var(--numf);font-weight:700;letter-spacing:.06em;white-space:nowrap;opacity:.7}
+.pg i{display:none}
+h2{font-family:var(--disp);font-size:2.45em;line-height:1.22;font-weight:900;letter-spacing:.004em;margin-bottom:.4em}
+h2 em{font-style:normal;color:var(--accent);word-break:keep-all}
+.lead{color:var(--sub);font-size:1em;margin-bottom:1.1em;max-width:62ch}
 .body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
-.foot{font-size:.68em;color:var(--sub);margin-top:.8em}
-.ph{background:var(--ph-bg);color:var(--ph);border-radius:.3em;padding:0 .3em;font-weight:700;white-space:nowrap}
+.foot{font-size:.7em;color:var(--sub);margin-top:1.1em;padding-top:.6em;border-top:1px solid var(--line)}
+.ph{background:var(--ph-bg);color:var(--ph);border-radius:.25em;padding:0 .35em;font-weight:700;white-space:nowrap}
 
 /* 表紙 */
-.cover{background:linear-gradient(135deg,var(--navy) 0%,#0f2238 100%);color:#fff;justify-content:center}
-.cover .kicker{font-size:.95em;opacity:.8;letter-spacing:.18em;margin-bottom:1em}
-.cover h1{font-size:3.1em;line-height:1.25;font-weight:900;margin-bottom:.5em}
-.cover h1 em{font-style:normal;color:#ffb27a}
-.cover .who{font-size:1em;opacity:.85}
-.cover .ph{background:rgba(255,255,255,.14);color:#ffd9b8}
-.cover .tag{position:absolute;right:5cqw;bottom:4cqw;font-family:Inter,sans-serif;font-size:.8em;opacity:.55}
+.cover{background:
+  radial-gradient(120% 90% at 12% 0%,#1b3f66 0%,transparent 60%),
+  linear-gradient(160deg,#102844 0%,#070e18 100%);
+  color:#fff;justify-content:center;border-color:transparent}
+.cover .kicker{font-size:.9em;opacity:.78;letter-spacing:.24em;font-weight:700;margin-bottom:1.3em;
+  padding-left:.9em;border-left:3px solid var(--accent)}
+.cover h1{font-family:var(--disp);font-size:3.3em;line-height:1.22;font-weight:900;letter-spacing:-.01em;margin-bottom:.55em}
+.cover h1 em{font-style:normal;color:#ff8a5c}
+.cover .pitch{font-family:var(--disp);font-size:1.45em;font-weight:900;line-height:1.42;margin-bottom:.75em;text-wrap:balance}
+.cover .who{font-size:1em;opacity:.82}
+.cover .who b{font-family:var(--numf);font-weight:800}
+.cover .ph{background:rgba(255,255,255,.13);color:#ffd2b8}
+.cover .tag{position:absolute;right:5.2cqw;bottom:4cqw;font-family:var(--numf);font-weight:600;font-size:.78em;opacity:.6;letter-spacing:.02em}
 
 /* まとめ：いま と 自前 の比較 */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:3cqw;align-items:end}
-.case h3{font-size:1em;font-weight:700;margin-bottom:.5em}
+.case h3{font-family:var(--disp);font-size:1em;font-weight:900;margin-bottom:.5em}
 .case h3 small{font-weight:400;color:var(--sub);margin-left:.4em}
-.bar{display:flex;height:3.2em;border-radius:.5em;overflow:hidden;font-weight:700}
+.bar{display:flex;height:3.2em;border-radius:.3em;overflow:hidden;font-weight:800}
 .bar span{display:flex;align-items:center;justify-content:center;font-size:.9em;white-space:nowrap}
 .bar .ours{background:var(--accent);color:#fff}
 .bar .theirs{background:var(--muted-soft);color:var(--sub);border:2px dashed var(--muted)}
 
+/* 枚どうしの行き来（本文の「→ B1-1」と索引の各行） */
+a.jump{color:inherit;text-decoration-color:var(--accent);text-underline-offset:.2em}
+.foot a.jump,.lead a.jump,.use a.jump{color:var(--accent);font-weight:700;text-decoration:none;
+  border-bottom:1px solid currentColor;white-space:nowrap}
+.foot a.jump:hover,.lead a.jump:hover,.use a.jump:hover{background:var(--accent-soft)}
+.toc a.jump{display:contents;text-decoration:none}
+.backlink{font-size:.72em;color:var(--sub);margin-top:.9em}
+.backlink a.jump{color:var(--accent);font-weight:700;text-decoration:none;border-bottom:1px solid currentColor}
+.toc [data-ch]{cursor:pointer}
+.toc [data-ch]:hover .t{color:var(--accent)}
+
 /* 索引 */
-.toc{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1em 2.2em}
-.toc [data-ch]{display:grid;grid-template-columns:auto 1fr;gap:.2em 1em;padding:.9em 0;border-top:2px solid var(--line)}
-.toc .n{font-family:Inter,sans-serif;font-size:2em;font-weight:800;color:var(--accent);line-height:1;grid-row:span 2}
-.toc .t{font-weight:700;font-size:1.1em}
-.toc .q{color:var(--sub);font-size:.92em}
+.toc{display:grid;grid-template-columns:repeat(2,1fr);gap:1em 2.4em}
+.toc [data-ch]{display:grid;grid-template-columns:auto 1fr;gap:.15em 1.1em;padding:1em 0;border-top:2px solid var(--ink)}
+.toc .n{font-family:var(--numf);font-size:2.3em;font-weight:900;color:var(--accent);line-height:.95;grid-row:span 2}
+.toc .t{font-family:var(--disp);font-weight:900;font-size:1.15em}
+.toc .q{color:var(--sub);font-size:.9em}
 
 /* 流れ図 */
-.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:1em}
-.step{border-radius:.8em;padding:1.1em 1.1em 1em;background:var(--navy-soft);display:flex;flex-direction:column;gap:.3em}
-.step .no{font-family:Inter,sans-serif;font-weight:800;color:var(--navy);font-size:.85em}
-.step .t{font-weight:900;font-size:1.25em}
-.step .m{font-family:Inter,"Noto Sans JP",sans-serif;font-weight:800;font-size:1.5em}
-.step .d{color:var(--sub);font-size:.85em}
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:.9em}
+.step{border-radius:.5em;padding:1.1em 1.15em 1em;background:var(--paper);border:1px solid var(--line);
+  border-top:3px solid var(--navy);display:flex;flex-direction:column;gap:.32em}
+.step .no{font-family:var(--numf);font-weight:800;color:var(--navy);font-size:.8em;letter-spacing:.06em}
+.step .t{font-family:var(--disp);font-weight:900;font-size:1.32em;line-height:1.3}
+.step .m{font-family:var(--numf);font-weight:800;font-size:1.6em}
+.step .d{color:var(--sub);font-size:.84em;line-height:1.5}
 .step.out .m{color:var(--accent)}
 .step.in .m{color:var(--ok)}
-.flow .ar{align-self:center;font-size:1.8em;color:var(--muted)}
+.flow .ar{align-self:center;font-family:var(--numf);font-size:1.5em;font-weight:800;color:var(--muted)}
 
 /* 2つの軸 */
 .levers{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:1em;align-items:center;text-align:center}
-.lever{border:2px solid var(--line);border-radius:1em;padding:1.2em .8em}
+.lever{border:1px solid var(--line);border-top:3px solid var(--navy);border-radius:.5em;padding:1.2em .8em}
 .lever .ic{font-size:2.2em;line-height:1}
-.lever .t{font-weight:900;font-size:1.3em;margin:.3em 0 .1em}
+.lever .t{font-family:var(--disp);font-weight:900;font-size:1.3em;margin:.3em 0 .1em}
 .lever .d{color:var(--sub);font-size:.85em}
-.lever.hot{border-color:var(--accent);background:var(--accent-soft)}
-.op{font-family:Inter,sans-serif;font-size:2.2em;font-weight:800;color:var(--sub)}
+.lever.hot{border-color:var(--accent);border-top-color:var(--accent);background:var(--accent-soft)}
+.op{font-family:var(--numf);font-size:2.1em;font-weight:800;color:var(--muted)}
 
 /* 成功例カード */
 .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1em}
-.card{border-radius:.8em;border:1px solid var(--line);padding:1em;display:flex;flex-direction:column;gap:.2em}
-.card .nm{font-weight:700}
-.card .p{font-family:Inter,"Noto Sans JP",sans-serif;font-size:2.2em;font-weight:800;color:var(--accent);line-height:1.1}
-.card .p small{font-size:.45em;font-weight:700;margin-left:.1em}
+.card{border-radius:.5em;border:1px solid var(--line);border-top:3px solid var(--navy);padding:1.1em 1.1em 1em;display:flex;flex-direction:column;gap:.15em}
+.card .nm{font-family:var(--disp);font-weight:900;font-size:.95em;color:var(--sub)}
+.card .p{font-family:var(--numf);font-size:2.9em;font-weight:900;color:var(--accent);line-height:1.05;margin:.1em 0 .05em}
+.card .p small{font-size:.36em;font-weight:800;margin-left:.15em;color:var(--sub)}
 .card .d{font-size:.8em;color:var(--sub)}
-.card .meter{height:.5em;border-radius:.3em;background:var(--muted-soft);margin-top:.5em;overflow:hidden}
+.card .meter{height:.45em;border-radius:.25em;background:var(--muted-soft);margin-top:.7em;overflow:hidden}
 .card .meter i{display:block;height:100%;background:var(--accent)}
 
 /* 表 */
 table{width:100%;border-collapse:collapse;font-size:.92em}
-th,td{padding:.55em .7em;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
-th{font-size:.82em;color:var(--sub);font-weight:500}
+th,td{padding:.6em .7em;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:.76em;color:var(--sub);font-weight:700;letter-spacing:.05em;border-bottom:2px solid var(--ink)}
+th small{display:block;font-weight:400;font-size:.92em;opacity:.85;white-space:nowrap}
+table.tight td,table.tight th{padding:.42em .6em}
+table.tight{font-size:.86em}
 th:first-child,td:first-child{text-align:left}
-td.hl{font-weight:800;color:var(--accent)}
-.mult{display:inline-block;min-width:3.4em;text-align:center;border-radius:.3em;background:var(--accent-soft);color:var(--accent);font-weight:800;padding:.05em .3em}
+td.hl{font-family:var(--numf);font-weight:900;color:var(--accent);font-size:1.08em}
+.mult{display:inline-block;min-width:3.4em;text-align:center;border-radius:.25em;background:var(--accent-soft);color:var(--accent);font-weight:900;padding:.05em .3em}
 
 svg{display:block;width:100%;height:auto}
 svg text{font-family:"Noto Sans JP",sans-serif;fill:var(--ink)}
 svg .sub{fill:var(--sub)}
-svg .num{font-family:Inter,sans-serif}
+svg .num{font-family:var(--numf)}
 svg .on{fill:#fff}
 .gm{display:none;flex-direction:column;gap:14px}
 .gr .l{display:flex;justify-content:space-between;gap:1em;font-size:.95em}
-.gr .track{height:14px;border-radius:7px;background:var(--muted-soft);margin:4px 0 2px;overflow:hidden}
-.gr .track i{display:block;height:100%;border-radius:7px;background:var(--accent)}
+.gr .track{height:14px;border-radius:3px;background:var(--muted-soft);margin:4px 0 2px;overflow:hidden}
+.gr .track i{display:block;height:100%;border-radius:3px;background:var(--accent)}
 .gr .dt{font-size:.78em;color:var(--sub)}
 
-/* プランB の比較 */
+/* 2本の棒で比べる */
 .vs{display:grid;grid-template-columns:1.2fr 1fr;gap:3cqw;align-items:center}
-.vsbars{display:flex;flex-direction:column;gap:1.1em}
-.vsrow .l{font-size:.9em;margin-bottom:.3em;display:flex;justify-content:space-between;align-items:baseline;gap:1em}
-.vsrow .l b{font-family:Inter,"Noto Sans JP",sans-serif;font-size:1.3em;white-space:nowrap}
-.vsrow .track{height:2.2em;background:var(--muted-soft);border-radius:.4em;overflow:hidden}
-.vsrow .fill{height:100%;border-radius:.4em}
-.callout{border-left:.35em solid var(--accent);padding:.6em 1em;background:var(--accent-soft);border-radius:0 .6em .6em 0}
-.callout .big{font-size:3em;font-weight:800;color:var(--accent);line-height:1.05}
+.vsbars{display:flex;flex-direction:column;gap:1.3em}
+.vsrow .l{font-size:.9em;margin-bottom:.35em;display:flex;justify-content:space-between;align-items:baseline;gap:1em}
+.vsrow .l b{font-family:var(--numf);font-weight:900;font-size:1.5em;white-space:nowrap}
+.vsrow .track{height:2.3em;background:var(--muted-soft);border-radius:.25em;overflow:hidden}
+.vsrow .fill{height:100%;border-radius:.25em}
+.callout{border-left:.4em solid var(--accent);padding:.8em 1.1em;background:var(--accent-soft);border-radius:0 .4em .4em 0}
+.callout .big{font-family:var(--numf);font-size:3em;font-weight:900;color:var(--accent);line-height:1.05}
 
-/* 4章 */
+/* 2つ並べて比べる */
 .two{display:grid;grid-template-columns:1fr 1fr;gap:1.4em}
-.opt{border-radius:1em;border:2px solid var(--line);padding:1.1em 1.2em}
-.opt h3{font-size:1.2em;font-weight:900;margin-bottom:.5em}
-.opt dl{display:grid;grid-template-columns:auto 1fr;gap:.35em 1em;font-size:.9em}
-.opt dt{color:var(--sub)}
+.opt{border-radius:.5em;border:1px solid var(--line);border-top:3px solid var(--navy);padding:1.15em 1.25em}
+.opt h3{font-family:var(--disp);font-size:1.2em;font-weight:900;margin-bottom:.6em}
+.opt dl{display:grid;grid-template-columns:auto 1fr;gap:.4em 1em;font-size:.9em}
+.opt dt{color:var(--sub);font-weight:700}
 .opt dd{font-weight:500}
 .timeline{display:grid;grid-template-columns:repeat(4,1fr);position:relative;gap:1em}
-.timeline:before{content:"";position:absolute;left:4%;right:4%;top:1.05em;height:3px;background:var(--line)}
+.timeline:before{content:"";position:absolute;left:4%;right:4%;top:1.05em;height:2px;background:var(--line)}
 .tl{position:relative;text-align:center;padding-top:2.6em}
-.tl:before{content:"";position:absolute;left:50%;top:.45em;width:1.2em;height:1.2em;margin-left:-.6em;border-radius:50%;background:var(--paper);border:3px solid var(--accent)}
-.tl .w{font-weight:900;font-size:1.05em}
+.tl:before{content:"";position:absolute;left:50%;top:.45em;width:1.1em;height:1.1em;margin-left:-.55em;border-radius:50%;background:var(--paper);border:3px solid var(--accent)}
+.tl .w{font-family:var(--disp);font-weight:900;font-size:1.05em}
 .tl .d{font-size:.85em;color:var(--sub)}
 
-/* 結論 */
-.conclusion{background:linear-gradient(135deg,#2a1608 0%,#14202f 100%);color:#fff}
-.conclusion .hd{color:rgba(255,255,255,.6)}
-.conclusion h2 em{color:#ffb27a}
-.asks{display:grid;grid-template-columns:repeat(3,1fr);gap:1em;margin-top:1.2em}
-.ask{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:.8em;padding:1em}
-.ask .k{font-size:.8em;opacity:.7}
-.ask .v{font-weight:900;font-size:1.25em;margin-top:.2em}
-.conclusion .ph{background:rgba(255,255,255,.14);color:#ffd9b8}
+/* 結論・まとめ（濃色でリズムを作る） */
+.conclusion{background:
+  radial-gradient(110% 80% at 88% 0%,#1d4166 0%,transparent 62%),
+  linear-gradient(160deg,#102844 0%,#070e18 100%);color:#fff;border-color:transparent}
+.conclusion .hd{color:rgba(255,255,255,.62);border-bottom-color:rgba(255,255,255,.16)}
+.conclusion .ch{color:#fff}
+.conclusion a.jump{color:#ff8a5c}
+.conclusion .sc{color:#ff8a5c}
+.conclusion h2 em{color:#ff8a5c}
+.conclusion .foot{color:rgba(255,255,255,.6);border-top-color:rgba(255,255,255,.16)}
+.asks{display:grid;grid-template-columns:repeat(3,1fr);gap:1em}
+.ask{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-top:3px solid #ff8a5c;border-radius:.4em;padding:.95em 1em}
+.ask .k{font-size:.8em;opacity:.72;font-weight:700}
+.ask .v{font-family:var(--disp);font-weight:900;font-size:1.4em;margin-top:.25em;line-height:1.3}
+/* まとめ：額とお返しを大きく、用途は薄く */
+.ask .amt{font-family:var(--numf);font-weight:900;font-size:1.85em;line-height:1.1;color:#ff8a5c;margin:.1em 0 .15em}
+.ask .ret{font-family:var(--disp);font-weight:900;font-size:1.1em;line-height:1.35}
+.ask .ret .ph{font-weight:900}
+.ask .u{font-size:.82em;opacity:.55;margin-top:.5em;line-height:1.45}
+.sumwrap{display:grid;grid-template-columns:1.35fr 1fr;gap:1.8em;align-items:center}
+.srows{display:flex;flex-direction:column;gap:.75em}
+.srow{display:grid;grid-template-columns:auto 1fr;gap:.1em .9em;padding-bottom:.6em;
+  border-bottom:1px solid rgba(255,255,255,.14)}
+.srow .k{grid-row:span 2;font-family:var(--numf);font-weight:800;font-size:.8em;opacity:.7;
+  align-self:center;white-space:nowrap}
+.srow .amt{font-family:var(--disp);font-weight:900;font-size:1.45em;line-height:1.2;color:#ff8a5c}
+.srow .ret{font-size:.85em;opacity:.8;word-break:keep-all}
+.srows .note{font-size:.8em;opacity:.7;line-height:1.5}
+.conclusion .ph{background:rgba(255,255,255,.14);color:#ffd2b8}
 .path{display:flex;flex-wrap:wrap;align-items:center;gap:.4em .6em;margin-top:1.6em;font-size:.9em}
 .path span{background:var(--muted-soft);border-radius:2em;padding:.3em .9em;font-weight:500}
 .path span.goal{background:var(--accent);color:#fff;font-weight:900}
 .path i{font-style:normal;color:var(--sub)}
-tr.sum td{border-top:2px solid var(--ink);font-weight:700}
+tr.sum td{border-top:2px solid var(--ink);font-weight:800}
 .ask.wide{grid-column:1/-1}
 .panel{display:grid;grid-template-columns:repeat(4,1fr);gap:.8em}
-.stg{border-radius:.8em;background:var(--navy-soft);padding:.9em;display:flex;flex-direction:column;gap:.4em}
-.stg .no{font-weight:900;color:var(--navy);font-size:.95em}
+.stg{border-radius:.5em;background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--navy);padding:1em;display:flex;flex-direction:column;gap:.45em}
+.stg .no{font-family:var(--disp);font-weight:900;color:var(--navy);font-size:.95em}
 .stg b{font-size:.95em;line-height:1.45}
 .stg dl{display:grid;grid-template-columns:auto 1fr;gap:.25em .6em;font-size:.78em;margin-top:auto}
 .stg dt{color:var(--sub)}
 .stg .who{font-weight:700}
-.stg.hot{background:var(--accent-soft);outline:2px solid var(--accent)}
+.stg.hot{background:var(--accent-soft);border-color:var(--accent);border-top-color:var(--accent)}
 .stg.hot .no,.stg.hot .who{color:var(--accent)}
-.badge{font-size:.7em;font-weight:700;background:var(--navy-soft);color:var(--navy);border-radius:.3em;padding:.05em .4em;vertical-align:middle}
+.badge{font-size:.7em;font-weight:800;background:var(--navy-soft);color:var(--navy);border-radius:.25em;padding:.05em .4em;vertical-align:middle}
 table.funnel td,table.funnel th{text-align:center}
 table.funnel td:first-child{text-align:left;font-weight:700}
 table.funnel-m{display:none}
 table.funnel-m td:first-child{font-weight:700}
+/* 奥付は項目が増えるので 16:9 に収めない */
+.colophon{aspect-ratio:auto;min-height:0}
 .colophon ul{list-style:none;display:flex;flex-direction:column;gap:.7em;font-size:.92em}
 .colophon li{padding-left:1.2em;position:relative}
-.colophon li:before{content:"";position:absolute;left:0;top:.65em;width:.5em;height:.5em;border-radius:50%;background:var(--accent)}
+.colophon li:before{content:"";position:absolute;left:0;top:.7em;width:.45em;height:.45em;background:var(--accent)}
 
+/* プランの枚：まず「いくら・どう返すか」、その下に「何に使うか」 */
+.deal{display:grid;grid-template-columns:1fr 1fr;gap:1.2em}
+.deal .bx{border-radius:.5em;padding:1.05em 1.2em;display:flex;flex-direction:column;gap:.12em;
+  border:1px solid var(--line);border-top:3px solid var(--navy)}
+.deal .bx.hot{background:var(--accent-soft);border-color:var(--accent);border-top-color:var(--accent)}
+.deal .k{font-size:.8em;color:var(--sub);font-weight:700;letter-spacing:.06em}
+.deal .v{font-family:var(--disp);font-weight:900;font-size:1.85em;line-height:1.22}
+.deal .hot .v{color:var(--accent)}
+.deal .d{font-size:.85em;color:var(--sub);margin-top:.15em}
+.use{border-left:.35em solid var(--navy);background:var(--navy-soft);border-radius:0 .4em .4em 0;
+  padding:.8em 1.1em;font-size:.88em;margin-top:1.2em}
+.use .k{font-weight:900;font-family:var(--disp);margin-right:.5em}
+.use p+p{margin-top:.35em}
+.use dl{display:grid;grid-template-columns:auto 1fr;gap:.45em 1.2em;align-items:baseline}
+.use dt{font-family:var(--disp);font-weight:900;color:var(--navy);white-space:nowrap}
+.use dd{color:var(--ink)}
 
-/* v4: まとめの3つの鎖（揃っている2つ・足りない1つ） */
+/* 3つの鎖（揃っている2つ・足りない1つ） */
 .chain{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2em}
-.lk{border-radius:.8em;padding:1.1em 1.2em;display:flex;flex-direction:column;gap:.35em;background:var(--ok-soft)}
+.lk{border-radius:.5em;padding:1.1em 1.2em;display:flex;flex-direction:column;gap:.35em;background:var(--ok-soft)}
 .lk .k{font-size:.85em;color:var(--sub);font-weight:700}
-.lk b{font-size:1.3em;font-weight:900}
-.lk .s{font-weight:700;color:var(--ok)}
+.lk b{font-family:var(--disp);font-size:1.3em;font-weight:900}
+.lk .s{font-weight:800;color:var(--ok)}
 .lk.ng{background:var(--accent-soft);border:2px dashed var(--accent)}
 .lk.ng .s{color:var(--accent)}
-/* v4: 0→1 と 1→100 の対 */
+/* 0→1 と 1→100 の対 */
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:2em}
-.duo .side{border-top:4px solid var(--muted);padding-top:.8em;display:flex;flex-direction:column;gap:.3em}
+.duo .side{border-top:4px solid var(--muted);padding-top:.9em;display:flex;flex-direction:column;gap:.3em}
 .duo .side.us{border-top-color:var(--accent)}
-.duo .big{font-size:3.2em;font-weight:800;line-height:1.05;color:var(--navy)}
+.duo .big{font-family:var(--numf);font-size:3.2em;font-weight:900;line-height:1.05;color:var(--navy)}
 .duo .us .big{color:var(--accent)}
-.duo b{font-size:1.2em}
+.duo b{font-family:var(--disp);font-size:1.2em;font-weight:900}
 .duo .side span:last-child{color:var(--sub)}
-.step.hot{background:var(--accent-soft);border:2px solid var(--accent)}
+.step.hot{background:var(--accent-soft);border-color:var(--accent);border-top-color:var(--accent)}
 .step.hot .no{color:var(--accent)}
-table.scale td,table.scale th{font-size:1.05em;padding:.5em .8em}
-/* v4: 量→要る資金→戻る利益 の3つの大きな数字 */
+table.scale td,table.scale th{font-size:1.05em;padding:.55em .8em}
+/* 量→要る資金→戻る利益 の3つの大きな数字 */
 .big3{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:1em}
-.big3 .bx{border-radius:.8em;padding:1em 1.1em;background:var(--navy-soft);display:flex;flex-direction:column;gap:.25em}
-.big3 .bx.hot{background:var(--accent-soft);border:2px solid var(--accent)}
+.big3 .bx{border-radius:.5em;padding:1.1em;background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--navy);display:flex;flex-direction:column;gap:.25em}
+.big3 .bx.hot{background:var(--accent-soft);border-color:var(--accent);border-top-color:var(--accent)}
 .big3 .k{font-size:.85em;color:var(--sub);font-weight:700}
-.big3 .v{font-size:2.3em;font-weight:800;line-height:1.1}
-.big3 .v small{font-size:.5em;margin-left:.1em}
+.big3 .v{font-family:var(--numf);font-size:2.6em;font-weight:900;line-height:1.08}
+.big3 .v small{font-size:.42em;margin-left:.12em;color:var(--sub)}
 .big3 .hot .v{color:var(--accent)}
 .big3 .d{font-size:.82em;color:var(--sub)}
-.big3 .ar{align-self:center;font-size:1.6em;color:var(--sub)}
+.big3 .ar{align-self:center;font-family:var(--numf);font-size:1.4em;font-weight:800;color:var(--muted)}
 .cards.c3{grid-template-columns:repeat(3,1fr)}
 .slide[data-sec^="B"] h2{text-wrap:balance}
 /* 改行の既定（2026-10-30 拓也「改行が気持ち悪い」・skill slide-skeleton と同じ）: 日本語は文節で折る・
@@ -231,27 +302,28 @@ table.scale td,table.scale th{font-size:1.05em;padding:.5em .8em}
 .slide h1,.slide h2{text-wrap:balance}
 .num,.big3 .v,.card .p,.vsrow .l b{white-space:nowrap}
 .big3 .bx,.card{container-type:inline-size;min-width:0}
-.big3 .v{font-size:min(2.3em,16cqi)}
-.card .p{font-size:min(2.2em,16cqi)}
+.big3 .v{font-size:min(2.6em,17cqi)}
+.card .p{font-size:min(2.9em,19cqi)}
 /* 補足：質疑で開く枚は文字が多くてよい＝16:9 に収めず縦に伸ばす */
 .slide[data-sec^="B"],.slide[data-role="backup"]{aspect-ratio:auto;min-height:0}
-.slide.dense{font-size:clamp(13px,1.5cqw,18px)}
+.slide.dense{font-size:clamp(13px,1.52cqw,18px)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 /* スマホ幅：16:9 をやめて縦に流す */
 @media (max-width:760px){
   main{padding:12px 12px 48px;gap:14px}
   .slide{aspect-ratio:auto;padding:22px 18px 20px;font-size:15px;min-height:0}
-  h2{font-size:1.55em}
+  h2{font-size:1.62em}
   .cover{min-height:70vh}
-  .cover h1{font-size:2.05em}
+  .cover h1{font-size:2.1em}
   .cover .tag{position:static;margin-top:1.4em}
-  .split,.vs,.two,.duo,.chain{grid-template-columns:1fr;gap:14px}
+  .split,.vs,.two,.duo,.chain,.deal{grid-template-columns:1fr;gap:14px}
   .big3{grid-template-columns:1fr;gap:8px}
   .big3 .ar{transform:rotate(90deg);justify-self:center;line-height:1}
   .cards.c3{grid-template-columns:1fr}
-  .slide[data-sec^="B"] table th,.slide[data-sec^="B"] table td{font-size:11px;padding:4px 3px;white-space:normal}
+  .slide table th,.slide table td{font-size:11px;padding:4px 3px;white-space:normal}
   .toc{grid-template-columns:1fr;gap:0}
   .flow,.levers{grid-template-columns:1fr;gap:8px}
-  .flow .ar{transform:rotate(90deg);justify-self:center;font-size:1.4em;line-height:1}
+  .flow .ar{transform:rotate(90deg);justify-self:center;font-size:1.3em;line-height:1}
   .levers .op{font-size:1.4em;line-height:1}
   .cards{grid-template-columns:1fr 1fr}
   .panel{grid-template-columns:1fr}
@@ -259,7 +331,7 @@ table.scale td,table.scale th{font-size:1.05em;padding:.5em .8em}
   table.funnel-m{display:table}
   .asks{grid-template-columns:1fr}
   .timeline{grid-template-columns:1fr;gap:4px}
-  .timeline:before{left:.6em;right:auto;top:.6em;bottom:.6em;width:3px;height:auto}
+  .timeline:before{left:.6em;right:auto;top:.6em;bottom:.6em;width:2px;height:auto}
   .tl{text-align:left;padding:0 0 .8em 2.2em}
   .tl:before{left:.6em;top:.2em}
   .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
@@ -271,175 +343,269 @@ table.scale td,table.scale th{font-size:1.05em;padding:.5em .8em}
   .band{display:none}
   body{background:#fff}
   main{padding:0;gap:0;max-width:none}
-  .slide{box-shadow:none;border-radius:0;break-after:page;width:100%}
+  .slide{box-shadow:none;border-radius:0;border:none;break-after:page;width:100%}
 }
+
+/* 濃色の枚に置く図は、文字を白で描く */
+.conclusion svg text{fill:#fff}
+.conclusion svg .sub{fill:rgba(255,255,255,.7)}
 </style>
 </head>
-<body data-skeleton="talk">
-<div class="band" role="navigation"><b>資金のご相談</b><span class="now" id="now">表紙</span><span class="where" id="where">01/23</span><button type="button" id="theme" aria-label="明暗を切り替える">◐</button></div>
+<body data-skeleton="lecture">
+<div class="band" role="navigation"><b>資金のご相談</b><span class="now" id="now">表紙</span><span class="where" id="where">01/34</span><button type="button" id="theme" aria-label="明暗を切り替える">◐</button></div>
 <main>
 
 <section class="slide cover" data-role="cover" id="s1">
 
-<div class="kicker">チケット抽選代行事業 ／ 資金のご相談</div>
-  <h1>0→1 は、もうある。<br><em>1→100</em> にする資金を</h1>
-  <div class="who">品川湧登・武者野拓也　<span class="ph">[2026年〇月〇日]</span></div>
-  <div class="tag">3つのプラン：30⁠万／1口30⁠万／300⁠万円（仮）</div>
+<div class="kicker">品川湧登・武者野拓也　2026年11月1⁠日</div>
+  <h1>チケット抽選代行事業<br><em>資金のご相談</em></h1>
+  <div class="pitch">勝ち方は分かった。取りこぼしているのは、お金のせい</div>
+  <div class="who">稼働2⁠か月で純利益 <b>約⁠200⁠万円</b>　→　名義1,000 で <b>年1⁠億</b></div>
+  <div class="tag">ご相談：開発費 30⁠万／名義 125⁠万／支払い枠 100〜500⁠万</div>
 </section>
 
-<section class="slide" data-role="summary" id="s2">
-<div class="hd"><span>結論</span><span class="pg">02/23</span></div>
+<section class="slide conclusion" data-role="summary" id="s2">
+<div class="hd"><span class="ch lbl">結論</span><span class="pg">02/34</span></div>
 
-<h2>止まっているのは<em>お金だけ</em></h2>
-  <p class="lead">払った額の 2.8⁠倍 で売れている（直近3案件）。お願いは3段階</p>
-  <div class="body">
-    <div class="big3">
-      <div class="bx"><span class="k">プラン1　開発を止めない</span><span class="v num">30<small>万</small></span><span class="d">開発費 3か月分</span></div>
-      <div class="ar">＋</div>
-      <div class="bx"><span class="k">プラン2　アカウントを増やす</span><span class="v num">30<small>万×口</small></span><span class="d">1口＝200名義</span></div>
-      <div class="ar">＋</div>
-      <div class="bx hot"><span class="k">プラン3　当選分を自前で払う</span><span class="v num">300<small>万</small></span><span class="d">利益の折半が要らなくなる</span></div>
-    </div>
+<h2>お願いするお金は、<em>この3つ</em></h2>
+  <div class="body"><svg viewBox="0 0 700 190" role="img" aria-label="作り続ける・増やす・払うの3段"><rect x="16" y="34" width="208" height="112" rx="6" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.22)" stroke-width="2"/><text x="120" y="64" font-size="15" text-anchor="middle" opacity="0.75">① 作り続ける</text><text x="120" y="90" font-size="16" text-anchor="middle" font-weight="700">開発費</text><text x="120" y="124" font-size="24" text-anchor="middle" font-weight="900" class="num" fill="#fff">約⁠30⁠万円</text><text x="243" y="98" font-size="22" font-weight="800" text-anchor="middle" opacity="0.5">→</text><rect x="246" y="34" width="208" height="112" rx="6" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.22)" stroke-width="2"/><text x="350" y="64" font-size="15" text-anchor="middle" opacity="0.75">② 増やす</text><text x="350" y="90" font-size="16" text-anchor="middle" font-weight="700">回線と端末</text><text x="350" y="124" font-size="24" text-anchor="middle" font-weight="900" class="num" fill="#fff">125⁠万円</text><text x="473" y="98" font-size="22" font-weight="800" text-anchor="middle" opacity="0.5">→</text><rect x="476" y="34" width="208" height="112" rx="6" fill="rgba(255,138,92,.18)" stroke="#ff8a5c" stroke-width="2"/><text x="580" y="64" font-size="15" text-anchor="middle" opacity="0.75">③ 払う</text><text x="580" y="90" font-size="16" text-anchor="middle" font-weight="700">支払い枠</text><text x="580" y="124" font-size="24" text-anchor="middle" font-weight="900" class="num" fill="#ff8a5c">100〜500⁠万円</text><text x="350" y="178" font-size="16" text-anchor="middle" opacity="0.8">どれか1つでも欠けると、当たりを取りこぼします</text></svg>
+    <p class="foot">3つとも「勝てる公演に全部出て、全部払い切る」ための資金です</p>
   </div>
 </section>
 
 <section class="slide" data-role="toc" id="s3">
-<div class="hd"><span>目次</span><span class="pg">03/23</span></div>
+<div class="hd"><span class="ch lbl">目次</span><span class="pg">03/34</span></div>
+
 <h2>3つの問いに答えます</h2>
   <div class="body">
     <div class="toc">
-      <div data-ch="1"><span class="n">1</span><span class="t">しくみと強み</span><span class="q">何で利益が出て、なぜ私たちなのか？</span></div>
-      <div data-ch="2"><span class="n">2</span><span class="t">実績と壁</span><span class="q">本当に出ているのか？ 何で止まっているのか？</span></div>
-      <div data-ch="3"><span class="n">3</span><span class="t">3つのプラン</span><span class="q">いくらで、何が解消し、何が戻るのか？</span></div>
+      <div data-ch="1"><a class="jump" href="#s4"><span class="n">1</span><span class="t">しくみと強み</span><span class="q">何で利益が出て、なぜ私たちなのか？</span></a></div>
+      <div data-ch="2"><a class="jump" href="#s8"><span class="n">2</span><span class="t">実績と壁</span><span class="q">本当に出ているのか？ 何で止まっているのか？</span></a></div>
+      <div data-ch="3"><a class="jump" href="#s12"><span class="n">3</span><span class="t">3つのプラン</span><span class="q">いくらで、何が解消し、何が戻るのか？</span></a></div>
     </div>
   </div>
 </section>
 
 <section class="slide" data-sec="1-1" id="s4">
-<div class="hd"><span class="ch">第1章 しくみと強み</span><span class="pg">1-1｜04/23</span></div>
+<div class="hd"><span class="sc">1-1</span><span class="ch">第1章 しくみと強み</span><span class="pg"><i>1-1｜</i>04/34</span></div>
 
-<h2>目利きは協力者、<em>量</em>は私たち</h2>
-  <div class="body">
-    <div class="panel">
-      <div class="stg"><span class="no">① 見つける</span><b>何を買うか</b><dl><dt>解き手</dt><dd class="who">業界10年の協力者</dd></dl></div>
-      <div class="stg"><span class="no">② 応募</span><b>大量に出す</b><dl><dt>解き手</dt><dd class="who">私たち</dd></dl></div>
-      <div class="stg hot"><span class="no">③ 支払い</span><b>当選分を払う</b><dl><dt>解き手</dt><dd class="who">ご相談</dd></dl></div>
-      <div class="stg"><span class="no">④ 販売</span><b>数倍で売る</b><dl><dt>解き手</dt><dd class="who"><span class="ph">[担当]</span></dd></dl></div>
-    </div>
+<h2>行きたいのに、<em>当たらない</em>人がいる</h2>
+  <div class="body"><svg viewBox="0 0 700 260" role="img" aria-label="応募のうち当たるのは約5%、残りは取引サイトへ"><circle cx="24" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="52" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="79" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="106" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="134" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="162" cy="26" r="6.2" fill="var(--accent)"/><circle cx="189" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="216" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="244" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="272" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="299" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="326" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="354" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="382" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="409" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="436" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="464" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="492" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="519" cy="26" r="6.2" fill="var(--accent)"/><circle cx="546" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="574" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="602" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="629" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="656" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="24" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="52" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="79" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="106" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="134" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="162" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="189" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="216" cy="54" r="6.2" fill="var(--accent)"/><circle cx="244" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="272" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="299" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="326" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="354" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="382" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="409" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="436" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="464" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="492" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="519" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="546" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="574" cy="54" r="6.2" fill="var(--accent)"/><circle cx="602" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="629" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="656" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="24" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="52" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="79" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="106" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="134" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="162" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="189" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="216" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="244" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="272" cy="81" r="6.2" fill="var(--accent)"/><circle cx="299" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="326" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="354" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="382" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="409" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="436" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="464" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="492" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="519" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="546" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="574" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="602" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="629" cy="81" r="6.2" fill="var(--accent)"/><circle cx="656" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="24" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="52" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="79" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="106" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="134" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="162" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="189" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="216" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="244" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="272" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="299" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="326" cy="108" r="6.2" fill="var(--accent)"/><circle cx="354" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="382" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="409" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="436" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="464" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="492" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="519" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="546" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="574" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="602" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="629" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="656" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="24" cy="136" r="6.2" fill="var(--accent)"/><circle cx="52" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="79" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="106" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="134" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="162" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="189" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="216" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="244" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="272" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="299" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="326" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="354" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="382" cy="136" r="6.2" fill="var(--accent)"/><circle cx="409" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="436" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="464" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="492" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="519" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="546" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="574" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="602" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="629" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="656" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="24" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="52" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="79" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="106" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="134" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="162" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="189" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="216" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="244" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="272" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="299" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="326" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="354" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="382" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="409" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="436" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="464" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="492" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="519" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="546" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="574" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="602" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="629" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="656" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="24" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="52" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="79" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="106" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="134" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="162" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="189" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="216" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="244" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="272" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="299" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="326" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="354" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="382" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="409" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="436" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="464" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="492" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="519" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="546" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="574" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="602" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="629" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="656" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><text x="24" y="232" font-size="17" font-weight="700">応募した人</text><text x="24" y="254" font-size="15" class="sub">席より人が多い＝抽選になる</text><circle cx="330" cy="226" r="6.2" fill="var(--accent)"/><text x="345" y="232" font-size="17" font-weight="700" fill="var(--accent)">当たる 約⁠5⁠%</text><text x="345" y="254" font-size="15" class="sub">残りは、お金を出しても行きたい人</text></svg>
+    <p class="foot">外れた人は、取引サイトで<b>定価の 2〜4⁠倍</b>でも買います。
+    私たちは、当てられなかった人の代わりに当てて、席を届けています</p>
   </div>
 </section>
 
-<section class="slide" data-sec="2-1" id="s5">
-<div class="hd"><span class="ch">第2章 実績と壁</span><span class="pg">2-1｜05/23</span></div>
+<section class="slide" data-sec="1-2" id="s5">
+<div class="hd"><span class="sc">1-2</span><span class="ch">第1章 しくみと強み</span><span class="pg"><i>1-2｜</i>05/34</span></div>
 
-<h2>払った額の <em>2.8⁠倍</em> で売れた</h2>
-  <div class="body">
-    <div class="cards c3">
-      <div class="card"><span class="nm">野球</span><span class="p num">4.1<small>倍</small></span><span class="d">利益 27.2⁠万円</span><div class="meter"><i style="width:100%"></i></div></div>
-      <div class="card"><span class="nm">あんスタ</span><span class="p num">3.0<small>倍</small></span><span class="d">利益 16⁠万円</span><div class="meter"><i style="width:73%"></i></div></div>
-      <div class="card"><span class="nm">刀剣乱舞</span><span class="p num">2.2<small>倍</small></span><span class="d">利益 23.2⁠万円</span><div class="meter"><i style="width:54%"></i></div></div>
-    </div>
-    <p class="foot">入金は 10/31〜12/27 の予定 → B1-1</p>
+<h2>1⁠枚 当たるたび、<em>3.2⁠万円</em>の利益</h2>
+  <div class="body"><svg viewBox="0 0 700 250" role="img" aria-label="1当選あたり1.75万円払って4.9万円で売れる"><path d="M16 40 h32 a4 4 0 0 1 0 8 a4 4 0 0 1 0 8 v18 h-32 z" fill="var(--muted)" opacity="0.32"/><path d="M60 40 h32 a4 4 0 0 1 0 8 a4 4 0 0 1 0 8 v18 h-32 z" fill="var(--muted)" opacity="0.32"/><path d="M104 40 h32 a4 4 0 0 1 0 8 a4 4 0 0 1 0 8 v18 h-32 z" fill="var(--muted)" opacity="0.32"/><path d="M148 40 h32 a4 4 0 0 1 0 8 a4 4 0 0 1 0 8 v18 h-32 z" fill="var(--muted)" opacity="0.32"/><path d="M192 40 h32 a4 4 0 0 1 0 8 a4 4 0 0 1 0 8 v18 h-32 z" fill="var(--muted)" opacity="0.32"/><path d="M236 40 h32 a4 4 0 0 1 0 8 a4 4 0 0 1 0 8 v18 h-32 z" fill="var(--accent)" opacity="1"/><text x="16" y="96" font-size="16" font-weight="700">応募は1⁠名義＝1口・タダ</text><text x="16" y="118" font-size="15" class="sub">当たるのは約⁠5⁠%（朱の1⁠枚）</text><text x="300" y="30" font-size="16" font-weight="700">当たった1⁠枚の算段</text><rect x="300" y="44" width="118" height="38" rx="4" fill="var(--navy)"/><text x="430" y="69" font-size="16" font-weight="700">定価 1.75⁠万円 を払う</text><rect x="300" y="96" width="330" height="38" rx="4" fill="var(--accent)"/><text x="312" y="120" font-size="16" font-weight="700" class="on">4.9⁠万円で売れる</text><path d="M640 44 v90" stroke="var(--line)" stroke-width="2"/><text x="300" y="170" font-size="15" class="sub">差が利益</text><text x="372" y="172" font-size="26" font-weight="900" class="num" fill="var(--accent)">3.2⁠万円</text><text x="300" y="200" font-size="15" class="sub">払った額の 2.8⁠倍 で売れている（10月の3⁠件の平均）</text></svg>
+    <p class="foot">人気公演は定価では取れないので、定価で取れた席に値が付きます　<a class="jump" href="#s19">→ B1-2</a></p>
   </div>
 </section>
 
-<section class="slide" data-sec="2-2" id="s6">
-<div class="hd"><span class="ch">第2章 実績と壁</span><span class="pg">2-2｜06/23</span></div>
+<section class="slide dense" data-sec="1-3" id="s6">
+<div class="hd"><span class="sc">1-3</span><span class="ch">第1章 しくみと強み</span><span class="pg"><i>1-3｜</i>06/34</span></div>
 
-<h2>当たっても<em>払う現金が無い</em></h2>
-  <div class="body">
-    <div class="flow">
-      <div class="step"><span class="no">応募</span><span class="t">タダ</span></div>
-      <div class="ar">→</div>
-      <div class="step hot"><span class="no">支払い</span><span class="t">現金が要る</span><span class="d">立て替え＝利益折半</span></div>
-      <div class="ar">→</div>
-      <div class="step"><span class="no">入金</span><span class="t">数倍で戻る</span><span class="d">公演の後（最長 約⁠70⁠日）</span></div>
-    </div>
-    <p class="foot">お金が寝る期間 → B2-2</p>
+<h2>利益は <em>名義の数</em> に比例する</h2>
+  <div class="body"><svg viewBox="0 0 700 272" role="img" aria-label="名義の数と年の利益の比例">
+  <line x1="92" y1="232" x2="680" y2="232" stroke="var(--line)" stroke-width="2"/>
+  <line x1="92" y1="232" x2="92" y2="36" stroke="var(--line)" stroke-width="2"/>
+  <line x1="92" y1="138" x2="680" y2="138" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 4"/>
+  <line x1="92" y1="44" x2="680" y2="44" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 4"/>
+  <text x="82" y="237" font-size="14" text-anchor="end" class="sub num">0</text>
+  <text x="82" y="143" font-size="14" text-anchor="end" class="sub num">5,000⁠万</text>
+  <text x="82" y="49" font-size="14" text-anchor="end" class="sub num">1⁠億</text>
+  <text x="92" y="258" font-size="14" text-anchor="middle" class="sub num">0</text>
+  <text x="382" y="258" font-size="14" text-anchor="middle" class="sub num">500</text>
+  <text x="672" y="258" font-size="14" text-anchor="middle" class="sub num">1,000 名義</text>
+  <line x1="92" y1="232" x2="672" y2="52" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/>
+  <line x1="150" y1="221" x2="150" y2="232" stroke="var(--navy)" stroke-width="1.5" stroke-dasharray="3 4"/>
+  <circle cx="150" cy="221" r="7" fill="var(--navy)"/>
+  <text x="164" y="215" font-size="15" font-weight="700">いま 約⁠100名義</text>
+  <text x="164" y="233" font-size="14" class="sub num">年 約⁠580⁠万</text>
+  <circle cx="672" cy="52" r="8" fill="var(--accent)"/>
+  <text x="658" y="42" font-size="16" font-weight="700" text-anchor="end" fill="var(--accent)">目標 1,000名義</text>
+  <text x="658" y="61" font-size="15" text-anchor="end" class="sub num">年 約⁠9,600⁠万</text>
+</svg>
+    <p class="foot">1⁠か月の利益 ＝ 名義数 × 当選率5⁠% × 1当選 3.2⁠万円 × 月の公演数（5⁠件として計算）　<a class="jump" href="#s21">→ B2-1</a></p>
   </div>
 </section>
 
-<section class="slide" data-sec="3-1" id="s7">
-<div class="hd"><span class="ch">第3章 3つのプラン</span><span class="pg">3-1｜07/23</span></div>
+<section class="slide dense" data-sec="1-4" id="s7">
+<div class="hd"><span class="sc">1-4</span><span class="ch">第1章 しくみと強み</span><span class="pg"><i>1-4｜</i>07/34</span></div>
 
-<h2>プラン1　開発を止めない：<em>約⁠30⁠万円</em></h2>
-  <div class="body">
-    <div class="flow">
-      <div class="step"><span class="no">使い道</span><span class="t">開発費 3か月分</span><span class="d">Claude 月 約⁠10⁠万円 × 3</span></div>
-      <div class="ar">→</div>
-      <div class="step"><span class="no">解消すること</span><span class="t">開発が止まらない</span><span class="d">bot の改修・アカウント作り</span></div>
-      <div class="ar">→</div>
-      <div class="step hot"><span class="no">あなたへのお返し</span><span class="t">融資 年 <span class="ph">[〇]%</span></span><span class="d"><span class="ph">[〇]か月</span>で元本と利息を返す</span></div>
-    </div>
-    <p class="foot">いちばん小さいお願い。これだけでも十分助かります</p>
+<h2>目利きは<em>1⁠人ぶん</em>、量は<em>機械</em></h2>
+  <div class="body"><svg viewBox="0 0 700 250" role="img" aria-label="協力者が公演を選び、機械が名義を増やす"><circle cx="30" cy="34" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="50" cy="34" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="70" cy="34" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="90" cy="34" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="110" cy="34" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="130" cy="34" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="150" cy="34" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="30" cy="54" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="50" cy="54" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="70" cy="54" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="90" cy="54" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="110" cy="54" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="130" cy="54" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="150" cy="54" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="30" cy="74" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="50" cy="74" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="70" cy="74" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="90" cy="74" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="110" cy="74" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="130" cy="74" r="5" fill="var(--muted)" opacity="0.45"/><circle cx="150" cy="74" r="5" fill="var(--muted)" opacity="0.45"/><text x="30" y="118" font-size="15" class="sub">無数の公演</text><path d="M168 36 L212 72 L212 100 L168 136 z" fill="var(--navy-soft)" stroke="var(--navy)" stroke-width="2"/><text x="190" y="156" font-size="15" text-anchor="middle" font-weight="700">目利き</text><text x="190" y="176" font-size="14" text-anchor="middle" class="sub">協力者（業界10年）</text><text x="190" y="196" font-size="14" text-anchor="middle" class="sub">1⁠人・手作業がいまの上限</text><path d="M224 86 h40" stroke="var(--accent)" stroke-width="4"/><text x="300" y="80" font-size="34" font-weight="900" text-anchor="middle" class="num" fill="var(--muted)">×</text><text x="300" y="112" font-size="15" text-anchor="middle" class="sub">儲かる1⁠件を選ぶ</text><path d="M340 86 h56" stroke="var(--accent)" stroke-width="4"/><rect x="430" y="30" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.35"/><rect x="454" y="30" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.35"/><rect x="478" y="30" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.35"/><rect x="502" y="30" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.35"/><rect x="526" y="30" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.35"/><rect x="550" y="30" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.35"/><rect x="574" y="30" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.35"/><rect x="598" y="30" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.35"/><rect x="622" y="30" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.35"/><rect x="646" y="30" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.35"/><rect x="430" y="52" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.44999999999999996"/><rect x="454" y="52" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.44999999999999996"/><rect x="478" y="52" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.44999999999999996"/><rect x="502" y="52" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.44999999999999996"/><rect x="526" y="52" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.44999999999999996"/><rect x="550" y="52" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.44999999999999996"/><rect x="574" y="52" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.44999999999999996"/><rect x="598" y="52" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.44999999999999996"/><rect x="622" y="52" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.44999999999999996"/><rect x="646" y="52" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.44999999999999996"/><rect x="430" y="74" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.55"/><rect x="454" y="74" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.55"/><rect x="478" y="74" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.55"/><rect x="502" y="74" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.55"/><rect x="526" y="74" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.55"/><rect x="550" y="74" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.55"/><rect x="574" y="74" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.55"/><rect x="598" y="74" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.55"/><rect x="622" y="74" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.55"/><rect x="646" y="74" width="18" height="15" rx="2" fill="var(--accent)" opacity="0.55"/><text x="430" y="118" font-size="15" class="sub">名義（機械が作る）</text><text x="430" y="156" font-size="15" font-weight="700">量</text><text x="430" y="176" font-size="14" class="sub">9/29 から 約⁠100⁠名義（手作業ぶんと合わせて 約⁠300）</text><text x="430" y="196" font-size="14" class="sub">増やしても手間は増えない</text></svg>
+    <p class="foot">協力者は毎日のように案件を持っていますが、手作業なので出せる量に上限があります。
+    そこに、名義を量産する機械を掛けます　<a class="jump" href="#s26">→ B4-1</a>。回線の発行からアカウント登録、<b>SMS 認証まで人が触りません</b>　<a class="jump" href="#s29">→ B4-4</a>。回線1⁠本あたり 30〜60分 の手作業が消えました　<a class="jump" href="#s28">→ B4-3</a></p>
   </div>
 </section>
 
-<section class="slide" data-sec="3-2" id="s8">
-<div class="hd"><span class="ch">第3章 3つのプラン</span><span class="pg">3-2｜08/23</span></div>
+<section class="slide dense" data-sec="2-1" id="s8">
+<div class="hd"><span class="sc">2-1</span><span class="ch">第2章 実績と壁</span><span class="pg"><i>2-1｜</i>08/34</span></div>
 
-<h2>プラン2　アカウントを増やす：<em>1口 30⁠万円</em></h2>
-  <div class="body">
-    <div class="flow">
-      <div class="step"><span class="no">使い道</span><span class="t">回線 200⁠本</span><span class="d">1⁠本 1,500⁠円 × 200</span></div>
-      <div class="ar">→</div>
-      <div class="step"><span class="no">解消すること</span><span class="t">200名義ぶん応募が増える</span><span class="d">目標 1,000名義＝5口</span></div>
-      <div class="ar">→</div>
-      <div class="step hot"><span class="no">あなたへのお返し</span><span class="t">その名義の利益の <span class="ph">[〇]%</span></span><span class="d">または 融資 年 <span class="ph">[〇]%</span></span></div>
-    </div>
-    <p class="foot">回線を載せる LinksMate の口座は約⁠10あり、足りないのは回線代だけ。1,000名義あれば業界で上位</p>
+<h2>稼働2⁠か月で、純利益 <em>約⁠200⁠万円</em></h2>
+  <div class="body"><div class="tablewrap"><table class="tight"><thead><tr><th>案件</th><th>やり方</th><th>応募<small>（件）</small></th><th>当選<small>（枚）</small></th><th>払った額<small>（万円）</small></th><th>売上<small>（万円）</small></th><th>利益<small>（万円）</small></th></tr></thead><tbody><tr><td>フェデラー 9月</td><td><span class="badge">bot</span></td><td class="num">約⁠500</td><td class="num">80</td><td class="num">0</td><td class="num">112</td><td class="num hl">112</td></tr><tr><td>野球 10月</td><td><span class="badge">手</span></td><td class="num">150</td><td class="num">8</td><td class="num">8.8</td><td class="num">36</td><td class="num hl">27.2</td></tr><tr><td>あんスタ 10月</td><td><span class="badge">手</span></td><td class="num">52</td><td class="num">8</td><td class="num">8</td><td class="num">24</td><td class="num hl">16</td></tr><tr><td>刀剣乱舞 10月</td><td><span class="badge">手</span></td><td class="num">100</td><td class="num">5</td><td class="num">20</td><td class="num">43.3</td><td class="num hl">23.2</td></tr><tr><td>あんスタ 10月</td><td><span class="badge">bot</span></td><td class="num"><span class="ph">[〇]</span></td><td class="num"><span class="ph">[〇]</span></td><td class="num"><span class="ph">[〇]</span></td><td class="num"><span class="ph">[〇]</span></td><td class="num hl"><span class="ph">[〇]</span></td></tr><tr class="sum"><td>合計（ほかの応募・当選も含む）</td><td>—</td><td class="num">—</td><td class="num">—</td><td class="num">36.8</td><td class="num">215.3</td><td class="num hl">約⁠200</td></tr></tbody></table></div>
+    <p class="foot">「手」＝ゆうとが協力者に頼んで出したぶん、「bot」＝武者野の bot が出したぶん　<a class="jump" href="#s27">→ B4-2</a>。
+    フェデラーは<b>ゲスト応募</b>で、当選権を渡すかたちなので支払いが 0⁠円です。
+    払った額のある3⁠件は、払った額の 2.8⁠倍 で売れています　<a class="jump" href="#s18">→ B1-1</a>。<b>入金は公演の後</b>なので、この利益はまだ手元に入っていません　<a class="jump" href="#s22">→ B2-2</a></p>
   </div>
 </section>
 
-<section class="slide" data-sec="3-3" id="s9">
-<div class="hd"><span class="ch">第3章 3つのプラン</span><span class="pg">3-3｜09/23</span></div>
+<section class="slide dense" data-sec="2-2" id="s9">
+<div class="hd"><span class="sc">2-2</span><span class="ch">第2章 実績と壁</span><span class="pg"><i>2-2｜</i>09/34</span></div>
 
-<h2>プラン3　当選分を自前で払う：<em>300⁠万円</em></h2>
+<h2>足りないのは、<em>名義</em>と<em>現金</em>の2つ</h2>
   <div class="body">
-    <div class="flow">
-      <div class="step"><span class="no">使い道</span><span class="t">支払い枠</span><span class="d">いまの約⁠8⁠倍（36.8⁠万 → 300⁠万）</span></div>
-      <div class="ar">→</div>
-      <div class="step"><span class="no">解消すること</span><span class="t">利益の折半が要らない</span><span class="d">いまは立て替え先に半分を渡している</span></div>
-      <div class="ar">→</div>
-      <div class="step hot"><span class="no">あなたへのお返し</span><span class="t">利益の <span class="ph">[〇]%</span>（50⁠%未満）</span><span class="d">1巡（約⁠70⁠日）ごとに精算</span></div>
+    <div class="two">
+      <div class="opt"><h3>① 名義が足りない</h3>
+        <div class="bar" style="margin:.2em 0 .6em">
+          <span class="ours" style="flex:3">いま 約⁠300</span>
+          <span class="theirs" style="flex:7">あと 700</span></div>
+        <dl>
+          <dt>要るもの</dt><dd>回線 700⁠本 ＝ <b>105⁠万円</b> ＋ 端末　<a class="jump" href="#s13">→ 3-2</a></dd>
+          <dt>届くと</dt><dd><b>名義1,000 ＝ 年 約⁠1⁠億のペース</b>（支払い枠も育ってから）　<a class="jump" href="#s21">→ B2-1</a></dd>
+        </dl>
+      </div>
+      <div class="opt" style="border-color:var(--accent);border-top-color:var(--accent)">
+        <h3>② 払う現金が無い</h3>
+        <div class="bar" style="margin:.2em 0 .6em">
+          <span class="theirs" style="flex:1">当選分に回せる現金 <b>0⁠円</b></span></div>
+        <dl>
+          <dt>いまの状態</dt><dd>利益は出たが <b>まだ着金していない</b>（入金は公演の後・最長 約⁠70⁠日）。経費は先に出ていく　<a class="jump" href="#s22">→ B2-2</a></dd>
+          <dt>だから</dt><dd>当たっても払えず、<b>利益の半分</b>を渡しています　<a class="jump" href="#s11">→ 2-4</a></dd>
+        </dl>
+      </div>
     </div>
-    <p class="foot">何口かに分けても可。お金が寝る期間 → B2-2</p>
+    <p class="foot">名義だけ増やしても払えなければ当たりを捨て、現金だけあっても名義が無ければ当たりません。
+    <b>2つ同時に要ります</b></p>
   </div>
 </section>
 
-<section class="slide conclusion" data-role="conclusion" id="s10">
-<div class="hd"><span>まとめ</span><span class="pg">10/23</span></div>
+<section class="slide" data-sec="2-3" id="s10">
+<div class="hd"><span class="sc">2-3</span><span class="ch">第2章 実績と壁</span><span class="pg"><i>2-3｜</i>10/34</span></div>
 
-<h2>どのプランでも、<em>使い道とお返し</em>は決まっています</h2>
-  <div class="body">
-    <div class="asks">
-      <div class="ask"><div class="k">プラン1　約⁠30⁠万円</div><div class="v">開発費3か月分 → 融資で返す</div></div>
-      <div class="ask"><div class="k">プラン2　1口 30⁠万円</div><div class="v">200名義 → その利益を分ける</div></div>
-      <div class="ask"><div class="k">プラン3　300⁠万円</div><div class="v">支払い枠 → 利益の50⁠%未満</div></div>
-      <div class="ask wide"><div class="k">お返事</div><div class="v">出せそうなプランと額を <span class="ph">[〇月〇日]</span> までに</div></div>
-    </div>
+<h2>ゲストは <em>bot が回している</em>。会員の名義はこれから</h2>
+  <div class="body"><svg viewBox="0 0 700 234" role="img" aria-label="ゲスト応募はbotで約500応募80当選、会員の名義はまだ応募に回せていない">
+  <rect x="16" y="16" width="330" height="96" rx="6" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+  <text x="181" y="44" font-size="17" font-weight="700" text-anchor="middle" fill="var(--accent)">ゲスト応募 ＝ bot が出している</text>
+  <text x="181" y="72" font-size="15" text-anchor="middle" class="sub">約⁠500⁠件 出して 80⁠枚 当選（約⁠16⁠%）</text>
+  <text x="181" y="96" font-size="15" text-anchor="middle" class="sub">9月のフェデラー＝利益 112⁠万円</text>
+  <rect x="362" y="16" width="322" height="96" rx="6" fill="var(--navy-soft)" stroke="var(--navy)" stroke-width="2"/>
+  <text x="523" y="44" font-size="17" font-weight="700" text-anchor="middle">会員の名義 約⁠300 ＝ まだ出せていない</text>
+  <text x="523" y="72" font-size="15" text-anchor="middle" class="sub">10月の会員応募は 302⁠件（名義の1/3）</text>
+  <text x="523" y="96" font-size="15" text-anchor="middle" class="sub">二人とも「作る側」に手を取られていました</text>
+  <text x="350" y="146" font-size="16" font-weight="700" text-anchor="middle">ここを開ける手は2⁠つ、同時に進めます</text>
+  <rect x="16" y="160" width="330" height="62" rx="6" fill="none" stroke="var(--accent)" stroke-width="2"/>
+  <text x="181" y="184" font-size="16" font-weight="700" text-anchor="middle">① 一部を bot に回す</text>
+  <text x="181" y="206" font-size="14" text-anchor="middle" class="sub">A/B で「検知されない出し方」を探す</text>
+  <rect x="362" y="160" width="322" height="62" rx="6" fill="none" stroke="var(--navy)" stroke-width="2"/>
+  <text x="523" y="184" font-size="16" font-weight="700" text-anchor="middle">② 打ち子を募る</text>
+  <text x="523" y="206" font-size="14" text-anchor="middle" class="sub">手でも回る体制（1⁠応募 50⁠円・組成中）</text>
+</svg>
+    <p class="foot">名義が300あって10⁠月の応募が302⁠件なのは、二人とも<b>名義を作る側</b>に集中していたことと、
+    <b>打ち子のアライアンスがまだ組成中</b>だからです。開発費（プラン1）は、ここを開けることに使います　<a class="jump" href="#s12">→ 3-1</a>・B4-2</p>
   </div>
 </section>
 
-<section class="slide" data-role="backup" id="s11">
-<div class="hd"><span>補足</span><span class="pg">11/23</span></div>
+<section class="slide" data-sec="2-4" id="s11">
+<div class="hd"><span class="sc">2-4</span><span class="ch">第2章 実績と壁</span><span class="pg"><i>2-4｜</i>11/34</span></div>
+
+<h2>当たっても払えず、<em>利益の半分</em>を渡している</h2>
+  <div class="body"><svg viewBox="0 0 700 190" role="img" aria-label="利益66.4万円のうち半分を立て替え先に渡している">
+  <text x="0" y="22" font-size="16" class="sub">10月の利益 66.4⁠万円</text>
+  <rect x="0" y="36" width="348" height="62" rx="4" fill="var(--navy-soft)"/>
+  <rect x="352" y="36" width="348" height="62" rx="4" fill="var(--accent)"/>
+  <text x="174" y="66" font-size="17" font-weight="700" text-anchor="middle">私たち</text>
+  <text x="174" y="88" font-size="16" text-anchor="middle" class="sub num">33.2⁠万円</text>
+  <text x="526" y="66" font-size="17" font-weight="700" text-anchor="middle" class="on">立て替えてくれた人へ</text>
+  <text x="526" y="88" font-size="16" text-anchor="middle" class="on num">33.2⁠万円</text>
+  <path d="M352 112 L352 132 M352 132 L700 132 M700 132 L700 112" fill="none" stroke="var(--accent)" stroke-width="2"/>
+  <text x="526" y="158" font-size="17" font-weight="700" text-anchor="middle" fill="var(--accent)">払う現金があれば、ここが残る</text>
+  <text x="526" y="180" font-size="15" text-anchor="middle" class="sub">当選分を自分で払えないので、半分を渡しています</text>
+</svg>
+    <p class="foot">入金は公演の後。長いと 約⁠70⁠日 現金が寝ます　<a class="jump" href="#s22">→ B2-2</a>・B5-2</p>
+  </div>
+</section>
+
+<section class="slide" data-sec="3-1" id="s12">
+<div class="hd"><span class="sc">3-1</span><span class="ch">第3章 3つのプラン</span><span class="pg"><i>3-1｜</i>12/34</span></div>
+
+<h2>プラン1　開発を<em>止めない</em></h2>
+  <div class="body">
+    <div class="deal"><div class="bx hot"><span class="k">お願いする額</span><span class="v">約⁠30⁠万円</span><span class="d">月 約⁠10⁠万円 × 3⁠か月</span></div><div class="bx"><span class="k">お返しの形</span><span class="v">融資（元本＋利息）</span><span class="d">年 10⁠%・12⁠か月で返し切ります　<a class="jump" href="#s31">→ B5-1</a></span></div></div>
+    <div class="use"><dl><dt>何に使うか</dt><dd>Claude 2⁠アカウント <b class='num'>約⁠7⁠万円／月</b>　＋　Codex・GLM など新しい道具を試す枠 <b class='num'>約⁠3⁠万円／月</b></dd><dt>3⁠か月の中身</dt><dd>1⁠か月目＝名義を作る側　／　2⁠か月目＝応募・当落・入金　／　3⁠か月目＝取りこぼしを潰す</dd><dt>4⁠か月目から</dt><dd><b>回り始めた利益で、自前でやります</b></dd></dl></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="3-2" id="s13">
+<div class="hd"><span class="sc">3-2</span><span class="ch">第3章 3つのプラン</span><span class="pg"><i>3-2｜</i>13/34</span></div>
+
+<h2>プラン2　名義を<em>1,000</em>まで増やす</h2>
+  <div class="body">
+    <div class="deal"><div class="bx hot"><span class="k">お願いする額</span><span class="v">125⁠万円</span><span class="d">回線 3.5⁠口（1口 30⁠万円）＋ 端末 20⁠万円</span></div><div class="bx"><span class="k">お返しの形</span><span class="v">融資 または 投資</span><span class="d">形は2つのうちどちらでも。ご相談で決めます　<a class="jump" href="#s31">→ B5-1</a></span></div></div>
+    <div class="use"><dl><dt>回線 700⁠本</dt><dd><b class='num'>105⁠万円</b>（1⁠本 1,500⁠円）。回線1⁠本 ＝ 名義1⁠つ ＝ 応募1⁠口</dd><dt>端末 8⁠台</dt><dd><b class='num'>20⁠万円</b>（1⁠台 2.5⁠万円）。端末は1⁠台で月20⁠本までしか回線を作れません　<a class="jump" href="#s23">→ B2-3</a></dd><dt>届くと</dt><dd>いまの 約⁠300 と合わせて <b>名義1,000 ＝ 年 約⁠1⁠億のペース</b>（支払い枠も育ってから）　<a class="jump" href="#s21">→ B2-1</a></dd></dl></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="3-3" id="s14">
+<div class="hd"><span class="sc">3-3</span><span class="ch">第3章 3つのプラン</span><span class="pg"><i>3-3｜</i>14/34</span></div>
+
+<h2>プラン3　当選分を<em>自分で払う</em></h2>
+  <div class="body">
+    <div class="deal"><div class="bx hot"><span class="k">お願いする額</span><span class="v">枠 100〜500⁠万円</span><span class="d">使うのは当選したときだけ（カードでも、その都度の振込でも）</span></div><div class="bx"><span class="k">お返しの形</span><span class="v">利益の 30⁠%</span><span class="d">1⁠巡（約⁠70⁠日）ごとに精算　<a class="jump" href="#s31">→ B5-1</a></span></div></div>
+    <div class="use"><dl><dt>何に使うか</dt><dd>当たった席の代金。枠が大きいほど、捨てずに払い切れる当選が増えます</dd><dt>枠と年の利益</dt><dd>枠 100⁠万 → <b class='num'>約⁠960⁠万</b>　／　枠 300⁠万 → <b class='num'>約⁠2,900⁠万</b>　／　枠 500⁠万 → <b class='num'>約⁠4,800⁠万</b>（月5⁠公演で試算）</dd></dl></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="3-4" id="s15">
+<div class="hd"><span class="sc">3-4</span><span class="ch">第3章 3つのプラン</span><span class="pg"><i>3-4｜</i>15/34</span></div>
+
+<h2>耐えるのは、<em>1巡目の約⁠2⁠か月</em>だけ</h2>
+  <div class="body"><svg viewBox="0 0 700 250" role="img" aria-label="支払い枠が300万から2巡で約1,500万に育つ（お返し30%を引いた後）"><rect x="60" y="144" width="150" height="56" rx="4" fill="var(--navy-soft)"/><text x="135" y="132" font-size="19" font-weight="800" text-anchor="middle" class="num">300⁠万</text><text x="135" y="224" font-size="14" text-anchor="middle" class="sub">いま（枠を受けた直後）</text><text x="242" y="172" font-size="20" font-weight="800" text-anchor="middle" fill="var(--muted)">→</text><rect x="275" y="105" width="150" height="95" rx="4" fill="var(--navy-soft)"/><text x="350" y="93" font-size="19" font-weight="800" text-anchor="middle" class="num">約⁠680⁠万</text><text x="350" y="224" font-size="14" text-anchor="middle" class="sub">1⁠巡（約⁠70⁠日）のあと</text><text x="457" y="172" font-size="20" font-weight="800" text-anchor="middle" fill="var(--muted)">→</text><rect x="490" y="18" width="150" height="182" rx="4" fill="var(--accent)"/><text x="565" y="6" font-size="19" font-weight="800" text-anchor="middle" class="num">約⁠1,500⁠万</text><text x="565" y="224" font-size="14" text-anchor="middle" class="sub">2⁠巡（約⁠5⁠か月）のあと</text><line x1="40" y1="200" x2="680" y2="200" stroke="var(--line)" stroke-width="2"/><text x="40" y="246" font-size="14" class="sub">支払い枠（お返しの30⁠%を引いた残りを戻して育てる）</text><text x="680" y="246" font-size="15" text-anchor="end" font-weight="700" fill="var(--accent)">ここで 年 約⁠1⁠億のペース</text></svg>
+    <p class="foot">1⁠巡で払った額の 2.8⁠倍 が売上になり（実測）、お返しの 30⁠% を引いた残りを枠に戻します。
+    <b>私たちの出し方</b>　いま自前で出せる現金はありません。そのかわり、
+    出た利益はお返しの分を除いて<b>全額この事業に戻します</b>。最初の1⁠巡さえ越えれば、あとは自分で回ります</p>
+  </div>
+</section>
+
+<section class="slide conclusion" data-role="conclusion" id="s16">
+<div class="hd"><span class="ch lbl">まとめ</span><span class="pg">16/34</span></div>
+
+<h2>お願いする額と、<em>戻り方</em></h2>
+  <div class="body">
+    <div class="sumwrap">
+      <div class="figwrap"><svg viewBox="0 0 700 272" role="img" aria-label="100万円を出した場合に1年後に戻る額。融資は結果によらず110万円、投資は事業の結果に比例して40万〜500万円"><text x="72" y="24" font-size="15" font-weight="700">100⁠万円を出した場合に、1年後に戻る額</text><rect x="72" y="44" width="22" height="5" fill="var(--navy)"/><text x="102" y="51" font-size="14" class="sub">融資 ＝ 110⁠万円で一定</text><rect x="292" y="44" width="22" height="5" fill="var(--accent)"/><text x="322" y="51" font-size="14" class="sub">投資 ＝ 利益の 30⁠%（結果に比例）</text><line x1="92" y1="232" x2="660" y2="232" stroke="var(--line)" stroke-width="2"/><line x1="92" y1="232" x2="92" y2="70" stroke="var(--line)" stroke-width="2"/><text x="80" y="237" font-size="14" text-anchor="end" class="sub num">0</text><text x="80" y="207" font-size="14" text-anchor="end" class="sub num">100⁠万</text><path d="M92 199 L648 199" stroke="var(--navy)" stroke-width="4"/><text x="648" y="188" font-size="14" text-anchor="end" class="num">110⁠万</text><path d="M92 220 L370 147 L648 84" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/><circle cx="92" cy="220" r="6" fill="var(--accent)"/><text x="106" y="206" font-size="15" font-weight="800" text-anchor="start" fill="var(--accent)" class="num">40⁠万</text><circle cx="370" cy="147" r="6" fill="var(--accent)"/><text x="370" y="133" font-size="15" font-weight="800" text-anchor="middle" fill="var(--accent)" class="num">288⁠万</text><circle cx="648" cy="84" r="6" fill="var(--accent)"/><text x="648" y="70" font-size="15" font-weight="800" text-anchor="middle" fill="var(--accent)" class="num">500⁠万</text><text x="92" y="256" font-size="14" text-anchor="middle" class="sub">名義が伸びない</text><text x="370" y="256" font-size="14" text-anchor="middle" class="sub">想定どおり</text><text x="648" y="256" font-size="14" text-anchor="middle" class="sub">その先へ</text><text x="72" y="272" font-size="14" class="sub">横軸 ＝ 事業の結果</text></svg></div>
+      <div class="srows"><div class="srow"><span class="k">プラン1</span><span class="amt">約⁠30⁠万円</span><span class="ret">融資：元本 ＋ 年 10⁠%（12⁠か月）</span></div><div class="srow"><span class="k">プラン2</span><span class="amt">125⁠万円</span><span class="ret">融資 または 投資（利益の 30⁠%）</span></div><div class="srow"><span class="k">プラン3</span><span class="amt">枠 100〜500⁠万円</span><span class="ret">投資：利益の 30⁠%・1⁠巡ごとに精算</span></div>
+        
+      </div>
+    </div>
+    <p class="foot">数字は私たちからの提案です。条件はご希望をうかがって決めます。
+    お返事は 11月8⁠日（土）ごろまでにいただけると助かります</p>
+  </div>
+</section>
+
+<section class="slide" data-role="backup" id="s17">
+<div class="hd"><span class="ch lbl">補足</span><span class="pg">17/34</span></div>
 <h2>補足：聞かれそうなこと</h2>
   <p class="lead">ここから先は質問が来たときに開く資料です。</p>
   <div class="body">
     <div class="toc">
-      <div data-ch="B1"><span class="n">B1</span><span class="t">数字の中身</span><span class="q">4案件・1抽選あたり・アカウント数の内訳は？</span></div>
-      <div data-ch="B2"><span class="n">B2</span><span class="t">試算の前提</span><span class="q">20⁠倍・100⁠倍は本当に成り立つのか？ お金はどれだけ寝るのか？</span></div>
-      <div data-ch="B3"><span class="n">B3</span><span class="t">守りの中身</span><span class="q">なぜいまの体制でも回っていないのか？ 30〜50⁠万は何に使うのか？</span></div>
-      <div data-ch="B4"><span class="n">B4</span><span class="t">体制と役割</span><span class="q">誰が何をしているのか？ bot と手作業はどう違うのか？</span></div>
-      <div data-ch="B5"><span class="n">B5</span><span class="t">お返しの形</span><span class="q">融資と投資でどう違うのか？ いつ戻るのか？</span></div>
+      <div data-ch="B1"><a class="jump" href="#s18"><span class="n">B1</span><span class="t">数字の中身</span><span class="q">4案件・1抽選あたり・アカウント数の内訳は？</span></a></div>
+      <div data-ch="B2"><a class="jump" href="#s21"><span class="n">B2</span><span class="t">試算の前提</span><span class="q">年1⁠億は本当に成り立つのか？ お金はどれだけ寝るのか？</span></a></div>
+      <div data-ch="B3"><a class="jump" href="#s24"><span class="n">B3</span><span class="t">守りの中身</span><span class="q">なぜいまの体制でも回っていないのか？ 開発費は何に使うのか？</span></a></div>
+      <div data-ch="B4"><a class="jump" href="#s26"><span class="n">B4</span><span class="t">体制と自動化</span><span class="q">誰が何をしているのか？ どこまで人の手が要らなくなったのか？</span></a></div>
+      <div data-ch="B5"><a class="jump" href="#s31"><span class="n">B5</span><span class="t">お返しの形</span><span class="q">融資と投資でどう違うのか？ いつ戻るのか？</span></a></div>
     </div>
   </div>
 </section>
 
-<section class="slide" data-sec="B1-1" id="s12">
-<div class="hd"><span class="ch">補足B1 数字の中身</span><span class="pg">B1-1｜12/23</span></div>
+<section class="slide" data-sec="B1-1" id="s18">
+<div class="hd"><span class="sc">B1-1</span><span class="ch">補足B1 数字の中身</span><span class="pg"><i>B1-1｜</i>18/34</span></div>
 <h2>4案件の数字（払った額の <em>2〜4⁠倍</em> の売上）</h2>
-  <p class="lead">売上 ÷ 支払い ＝ 1⁠円払うと何円の売上になるか。</p>
+  <p class="lead">当たった中で説明しやすい4⁠件です（ほかにも応募・当選はあります）。売上 ÷ 支払い ＝ 1⁠円払うと何円の売上になるか。</p>
   <div class="body">
     <div class="tablewrap"><table>
       <thead><tr><th>案件</th><th>応募</th><th>当選</th><th>支払い</th><th>売上</th><th>利益</th><th>戻り</th></tr></thead>
@@ -451,74 +617,77 @@ table.scale td,table.scale th{font-size:1.05em;padding:.5em .8em}
         <tr class="sum"><td>支払いのあった3案件</td><td class="num">302</td><td class="num">21</td><td class="num">36.8⁠万</td><td class="num">103.3⁠万</td><td class="num hl">66.4⁠万</td><td><span class="mult num">2.8⁠倍</span></td></tr>
       </tbody>
     </table></div>
-    <p class="foot">フェデラーは支払いが0⁠円のため倍率を出していません（<span class="ph">[支払いが無かった仕組みを1行]</span>）。本編の「2.8⁠倍」は支払いのあった3案件だけで数えています。3案件の当選率は 21/302＝約⁠7⁠%。</p>
+    <p class="foot">フェデラーはゲスト応募で、当選した権利をそのまま渡すかたちのため支払いが0⁠円です。本編の「2.8⁠倍」は支払いのあった3案件だけで数えています。3案件の当選率は 21/302＝約⁠7⁠%。</p>
   </div>
+  <p class="backlink"><a class="jump" href="#s8">← 本編 2-1</a> へ戻る</p>
 </section>
 
-<section class="slide" data-sec="B1-2" id="s13">
-<div class="hd"><span class="ch">補足B1 数字の中身</span><span class="pg">B1-2｜13/23</span></div>
-<h2>1抽選で 約⁠100応募 → 約⁠7当選 → <em>約⁠22⁠万円</em></h2>
-  <p class="lead">通常の3案件の平均。1巡（約⁠70⁠日）に3抽選として掛けると1巡の利益になります。20⁠倍の行は 3-1 の試算と同じ前提です。</p>
+<section class="slide" data-sec="B1-2" id="s19">
+<div class="hd"><span class="sc">B1-2</span><span class="ch">補足B1 数字の中身</span><span class="pg"><i>B1-2｜</i>19/34</span></div>
+
+<h2>実測の歩留まり：302応募 → 21当選 → <em>6.9⁠%</em></h2>
+  <p class="lead">支払いのあった3案件。フェデラーはゲスト応募で性質が違うため外しています。</p>
   <div class="body">
     <div class="tablewrap"><table class="funnel">
-      <thead><tr><th></th><th>応募数</th><th>当選率</th><th>当選数</th><th>1当選の利益</th><th>1抽選の利益</th><th>1巡の抽選数</th><th>1巡の利益</th></tr></thead>
+      <thead><tr><th>案件</th><th>応募</th><th>当選</th><th>当選率</th><th>支払い</th><th>利益</th><th>1当選の利益</th></tr></thead>
       <tbody>
-        <tr><td>実績</td><td class="num">約⁠100</td><td class="num">約⁠7⁠%</td><td class="num">約⁠7</td><td class="num">約⁠3.2⁠万</td><td class="num hl">約⁠22⁠万</td><td class="num">3</td><td class="num">66.4⁠万</td></tr>
-        <tr><td>20⁠倍</td><td class="num">約⁠2,000</td><td class="num">約⁠7⁠%</td><td class="num">約⁠140</td><td class="num">約⁠3.2⁠万</td><td class="num hl">約⁠443⁠万</td><td class="num">3</td><td class="num">約⁠1,330⁠万</td></tr>
+        <tr><td>野球</td><td class="num">150</td><td class="num">8</td><td class="num">5.3⁠%</td><td class="num">8.8⁠万</td><td class="num">27.2⁠万</td><td class="num">3.4⁠万</td></tr>
+        <tr><td>あんスタ</td><td class="num">52</td><td class="num">8</td><td class="num">15.4⁠%</td><td class="num">8⁠万</td><td class="num">16⁠万</td><td class="num">2.0⁠万</td></tr>
+        <tr><td>刀剣乱舞</td><td class="num">100</td><td class="num">5</td><td class="num">5.0⁠%</td><td class="num">20⁠万</td><td class="num">23.2⁠万</td><td class="num">4.6⁠万</td></tr>
+        <tr><td><b>合計</b></td><td class="num">302</td><td class="num">21</td><td class="num hl"><b>6.9⁠%</b></td><td class="num">36.8⁠万</td><td class="num">66.4⁠万</td><td class="num hl"><b>3.2⁠万</b></td></tr>
       </tbody>
     </table></div>
-    <table class="funnel-m">
-      <thead><tr><th></th><th>実績</th><th>20⁠倍</th></tr></thead><tbody>
-        <tr><td>応募数</td><td class="num">約⁠100</td><td class="num">約⁠2,000</td></tr>
-        <tr><td>当選率</td><td class="num">約⁠7⁠%</td><td class="num">約⁠7⁠%</td></tr>
-        <tr><td>当選数</td><td class="num">約⁠7</td><td class="num">約⁠140</td></tr>
-        <tr><td>1当選の利益</td><td class="num">約⁠3.2⁠万</td><td class="num">約⁠3.2⁠万</td></tr>
-        <tr><td>1抽選の利益</td><td class="num">約⁠22⁠万</td><td class="num">約⁠443⁠万</td></tr>
-        <tr><td>1巡の抽選数</td><td class="num">3</td><td class="num">3</td></tr>
-        <tr><td>1巡の利益</td><td class="num">66.4⁠万</td><td class="num">約⁠1,330⁠万</td></tr>
-      </tbody></table>
-    <p class="foot">実績＝野球・あんスタ・刀剣乱舞の合計（応募302・当選21・利益66.4⁠万円）を3で割った値。</p>
+    <p class="foot">本編 1-3 の試算は、当選率を 6.9⁠% でなく <b>5⁠%</b> に落として計算しています</p>
   </div>
+  <p class="backlink"><a class="jump" href="#s5">← 本編 1-2</a> へ戻る</p>
 </section>
 
-<section class="slide dense" data-sec="B1-3" id="s14">
-<div class="hd"><span class="ch">補足B1 数字の中身</span><span class="pg">B1-3｜14/23</span></div>
-<h2>アカウントは2⁠本立て：ゆうとの手作業＋武者野の bot</h2>
-  <p class="lead">「約⁠300」はローチケのアカウントの数え方。1名義でローチケ・ぴあ・e+ など計5社を作ります。</p>
+<section class="slide" data-sec="B1-3" id="s20">
+<div class="hd"><span class="sc">B1-3</span><span class="ch">補足B1 数字の中身</span><span class="pg"><i>B1-3｜</i>20/34</span></div>
+
+<h2>名義は2⁠本立て：ゆうとの<em>手作業</em>＋武者野の<em>bot</em></h2>
+  <p class="lead">数えているのは<b>名義の数</b>です（1⁠名義で ローチケ・ぴあ・e+ など計5社のアカウントを作ります）。</p>
   <div class="body">
     <div class="tablewrap"><table>
-      <thead><tr><th>作り方</th><th>名義の数</th><th>アカウント（5社の合計）</th><th>数えた元</th></tr></thead>
+      <thead><tr><th>作り方</th><th>名義の数</th><th>数えた元</th></tr></thead>
       <tbody>
-        <tr><td>bot（武者野）</td><td class="num">63</td><td class="num">301</td><td>bot の登録台帳（9/29〜10/29）</td></tr>
-        <tr><td>手作業（ゆうと）</td><td class="num">約⁠240</td><td><span class="ph">[〇]</span></td><td>約⁠300 − 63 の引き算</td></tr>
-        <tr class="sum"><td>合計（ローチケ）</td><td class="num">約⁠300</td><td>—</td><td>口頭の概数（2026-10-29）</td></tr>
+        <tr><td>bot（武者野）</td><td class="num">約⁠100</td><td>bot の登録台帳（9/29 に1⁠件目）</td></tr>
+        <tr><td>手作業（ゆうと）</td><td class="num">約⁠200</td><td>ゆうとが手で作ったぶん</td></tr>
+        <tr class="sum"><td>合計</td><td class="num">約⁠300</td><td>2026年10月末の時点</td></tr>
       </tbody>
     </table></div>
-    <p class="foot">bot の内訳（台帳）: ローチケ 63・ぴあ 63・テレ朝 63・e+ 62・LivePocket 50。bot は 9/29 に1⁠件目を作り、1か月で63名義に。比べた M氏・業界の数字は M氏からの聞き取りです。<br>手で作る人が約⁠1,000で止まるのは <span class="ph">[理由：本人確認・電話番号・手間のどれか]</span>。私たちは電話番号を LinksMate で用意し、作成の手間を bot で消しています。</p>
+    <p class="foot">bot は 9/29 に1⁠件目を作り、1⁠か月で 約⁠100⁠名義まで来ました。
+    ここから先は<b>回線の数と端末の台数</b>がそのまま速さになります　<a class="jump" href="#s23">→ B2-3</a>。
+    手で作る人が1,000⁠名義あたりで止まるのは <span class="ph">[理由：本人確認・電話番号・手間のどれか]</span>。
+    私たちは電話番号を LinksMate で用意し、作成の手間を bot で消しています　<a class="jump" href="#s26">→ B4-1</a></p>
   </div>
 </section>
 
-<section class="slide dense" data-sec="B2-1" id="s15">
-<div class="hd"><span class="ch">補足B2 試算の前提</span><span class="pg">B2-1｜15/23</span></div>
-<h2>20⁠倍の試算はこう計算した（崩れうる前提つき）</h2>
-  <p class="lead">実績の3案件（野球・あんスタ・刀剣乱舞）を、そのまま N 倍にしたときの数字です。</p>
+<section class="slide dense" data-sec="B2-1" id="s21">
+<div class="hd"><span class="sc">B2-1</span><span class="ch">補足B2 試算の前提</span><span class="pg"><i>B2-1｜</i>21/34</span></div>
+
+<h2>年1⁠億までの道のりは、こう置いた（<em>崩れうる前提つき</em>）</h2>
+  <p class="lead">1当選の利益 3.2⁠万円・1当選の支払い 1.75⁠万円・当選率 5⁠% は、10月の3案件の実測から。月5⁠公演として、支払い枠と名義だけを振っています。</p>
   <div class="body">
-    <div class="tablewrap"><table>
-      <thead><tr><th>量</th><th>1抽選の応募</th><th>回線（1,500⁠円×名義）</th><th>同時に寝る支払い</th><th>要る資金</th><th>同じ3抽選の利益</th></tr></thead>
+    <div class="tablewrap"><table class="funnel">
+      <thead><tr><th>支払い枠</th><th>釣り合う名義</th><th>回線代</th><th>月の当選</th><th>月の利益</th><th>年の利益</th></tr></thead>
       <tbody>
-        <tr><td>1⁠倍</td><td class="num">約⁠100</td><td class="num">15⁠万</td><td class="num">36.8⁠万</td><td class="num">約⁠52⁠万</td><td class="num">66.4⁠万</td></tr>
-        <tr><td>10⁠倍</td><td class="num">約⁠1,000</td><td class="num">150⁠万</td><td class="num">368⁠万</td><td class="num">約⁠520⁠万</td><td class="num">約⁠660⁠万</td></tr>
-        <tr class="sum"><td>20⁠倍</td><td class="num">約⁠2,000</td><td class="num">300⁠万</td><td class="num">736⁠万</td><td class="num">約⁠1,040⁠万</td><td class="num hl">約⁠1,330⁠万</td></tr>
-        <tr><td>20⁠倍・前提が半分崩れる</td><td class="num">約⁠2,000</td><td class="num">300⁠万</td><td class="num">約⁠368⁠万</td><td class="num">約⁠670⁠万</td><td class="num">約⁠340⁠万</td></tr>
-        <tr><td>100⁠倍</td><td class="num">約⁠10,000</td><td class="num">1,500⁠万</td><td class="num">3,680⁠万</td><td class="num">約⁠5,200⁠万</td><td class="num">約⁠6,600⁠万</td></tr>
+        <tr><td>いま 36.8⁠万</td><td class="num">約⁠100</td><td class="num">—</td><td class="num">15</td><td class="num">約⁠48⁠万</td><td class="num hl">約⁠580⁠万</td></tr>
+        <tr><td>100⁠万</td><td class="num">100</td><td class="num">15⁠万</td><td class="num">25</td><td class="num">約⁠80⁠万</td><td class="num hl">約⁠960⁠万</td></tr>
+        <tr><td>300⁠万</td><td class="num">300</td><td class="num">45⁠万</td><td class="num">75</td><td class="num">約⁠240⁠万</td><td class="num hl">約⁠2,900⁠万</td></tr>
+        <tr><td>500⁠万</td><td class="num">500</td><td class="num">75⁠万</td><td class="num">125</td><td class="num">約⁠400⁠万</td><td class="num hl">約⁠4,800⁠万</td></tr>
+        <tr><td>1,000⁠万（利益を戻して到達）</td><td class="num">1,000</td><td class="num">150⁠万</td><td class="num">250</td><td class="num">約⁠800⁠万</td><td class="num hl">約⁠9,600⁠万</td></tr>
       </tbody>
     </table></div>
-    <p class="foot">式: 回線＝1抽選の応募数×1,500⁠円（今ある約⁠300名義は差し引かない＝多めに見積もり）／支払い＝3案件の支払い36.8⁠万×N（3案件が同時に寝た 10/27〜10/31 を最悪として置く）／利益＝66.4⁠万×N。前提が半分崩れる＝当選率 3.5⁠%・1当選の利益 1.6⁠万円。<br>年1⁠億までの道筋: お金は払ってから最長約⁠70⁠日戻らないので、約⁠1,040⁠万円で回せるのは年に約⁠5巡（20⁠倍のままなら粗利 約⁠6,600⁠万円）。2巡目を約⁠40⁠倍、3巡目を約⁠80⁠倍まで、粗利を次の巡に足して量を増やせば、年1⁠億に届く計算（売れる量の天井が先に来なければ）。<br>崩れうる前提: ①当選率が約⁠7⁠%のまま ②売値が同じで売り切れる（量を増やすと値が下がりうる） ③M氏の情報で出せる抽選の数（1巡＝3抽選で置いた） ④1公演の申込の上限。どれが先に天井になるかは <span class="ph">[〇倍]</span> あたりで試して確かめます。</p>
+    <p class="foot"><b>式</b>　支払い枠 ＝ 名義 × 月の公演5 × 当選率5⁠% × 1.75⁠万円 × 2.3⁠か月（寝る期間）　≒ 名義数 × 1⁠万円　／
+    <b>崩れうる前提</b>　① 同じ公演に大量に当てたとき、当選率と売値を保てるか（1公演に何枚まで捌けるかは未検証）
+    ② 月に5⁠公演を安定して拾えるか（協力者の目利きが律速）　<a class="jump" href="#s22">→ B2-2</a></p>
   </div>
+  <p class="backlink"><a class="jump" href="#s6">← 本編 1-3</a> へ戻る</p>
 </section>
 
-<section class="slide gantt" data-sec="B2-2" id="s16">
-<div class="hd"><span class="ch">補足B2 試算の前提</span><span class="pg">B2-2｜16/23</span></div>
+<section class="slide gantt" data-sec="B2-2" id="s22">
+<div class="hd"><span class="sc">B2-2</span><span class="ch">補足B2 試算の前提</span><span class="pg"><i>B2-2｜</i>22/34</span></div>
 <h2>払ってから入金まで、<em>長いと約⁠70⁠日</em>お金が寝る</h2>
   <p class="lead">払うのは当選の後、入金は公演の後。オレンジの区間は現金が動けず、10/27〜10/31 は3案件ぶん <b class="num">36.8⁠万円</b> が同時に寝ていました。</p>
   <div class="body">
@@ -562,10 +731,22 @@ table.scale td,table.scale th{font-size:1.05em;padding:.5em .8em}
       <div class="gr"><div class="l"><b>野球</b><span class="num">10⁠日・8.8⁠万円</span></div><div class="track"><i style="width:14%"></i></div><div class="dt num">10/21 支払い → 10/31 入金</div></div>
     </div>
   </div>
+  <p class="backlink"><a class="jump" href="#s8">← 本編 2-1</a> へ戻る</p>
 </section>
 
-<section class="slide" data-sec="B3-1" id="s17">
-<div class="hd"><span class="ch">補足B3 守りの中身</span><span class="pg">B3-1｜17/23</span></div>
+<section class="slide" data-sec="B2-3" id="s23">
+<div class="hd"><span class="sc">B2-3</span><span class="ch">補足B2 試算の前提</span><span class="pg"><i>B2-3｜</i>23/34</span></div>
+
+<h2>名義を作る速さは、<em>端末の数</em>で決まる</h2>
+  <div class="body"><svg viewBox="0 0 700 230" role="img" aria-label="端末1台で月20名義、10台で月200、18台で月360"><text x="24" y="30" font-size="16" font-weight="700">端末 ＝ 名義を作る蛇口</text><text x="24" y="48" font-size="14" class="sub">1台 2.5⁠万円・月に20⁠本まで・翌月もまた20⁠本</text><rect x="24" y="54" width="22" height="36" rx="4" fill="var(--navy)" stroke="none" stroke-width="2" /><rect x="58" y="54" width="22" height="36" rx="4" fill="var(--navy)" stroke="none" stroke-width="2" /><rect x="92" y="54" width="22" height="36" rx="4" fill="var(--navy)" stroke="none" stroke-width="2" /><rect x="126" y="54" width="22" height="36" rx="4" fill="var(--navy)" stroke="none" stroke-width="2" /><rect x="160" y="54" width="22" height="36" rx="4" fill="var(--navy)" stroke="none" stroke-width="2" /><rect x="194" y="54" width="22" height="36" rx="4" fill="var(--navy)" stroke="none" stroke-width="2" /><rect x="228" y="54" width="22" height="36" rx="4" fill="var(--navy)" stroke="none" stroke-width="2" /><rect x="262" y="54" width="22" height="36" rx="4" fill="var(--navy)" stroke="none" stroke-width="2" /><rect x="296" y="54" width="22" height="36" rx="4" fill="var(--navy)" stroke="none" stroke-width="2" /><rect x="24" y="110" width="22" height="36" rx="4" fill="var(--navy)" stroke="none" stroke-width="2" /><rect x="58" y="110" width="22" height="36" rx="4" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/><rect x="92" y="110" width="22" height="36" rx="4" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/><rect x="126" y="110" width="22" height="36" rx="4" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/><rect x="160" y="110" width="22" height="36" rx="4" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/><rect x="194" y="110" width="22" height="36" rx="4" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/><rect x="228" y="110" width="22" height="36" rx="4" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/><rect x="262" y="110" width="22" height="36" rx="4" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/><rect x="296" y="110" width="22" height="36" rx="4" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/><text x="372" y="52" font-size="15" class="sub">いま 10台</text><rect x="372" y="60" width="104" height="34" rx="4" fill="var(--navy)"/><text x="486" y="84" font-size="17" font-weight="800" class="num">月 200⁠名義</text><text x="372" y="114" font-size="15" class="sub">8台 足すと 18台</text><rect x="372" y="122" width="187" height="34" rx="4" fill="var(--accent)"/><text x="569" y="146" font-size="17" font-weight="800" class="num">月 360⁠名義</text><rect x="24" y="186" width="14" height="14" fill="var(--navy)"/><text x="44" y="198" font-size="14" class="sub">いまある 10台</text><rect x="160" y="186" width="14" height="14" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/><text x="180" y="198" font-size="14" class="sub">足す 8台（20⁠万円）</text><text x="698" y="198" font-size="16" text-anchor="end" font-weight="700" fill="var(--accent)">年内に 1,000⁠名義</text></svg>
+    <p class="foot">1⁠アカウントにつき端末1台、月に20⁠回線まで。端末は<b>使い回せる設備</b>、回線は1⁠本1,500⁠円の<b>使い切り</b>です。
+    2⁠か月で 1,000⁠名義＝年内に届きます。合計＝回線 105⁠万円 ＋ 端末 20⁠万円 ＝ <b>125⁠万円</b></p>
+  </div>
+  <p class="backlink"><a class="jump" href="#s13">← 本編 3-2</a> へ戻る</p>
+</section>
+
+<section class="slide" data-sec="B3-1" id="s24">
+<div class="hd"><span class="sc">B3-1</span><span class="ch">補足B3 守りの中身</span><span class="pg"><i>B3-1｜</i>24/34</span></div>
 <h2>売上を追いすぎて、手元の現金を見ていなかった</h2>
   <p class="lead">将来の大きな勝ちを追って、いまの体制の支払いが回っていません。</p>
   <div class="body">
@@ -580,63 +761,158 @@ table.scale td,table.scale th{font-size:1.05em;padding:.5em .8em}
   </div>
 </section>
 
-<section class="slide" data-sec="B3-2" id="s18">
-<div class="hd"><span class="ch">補足B3 守りの中身</span><span class="pg">B3-2｜18/23</span></div>
-<h2>守りの30〜50⁠万円は、この3か所で生きる</h2>
-  <p class="lead">いまの体制の固定費。金額は経費台帳から埋めます。</p>
+<section class="slide" data-sec="B3-2" id="s25">
+<div class="hd"><span class="sc">B3-2</span><span class="ch">補足B3 守りの中身</span><span class="pg"><i>B3-2｜</i>25/34</span></div>
+
+<h2>毎月のお金と、残っている<em>立て替え</em></h2>
+  <p class="lead">いまの体制の固定費。金額は経費台帳（ゆうと・武者野が持つ）から埋めます。</p>
   <div class="body">
-    <div class="levers">
-      <div class="lever"><div class="ic">🛠</div><div class="t">開発費</div><div class="d">Claude（bot の開発）<br><span class="ph">[〇]</span>万円／月</div></div>
-      <div class="op">＋</div>
-      <div class="lever"><div class="ic">📱</div><div class="t">回線</div><div class="d">いまある回線の月額<br><span class="ph">[〇]</span>万円／月</div></div>
-      <div class="op">＋</div>
-      <div class="lever hot"><div class="ic">🧾</div><div class="t">立て替えの精算</div><div class="d">開発者の立て替え<br>約⁠30⁠万円（仮）</div></div>
+    <div class="flow">
+      <div class="step"><span class="no">🛠 開発費</span><span class="t"><span class="ph">[〇]</span> 万円／月</span><span class="d">Claude（bot の開発）＝プラン1 が3⁠か月分を賄う</span></div>
+      <div class="ar">＋</div>
+      <div class="step"><span class="no">📱 回線</span><span class="t"><span class="ph">[〇]</span> 万円／月</span><span class="d">いまある回線の月額</span></div>
+      <div class="ar">＋</div>
+      <div class="step hot"><span class="no">🧾 未精算</span><span class="t">約⁠30⁠万円<span class="ph">（仮）</span></span><span class="d">開発者の立て替えが残っている</span></div>
     </div>
-    <p class="foot">当選分の支払い枠（増やす分）は A の側です。内訳の元は経費台帳（品川・武者野が持つ）。</p>
+    <p class="foot">当選分の支払い枠はここには含みません（プラン3 の側）</p>
   </div>
 </section>
 
-<section class="slide dense" data-sec="B4-1" id="s19">
-<div class="hd"><span class="ch">補足B4 体制と役割</span><span class="pg">B4-1｜19/23</span></div>
+<section class="slide dense" data-sec="B4-1" id="s26">
+<div class="hd"><span class="sc">B4-1</span><span class="ch">補足B4 体制と自動化</span><span class="pg"><i>B4-1｜</i>26/34</span></div>
 <h2>bot は量、手作業は確実さ。<em>どちらも要る</em></h2>
-  <p class="lead">M氏の経験では、手作業の応募はちゃんと当たる。bot は量を出せるが、当たり外れの振れ幅がまだ大きい。</p>
+  <p class="lead">手作業は案件を選ぶ目があり、bot は量を出せます。いまはゲスト応募を bot、会員の名義を手で分けています。</p>
   <div class="body">
     <div class="two">
       <div class="opt"><h3>手作業（ゆうと）</h3><dl>
         <dt>やり方</dt><dd>MNP 界隈のつながりで案件を拾い、協力者を募ってフィーを払い応募してもらう</dd>
-        <dt>強み</dt><dd>確実に当たる（M氏の情報）</dd>
+        <dt>強み</dt><dd>確実に当たる（協力者の目利き）</dd>
         <dt>弱み</dt><dd>手間がかかり、人の数で頭打ち</dd></dl></div>
       <div class="opt" style="border-color:var(--accent)"><h3>bot（武者野）</h3><dl>
         <dt>やり方</dt><dd>アカウント作成と抽選の応募を自動で大量に</dd>
         <dt>強み</dt><dd>量を増やしても手間が増えない（1か月で63名義）</dd>
-        <dt>弱み</dt><dd>当たり外れの振れ幅が大きい（改善中）</dd></dl></div>
+        <dt>いまの実測</dt><dd>ゲスト応募は 約⁠16⁠%（手の会員応募は 約⁠7⁠%）　<a class="jump" href="#s27">→ B4-2</a></dd></dl></div>
     </div>
+  </div>
+  <p class="backlink"><a class="jump" href="#s7">← 本編 1-4</a> へ戻る</p>
+</section>
+
+<section class="slide" data-sec="B4-2" id="s27">
+<div class="hd"><span class="sc">B4-2</span><span class="ch">補足B4 体制と自動化</span><span class="pg"><i>B4-2｜</i>27/34</span></div>
+
+<h2>bot は「作る」も「当てる」も、<em>すでに動いている</em></h2>
+  <p class="lead">9月29⁠日に1⁠件目のアカウントを作ってから1⁠か月。名義を作る側と、ゲストで応募する側の両方が自動で回っています。</p>
+  <div class="body"><div class="flow"><div class="step"><span class="no">① 作る</span><span class="m">名義 約⁠100</span><span class="d">9/29 に1⁠件目。1⁠か月で 約⁠100⁠名義＝5社ぶんで <b>約⁠500⁠アカウント</b>。電話番号も自前で用意（LinksMate・1⁠本 1,500⁠円）</span></div><span class="ar">→</span><div class="step"><span class="no">② 出す</span><span class="m">応募 約⁠500⁠件</span><span class="d">ゲスト応募を自動で。手で頼むと 1⁠応募 50⁠円＝2.5⁠万円、bot は何件出しても <b>0⁠円</b></span></div><span class="ar">→</span><div class="step hot"><span class="no">③ 当てる</span><span class="m">当選 80⁠枚</span><span class="d">当選率 <b>約⁠16⁠%</b>（手作業の実測は 5〜7⁠%）。9月のフェデラーで <b>利益 112⁠万円</b></span></div></div>
+    <p class="foot">人が増えないと増えない手作業に対して、bot は<b>出す数を増やしても手間が増えません</b>。
+    いま止めているのは会員の名義での応募だけで、そこは検知の当たり方を測りながら開けます　<a class="jump" href="#s10">→ 2-3</a></p>
+  </div>
+  <p class="backlink"><a class="jump" href="#s8">← 本編 2-1</a> へ戻る</p>
+</section>
+
+<section class="slide" data-sec="B4-3" id="s28">
+<div class="hd"><span class="sc">B4-3</span><span class="ch">補足B4 体制と自動化</span><span class="pg"><i>B4-3｜</i>28/34</span></div>
+
+<h2>回線1⁠本あたり <em>30〜60分</em> の手作業が、ほぼ<em>0</em>に</h2>
+  <p class="lead">名義を1⁠つ作るには、電話番号（回線）を1⁠本用意する必要があります。
+  その1⁠本に、人の手でこれだけかかっていました。</p>
+  <div class="body">
+    <div class="two">
+      <div class="opt"><h3>人がやると（1⁠本あたり 30〜60分）</h3>
+        <dl>
+          <dt>①</dt><dd>LinksMate に回線を申し込む（本人確認・支払い）</dd>
+          <dt>②</dt><dd>届いた番号で各サイトのアカウントを登録する</dd>
+          <dt>③</dt><dd>SMS に届いたコードを読んで入力する</dd>
+          <dt>④</dt><dd>使い終わった回線を解約する</dd>
+        </dl>
+      </div>
+      <div class="opt" style="border-color:var(--accent);border-top-color:var(--accent)">
+        <h3>いま（①〜④を機械が通しで）</h3>
+        <dl>
+          <dt>人が触る所</dt><dd>支払いを通す1⁠点だけ（それも機械が画面を出すところまでやります）</dd>
+          <dt>並べ方</dt><dd>端末を増やせば台数ぶん同時に走ります　<a class="jump" href="#s23">→ B2-3</a></dd>
+          <dt>1,000⁠名義なら</dt><dd>人の手だと <b>500〜1,000時間</b>（ひとりで3〜6⁠か月）。
+          機械は寝ている間に進みます</dd>
+        </dl>
+      </div>
+    </div>
+    <p class="foot">仕組みは<b>もう動いています</b>。止まっているのは回線を買うお金の側だけです　<a class="jump" href="#s13">→ 3-2</a></p>
+  </div>
+  <p class="backlink"><a class="jump" href="#s7">← 本編 1-4</a> へ戻る</p>
+</section>
+
+<section class="slide" data-sec="B4-4" id="s29">
+<div class="hd"><span class="sc">B4-4</span><span class="ch">補足B4 体制と自動化</span><span class="pg"><i>B4-4｜</i>29/34</span></div>
+
+<h2>SMS・電話番号の認証も <em>人が触らない</em></h2>
+  <p class="lead">アカウントを大量に作るときに最後まで人が残るのが、この電話番号の認証です。ここを無人にしました。</p>
+  <div class="body"><div class="flow">
+  <div class="step"><span class="no">① 入口</span><span class="t">番号を求められる</span>
+    <span class="d">アカウント登録の途中で、電話番号と SMS のコードを要求されます</span></div>
+  <span class="ar">→</span>
+  <div class="step"><span class="no">② 受け取る</span><span class="t">実機に届いた SMS を読む</span>
+    <span class="d">Android の実機を機械が操作し、届いたコードをその場で読み取ります</span></div>
+  <span class="ar">→</span>
+  <div class="step hot"><span class="no">③ 通過</span><span class="t">自動で入力</span>
+    <span class="d">クラウドから実機まで経路をつないであるので、人が PC の前にいなくても進みます</span></div>
+</div>
+    <p class="foot">番号そのものを自前で用意できること（LinksMate・1⁠本 1,500⁠円）と、
+    届いたコードを機械が読めることが揃って初めて、名義づくりは<b>人数と関係なく増やせます</b>　<a class="jump" href="#s28">→ B4-3</a></p>
+  </div>
+  <p class="backlink"><a class="jump" href="#s7">← 本編 1-4</a> へ戻る</p>
+</section>
+
+<section class="slide" data-sec="B4-5" id="s30">
+<div class="hd"><span class="sc">B4-5</span><span class="ch">補足B4 体制と自動化</span><span class="pg"><i>B4-5｜</i>30/34</span></div>
+
+<h2>同じ部品で、<em>スマホのゲームも無人で回る</em></h2>
+  <p class="lead">抽選の代行で作った「画面を読む・押す・実機を束ねる」部品は、そのまま別の作業にも使えます。</p>
+  <div class="body">
+    <div class="two">
+      <div class="opt"><h3>やったこと</h3>
+        <dl>
+          <dt>対象</dt><dd>あんさんぶるスターズ（Music／Basic の両方）</dd>
+          <dt>やり方</dt><dd>Android 実機の画面を機械が読んで押す。手順を書けばそのまま回り続けます</dd>
+          <dt>並列</dt><dd>端末を並べた台数ぶん、同時に走ります</dd>
+        </dl>
+      </div>
+      <div class="opt" style="border-color:var(--accent);border-top-color:var(--accent)">
+        <h3>ここが言いたいこと</h3>
+        <dl>
+          <dt>横に広がる</dt><dd>部品はチケットのために作ったものと同じです。
+          <b>別の反復作業にも、作り直さずに当てられます</b></dd>
+          <dt>この事業では</dt><dd>名義づくり・応募・当落の確認が、同じ部品の上に乗っています</dd>
+        </dl>
+      </div>
+    </div>
+    <p class="foot">「ウェブやアプリの反復作業を数時間で自動化できる」こと自体が、この事業の土台です　<a class="jump" href="#s26">→ B4-1</a></p>
   </div>
 </section>
 
-<section class="slide" data-sec="B5-1" id="s20">
-<div class="hd"><span class="ch">補足B5 お返しの形</span><span class="pg">B5-1｜20/23</span></div>
+<section class="slide" data-sec="B5-1" id="s31">
+<div class="hd"><span class="sc">B5-1</span><span class="ch">補足B5 お返しの形</span><span class="pg"><i>B5-1｜</i>31/34</span></div>
 <h2>お返しは「<em>利益の半分</em>」より軽い条件で</h2>
   <p class="lead">いまの立て替え先が受け取る「半分」より軽ければ、出す側には利息か分配が戻り、私たちの手元にも残ります。形はご相談で決めます。</p>
   <div class="body">
     <div class="two">
       <div class="opt"><h3>融資（貸す）</h3><dl>
-        <dt>戻るもの</dt><dd>元本 ＋ 年 <span class="ph">[〇]%</span> の利息</dd>
-        <dt>期間</dt><dd><span class="ph">[〇年〇月]</span>までに返し切る</dd>
+        <dt>戻るもの</dt><dd>元本 ＋ 年 10⁠% の利息</dd>
+        <dt>期間</dt><dd>12⁠か月で返し切る</dd>
         <dt>うまくいくと</dt><dd>利息分が確実に戻る</dd>
         <dt>こけても</dt><dd>元本は返す</dd></dl></div>
       <div class="opt" style="border-color:var(--accent)"><h3>利益を分ける投資</h3><dl>
-        <dt>戻るもの</dt><dd>利益の <span class="ph">[〇]%</span>（50⁠%未満）</dd>
-        <dt>期間</dt><dd><span class="ph">[〇か月]</span>ごとに見直し</dd>
+        <dt>戻るもの</dt><dd>利益の 30⁠%（50⁠%未満）</dd>
+        <dt>期間</dt><dd>1⁠巡（約⁠70⁠日）ごとに精算・6⁠か月ごとに見直し</dd>
         <dt>うまくいくと</dt><dd>利益に比例して大きく戻る</dd>
-        <dt>こけたら</dt><dd>分配は減る・元本は <span class="ph">[どう扱うか]</span></dd></dl></div>
+        <dt>こけたら</dt><dd>分配は減ります（元本の返済は約束しません）</dd></dl></div>
     </div>
   </div>
+  <p class="backlink"><a class="jump" href="#s12">← 本編 3-1</a> へ戻る</p>
 </section>
 
-<section class="slide" data-sec="B5-2" id="s21">
-<div class="hd"><span class="ch">補足B5 お返しの形</span><span class="pg">B5-2｜21/23</span></div>
+<section class="slide" data-sec="B5-2" id="s32">
+<div class="hd"><span class="sc">B5-2</span><span class="ch">補足B5 お返しの形</span><span class="pg"><i>B5-2｜</i>32/34</span></div>
 <h2>いまの折半より、借りた方が<em>約⁠40⁠倍安い</em></h2>
+  <p class="lead"><b>なぜ自分で借りないのか</b>　私たちは二人とも学生で、事業としての与信がありません。銀行やカード会社からこの規模を借りる口が、いまは無いというのが実情です。</p>
   <p class="lead">いまは足りない分を立て替えてもらい、その代わりに利益の半分を渡しています。</p>
   <div class="body">
     <div class="vs">
@@ -650,8 +926,8 @@ table.scale td,table.scale th{font-size:1.05em;padding:.5em .8em}
   </div>
 </section>
 
-<section class="slide" data-sec="B5-3" id="s22">
-<div class="hd"><span class="ch">補足B5 お返しの形</span><span class="pg">B5-3｜22/23</span></div>
+<section class="slide" data-sec="B5-3" id="s33">
+<div class="hd"><span class="sc">B5-3</span><span class="ch">補足B5 お返しの形</span><span class="pg"><i>B5-3｜</i>33/34</span></div>
 <h2>この順で回して、<em>返していきます</em></h2>
   <p class="lead">日付と金額は条件が決まりしだい埋めます。</p>
   <div class="body">
@@ -664,18 +940,18 @@ table.scale td,table.scale th{font-size:1.05em;padding:.5em .8em}
   </div>
 </section>
 
-<section class="slide colophon" data-role="colophon" id="s23">
-<div class="hd"><span>奥付</span><span class="pg">23/23</span></div>
+<section class="slide colophon" data-role="colophon" id="s34">
+<div class="hd"><span class="ch lbl">奥付</span><span class="pg">34/34</span></div>
 <h2>数字の出どころ</h2>
   <div class="body">
     <ul>
-      <li>4案件の応募数・当選数・支払い・売上・利益・日付（入金は予定日を含む）は、品川の案件記録（2026年10月29⁠日時点）。元の記録は品川にお声がけください。</li>
+      <li>4案件の応募数・当選数・支払い・売上・利益・日付（入金は予定日を含む）は、ゆうとの案件記録（2026年10月29⁠日時点）。元の記録はゆうとにお声がけください。</li>
       <li>1名義 1,500⁠円は、1⁠人の名義でローチケ・ぴあ・e+ など計5社のアカウントを用意する経費です。</li>
       <li>「戻り」の倍率は 売上 ÷ 支払い で計算しています。</li>
       <li>B5-2 の利息は 支払い額 × 年15⁠% × 支払いから入金までの日数 ÷ 365 で計算した比較用の数字で、実際の条件ではありません。</li>
       <li><span class="ph">[ ]</span> の黄色い箇所は、ご相談しながら決める数字です。</li>
-    <li>アカウント数のうち bot の分は bot の登録台帳（2026年10月29⁠日時点）。M氏・業界の数字と合計の約⁠300は聞き取りの概数です。</li>
-      <li>20⁠倍・100⁠倍の試算は B2-1 の式で計算した見込みで、約束ではありません。（仮）の金額は口頭の目安です。</li>
+    <li>アカウント数のうち bot の分は bot の登録台帳（2026年10月29⁠日時点）。協力者・業界の数字と合計の約⁠300は聞き取りの概数です。</li>
+      
     </ul>
   </div>
 </section>
