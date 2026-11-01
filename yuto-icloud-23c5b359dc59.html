@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ゆうとさんのiCloudを設定する手順</title>
+<!-- なぜゆうとさん本人の手が要るか（機械に巻き取れない理由）:
+     ゆうとさんのApple IDは本人しかサインインできない＝Apple IDのパスワードをこちらが持たず、
+     2ファクタ認証のコードはゆうとさんのiPhoneにだけ出る（SMSで読める拓也の番号とは別）。
+     転送設定・App用パスワードの発行・迷惑メールの学習は、どれもサインイン後の画面でしか押せず、
+     こちらからは段0（API）も段1（DOM）も届かない＝[実機確認:本人認証]。
+     手順3の16文字を受け取った後は、受信箱を読む工程は全部機械が回す。
+     手順1を「転送先を読む」にしてあるのは、HME の転送先が Apple ID の主アドレス次第で、
+     @icloud.com でない場合は手順2以降の前提が崩れるため（品川垢で実例＝HME は Gmail に届いた）。 -->
+<style>
+:root{
+  --bg:#ffffff; --fg:#1b1d21; --sub:#5b6068; --line:#d9dde3;
+  --card:#f6f7f9; --accent:#2f6fd0; --warn:#a8580a; --warnbg:#fdf3e3;
+  --ok:#1f7a4d; --okbg:#eaf6ef;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#15171a; --fg:#e8eaed; --sub:#a4abb4; --line:#333840;
+    --card:#1d2024; --accent:#79aefb; --warn:#e0a35a; --warnbg:#2a2318;
+    --ok:#6cc294; --okbg:#17241d;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,sans-serif;
+  line-height:1.8;font-size:16px}
+.bar{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);
+  padding:8px 16px}
+.bar .t{font-weight:700;font-size:15px}
+.bar .n{font-size:13px;color:var(--sub);margin-top:2px}
+main{max-width:760px;margin:0 auto;padding:20px 16px 80px}
+h1{font-size:23px;line-height:1.5;margin:10px 0 6px}
+h2{font-size:19px;margin:44px 0 10px;padding-top:4px;scroll-margin-top:76px}
+h3{font-size:16px;margin:24px 0 6px}
+p{margin:10px 0}
+.lead{color:var(--sub);font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:16px 0}
+.warn{background:var(--warnbg);border:1px solid var(--warn);border-radius:10px;padding:12px 16px;margin:16px 0}
+.ok{background:var(--okbg);border:1px solid var(--ok);border-radius:10px;padding:12px 16px;margin:16px 0}
+ol{padding-left:1.4em}ol li{margin:8px 0}
+ul{padding-left:1.3em}ul li{margin:5px 0}
+code{background:var(--card);border:1px solid var(--line);border-radius:5px;padding:1px 6px;
+  font-family:ui-monospace,Consolas,monospace;font-size:14px;word-break:break-all}
+figure{margin:18px 0}
+figcaption{font-size:13px;color:var(--sub);margin-top:6px}
+svg{width:100%;height:auto;display:block}
+.flow{font-size:15px}
+.flow ol{margin:8px 0 0}
+.flow .where{display:inline-block;font-size:12px;color:var(--sub);border:1px solid var(--line);
+  border-radius:999px;padding:0 8px;margin-left:6px;white-space:nowrap}
+.step{display:inline-block;background:var(--accent);color:#fff;border-radius:999px;
+  width:1.7em;height:1.7em;text-align:center;line-height:1.7em;font-size:14px;font-weight:700;margin-right:6px}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:14px 0}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--card)}
+.min{font-size:13px;color:var(--sub)}
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="t">ゆうとさんのiCloudを設定する手順</div>
+  <div class="n" id="now">やること</div>
+</div>
+<main>
+
+<h1>ゆうとさんのiCloudを設定する手順</h1>
+<p class="lead">ゆうとさんのiCloudに届くメールを、拓也と自動化のプログラムでも読めるようにします。対象は「メールを非公開」（Hide My Email）で作ったアドレス宛てのメール——回線やチケットの登録に使っているあれです。<strong>コマンドを打つ作業はありません。</strong>画面を押すだけです。手を動かすのは合わせて30分ですが、途中で拓也の返事を2回待つので、全部通すなら1時間みておいてください（分けてやっても大丈夫です）。</p>
+
+<div class="card flow">
+  <strong>上から順にこれだけです</strong>
+  <ol>
+    <li><a href="#s1">「メールを非公開」の転送先を見て、拓也に送る</a><span class="where">スマホでOK・5分</span></li>
+    <li><a href="#s2">iCloudのメールを拓也のGmailに転送する</a><span class="where">PCが要ります・10分</span></li>
+    <li><a href="#s3">「App用パスワード」を作って渡す</a><span class="where">拓也と往復あり・10分</span></li>
+    <li><a href="#s4">（おまけ）迷惑メールのLinksMateを受信に戻す</a><span class="where">PC推奨・5分</span></li>
+  </ol>
+  <p class="min" style="margin-bottom:0">連絡は全部 <strong>Discord の仕事部屋</strong>へ（いつも使っているチャンネルで大丈夫です。拓也が見ます）。例外は手順3の16文字だけ（チャットに貼らない方法でやります）。<strong>手順1の返事を待ってから手順2へ進んでください</strong>——1の結果で2のやり方が変わることがあります。</p>
+</div>
+
+<h2 id="why">なぜこれをやるのか</h2>
+<p>「メールを非公開」のアドレス宛てのメールは、ゆうとさんのiCloudの受信箱に転送されてきます。いまはそこに<strong>こちらから手が届かない</strong>ので、回線の開通メールや解約の完了メールを自動化が読めず、ゆうとさんに毎回聞くことになっています。通す道は2本です。</p>
+
+<figure>
+<svg viewBox="0 0 700 250" role="img" aria-label="メールを非公開のアドレス宛てのメールがiCloudに届き、転送で拓也のGmailへ飛ぶ道と、プログラムが受信箱を見に行く道の2本">
+  <rect x="8" y="88" width="130" height="54" rx="8" fill="var(--card)" stroke="var(--line)"/>
+  <text x="73" y="110" font-size="13" text-anchor="middle" fill="var(--fg)">LinksMateなど</text>
+  <text x="73" y="129" font-size="12" text-anchor="middle" fill="var(--sub)">からのメール</text>
+
+  <line x1="138" y1="115" x2="196" y2="115" stroke="var(--sub)" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="198" y="80" width="150" height="70" rx="8" fill="var(--card)" stroke="var(--accent)" stroke-width="2"/>
+  <text x="273" y="104" font-size="13" text-anchor="middle" fill="var(--fg)">ゆうとさんの</text>
+  <text x="273" y="123" font-size="13" text-anchor="middle" fill="var(--fg)">iCloudの受信箱</text>
+  <text x="273" y="141" font-size="12" text-anchor="middle" fill="var(--sub)">控えは残ります</text>
+
+  <path d="M348 98 L424 58" stroke="var(--accent)" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <text x="352" y="76" font-size="12" fill="var(--accent)">手順2 転送＝届いた瞬間にとぶ</text>
+
+  <path d="M424 176 L350 138" stroke="var(--accent)" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <text x="352" y="204" font-size="12" fill="var(--accent)">手順3 見に行く＝さかのぼれる</text>
+
+  <rect x="426" y="28" width="256" height="58" rx="8" fill="var(--card)" stroke="var(--line)"/>
+  <text x="554" y="51" font-size="13" text-anchor="middle" fill="var(--fg)">拓也のGmail</text>
+  <text x="554" y="70" font-size="12" text-anchor="middle" fill="var(--sub)">mushik750@gmail.com</text>
+
+  <rect x="426" y="148" width="256" height="66" rx="8" fill="var(--card)" stroke="var(--line)"/>
+  <text x="554" y="171" font-size="13" text-anchor="middle" fill="var(--fg)">自動化のプログラム</text>
+  <text x="554" y="190" font-size="12" text-anchor="middle" fill="var(--sub)">受信箱と迷惑メールの両方を読む</text>
+  <text x="554" y="207" font-size="12" text-anchor="middle" fill="var(--sub)">読むだけ（消さない・既読にしない）</text>
+
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--sub)"/>
+    </marker>
+  </defs>
+</svg>
+<figcaption>手順2の転送は「届いた瞬間に写しがとぶ」道（速い）。手順3の見に行く道は「設定より前に届いていた分も、あとからさかのぼって読める」道（取りこぼさない）。転送だけだと設定前の古いメールが読めず、見に行くだけだと気づくまで数分遅れるので、両方つくります。</figcaption>
+</figure>
+
+<div class="warn">
+<strong>なぜゆうとさんの手が要るのか</strong>：どれもゆうとさんのApple IDにサインインした後の画面でしか押せません。Apple IDのパスワードはこちらが持っておらず、2ファクタ認証のコードもゆうとさんのiPhoneにだけ出るので、こちらから代わりに操作する道がありません。逆に、手順3の16文字を受け取った後は全部こちらの機械が回します（ゆうとさんがメールを見張る必要はなくなります）。
+</div>
+
+<h2 id="s1"><span class="step">1</span>「メールを非公開」の転送先を見て、拓也に送る</h2>
+<p>いちばん大事な5分です。「メールを非公開」で作ったアドレスは、<strong>アドレスごとに、どこか1つの宛先へ中身を転送しています</strong>。その転送先が <code>〜@icloud.com</code> なら手順2以降がそのまま使えます。別のアドレス（Gmailなど）だと、やり方を変える必要があります。<strong>先に見てもらわないと、全部やった後に無駄だったと分かることになります。</strong></p>
+
+<ol>
+  <li>iPhoneの「<strong>設定</strong>」を開き、一番上の<strong>自分の名前</strong>を押す</li>
+  <li>「<strong>iCloud</strong>」→「<strong>メールを非公開</strong>」を開く</li>
+  <li>アドレスが並んでいます。<strong>上から3つくらい順に押して</strong>、それぞれの下に出る「<strong>転送先</strong>」を見てください（転送先はアドレスごとに別々に設定できるので、1つだけ見ても代表になりません）</li>
+  <li>LinksMateやチケットの登録に使ったアドレスがどれか分かるなら、<strong>それも必ず押して</strong>転送先を見てください</li>
+  <li>Discordに送るのは次の2つです
+    <ul>
+      <li>転送先に書かれていたアドレス（<strong>全部同じなら1つだけ</strong>・違うものが混ざっていたら「どのアドレスがどこへ」も一言）</li>
+      <li>自分のiCloudのメールアドレス（<code>yuto1234@icloud.com</code> のような <code>@icloud.com</code> のアドレス）。ひとつ戻って「<strong>iCloud</strong>」の中の「<strong>iCloudメール</strong>」に出ています。<strong>見つからない・オフになっている場合は、そのまま「iCloudメールはオフ」と送ってください</strong>（それが分かれば十分です）</li>
+    </ul>
+  </li>
+</ol>
+
+<div class="card">
+<strong>送るのはこの2つだけ</strong>：①転送先に書かれていたアドレス ②自分の <code>@icloud.com</code> のアドレス（無ければ「オフ」の一言）。<br>
+こちらで見て「そのまま手順2へ進んでOK」か「やり方を変えます」を返します。<strong>手順2だけは返事を待ってください</strong>——転送先が <code>@icloud.com</code> でなかった場合、手順2（PCでサインインして設定・10分）が丸ごと無駄になります。15分待って返事が無ければ、<strong>手順4（おまけ）をやるか、その日はここで終わりにして大丈夫</strong>です。
+</div>
+
+<h2 id="s2"><span class="step">2</span>iCloudのメールを拓也のGmailに転送する</h2>
+<p>ゆうとさんのiCloudに届いたメールの<strong>写し</strong>を拓也のGmailに飛ばす設定です。元のメールはiCloudに残ります（消えません）。<strong>PCのブラウザが要ります</strong>（iPhoneのSafariではこの設定画面に入れません）。</p>
+
+<ol>
+  <li>PCのブラウザで <code>https://www.icloud.com/mail</code> を開く（Apple IDでサインイン・2ファクタのコードはゆうとさんのiPhoneに出ます）</li>
+  <li>画面の左下にある<strong>歯車アイコン</strong>を押して「<strong>設定</strong>」を開く</li>
+  <li>「<strong>メールの転送</strong>」の項目を出す</li>
+  <li>「<strong>メールを転送</strong>」のチェックを<strong>入れる</strong></li>
+  <li>転送先の欄に <code>mushik750@gmail.com</code> を入力する</li>
+  <li>「<strong>転送後にメッセージを削除</strong>」は<strong>チェックしない</strong>（iCloudに控えを残したいので）</li>
+  <li>保存して、いちどページを再読み込みし、設定が残っていることを見る</li>
+  <li>Discordに「<strong>転送おわり</strong>」と送る</li>
+</ol>
+
+<div class="warn">
+<strong>「転送先の確認」「確認コードを入力」と出たら</strong>：そのコードは<strong>拓也のGmailに届きます</strong>（ゆうとさんのところには来ません）。Discordに「確認コードの画面が出た」と送ってください。こちらで読んで返します。<strong>返事を待つ間、画面は閉じて構いません</strong>——再開のやり方（コードの出し直しか、設定のし直し）はこちらから案内します。夜で返事が来なければ、翌日この手順からで大丈夫です。<br>
+<span class="min">※拓也のアカウントで同じ設定をしたときは確認を求められませんでした（そのときは転送先が自分のアドレスだったため）。今回は別の人のアドレスなので、求められる可能性があります。</span>
+</div>
+
+<div class="card">
+<strong>うまくいったかの見分け方</strong>：再読み込みしても「メールを転送」のチェックと <code>mushik750@gmail.com</code> が残っていればOKです。拓也のアカウントでは、設定の直後のテストメールが<strong>4秒</strong>でGmailに届きました。
+</div>
+
+<h2 id="s3"><span class="step">3</span>「App用パスワード」を作って渡す</h2>
+<p>自動化のプログラムとメールソフトが、ゆうとさんの受信箱を<strong>読むため</strong>の専用パスワードです。Apple IDのパスワード自体は渡しません。あとからいつでも取り消せます。</p>
+
+<div class="warn">
+<strong>作る前に、先に拓也へ一言ください。</strong> 16文字は<strong>生成した直後の画面にだけ</strong>出ます。受け取る口（貼るだけの小窓）をこちらで先に開けておくので、この順が一番早く終わります。
+<ol style="margin:8px 0 0">
+  <li>Discordに「<strong>App用パスワード作ります</strong>」と送る（PCで作るかスマホで作るかも一言）</li>
+  <li>拓也から「<strong>口を開けた</strong>」と返事が来るのを待つ</li>
+  <li>返事が来てから、下の手順で生成して渡す</li>
+</ol>
+<span class="min">15分待って返事が無ければ、その日は手順3を飛ばして大丈夫です（翌日またここから）。急ぐときは電話してください。</span>
+</div>
+
+<ol>
+  <li>ブラウザで <code>https://account.apple.com</code> を開いてサインインする（PCでもスマホでもできます。<strong>スマホで作る場合は渡し方Bになります</strong>）</li>
+  <li>「<strong>サインインとセキュリティ</strong>」を開く</li>
+  <li>「<strong>App用パスワード</strong>」を開き、「<strong>+</strong>」（または「App用パスワードを生成」）を押す</li>
+  <li>名前を聞かれるので <code>拓也の自動化</code> と入れる（あとで見分けるための名札です）</li>
+  <li><code>xxxx-xxxx-xxxx-xxxx</code> の形の16文字が出る。この画面を閉じると<strong>もう見られません</strong>ので、閉じる前に下の渡し方で渡す</li>
+  <li>渡し終わったらDiscordに「<strong>パスワードおわり</strong>」と送る</li>
+</ol>
+<p class="min">うっかり閉じてしまっても大丈夫です。同じ画面でもう1本作り直せます（古い行は消してOK）。</p>
+
+<h3>渡し方（LINEやDiscordには貼らないでください）</h3>
+<table>
+  <tr><th>方法</th><th>やること</th></tr>
+  <tr>
+    <td><strong>A. 画面共有で貼る</strong><br><span class="min">PCで作るならこれ</span></td>
+    <td>Chromeリモートデスクトップで拓也のPCに入ると、値を入れる小窓が開いています。そこに貼って「OK」を押すだけ（「メールを非公開」のログインをしたときと同じやり方）。拓也の画面にも値は出ません。</td>
+  </tr>
+  <tr>
+    <td><strong>B. 電話で読み上げる</strong><br><span class="min">スマホで作るならこれ</span></td>
+    <td>通話でそのまま読んでもらって、こちらで打ち込みます。16文字だけなので1分で終わります。</td>
+  </tr>
+</table>
+
+<div class="ok">
+<strong>これで何ができて、何はできないか</strong>：このパスワードでできるのは<strong>メールを読むこと</strong>だけです。プログラム側は「読むだけ・既読にしない・消さない・移さない」で作ってあるので、ゆうとさんの未読の数も並びも変わりません。やめたいときは同じ画面の<code>拓也の自動化</code>の行を削除すれば、その瞬間に読めなくなります。
+</div>
+
+<h2 id="s4"><span class="step">4</span>（おまけ）迷惑メールのLinksMateを受信に戻す</h2>
+<p>必須ではありません。プログラムは<strong>迷惑メールのフォルダも読みます</strong>ので、ここをやらなくてもメールは読めます。ただし手順2の転送は迷惑メールの分を運ばない見込みなので、受信に戻しておくと<strong>届くのが数分早くなります</strong>。一度迷惑メール扱いになった差出人はその後も落ち続けるので、<strong>この先ずっと数分の遅れが付く</strong>という意味です。手が空いたときにどうぞ。</p>
+
+<ol>
+  <li><code>https://www.icloud.com/mail</code> の左側で「<strong>迷惑メール</strong>」を開く</li>
+  <li>差出人の表示名が <strong>LinksMate</strong> のメールを<strong>全部選ぶ</strong></li>
+  <li>「<strong>マーク</strong>」→「<strong>『受信』へ移動</strong>」を押す（＝「迷惑メールではない」の意味になります）</li>
+</ol>
+<p>他にも仕事で使っている差出人（チケットのサイトなど）が迷惑メールに居たら、同じように戻してください。1通も居なければ何もしなくて大丈夫です。</p>
+
+<h2 id="trouble">詰まったら</h2>
+<table>
+  <tr><th>こうなった</th><th>どうする</th></tr>
+  <tr><td>「メールを非公開」が設定に無い</td><td>iCloud+（有料のiCloud）に入っているアカウントでないと出ません。Discordへ。</td></tr>
+  <tr><td><code>@icloud.com</code> のアドレスが見つからない／iCloudメールがオフ</td><td>そのまま「iCloudメールはオフ」とDiscordへ。それが分かれば十分です（こちらでやり方を変えます。手順2・3は待ってください）。</td></tr>
+  <tr><td>「メールの転送」の項目が見つからない</td><td>スマホで開いていませんか。PCのブラウザで開き直してください。PCでも無ければ画面の写真をDiscordへ。</td></tr>
+  <tr><td>確認コードを求められた</td><td>Discordへ。コードは拓也に届きます。画面は閉じてOK（再開のやり方はこちらから案内します）。</td></tr>
+  <tr><td>16文字の画面を閉じてしまった</td><td>作り直してOK。同じ画面で「+」からもう1本、古い行は削除。</td></tr>
+  <tr><td>2ファクタのコードが来ない</td><td>ゆうとさんのiPhoneの画面に出る形です。出なければ「確認コードが届かない場合」のような文字を探して押してください。</td></tr>
+  <tr><td>拓也の返事が来ない</td><td>15分待ったら、その手順は翌日に回して大丈夫です。急ぐときは電話で。</td></tr>
+  <tr><td>見た画面が手順と違う</td><td>その画面のスクリーンショットをDiscordへ。手順書ごと直します。</td></tr>
+</table>
+
+<h2 id="ours">このあとはこちらの作業です</h2>
+<p>受け取った16文字で、拓也のPCとクラウドの両方からゆうとさんの受信箱を読めるようにし、拓也のPCのメールソフト（Thunderbird）にも足して目で見られるようにします。<strong>ゆうとさんの手は、ここから先は要りません。</strong>届くのを確かめたら、Discordに結果を報告します。</p>
+
+<h2 id="tb">付録：ゆうとさんのPCでもThunderbirdで見たい場合</h2>
+<p>必須ではありません。欲しいときだけで大丈夫です。Thunderbirdの「既存のメールアドレスを設定」で「手動設定」を開き、下の値を入れます（自動設定はiCloudだと失敗することがあります）。</p>
+<table>
+  <tr><th>項目</th><th>入れる値</th></tr>
+  <tr><td>ユーザー名</td><td>自分の <code>@icloud.com</code> のアドレス（@から後ろも含めた全部）</td></tr>
+  <tr><td>パスワード</td><td>手順3で作ったApp用パスワード（Apple IDのパスワードではありません）</td></tr>
+  <tr><td>受信：種類／サーバー</td><td>IMAP ／ <code>imap.mail.me.com</code></td></tr>
+  <tr><td>受信：ポート／保護／認証</td><td><code>993</code> ／ SSL/TLS ／ 通常のパスワード認証</td></tr>
+  <tr><td>送信：サーバー</td><td><code>smtp.mail.me.com</code></td></tr>
+  <tr><td>送信：ポート／保護／認証</td><td><code>587</code> ／ STARTTLS ／ 通常のパスワード認証</td></tr>
+</table>
+<p class="min">送信（SMTP）はこの用途では使いませんが、Thunderbirdが入力を求めてくるので上の値を入れてください。画面の文言がこの表と違っていたらDiscordへ。同じ受信箱に複数のソフトがつながっても競合しません（拓也のPCのThunderbirdと自動化のプログラムも同時につながります）。</p>
+
+</main>
+<script>
+(function(){
+  var now=document.getElementById('now');
+  var hs=[].slice.call(document.querySelectorAll('h2'));
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ now.textContent=e.target.textContent.replace(/^\s*\d\s*/,''); } });
+  },{rootMargin:'-70px 0px -70% 0px'});
+  hs.forEach(function(h){io.observe(h);});
+})();
+</script>
+</body>
+</html>
