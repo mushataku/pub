@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>第1回：AIに自分の仕事をさせてみる｜ひとり仕事のAI実践　全15回</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --muted:#5b636d; --card:#ffffff; --line:#d9d6cf;
+  --accent:#1f6f5c; --accent-soft:#e3f1ec; --warn:#a2541c; --warn-soft:#f8ebe0; --blue:#2f5f9e; --blue-soft:#e6eef8;
+  --band:rgba(251,250,247,.95);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181b; --fg:#e8e6e1; --muted:#a3a9b1; --card:#1f2226; --line:#3a3f45;
+    --accent:#6cc4a8; --accent-soft:#1d332c; --warn:#e2a06e; --warn-soft:#3a2a1e; --blue:#8db4e8; --blue-soft:#1f2a38;
+    --band:rgba(22,24,27,.95);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181b; --fg:#e8e6e1; --muted:#a3a9b1; --card:#1f2226; --line:#3a3f45;
+  --accent:#6cc4a8; --accent-soft:#1d332c; --warn:#e2a06e; --warn-soft:#3a2a1e; --blue:#8db4e8; --blue-soft:#1f2a38;
+  --band:rgba(22,24,27,.95);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",system-ui,sans-serif;line-height:1.85;font-size:16px;-webkit-text-size-adjust:100%}
+.band{position:sticky;top:0;z-index:10;background:var(--band);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.band-in{max-width:720px;margin:0 auto;padding:6px 16px;display:flex;align-items:baseline;gap:8px;min-height:40px;font-size:13px;line-height:1.5}
+.band-title{font-weight:700;white-space:nowrap;color:var(--accent)}
+.band-chap{white-space:nowrap;color:var(--fg);font-weight:700}
+.band-step{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+.band-step:empty{display:none}
+main{max-width:720px;margin:0 auto;padding:0 16px 64px}
+header.top{padding:28px 0 8px}
+h1{font-size:24px;line-height:1.45;margin:0 0 10px}
+nav.toc{margin:20px 0 8px;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+nav.toc ol{margin:0;padding-left:1.4em}
+nav.toc a{color:var(--fg);text-decoration:none;border-bottom:1px dotted var(--muted)}
+section,.step{scroll-margin-top:56px}
+section{padding-top:28px}
+h2{font-size:20px;line-height:1.5;margin:0 0 12px;padding-left:10px;border-left:4px solid var(--accent)}
+h3{font-size:17px;line-height:1.5;margin:0 0 8px}
+h3 .no{display:inline-block;background:var(--accent);color:var(--bg);border-radius:6px;padding:0 8px;margin-right:8px;font-size:14px}
+p{margin:0 0 12px}
+.step{margin:26px 0 8px;padding-top:6px;border-top:1px solid var(--line)}
+.fig{margin:12px 0 14px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+.fig svg{display:block;width:100%;max-width:520px;height:auto;margin:0 auto}
+.fig figcaption{font-size:13px;color:var(--muted);margin-top:6px;text-align:center}
+.key{font-weight:700;background:linear-gradient(transparent 62%,var(--accent-soft) 62%)}
+.prompt{position:relative;margin:10px 0 14px;border:2px solid var(--accent);border-radius:10px;background:var(--card)}
+.prompt pre{margin:0;padding:12px 14px 8px;white-space:pre-wrap;word-break:break-word;font-family:inherit;font-size:15px;line-height:1.75}
+.prompt .bar{display:flex;justify-content:flex-end;padding:0 10px 10px}
+.copy{appearance:none;border:0;border-radius:8px;background:var(--accent);color:var(--bg);font:inherit;font-size:15px;font-weight:700;padding:8px 16px;cursor:pointer;min-height:44px}
+.copy.done{background:var(--muted)}
+.stuck{margin:12px 0 14px;padding:10px 14px;border-radius:10px;background:var(--warn-soft);border-left:4px solid var(--warn)}
+.stuck b{color:var(--warn)}
+.stuck p{margin:0 0 4px}
+.goal{margin:14px 0;padding:10px 14px;border-radius:10px;background:var(--accent-soft);font-weight:700}
+.try{margin:10px 0 12px;padding-left:1.3em}
+.try li{margin:8px 0}
+.check{margin:6px 0 12px;padding-left:1.3em}
+.check li{margin:4px 0}
+.mini{font-size:14px;color:var(--muted)}
+.rounds{margin:8px 0 12px}
+.rounds dt{font-weight:700;margin-top:12px}
+.rounds dd{margin:2px 0 0 0}
+footer{margin-top:36px;font-size:12px;color:var(--muted)}
+/* svg tokens */
+.s-fg{fill:var(--fg)} .s-mu{fill:var(--muted)} .s-ac{fill:var(--accent)} .s-acs{fill:var(--accent-soft)}
+.s-wa{fill:var(--warn)} .s-was{fill:var(--warn-soft)} .s-bl{fill:var(--blue)} .s-bls{fill:var(--blue-soft)} .s-card{fill:var(--card)} .s-bg{fill:var(--bg)} .s-none{fill:none}
+.k-ln{stroke:var(--line)} .k-mu{stroke:var(--muted)} .k-ac{stroke:var(--accent)} .k-wa{stroke:var(--warn)} .k-bl{stroke:var(--blue)} .k-fg{stroke:var(--fg)}
+svg text{font-family:inherit}
+.part{margin:18px 0 6px;font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.05em}
+.rc{margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);scroll-margin-top:56px}
+.rc h3{margin:0 0 6px}
+.rc p{margin:0 0 4px}
+.rc .t{font-size:13px;color:var(--muted)}
+.can{font-weight:700}
+.next{margin:16px 0;padding:12px 14px;border:2px solid var(--blue);border-radius:10px;background:var(--blue-soft)}
+.next a{color:var(--fg);font-weight:700;word-break:break-all}
+a{color:var(--blue)}
+.doors{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0 14px}
+@media (min-width:640px){.doors{grid-template-columns:1fr 1fr}}
+.door{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card)}
+.door.d1{border-top:4px solid var(--accent)}
+.door.d2{border-top:4px solid var(--blue)}
+.door p{margin:0 0 6px}
+.door .dh{font-weight:700;font-size:15px}
+.door.d1 .dh{color:var(--accent)}
+.door.d2 .dh{color:var(--blue)}
+.toc-part{margin:10px 0 2px;font-size:13px;font-weight:700;color:var(--muted)}
+.toc-end{margin-top:10px!important}
+.files{margin:8px 0 12px;padding-left:1.3em}
+.files li{margin:6px 0}
+.files a,.dlbig a,.door a{font-weight:700;word-break:break-all}
+.dlbig{margin:10px 0;padding:10px 14px;border:2px dashed var(--accent);border-radius:10px;text-align:center}
+.os{margin:12px 0 0;font-size:13px;font-weight:700;color:var(--muted)}
+.term pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;word-break:break-all}
+.free{margin:18px 0 0;padding:12px 14px;border-radius:10px;background:var(--accent-soft);border-left:4px solid var(--accent)}
+details.raw{margin:8px 0 14px}
+details.raw summary{cursor:pointer;font-weight:700;color:var(--blue);padding:6px 0}
+details.raw pre{font-size:13px;max-height:320px;overflow:auto}
+.help{margin:12px 0;padding:10px 14px;border-radius:10px;border:2px solid var(--blue);background:var(--blue-soft)}
+.fork{margin:16px 0;padding:12px 14px;border-radius:10px;border:2px dashed var(--warn);background:var(--card)}
+.fork p{margin:0 0 6px}
+details.appendix{margin:24px 0 8px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+
+.hero-help{margin:14px 0;padding:12px 14px;border-radius:10px;border:2px solid var(--blue);background:var(--blue-soft)}
+.hero-help p{margin:0}
+.meta{font-size:13px;color:var(--muted);margin:0 0 8px}
+.partsec{padding-top:34px}
+.partsec h2{border-left-color:var(--blue)}
+.shot{font-size:13px;color:var(--muted)}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:0 4px;word-break:break-all}
+
+
+/* 1回=1ページの導線 */
+.band-title a{color:inherit;text-decoration:none}
+.epbar{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin:22px 0 6px;font-size:14px;color:var(--muted)}
+.epbar .epno{font-weight:700;color:var(--accent);font-size:15px}
+.epbar a{color:var(--blue)}
+.uses{font-size:14px;margin:0 0 12px}
+.uses a{font-weight:700;word-break:break-all}
+.pager{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;margin:28px 0 8px}
+.pager a,.pager span{display:flex;align-items:center;justify-content:center;min-height:48px;padding:8px 10px;border-radius:10px;font-weight:700;text-align:center;text-decoration:none;line-height:1.4}
+.pager a{border:2px solid var(--blue);background:var(--card);color:var(--fg)}
+.pager a.nx{background:var(--blue-soft)}
+.pager a.toc-l{border-color:var(--line)}
+.start{display:block;margin:18px 0 6px;padding:16px;border-radius:12px;background:var(--accent);color:var(--bg)!important;font-size:18px;font-weight:700;text-align:center;text-decoration:none;min-height:56px}
+.eplist{list-style:none;margin:6px 0 14px;padding:0}
+.eplist li{margin:8px 0}
+.eplist a{display:block;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--fg);text-decoration:none}
+.eplist .t{display:block;font-weight:700}
+.eplist .c{display:block;font-size:14px;color:var(--fg)}
+.eplist .m{display:block;font-size:13px;color:var(--muted)}
+.partline{font-size:14px;color:var(--muted);margin:0 0 4px}
+.hero-help{margin:14px 0;padding:12px 14px;border-radius:10px;border:2px solid var(--blue);background:var(--blue-soft)}
+.hero-help p{margin:0}
+.meta{font-size:13px;color:var(--muted);margin:0 0 8px}
+.epbar .dev{font-weight:700;color:var(--fg)}
+.devnote{margin:0 0 10px;padding:8px 12px;border-radius:10px;border:2px dashed var(--warn);font-size:14px}
+.solo{margin:12px 0 14px;padding:10px 14px;border-radius:10px;border:2px solid var(--blue);background:var(--blue-soft);font-weight:700}
+</style>
+</head>
+<body>
+<div class="band"><div class="band-in"><span class="band-title"><a href="index.html">ひとり仕事のAI実践</a></span><span class="band-chap" id="bandChap">第1回 / 全15回</span><span class="band-step" id="bandStep"></span></div></div>
+<main>
+<p class="epbar"><span class="epno">第1回 / 全15回</span><span>第1部　無料でやる</span><span class="dev">スマホだけでできる</span><a href="index.html">目次へ</a></p>
+<section class="partsec" id="part1" data-chap="第1部 無料でやる">
+<h2>第1部　無料でやる（第1〜5回）</h2>
+<p>AIに「何を」「どんな形で」してほしいかを書いて渡す。第1部でやるのはこれだけです。使うのは <b>Claude</b>（クロード）というAIで、ふつうのWebの画面で使います。ChatGPT や Gemini でも同じ文で動きますが、この講座の画面の説明はすべて Claude のものです。この講座が Claude で進めるのは、第3部で使う道具が同じ Claude のアカウントで動くからです。</p><p>この講座で「新しい会話」と書いたら、画面の左上（スマホは三本線の中）の「新しいチャット」を押します。</p><p class="mini">「上限に達しました」と出たら、表示された時刻まで待てば、同じ会話の続きから使えます。</p>
+<figure class="fig"><svg viewBox="0 0 360 118" role="img" aria-label="第1回 表にする、第2回 書く、第3回 調べる、第4回 読む、第5回 選ぶ"><rect x="6" y="20" width="64" height="60" rx="10" class="s-acs k-ac" stroke-width="1.5"/><text x="38" y="44" font-size="12" text-anchor="middle" class="s-mu">第1回</text><text x="38" y="66" font-size="13" text-anchor="middle" font-weight="700" class="s-fg">表にする</text><rect x="77" y="20" width="64" height="60" rx="10" class="s-acs k-ac" stroke-width="1.5"/><text x="109" y="44" font-size="12" text-anchor="middle" class="s-mu">第2回</text><text x="109" y="66" font-size="13" text-anchor="middle" font-weight="700" class="s-fg">書く</text><rect x="148" y="20" width="64" height="60" rx="10" class="s-acs k-ac" stroke-width="1.5"/><text x="180" y="44" font-size="12" text-anchor="middle" class="s-mu">第3回</text><text x="180" y="66" font-size="13" text-anchor="middle" font-weight="700" class="s-fg">調べる</text><rect x="219" y="20" width="64" height="60" rx="10" class="s-acs k-ac" stroke-width="1.5"/><text x="251" y="44" font-size="12" text-anchor="middle" class="s-mu">第4回</text><text x="251" y="66" font-size="13" text-anchor="middle" font-weight="700" class="s-fg">読む</text><rect x="290" y="20" width="64" height="60" rx="10" class="s-was k-wa" stroke-width="1.5"/><text x="322" y="44" font-size="12" text-anchor="middle" class="s-mu">第5回</text><text x="322" y="66" font-size="13" text-anchor="middle" font-weight="700" class="s-fg">選ぶ</text><text x="180" y="106" font-size="12" text-anchor="middle" class="s-mu">第1〜4回で試して、第5回で自分の仕事に当てはめる</text></svg><figcaption>図4　第1部の5回は、渡す仕事の種類が1回ずつ違う</figcaption></figure>
+</section>
+<section id="r1" data-chap="第1回 / 全15回"><h1>第1回：AIに自分の仕事をさせてみる</h1><p class="can">できるようになること：散らかった資料をAIに渡して、表に整えさせる</p><p class="meta">かかる時間：30分以内</p><p class="uses">使う素材：<a href="sample-expenses.csv" download>出費のメモ（sample-expenses.csv）</a></p><p>散らかった出費のメモをAIに渡して、表にさせます。書き方がばらばらなメモです。それが5分で、月ごとに分けた表になります。</p><div class="doors"><div class="door d1"><p class="dh">用意した素材でやる</p><p><a href="sample-expenses.csv" download>出費のメモ（sample-expenses.csv）</a>を使います。下の手順の通りに進めてください。</p></div><div class="door d2"><p class="dh">自分のでやる</p><p>手順3で、自分の出費のメモ（ノートの写真・メモ帳の文・カード明細のCSVなど）を渡します。</p><p class="mini">選び方：毎月つけていて、書き方がそろっていないもの。</p></div></div><p>手順1と2は、はじめる前の準備です。この講座では、あとの回で自分の仕事のデータを渡すことになるので、設定は最初に1回だけ済ませておきます。</p><div class="step" id="r1s1" data-step="手順1 ログインする"><h3><span class="no">手順1</span>Claude を開いて、ログインする</h3><figure class="fig"><svg viewBox="0 0 360 170" role="img" aria-label="ブラウザで claude.ai を開き、Googleで続けるを押す"><rect x="70" y="8" width="220" height="154" rx="16" class="s-bg k-mu" stroke-width="2"/><rect x="86" y="22" width="188" height="24" rx="12" class="s-card k-ln" stroke-width="1.5"/><text x="100" y="39" font-size="12.5" class="s-fg">claude.ai</text><text x="180" y="76" font-size="15" text-anchor="middle" font-weight="700" class="s-fg">Claude</text><rect x="96" y="96" width="168" height="30" rx="8" class="s-was k-wa" stroke-width="2.5"/><text x="180" y="116" font-size="12.5" text-anchor="middle" font-weight="700" class="s-fg">Googleで続ける</text><text x="180" y="146" font-size="11" text-anchor="middle" class="s-mu">メールアドレスでも登録できる</text></svg><figcaption>図5　claude.ai を開き、Googleのアカウントで続ける</figcaption></figure><p>ブラウザ（スマホならSafariかChrome、PCならいつものもの）で <b>claude.ai</b> を開きます。「Googleで続ける」を押して、いつものGoogleのアカウントを選びます。Googleを使っていなければ、メールアドレスを入れて届いたコードで登録します。</p><p>途中で名前や年齢を聞かれたら、そのまま入れます。文字を入れる欄（「Claudeに話しかける」などと書いてある欄）が出たら、ログインできています。このページは閉じずに置いておき、Claude の画面と行き来します。</p><div class="stuck"><p><b>ここで止まったら</b>　電話番号の確認を求められたら、そのまま自分の番号を入れて、届いた番号を打ちます。先に進めないときは、その画面を送ってください。</p></div></div><div class="step" id="r1s2" data-step="手順2 改善への協力をオフ"><h3><span class="no">手順2</span>設定で「Claudeの改善」への協力をオフにする</h3><figure class="fig"><svg viewBox="0 0 360 150" role="img" aria-label="左下の自分の名前を押し、設定、プライバシーと進み、改善のスイッチをオフにする"><rect x="6" y="30" width="92" height="40" rx="10" class="s-card k-ac" stroke-width="2"/><text x="52" y="55" font-size="12" text-anchor="middle" font-weight="700" class="s-fg">自分の名前</text><path d="M100 50 L128 50 M121 43 L128 50 L121 57" class="k-ac" stroke-width="2.5" fill="none"/><rect x="130" y="30" width="92" height="40" rx="10" class="s-card k-ac" stroke-width="2"/><text x="176" y="55" font-size="12.5" text-anchor="middle" font-weight="700" class="s-fg">設定</text><path d="M224 50 L252 50 M245 43 L252 50 L245 57" class="k-ac" stroke-width="2.5" fill="none"/><rect x="254" y="30" width="100" height="40" rx="10" class="s-card k-ac" stroke-width="2"/><text x="304" y="55" font-size="12" text-anchor="middle" font-weight="700" class="s-fg">プライバシー</text><rect x="110" y="96" width="244" height="40" rx="10" class="s-was k-wa" stroke-width="2"/><text x="124" y="121" font-size="12.5" font-weight="700" class="s-fg">「Claudeの改善」</text><rect x="290" y="106" width="44" height="20" rx="10" class="s-card k-mu" stroke-width="1.5"/><circle cx="301" cy="116" r="7" class="s-mu"/><text x="312" y="146" font-size="11" text-anchor="middle" font-weight="700" class="s-wa">オフ</text><text x="10" y="20" font-size="11" class="s-mu">スマホは左上の三本線から</text></svg><figcaption>図6　左下の名前 → 設定 → プライバシー の順に押す</figcaption></figure><p>画面の左下にある自分の名前（スマホは左上の三本線 → 名前）を押し、<b>「設定」→「プライバシー」</b>と進みます。「Claudeの改善」についてのスイッチがあるので、<b>オフ</b>にします。</p><p>オンのままだと、渡した内容がAIを良くするための材料に使われることがあります。オフにしても、使える機能は変わりません。登録の途中で同じことを聞かれて、もうオフにしてあれば、この手順は見るだけで終わりです。</p><div class="stuck"><p><b>ここで止まったら</b>　名前が少し違っていても、「改善」「学習」と書かれたスイッチがそれです。見つからなければ、設定の画面を送ってください。</p></div></div><div class="step" id="r1s3" data-step="手順3 出費のメモを渡す"><h3><span class="no">手順3</span>出費のメモを、Claude に渡す</h3><figure class="fig"><svg viewBox="0 0 360 150" role="img" aria-label="入力欄の左のプラスを押し、ファイルを選び、sample-expenses.csv を選ぶ"><rect x="10" y="96" width="340" height="42" rx="21" class="s-card k-ac" stroke-width="2"/><circle cx="34" cy="117" r="13" class="s-was k-wa" stroke-width="2.5"/><text x="34" y="122" font-size="15" text-anchor="middle" font-weight="700" class="s-wa">＋</text><text x="58" y="122" font-size="12" class="s-mu">Claudeに話しかける…</text><rect x="10" y="14" width="200" height="64" rx="10" class="s-bg k-ln" stroke-width="1.5"/><text x="24" y="38" font-size="12.5" font-weight="700" class="s-fg">ファイルを追加</text><text x="24" y="62" font-size="12" font-weight="700" class="s-ac">sample-expenses.csv</text><path d="M34 92 L34 82 M27 89 L34 82 L41 89" class="k-wa" stroke-width="2.5" fill="none"/></svg><figcaption>図7　入力欄の「＋」から、ダウンロードしたファイルを選ぶ</figcaption></figure><p>まだなら、<a href="sample-expenses.csv" download>出費のメモ（sample-expenses.csv）</a>を押してダウンロードします。</p><p>Claude の画面に戻り、入力欄の左にある<b>「＋」</b>（クリップの形のときもあります）を押して、「ファイル」から <b>sample-expenses.csv</b> を選びます。入力欄の上にファイルの名前が出れば、渡せています。</p><div class="stuck"><p><b>ここで止まったら</b>　スマホでファイルが見つからないときは、iPhoneは「ファイル」→「ダウンロード」、Androidは「ダウンロード」のフォルダを見てください。それでも無ければ、下の「中身を表示」を開いて全部コピーし、手順4の文の下に貼って送っても同じことができます。</p></div><details class="raw"><summary>中身を表示（sample-expenses.csv）</summary><div class="prompt"><pre id="pcsv">日付,品名,金額,店,メモ
+8/2,ビス・釘,1280,ホームセンター北口店,
+8/3,ガソリン,4500,,軽バン
+2026-08-05,クロス（壁紙）,18400,内装材の問屋,A邸 洋室
+8/7,養生テープ,680,ホームセンター北口店,
+8月9日,石膏ボード,12600,内装材の問屋,A邸
+8/9,昼ごはん,850,,
+8/12,コーキング材,1540,ホームセンター北口店,
+8/15,高速代,2100,,現場往復
+8/18,フローリング材,31500,内装材の問屋,B邸
+8/20,ﾋﾞｽ,９８０,ホームセンター北口店,
+8/22,駐車場,1200,,B邸の前
+8/25,携帯代,3300,,
+8/28,接着剤,1860,ホームセンター北口店,
+9/1,ガソリン,4800,,
+2026-09-03,クロス,20100,内装材の問屋,C邸 2部屋
+9/4,マスキングテープ,740,ホームセンター北口店,
+9/6,石膏ボード,13900,問屋,C邸
+9月8日,カッターの替刃,550,ホームセンター北口店,
+9/10,昼ごはん,,,金額わすれた
+9/11,パテ,2240,ホームセンター北口店,
+9/14,養生シート,1980,ホームセンター北口店,
+9/16,フローリング材,34200,内装材の問屋,D邸
+9/18,ビス・くぎ,1320,ホームセンター北口店,
+9/19,駐車場,1500,,D邸
+9/22,携帯代,3300,,
+9/25,コーキング,1610,ホームセンター北口店,
+9/27,接着剤,2050,ホームセンター北口店,
+9/29,ガソリン,５２００,,
+10/1,クロス（壁紙）,22300,内装材の問屋,E邸
+10/2,養生テープ,720,ホームセンター北口店,
+2026-10-04,石膏ボード,15200,内装材の問屋,E邸
+10月5日,ビス,1390,ホームセンター北口店,
+10/7,パテ,2380,ホームセンター北口店,
+10/9,高速代,2100,,
+10/11,フローリング材,37600,内装材の問屋,F邸
+10/13,マスキングテープ,790,ホームセンター北口店,
+10/15,カッター替刃,580,ホームセンター北口店,
+10/17,接着剤,2140,ホームセンター北口店,
+10/20,携帯代,3300,,
+10/22,コーキング材,1720,ホームセンター北口店,
+10/24,ガソリン,5400,,
+10/26,養生シート,2090,ホームセンター北口店,
+</pre><div class="bar"><button class="copy" type="button" data-target="pcsv">コピーする</button></div></div></details></div><div class="step" id="r1s4" data-step="手順4 文を貼って送る"><h3><span class="no">手順4</span>下の文を貼って、送る</h3><div class="prompt"><pre id="p1">添付したのは、私の仕事の出費のメモです。日付の書き方や数字がばらばらです。
+これを表に整えてください。
+・日付は「2026-08-02」の形にそろえる
+・品名の書き方のゆれ（「ビス」と「ﾋﾞｽ」など）をそろえる
+・金額は半角の数字にそろえる。金額が空の行は「不明」と書く
+・最後に、月ごとの合計を出す</pre><div class="bar"><button class="copy" type="button" data-target="p1">コピーする</button></div></div><figure class="fig"><svg viewBox="0 0 360 130" role="img" aria-label="入力欄に文を貼り、右の送信ボタンを押す"><rect x="10" y="14" width="270" height="100" rx="14" class="s-card k-ac" stroke-width="2"/><text x="24" y="38" font-size="12" class="s-fg">添付したのは、私の仕事の出費…</text><text x="24" y="60" font-size="12" class="s-fg">これを表に整えてください。</text><text x="24" y="82" font-size="12" class="s-mu">・日付は「2026-08-02」の形に…</text><circle cx="318" cy="64" r="24" class="s-was k-wa" stroke-width="2.5"/><path d="M306 64 L330 64 M323 57 L330 64 L323 71" class="k-wa" stroke-width="2.5" fill="none"/><text x="318" y="108" font-size="12" text-anchor="middle" font-weight="700" class="s-wa">押す</text></svg><figcaption>図8　貼ったら、入力欄の右の矢印を押す</figcaption></figure><p>「コピーする」を押して、Claude の入力欄を長押し →「ペースト」で貼り、送信ボタンを押します。</p><div class="stuck"><p><b>ここで止まったら</b>　ボタンでコピーできないときは、枠の中の文を長押しして「すべて選択」→「コピー」でも写せます。</p></div></div><div class="step" id="r1s5" data-step="手順5 表を見る"><h3><span class="no">手順5</span>返ってきた表を見る（ここで「動いた」）</h3><figure class="fig"><svg viewBox="0 0 360 170" role="img" aria-label="日付、品名、金額、店の表。最後に8月、9月、10月の合計"><rect x="6" y="6" width="348" height="26" rx="6" class="s-acs k-ac" stroke-width="1"/><text x="16" y="24" font-size="12" font-weight="700" class="s-fg">日付</text><text x="110" y="24" font-size="12" font-weight="700" class="s-fg">品名</text><text x="270" y="24" font-size="12" text-anchor="end" font-weight="700" class="s-fg">金額</text><text x="284" y="24" font-size="12" font-weight="700" class="s-fg">店</text><text x="16" y="52" font-size="12" class="s-fg">2026-08-02</text><text x="110" y="52" font-size="12" class="s-fg">ビス・釘</text><text x="270" y="52" font-size="12" text-anchor="end" class="s-fg">1,280</text><text x="284" y="52" font-size="11.5" class="s-mu">ホームセ…</text><text x="16" y="74" font-size="12" class="s-fg">2026-08-20</text><text x="110" y="74" font-size="12" class="s-fg">ビス</text><text x="270" y="74" font-size="12" text-anchor="end" class="s-fg">980</text><text x="284" y="74" font-size="11.5" class="s-mu">ホームセ…</text><text x="16" y="96" font-size="12" class="s-fg">2026-09-10</text><text x="110" y="96" font-size="12" class="s-fg">昼ごはん</text><text x="270" y="96" font-size="12" text-anchor="end" font-weight="700" class="s-wa">不明</text><text x="110" y="116" font-size="12" class="s-mu">…</text><line x1="6" y1="126" x2="354" y2="126" class="k-mu" stroke-width="1"/><text x="16" y="146" font-size="12" font-weight="700" class="s-fg">月ごとの合計</text><text x="180" y="146" font-size="12" class="s-fg">8月 … / 9月 … / 10月 …</text><text x="16" y="164" font-size="11" class="s-mu">（数字は返ってきた表で見てください）</text></svg><figcaption>図9　こういう形の表が返ってくる</figcaption></figure><p>数十秒で表が返ってきます。日付がそろい、「ﾋﾞｽ」が「ビス」になり、全角の数字が半角になっていれば成功です。<span class="key">42行を手で直す作業を、文を1回送っただけでAIがやりました。</span></p><p class="mini">表の見た目や列の並びが図と違っても、日付と金額がそろっていれば大丈夫です。</p><div class="stuck"><p><b>ここで止まったら</b>　表にならず文章で返ってきたら、「表にしてください」とだけ送ってください。</p></div><div class="goal">ここまで来れば、第1回でやりたかったことはできています。</div></div><div class="step" id="r1s6" data-step="手順6 気づきを聞く"><h3><span class="no">手順6</span>続けて、表から気づくことを聞く</h3><div class="prompt"><pre id="p2">この表を月ごとに見比べて、気になる変化を2つ教えてください。数字も添えてください。</pre><div class="bar"><button class="copy" type="button" data-target="p2">コピーする</button></div></div><figure class="fig"><svg viewBox="0 0 360 126" role="img" aria-label="あなたが気になる変化を聞き、Claudeが表を読んで2つ答える"><rect x="110" y="8" width="240" height="38" rx="10" class="s-acs k-ac" stroke-width="1.5"/><text x="124" y="32" font-size="12.5" class="s-fg">気になる変化を2つ教えて</text><text x="350" y="62" font-size="11.5" text-anchor="end" class="s-mu">あなた</text><rect x="10" y="70" width="270" height="48" rx="10" class="s-card k-bl" stroke-width="1.5"/><text x="24" y="92" font-size="12.5" class="s-fg">1. 材料費が月ごとに…</text><text x="24" y="110" font-size="12.5" class="s-fg">2. 同じ店での小さい買い物が…</text></svg><figcaption>図10　表をもう一度貼らなくても、続きとして読む</figcaption></figure><p>同じ画面のまま送ります。AIはさっきの表を覚えていて、その続きとして答えます。</p><p>返事を読んで、自分でも表を見直してみてください。このメモには、表にすると見えてくることを仕込んであります。AIがほかの変化を挙げてもかまいません。</p><details class="raw"><summary>答え合わせ（仕込んだ2つ）</summary><p>1. 材料（壁紙・石膏ボード・フローリング材）にかかったお金の合計が、8月→9月→10月と増えている。現場の広さが毎回違うので、値上がりなのかは、次は1平米あたりで比べさせて確かめる。</p><p>2. 同じホームセンターでの小さい買い物が、8月5回→9月7回→10月8回と増えている。まとめ買いにすれば、行く回数を減らせる。</p></details></div><h3 style="margin-top:28px">うまくいったら、次はここを変えてみてください</h3><ol class="try"><li>「品名を『材料』『消耗品』『車』『その他』の4つに分けて、分類ごとの合計も出してください。」</li><li>「この表を、表計算ソフトに貼れる形にしてください。」</li><li>「来月の材料費がいくらになりそうか、この表から見込みを出してください。根拠も書いてください。」</li></ol><p>今日の頼み方は「何を」「どんな形で」してほしいかを書いて送る、です。第2回からもこの形を使います。</p></section>
+<div class="hero-help"><p><b>詰まったら、その画面を送ってください。返事を返します。</b>送り先は、このページを教えてくれた人です。教えてもらったときと同じ連絡先（LINE・メールなど）に、画面のスクショを送ってください。</p></div>
+<nav class="pager" aria-label="前後の回"><span></span><a class="toc-l" href="index.html">目次</a><a class="nx" href="02.html">第2回 →</a></nav>
+<footer>ひとり仕事のAI実践　全15回（練習用の資料に出てくる屋号・お客様・会社はすべて架空です）</footer>
+</main>
+<script>
+(function(){
+  var chap=document.getElementById('bandChap'), step=document.getElementById('bandStep');
+  var chaps=[].slice.call(document.querySelectorAll('[data-chap]'));
+  var steps=[].slice.call(document.querySelectorAll('[data-step]'));
+  function last(list,limit){var cur=null;for(var i=0;i<list.length;i++){if(list[i].getBoundingClientRect().top<=limit)cur=list[i];}return cur;}
+  function update(){
+    var c=last(chaps,80)||chaps[0];
+    chap.textContent=c.getAttribute('data-chap');
+    var s=last(steps,120);
+    step.textContent=(s&&c.contains(s))?s.getAttribute('data-step'):'';
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(update,{rootMargin:'-60px 0px -60% 0px',threshold:[0,1]});
+    chaps.concat(steps).forEach(function(el){io.observe(el)});
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  update();
+
+  function copyText(t){
+    if(navigator.clipboard&&window.isSecureContext){return navigator.clipboard.writeText(t);}
+    return new Promise(function(ok,ng){
+      var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');
+      ta.style.position='fixed';ta.style.top='-1000px';document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy')?ok():ng();}catch(e){ng(e);}document.body.removeChild(ta);
+    });
+  }
+  [].slice.call(document.querySelectorAll('.copy')).forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=document.getElementById(b.getAttribute('data-target')).textContent;
+      copyText(t).then(function(){b.textContent='コピーしました';b.classList.add('done');
+        setTimeout(function(){b.textContent='コピーする';b.classList.remove('done');},2500);},
+      function(){b.textContent='コピーできません。枠の文を長押しで選んでください';
+        setTimeout(function(){b.textContent='コピーする';},3000);});
+    });
+  });
+})();
+
+</script>
+</body>
+</html>

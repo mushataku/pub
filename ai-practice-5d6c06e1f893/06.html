@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>第6回：AIに自分のカレンダーを見せる｜ひとり仕事のAI実践　全15回</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --muted:#5b636d; --card:#ffffff; --line:#d9d6cf;
+  --accent:#1f6f5c; --accent-soft:#e3f1ec; --warn:#a2541c; --warn-soft:#f8ebe0; --blue:#2f5f9e; --blue-soft:#e6eef8;
+  --band:rgba(251,250,247,.95);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181b; --fg:#e8e6e1; --muted:#a3a9b1; --card:#1f2226; --line:#3a3f45;
+    --accent:#6cc4a8; --accent-soft:#1d332c; --warn:#e2a06e; --warn-soft:#3a2a1e; --blue:#8db4e8; --blue-soft:#1f2a38;
+    --band:rgba(22,24,27,.95);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181b; --fg:#e8e6e1; --muted:#a3a9b1; --card:#1f2226; --line:#3a3f45;
+  --accent:#6cc4a8; --accent-soft:#1d332c; --warn:#e2a06e; --warn-soft:#3a2a1e; --blue:#8db4e8; --blue-soft:#1f2a38;
+  --band:rgba(22,24,27,.95);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",system-ui,sans-serif;line-height:1.85;font-size:16px;-webkit-text-size-adjust:100%}
+.band{position:sticky;top:0;z-index:10;background:var(--band);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.band-in{max-width:720px;margin:0 auto;padding:6px 16px;display:flex;align-items:baseline;gap:8px;min-height:40px;font-size:13px;line-height:1.5}
+.band-title{font-weight:700;white-space:nowrap;color:var(--accent)}
+.band-chap{white-space:nowrap;color:var(--fg);font-weight:700}
+.band-step{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+.band-step:empty{display:none}
+main{max-width:720px;margin:0 auto;padding:0 16px 64px}
+header.top{padding:28px 0 8px}
+h1{font-size:24px;line-height:1.45;margin:0 0 10px}
+nav.toc{margin:20px 0 8px;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+nav.toc ol{margin:0;padding-left:1.4em}
+nav.toc a{color:var(--fg);text-decoration:none;border-bottom:1px dotted var(--muted)}
+section,.step{scroll-margin-top:56px}
+section{padding-top:28px}
+h2{font-size:20px;line-height:1.5;margin:0 0 12px;padding-left:10px;border-left:4px solid var(--accent)}
+h3{font-size:17px;line-height:1.5;margin:0 0 8px}
+h3 .no{display:inline-block;background:var(--accent);color:var(--bg);border-radius:6px;padding:0 8px;margin-right:8px;font-size:14px}
+p{margin:0 0 12px}
+.step{margin:26px 0 8px;padding-top:6px;border-top:1px solid var(--line)}
+.fig{margin:12px 0 14px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+.fig svg{display:block;width:100%;max-width:520px;height:auto;margin:0 auto}
+.fig figcaption{font-size:13px;color:var(--muted);margin-top:6px;text-align:center}
+.key{font-weight:700;background:linear-gradient(transparent 62%,var(--accent-soft) 62%)}
+.prompt{position:relative;margin:10px 0 14px;border:2px solid var(--accent);border-radius:10px;background:var(--card)}
+.prompt pre{margin:0;padding:12px 14px 8px;white-space:pre-wrap;word-break:break-word;font-family:inherit;font-size:15px;line-height:1.75}
+.prompt .bar{display:flex;justify-content:flex-end;padding:0 10px 10px}
+.copy{appearance:none;border:0;border-radius:8px;background:var(--accent);color:var(--bg);font:inherit;font-size:15px;font-weight:700;padding:8px 16px;cursor:pointer;min-height:44px}
+.copy.done{background:var(--muted)}
+.stuck{margin:12px 0 14px;padding:10px 14px;border-radius:10px;background:var(--warn-soft);border-left:4px solid var(--warn)}
+.stuck b{color:var(--warn)}
+.stuck p{margin:0 0 4px}
+.goal{margin:14px 0;padding:10px 14px;border-radius:10px;background:var(--accent-soft);font-weight:700}
+.try{margin:10px 0 12px;padding-left:1.3em}
+.try li{margin:8px 0}
+.check{margin:6px 0 12px;padding-left:1.3em}
+.check li{margin:4px 0}
+.mini{font-size:14px;color:var(--muted)}
+.rounds{margin:8px 0 12px}
+.rounds dt{font-weight:700;margin-top:12px}
+.rounds dd{margin:2px 0 0 0}
+footer{margin-top:36px;font-size:12px;color:var(--muted)}
+/* svg tokens */
+.s-fg{fill:var(--fg)} .s-mu{fill:var(--muted)} .s-ac{fill:var(--accent)} .s-acs{fill:var(--accent-soft)}
+.s-wa{fill:var(--warn)} .s-was{fill:var(--warn-soft)} .s-bl{fill:var(--blue)} .s-bls{fill:var(--blue-soft)} .s-card{fill:var(--card)} .s-bg{fill:var(--bg)} .s-none{fill:none}
+.k-ln{stroke:var(--line)} .k-mu{stroke:var(--muted)} .k-ac{stroke:var(--accent)} .k-wa{stroke:var(--warn)} .k-bl{stroke:var(--blue)} .k-fg{stroke:var(--fg)}
+svg text{font-family:inherit}
+.part{margin:18px 0 6px;font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.05em}
+.rc{margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);scroll-margin-top:56px}
+.rc h3{margin:0 0 6px}
+.rc p{margin:0 0 4px}
+.rc .t{font-size:13px;color:var(--muted)}
+.can{font-weight:700}
+.next{margin:16px 0;padding:12px 14px;border:2px solid var(--blue);border-radius:10px;background:var(--blue-soft)}
+.next a{color:var(--fg);font-weight:700;word-break:break-all}
+a{color:var(--blue)}
+.doors{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0 14px}
+@media (min-width:640px){.doors{grid-template-columns:1fr 1fr}}
+.door{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card)}
+.door.d1{border-top:4px solid var(--accent)}
+.door.d2{border-top:4px solid var(--blue)}
+.door p{margin:0 0 6px}
+.door .dh{font-weight:700;font-size:15px}
+.door.d1 .dh{color:var(--accent)}
+.door.d2 .dh{color:var(--blue)}
+.toc-part{margin:10px 0 2px;font-size:13px;font-weight:700;color:var(--muted)}
+.toc-end{margin-top:10px!important}
+.files{margin:8px 0 12px;padding-left:1.3em}
+.files li{margin:6px 0}
+.files a,.dlbig a,.door a{font-weight:700;word-break:break-all}
+.dlbig{margin:10px 0;padding:10px 14px;border:2px dashed var(--accent);border-radius:10px;text-align:center}
+.os{margin:12px 0 0;font-size:13px;font-weight:700;color:var(--muted)}
+.term pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;word-break:break-all}
+.free{margin:18px 0 0;padding:12px 14px;border-radius:10px;background:var(--accent-soft);border-left:4px solid var(--accent)}
+details.raw{margin:8px 0 14px}
+details.raw summary{cursor:pointer;font-weight:700;color:var(--blue);padding:6px 0}
+details.raw pre{font-size:13px;max-height:320px;overflow:auto}
+.help{margin:12px 0;padding:10px 14px;border-radius:10px;border:2px solid var(--blue);background:var(--blue-soft)}
+.fork{margin:16px 0;padding:12px 14px;border-radius:10px;border:2px dashed var(--warn);background:var(--card)}
+.fork p{margin:0 0 6px}
+details.appendix{margin:24px 0 8px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+
+.hero-help{margin:14px 0;padding:12px 14px;border-radius:10px;border:2px solid var(--blue);background:var(--blue-soft)}
+.hero-help p{margin:0}
+.meta{font-size:13px;color:var(--muted);margin:0 0 8px}
+.partsec{padding-top:34px}
+.partsec h2{border-left-color:var(--blue)}
+.shot{font-size:13px;color:var(--muted)}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:0 4px;word-break:break-all}
+
+
+/* 1回=1ページの導線 */
+.band-title a{color:inherit;text-decoration:none}
+.epbar{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin:22px 0 6px;font-size:14px;color:var(--muted)}
+.epbar .epno{font-weight:700;color:var(--accent);font-size:15px}
+.epbar a{color:var(--blue)}
+.uses{font-size:14px;margin:0 0 12px}
+.uses a{font-weight:700;word-break:break-all}
+.pager{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;margin:28px 0 8px}
+.pager a,.pager span{display:flex;align-items:center;justify-content:center;min-height:48px;padding:8px 10px;border-radius:10px;font-weight:700;text-align:center;text-decoration:none;line-height:1.4}
+.pager a{border:2px solid var(--blue);background:var(--card);color:var(--fg)}
+.pager a.nx{background:var(--blue-soft)}
+.pager a.toc-l{border-color:var(--line)}
+.start{display:block;margin:18px 0 6px;padding:16px;border-radius:12px;background:var(--accent);color:var(--bg)!important;font-size:18px;font-weight:700;text-align:center;text-decoration:none;min-height:56px}
+.eplist{list-style:none;margin:6px 0 14px;padding:0}
+.eplist li{margin:8px 0}
+.eplist a{display:block;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--fg);text-decoration:none}
+.eplist .t{display:block;font-weight:700}
+.eplist .c{display:block;font-size:14px;color:var(--fg)}
+.eplist .m{display:block;font-size:13px;color:var(--muted)}
+.partline{font-size:14px;color:var(--muted);margin:0 0 4px}
+.hero-help{margin:14px 0;padding:12px 14px;border-radius:10px;border:2px solid var(--blue);background:var(--blue-soft)}
+.hero-help p{margin:0}
+.meta{font-size:13px;color:var(--muted);margin:0 0 8px}
+.epbar .dev{font-weight:700;color:var(--fg)}
+.devnote{margin:0 0 10px;padding:8px 12px;border-radius:10px;border:2px dashed var(--warn);font-size:14px}
+.solo{margin:12px 0 14px;padding:10px 14px;border-radius:10px;border:2px solid var(--blue);background:var(--blue-soft);font-weight:700}
+</style>
+</head>
+<body>
+<div class="band"><div class="band-in"><span class="band-title"><a href="index.html">ひとり仕事のAI実践</a></span><span class="band-chap" id="bandChap">第6回 / 全15回</span><span class="band-step" id="bandStep"></span></div></div>
+<main>
+<p class="epbar"><span class="epno">第6回 / 全15回</span><span>第2部　連携して任せる</span><span class="dev">スマホだけでできる（有料のプランが要ることがある）</span><a href="index.html">目次へ</a></p>
+<section class="partsec" id="part2" data-chap="第2部 連携して任せる">
+<h2>第2部　連携して任せる（第6〜11回）</h2>
+<p>第1部では、資料を自分で渡していました。第2部では、AIに自分のカレンダーとメールを見せて、そこから仕事を任せます。</p><div class="fork"><p><b>ここが、この講座でお金がかかるかどうかの分かれ目です</b></p><p>カレンダーやメールとつなぐ機能は、いまのプランのままで使えることもあれば、有料のプラン（月3,000円くらい・ドル建てなので為替で変わります）が要ることもあります。まず第6回の最初で、自分の画面で確かめてください。</p><p>払うなら、1か月だけ入って第6〜8回を試し、合わなければその月で止める、で十分です。第3部（第12〜15回）も有料のプランが要ります。予定もメールも Google で管理していないなら、払わずに第9回へ進みます。第9〜11回はカレンダーもメールも使わないので、払わなくてもそのまま進めます。</p></div>
+<figure class="fig"><svg viewBox="0 0 360 132" role="img" aria-label="第1部はあなたが資料をClaudeに渡す。第2部はClaudeがカレンダーとメールを見に行く"><text x="90" y="18" font-size="12.5" text-anchor="middle" font-weight="700" class="s-mu">第1部</text><rect x="10" y="28" width="70" height="36" rx="10" class="s-acs k-ac" stroke-width="1.5"/><text x="45" y="51" font-size="12.5" text-anchor="middle" font-weight="700" class="s-fg">あなた</text><path d="M82 46 L104 46 M97 39 L104 46 L97 53" class="k-ac" stroke-width="2.5" fill="none"/><rect x="106" y="28" width="70" height="36" rx="10" class="s-card k-bl" stroke-width="1.5"/><text x="141" y="51" font-size="12.5" text-anchor="middle" font-weight="700" class="s-fg">Claude</text><text x="270" y="18" font-size="12.5" text-anchor="middle" font-weight="700" class="s-mu">第2部</text><rect x="234" y="28" width="72" height="36" rx="10" class="s-card k-bl" stroke-width="1.5"/><text x="270" y="51" font-size="12.5" text-anchor="middle" font-weight="700" class="s-fg">Claude</text><path d="M250 66 L230 90 M223 83 L230 90 L237 83" class="k-bl" stroke-width="2.5" fill="none"/><path d="M290 66 L310 90 M303 83 L310 90 L317 83" class="k-bl" stroke-width="2.5" fill="none"/><rect x="186" y="92" width="82" height="32" rx="10" class="s-bls k-bl" stroke-width="1.5"/><text x="227" y="113" font-size="12" text-anchor="middle" font-weight="700" class="s-fg">カレンダー</text><rect x="274" y="92" width="80" height="32" rx="10" class="s-bls k-bl" stroke-width="1.5"/><text x="314" y="113" font-size="12" text-anchor="middle" font-weight="700" class="s-fg">メール</text></svg><figcaption>図15　第1部は自分で渡す。第2部はAIが見に行く</figcaption></figure>
+</section>
+<section id="r6" data-chap="第6回 / 全15回"><h1>第6回：AIに自分のカレンダーを見せる</h1><p class="can">できるようになること：AIに自分のカレンダーをつなぎ、予定を正しく読めているか確かめる</p><p class="meta">かかる時間：30分以内</p><p class="mini">使うAIは Claude（claude.ai）です。はじめての人は、<a href="01.html#r1s1">第1回の手順1・2</a>でログインと設定を済ませてから進みます。「新しい会話」は、画面の左上（スマホは三本線の中）の「新しいチャット」です。</p><p class="mini">「かぜみち内装」は、この講座の練習用の作り話の内装業です（<a href="index.html#materials">練習用の資料</a>）。</p><p>カレンダーを見せると、「来週、見積に伺える時間はどこ？」と聞くだけで、AIが自分の予定を読んで答えるようになります。<a href="02.html">第2回</a>で作った返信の「伺う日の候補」も、実際の予定から出せます。</p><figure class="fig"><svg viewBox="0 0 360 148" role="img" aria-label="つなぐ前は自分の予定を書き写して渡す。つないだあとは、来週の空きはと聞くだけで答えが返る"><text x="10" y="20" font-size="12.5" font-weight="700" class="s-mu">つなぐ前</text><rect x="10" y="28" width="160" height="50" rx="10" class="s-card k-ln" stroke-width="1.5"/><text x="22" y="50" font-size="12" class="s-fg">予定を書き写して</text><text x="22" y="68" font-size="12" class="s-fg">貼ってから聞く</text><text x="190" y="20" font-size="12.5" font-weight="700" class="s-ac">つないだあと</text><rect x="190" y="28" width="164" height="50" rx="10" class="s-acs k-ac" stroke-width="2"/><text x="202" y="50" font-size="12" font-weight="700" class="s-fg">「来週の空きは？」</text><text x="202" y="68" font-size="12" class="s-fg">と聞くだけ</text><rect x="10" y="96" width="344" height="42" rx="10" class="s-was k-wa" stroke-width="1.5"/><text x="182" y="122" font-size="12" text-anchor="middle" font-weight="700" class="s-fg">つないだら、まず読ませて、自分の画面と見比べる</text></svg><figcaption>図16　つなぐ前とつないだあとで変わること</figcaption></figure><p class="mini">この回は、PCのブラウザ（スマホならSafariかChrome）で claude.ai を開いて進めます。</p><h3>まず、いまのプランでつなげるか確かめる</h3><p>Claude の<b>「設定」→「コネクタ」</b>（「連携」と出ることもあります）を開き、一覧に <b>Google カレンダー</b>があるかを見ます。「接続」が押せれば、いまのプランのままで進めます。</p><p>「接続」が押せない・アップグレードを求められたときは、<a href="#part2">第2部の最初の「分かれ目」</a>に戻って、払うかを決めます。</p><h3>つなぐ</h3><p>「接続」を押すと、Googleの画面に変わります。自分のアカウントを選び、Claude にカレンダーを見せてよいかを聞かれたら「許可」を押します。つなぐのは claude.ai の画面からです。スマホのアプリより、PCかスマホのブラウザのほうが迷いません。</p><div class="stuck"><p><b>ここで止まったら</b>　「Access blocked」（アクセスがブロックされました）と出たら、会社のGoogleアカウントで、管理者がつなぐことを止めています。自分で作った個人のGoogleアカウントで試してください。Google Workspace を自分で契約しているなら、自分が管理者なので、管理画面で許可できます。</p></div><div class="doors"><div class="door d1"><p class="dh">用意した素材でやる</p><p>個人のGoogleカレンダーに、練習用の予定を3つ入れてから試します。来週の月曜10時「かぜみち 見積 お客様1」、水曜13時「かぜみち 材料の受け取り」、金曜9時「かぜみち 床 お客様3」。自分の本当の予定を見せたくない人は、練習用の Google アカウントを別に作り、そこに3つ入れてつなぎます。</p></div><div class="door d2"><p class="dh">自分のでやる</p><p>いつも使っているカレンダーをそのままつなぎます。</p><p class="mini">選び方：仕事の予定がいちばん多く入っているカレンダー。</p></div></div><h3>読ませて、見比べる</h3><p>つないだら、まず読むだけを頼みます。送る文：</p><div class="prompt"><pre id="p6">私のGoogleカレンダーを見て、今週と来週の予定を、日付と時刻の順に全部書き出してください。予定の名前もそのまま書いてください。</pre><div class="bar"><button class="copy" type="button" data-target="p6">コピーする</button></div></div><p>返ってきた一覧を、自分のカレンダーの画面と1件ずつ見比べます。<span class="key">日付・時刻・件数が全部合っていたら、つなぐのは成功です。</span>「接続済み」と出ていても、読めていない予定があることがあります。見比べるのは、その確認も兼ねています。</p><p>合っていたら、続けてこれを送ります。つないだあとで変わるのは、この1問です。</p><div class="prompt"><pre id="p6b">来週、2時間続けて空いている時間を3つ教えてください。移動の時間も考えて、前後に30分ずつあけてください。</pre><div class="bar"><button class="copy" type="button" data-target="p6b">コピーする</button></div></div><p><b>空いている時間が3つ返ってきたら、この回は終わりです。</b></p><div class="stuck"><p><b>ここで止まったら</b>　予定が足りない・1件も出ないときは、つなぎ直すときにカレンダーを選ぶ画面が出ていないかを見て、全部に印を付けてください。それでも合わなければ、Claudeの返事と自分のカレンダーの画面を両方送ってください。</p></div></section>
+<div class="hero-help"><p><b>詰まったら、その画面を送ってください。返事を返します。</b>送り先は、このページを教えてくれた人です。教えてもらったときと同じ連絡先（LINE・メールなど）に、画面のスクショを送ってください。</p></div>
+<nav class="pager" aria-label="前後の回"><a class="pv" href="05.html">← 第5回</a><a class="toc-l" href="index.html">目次</a><a class="nx" href="07.html">第7回 →</a></nav>
+<footer>ひとり仕事のAI実践　全15回（練習用の資料に出てくる屋号・お客様・会社はすべて架空です）</footer>
+</main>
+<script>
+(function(){
+  var chap=document.getElementById('bandChap'), step=document.getElementById('bandStep');
+  var chaps=[].slice.call(document.querySelectorAll('[data-chap]'));
+  var steps=[].slice.call(document.querySelectorAll('[data-step]'));
+  function last(list,limit){var cur=null;for(var i=0;i<list.length;i++){if(list[i].getBoundingClientRect().top<=limit)cur=list[i];}return cur;}
+  function update(){
+    var c=last(chaps,80)||chaps[0];
+    chap.textContent=c.getAttribute('data-chap');
+    var s=last(steps,120);
+    step.textContent=(s&&c.contains(s))?s.getAttribute('data-step'):'';
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(update,{rootMargin:'-60px 0px -60% 0px',threshold:[0,1]});
+    chaps.concat(steps).forEach(function(el){io.observe(el)});
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  update();
+
+  function copyText(t){
+    if(navigator.clipboard&&window.isSecureContext){return navigator.clipboard.writeText(t);}
+    return new Promise(function(ok,ng){
+      var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');
+      ta.style.position='fixed';ta.style.top='-1000px';document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy')?ok():ng();}catch(e){ng(e);}document.body.removeChild(ta);
+    });
+  }
+  [].slice.call(document.querySelectorAll('.copy')).forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=document.getElementById(b.getAttribute('data-target')).textContent;
+      copyText(t).then(function(){b.textContent='コピーしました';b.classList.add('done');
+        setTimeout(function(){b.textContent='コピーする';b.classList.remove('done');},2500);},
+      function(){b.textContent='コピーできません。枠の文を長押しで選んでください';
+        setTimeout(function(){b.textContent='コピーする';},3000);});
+    });
+  });
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>第11回：資料を1枚作らせる｜ひとり仕事のAI実践　全15回</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --muted:#5b636d; --card:#ffffff; --line:#d9d6cf;
+  --accent:#1f6f5c; --accent-soft:#e3f1ec; --warn:#a2541c; --warn-soft:#f8ebe0; --blue:#2f5f9e; --blue-soft:#e6eef8;
+  --band:rgba(251,250,247,.95);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181b; --fg:#e8e6e1; --muted:#a3a9b1; --card:#1f2226; --line:#3a3f45;
+    --accent:#6cc4a8; --accent-soft:#1d332c; --warn:#e2a06e; --warn-soft:#3a2a1e; --blue:#8db4e8; --blue-soft:#1f2a38;
+    --band:rgba(22,24,27,.95);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181b; --fg:#e8e6e1; --muted:#a3a9b1; --card:#1f2226; --line:#3a3f45;
+  --accent:#6cc4a8; --accent-soft:#1d332c; --warn:#e2a06e; --warn-soft:#3a2a1e; --blue:#8db4e8; --blue-soft:#1f2a38;
+  --band:rgba(22,24,27,.95);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",system-ui,sans-serif;line-height:1.85;font-size:16px;-webkit-text-size-adjust:100%}
+.band{position:sticky;top:0;z-index:10;background:var(--band);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.band-in{max-width:720px;margin:0 auto;padding:6px 16px;display:flex;align-items:baseline;gap:8px;min-height:40px;font-size:13px;line-height:1.5}
+.band-title{font-weight:700;white-space:nowrap;color:var(--accent)}
+.band-chap{white-space:nowrap;color:var(--fg);font-weight:700}
+.band-step{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+.band-step:empty{display:none}
+main{max-width:720px;margin:0 auto;padding:0 16px 64px}
+header.top{padding:28px 0 8px}
+h1{font-size:24px;line-height:1.45;margin:0 0 10px}
+nav.toc{margin:20px 0 8px;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+nav.toc ol{margin:0;padding-left:1.4em}
+nav.toc a{color:var(--fg);text-decoration:none;border-bottom:1px dotted var(--muted)}
+section,.step{scroll-margin-top:56px}
+section{padding-top:28px}
+h2{font-size:20px;line-height:1.5;margin:0 0 12px;padding-left:10px;border-left:4px solid var(--accent)}
+h3{font-size:17px;line-height:1.5;margin:0 0 8px}
+h3 .no{display:inline-block;background:var(--accent);color:var(--bg);border-radius:6px;padding:0 8px;margin-right:8px;font-size:14px}
+p{margin:0 0 12px}
+.step{margin:26px 0 8px;padding-top:6px;border-top:1px solid var(--line)}
+.fig{margin:12px 0 14px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+.fig svg{display:block;width:100%;max-width:520px;height:auto;margin:0 auto}
+.fig figcaption{font-size:13px;color:var(--muted);margin-top:6px;text-align:center}
+.key{font-weight:700;background:linear-gradient(transparent 62%,var(--accent-soft) 62%)}
+.prompt{position:relative;margin:10px 0 14px;border:2px solid var(--accent);border-radius:10px;background:var(--card)}
+.prompt pre{margin:0;padding:12px 14px 8px;white-space:pre-wrap;word-break:break-word;font-family:inherit;font-size:15px;line-height:1.75}
+.prompt .bar{display:flex;justify-content:flex-end;padding:0 10px 10px}
+.copy{appearance:none;border:0;border-radius:8px;background:var(--accent);color:var(--bg);font:inherit;font-size:15px;font-weight:700;padding:8px 16px;cursor:pointer;min-height:44px}
+.copy.done{background:var(--muted)}
+.stuck{margin:12px 0 14px;padding:10px 14px;border-radius:10px;background:var(--warn-soft);border-left:4px solid var(--warn)}
+.stuck b{color:var(--warn)}
+.stuck p{margin:0 0 4px}
+.goal{margin:14px 0;padding:10px 14px;border-radius:10px;background:var(--accent-soft);font-weight:700}
+.try{margin:10px 0 12px;padding-left:1.3em}
+.try li{margin:8px 0}
+.check{margin:6px 0 12px;padding-left:1.3em}
+.check li{margin:4px 0}
+.mini{font-size:14px;color:var(--muted)}
+.rounds{margin:8px 0 12px}
+.rounds dt{font-weight:700;margin-top:12px}
+.rounds dd{margin:2px 0 0 0}
+footer{margin-top:36px;font-size:12px;color:var(--muted)}
+/* svg tokens */
+.s-fg{fill:var(--fg)} .s-mu{fill:var(--muted)} .s-ac{fill:var(--accent)} .s-acs{fill:var(--accent-soft)}
+.s-wa{fill:var(--warn)} .s-was{fill:var(--warn-soft)} .s-bl{fill:var(--blue)} .s-bls{fill:var(--blue-soft)} .s-card{fill:var(--card)} .s-bg{fill:var(--bg)} .s-none{fill:none}
+.k-ln{stroke:var(--line)} .k-mu{stroke:var(--muted)} .k-ac{stroke:var(--accent)} .k-wa{stroke:var(--warn)} .k-bl{stroke:var(--blue)} .k-fg{stroke:var(--fg)}
+svg text{font-family:inherit}
+.part{margin:18px 0 6px;font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.05em}
+.rc{margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);scroll-margin-top:56px}
+.rc h3{margin:0 0 6px}
+.rc p{margin:0 0 4px}
+.rc .t{font-size:13px;color:var(--muted)}
+.can{font-weight:700}
+.next{margin:16px 0;padding:12px 14px;border:2px solid var(--blue);border-radius:10px;background:var(--blue-soft)}
+.next a{color:var(--fg);font-weight:700;word-break:break-all}
+a{color:var(--blue)}
+.doors{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0 14px}
+@media (min-width:640px){.doors{grid-template-columns:1fr 1fr}}
+.door{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card)}
+.door.d1{border-top:4px solid var(--accent)}
+.door.d2{border-top:4px solid var(--blue)}
+.door p{margin:0 0 6px}
+.door .dh{font-weight:700;font-size:15px}
+.door.d1 .dh{color:var(--accent)}
+.door.d2 .dh{color:var(--blue)}
+.toc-part{margin:10px 0 2px;font-size:13px;font-weight:700;color:var(--muted)}
+.toc-end{margin-top:10px!important}
+.files{margin:8px 0 12px;padding-left:1.3em}
+.files li{margin:6px 0}
+.files a,.dlbig a,.door a{font-weight:700;word-break:break-all}
+.dlbig{margin:10px 0;padding:10px 14px;border:2px dashed var(--accent);border-radius:10px;text-align:center}
+.os{margin:12px 0 0;font-size:13px;font-weight:700;color:var(--muted)}
+.term pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;word-break:break-all}
+.free{margin:18px 0 0;padding:12px 14px;border-radius:10px;background:var(--accent-soft);border-left:4px solid var(--accent)}
+details.raw{margin:8px 0 14px}
+details.raw summary{cursor:pointer;font-weight:700;color:var(--blue);padding:6px 0}
+details.raw pre{font-size:13px;max-height:320px;overflow:auto}
+.help{margin:12px 0;padding:10px 14px;border-radius:10px;border:2px solid var(--blue);background:var(--blue-soft)}
+.fork{margin:16px 0;padding:12px 14px;border-radius:10px;border:2px dashed var(--warn);background:var(--card)}
+.fork p{margin:0 0 6px}
+details.appendix{margin:24px 0 8px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+
+.hero-help{margin:14px 0;padding:12px 14px;border-radius:10px;border:2px solid var(--blue);background:var(--blue-soft)}
+.hero-help p{margin:0}
+.meta{font-size:13px;color:var(--muted);margin:0 0 8px}
+.partsec{padding-top:34px}
+.partsec h2{border-left-color:var(--blue)}
+.shot{font-size:13px;color:var(--muted)}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:0 4px;word-break:break-all}
+
+
+/* 1回=1ページの導線 */
+.band-title a{color:inherit;text-decoration:none}
+.epbar{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin:22px 0 6px;font-size:14px;color:var(--muted)}
+.epbar .epno{font-weight:700;color:var(--accent);font-size:15px}
+.epbar a{color:var(--blue)}
+.uses{font-size:14px;margin:0 0 12px}
+.uses a{font-weight:700;word-break:break-all}
+.pager{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;margin:28px 0 8px}
+.pager a,.pager span{display:flex;align-items:center;justify-content:center;min-height:48px;padding:8px 10px;border-radius:10px;font-weight:700;text-align:center;text-decoration:none;line-height:1.4}
+.pager a{border:2px solid var(--blue);background:var(--card);color:var(--fg)}
+.pager a.nx{background:var(--blue-soft)}
+.pager a.toc-l{border-color:var(--line)}
+.start{display:block;margin:18px 0 6px;padding:16px;border-radius:12px;background:var(--accent);color:var(--bg)!important;font-size:18px;font-weight:700;text-align:center;text-decoration:none;min-height:56px}
+.eplist{list-style:none;margin:6px 0 14px;padding:0}
+.eplist li{margin:8px 0}
+.eplist a{display:block;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--fg);text-decoration:none}
+.eplist .t{display:block;font-weight:700}
+.eplist .c{display:block;font-size:14px;color:var(--fg)}
+.eplist .m{display:block;font-size:13px;color:var(--muted)}
+.partline{font-size:14px;color:var(--muted);margin:0 0 4px}
+.hero-help{margin:14px 0;padding:12px 14px;border-radius:10px;border:2px solid var(--blue);background:var(--blue-soft)}
+.hero-help p{margin:0}
+.meta{font-size:13px;color:var(--muted);margin:0 0 8px}
+.epbar .dev{font-weight:700;color:var(--fg)}
+.devnote{margin:0 0 10px;padding:8px 12px;border-radius:10px;border:2px dashed var(--warn);font-size:14px}
+.solo{margin:12px 0 14px;padding:10px 14px;border-radius:10px;border:2px solid var(--blue);background:var(--blue-soft);font-weight:700}
+</style>
+</head>
+<body>
+<div class="band"><div class="band-in"><span class="band-title"><a href="index.html">ひとり仕事のAI実践</a></span><span class="band-chap" id="bandChap">第11回 / 全15回</span><span class="band-step" id="bandStep"></span></div></div>
+<main>
+<p class="epbar"><span class="epno">第11回 / 全15回</span><span>第2部　連携して任せる</span><span class="dev">スマホだけでできる</span><a href="index.html">目次へ</a></p>
+<section id="r11" data-chap="第11回 / 全15回"><h1>第11回：資料を1枚作らせる</h1><p class="can">できるようになること：お客様に渡す説明の資料を1枚、AIに作らせる</p><p class="meta">かかる時間：30分以内</p><p class="mini">使うAIは Claude（claude.ai）です。はじめての人は、<a href="01.html#r1s1">第1回の手順1・2</a>でログインと設定を済ませてから進みます。「新しい会話」は、画面の左上（スマホは三本線の中）の「新しいチャット」です。</p><figure class="fig"><svg viewBox="0 0 360 108" role="img" aria-label="伝えたいことを箇条書きで渡すと、Claudeが1枚の資料にまとめる"><rect x="6" y="18" width="104" height="74" rx="10" class="s-acs k-ac" stroke-width="1.5"/><text x="58" y="48" font-size="13" text-anchor="middle" font-weight="700" class="s-fg">伝えたいこと</text><text x="58" y="72" font-size="11.5" text-anchor="middle" class="s-mu">箇条書き</text><rect x="128" y="18" width="104" height="74" rx="10" class="s-card k-bl" stroke-width="1.5"/><text x="180" y="48" font-size="13" text-anchor="middle" font-weight="700" class="s-fg">Claude</text><text x="180" y="72" font-size="11.5" text-anchor="middle" class="s-mu">1枚にまとめる</text><rect x="250" y="18" width="104" height="74" rx="10" class="s-was k-wa" stroke-width="1.5"/><text x="302" y="48" font-size="13" text-anchor="middle" font-weight="700" class="s-fg">資料</text><text x="302" y="72" font-size="11.5" text-anchor="middle" class="s-mu">印刷して渡す</text><path d="M112 55 L126 55 M119 48 L126 55 L119 62" class="k-ac" stroke-width="2.5" fill="none"/><path d="M234 55 L248 55 M241 48 L248 55 L241 62" class="k-ac" stroke-width="2.5" fill="none"/></svg><figcaption>図21　伝えたいことを箇条で渡すと、1枚の資料になる</figcaption></figure><div class="doors"><div class="door d1"><p class="dh">用意した素材でやる</p><p><b>新しい会話</b>で、下の文を送ります。</p><div class="prompt"><pre id="p11">壁紙の張り替えを頼む前に、お客様に知っておいてほしいこと（家具の移動・工事の日数・においと換気）を、A4の1枚の案内にしてください。印刷して渡します。</pre><div class="bar"><button class="copy" type="button" data-target="p11">コピーする</button></div></div></div><div class="door d2"><p class="dh">自分のでやる</p><p>お客様によく口で説明していることを、箇条書きにして渡します。</p><p class="mini">選び方：同じ説明を月に3回以上していること。</p></div></div><p>返ってきた文をコピーして、Word か Googleドキュメントに貼れば、そのまま印刷できます。印刷の前に「表にしたほうが分かりやすい所はありますか」と聞き返すと、もう一段読みやすくなります。</p><div class="fork" id="pc-fork"><p><b>ここが、スマホだけで進めるかどうかの分かれ目です</b></p><p>ここまでの第1〜11回は、スマホだけで来られました。作った頼み方・プロジェクトの「指示」・つないだカレンダーとメールは、このあともそのまま使えます。</p><p>ここから先の第3部（第12〜15回）は、PC（Windows か Mac）と、有料のプラン（<a href="06.html#part2">第6回の分かれ目</a>と同じもの）が要ります。進むと、毎回ファイルを渡さなくても、PCのフォルダに置いた走り書きから「見積を作って」の一言で見積書ができるようになります（第14回）。PCがあれば<a href="12.html">第12回</a>へ進みます。PCが無ければ、ここで止めてもかまいません。手に入れるなら、<a href="index.html#phone">目次の「スマホしか持っていない人へ」</a>に選び方があります。</p></div></section>
+<div class="hero-help"><p><b>詰まったら、その画面を送ってください。返事を返します。</b>送り先は、このページを教えてくれた人です。教えてもらったときと同じ連絡先（LINE・メールなど）に、画面のスクショを送ってください。</p></div>
+<nav class="pager" aria-label="前後の回"><a class="pv" href="10.html">← 第10回</a><a class="toc-l" href="index.html">目次</a><a class="nx" href="12.html">第12回 →</a></nav>
+<footer>ひとり仕事のAI実践　全15回（練習用の資料に出てくる屋号・お客様・会社はすべて架空です）</footer>
+</main>
+<script>
+(function(){
+  var chap=document.getElementById('bandChap'), step=document.getElementById('bandStep');
+  var chaps=[].slice.call(document.querySelectorAll('[data-chap]'));
+  var steps=[].slice.call(document.querySelectorAll('[data-step]'));
+  function last(list,limit){var cur=null;for(var i=0;i<list.length;i++){if(list[i].getBoundingClientRect().top<=limit)cur=list[i];}return cur;}
+  function update(){
+    var c=last(chaps,80)||chaps[0];
+    chap.textContent=c.getAttribute('data-chap');
+    var s=last(steps,120);
+    step.textContent=(s&&c.contains(s))?s.getAttribute('data-step'):'';
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(update,{rootMargin:'-60px 0px -60% 0px',threshold:[0,1]});
+    chaps.concat(steps).forEach(function(el){io.observe(el)});
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  update();
+
+  function copyText(t){
+    if(navigator.clipboard&&window.isSecureContext){return navigator.clipboard.writeText(t);}
+    return new Promise(function(ok,ng){
+      var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');
+      ta.style.position='fixed';ta.style.top='-1000px';document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy')?ok():ng();}catch(e){ng(e);}document.body.removeChild(ta);
+    });
+  }
+  [].slice.call(document.querySelectorAll('.copy')).forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=document.getElementById(b.getAttribute('data-target')).textContent;
+      copyText(t).then(function(){b.textContent='コピーしました';b.classList.add('done');
+        setTimeout(function(){b.textContent='コピーする';b.classList.remove('done');},2500);},
+      function(){b.textContent='コピーできません。枠の文を長押しで選んでください';
+        setTimeout(function(){b.textContent='コピーする';},3000);});
+    });
+  });
+})();
+
+</script>
+</body>
+</html>
