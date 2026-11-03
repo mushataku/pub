@@ -1,0 +1,22 @@
+<!doctype html><html lang=ja><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Wi-Fi QR</title><style>
+body{font-family:sans-serif;background:#fff;color:#000;margin:16px}
+.c{display:inline-block;margin:12px;text-align:center;border:2px solid #ccc;border-radius:8px;padding:12px;cursor:pointer;background:#fff}
+.c:hover{border-color:#36c}.c h2{margin:4px 0}.c svg{width:220px;height:auto;display:block;margin:auto}
+#big{position:fixed;inset:0;background:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;z-index:10}
+#big.on{display:flex}#big h2{font-size:40px;margin:8px}#big svg{width:min(80vw,75vh);height:auto}#big p{color:#555;font-size:18px}
+</style>
+<p>端末の Wi-Fi 画面（初期設定の画面も）右上の QR ボタン → <b>撮りたい場所を押して</b>大きくしてから撮る</p>
+<div class="c" tabindex=0 data-place="tullys coffee" data-ssid="tullys coffee"><h2>tullys coffee</h2><div class="q"><svg width="198" height="198" class="segno"><path transform="scale(6)" class="qrline" stroke="#000" d="M2 2.5h7m1 0h1m1 0h1m1 0h1m1 0h1m3 0h3m1 0h7m-29 1h1m5 0h1m1 0h2m2 0h3m3 0h1m3 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m5 0h2m1 0h2m3 0h1m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m3 0h1m1 0h1m2 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m4 0h3m1 0h3m1 0h1m2 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m4 0h2m4 0h4m1 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-21 1h1m1 0h3m2 0h1m1 0h1m1 0h2m-21 1h1m1 0h2m1 0h3m3 0h2m4 0h3m2 0h1m2 0h1m1 0h2m-29 1h1m1 0h3m2 0h1m1 0h2m2 0h2m1 0h1m1 0h3m1 0h1m1 0h1m1 0h2m-27 1h1m1 0h1m1 0h2m1 0h2m2 0h3m2 0h2m1 0h1m1 0h1m1 0h4m-28 1h2m3 0h1m4 0h5m1 0h1m1 0h2m5 0h1m-24 1h1m1 0h1m1 0h3m2 0h1m4 0h2m5 0h4m-27 1h1m2 0h1m1 0h1m1 0h3m1 0h1m2 0h2m1 0h1m1 0h4m-20 1h2m1 0h1m1 0h1m4 0h1m2 0h1m1 0h11m-26 1h1m3 0h1m2 0h2m7 0h1m1 0h1m3 0h1m-26 1h1m1 0h1m3 0h3m2 0h2m1 0h1m1 0h1m4 0h1m2 0h3m1 0h1m-28 1h1m1 0h1m1 0h1m1 0h2m3 0h1m2 0h4m1 0h2m6 0h1m-29 1h1m1 0h1m1 0h5m1 0h2m1 0h6m1 0h1m2 0h2m-23 1h4m1 0h2m1 0h1m2 0h3m1 0h2m1 0h2m1 0h1m2 0h3m-28 1h3m2 0h2m3 0h1m1 0h2m3 0h1m1 0h5m1 0h3m-21 1h1m2 0h1m7 0h2m3 0h1m1 0h1m-27 1h7m1 0h2m1 0h2m1 0h1m2 0h1m1 0h2m1 0h1m1 0h1m2 0h1m-28 1h1m5 0h1m1 0h1m2 0h1m1 0h2m1 0h1m3 0h1m3 0h1m2 0h1m-28 1h1m1 0h3m1 0h1m3 0h1m4 0h4m1 0h6m-26 1h1m1 0h3m1 0h1m1 0h1m1 0h1m4 0h1m2 0h1m1 0h2m1 0h1m1 0h2m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h3m1 0h1m3 0h2m2 0h1m2 0h1m2 0h1m1 0h1m-29 1h1m5 0h1m6 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h2m1 0h1m-28 1h7m1 0h3m1 0h1m1 0h1m1 0h1m2 0h2m2 0h1m1 0h3"/></svg></div><p>tullys coffee</p></div>
+<div id=big role=dialog aria-modal=true><h2 id=bt></h2><div id=bq></div><p id=bs></p><p>押すか Esc で戻る</p></div>
+<script>
+const big=document.getElementById('big');
+function show(c){document.getElementById('bt').textContent=c.dataset.place;document.getElementById('bs').textContent=c.dataset.ssid;
+ document.getElementById('bq').innerHTML=c.querySelector('.q').innerHTML;big.classList.add('on');}
+function hide(){big.classList.remove('on');document.getElementById('bq').innerHTML='';}
+document.querySelectorAll('.c').forEach(c=>{c.addEventListener('click',()=>show(c));
+ c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show(c);}});});
+big.addEventListener('click',hide);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')hide();});
+</script></html>
