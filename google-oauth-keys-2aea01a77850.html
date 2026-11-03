@@ -81,6 +81,7 @@ li{margin:3px 0}
 .pill.pe{background:var(--pe-bg);color:var(--pe)}.pill.bl{background:var(--bl-bg);color:var(--bl)}.pill.rc{background:var(--rc-bg);color:var(--rc)}
 .pill.ok{background:var(--okbg);color:var(--ok)}.pill.warn{background:var(--warnbg);color:var(--warn)}.pill.bad{background:var(--badbg);color:var(--bad)}
 .pill.todo{background:var(--soft);color:var(--sub)}
+#record td:first-child{white-space:nowrap}
 /* 数字のタイル */
 .tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
 .tile .t{font-size:12.5px;font-weight:700;color:var(--sub)}
@@ -179,7 +180,7 @@ footer{margin-top:44px;border-top:1px solid var(--line);padding-top:12px;color:v
 
 <main>
 <h1>Google アカウントの鍵の持ち方：決めたことと、武者野さんの手</h1>
-<p class="lead">武者野さん向けの報告（社内の設計報告）。設計の決着：2026-11-03。この資料の数字は特記がなければ 2026-11-03 時点の棚卸しです。</p>
+<p class="lead">武者野さん向けの報告（社内の設計報告）。設計の決着：2026-11-03。実行の記録（§7）の更新：2026-11-04。この資料の数字は特記がなければ 2026-11-03 時点の棚卸しです。</p>
 
 <!-- ============ §0 ============ -->
 <h2 id="c0" data-ch="§0 一言"><span class="no">§0</span>一言：何が決まったか</h2>
@@ -190,7 +191,7 @@ footer{margin-top:44px;border-top:1px solid var(--line);padding-top:12px;color:v
 
 <h3 id="c0a" data-sec="武者野さんに関わること"><span class="no">0-1</span>武者野さんに関わること（3つ）</h3>
 <div class="grid g3">
-  <div class="card"><b>手：27〜45 押し（要実測）</b><p style="margin:4px 0 0;font-size:14px">Google の許可画面を 9アカウント分、1アカウントあたり 3〜5回押す想定です。実際の画面を誰もまだ見ていないため、最初の mushik で実測して回数を確定します。詳しくは §5。</p></div>
+  <div class="card"><b>手：27 押し＋ログイン 2回（済み）</b><p style="margin:4px 0 0;font-size:14px">11月4日 1:41〜1:47 の 6分で、9アカウントとも同意が済みました。許可画面は 1アカウントあたり 3押しで、想定の幅（27〜45）の下限でした。PC の Chrome にプロファイルが無かった 2アカウントだけ、窓の中でログインを 1回ずつ足しています。詳しくは §5・§7。</p></div>
   <div class="card"><b>費用：増やさない設計</b><p style="margin:4px 0 0;font-size:14px">新しい契約も新しいクライアントも作りません。片付けの 14日後に、鍵の保管数が着手前以下かを数えて確かめます。詳しくは §6。</p></div>
   <div class="card"><b>止まるもの：なし</b><p style="margin:4px 0 0;font-size:14px">本番を止める段はありません。切り替えは道具 1つずつで、戻し方を 1行つけて進めます。</p></div>
 </div>
@@ -236,7 +237,7 @@ footer{margin-top:44px;border-top:1px solid var(--line);padding-top:12px;color:v
 <tr><td data-l="別名"><b>shin</b></td><td data-l="事業"><span class="pill rc">recruit</span></td><td data-l="いま">会社組織の外の Gmail。gooner-info と同じ型。ほかに鍵が 1本。</td><td data-l="後">本番の鍵と受信監視は据え置き。ほかの鍵は例外の行。</td></tr>
 <tr><td data-l="別名"><b>（行をまたぐ分）</b></td><td data-l="事業">—</td><td data-l="いま">死んだ鍵 1本、読む道具のいない鍵 3本（うち 1本は alumni の行に載せた鍵）。</td><td data-l="後">見せてから消す。</td></tr>
 </tbody></table></div>
-<p class="lead" style="margin-top:6px">未決が 1件あります：recruit 本番の設定に、Google のパスワードだけが入っている項目が 1つあります。ブラウザへのログイン専用なら対象外です。API を使う道具があるなら 10件目のアカウントとして B の段に足すので、武者野さんの手が 1アカウント分（3〜5押し）増えます（§7）。</p>
+<p class="lead" style="margin-top:6px">設計の時点で未決だった 1件は、対象外と決まりました。recruit 本番の設定にある「Google のパスワードだけが入っている項目」は、ブラウザへのログイン用です。API でこれを読む道具は、recruit・bot-lab・mobile-control・開発環境のコードに 1つもありませんでした（11月4日に確認）。10件目のアカウントは足しません（§7）。</p>
 
 <h3 id="c1c" data-sec="何が困るか"><span class="no">1-3</span>何が困るか（右端の「→」が対応する決定）</h3>
 <ul>
@@ -258,7 +259,7 @@ footer{margin-top:44px;border-top:1px solid var(--line);padding-top:12px;color:v
 <div class="dec" id="d2" data-sec="決定2 名札">
   <h4><span class="no">2</span>名札（クライアント）：共通の 1つ</h4>
   <div class="row"><span class="pill todo">前</span><span>名札が 4つ（個人側に 2つ・会社・bot-lab の事業）。</span></div>
-  <div class="row"><span class="pill ok">後</span><span>Gmail の道具が 5アカウントで既に共用している個人の名札を共通にし、表示名を「Mushano Tools」に改める（同意画面にもこの名前で出る）。新しい名札は作らない。ドライブ・スプレッドシート・ドキュメント・カレンダー・連絡先・タスクの API を有効にする（無料・戻せる）。</span></div>
+  <div class="row"><span class="pill ok">後</span><span>Gmail の道具が 5アカウントで既に共用している個人の名札を共通にし、表示名を「Mushano Tools」に改める（実際の同意画面には名前が出なかった。Google は審査前のアプリの名前を表示しないため。§5-1）。新しい名札は作らない。ドライブ・スプレッドシート・ドキュメント・カレンダー・連絡先・タスクの API を有効にする（無料・戻せる）。</span></div>
   <div class="row"><span class="pill todo">補足</span><span>名札は課金も権限も持ちません。事業の境目は名札では引かず、鍵の置き場（その事業の保管庫）と台帳の事業の列で引きます。この名札は公開の設定が済んでいる見込みです（A で機械的に確かめます）。Google の審査は受けていないため、同意画面に「未確認」の警告が出ます（§5-1）。</span></div>
 </div>
 <div class="dec" id="d3" data-sec="決定3 許可の範囲">
@@ -279,11 +280,11 @@ footer{margin-top:44px;border-top:1px solid var(--line);padding-top:12px;color:v
 <div class="dec" id="d6" data-sec="決定6 同意の手">
   <h4><span class="no">6</span>同意の手：画面は道具が開き、押すのは武者野さん</h4>
   <div class="row"><span class="pill todo">前</span><span>鍵ごとに別々に同意を取り直す必要があった。</span></div>
-  <div class="row"><span class="pill ok">後</span><span>道具がそのアカウントの Chrome プロファイルで同意画面を前面に開く。自動では押さない。武者野さんの手は 1アカウントあたり 3〜5押しの想定（§5）。運搬は押した直後に始まり、VM 側は次にセッションを開いたときから新しい鍵を使える。</span></div>
+  <div class="row"><span class="pill ok">後</span><span>道具がそのアカウントの Chrome プロファイルで同意画面を前面に開く。自動では押さない。武者野さんの手は 1アカウントあたり 3押しだった（実測・§5）。運搬は押した直後に始まり、VM 側は次にセッションを開いたときから新しい鍵を使える。</span></div>
 </div>
 <div class="dec" id="d7" data-sec="決定7 知らせ">
   <h4><span class="no">7</span>知らせ：切れたら直し方つきで知らせ、毎日確かめる</h4>
-  <div class="row"><span class="pill ok">後</span><span>鍵が切れたときは「何をすれば直るか」つきで知らせ、PC に任せられる作業は自動で票にする。保険として毎日 1回、PC の夜間の定期処理の直後に、全鍵を実際に更新して生死を確かめる。これは Google の 6か月失効も防ぎ、PC が数日止まっても失効しない。なお、武者野さんがそのアカウントの Google パスワードを変えると、主鍵は失効して同意（3〜5押し）をやり直しになります。知らせるのは失敗したときだけで、最終確認の時刻は Claude のセッションを開いたときの冒頭 1行に出る。</span></div>
+  <div class="row"><span class="pill ok">後</span><span>鍵が切れたときは「何をすれば直るか」つきで知らせ、PC に任せられる作業は自動で票にする。保険として毎日 1回、PC の夜間の定期処理の直後に、全鍵を実際に更新して生死を確かめる。これは Google の 6か月失効も防ぎ、PC が数日止まっても失効しない。なお、武者野さんがそのアカウントの Google パスワードを変えると、主鍵は失効して同意（3押し）をやり直しになります。知らせるのは失敗したときだけで、最終確認の時刻は Claude のセッションを開いたときの冒頭 1行に出る。</span></div>
 </div>
 
 <!-- ============ §3 ============ -->
@@ -524,15 +525,15 @@ footer{margin-top:44px;border-top:1px solid var(--line);padding-top:12px;color:v
     <p class="undo">戻し：消す前に運搬の箱へ詰めておくので、そこから復元できる。</p></div>
 </div>
 
-<h3 id="c5a" data-sec="押す回数"><span class="no">5-1</span>武者野さんの手：1アカウントあたり 3〜5押し × 9</h3>
-<p>武者野さんの PC の Chrome で押します。同意画面には「Mushano Tools」と出ます。1アカウントにつき、基本は次の 3つを押す想定です。<b>① 未確認の通過 ② すべて選択 ③ 続行</b>。9アカウントで 27押しが下限の想定です。</p>
+<h3 id="c5a" data-sec="押す回数"><span class="no">5-1</span>武者野さんの手：実測 27押し＋ログイン 2回（済み）</h3>
+<p>武者野さんの PC の Chrome で押しました（11月4日 1:41〜1:47）。1アカウントにつき <b>① 未確認の通過 ② すべて選択 ③ 続行</b> の 3押しで、9アカウントで 27押しでした。PC の Chrome にプロファイルが無かった 0841 と shin は、000885 の窓を開いて、その中でログインを 1回ずつ足しました。保存の前に道具が「どのアカウントの鍵か」を照らし合わせるので、別の窓で開いても他人の鍵が混ざることはありません。同意画面に「Mushano Tools」の名前は出ませんでした。Google は審査前のアプリの名前を表示しないためです。名前を出すにはブランドの確認（ドメインの持ち主の証明など）が要り、今回はやらないと決めました。</p>
 <ul>
   <li><b>① 未確認の通過：</b>警告は「Google はこのアプリを審査していない」という意味です。名札は武者野さん自身のものなので、押して通ってかまいません（個人利用 100人未満なら通れます）。</li>
   <li><b>② すべて選択：</b>押し忘れると許可の範囲が足りなくなり、道具が検算で止めます。その 1アカウントだけ押し直しになります。</li>
   <li><b>前提：</b>9アカウントとも PC の Chrome にログイン済みであること。B の前にこちらで確かめ、ログインが無ければ押す数に足します。</li>
   <li><b>パスワードを変えたとき：</b>Google パスワードを変えると、そのアカウントの主鍵は失効し、同意をやり直します。</li>
 </ul>
-<div class="callout"><b>この回数は実測前の想定です（27 は下限）。</b>Google の「未確認」画面は「詳細を表示 → 移動」の 2押しになる可能性があり、Chrome に複数のアカウントが入っていれば選ぶ画面が 1回増えます（その場合 1アカウント 5押し・合計 45押し）。最初の mushik（B1）で実際の画面を見て、回数をこの資料に書き直します。担当のセッションが「いまから N 枚出します」とまとめて出すので、出た順に押してください。</div>
+<div class="callout okc"><b>実測の結果：想定の幅（27〜45押し）の下限でした。</b>設計の時点では、「未確認」の画面が 2押しになることや、アカウントを選ぶ画面が増えることを見込んで、1アカウント最大 5押し（合計 45押し）と書いていました。実際にはどちらも起きず、1アカウント 3押しで済みました。次に同意をやり直すとき（許可の範囲を足す・パスワードを変えた）も、1アカウント 3押しが目安です。</div>
 <div class="tw"><table class="stack">
 <caption>押す順番（B1〜B5）。実施の記録は §7 に残します。</caption>
 <thead><tr><th>順</th><th>アカウント</th><th>この順の理由</th></tr></thead>
@@ -543,7 +544,7 @@ footer{margin-top:44px;border-top:1px solid var(--line);padding-top:12px;color:v
 <tr><td data-l="順">B4</td><td data-l="アカウント">gooner-takuya・gooner-info</td><td data-l="理由">recruit。管理設定で弾かれたら会社の名札の例外行にする。</td></tr>
 <tr><td data-l="順">B5</td><td data-l="アカウント">seed・shin</td><td data-l="理由">recruit（会社組織の外の Gmail）。</td></tr>
 </tbody></table></div>
-<div class="callout"><b>押す前に知っておくこと：</b>alumni は大学の管理設定で弾かれることがあります。その場合は許可の範囲を絞って取り直します（手がもう 1回増える可能性）。自動操作で代わりに押すことはしません。</div>
+<div class="callout okc"><b>管理設定の心配は外れました：</b>大学の alumni も、会社の gooner-takuya・gooner-info も、管理設定で弾かれずに全部入りの許可が取れました。範囲を絞った取り直しも、会社の名札の例外行も要りませんでした。押したのは全部武者野さんの手で、自動操作で代わりに押してはいません。</div>
 
 <!-- ============ §6 ============ -->
 <h2 id="c6" data-ch="§6 費用と安全"><span class="no">§6</span>費用と安全（決定 8〜10）</h2>
@@ -586,27 +587,29 @@ footer{margin-top:44px;border-top:1px solid var(--line);padding-top:12px;color:v
 
 <!-- ============ §7 ============ -->
 <h2 id="c7" data-ch="§7 実行の記録"><span class="no">§7</span>実行の記録</h2>
-<p>実行した結果は、作業を担当するセッションがこの表に追記します。いまは<b>すべて未実施</b>です。「—」は「まだ記録なし」だけを意味します。B1 の実施後に、同意画面の実際の押す回数を結果に書き、§0・§5 の想定（27〜45押し）を書き直します。</p>
+<p>11月4日 4時時点の記録です。A〜C と未決の 1件は済み、D（片付け）は担当のセッションが進めています。D の結果は、終わりしだいこの表に足します。計画に無かった段が 2つ増えました（表の「追加」の行）。</p>
 <div class="tw"><table class="stack" id="record">
-<caption>実行の記録（作成時点：2026-11-03・全行 未実施）</caption>
+<caption>実行の記録（更新：2026-11-04 4時・9アカウントの主鍵は全部「検査 ok」）</caption>
 <thead><tr><th>段</th><th>内容</th><th>状態</th><th>実施日</th><th>結果</th></tr></thead>
 <tbody>
-<tr id="r-A"><td data-l="段"><b>A</b></td><td data-l="内容">土台（gkeys・台帳・説明 1枚・API 有効化）</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
-<tr id="r-B1"><td data-l="段"><b>B1</b></td><td data-l="内容">mushik の同意</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
-<tr id="r-B2"><td data-l="段"><b>B2</b></td><td data-l="内容">000885 の同意</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
-<tr id="r-B3"><td data-l="段"><b>B3</b></td><td data-l="内容">alumni・0841・sekyuriti の同意</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
-<tr id="r-B4"><td data-l="段"><b>B4</b></td><td data-l="内容">gooner-takuya・gooner-info の同意</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
-<tr id="r-B5"><td data-l="段"><b>B5</b></td><td data-l="内容">seed・shin の同意</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
-<tr id="r-C1"><td data-l="段"><b>C1</b></td><td data-l="内容">Gmail の道具を gkeys へ</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
-<tr id="r-C2"><td data-l="段"><b>C2</b></td><td data-l="内容">bot-lab の PC 側を gkeys へ</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
-<tr id="r-C3"><td data-l="段"><b>C3</b></td><td data-l="内容">drive-home（bot-lab の録画・シートの持ち主を mushik へ移す）と expense-web の主鍵化</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
-<tr id="r-C4"><td data-l="段"><b>C4</b></td><td data-l="内容">新 PC 用の手順を gkeys へ</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
-<tr id="r-U"><td data-l="段"><b>未決</b></td><td data-l="内容">Google のパスワードだけが入った項目（recruit 本番の設定）の確認。API を使う道具があれば 10件目として B に足す</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
-<tr id="r-D"><td data-l="段"><b>D</b></td><td data-l="内容">片付け（複製・読む道具のいない鍵・動作確認）</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
+<tr id="r-A"><td data-l="段"><b>A</b></td><td data-l="内容">土台（gkeys・台帳・API 有効化・表示名）</td><td data-l="状態"><span class="pill ok">済み</span></td><td data-l="実施日">11/3〜11/4</td><td data-l="結果">gkeys を全 repo 共通の道具置き場に置いた（台帳 9行・鍵の状態の確認・同意・毎日の見張り・セッション冒頭の 1行）。API 6種を有効にし（無料・戻せる）、表示名を「Mushano Tools」に改めた。名札は既に本番・外部向けで公開済みで、説明とプライバシーポリシーは既存のページ（github.io）をそのまま使った。</td></tr>
+<tr id="r-B1"><td data-l="段"><b>B1</b></td><td data-l="内容">mushik の同意</td><td data-l="状態"><span class="pill ok">済み</span></td><td data-l="実施日">11/4 1:41</td><td data-l="結果">3押し。</td></tr>
+<tr id="r-B2"><td data-l="段"><b>B2</b></td><td data-l="内容">000885 の同意</td><td data-l="状態"><span class="pill ok">済み</span></td><td data-l="実施日">11/4</td><td data-l="結果">3押し。</td></tr>
+<tr id="r-B3"><td data-l="段"><b>B3</b></td><td data-l="内容">alumni・0841・sekyuriti の同意</td><td data-l="状態"><span class="pill ok">済み</span></td><td data-l="実施日">11/4</td><td data-l="結果">3押し×3。alumni は大学の管理設定で弾かれなかった。0841 は PC の Chrome にプロファイルが無く、000885 の窓の中でログインを 1回足した。</td></tr>
+<tr id="r-B4"><td data-l="段"><b>B4</b></td><td data-l="内容">gooner-takuya・gooner-info の同意</td><td data-l="状態"><span class="pill ok">済み</span></td><td data-l="実施日">11/4</td><td data-l="結果">3押し×2。会社の管理設定で弾かれず、会社の名札の例外行は要らなかった。</td></tr>
+<tr id="r-B5"><td data-l="段"><b>B5</b></td><td data-l="内容">seed・shin の同意</td><td data-l="状態"><span class="pill ok">済み</span></td><td data-l="実施日">11/4 〜1:47</td><td data-l="結果">3押し×2。shin は 0841 と同じく、ログインを 1回足した。</td></tr>
+<tr id="r-C1"><td data-l="段"><b>C1</b></td><td data-l="内容">Gmail の道具を gkeys へ</td><td data-l="状態"><span class="pill ok">済み</span></td><td data-l="実施日">11/4</td><td data-l="結果">主鍵を先に読み、旧いファイルは主鍵が無いときだけ読む形に付け替えた。道具の名前と使い方は変わらない。設定 1つで旧い読み方に戻せる。</td></tr>
+<tr id="r-C2"><td data-l="段"><b>C2</b></td><td data-l="内容">bot-lab の PC 側を gkeys へ</td><td data-l="状態"><span class="pill ok">済み</span></td><td data-l="実施日">11/4</td><td data-l="結果">bot-lab の道具が主鍵を読み取り専用で先に読む。シートと Drive は mushik の主鍵を先に試し、Gmail は 000885 の主鍵。試験は 176件が通った（前は 165件）。</td></tr>
+<tr id="r-C3"><td data-l="段"><b>C3</b></td><td data-l="内容">drive-home（bot-lab の録画・シートの持ち主を mushik へ移す）と expense-web の主鍵化</td><td data-l="状態"><span class="pill ok">済み</span></td><td data-l="実施日">11/4</td><td data-l="結果"><b>drive-home：</b>録画 5本（約 1.6GB）を mushik 側へコピーし、中身の照合は全部一致した。元は 000885 のゴミ箱に入れた（空にはしていない）。本番が ID で指している物 12件と、研究・試験のシート 34件は、持ち主を mushik へ移した（ID は変わらず、000885 は編集者で残る）。<br><b>expense-web：</b>本番（Cloud Run の bot-lab-expense）の Drive の鍵を mushik の主鍵に替えて起動し直した。領収書 1枚を試しに上げ、持ち主が mushik になることを確かめた（試しのファイルはゴミ箱へ）。Apps Script 1本は、移すと動く名義が変わるので移していない。000885 が台帳の編集者のまま書ける。</td></tr>
+<tr id="r-C4"><td data-l="段"><b>C4</b></td><td data-l="内容">新 PC 用の手順を gkeys へ</td><td data-l="状態"><span class="pill ok">済み</span></td><td data-l="実施日">11/4</td><td data-l="結果">新 PC の手順が運ぶ旧いファイルの行を、主鍵に置き換えた（まだ実行はしていない）。新 PC を立てるのは D の後にする。旧いファイルを読む道具が残ったまま立てると、新 PC で失敗するため。</td></tr>
+<tr id="r-X1"><td data-l="段"><b>追加</b></td><td data-l="内容">主鍵を事業ごとの保管庫へ配る</td><td data-l="状態"><span class="pill ok">済み</span></td><td data-l="実施日">11/4</td><td data-l="結果">台帳の「事業」の列どおりに、主鍵をその事業の保管庫へ配るようにした。bot-lab のクラウド環境に届くのは mushik の鍵 1本だけ。bot-lab は外のページを読む仕事なので、そこが乗っ取られても個人の鍵までは届かないようにしている。保管の費用は 1本で月およそ 9円。</td></tr>
+<tr id="r-X2"><td data-l="段"><b>追加</b></td><td data-l="内容">bot-lab の保管庫の掃除</td><td data-l="状態"><span class="pill ok">済み</span></td><td data-l="実施日">11/3</td><td data-l="結果">保管の版を 230 から 211 へ、19 減らした（月およそ 171円減）。消した版は退避の束に入れてあり、12月3日まで残す。</td></tr>
+<tr id="r-U"><td data-l="段"><b>未決</b></td><td data-l="内容">Google のパスワードだけが入った項目（recruit 本番の設定）の確認。API を使う道具があれば 10件目として B に足す</td><td data-l="状態"><span class="pill ok">対象外</span></td><td data-l="実施日">11/4</td><td data-l="結果">ブラウザへのログイン用だった。API で読む道具は、recruit・bot-lab・mobile-control・開発環境のコードに 1つも無い。10件目は足さない。</td></tr>
+<tr id="r-D"><td data-l="段"><b>D</b></td><td data-l="内容">片付け（複製・読む道具のいない鍵・動作確認）</td><td data-l="状態"><span class="pill warn">進行中</span></td><td data-l="実施日">11/4 3:40〜</td><td data-l="結果">全道具の動作確認 → 旧い鍵ごとに読み手がいないことを確かめる → 現在値と戻し方を出す → 退避してから消す → 14日後の費用の確認を仕掛ける、の順に進めている。</td></tr>
 </tbody></table></div>
 
 <footer>
-  設計の決着：2026-11-03。社内の設計報告（検索に載せない設定）。メールアドレスと鍵の値は書いていません。アカウントの別名はこちらで付けたものです。
+  設計の決着：2026-11-03。実行の記録の更新：2026-11-04。社内の設計報告（検索に載せない設定）。メールアドレスと鍵の値は書いていません。アカウントの別名はこちらで付けたものです。
 </footer>
 </main>
 
