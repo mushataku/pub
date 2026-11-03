@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="date" content="2026-11-04">
+<title>事業計画の読み方</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--mut:#6b6a66;--line:#dedbd3;--card:#ffffff;--acc:#2f5fb3;--acc2:#7d9ad6;--acc3:#b5c6ea;--acc4:#dfe6f6;--warn:#b5462f;--ok:#2f7d4f;--band:#eeece6;--hl:#fff3c4}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#17181b;--fg:#ececea;--mut:#a3a29d;--line:#34363b;--card:#202227;--acc:#8fb0f0;--acc2:#6a8bd0;--acc3:#4a64a0;--acc4:#2e3a5c;--warn:#ef8a70;--ok:#79c79a;--band:#26282d;--hl:#4a4020}}
+:root[data-theme="dark"]{--bg:#17181b;--fg:#ececea;--mut:#a3a29d;--line:#34363b;--card:#202227;--acc:#8fb0f0;--acc2:#6a8bd0;--acc3:#4a64a0;--acc4:#2e3a5c;--warn:#ef8a70;--ok:#79c79a;--band:#26282d;--hl:#4a4020}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.75 "Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:6px 16px;font-size:13px;display:flex;gap:.6em;flex-wrap:wrap;align-items:baseline}
+.top b{font-size:14px}.top .ch{color:var(--acc);font-weight:600}.top .sc{color:var(--mut)}
+main{max-width:860px;margin:0 auto;padding:8px 16px 64px}
+h1{font-size:26px;margin:28px 0 4px}h2{font-size:21px;margin:48px 0 8px;padding-top:8px;border-top:2px solid var(--fg)}
+h3{font-size:17px;margin:28px 0 6px}
+h2,h3{scroll-margin-top:76px}
+.sub{color:var(--mut);font-size:14px;margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:14px 0}
+.key{border-left:5px solid var(--acc)}.warnc{border-left:5px solid var(--warn)}
+.sum ol{margin:0;padding-left:1.3em}.sum li{margin:.35em 0}
+.mut{color:var(--mut)}.warn{color:var(--warn)}.small{font-size:13px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:640px){.grid3{grid-template-columns:1fr}}
+.pf h4{margin:0 0 2px;font-size:15px}.pf p{margin:.2em 0;font-size:13.5px}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:inherit;fill:var(--fg)}
+svg .tick{font-size:11px;fill:var(--mut)}svg .lab{font-size:12px}svg .mut{fill:var(--mut)}svg .warn{fill:var(--warn)}
+svg .grid{stroke:var(--line);stroke-width:1}svg .ax{stroke:var(--mut);stroke-width:1.2;fill:none}
+svg .band{fill:var(--band)}svg .legal{stroke:var(--warn);stroke-width:1.6;stroke-dasharray:6 4}
+svg .guide{stroke:var(--acc);stroke-width:1.6;stroke-dasharray:5 4;fill:none}
+svg .cv{fill:none;stroke-width:2.6}
+svg .c0{stroke:var(--acc4)}svg .c1{stroke:var(--acc3)}svg .c2{stroke:var(--acc2)}svg .c3{stroke:var(--acc)}
+svg .c0t{fill:var(--mut)}svg .c1t{fill:var(--mut)}svg .c2t{fill:var(--acc2)}svg .c3t{fill:var(--acc);font-weight:700}
+svg .pi{fill:var(--acc);stroke:var(--card);stroke-width:2}svg .pl{fill:var(--ok);stroke:var(--card);stroke-width:2}svg .pt{fill:var(--warn);stroke:var(--card);stroke-width:2}
+svg .ln{fill:none;stroke:var(--acc);stroke-width:2.6}svg .lnd{fill:none;stroke:var(--acc);stroke-width:2;stroke-dasharray:4 4}
+svg .lw{fill:none;stroke:var(--warn);stroke-width:2.6}svg .lo{fill:none;stroke:var(--ok);stroke-width:2.6}
+svg .rk{fill:var(--acc4);stroke:var(--acc);stroke-width:1.5}
+svg .bx{fill:var(--card);stroke:var(--line);stroke-width:1.5}svg .bxk{fill:var(--acc4);stroke:var(--acc);stroke-width:2}
+svg .big{font-size:16px;font-weight:700}svg .ar{fill:none;stroke:var(--mut);stroke-width:2}
+.chart{max-width:720px}
+.cwrap{overflow-x:auto}.cwrap svg{min-width:600px}
+.lg{display:inline-block;width:22px;height:10px;vertical-align:middle;margin-right:4px}
+.lgb{background:var(--band);border:1px solid var(--line)}.lgr{border-top:2px dashed var(--warn);height:0}.lgg{border-top:2px dashed var(--acc);height:0}
+.tw{overflow-x:auto;margin:10px 0}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{font-size:12.5px;color:var(--mut);font-weight:600}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.hl td{background:var(--hl)}
+.stack{margin:10px 0}.srow{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:center;margin:7px 0;font-size:13.5px}
+.bar{display:flex;height:26px;border-radius:5px;overflow:hidden;border:1px solid var(--line)}
+.bar span{display:flex;align-items:center;justify-content:center;font-size:12px;white-space:nowrap;overflow:hidden}
+.bi{background:var(--acc);color:#fff}.bs{background:var(--acc4);color:var(--fg)}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;margin:8px 0}
+.flow .bx{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 10px}
+.flow .ar{color:var(--mut)}
+.tag{display:inline-block;font-size:11.5px;border:1px solid var(--line);border-radius:4px;padding:0 5px;color:var(--mut);margin-left:4px}
+a{color:var(--acc)}
+.tw table.nar{min-width:0;font-size:13px}.tw table.nar td{padding:6px 5px}.tw table.nar td.n{white-space:normal}.tw table.nar td:first-child,.tw table.nar th{white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="top" id="top"><b>事業計画の読み方</b><span class="ch" id="tch">はじめに</span><span class="sc" id="tsc"></span></div>
+<main>
+<h1>事業計画の読み方</h1>
+<p class="sub">チケット抽選代行の事業計画（36か月・悪い／普通／良い）の数字を、図で読むための資料｜時点 2026-11-04・既定のつまみ（集める額 300万円・出資者全体の取り分 x=10%・上限倍率 1.29倍・出資後の M氏の分配0）｜数字は計算の正本 model.py から生成</p>
+<div class="card warnc"><b>いまの値は🏦資金調達タブで見る。</b>このページの数字は 2026-11-04 の既定のつまみで固定した値です。シートのつまみを変えると、経営コンソールの🏦資金調達タブ（上の「事業計画」区画）の数字は1分ほどで追従しますが、このページは変わりません。シートは mushik750 の Drive › bot-lab › funding にあります（非公開）。</div>
+
+<div class="card key sum" data-sec="まとめ">
+<b>3行まとめ</b>
+<ol>
+<li><b>集める額は「手元の底」から出す。</b>出資が無いと、どのシナリオでも最初の数か月で手元がマイナスになる。それを埋める最小の額は最大でも 171.8万円（普通）。300万円 は約 128.2万円 の余裕を見た額（<a href="#s2">2章</a>）。</li>
+<li><b>出資者への返し方は「前の月の分配後の売上 × x を、上限 cap × 集める額まで」。</b>x=10%・上限 1.29倍（上限 387.0万円）で、普通は 11か月（2027-10）に払い終わり年 40.5%、良いは 5か月（2027-04）・年 78.5%。悪いは36か月で上限に届かず受取 371.5万円（<a href="#s4">4章</a>）。</li>
+<li><b>いちばん効くのは入金のずれ。</b>普通で入金のずれが3か月になると、出資ありでも手元が -81.2万円 まで割れる。良い（速く伸びる）で入金が2か月遅れると -233.2万円。出資ありの手元がマイナスになる組が、2回目を集める合図（<a href="#s8">8章</a>・<a href="#s9">9章</a>）。</li>
+</ol>
+</div>
+
+<h2 id="s1" data-ch="1 3シナリオの違い">1　3シナリオの違い</h2>
+<p>3つのシナリオは、同じ式に違う前提（つまみ）を入れたものです。違いは主に、名義を増やす速さ、1名義の月の応募数、当選率、1当選の利益、1抽選で値崩れせずに売れる枚数、入金のずれです。</p>
+<div class="tw"><table><thead><tr><th>つまみ（主なもの）</th><th>悪い</th><th>普通</th><th>良い</th><th>単位</th></tr></thead><tbody><tr><td class="">新しく作る名義/月</td><td class="n">50</td><td class="n">90</td><td class="n">200</td><td class="">件/月</td></tr><tr><td class="">使えなくなる割合/月</td><td class="n">4%</td><td class="n">2%</td><td class="n">1%</td><td class="">%/月</td></tr><tr><td class="">1名義の月の応募数（立ち上がった後）</td><td class="n">1</td><td class="n">3</td><td class="n">5</td><td class="">回/月</td></tr><tr><td class="">当選率（会員）</td><td class="n">4%</td><td class="n">5%</td><td class="n">7%</td><td class="">%</td></tr><tr><td class="">1当選の利益（会員）</td><td class="n">25,000</td><td class="n">30,000</td><td class="n">35,000</td><td class="">円/当選</td></tr><tr><td class="">1応募の費用</td><td class="n">50</td><td class="n">25</td><td class="n">0</td><td class="">円/応募</td></tr><tr><td class="">1抽選で値崩れせず売れる枚数</td><td class="n">30</td><td class="n">60</td><td class="n">100</td><td class="">枚</td></tr><tr><td class="">入金のずれ（支払い→入金）</td><td class="n">3</td><td class="n">2</td><td class="n">1</td><td class="">か月</td></tr></tbody></table></div>
+<p class="small mut">表: 主なつまみ（2026-11-04 の既定）。全部のつまみと根拠はシートの「つまみ」タブ。見込みであって実績ではない。</p>
+<h3 id="s1-1" data-sc="1-1 手元の推移">1-1　手元の現金の推移（最初の9か月）</h3>
+<div class="cwrap"><svg viewBox="0 0 660 360" role="img" aria-label="3シナリオの手元の現金の推移（出資あり・なし）" class="chart"><line x1="58" x2="590" y1="291.1" y2="291.1" class="grid"/><text x="52" y="295.1" class="tick" text-anchor="end">-200</text><line x1="58" x2="590" y1="245.2" y2="245.2" class="grid"/><text x="52" y="249.2" class="tick" text-anchor="end">0</text><line x1="58" x2="590" y1="199.4" y2="199.4" class="grid"/><text x="52" y="203.4" class="tick" text-anchor="end">200</text><line x1="58" x2="590" y1="153.5" y2="153.5" class="grid"/><text x="52" y="157.5" class="tick" text-anchor="end">400</text><line x1="58" x2="590" y1="107.7" y2="107.7" class="grid"/><text x="52" y="111.7" class="tick" text-anchor="end">600</text><line x1="58" x2="590" y1="61.8" y2="61.8" class="grid"/><text x="52" y="65.8" class="tick" text-anchor="end">800</text><line x1="58" x2="590" y1="16.0" y2="16.0" class="grid"/><text x="52" y="20.0" class="tick" text-anchor="end">1,000</text><text x="58.0" y="330" class="tick" text-anchor="middle">26-11</text><text x="191.0" y="330" class="tick" text-anchor="middle">27-01</text><text x="324.0" y="330" class="tick" text-anchor="middle">27-03</text><text x="457.0" y="330" class="tick" text-anchor="middle">27-05</text><text x="590.0" y="330" class="tick" text-anchor="middle">27-07</text><text x="324" y="354" class="tick" text-anchor="middle">月（2026-11 から）</text><line x1="58" x2="590" y1="245.2" y2="245.2" class="ax"/><polyline points="58.0,186.8 124.5,193.3 191.0,205.3 257.5,204.4 324.0,204.0 390.5,202.8 457.0,200.9 523.5,198.4 590.0,195.2" class="lw"/><polyline points="58.0,255.5 124.5,262.0 191.0,273.6 257.5,272.7 324.0,271.0 390.5,268.3 457.0,264.9 523.5,260.6 590.0,255.6" class="lw" stroke-dasharray="5 4" opacity=".75"/><polyline points="58.0,193.4 124.5,212.9 191.0,215.9 257.5,214.4 324.0,195.2 390.5,153.2 457.0,106.0 523.5,52.0 590.0,16.0" class="ln"/><polyline points="58.0,262.2 124.5,281.6 191.0,284.2 257.5,279.6 324.0,255.5 390.5,206.2 457.0,148.6 523.5,83.0 590.0,16.0" class="ln" stroke-dasharray="5 4" opacity=".75"/><polyline points="58.0,215.1 124.5,190.9 191.0,146.1 257.5,43.1 324.0,16.0 390.5,16.0 457.0,16.0 523.5,16.0 590.0,16.0" class="lo"/><polyline points="58.0,283.9 124.5,259.7 191.0,206.2 257.5,87.7 324.0,16.0 390.5,16.0 457.0,16.0 523.5,16.0 590.0,16.0" class="lo" stroke-dasharray="5 4" opacity=".75"/><text x="596" y="20.0" class="lab">普通</text><text x="596" y="35.0" class="lab">良い</text><text x="596" y="199.2" class="lab">悪い</text></svg></div>
+<p class="small"><span class="lg" style="border-top:2.6px solid var(--warn);height:0"></span>悪い　<span class="lg" style="border-top:2.6px solid var(--acc);height:0"></span>普通　<span class="lg" style="border-top:2.6px solid var(--ok);height:0"></span>良い　実線＝出資あり（2026-11 に 300万円 が入る）・点線＝出資なし。縦軸は月末の手元の現金（万円・1,000万円より上は切った）。横軸は月（2026-11〜2027-07）。</p>
+<p>点線（出資なし）は3本とも最初にマイナスへ沈む。当選分の定価は当選した月に払うのに、売った代金が入るのは「入金のずれ」の分だけ後になるからです。速く伸びる良いほど、先に払う額が大きいので、最初の底は深い。実線（出資あり）は 300万円 の分だけ持ち上がり、3本とも0より上に残ります。</p>
+<h3 id="s1-2" data-sc="1-2 3シナリオの答え">1-2　3シナリオの答え</h3>
+<div class="tw"><table><thead><tr><th>シナリオ</th><th>出資なしの手元の底（月）</th><th>回収月</th><th>年あたり利回り</th><th>36か月の受取</th><th>出資ありの手元の最低（月）</th></tr></thead><tbody><tr><td class=""><b>悪い</b></td><td class="n">-123.8万円（2027-01）</td><td class="">未達</td><td class="n">未達</td><td class="n">371.5万円</td><td class="n">174.2万円（2027-01）</td></tr><tr><td class=""><b>普通</b></td><td class="n">-169.9万円（2027-01）</td><td class="">11か月（2027-10）</td><td class="n">40.5%</td><td class="n">387.0万円</td><td class="n">128.2万円（2027-01）</td></tr><tr><td class=""><b>良い</b></td><td class="n">-168.8万円（2026-11）</td><td class="">5か月（2027-04）</td><td class="n">78.5%</td><td class="n">387.0万円</td><td class="n">131.2万円（2026-11）</td></tr></tbody></table></div>
+<p class="small mut">表: 3シナリオの見込み（集める額 300万円・x=10%・上限 1.29倍・M氏の分配0・2026-11〜2029-10 の36か月）。回収月は t（0=2026-11）。</p>
+
+<h2 id="s2" data-ch="2 集める額は手元の底から">2　集める額は「手元の底」から出す</h2>
+<p>集める額の考え方は1つです。<b>出資が無いと手元がいちばん足りなくなる月の額（底）を埋め、出資者への支払いを始めても手元が割れない額</b>。この最小の額を「最小の必要額」と呼びます（底の深さより少し大きい。出資者への支払いが始まると、その分も手元から出ていくため）。</p>
+<div class="cwrap"><svg viewBox="0 0 660 250" role="img" aria-label="手元の底の深さと最小の必要額と集める額300万円" class="chart"><line x1="70.0" x2="70.0" y1="14" y2="210" class="grid"/><text x="70.0" y="226" class="tick" text-anchor="middle">0</text><line x1="157.5" x2="157.5" y1="14" y2="210" class="grid"/><text x="157.5" y="226" class="tick" text-anchor="middle">50</text><line x1="245.0" x2="245.0" y1="14" y2="210" class="grid"/><text x="245.0" y="226" class="tick" text-anchor="middle">100</text><line x1="332.5" x2="332.5" y1="14" y2="210" class="grid"/><text x="332.5" y="226" class="tick" text-anchor="middle">150</text><line x1="420.0" x2="420.0" y1="14" y2="210" class="grid"/><text x="420.0" y="226" class="tick" text-anchor="middle">200</text><line x1="507.5" x2="507.5" y1="14" y2="210" class="grid"/><text x="507.5" y="226" class="tick" text-anchor="middle">250</text><line x1="595.0" x2="595.0" y1="14" y2="210" class="grid"/><text x="595.0" y="226" class="tick" text-anchor="middle">300</text><text x="350" y="244" class="tick" text-anchor="middle">万円</text><text x="62" y="44.0" class="lab" text-anchor="end">悪い</text><rect x="70" y="22.0" width="216.7" height="14" class="rk"/><text x="291.7" y="33.0" class="tick">底の深さ 123.8</text><rect x="70" y="40.0" width="220.1" height="14" class="bxk"/><text x="295.1" y="51.0" class="tick">最小の必要額 125.8</text><text x="62" y="109.3" class="lab" text-anchor="end">普通</text><rect x="70" y="87.3" width="297.3" height="14" class="rk"/><text x="372.3" y="98.3" class="tick">底の深さ 169.9</text><rect x="70" y="105.3" width="300.7" height="14" class="bxk"/><text x="375.7" y="116.3" class="tick">最小の必要額 171.8</text><text x="62" y="174.7" class="lab" text-anchor="end">良い</text><rect x="70" y="152.7" width="295.3" height="14" class="rk"/><text x="370.3" y="163.7" class="tick">底の深さ 168.8</text><rect x="70" y="170.7" width="295.3" height="14" class="bxk"/><text x="370.3" y="181.7" class="tick">最小の必要額 168.8</text><line x1="595.0" x2="595.0" y1="10" y2="210" class="legal"/><text x="591.0" y="22" class="warn lab" text-anchor="end">集める額 300</text></svg></div>
+<p class="small">薄い棒＝出資なしの底の深さ・濃い棒＝最小の必要額（x=10%・上限 1.29倍）・赤の点線＝集める額 300万円。単位は万円。</p>
+
+<h2 id="s3" data-ch="3 なぜ300万か">3　なぜ300万円か</h2>
+<p>最小の必要額は3シナリオで最大 171.8万円（普通）。300万円 はそれに約 128.2万円 の余裕を足した額で、拓也の判断（2026-11-04 04:54「300万でまあいいかなあ」）です。余裕は、見込みが外れたとき（入金が遅れる・当選が想定より多い）に手元が割れないための幅です。どのくらいの外れまで耐えられるかは8章・9章の表で見ます。</p>
+
+<h2 id="s4" data-ch="4 x と上限倍率">4　出資者全体の取り分 x と上限倍率 cap</h2>
+<p>出資者への支払いは毎月、<b>前の月の「分配後の売上」× x</b>（x は出資者が複数なら合計）。支払いの累計が<b>上限＝cap × 集める額</b>に届いたら止まります。x は返す速さ、cap は返す総額を決めるつまみです。cap は「普通で年40%になる値」を解いて、上へ丸めました（x=10% の解 1.2855 → 1.29）。</p>
+<div class="cwrap"><svg viewBox="0 0 660 320" role="img" aria-label="出資者への支払いの累計（5%と10%の比較）" class="chart"><line x1="58" x2="550" y1="274.0" y2="274.0" class="grid"/><text x="52" y="278.0" class="tick" text-anchor="end">0</text><line x1="58" x2="550" y1="216.7" y2="216.7" class="grid"/><text x="52" y="220.7" class="tick" text-anchor="end">100</text><line x1="58" x2="550" y1="159.3" y2="159.3" class="grid"/><text x="52" y="163.3" class="tick" text-anchor="end">200</text><line x1="58" x2="550" y1="102.0" y2="102.0" class="grid"/><text x="52" y="106.0" class="tick" text-anchor="end">300</text><line x1="58" x2="550" y1="44.7" y2="44.7" class="grid"/><text x="52" y="48.7" class="tick" text-anchor="end">400</text><text x="58.0" y="290" class="tick" text-anchor="middle">0</text><text x="156.4" y="290" class="tick" text-anchor="middle">4</text><text x="254.8" y="290" class="tick" text-anchor="middle">8</text><text x="353.2" y="290" class="tick" text-anchor="middle">12</text><text x="451.6" y="290" class="tick" text-anchor="middle">16</text><text x="550.0" y="290" class="tick" text-anchor="middle">20</text><text x="304" y="314" class="tick" text-anchor="middle">月目（t=0 が 2026-11）</text><polyline points="58.0,274.0 82.6,274.0 107.2,273.4 131.8,269.6 156.4,263.5 181.0,254.3 205.6,241.3 230.2,226.7 254.8,210.6 279.4,192.8 304.0,173.6 328.6,152.9 353.2,131.0 377.8,109.2 402.4,87.4 427.0,65.6 451.6,43.8 476.2,26.3 500.8,26.3 525.4,26.3 550.0,26.3" class="lnd"/><line x1="58" x2="550" y1="26.3" y2="26.3" class="guide"/><text x="556" y="30.3" class="lab">x=5%・上限 432</text><polyline points="58.0,274.0 82.6,274.0 107.2,272.9 131.8,265.2 156.4,252.9 181.0,234.5 205.6,208.6 230.2,179.4 254.8,147.1 279.4,111.7 304.0,73.2 328.6,52.1 353.2,52.1 377.8,52.1 402.4,52.1 427.0,52.1 451.6,52.1 476.2,52.1 500.8,52.1 525.4,52.1 550.0,52.1" class="ln"/><line x1="58" x2="550" y1="52.1" y2="52.1" class="guide"/><text x="556" y="56.1" class="lab">x=10%・上限 387</text><line x1="58" x2="550" y1="102.0" y2="102.0" class="legal"/><text x="556" y="106.0" class="warn lab">元本 300</text></svg></div>
+<p class="small">普通の、出資者への支払いの累計（万円）。実線＝x=10%・上限1.29倍、点線＝x=5%・上限1.44倍。青の点線＝それぞれの上限・赤の点線＝元本 300万円。横軸は月目（t=0 が 2026-11）。</p>
+<div class="tw"><table><thead><tr><th>x</th><th>上限倍率（普通で年40%の解）</th><th>上限</th><th>悪い：回収・利回り</th><th>普通：回収・利回り</th><th>良い：回収・利回り</th></tr></thead><tbody><tr><td class="">5%</td><td class="">1.44倍（解 1.4362）</td><td class="n">432.0万円</td><td class="">未達・未達・受取 185.8万円</td><td class="">17か月（2028-04）・40.3%</td><td class="">8か月（2027-07）・84.7%</td></tr><tr><td class="">10%</td><td class="">1.29倍（解 1.2855）</td><td class="n">387.0万円</td><td class="">未達・未達・受取 371.5万円</td><td class="">11か月（2027-10）・40.5%</td><td class="">5か月（2027-04）・78.5%</td></tr></tbody></table></div>
+<p>x を5%にすると、普通の回収は 17か月（2028-04）に延び、悪いでは36か月の受取が 185.8万円 と元本に届きません。x=10% なら悪いでも 371.5万円 まで受け取れます。速く返すほど出資者のリスクは小さくなり、こちらの手元の負担は大きくなります（それでも普通の出資ありの手元の最低は 128.2万円）。</p>
+
+<h2 id="s5" data-ch="5 年40%の決まり">5　年あたり利回り（年40%）の数え方</h2>
+<p>年あたり利回り＝出資者のキャッシュフロー（2026-11 に −集める額、その後の毎月の受取）の<b>月あたりの IRR × 12</b>（単利・投資プランの基礎と同じ数え方）。回収月が無い（36か月で上限に届かない）シナリオは「未達」と書き、利回りは出しません。目標の年40%は、売上の%で返す出資（RBF）の相場帯の中に置いた値です（投資プランの基礎 2章）。</p>
+
+<h2 id="s6" data-ch="6 M氏の分配0">6　出資後の M氏の分配は0（いまの前提）</h2>
+<p>出資を受けた後の計画なので、M氏への分配は3シナリオとも0%で計算しています（拓也 2026-11-04 04:54「出資を受けたら、分配0かなあ？経費をどこに使うかって話があるからね」）。確定ではなく、いまの前提です。出資前の約束は利益の50%で、普通でこれを50%に戻すと、出資なしの底は -169.9万円 から -258.0万円 まで深くなります（8章の表）。</p>
+
+<h2 id="s7" data-ch="7 入金のずれ">7　入金のずれ</h2>
+<p>入金のずれ＝定価を払ってから、売った代金が手元に入るまでの月数。チケジャムは買い手の受け取り（電子チケットは入場後）で売上が確定するため、実績は10〜70日（支払い額で重み付けると約54日）。計画では悪い3・普通2・良い1か月と置きました。ずれの間は、払った定価が寝ている＝手元の現金が、同時に回せる案件の数の上限になります。</p>
+
+<h2 id="s8" data-ch="8 感度">8　感度：どのつまみが一番効くか（普通）</h2>
+<p>普通のつまみを1つだけ変えて、出資なしの手元の底がどう動くかを並べました。表から読むと、<b>一番効くのは 入金のずれ 3か月（-365.9万円）、次が 新しく作る名義 200/月（-296.6万円）</b>。伸ばすほど先に払う額が増えるので、名義や応募を増やす変更は底を深くします。逆に入金を早める・カードで払いを1か月遅らせる変更は底を浅くします。</p>
+<div class="cwrap"><svg viewBox="0 0 660 230" role="img" aria-label="普通のつまみを1つ変えたときの手元の底" class="chart"><line x1="230.0" x2="230.0" y1="10" y2="190" class="grid"/><text x="230.0" y="206" class="tick" text-anchor="middle">-0</text><line x1="322.5" x2="322.5" y1="10" y2="190" class="grid"/><text x="322.5" y="206" class="tick" text-anchor="middle">-100</text><line x1="415.0" x2="415.0" y1="10" y2="190" class="grid"/><text x="415.0" y="206" class="tick" text-anchor="middle">-200</text><line x1="507.5" x2="507.5" y1="10" y2="190" class="grid"/><text x="507.5" y="206" class="tick" text-anchor="middle">-300</text><line x1="600.0" x2="600.0" y1="10" y2="190" class="grid"/><text x="600.0" y="206" class="tick" text-anchor="middle">-400</text><text x="415" y="224" class="tick" text-anchor="middle">出資なしの手元の底（万円・右ほど深い）</text><text x="222" y="29" class="lab" text-anchor="end">入金のずれ 3か月</text><rect x="230" y="16" width="338.5" height="18" class="pt"/><text x="573.5" y="29" class="tick">-365.9</text><text x="222" y="59" class="lab" text-anchor="end">新しく作る名義 200/月</text><rect x="230" y="46" width="274.4" height="18" class="pt"/><text x="509.4" y="59" class="tick">-296.6</text><text x="222" y="89" class="lab" text-anchor="end">1名義の月の応募 5</text><rect x="230" y="76" width="246.6" height="18" class="pt"/><text x="481.6" y="89" class="tick">-266.6</text><text x="222" y="119" class="lab" text-anchor="end">M氏への分配 50%</text><rect x="230" y="106" width="238.6" height="18" class="pt"/><text x="473.6" y="119" class="tick">-258.0</text><text x="222" y="149" class="lab" text-anchor="end">カード払い（1か月あと払い）</text><rect x="230" y="136" width="72.0" height="18" class="pl"/><text x="307.0" y="149" class="tick">-77.8</text><text x="222" y="179" class="lab" text-anchor="end">入金のずれ 1か月</text><rect x="230" y="166" width="68.4" height="18" class="pl"/><text x="303.4" y="179" class="tick">-73.9</text><line x1="387.1" x2="387.1" y1="10" y2="190" class="legal"/><text x="391.1" y="186" class="warn tick">既定 -169.9</text></svg></div>
+<p class="small">普通（既定の出資なしの底 -169.9万円）から、つまみを1つ変えたときの出資なしの手元の底（万円）。赤＝既定より深い・緑＝浅い・赤の点線＝既定。</p>
+<div class="tw"><table class="nar"><thead><tr><th>普通で変えたつまみ</th><th>出資なしの手元の底</th><th>底の月</th><th>既定との差</th></tr></thead><tbody><tr><td class="">入金のずれ 3か月</td><td class="n">-365.9万円</td><td class="">2027-03</td><td class="n">-196.0万円</td></tr><tr><td class="">新しく作る名義 200/月</td><td class="n">-296.6万円</td><td class="">2027-02</td><td class="n">-126.8万円</td></tr><tr><td class="">1名義の月の応募 5</td><td class="n">-266.6万円</td><td class="">2027-02</td><td class="n">-96.7万円</td></tr><tr><td class="">M氏への分配 50%</td><td class="n">-258.0万円</td><td class="">2027-02</td><td class="n">-88.1万円</td></tr><tr><td class="">カード払い（1か月あと払い）</td><td class="n">-77.8万円</td><td class="">2026-12</td><td class="n">+92.1万円</td></tr><tr><td class="">入金のずれ 1か月</td><td class="n">-73.9万円</td><td class="">2026-11</td><td class="n">+96.0万円</td></tr></tbody></table></div>
+
+<h2 id="s9" data-ch="9 2回目を集める合図">9　2回目を集める合図</h2>
+<p>入金のずれを各シナリオで1〜3か月に振ったときの手元の底です。上段＝出資あり（300万円・x=10%・上限 1.29倍）の手元の最低、下段＝出資なし（集める額0）の底。★はいまのつまみのずれ。</p>
+<div class="tw"><table class="nar"><thead><tr><th>シナリオ</th><th>ずれ1か月</th><th>ずれ2か月</th><th>ずれ3か月</th></tr></thead><tbody><tr><td class=""><b>悪い</b></td><td class="n">255.0万円<br><span class="mut small">出資なし -45.0万円</span></td><td class="n">226.8万円<br><span class="mut small">出資なし -73.2万円</span></td><td class="n">174.2万円★<br><span class="mut small">出資なし -123.8万円</span></td></tr><tr><td class=""><b>普通</b></td><td class="n">226.1万円<br><span class="mut small">出資なし -73.9万円</span></td><td class="n">128.2万円★<br><span class="mut small">出資なし -169.9万円</span></td><td class="n"><b class="warn">-81.2万円</b><br><span class="mut small">出資なし -365.9万円</span></td></tr><tr><td class=""><b>良い</b></td><td class="n">131.2万円★<br><span class="mut small">出資なし -168.8万円</span></td><td class="n"><b class="warn">-233.2万円</b><br><span class="mut small">出資なし -505.8万円</span></td><td class="n"><b class="warn">-953.2万円</b><br><span class="mut small">出資なし -1,215.2万円</span></td></tr></tbody></table></div>
+<div class="card key"><b>規則: 上段（出資あり）がマイナスになる組では、300万円 では足りない＝2回目を集める合図。</b>いまの表で当たるのは 普通×ずれ3か月（出資あり -81.2万円・出資なし -365.9万円）、良い×ずれ2か月（出資あり -233.2万円・出資なし -505.8万円）、良い×ずれ3か月（出資あり -953.2万円・出資なし -1,215.2万円）。速く伸びて入金が遅いときほど、集めた額を先に払う定価が食いつぶす。</div>
+<p class="small mut">経営コンソールの🏦資金調達タブにも同じ表が出ます（いまのつまみで解き直した値・書いた日時と「古い／最新」つき）。</p>
+
+<h2 id="s10" data-ch="10 税の注意">10　税の注意</h2>
+<p>税は「暦年の利益に30%を掛けて翌年3月にまとめて払う」簡略です。30%は所得1,000万円前後の実効税率で、普通の2028年（利益 約2,600万円）では軽すぎます（所得2,000万円で39%・3,000万円で46%・国税庁タックスアンサー2260）。事業の形（個人2人／法人／匿名組合）が決まっていないので既定は変えていません。36か月後の手元の数字は、この分だけ甘く出ています。</p>
+
+<p class="small mut" style="margin-top:40px">出典・正本: 計算の正本は repo の docs/funding/plan/model.py（このページは docs/funding/basics/plan_reading_build.py が生成）。つまみの根拠はシートの「つまみ」「実績」タブ。年あたり利回りの数え方は「投資プランの基礎」。見込みであって実績ではない。</p>
+</main>
+<script>
+(function(){
+  var ch=document.getElementById('tch'),sc=document.getElementById('tsc');
+  var hs=[].slice.call(document.querySelectorAll('h2[data-ch],h3[data-sc]'));
+  function upd(){
+    var off=(document.getElementById('top').offsetHeight||40)+60,c='はじめに',s='';
+    if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-2)off=window.innerHeight*0.85;
+    for(var i=0;i<hs.length;i++){
+      if(hs[i].getBoundingClientRect().top-off>0)break;
+      if(hs[i].tagName==='H2'){c=hs[i].getAttribute('data-ch');s='';}else{s=hs[i].getAttribute('data-sc');}
+    }
+    ch.textContent=c;sc.textContent=s;
+  }
+  window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
+})();
+</script>
+</body>
+</html>
