@@ -34,7 +34,7 @@ svg .cv{fill:none;stroke-width:2.6}
 svg .c0{stroke:var(--acc4)}svg .c1{stroke:var(--acc3)}svg .c2{stroke:var(--acc2)}svg .c3{stroke:var(--acc)}
 svg .c0t{fill:var(--mut)}svg .c1t{fill:var(--mut)}svg .c2t{fill:var(--acc2)}svg .c3t{fill:var(--acc);font-weight:700}
 svg .pi{fill:var(--acc);stroke:var(--card);stroke-width:2}svg .pl{fill:var(--ok);stroke:var(--card);stroke-width:2}svg .pt{fill:var(--warn);stroke:var(--card);stroke-width:2}
-svg .ln{fill:none;stroke:var(--acc);stroke-width:2.6}svg .lnd{fill:none;stroke:var(--acc);stroke-width:2;stroke-dasharray:4 4}
+svg .rk{fill:var(--acc4);stroke:var(--acc);stroke-width:1.5}svg .ln{fill:none;stroke:var(--acc);stroke-width:2.6}svg .lnd{fill:none;stroke:var(--acc);stroke-width:2;stroke-dasharray:4 4}
 .chart{max-width:720px}
 .cwrap{overflow-x:auto}.cwrap svg{min-width:600px}
 .lg{display:inline-block;width:22px;height:10px;vertical-align:middle;margin-right:4px}
@@ -66,8 +66,8 @@ a{color:var(--acc)}
 <b>3行まとめ</b>
 <ol>
 <li><b>倍率は、期間とセットでなければ比べられない。</b>物差しは「年あたり何%」。同じ2.5倍でも、半年で返すのと4年で返すのとでは別物になる（<a href="#s2">2章</a>）。</li>
-<li><b>%が額で変わって見えるのは、比例しているだけ。</b>100万円で5%は「事業全体を2,000万円とみた値段」で、30万円でも500万円でも同じ値段。<b>5%と2.5倍は、計算で出した数字ではない</b>（会議の発言と相場の確認で置いた）（<a href="#s3">3章</a>）。</li>
-<li><b>ずれの本体は3つ。</b>①出資者全員の取り分に合計の上限（枠）が無い ②いまの規模でも年50%を超え、伸びれば年数百% ③融資も年19%で、法定の上限15%を超えている（<a href="#s4">4章</a>・<a href="#s6">6章</a>）。</li>
+<li><b>%が額で変わって見えるのは、比例しているだけ。</b>100万円で5%は「事業全体を2,000万円とみた値段」で、30万円でも500万円でも同じ値段。%を額に比例させるのは普通で、普通でないのは合計に上限が無いほう。<b>5%と2.5倍は、計算で出した数字ではない</b>（会議の発言と相場の確認で置いた）。2.5倍は、ありえない数字ではないが高い側（<a href="#s3">3章</a>）。</li>
+<li><b>ずれの本体は3つ。</b>①出資者全員の取り分に合計の上限（枠）が無い ②いまの規模でも年50%を超え、伸びれば年数百% ③融資も年19%で、法定の上限15%を超えている。さらに、期限なし・全額返還つきで出し手のリスクが小さいのに倍率は高い側＝出し手にかなり有利（<a href="#s3-3">3-3</a>・<a href="#s4">4章</a>・<a href="#s6">6章</a>）。</li>
 </ol>
 </div>
 
@@ -143,7 +143,7 @@ a{color:var(--acc)}
 
 <h2 id="s3" data-ch="3 いまの3つの数字の出どころ">3　いまのプランの3つの数字は、どこから来たか</h2>
 
-<h3 id="s3-1" data-sc="3-1 %が額で変わる理由">3-1　「%が額で変わる」理由 → 比例しているだけ</h3>
+<h3 id="s3-1" data-sc="3-1 %が額で変わる理由">3-1　「%が額で変わる」理由 → 比例しているだけ（比例は普通）</h3>
 <div class="card">
 <div class="cwrap"><svg viewBox="0 0 560 220" class="chart" role="img" aria-label="出す額と利益の%は比例する"><path class="ax" d="M60,180 H530 M60,180 V16"/>
 <line x1="60" y1="180" x2="520" y2="24" class="ln"/>
@@ -153,6 +153,14 @@ a{color:var(--acc)}
 <text x="300" y="128" class="lab" fill="currentColor">傾き＝100万円ごとに5%</text>
 <text x="295" y="210" class="tick" text-anchor="middle">出していただく額</text><text x="18" y="100" class="tick" transform="rotate(-90 18 100)" text-anchor="middle">毎月受け取る利益の%</text></svg></div>
 <p>3つとも同じ直線の上にある。<b>1万円あたり利益の0.05%</b>で、値段は一定。株の言葉に直すと <b>100万円 ÷ 5% ＝ 事業全体を2,000万円とみている</b>（30万円 ÷ 1.5%、500万円 ÷ 25% も同じ2,000万円）。ともき君の「株でいう2,000万円」（05:18）は、この傾きを読んだもの。</p>
+<p><b>%を額に比例させるのは普通。</b>株は「1株いくら」で売るので、払った額に持分の%がそのまま比例する。比例しない例は次の3つで、どれも理由がはっきりしている。</p>
+<div class="tw"><table>
+<tr><th>比例しない例</th><th>中身</th><th>世の中では</th></tr>
+<tr><td>①時期で値段が違う</td><td>早い人ほど、1万円あたりの%が大きい（最初の資金調達ほど評価額が低い）</td><td>よくある</td></tr>
+<tr><td>②大口のおまけ</td><td>たくさん出す人に、1万円あたりの%を上乗せする</td><td>たまにある</td></tr>
+<tr><td>③同じ時期・同じ条件で比例しない</td><td>同じ条件なのに、額によって1万円あたりの%が変わる</td><td>不公平なので普通はやらない</td></tr>
+</table></div>
+<p class="small mut">普通でないのは比例ではなく、出資者全員を足した合計の方（<a href="#s5-1">5-1</a>）。</p>
 </div>
 
 <h3 id="s3-2" data-sc="3-2 5%の出どころ">3-2　「100万円で5%」の出どころ</h3>
@@ -160,7 +168,7 @@ a{color:var(--acc)}
 <div class="flow"><span class="bx">集める目標 1,000万円</span><span class="ar">＋</span><span class="bx">出資者に渡すのは利益の半分まで</span><span class="ar">→</span><span class="bx">50% ÷ 10口（100万円×10）</span><span class="ar">＝</span><span class="bx"><b>100万円あたり5%</b></span></div>
 <p>つまり頭の中には「出資者全体で50%」という枠があった。<b>ただ、その枠は資料のどこにも書かれていない</b>。だから1,000万円を超えて集まると、合計が50%を超えて膨らみ続ける（<a href="#s5">5章</a>）。50%という数字の根拠も示されていない（M氏に渡している割合と同じ数字だが、そのつながりは会議で語られていない）。</p>
 
-<h3 id="s3-3" data-sc="3-3 2.5倍の出どころ">3-3　「2.5倍」の出どころ</h3>
+<h3 id="s3-3" data-sc="3-3 2.5倍の出どころと、普通か">3-3　「2.5倍」の出どころと、普通か → ありえない数字ではないが、高い側</h3>
 <div class="flow"><span class="bx">ゆうと「5倍に届いたら打ち切り」（01:27）</span><span class="ar">→</span><span class="bx">Claude に確認「終わりは期間・総額・持分の3つ。総額の上限が一般的」（01:34）</span><span class="ar">→</span><span class="bx">拓也「2.5倍とか」（01:49）／「業界によりきりだが2.5くらいは多そう」（04:31）</span></div>
 <p><b>相場を一度確かめただけで、計算で出してはいない。</b>世の中の RBF と比べると次のとおり（出典は業者のガイド記事で、市場全体の統計ではない）。</p>
 <div class="tw"><table>
@@ -171,6 +179,34 @@ a{color:var(--acc)}
 <tr><td>倍率の決め方</td><td>出し手が欲しい利回り × 見込みの期間から逆算</td><td>相場の確認だけ</td></tr>
 </table></div>
 <p class="small mut">基準が売上か利益かは小さな違いではない。売上は外から確かめやすいが、利益は経費の付け方で動く。00:01:22の議論（用途別に分けても確かめられない）と同じ問題が、利益を基準にした時点で少し残っている。</p>
+
+<p><b>倍率は出し手のリスクで決まる。</b>この目で見ると、2.5倍の位置が変わる。</p>
+<div class="tw"><table>
+<tr><th>出し手のリスク</th><th>どんな形か</th><th>上限の倍率</th></tr>
+<tr><td>小さい</td><td>安定していて売上が見える</td><td class="n">1.2〜1.5倍</td></tr>
+<tr><td>中</td><td>それなりにぶれる</td><td class="n">1.5〜2倍</td></tr>
+<tr><td>大きい</td><td>こけたら0・上限なし（株）</td><td>上限を付けず、当たりで大きく取る。VC は勝った1社で10倍以上を狙い、0になる会社の分を埋める</td></tr>
+</table></div>
+<div class="card">
+<div class="cwrap"><svg viewBox="0 0 560 262" class="chart" role="img" aria-label="出し手のリスクが大きいほど倍率が高くなる。いまのプランはリスクが小さい側なのに2.5倍">
+<line x1="60" x2="540" y1="210" y2="210" class="grid"/>
+<line x1="60" x2="540" y1="165" y2="165" class="grid"/>
+<line x1="60" x2="540" y1="120" y2="120" class="grid"/>
+<line x1="60" x2="540" y1="75" y2="75" class="grid"/>
+<line x1="60" x2="540" y1="30" y2="30" class="grid"/>
+<text x="54" y="214" class="tick" text-anchor="end">1倍</text><text x="54" y="169" class="tick" text-anchor="end">1.5倍</text><text x="54" y="124" class="tick" text-anchor="end">2倍</text><text x="54" y="79" class="tick" text-anchor="end">2.5倍</text><text x="54" y="34" class="tick" text-anchor="end">3倍</text>
+<rect x="105" y="165" width="90" height="27" class="rk"/><text x="150" y="157" class="lab" text-anchor="middle">1.2〜1.5倍</text>
+<rect x="255" y="120" width="90" height="45" class="rk"/><text x="300" y="112" class="lab" text-anchor="middle">1.5〜2倍</text>
+<path d="M405,120 H495 V70 H508 L450,22 L392,70 H405 Z" class="rk"/><text x="450" y="104" class="lab" text-anchor="middle">上限なし</text>
+<circle cx="150" cy="75" r="6" class="pt"/><text x="162" y="72" class="lab warn">いまのプラン 2.5倍</text><text x="162" y="90" class="tick">全額返還あり・期限なし</text>
+<text x="150" y="228" class="lab" text-anchor="middle">小さい</text><text x="150" y="244" class="tick" text-anchor="middle">安定・売上が見える</text>
+<text x="300" y="228" class="lab" text-anchor="middle">中</text>
+<text x="450" y="228" class="lab" text-anchor="middle">大きい</text><text x="450" y="244" class="tick" text-anchor="middle">こけたら0・上限なし</text>
+<text x="300" y="258" class="lab mut" text-anchor="middle">出し手が負うリスク →</text>
+<text x="14" y="120" class="lab mut" text-anchor="middle" transform="rotate(-90 14 120)">上限の倍率</text></svg></div>
+<p class="small mut">リスクが小さい側の倍率は低く、大きい側は上限を外して当たりで取る。いまのプラン（赤の点）はリスクが小さい側にいるのに、倍率は中の帯も超えている。</p>
+</div>
+<p>いまのプランは、<b>期限なし</b>（続くかぎり最後は2.5倍に届く）＋<b>途中でやめたら全額返す</b>、という形で、出し手のリスクが小さい側にいる。それなのに倍率は高い側＝<b>出し手にかなり有利</b>。りょうま君の「割に合わない」は融資（10%）のことで、投資の2.5倍は出し手から見て十分以上。こちらから見た妥当性の根拠は<b>「M氏への50%（上限なし）より安い」の1点だけ</b>（4章）で、「世の中の普通」とは言えない。2.5倍を残す場合の言い方は<a href="#s7">7章</a>。</p>
 
 <h2 id="s4" data-ch="4 いまの数字で回してみる">4　いまの数字で回してみる（100万円出してもらった場合）</h2>
 <div class="tw"><table>
@@ -190,6 +226,7 @@ a{color:var(--acc)}
 <div class="srow"><span>2,000万円</span><div class="bar"><span class="bi" style="width:100%">出資者 100%（利益が全部出ていく）</span></div></div>
 </div>
 <p>各自の5%は事業全体の利益にかかる。だから<b>人が増えるほど一人ひとりの回収は速くなる</b>（他人のお金が生んだ利益まで受け取れる）。ともき君の「俺がめちゃくちゃ得しちゃう可能性もある」はこれ。世の中ではこれを<b>希薄化</b>（dilution）と呼び、株なら持分の表（資本政策表）で合計を管理する。</p>
+<div class="card key"><b>普通でないのは、比例ではなく合計の方。</b>株は全員を足すと必ず100%で、新しい人の%は創業者の取り分から削られる（上の帯グラフは、この合計が増えて自分たちの取り分が削られていく絵）。株の世界は、①集める額に上限を決める ②事業が育ったら値段（評価額）を上げる、の2つで調整する。<b>いまのプランはこの2つが無い</b>ので、集めるほど合計が膨らむ。</div>
 <h3 id="s5-2" data-sc="5-2 自分たちのお金が増えたあと">5-2　自分たちのお金が増えたあとも、5%はかかり続ける（05:22）</h3>
 <p>1巡目の入金が戻ると、チケット代の多くは自分たちのお金でまかなえるようになる。それでも出資者の5%は全体の利益にかかる。ともき君の提案は「<b>自己資金が小さいうちだけ高く払う＝変動にする</b>」。ただし2.5倍の上限があるので、払う総額は変わらない。増えるのは<b>年あたりの利回り（2章の右上の点）</b>の方。</p>
 
@@ -201,7 +238,7 @@ a{color:var(--acc)}
 <tr><td>投資の年あたりの利回り</td><td>RBF は年20〜50%と言われる</td><td>年53%（いま）〜400%超（年1億）</td><td class="warn"><b>中〜大</b></td></tr>
 <tr><td>融資の利率</td><td>法定の上限 年15%（元本100万円以上）</td><td>実質 年19%（毎月10万円返済）・ともき案は年48%</td><td class="warn"><b>上限超え</b></td></tr>
 <tr><td>毎月の割合の基準</td><td>売上（外から確かめやすい）</td><td>利益（経費の付け方で動く）</td><td>小〜中</td></tr>
-<tr><td>上限倍率</td><td>1.3〜2倍が多い</td><td>2.5倍</td><td>小（上端）</td></tr>
+<tr><td>上限倍率</td><td>1.3〜2倍が多い。出し手のリスクが小さいほど低い</td><td>2.5倍（期限なし・全額返還つきでリスクは小さい側）</td><td class="warn"><b>中</b>（3-3）</td></tr>
 </table></div>
 <div class="card warnc"><b>法律の注意（2点だけ）</b><br>
 ・融資: 個人間の貸し借りでも、利息制限法で元本100万円以上は年15%（10万〜100万円未満は18%）が上限。<b>超えた分は無効</b>（刑事罰がかかるのは年109.5%超）。<br>
@@ -212,6 +249,8 @@ a{color:var(--acc)}
 <ol>
 <li><b>集める総額の上限と、出資者全体の枠（例: 利益の30%）を決めるか。</b>決めれば5-1の膨張は止まる。枠を出資額で按分すれば、「1口5%」は「1口＝枠の何分の1」に置き換わる。</li>
 <li><b>倍率を「欲しい利回り × 見込みの期間」から引き直すか。</b>例: 2年で返す見込みで年40%を渡すなら約1.5倍、年60%なら約1.7倍（毎月同じ額で返す場合）。逆に、出し手が上振れの夢を買いたいなら、倍率は高めのまま期間を長く見せる。</li>
+<li><b>2.5倍を残すなら、言い方を変えるか。</b>筋のよいのは2つ。①全額返還の約束を外す／弱める（出し手が本当にリスクを負うなら、高い倍率に意味が出る）②倍率を1.5〜2倍に下げる（全額返還は残す）。3-3のとおり、いまは両方あるので出し手にかなり有利。</li>
+<li><b>「2.5倍に元本を含むか」を契約に書くか。</b>匿名組合では終了時に出資額を返す定め（商法542条）があり、書かないと元本が上乗せに読まれうる。詳しくは会計・税務の資料 <a href="https://mushataku.github.io/pub/funding-accounting-basics-3a8a8e9516de.html">借りた・出資のお金の会計と税務の基礎</a>。</li>
 <li><b>融資は年15%以内に収まる形にするか。</b>毎月返す形なら合計は約107〜108%、5か月で一括なら約106%が目安。</li>
 </ol>
 
