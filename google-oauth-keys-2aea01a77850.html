@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Google の鍵の持ち方</title>
+<style>
+:root{
+  --bg:#faf9f7;--card:#ffffff;--ink:#1e222a;--sub:#5b6472;--line:#c9c5bd;--soft:#edece8;
+  --ok:#2e7d43;--okbg:#e4f2e7;--warn:#9a6b00;--warnbg:#fbf0d2;--bad:#b3261e;--badbg:#fbe4e2;
+  --fix:#1565c0;--fixbg:#e8f1fb;
+  --pe:#1565c0;--bl:#7b4fb3;--rc:#00796b;
+  --pe-bg:#e8f1fb;--bl-bg:#f1eafa;--rc-bg:#e0f2ef;
+  --bar-h:84px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#15171c;--card:#1e2128;--ink:#e8e6e1;--sub:#a5adba;--line:#454b56;--soft:#2a2e36;
+  --ok:#7fce93;--okbg:#20362a;--warn:#e4c05e;--warnbg:#3a331b;--bad:#f2867e;--badbg:#43231f;
+  --fix:#82b4e8;--fixbg:#1e2a38;
+  --pe:#82b4e8;--bl:#b99ae0;--rc:#5cc6b8;
+  --pe-bg:#1e2a38;--bl-bg:#2b2438;--rc-bg:#1b2f2c;
+}}
+:root[data-theme="dark"]{
+  --bg:#15171c;--card:#1e2128;--ink:#e8e6e1;--sub:#a5adba;--line:#454b56;--soft:#2a2e36;
+  --ok:#7fce93;--okbg:#20362a;--warn:#e4c05e;--warnbg:#3a331b;--bad:#f2867e;--badbg:#43231f;
+  --fix:#82b4e8;--fixbg:#1e2a38;
+  --pe:#82b4e8;--bl:#b99ae0;--rc:#5cc6b8;
+  --pe-bg:#1e2a38;--bl-bg:#2b2438;--rc-bg:#1b2f2c;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,system-ui,sans-serif;
+  font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;overflow-wrap:anywhere}
+/* ---- 固定の帯 ---- */
+#bar{position:sticky;top:0;z-index:30;background:var(--card);border-bottom:1px solid var(--line)}
+.bar-in{max-width:920px;margin:0 auto;padding:6px 16px 4px}
+.bar-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bar-title{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#tocBtn{flex:none;font:inherit;font-size:13px;color:var(--ink);background:var(--soft);border:1px solid var(--line);
+  border-radius:8px;padding:4px 12px;cursor:pointer;min-height:32px}
+#tocBtn:focus-visible,a:focus-visible{outline:2px solid var(--fix);outline-offset:2px}
+.bar-now{font-size:12.5px;color:var(--sub);line-height:1.5;min-height:19px;margin-top:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-now b{color:var(--ink)}
+.bar-prog{height:3px;background:var(--soft);margin:4px -16px 0}
+.bar-prog i{display:block;height:3px;width:0;background:var(--fix)}
+#toc{position:absolute;left:0;right:0;top:100%;background:var(--card);border-bottom:1px solid var(--line);
+  box-shadow:0 8px 16px rgba(0,0,0,.12);max-height:calc(100vh - var(--bar-h) - 12px);overflow:auto}
+#toc[hidden]{display:none}
+#toc ol{list-style:none;margin:0 auto;padding:8px 16px 12px;max-width:920px}
+#toc li a{display:block;padding:6px 8px;border-radius:6px;color:var(--ink);text-decoration:none;font-size:14px;min-height:36px}
+#toc li a:hover{background:var(--soft)}
+#toc li a b{color:var(--fix);margin-right:6px}
+/* ---- 本文 ---- */
+main{max-width:920px;margin:0 auto;padding:18px 16px 72px}
+h1{font-size:24px;line-height:1.35;margin:8px 0 6px}
+.lead{color:var(--sub);font-size:13.5px;margin:0 0 6px}
+h2,h3{scroll-margin-top:calc(var(--bar-h) + 10px)}
+h2{font-size:20px;line-height:1.4;margin:44px 0 12px;padding-top:14px;border-top:2px solid var(--ink)}
+h2 .no{display:inline-block;color:var(--fix);margin-right:8px}
+h3{font-size:16px;margin:26px 0 8px}
+h3 .no{color:var(--sub);font-weight:400;margin-right:6px}
+p{margin:8px 0}
+ul{margin:8px 0;padding-left:1.3em}
+li{margin:3px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.grid{display:grid;gap:10px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:760px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){.g2{grid-template-columns:minmax(0,1fr)}}
+.hero{background:var(--fixbg);border:1px solid var(--fix);border-left:6px solid var(--fix);border-radius:12px;padding:16px 18px}
+.hero .big{font-size:19px;font-weight:700;line-height:1.55;margin:0}
+.hero .small{color:var(--sub);margin:8px 0 0;font-size:14px}
+.term{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px}
+.term b{display:block;font-size:14.5px;margin-bottom:2px}
+.pill{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:0 9px;line-height:1.7;white-space:nowrap}
+.pill.pe{background:var(--pe-bg);color:var(--pe)}.pill.bl{background:var(--bl-bg);color:var(--bl)}.pill.rc{background:var(--rc-bg);color:var(--rc)}
+.pill.ok{background:var(--okbg);color:var(--ok)}.pill.warn{background:var(--warnbg);color:var(--warn)}.pill.bad{background:var(--badbg);color:var(--bad)}
+.pill.todo{background:var(--soft);color:var(--sub)}
+/* 数字のタイル */
+.tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.tile .t{font-size:12.5px;font-weight:700;color:var(--sub)}
+.tile .n{font-size:34px;font-weight:700;line-height:1.2}
+.tile .n small{font-size:14px;font-weight:700;margin-left:3px}
+.tile .d{font-size:12.5px;color:var(--sub);line-height:1.55;margin-top:2px}
+.tile .w{font-size:11.5px;color:var(--sub);margin-top:6px;border-top:1px dashed var(--line);padding-top:4px}
+/* 表 */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.55}
+th{background:var(--soft);font-size:12.5px;color:var(--sub);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+caption{caption-side:top;text-align:left;font-size:12.5px;color:var(--sub);padding:8px 10px;background:var(--card);font-weight:700}
+@media (max-width:560px){.stack thead{display:none}.stack tr{display:block;border-bottom:1px solid var(--line);padding:6px 0}
+  .stack td{display:block;border:0;padding:2px 10px}.stack td[data-l]::before{content:attr(data-l) "：";color:var(--sub);font-size:12px}}
+/* 決めたことのカード */
+.dec{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:10px 0}
+.dec h4{margin:0 0 6px;font-size:15.5px}
+.dec h4 .no{display:inline-block;background:var(--ink);color:var(--bg);border-radius:50%;width:22px;height:22px;line-height:22px;text-align:center;font-size:12px;margin-right:8px}
+.dec .row{display:flex;gap:8px;align-items:baseline;margin:3px 0;font-size:14.5px}
+.dec .row > span:first-child{flex:none;width:2.6em}
+.dec .row > span:last-child{min-width:0}
+/* 図 */
+.dgs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start;margin-top:10px}
+@media (max-width:760px){.dgs{grid-template-columns:minmax(0,1fr)}}
+.fig{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 10px 12px}
+.fig h4{margin:0 0 6px 4px;font-size:15px}
+.dg{display:block;width:100%;height:auto}
+.dg .hd{font-size:11.5px;font-weight:700;fill:var(--sub);paint-order:stroke;stroke:var(--card);stroke-width:5px;stroke-linejoin:round}
+.dg .ct{font-size:11.5px;fill:var(--ink)}
+.dg .ct.b{font-weight:700}
+.dg .cs{font-size:10.5px;fill:var(--sub)}
+.dg .cs2{font-size:11px;fill:var(--ink)}
+.dg .cont{fill:var(--soft);stroke:var(--line)}
+.dg .chip{fill:var(--card);stroke-width:1.5}
+.dg .chip.pe{stroke:var(--pe)}.dg .chip.bl{stroke:var(--bl)}.dg .chip.rc{stroke:var(--rc)}
+.dg .chip.ok{stroke:var(--ok);fill:var(--okbg);stroke-width:2}
+.dg .tool{fill:var(--card);stroke:var(--ink);stroke-width:1.2}
+.dg .tool.exc{stroke-dasharray:4 3;stroke:var(--sub)}
+.dg .edge{fill:none;stroke:var(--sub);stroke-width:1;opacity:.45}
+.dg .edge.thick{stroke-width:2.2;opacity:.8;stroke:var(--ok)}
+.dg .edge.dash{stroke-dasharray:4 3;opacity:.9;stroke-width:1.4}
+.dg .key{fill:var(--soft);stroke:var(--sub);stroke-width:1}
+.dg .key.bad{fill:var(--badbg);stroke:var(--bad);stroke-width:1.6}
+.dg .key.main{stroke-width:1.8}
+.dg .key.main.pe{fill:var(--pe-bg);stroke:var(--ok)}.dg .key.main.bl{fill:var(--bl-bg);stroke:var(--ok)}.dg .key.main.rc{fill:var(--rc-bg);stroke:var(--ok)}
+.dg .exbox{fill:var(--warnbg);stroke:var(--warn);stroke-dasharray:5 3;stroke-width:1.3}
+.legend{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:12.5px;color:var(--sub);margin:10px 2px 0}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;border:1.5px solid;vertical-align:-1px;margin-right:4px}
+.sw.pe{border-color:var(--pe);background:var(--pe-bg)}.sw.bl{border-color:var(--bl);background:var(--bl-bg)}.sw.rc{border-color:var(--rc);background:var(--rc-bg)}
+.sw.ok{border-color:var(--ok);background:var(--okbg)}.sw.bad{border-color:var(--bad);background:var(--badbg)}
+/* 段の流れ */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:10px 0}
+@media (max-width:760px){.steps{grid-template-columns:minmax(0,1fr)}}
+.step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.step.hand{border:2px solid var(--fix);background:var(--fixbg)}
+.step h4{margin:0 0 4px;font-size:15px}
+.step p{margin:4px 0;font-size:13.5px;line-height:1.6}
+.step .undo{color:var(--sub);font-size:12.5px;border-top:1px dashed var(--line);padding-top:4px;margin-top:6px}
+/* 押す回数の表 */
+.press td,.press th{text-align:center;padding:6px 4px;font-size:12.5px}.press th{white-space:normal}
+.press td:first-child,.press th:first-child{text-align:left}
+.press td:nth-child(2){text-align:left}
+.sq{display:inline-block;width:18px;height:18px;border:2px dashed var(--fix);border-radius:4px;vertical-align:middle}
+.callout{border-left:5px solid var(--warn);background:var(--warnbg);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:14.5px}
+.callout.okc{border-color:var(--ok);background:var(--okbg)}
+.callout.fixc{border-color:var(--fix);background:var(--fixbg)}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;background:var(--soft);border-radius:4px;padding:0 5px}
+footer{margin-top:44px;border-top:1px solid var(--line);padding-top:12px;color:var(--sub);font-size:12.5px}
+</style>
+</head>
+<body>
+<header id="bar">
+  <div class="bar-in">
+    <div class="bar-row">
+      <span class="bar-title">Google の鍵の持ち方</span>
+      <button id="tocBtn" type="button" aria-expanded="false" aria-controls="toc">目次 ▾</button>
+    </div>
+    <div class="bar-now" id="now" aria-live="polite"><b>武者野さん向けの報告</b></div>
+    <div class="bar-prog" aria-hidden="true"><i id="prog"></i></div>
+  </div>
+  <nav id="toc" hidden aria-label="目次">
+    <ol>
+      <li><a href="#c0"><b>§0</b>一言：何が決まったか</a></li>
+      <li><a href="#c1"><b>§1</b>いまの散らばり</a></li>
+      <li><a href="#c2"><b>§2</b>決めたこと</a></li>
+      <li><a href="#c3"><b>§3</b>前後の比較図</a></li>
+      <li><a href="#c4"><b>§4</b>世の中の定番との対応</a></li>
+      <li><a href="#c5"><b>§5</b>移行の段と武者野さんの手</a></li>
+      <li><a href="#c6"><b>§6</b>費用と安全（決定8〜10）</a></li>
+      <li><a href="#c7"><b>§7</b>実行の記録</a></li>
+    </ol>
+  </nav>
+</header>
+
+<main>
+<h1>Google アカウントの鍵の持ち方：決めたことと、武者野さんの手</h1>
+<p class="lead">武者野さん向けの報告（社内の設計報告）。設計の決着：2026-11-03。この資料の数字は特記がなければ 2026-11-03 時点の棚卸しです。</p>
+
+<!-- ============ §0 ============ -->
+<h2 id="c0" data-ch="§0 一言"><span class="no">§0</span>一言：何が決まったか</h2>
+<div class="hero">
+  <p class="big">アカウントごとに主鍵を 1本。クライアント（Google に登録する名札）は共通の 1つ。開発環境で鍵を使う入り口は、こちらで作る道具 <code>gkeys</code>（ジーキーズ）の 1つ（本番の読み方は変えず、鍵だけ新しい版に入れ替える）。</p>
+  <p class="small">本番が自分で更新し続けている鍵などは動かさず、名指しの例外として台帳（名簿）に載せます（§2 決定1）。持ち主の分からない鍵は、消すか、持ち主を根拠つきで記録して残します。図で見たいときは <a href="#c3">§3 の前後比較図</a> へ。</p>
+</div>
+
+<h3 id="c0a" data-sec="武者野さんに関わること"><span class="no">0-1</span>武者野さんに関わること（3つ）</h3>
+<div class="grid g3">
+  <div class="card"><b>手：27〜45 押し（要実測）</b><p style="margin:4px 0 0;font-size:14px">Google の許可画面を 9アカウント分、1アカウントあたり 3〜5回押す想定です。実際の画面を誰もまだ見ていないため、最初の mushik で実測して回数を確定します。詳しくは §5。</p></div>
+  <div class="card"><b>費用：増やさない設計</b><p style="margin:4px 0 0;font-size:14px">新しい契約も新しいクライアントも作りません。片付けの 14日後に、鍵の保管数が着手前以下かを数えて確かめます。詳しくは §6。</p></div>
+  <div class="card"><b>止まるもの：なし</b><p style="margin:4px 0 0;font-size:14px">本番を止める段はありません。切り替えは道具 1つずつで、戻し方を 1行つけて進めます。</p></div>
+</div>
+
+<h3 id="c0b" data-sec="この資料の言葉"><span class="no">0-2</span>この資料の言葉（9つ）</h3>
+<div class="grid g3">
+  <div class="term"><b>鍵（許可証）</b>「このアカウントを、この道具が使ってよい」と Google に一度許可した証拠。ファイルで保管され、あるとパスワード無しでメールやドライブに入れます。</div>
+  <div class="term"><b>クライアント（名札）</b>Google に登録した「アプリの名札」。どの名札で許可を取ったかで、同じアカウントでも鍵が別物になります。</div>
+  <div class="term"><b>同意画面</b>許可を取るときに本人が押す Google の画面。武者野さんの手が要るのはここだけです。</div>
+  <div class="term"><b>主鍵</b>そのアカウントの正式な鍵 1本。全部入りの許可で、全道具がこれを読みます。</div>
+  <div class="term"><b>口（gkeys）</b>鍵を使う道具が通る入り口。こちらで作る道具の名前です。</div>
+  <div class="term"><b>台帳</b>どのアカウントの鍵がどこにあり、誰が読むかを 1枚にした名簿。</div>
+  <div class="term"><b>一時パス</b>鍵から作る、約 1時間で切れる通行証。道具が実際に使うのはこれで、鍵そのものは渡しません。</div>
+  <div class="term"><b>保管庫（Secret Manager）</b>Google Cloud の鍵の金庫。入れ直すたびに「版」が増え、版の数で費用が決まります。</div>
+  <div class="term"><b>運搬の箱</b>PC の秘密をまとめて保管庫に入れ、VM（クラウド側の作業用マシン）へ運ぶための既存の仕組み。新しい運び道は作りません。</div>
+</div>
+
+<!-- ============ §1 ============ -->
+<h2 id="c1" data-ch="§1 いまの散らばり"><span class="no">§1</span>いまの散らばり</h2>
+<p>同じ Google アカウントの鍵が、道具ごと・事業ごとに別々に作られ、あちこちに置かれています。</p>
+
+<h3 id="c1a" data-sec="数字で見る"><span class="no">1-1</span>数字で見る</h3>
+<div class="grid g4">
+  <div class="tile"><div class="t">PC にある鍵の本数（この設計が扱う分）</div><div class="n">20<small>本</small></div><div class="d">この PC の棚卸し 57項目のうち、Google アカウントの許可証であるもの（同じ中身の写しは束ねた後）。残りは環境変数の名前・クライアントの秘密・サービスアカウント鍵・gcloud 自身の資格などで、この設計の対象外です。保管庫にしか無い鍵（§1-2 の mushik・recruit の行の範囲を狭めた鍵など）は別に数えています。</div><div class="w">2026-11-03 時点</div></div>
+  <div class="tile"><div class="t">鍵を持つアカウント</div><div class="n">9<small>件</small></div><div class="d">個人 4・bot-lab 1・recruit 4 の Google アカウント。</div><div class="w">2026-11-03 時点</div></div>
+  <div class="tile"><div class="t">鍵を発行した名札</div><div class="n">4<small>つ</small></div><div class="d">個人側に 2つ、会社 1つ、bot-lab の事業 1つ（Google 自身の公開の名札は除く）。事業の境目をまたいで使われているものがあります。</div><div class="w">2026-11-03 時点</div></div>
+  <div class="tile"><div class="t">死んでいる・読む道具がいない鍵</div><div class="n">4<small>本</small></div><div class="d">死んだ鍵 1 と、読む道具のいない鍵 3。持ち主が確かめられない鍵が別に 1本あります（§1-2）。</div><div class="w">2026-11-03 時点</div></div>
+</div>
+
+<h3 id="c1b" data-sec="9つのアカウント"><span class="no">1-2</span>9つのアカウント：いまと後</h3>
+<div class="tw"><table class="stack">
+<caption>アカウントごとの、いまの鍵の事情と、後の姿（別名で表記・2026-11-03 の設計）。後は全アカウントが「共通の名札の主鍵 1本」で、右の列は例外と片付けだけを書いています。</caption>
+<thead><tr><th>別名</th><th>事業</th><th>いま</th><th>後（例外と片付け）</th></tr></thead>
+<tbody>
+<tr><td data-l="別名"><b>000885</b></td><td data-l="事業"><span class="pill pe">個人</span></td><td data-l="いま">bot-lab の PC 側が使う鍵 2本と、会社の名札で作られた鍵 2本が別々にある。bot-lab 本番（expense-web）も、このアカウントの鍵で動いている。</td><td data-l="後">この 4本とも、読む道具を gkeys に付け替えてから旧ファイルを消す。</td></tr>
+<tr><td data-l="別名"><b>alumni</b></td><td data-l="事業"><span class="pill pe">個人</span></td><td data-l="いま">会社の名札で作られ、読む道具のいない鍵が 1本。大学側の管理設定で許可が弾かれる可能性がある。</td><td data-l="後">弾かれたら範囲を絞って取り直す。読む道具のいない鍵は見せてから消す。</td></tr>
+<tr><td data-l="別名"><b>0841</b></td><td data-l="事業"><span class="pill pe">個人</span></td><td data-l="いま">特記なし。</td><td data-l="後">なし。</td></tr>
+<tr><td data-l="別名"><b>sekyuriti</b></td><td data-l="事業"><span class="pill pe">個人</span></td><td data-l="いま">特記なし。</td><td data-l="後">なし。</td></tr>
+<tr><td data-l="別名"><b>mushik</b></td><td data-l="事業"><span class="pill bl">bot-lab</span></td><td data-l="いま">範囲を狭めた鍵が 4本（読む・変更・送信・挿入が 1本ずつ）、スプレッドシート専用の鍵が 1本。</td><td data-l="後">bot-lab の経費台帳の持ち主を mushik に移してから（C3 前半）、本番（expense-web）を mushik の主鍵に替える（後半）。逆の順だと本番が台帳を書けなくなる。主鍵はその事業の保管庫へ新しい版として入れる（決定4）。範囲を狭めた 4本とシート専用の 1本は据え置き（保管庫の項目に「どのアカウントのものか」の札を付けるだけ）。シート専用の鍵の持ち主は照会できないので、コードの注記を根拠に記録して残す。</td></tr>
+<tr><td data-l="別名"><b>gooner-takuya</b></td><td data-l="事業"><span class="pill rc">recruit</span></td><td data-l="いま">会社の名札で作られた鍵が複数。ドライブ用の鍵もある。</td><td data-l="後">管理設定で弾かれたら会社の名札の例外行。会社の名札の鍵は事業の境界の内側なので据え置き。どのアカウントの鍵かは、Google に機械で問い合わせて記録する（手は要らない）。</td></tr>
+<tr><td data-l="別名"><b>gooner-info</b></td><td data-l="事業"><span class="pill rc">recruit</span></td><td data-l="いま">recruit 本番が自分で更新し続けている鍵と、週ごとの受信監視（watch）。ほかに鍵が複数。</td><td data-l="後">管理設定で弾かれたら会社の名札の例外行。本番の鍵と受信監視は据え置き。ほかの鍵も例外の行に載せ、読む道具が見つからないものは片付け（D）で現在値を見せてから扱う。</td></tr>
+<tr><td data-l="別名"><b>seed</b></td><td data-l="事業"><span class="pill rc">recruit</span></td><td data-l="いま">会社組織の外の Gmail。gooner-info と同じ型（本番の鍵＋週ごとの受信監視）。ほかに鍵が複数。</td><td data-l="後">本番の鍵と受信監視は据え置き。ほかの鍵は例外の行。</td></tr>
+<tr><td data-l="別名"><b>shin</b></td><td data-l="事業"><span class="pill rc">recruit</span></td><td data-l="いま">会社組織の外の Gmail。gooner-info と同じ型。ほかに鍵が 1本。</td><td data-l="後">本番の鍵と受信監視は据え置き。ほかの鍵は例外の行。</td></tr>
+<tr><td data-l="別名"><b>（行をまたぐ分）</b></td><td data-l="事業">—</td><td data-l="いま">死んだ鍵 1本、読む道具のいない鍵 3本（うち 1本は alumni の行に載せた鍵）。</td><td data-l="後">見せてから消す。</td></tr>
+</tbody></table></div>
+<p class="lead" style="margin-top:6px">未決が 1件あります：recruit 本番の設定に、Google のパスワードだけが入っている項目が 1つあります。ブラウザへのログイン専用なら対象外です。API を使う道具があるなら 10件目のアカウントとして B の段に足すので、武者野さんの手が 1アカウント分（3〜5押し）増えます（§7）。</p>
+
+<h3 id="c1c" data-sec="何が困るか"><span class="no">1-3</span>何が困るか（右端の「→」が対応する決定）</h3>
+<ul>
+  <li><b>持ち主の分からない鍵がある。</b>消してよいか誰も確かめられません。→ 決定 1・5</li>
+  <li><b>同じアカウントに鍵が何本もある。</b>許可の範囲も置き場もばらばらで、どの道具がどれを読むかは棚卸しをしないと分かりません。→ 決定 1・3・4</li>
+  <li><b>同じ名札が別の事業の鍵にも使われ、どの事業の鍵かが名簿に無い。</b>→ 決定 2・5</li>
+  <li><b>切れても気づきにくい。</b>Google は 6か月使われない鍵と名札を自動で失効させます。使われていない鍵ほど気づかないまま切れます。→ 決定 7</li>
+</ul>
+
+<!-- ============ §2 ============ -->
+<h2 id="c2" data-ch="§2 決めたこと"><span class="no">§2</span>決めたこと</h2>
+<p>鍵に関する決定が 1〜7、費用と安全に関する決定が 8〜10 です（8〜10 は §6）。各カードは「前 → 後」で読めます。</p>
+
+<div class="dec" id="d1" data-sec="決定1 鍵の単位">
+  <h4><span class="no">1</span>鍵の単位：アカウントごとに主鍵 1本</h4>
+  <div class="row"><span class="pill todo">前</span><span>道具ごと・事業ごとに別の鍵が散らばっていた。</span></div>
+  <div class="row"><span class="pill ok">後</span><span>共通の名札で取った鍵 1本を、全道具が読む。例外は台帳の行で名指しする（範囲を狭めて分けた鍵・本番が自分で更新し続けている鍵・管理設定で共通の名札が弾かれるアカウント）。</span></div>
+</div>
+<div class="dec" id="d2" data-sec="決定2 名札">
+  <h4><span class="no">2</span>名札（クライアント）：共通の 1つ</h4>
+  <div class="row"><span class="pill todo">前</span><span>名札が 4つ（個人側に 2つ・会社・bot-lab の事業）。</span></div>
+  <div class="row"><span class="pill ok">後</span><span>Gmail の道具が 5アカウントで既に共用している個人の名札を共通にし、表示名を「Mushano Tools」に改める（同意画面にもこの名前で出る）。新しい名札は作らない。ドライブ・スプレッドシート・ドキュメント・カレンダー・連絡先・タスクの API を有効にする（無料・戻せる）。</span></div>
+  <div class="row"><span class="pill todo">補足</span><span>名札は課金も権限も持ちません。事業の境目は名札では引かず、鍵の置き場（その事業の保管庫）と台帳の事業の列で引きます。この名札は公開の設定が済んでいる見込みです（A で機械的に確かめます）。Google の審査は受けていないため、同意画面に「未確認」の警告が出ます（§5-1）。</span></div>
+</div>
+<div class="dec" id="d3" data-sec="決定3 許可の範囲">
+  <h4><span class="no">3</span>許可の範囲：全部入りの一式を最初から取る</h4>
+  <div class="row"><span class="pill todo">前</span><span>鍵ごとに許可の範囲がばらばら。</span></div>
+  <div class="row"><span class="pill ok">後</span><span>Gmail 全部・ドライブ・スプレッドシート・ドキュメント・カレンダー・連絡先・タスクの一式。デスクトップ型（PC 用）の名札は、後から範囲だけを足す追加の同意ができないためです。足すときは一式に 1行足して、押し直します（手が要ります）。Gmail の細かい許可（読むだけ・送るだけ等）も一式に入れます。道具が「読むだけ」という名前で許可を求めるとき、その名前が一式に無いと Google が拒むためです。</span></div>
+</div>
+<div class="dec" id="d4" data-sec="決定4 置き場と書き手">
+  <h4><span class="no">4</span>置き場と書き手：鍵を書くのは同意のときだけ</h4>
+  <div class="row"><span class="pill todo">前</span><span>鍵の書き手も置き場も道具ごと。</span></div>
+  <div class="row"><span class="pill ok">後</span><span>書き手は <code>gkeys consent</code> だけ。PC の決まった場所に保存し、運搬の箱で VM へ届ける。本番が使うアカウントは、その事業の保管庫の既存の名前に「同名の新版」として入れる。名前を変えないので設定の更新が要らず、戻すときは新版を無効にして、本番は同じ手で起動し直す。鍵の中身は道具がいま読む形式のままで、「どのアカウントか」「実際に許可された範囲」「取った日時」を添える。</span></div>
+</div>
+<div class="dec" id="d5" data-sec="決定5 口と台帳">
+  <h4><span class="no">5</span>口と台帳：開発環境の入り口は gkeys 1つ</h4>
+  <div class="row"><span class="pill todo">前</span><span>道具が各自のやり方で鍵のファイルを読んでいた。名簿も複数あった。</span></div>
+  <div class="row"><span class="pill ok">後</span><span>開発環境の道具は「このアカウントのこの範囲の一時パスをください」と gkeys に頼む。名簿（台帳）は 1枚で、アカウント・事業・置き場・例外の鍵が載る。gkeys は全 repo 共通の道具置き場に置く。claude-ops には置かない（他の事業の VM から見えないため）。本番（Cloud Run）は gkeys を使わず、いまのコードのまま鍵を読む。</span></div>
+</div>
+<div class="dec" id="d6" data-sec="決定6 同意の手">
+  <h4><span class="no">6</span>同意の手：画面は道具が開き、押すのは武者野さん</h4>
+  <div class="row"><span class="pill todo">前</span><span>鍵ごとに別々に同意を取り直す必要があった。</span></div>
+  <div class="row"><span class="pill ok">後</span><span>道具がそのアカウントの Chrome プロファイルで同意画面を前面に開く。自動では押さない。武者野さんの手は 1アカウントあたり 3〜5押しの想定（§5）。運搬は押した直後に始まり、VM 側は次にセッションを開いたときから新しい鍵を使える。</span></div>
+</div>
+<div class="dec" id="d7" data-sec="決定7 知らせ">
+  <h4><span class="no">7</span>知らせ：切れたら直し方つきで知らせ、毎日確かめる</h4>
+  <div class="row"><span class="pill ok">後</span><span>鍵が切れたときは「何をすれば直るか」つきで知らせ、PC に任せられる作業は自動で票にする。保険として毎日 1回、PC の夜間の定期処理の直後に、全鍵を実際に更新して生死を確かめる。これは Google の 6か月失効も防ぎ、PC が数日止まっても失効しない。なお、武者野さんがそのアカウントの Google パスワードを変えると、主鍵は失効して同意（3〜5押し）をやり直しになります。知らせるのは失敗したときだけで、最終確認の時刻は Claude のセッションを開いたときの冒頭 1行に出る。</span></div>
+</div>
+
+<!-- ============ §3 ============ -->
+<h2 id="c3" data-ch="§3 前後の比較図"><span class="no">§3</span>前後の比較図</h2>
+<p>上から「アカウント → 名札 → 鍵 → 道具」の順です。左が前、右が後（スマホでは上が前、下が後）。<b>前は、線が交差して誰がどの鍵を読むか追えません。後は、1本ずつ追えます。</b></p>
+
+<div class="dgs">
+  <div class="fig" id="fig-before" data-sec="前の図">
+    <h4>前：道具ごとに別の鍵が散らばる</h4>
+    <svg class="dg" viewBox="0 0 360 410" role="img" aria-labelledby="tb db">
+<title id="tb">前：道具ごとに別の鍵が散らばっている図</title>
+<desc id="db">9つのアカウント、4つのクライアント、PC にある対象の鍵20本、5つの道具の関係が線で入り組んでいる。鍵のうち4本は死んでいるか読む道具がいない。</desc>
+<text x="12" y="14" class="hd">① アカウント 9</text>
+<rect x="8" y="22" width="344" height="114" rx="10" class="cont"/>
+<rect x="16" y="30" width="104" height="20" rx="10" class="chip pe"/>
+<text x="68" y="44" class="ct" text-anchor="middle">000885</text>
+<rect x="16" y="56" width="104" height="20" rx="10" class="chip pe"/>
+<text x="68" y="70" class="ct" text-anchor="middle">alumni</text>
+<rect x="16" y="82" width="104" height="20" rx="10" class="chip pe"/>
+<text x="68" y="96" class="ct" text-anchor="middle">0841</text>
+<rect x="16" y="108" width="104" height="20" rx="10" class="chip pe"/>
+<text x="68" y="122" class="ct" text-anchor="middle">sekyuriti</text>
+<rect x="128" y="30" width="104" height="20" rx="10" class="chip bl"/>
+<text x="180" y="44" class="ct" text-anchor="middle">mushik</text>
+<rect x="240" y="30" width="104" height="20" rx="10" class="chip rc"/>
+<text x="292" y="44" class="ct" text-anchor="middle">gooner-takuya</text>
+<rect x="240" y="56" width="104" height="20" rx="10" class="chip rc"/>
+<text x="292" y="70" class="ct" text-anchor="middle">gooner-info</text>
+<rect x="240" y="82" width="104" height="20" rx="10" class="chip rc"/>
+<text x="292" y="96" class="ct" text-anchor="middle">seed</text>
+<rect x="240" y="108" width="104" height="20" rx="10" class="chip rc"/>
+<text x="292" y="122" class="ct" text-anchor="middle">shin</text>
+<text x="12" y="162" class="hd">② クライアント（名札）4</text>
+<path d="M50 136 C50 153.0 48 153.0 48 170" class="edge"/>
+<path d="M50 136 C50 153.0 138 153.0 138 170" class="edge"/>
+<path d="M120 136 C120 153.0 228 153.0 228 170" class="edge"/>
+<path d="M180 136 C180 153.0 48 153.0 48 170" class="edge"/>
+<path d="M180 136 C180 153.0 318 153.0 318 170" class="edge"/>
+<path d="M250 136 C250 153.0 138 153.0 138 170" class="edge"/>
+<path d="M310 136 C310 153.0 48 153.0 48 170" class="edge"/>
+<path d="M310 136 C310 153.0 318 153.0 318 170" class="edge"/>
+<path d="M310 136 C310 153.0 228 153.0 228 170" class="edge"/>
+<path d="M100 136 C100 153.0 318 153.0 318 170" class="edge"/>
+<rect x="9" y="170" width="78" height="28" rx="8" class="chip pe"/>
+<text x="48.0" y="188.0" class="ct" text-anchor="middle">個人 ①</text>
+<rect x="99" y="170" width="78" height="28" rx="8" class="chip pe"/>
+<text x="138.0" y="188.0" class="ct" text-anchor="middle">個人 ②</text>
+<rect x="189" y="170" width="78" height="28" rx="8" class="chip rc"/>
+<text x="228.0" y="188.0" class="ct" text-anchor="middle">会社</text>
+<rect x="279" y="170" width="78" height="28" rx="8" class="chip bl"/>
+<text x="318.0" y="188.0" class="ct" text-anchor="middle">bot-lab</text>
+<text x="12" y="226" class="hd">③ PC にある対象の鍵 20本（1マス＝1本）</text>
+<path d="M48 198 C48 216.0 142 216.0 142 234" class="edge"/>
+<path d="M48 198 C48 216.0 98 216.0 98 234" class="edge"/>
+<path d="M48 198 C48 216.0 161 216.0 161 234" class="edge"/>
+<path d="M138 198 C138 216.0 226 216.0 226 234" class="edge"/>
+<path d="M138 198 C138 216.0 72 216.0 72 234" class="edge"/>
+<path d="M138 198 C138 216.0 78 216.0 78 234" class="edge"/>
+<path d="M228 198 C228 216.0 270 216.0 270 234" class="edge"/>
+<path d="M228 198 C228 216.0 197 216.0 197 234" class="edge"/>
+<path d="M228 198 C228 216.0 84 216.0 84 234" class="edge"/>
+<path d="M318 198 C318 216.0 153 216.0 153 234" class="edge"/>
+<path d="M318 198 C318 216.0 209 216.0 209 234" class="edge"/>
+<path d="M318 198 C318 216.0 74 216.0 74 234" class="edge"/>
+<rect x="60" y="234" width="17" height="17" rx="3" class="key"/>
+<rect x="84" y="234" width="17" height="17" rx="3" class="key"/>
+<rect x="108" y="234" width="17" height="17" rx="3" class="key bad"/>
+<rect x="132" y="234" width="17" height="17" rx="3" class="key"/>
+<rect x="156" y="234" width="17" height="17" rx="3" class="key"/>
+<rect x="180" y="234" width="17" height="17" rx="3" class="key"/>
+<rect x="204" y="234" width="17" height="17" rx="3" class="key"/>
+<rect x="228" y="234" width="17" height="17" rx="3" class="key"/>
+<rect x="252" y="234" width="17" height="17" rx="3" class="key"/>
+<rect x="276" y="234" width="17" height="17" rx="3" class="key bad"/>
+<rect x="60" y="256" width="17" height="17" rx="3" class="key"/>
+<rect x="84" y="256" width="17" height="17" rx="3" class="key"/>
+<rect x="108" y="256" width="17" height="17" rx="3" class="key"/>
+<rect x="132" y="256" width="17" height="17" rx="3" class="key bad"/>
+<rect x="156" y="256" width="17" height="17" rx="3" class="key"/>
+<rect x="180" y="256" width="17" height="17" rx="3" class="key"/>
+<rect x="204" y="256" width="17" height="17" rx="3" class="key"/>
+<rect x="228" y="256" width="17" height="17" rx="3" class="key bad"/>
+<rect x="252" y="256" width="17" height="17" rx="3" class="key"/>
+<rect x="276" y="256" width="17" height="17" rx="3" class="key"/>
+<text x="348" y="288" class="cs" text-anchor="end">赤＝死んだ鍵 1・読む道具のいない鍵 3</text>
+<text x="12" y="326" class="hd">④ 鍵を使う道具（各自が自分で読む）</text>
+<path d="M189 274 C189 306.0 149 306.0 149 338" class="edge"/>
+<path d="M69 274 C69 306.0 84 306.0 84 338" class="edge"/>
+<path d="M171 274 C171 306.0 254 306.0 254 338" class="edge"/>
+<path d="M77 274 C77 306.0 163 306.0 163 338" class="edge"/>
+<path d="M83 274 C83 306.0 257 306.0 257 338" class="edge"/>
+<path d="M75 274 C75 306.0 103 306.0 103 338" class="edge"/>
+<path d="M117 274 C117 306.0 71 306.0 71 338" class="edge"/>
+<path d="M207 274 C207 306.0 243 306.0 243 338" class="edge"/>
+<path d="M72 274 C72 306.0 153 306.0 153 338" class="edge"/>
+<path d="M71 274 C71 306.0 108 306.0 108 338" class="edge"/>
+<path d="M134 274 C134 306.0 254 306.0 254 338" class="edge"/>
+<path d="M96 274 C96 306.0 316 306.0 316 338" class="edge"/>
+<path d="M90 274 C90 306.0 197 306.0 197 338" class="edge"/>
+<path d="M203 274 C203 306.0 132 306.0 132 338" class="edge"/>
+<rect x="16" y="338" width="104" height="24" rx="8" class="tool"/>
+<text x="68.0" y="354.0" class="ct" text-anchor="middle">Gmail の道具</text>
+<rect x="128" y="338" width="104" height="24" rx="8" class="tool"/>
+<text x="180.0" y="354.0" class="ct" text-anchor="middle">bot-lab の PC 側</text>
+<rect x="240" y="338" width="104" height="24" rx="8" class="tool"/>
+<text x="292.0" y="354.0" class="ct" text-anchor="middle">新 PC の手順</text>
+<rect x="12" y="370" width="164" height="24" rx="8" class="tool"/>
+<text x="94.0" y="386.0" class="ct" text-anchor="middle">expense-web（本番）</text>
+<rect x="184" y="370" width="164" height="24" rx="8" class="tool"/>
+<text x="266.0" y="386.0" class="ct" text-anchor="middle">recruit 本番</text>
+</svg>
+  </div>
+  <div class="fig" id="fig-after" data-sec="後の図">
+    <h4>後：主鍵 1本ずつ・名札 1つ・口 1つ</h4>
+    <svg class="dg" viewBox="0 0 360 560" role="img" aria-labelledby="ta da">
+<title id="ta">後：アカウントごとに主鍵1本・クライアント共通1つ・口gkeys1つの図</title>
+<desc id="da">9つのアカウントが共通クライアント1つを通って9本の主鍵になり、口の gkeys 1つを経由して3つの道具に渡る。expense-web は同名の新版で主鍵を直接読む。recruit 本番などは台帳に名指しの例外として据え置く。</desc>
+<text x="12" y="14" class="hd">① アカウント 9</text>
+<rect x="8" y="22" width="344" height="114" rx="10" class="cont"/>
+<rect x="16" y="30" width="104" height="20" rx="10" class="chip pe"/>
+<text x="68" y="44" class="ct" text-anchor="middle">000885</text>
+<rect x="16" y="56" width="104" height="20" rx="10" class="chip pe"/>
+<text x="68" y="70" class="ct" text-anchor="middle">alumni</text>
+<rect x="16" y="82" width="104" height="20" rx="10" class="chip pe"/>
+<text x="68" y="96" class="ct" text-anchor="middle">0841</text>
+<rect x="16" y="108" width="104" height="20" rx="10" class="chip pe"/>
+<text x="68" y="122" class="ct" text-anchor="middle">sekyuriti</text>
+<rect x="128" y="30" width="104" height="20" rx="10" class="chip bl"/>
+<text x="180" y="44" class="ct" text-anchor="middle">mushik</text>
+<rect x="240" y="30" width="104" height="20" rx="10" class="chip rc"/>
+<text x="292" y="44" class="ct" text-anchor="middle">gooner-takuya</text>
+<rect x="240" y="56" width="104" height="20" rx="10" class="chip rc"/>
+<text x="292" y="70" class="ct" text-anchor="middle">gooner-info</text>
+<rect x="240" y="82" width="104" height="20" rx="10" class="chip rc"/>
+<text x="292" y="96" class="ct" text-anchor="middle">seed</text>
+<rect x="240" y="108" width="104" height="20" rx="10" class="chip rc"/>
+<text x="292" y="122" class="ct" text-anchor="middle">shin</text>
+<path d="M180 136 C180 153.0 180 153.0 180 170" class="edge thick"/>
+<text x="12" y="162" class="hd">② クライアント（名札）共通 1</text>
+<rect x="90" y="170" width="180" height="28" rx="8" class="chip ok"/>
+<text x="180.0" y="188.0" class="ct" text-anchor="middle">共通クライアント 1つ</text>
+<text x="12" y="226" class="hd">③ 主鍵 9本（例外は下の枠）</text>
+<path d="M180 198 C180 216.0 36 216.0 36 234" class="edge"/>
+<rect x="21" y="234" width="30" height="22" rx="5" class="key main pe"/>
+<path d="M180 198 C180 216.0 72 216.0 72 234" class="edge"/>
+<rect x="57" y="234" width="30" height="22" rx="5" class="key main pe"/>
+<path d="M180 198 C180 216.0 108 216.0 108 234" class="edge"/>
+<rect x="93" y="234" width="30" height="22" rx="5" class="key main pe"/>
+<path d="M180 198 C180 216.0 144 216.0 144 234" class="edge"/>
+<rect x="129" y="234" width="30" height="22" rx="5" class="key main pe"/>
+<path d="M180 198 C180 216.0 180 216.0 180 234" class="edge"/>
+<rect x="165" y="234" width="30" height="22" rx="5" class="key main bl"/>
+<path d="M180 198 C180 216.0 216 216.0 216 234" class="edge"/>
+<rect x="201" y="234" width="30" height="22" rx="5" class="key main rc"/>
+<path d="M180 198 C180 216.0 252 216.0 252 234" class="edge"/>
+<rect x="237" y="234" width="30" height="22" rx="5" class="key main rc"/>
+<path d="M180 198 C180 216.0 288 216.0 288 234" class="edge"/>
+<rect x="273" y="234" width="30" height="22" rx="5" class="key main rc"/>
+<path d="M180 198 C180 216.0 324 216.0 324 234" class="edge"/>
+<rect x="309" y="234" width="30" height="22" rx="5" class="key main rc"/>
+<text x="12" y="288" class="hd">④ 口 gkeys（1つ）</text>
+<path d="M36 256 C36 276.0 180 276.0 180 296" class="edge"/>
+<path d="M72 256 C72 276.0 180 276.0 180 296" class="edge"/>
+<path d="M108 256 C108 276.0 180 276.0 180 296" class="edge"/>
+<path d="M144 256 C144 276.0 180 276.0 180 296" class="edge"/>
+<path d="M180 256 C180 276.0 180 276.0 180 296" class="edge"/>
+<path d="M216 256 C216 276.0 180 276.0 180 296" class="edge"/>
+<path d="M252 256 C252 276.0 180 276.0 180 296" class="edge"/>
+<path d="M288 256 C288 276.0 180 276.0 180 296" class="edge"/>
+<path d="M324 256 C324 276.0 180 276.0 180 296" class="edge"/>
+<rect x="90" y="296" width="180" height="34" rx="8" class="chip ok"/>
+<text x="180.0" y="317.0" class="ct" text-anchor="middle">gkeys ＋ 台帳</text>
+<text x="12" y="358" class="hd">⑤ 鍵を使う道具</text>
+<path d="M180 330 C180 348.0 66 348.0 66 366" class="edge thick"/>
+<path d="M180 330 C180 348.0 180 348.0 180 366" class="edge thick"/>
+<path d="M180 330 C180 348.0 294 348.0 294 366" class="edge thick"/>
+<rect x="16" y="366" width="100" height="24" rx="8" class="tool"/>
+<text x="66.0" y="382.0" class="ct" text-anchor="middle">Gmail の道具</text>
+<rect x="130" y="366" width="100" height="24" rx="8" class="tool"/>
+<text x="180.0" y="382.0" class="ct" text-anchor="middle">bot-lab の PC 側</text>
+<rect x="244" y="366" width="100" height="24" rx="8" class="tool"/>
+<text x="294.0" y="382.0" class="ct" text-anchor="middle">新 PC の手順</text>
+<rect x="12" y="402" width="164" height="36" rx="8" class="tool"/>
+<text x="94.0" y="417.0" class="ct" text-anchor="middle">expense-web（本番）</text>
+<text x="94.0" y="430.0" class="cs" text-anchor="middle">主鍵を同名の新版で直接</text>
+<rect x="184" y="402" width="164" height="36" rx="8" class="tool exc"/>
+<text x="266.0" y="417.0" class="ct" text-anchor="middle">recruit 本番など</text>
+<text x="266.0" y="430.0" class="cs" text-anchor="middle">据え置き（例外の行）</text>
+<rect x="8" y="458" width="344" height="94" rx="8" class="exbox"/>
+<text x="18" y="476" class="ct b">名指しの例外（台帳の行）</text>
+<text x="18" y="494" class="cs2">・本番が自前で寿命を回している鍵（recruit 本番など）</text>
+<text x="18" y="511" class="cs2">・信頼域を分けた、範囲を狭めた鍵</text>
+<text x="18" y="528" class="cs2">・管理者の設定で共通クライアントが弾かれるアカウント</text>
+<text x="18" y="545" class="cs2">持ち主不明の鍵は、消すか根拠つきで記録</text>
+<path d="M266 458 L266 438" class="edge dash"/>
+<path d="M168 256 C168 276 6 252 6 292 L6 420 L12 420" class="edge dash"/>
+<path d="M352 458 L352 313 L270 313" class="edge dash" fill="none"/>
+<text x="346" y="352" class="cs" text-anchor="end">台帳に載せる</text>
+</svg>
+  </div>
+</div>
+<div class="legend" aria-label="凡例">
+  <span><i class="sw pe"></i>個人</span><span><i class="sw bl"></i>bot-lab</span><span><i class="sw rc"></i>recruit</span>
+  <span><i class="sw ok"></i>後の姿（共通の名札・主鍵・口）</span><span><i class="sw bad"></i>死んだ鍵・読む道具のいない鍵</span>
+  <span>点線＝例外（台帳で名指し）</span>
+</div>
+<p class="lead" style="margin-top:8px">図は見取り図です。線は「関係がある」ことを示すだけで、本数は実数と一致しません。実数と各アカウントの事情は §1-2 の表を見てください。</p>
+
+<!-- ============ §4 ============ -->
+<h2 id="c4" data-ch="§4 世の中の定番との対応"><span class="no">§4</span>世の中の定番との対応</h2>
+<p>この設計は、世の中で「トークン保管庫（token vault）」と呼ばれる型を、個人規模に縮めたものです。接続ごとに許可証を 1か所へ保管し、使う側には短命の一時パスだけを渡し、切れたら検知して取り直す、という考え方です。</p>
+<div class="tw"><table class="stack">
+<caption>定番の手法と、この設計での扱い</caption>
+<thead><tr><th>定番</th><th>ひとことで</th><th>この設計での扱い</th></tr></thead>
+<tbody>
+<tr><td data-l="定番"><b>トークン保管庫</b></td><td data-l="ひとこと">接続ごとの許可証を 1か所で持ち、使う側へは一時パスだけ渡す。切れたら検知して取り直す。</td><td data-l="扱い"><span class="pill ok">採る</span> gkeys と台帳がこれに当たる。</td></tr>
+<tr><td data-l="定番"><b>追加同意</b></td><td data-l="ひとこと">後から許可の範囲だけを足してもらう仕組み。</td><td data-l="扱い"><span class="pill warn">使えない</span> デスクトップ型の名札は非対応。一式を最初から取る（決定3）。</td></tr>
+<tr><td data-l="定番"><b>ドメイン全体委任（DWD）</b></td><td data-l="ひとこと">組織の特権管理者が、自ドメインの全員分を代理で許可する仕組み。</td><td data-l="扱い"><span class="pill bad">届かない</span> 自ドメイン限定で、個人の Gmail と alumni には適用できない。</td></tr>
+<tr><td data-l="定番"><b>公開手続き（未確認アプリ）</b></td><td data-l="ひとこと">アプリを Google が確認する前でも、個人利用 100人未満なら画面のクリックで通れる。</td><td data-l="扱い"><span class="pill ok">通れる</span> ホームページとプライバシーポリシーは github.io で満たせる。「未確認のままでは使えない」と書いていた以前の記録は誤りでした。</td></tr>
+</tbody></table></div>
+
+<!-- ============ §5 ============ -->
+<h2 id="c5" data-ch="§5 移行の段と武者野さんの手"><span class="no">§5</span>移行の段と武者野さんの手</h2>
+<p>A〜D の 4段で進めます。<b>武者野さんの手が要るのは B の段だけ</b>です。ほかは作業を担当するセッションが進め、各段に戻し方があります。</p>
+
+<div class="steps">
+  <div class="step"><h4><span class="pill ok">A</span> 土台（無停止）</h4>
+    <p>口の gkeys を作り、台帳を置き、説明とプライバシーポリシーの 1枚を公開し（§4 の公開手続きが求めるページ）、名札の表示名を改め、API を有効にし、名札の公開状態を機械で読んで確かめる。着手前の保管数を記録する。</p>
+    <p class="undo">戻し：変更の取り消し・API 無効化・表示名を戻す。</p></div>
+  <div class="step hand"><h4><span class="pill pe">B</span> 主鍵の同意（武者野さんの手）</h4>
+    <p>9アカウント分の同意画面を押す。画面は順番に出す。押した後、許可の範囲と本人確認を道具が検算する。</p>
+    <p class="undo">戻し：取った鍵は、使わなければ無害。Google 側の許可そのものは残る（消しには行かない＝§6 の決定 10）。</p></div>
+  <div class="step"><h4><span class="pill ok">C</span> 切り替え（1道具ずつ）</h4>
+    <p>Gmail の道具 → bot-lab の PC 側 → drive-home と expense-web → 新 PC 用の手順、の順に主鍵へ付け替える。drive-home は、bot-lab の録画やシートの持ち主を mushik に移す作業で、mushik の鍵が無くて止まっていたので主鍵で進める。recruit 本番などは例外として据え置き。</p>
+    <p class="undo">戻し：その変更を取り消す。保管庫は新版を無効にすれば旧版に戻る。</p></div>
+  <div class="step"><h4><span class="pill ok">D</span> 片付け</h4>
+    <p>全道具の動作確認（読むは 1回・書くは試走）が緑の後に、複製・読む道具のいない鍵・使わない配線を消す。消す前に現在値と戻し方を 1行出す。</p>
+    <p class="undo">戻し：消す前に運搬の箱へ詰めておくので、そこから復元できる。</p></div>
+</div>
+
+<h3 id="c5a" data-sec="押す回数"><span class="no">5-1</span>武者野さんの手：1アカウントあたり 3〜5押し × 9</h3>
+<p>武者野さんの PC の Chrome で押します。同意画面には「Mushano Tools」と出ます。1アカウントにつき、基本は次の 3つを押す想定です。<b>① 未確認の通過 ② すべて選択 ③ 続行</b>。9アカウントで 27押しが下限の想定です。</p>
+<ul>
+  <li><b>① 未確認の通過：</b>警告は「Google はこのアプリを審査していない」という意味です。名札は武者野さん自身のものなので、押して通ってかまいません（個人利用 100人未満なら通れます）。</li>
+  <li><b>② すべて選択：</b>押し忘れると許可の範囲が足りなくなり、道具が検算で止めます。その 1アカウントだけ押し直しになります。</li>
+  <li><b>前提：</b>9アカウントとも PC の Chrome にログイン済みであること。B の前にこちらで確かめ、ログインが無ければ押す数に足します。</li>
+  <li><b>パスワードを変えたとき：</b>Google パスワードを変えると、そのアカウントの主鍵は失効し、同意をやり直します。</li>
+</ul>
+<div class="callout"><b>この回数は実測前の想定です（27 は下限）。</b>Google の「未確認」画面は「詳細を表示 → 移動」の 2押しになる可能性があり、Chrome に複数のアカウントが入っていれば選ぶ画面が 1回増えます（その場合 1アカウント 5押し・合計 45押し）。最初の mushik（B1）で実際の画面を見て、回数をこの資料に書き直します。担当のセッションが「いまから N 枚出します」とまとめて出すので、出た順に押してください。</div>
+<div class="tw"><table class="stack">
+<caption>押す順番（B1〜B5）。実施の記録は §7 に残します。</caption>
+<thead><tr><th>順</th><th>アカウント</th><th>この順の理由</th></tr></thead>
+<tbody>
+<tr><td data-l="順">B1</td><td data-l="アカウント">mushik</td><td data-l="理由">bot-lab の切り替えが並行して走るため、先に必要になる。</td></tr>
+<tr><td data-l="順">B2</td><td data-l="アカウント">000885</td><td data-l="理由">bot-lab の PC 側の切り替えに必要。</td></tr>
+<tr><td data-l="順">B3</td><td data-l="アカウント">alumni・0841・sekyuriti</td><td data-l="理由">個人の 3アカウントをまとめて取る。</td></tr>
+<tr><td data-l="順">B4</td><td data-l="アカウント">gooner-takuya・gooner-info</td><td data-l="理由">recruit。管理設定で弾かれたら会社の名札の例外行にする。</td></tr>
+<tr><td data-l="順">B5</td><td data-l="アカウント">seed・shin</td><td data-l="理由">recruit（会社組織の外の Gmail）。</td></tr>
+</tbody></table></div>
+<div class="callout"><b>押す前に知っておくこと：</b>alumni は大学の管理設定で弾かれることがあります。その場合は許可の範囲を絞って取り直します（手がもう 1回増える可能性）。自動操作で代わりに押すことはしません。</div>
+
+<!-- ============ §6 ============ -->
+<h2 id="c6" data-ch="§6 費用と安全"><span class="no">§6</span>費用と安全（決定 8〜10）</h2>
+<p>武者野さんが気にする 2点、「お金は増えないか」「事故は起きないか」への答えです。</p>
+
+<div class="dec" id="c6a" data-sec="決定8 費用の約束">
+  <h4><span class="no">8</span>費用の約束</h4>
+  <div class="callout okc"><b>不変条件：</b>片付けの完了から 14日後に、請求アカウント別の「有効＋無効の保管版の数」が着手前以下であること（無効の版も課金される可能性があるので両方数えます）。着手前の数は <code>gkeys plan</code> が最初に記録します。個人側は、運搬の箱が容量超えで 2つになっても、着手前 +1 版まで（無料枠の中）です。</div>
+  <ul>
+    <li>いまの保管庫の費用は、月およそ 2,200円です（bot-lab 約 1,989円・会社 約 189円・個人 0円。有効な版だけ数えた 2026-11-03 時点の実質額）。この設計はこれを増やしません。減らす作業は別の票（bot-lab の保管庫の掃除）です。</li>
+    <li>新しいクライアントは作りません。API の有効化は無料で、戻せます。</li>
+    <li>保管名は変えず、同名の新版を足します。足した分は、片付けで旧版を退避してから消して相殺します。</li>
+  </ul>
+</div>
+<div class="dec" id="c6b" data-sec="決定9 安全の約束">
+  <h4><span class="no">9</span>安全の約束</h4>
+  <ul>
+    <li><b>全部入りの主鍵は、混在した場所に読ませない。</b>多くの job（クラウド側のプログラム）が共有する実行用の身分や、ブラウザ操作の job には主鍵を読ませません。<code>gkeys plan</code> がこの組み合わせを見つけたら赤で知らせます。</li>
+    <li><b>正本を書くのは同意のときだけ。</b>日々使う一時パスは別の置き場に置き、鍵のファイルは使っても書き換わりません（試験で確かめる）。</li>
+    <li><b>本番は、鍵を足したあと一度起動し直す。</b>本番は起動時にしか新しい鍵を読まないためです。新旧を並べて入れ替えるので止まりません。戻すときは新版を無効にして、同じ手で起動し直します。</li>
+    <li><b>鍵の値は、この資料にもチャットにも出さない。</b>同意の直後に本人確認（どのアカウントの鍵か）を検算して保存します。</li>
+    <li><b>PC が壊れても戻せる。</b>主鍵の正本は PC にありますが、運搬の箱に写しがあります。新しい PC では運搬の箱から取り出します（C4）。</li>
+    <li><b>単一障害点：</b>共通の名札は個人側の Google Cloud プロジェクトにあります。この名札を削除すると主鍵 9本が全部失効し、名札を作り直して B の段をやり直し、expense-web の版を入れ直すことになります（削除はしないと決めています＝決定 10）。recruit 本番は据え置きなので影響を受けません。expense-web は主鍵に載せ替えるので影響を受けます。</li>
+  </ul>
+</div>
+<div class="dec" id="c6c" data-sec="決定10 やらないこと">
+  <h4><span class="no">10</span>やらないこと（理由つき）</h4>
+  <div class="tw"><table class="stack">
+<caption>この計画で意図的に触らないもの</caption>
+<thead><tr><th>やらないこと</th><th>理由</th></tr></thead>
+<tbody>
+<tr><td data-l="やらない"><b>鍵の一括無効化（revoke）</b></td><td data-l="理由">同じ Google Cloud プロジェクトの全クライアントの許可を巻き込んで失効させるため。</td></tr>
+<tr><td data-l="やらない"><b>許可（grant）の取り消し・クライアント削除</b></td><td data-l="理由">戻せない。片付けは鍵のファイルと保管版だけで行う。</td></tr>
+<tr><td data-l="やらない"><b>会社のプロジェクトの同意画面・ブランドの変更</b></td><td data-l="理由">組織内限定にすると、会社組織の外の Gmail である seed と shin が使えなくなる。</td></tr>
+<tr><td data-l="やらない"><b>recruit 本番の鍵と週ごとの受信監視の移設</b></td><td data-l="理由">本番が自分で更新し続けている。例外として台帳で名指しするだけ。</td></tr>
+<tr><td data-l="やらない"><b>bot-lab の範囲を狭めた 4本の差し替え</b></td><td data-l="理由">98 の job が使う信頼の低い殻で、全部入りの主鍵を渡さない方が安全。</td></tr>
+<tr><td data-l="やらない"><b>ドメイン全体委任・名札のあるプロジェクトの第 2 の管理者（owner）</b></td><td data-l="理由">個人の Gmail に届かない。管理者を増やすと権限の持ち主が見えにくくなる。</td></tr>
+</tbody></table></div>
+</div>
+
+<!-- ============ §7 ============ -->
+<h2 id="c7" data-ch="§7 実行の記録"><span class="no">§7</span>実行の記録</h2>
+<p>実行した結果は、作業を担当するセッションがこの表に追記します。いまは<b>すべて未実施</b>です。「—」は「まだ記録なし」だけを意味します。B1 の実施後に、同意画面の実際の押す回数を結果に書き、§0・§5 の想定（27〜45押し）を書き直します。</p>
+<div class="tw"><table class="stack" id="record">
+<caption>実行の記録（作成時点：2026-11-03・全行 未実施）</caption>
+<thead><tr><th>段</th><th>内容</th><th>状態</th><th>実施日</th><th>結果</th></tr></thead>
+<tbody>
+<tr id="r-A"><td data-l="段"><b>A</b></td><td data-l="内容">土台（gkeys・台帳・説明 1枚・API 有効化）</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
+<tr id="r-B1"><td data-l="段"><b>B1</b></td><td data-l="内容">mushik の同意</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
+<tr id="r-B2"><td data-l="段"><b>B2</b></td><td data-l="内容">000885 の同意</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
+<tr id="r-B3"><td data-l="段"><b>B3</b></td><td data-l="内容">alumni・0841・sekyuriti の同意</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
+<tr id="r-B4"><td data-l="段"><b>B4</b></td><td data-l="内容">gooner-takuya・gooner-info の同意</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
+<tr id="r-B5"><td data-l="段"><b>B5</b></td><td data-l="内容">seed・shin の同意</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
+<tr id="r-C1"><td data-l="段"><b>C1</b></td><td data-l="内容">Gmail の道具を gkeys へ</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
+<tr id="r-C2"><td data-l="段"><b>C2</b></td><td data-l="内容">bot-lab の PC 側を gkeys へ</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
+<tr id="r-C3"><td data-l="段"><b>C3</b></td><td data-l="内容">drive-home（bot-lab の録画・シートの持ち主を mushik へ移す）と expense-web の主鍵化</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
+<tr id="r-C4"><td data-l="段"><b>C4</b></td><td data-l="内容">新 PC 用の手順を gkeys へ</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
+<tr id="r-U"><td data-l="段"><b>未決</b></td><td data-l="内容">Google のパスワードだけが入った項目（recruit 本番の設定）の確認。API を使う道具があれば 10件目として B に足す</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
+<tr id="r-D"><td data-l="段"><b>D</b></td><td data-l="内容">片付け（複製・読む道具のいない鍵・動作確認）</td><td data-l="状態"><span class="pill todo">未実施</span></td><td data-l="実施日">—</td><td data-l="結果">—</td></tr>
+</tbody></table></div>
+
+<footer>
+  設計の決着：2026-11-03。社内の設計報告（検索に載せない設定）。メールアドレスと鍵の値は書いていません。アカウントの別名はこちらで付けたものです。
+</footer>
+</main>
+
+<script>
+(function(){
+  var bar=document.getElementById('bar'), now=document.getElementById('now'), prog=document.getElementById('prog');
+  var btn=document.getElementById('tocBtn'), toc=document.getElementById('toc');
+  var chs=[].slice.call(document.querySelectorAll('[data-ch]'));
+  var secs=[].slice.call(document.querySelectorAll('[data-sec]'));
+  function barH(){var h=bar.getBoundingClientRect().height;document.documentElement.style.setProperty('--bar-h',Math.ceil(h)+'px');return h;}
+  function esc(s){return s.replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var h=barH(), line=h+16, ch=null, sec=null;
+    for(var i=0;i<chs.length;i++){ if(chs[i].getBoundingClientRect().top<=line) ch=chs[i]; }
+    if(ch){
+      var chTop=ch.getBoundingClientRect().top;
+      for(var j=0;j<secs.length;j++){
+        var r=secs[j].getBoundingClientRect();
+        if(r.top<=line && secs[j].compareDocumentPosition(ch)&Node.DOCUMENT_POSITION_PRECEDING) sec=secs[j];
+      }
+    }
+    var atEnd=(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-2);
+    if(atEnd&&chs.length){ ch=chs[chs.length-1]; sec=null; }
+    var label=ch?ch.getAttribute('data-ch'):'冒頭';
+    var sl=sec?(sec.getAttribute('data-sec')):'';
+    now.innerHTML='<b>'+esc(label)+'</b>'+(sl?' › '+esc(sl):'');
+    var max=document.documentElement.scrollHeight-window.innerHeight;
+    prog.style.width=(max>0?Math.min(100,Math.max(0,window.scrollY/max*100)):0)+'%';
+  }
+  function req(){ if(!ticking){ticking=true;requestAnimationFrame(update);} }
+  window.addEventListener('scroll',req,{passive:true});
+  window.addEventListener('resize',req);
+  function setToc(open){ toc.hidden=!open; btn.setAttribute('aria-expanded',open?'true':'false'); btn.textContent=open?'目次 ▴':'目次 ▾'; }
+  btn.addEventListener('click',function(){ setToc(toc.hidden); });
+  toc.addEventListener('click',function(e){ if(e.target.closest('a')) setToc(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!toc.hidden){ setToc(false); btn.focus(); } });
+  document.addEventListener('click',function(e){ if(!toc.hidden && !bar.contains(e.target)) setToc(false); });
+  update();
+})();
+</script>
+</body>
+</html>
