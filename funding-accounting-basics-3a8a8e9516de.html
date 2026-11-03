@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>借りたお金・出資のお金の会計と税務の基礎</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--mut:#6b6a66;--line:#dedbd3;--card:#ffffff;--acc:#2f5fb3;--acc2:#7d9ad6;--acc3:#b5c6ea;--acc4:#dfe6f6;--warn:#b5462f;--ok:#2f7d4f;--band:#eeece6;--hl:#fff3c4}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#17181b;--fg:#ececea;--mut:#a3a29d;--line:#34363b;--card:#202227;--acc:#8fb0f0;--acc2:#6a8bd0;--acc3:#4a64a0;--acc4:#2e3a5c;--warn:#ef8a70;--ok:#79c79a;--band:#26282d;--hl:#4a4020}}
+:root[data-theme="dark"]{--bg:#17181b;--fg:#ececea;--mut:#a3a29d;--line:#34363b;--card:#202227;--acc:#8fb0f0;--acc2:#6a8bd0;--acc3:#4a64a0;--acc4:#2e3a5c;--warn:#ef8a70;--ok:#79c79a;--band:#26282d;--hl:#4a4020}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.75 "Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:6px 16px;font-size:13px;display:flex;gap:.6em;flex-wrap:wrap;align-items:baseline}
+.top b{font-size:14px}.top .ch{color:var(--acc);font-weight:600}.top .sc{color:var(--mut)}
+main{max-width:860px;margin:0 auto;padding:8px 16px 64px}
+h1{font-size:26px;margin:28px 0 4px}h2{font-size:21px;margin:48px 0 8px;padding-top:8px;border-top:2px solid var(--fg)}
+h3{font-size:17px;margin:28px 0 6px}
+h2,h3{scroll-margin-top:76px}
+.sub{color:var(--mut);font-size:14px;margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:14px 0}
+.key{border-left:5px solid var(--acc)}.warnc{border-left:5px solid var(--warn)}
+.sum ol{margin:0;padding-left:1.3em}.sum li{margin:.35em 0}
+.mut{color:var(--mut)}.warn{color:var(--warn)}.small{font-size:13px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:inherit;fill:var(--fg)}
+svg .tick{font-size:11px;fill:var(--mut)}svg .lab{font-size:12.5px}svg .mut{fill:var(--mut)}svg .warn{fill:var(--warn)}svg .okt{fill:var(--ok)}
+svg .bx{fill:var(--card);stroke:var(--line);stroke-width:1.5}
+svg .bxa{fill:var(--acc4);stroke:var(--acc2);stroke-width:1.5}
+svg .ar{stroke:var(--mut);stroke-width:1.8;fill:none}
+svg .arok{stroke:var(--ok);stroke-width:2;fill:none}
+svg .bpr{fill:var(--acc)}svg .bsi{fill:var(--acc3)}
+svg .bw{fill:var(--warn)}
+svg text.onbar{fill:var(--bg)}
+.chart{max-width:720px}
+.cwrap{overflow-x:auto}.cwrap svg{min-width:560px}
+.tw{overflow-x:auto;margin:10px 0}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{font-size:12.5px;color:var(--mut);font-weight:600}
+.tag{display:inline-block;font-size:11.5px;border:1px solid var(--line);border-radius:4px;padding:0 5px;color:var(--mut);margin-left:4px}
+.tag.u{border-color:var(--warn);color:var(--warn)}
+.tacc{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:14px;margin:8px 0;background:var(--card)}
+.tacc .h{background:var(--band);font-size:12.5px;color:var(--mut);padding:4px 10px;font-weight:600}
+.tacc .h:nth-child(2){border-right:1px solid var(--line)}
+.tacc div.c{padding:6px 10px}.tacc div.c.l{border-right:1px solid var(--line)}
+.tacc .t{grid-column:1/-1;padding:5px 10px;background:var(--acc4);font-weight:600;font-size:13.5px}
+.tacc .v{display:block;text-align:right;font-variant-numeric:tabular-nums}
+a{color:var(--acc)}
+.chk{list-style:none;padding:0;margin:8px 0}.chk li{padding:5px 0 5px 26px;position:relative;border-bottom:1px dashed var(--line)}
+.chk li:before{content:"□";position:absolute;left:2px;color:var(--acc)}
+ol.dec>li{margin:.7em 0}
+</style>
+</head>
+<body>
+<div class="top" id="top"><b>お金の受け入れと返しの会計・税務</b><span class="ch" id="tch">はじめに</span><span class="sc" id="tsc"></span></div>
+<main>
+<h1>知人から受けたお金を返すときの、会計と税務の基礎</h1>
+<p class="sub">拓也が自分で理解し、ゆうとと話せるようになるための図解｜作成 2026年11月3日（火）｜材料＝11月1日（日）の Zoom・資金デッキ 3-2・正本 canon「japan-small-biz-funding-law」と国税庁・e-Gov</p>
+
+<div class="card key sum">
+<b>3行まとめ</b>
+<ol>
+<li><b>受け取ったお金は「売上」ではなく「借り」か「預かり」。</b>だから帳簿に必ず載せる。載せないと、返したお金（元本）も、利息・分配（経費）も、あとから説明できなくなる（<a href="#s1">1章</a>・<a href="#s4">4章</a>）。</li>
+<li><b>返すときは「元本」と「利息（分配）」に分ける。</b>経費になるのは利息・分配だけで、元本は経費ではない。毎月 max(…) の形なら、<b>各回をどう割るか</b>を契約書に書いておく（<a href="#s2">2章</a>）。投資は「2.5倍の中に元本を含むのか」を先に決める。決めないと、契約の既定の読み方で元本が上乗せになりうる（<a href="#s3">3章</a>）。</li>
+<li><b>出し手（友人）側にも税金がある。</b>利息は雑所得、匿名組合の分配は源泉徴収20.42%と支払調書がからむ。2026年分の申告の納期限は2027年3月15日。<b>決めること10個</b>は<a href="#s6">6章</a>。最終確認は税理士へ。</li>
+</ol>
+</div>
+
+<h2 id="s1" data-ch="1 まず3つの区別">1　まず、お金を3つに分けて見る</h2>
+<p>会計の基本は、入ってきたお金・出ていくお金を<b>「事業の成績に関係するか」</b>で分けること。11月1日に出た「受け取ったお金は書類上なかったことにする」は、この分け方を飛ばす発想。責めるのではなく、<b>飛ばすと何に困るか</b>を先に見る。</p>
+<div class="card"><div class="cwrap">
+<svg viewBox="0 0 640 250" class="chart" role="img" aria-label="友人から事業へのお金の流れと、売上・経費にならないもの、なるもの">
+<rect class="bx" x="10" y="20" width="120" height="60" rx="8"/><text x="70" y="46" class="lab" text-anchor="middle">友人</text><text x="70" y="64" class="tick" text-anchor="middle">（りょうま・ともき）</text>
+<rect class="bxa" x="250" y="20" width="150" height="60" rx="8"/><text x="325" y="46" class="lab" text-anchor="middle">事業（ゆうと）</text><text x="325" y="64" class="tick" text-anchor="middle">事業用の口座・PayPay</text>
+<rect class="bx" x="500" y="20" width="130" height="60" rx="8"/><text x="565" y="46" class="lab" text-anchor="middle">チケット転売</text><text x="565" y="64" class="tick" text-anchor="middle">売上・仕入・経費</text>
+<path class="arok" d="M130,40 H248"/><path class="arok" d="M242,34 L250,40 L242,46"/>
+<text x="190" y="32" class="lab okt" text-anchor="middle">① 受け取り</text>
+<path class="ar" d="M250,62 H132"/><path class="ar" d="M138,56 L130,62 L138,68"/>
+<text x="190" y="82" class="lab" text-anchor="middle">② 返し</text>
+<rect class="bx" x="10" y="110" width="190" height="125" rx="8"/>
+<text x="105" y="134" class="lab okt" text-anchor="middle" font-weight="700">① 売上ではない</text>
+<text x="105" y="156" class="tick" text-anchor="middle">借りたお金 → 負債（返す義務）</text>
+<text x="105" y="174" class="tick" text-anchor="middle">出資のお金 → 営業者の財産だが</text>
+<text x="105" y="190" class="tick" text-anchor="middle">返還義務つき（匿名組合）</text>
+<text x="105" y="216" class="tick" text-anchor="middle">どちらも売上（収入）には入れない</text>
+<rect class="bx" x="225" y="110" width="190" height="125" rx="8"/>
+<text x="320" y="134" class="lab warn" text-anchor="middle" font-weight="700">② 元本の返し＝経費ではない</text>
+<text x="320" y="156" class="tick" text-anchor="middle">負債が減るだけ</text>
+<text x="320" y="174" class="tick" text-anchor="middle">元本の返還（出資の払戻し）も同じ</text>
+<text x="320" y="216" class="tick" text-anchor="middle">利益が減るわけではない</text>
+<rect class="bx" x="440" y="110" width="190" height="125" rx="8"/>
+<text x="535" y="134" class="lab okt" text-anchor="middle" font-weight="700">② 利息・分配＝経費になる</text>
+<text x="535" y="156" class="tick" text-anchor="middle">業務のための借入金の利息は</text>
+<text x="535" y="174" class="tick" text-anchor="middle">必要経費（国税庁）</text>
+<text x="535" y="198" class="tick" text-anchor="middle">匿名組合の分配も経費に入る</text>
+<text x="535" y="216" class="tick" text-anchor="middle">（営業者側・通達）</text>
+</svg></div></div>
+<div class="card warnc"><b>記録しないと、こう困る</b>（一般的な整理・個別の判断は税理士へ）<br>
+・口座に大きな入金があるのに、帳簿に「借入」と書いていない → 税務署が見たとき<b>借入だと示せない</b>。売上の申告漏れと見られるおそれ。<span class="tag u">推論</span><br>
+・返済の出金が、帳簿では何の出金か分からない → <b>利息の部分を経費にできない</b>（元本と混ざって説明不能）。<br>
+・利益分配を払っても、契約と記録が無い → 分配を経費として説明しにくい（3章）。源泉徴収・支払調書も出せない。<br>
+・返す約束の証拠が無い → 受け取った側が「もらったお金（贈与）」と見られる余地。<span class="tag u">推論・未確認</span></div>
+<p class="small mut">11月1日の発言は「PayPay で細かく分けて送る」「現実なかったことに」とある（05:56〜06:00・ASR）。正しい形は、受け取った日に「誰から・いくら・借入か出資か・いつ・どう返すか」を残すだけ。<b>特別な手続きではなく、日付・金額・相手の3点を残す程度でよい</b>。</p>
+
+<h2 id="s2" data-ch="2 融資の会計">2　融資（借りて返す）の会計</h2>
+<h3 id="s2-1" data-sc="2-1 受け取るとき">2-1　受け取るとき ― 売上ではなく「借入金」</h3>
+<p>仕訳（会計の記録の書き方）は、左右2列の箱で見る。<b>左（借方）＝増えたもの／右（貸方）＝その元手</b>。100万円借りた日:</p>
+<div class="tacc"><div class="t">借入の日（100万円）</div><div class="h">借方（左）</div><div class="h">貸方（右）</div>
+<div class="c l">普通預金（PayPay 残高）<span class="v">1,000,000</span></div><div class="c">借入金（友人から）<span class="v">1,000,000</span></div></div>
+<p>お金が増え、同じ額の<b>返す義務（借入金）</b>が増えるだけ。利益は動かない。PayPay のような電子マネーの残高で受けた場合も、<b>事業用の口座・残高として帳簿に載せる</b>のが同じ型（個人のお金と混ぜない）。</p>
+
+<h3 id="s2-2" data-sc="2-2 返すとき">2-2　返すとき ― 元本と利息に分ける</h3>
+<div class="tacc"><div class="t">返済の日（毎月10万円のうち、元本9.1万円・利息0.9万円と分けた場合の例）</div><div class="h">借方（左）</div><div class="h">貸方（右）</div>
+<div class="c l">借入金（元本の分）<span class="v">90,909</span></div><div class="c">普通預金<span class="v">100,000</span></div>
+<div class="c l">支払利息（経費）<span class="v">9,091</span></div><div class="c"></div></div>
+<p><b>経費になるのは「支払利息」の行だけ</b>。借入金の行は、借入金（負債）が減るだけで、利益は変わらない。この区別があるから、<b>1回の返済を2行に割る</b>。</p>
+<div class="card key"><b>根拠</b>　国税庁タックスアンサー No.2210「業務のための借入金の利息は必要経費になります」（元本返済の扱いは同ページに記載がない＝上の「経費にならない」は会計の一般論で、一次の明記は未確認）。ただし<b>借りたお金を何に使ったか</b>で変わる。事業に使った分の利息は経費、個人の生活に使った分は経費にならない。<br><span class="small mut">→ 借りたお金は事業の口座に入れ、事業にだけ使う形にしておくと、全額の利息を経費にしやすい。</span></div>
+
+<h3 id="s2-3" data-sc="2-3 毎月 max の割り方">2-3　毎月 max(出した額の10%, 事業利益の10%) のとき、各回をどう割るか</h3>
+<p>いまの融資案は「毎月、max(出した額の10%, 事業利益の10%) を返し、合計110%で完済」。100万円なら毎月 max(10万円, 利益の10%)。<b>金額は毎月変わる</b>ので、<b>各回を元本と利息にどう割るか</b>の決めが要る（一般的な考え方は3つ。どれが正しい、という決まりは無く、契約で定める話）。</p>
+<div class="card"><div class="cwrap"><svg viewBox="0 0 600 232" role="img" aria-label="毎月10万円の返済の元本と利息の割り方3通り"><text x="4" y="51" class="lab">A 按分</text><rect x="150" y="34" width="36" height="24" class="bsi" rx="2"/><rect x="150" y="36.2" width="36" height="21.8" class="bpr" rx="2"/><rect x="190" y="34" width="36" height="24" class="bsi" rx="2"/><rect x="190" y="36.2" width="36" height="21.8" class="bpr" rx="2"/><rect x="230" y="34" width="36" height="24" class="bsi" rx="2"/><rect x="230" y="36.2" width="36" height="21.8" class="bpr" rx="2"/><rect x="270" y="34" width="36" height="24" class="bsi" rx="2"/><rect x="270" y="36.2" width="36" height="21.8" class="bpr" rx="2"/><rect x="310" y="34" width="36" height="24" class="bsi" rx="2"/><rect x="310" y="36.2" width="36" height="21.8" class="bpr" rx="2"/><rect x="350" y="34" width="36" height="24" class="bsi" rx="2"/><rect x="350" y="36.2" width="36" height="21.8" class="bpr" rx="2"/><rect x="390" y="34" width="36" height="24" class="bsi" rx="2"/><rect x="390" y="36.2" width="36" height="21.8" class="bpr" rx="2"/><rect x="430" y="34" width="36" height="24" class="bsi" rx="2"/><rect x="430" y="36.2" width="36" height="21.8" class="bpr" rx="2"/><rect x="470" y="34" width="36" height="24" class="bsi" rx="2"/><rect x="470" y="36.2" width="36" height="21.8" class="bpr" rx="2"/><rect x="510" y="34" width="36" height="24" class="bsi" rx="2"/><rect x="510" y="36.2" width="36" height="21.8" class="bpr" rx="2"/><rect x="550" y="34" width="36" height="24" class="bsi" rx="2"/><rect x="550" y="36.2" width="36" height="21.8" class="bpr" rx="2"/><text x="4" y="101" class="lab">B 利息を先に</text><rect x="150" y="84" width="36" height="24" class="bsi" rx="2"/><rect x="190" y="84" width="36" height="24" class="bsi" rx="2"/><rect x="190" y="84.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="230" y="84" width="36" height="24" class="bsi" rx="2"/><rect x="230" y="84.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="270" y="84" width="36" height="24" class="bsi" rx="2"/><rect x="270" y="84.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="310" y="84" width="36" height="24" class="bsi" rx="2"/><rect x="310" y="84.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="350" y="84" width="36" height="24" class="bsi" rx="2"/><rect x="350" y="84.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="390" y="84" width="36" height="24" class="bsi" rx="2"/><rect x="390" y="84.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="430" y="84" width="36" height="24" class="bsi" rx="2"/><rect x="430" y="84.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="470" y="84" width="36" height="24" class="bsi" rx="2"/><rect x="470" y="84.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="510" y="84" width="36" height="24" class="bsi" rx="2"/><rect x="510" y="84.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="550" y="84" width="36" height="24" class="bsi" rx="2"/><rect x="550" y="84.0" width="36" height="24.0" class="bpr" rx="2"/><text x="4" y="151" class="lab">C 元本を先に</text><rect x="150" y="134" width="36" height="24" class="bsi" rx="2"/><rect x="150" y="134.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="190" y="134" width="36" height="24" class="bsi" rx="2"/><rect x="190" y="134.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="230" y="134" width="36" height="24" class="bsi" rx="2"/><rect x="230" y="134.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="270" y="134" width="36" height="24" class="bsi" rx="2"/><rect x="270" y="134.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="310" y="134" width="36" height="24" class="bsi" rx="2"/><rect x="310" y="134.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="350" y="134" width="36" height="24" class="bsi" rx="2"/><rect x="350" y="134.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="390" y="134" width="36" height="24" class="bsi" rx="2"/><rect x="390" y="134.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="430" y="134" width="36" height="24" class="bsi" rx="2"/><rect x="430" y="134.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="470" y="134" width="36" height="24" class="bsi" rx="2"/><rect x="470" y="134.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="510" y="134" width="36" height="24" class="bsi" rx="2"/><rect x="510" y="134.0" width="36" height="24.0" class="bpr" rx="2"/><rect x="550" y="134" width="36" height="24" class="bsi" rx="2"/><text x="168" y="22" class="tick" text-anchor="middle">1回</text><text x="208" y="22" class="tick" text-anchor="middle">2回</text><text x="248" y="22" class="tick" text-anchor="middle">3回</text><text x="288" y="22" class="tick" text-anchor="middle">4回</text><text x="328" y="22" class="tick" text-anchor="middle">5回</text><text x="368" y="22" class="tick" text-anchor="middle">6回</text><text x="408" y="22" class="tick" text-anchor="middle">7回</text><text x="448" y="22" class="tick" text-anchor="middle">8回</text><text x="488" y="22" class="tick" text-anchor="middle">9回</text><text x="528" y="22" class="tick" text-anchor="middle">10回</text><text x="568" y="22" class="tick" text-anchor="middle">11回</text><rect x="150" y="176" width="14" height="12" class="bpr"/><text x="170" y="187" class="tick">元本（経費にならない）</text><rect x="320" y="176" width="14" height="12" class="bsi"/><text x="340" y="187" class="tick">利息（経費になる）</text><text x="150" y="208" class="tick">どれも合計は 元本100万円＋利息10万円＝110万円。</text><text x="150" y="224" class="tick">変わるのは「どの回に利息が出るか」だけ</text></svg></div></div>
+<div class="tw"><table>
+<tr><th>割り方</th><th>中身</th><th>経費（利息）が出るのは</th><th>向いている場面</th></tr>
+<tr><td><b>A 按分</b></td><td>各回の返済額を、元本:利息＝100:10 で割る（元本 10/11・利息 1/11）</td><td>毎回なだらか</td><td>金額が毎月変わるとき。計算が単純で、年またぎでも偏らない</td></tr>
+<tr><td><b>B 利息を先に</b></td><td>利息10万円を先に全部払ってから、元本を返す</td><td>最初の回にまとまる</td><td>出し手の利息収入が早く立つ。事業側は早く経費にできる</td></tr>
+<tr><td><b>C 元本を先に</b></td><td>元本100万円を全部返してから、最後に利息10万円</td><td>最後の回にまとまる</td><td>元本が先に減るので、出し手の安心は大きい</td></tr>
+</table></div>
+<p class="small mut">3つとも合計は同じ（元本100万円＋利息10万円）。違いは、<b>どの年の経費・どの年の友人の所得になるか</b>だけ。11月に始めて翌年にまたがるなら、A か B のどちらかを契約書に書く。<b>ともき案（100万円→120万円・5か月後に一括）</b>は、一括の日に元本100万円＋利息20万円と割る形で、割り方に迷いは無い。<span class="tag u">ただし利息20万円は年換算で約48%。利息制限法の上限（100万円以上は年15%）を超えた部分は無効という論点がある（「投資プランの基礎」6章・正本 01_loan.md）</span></p>
+
+<h3 id="s2-4" data-sc="2-4 友人の側の税金">2-4　友人（貸した側）の税金</h3>
+<div class="grid2">
+<div class="card"><b>利息</b>は友人の<b>雑所得</b>（国税庁 No.1500「非営業用貸金の利子」）。年の他の所得が少なければ申告不要のことも（給与1か所のみの人は、他の所得が20万円以下なら申告不要・所法121条）。<br><span class="mut small">貸し付けが「業」になる規模でなければ、の話（個人間貸借の「業として」の線は正本でも未到達＝弁護士へ）。</span></div>
+<div class="card"><b>元本の戻り</b>は所得ではない（貸したお金が戻るだけ）。<br><b>源泉徴収</b>: 個人が個人に利息を払う場合の源泉徴収は、通常は要らないと解されているが、国税庁の原文では確認できていない。<span class="tag u">未確認</span></div>
+</div>
+
+<h2 id="s3" data-ch="3 投資（利益分配）の会計と税務">3　投資（利益分配）の会計と税務</h2>
+<p>いまの投資案は「100万円につき毎月の事業利益の5%を、250万円に届くまで払う。事業をやめたら全額返す」。税務は<b>契約の形</b>で結果が変わる。</p>
+<h3 id="s3-1" data-sc="3-1 契約の形で変わること">3-1　匿名組合にする場合と、形を決めない場合</h3>
+<div class="tw"><table>
+<tr><th></th><th>匿名組合契約にする</th><th>契約の形を決めない（口約束・メモ）</th></tr>
+<tr><td>契約の中身</td><td>商法535条: 出資者が営業者のために出資し、<b>営業から生じる利益を分ける</b>約束。出資は営業者の財産になる（536条）</td><td>何の契約か第三者に説明できない</td></tr>
+<tr><td>営業者（事業側）の経費</td><td>分配は組合事業の必要経費に算入（所得税基本通達36・37共-21の2）</td><td>この通達を使えるか不明。貸付金の利息と読むなら利息として経費（2章）。<span class="tag u">推論・未確認</span></td></tr>
+<tr><td>源泉徴収</td><td><b>分配のつど20.42%</b>を差し引いて、翌月10日までに納める（所法210・211）。居住者向けの人数要件は平成20年1月以降なし</td><td>契約の形が決まらないと、源泉が必要か判断がぶれる</td></tr>
+<tr><td>支払調書</td><td>支払確定の翌年1月31日までに税務署へ（受取人ごと。同一人への年間支払が5万円以下なら不要）</td><td>同上</td></tr>
+<tr><td>出資者の所得</td><td>原則<b>雑所得</b>。共同経営と認められれば事業所得等。源泉分は確定申告で控除・還付</td><td>貸付金の利息（雑所得）か、贈与か、等が分かれうる<span class="tag u">推論</span></td></tr>
+<tr><td>金商法（登録）</td><td colspan="2">別の論点（出資者が1人でも自己募集に当たりうる＝金融庁の回答）。弁護士へ。この資料では扱わない</td></tr>
+</table></div>
+<p class="small mut">営業者が<b>個人</b>の場合の源泉徴収について、個人営業者を名指しした国税庁の質疑応答は見つかっていない。条文の文言上は人数・法人限定が無い、という読み（正本 03_tax.md）。<span class="tag u">個人営業者の実務は未確認</span></p>
+
+<h3 id="s3-2" data-sc="3-2 営業者の仕訳">3-2　匿名組合の場合の仕訳（月の利益100万円・5%＝5万円を分配する月）</h3>
+<div class="tacc"><div class="t">出資を受けた日（100万円）</div><div class="h">借方（左）</div><div class="h">貸方（右）</div>
+<div class="c l">普通預金<span class="v">1,000,000</span></div><div class="c">匿名組合出資金<span class="v">1,000,000</span></div></div>
+<div class="tacc"><div class="t">分配の月（5万円。源泉徴収20.42%＝10,210円）</div><div class="h">借方（左）</div><div class="h">貸方（右）</div>
+<div class="c l">利益分配金（経費）<span class="v">50,000</span></div><div class="c">普通預金（手取り）<span class="v">39,790</span></div>
+<div class="c l"></div><div class="c">預り金（源泉税）<span class="v">10,210</span></div></div>
+<div class="tacc"><div class="t">翌月10日までに納付</div><div class="h">借方（左）</div><div class="h">貸方（右）</div>
+<div class="c l">預り金（源泉税）<span class="v">10,210</span></div><div class="c">普通預金<span class="v">10,210</span></div></div>
+<p>出資金の受け取りは、売上（収入）として扱わない（出資金が収入に含まれない旨の直接の一次は未確認だが、返還義務つきの出資という性質からの整理）。<span class="tag u">未確認</span></p>
+<div class="card warnc"><b>手取りか額面か</b>　「5%」は源泉徴収の前か後か。契約書で決めないと、出し手が受け取る額が思っていたより2割ほど減る。<b>こちらが5%を渡したつもりでも、手元に入るのは4%ほど</b>、というずれが起きる（5% × (1−20.42%)＝3.98%）。</div>
+
+<h3 id="s3-3" data-sc="3-3 2.5倍の中身">3-3　「2.5倍」の中で、「元本の返還」と「利益の分配」をどう分けるか</h3>
+<p>ここが条件設計の中心になる。<b>元本の返還（出資の払戻し）は利益の分配ではなく、源泉徴収の対象外</b>（基本通達の注）。分配だけが源泉の対象で、営業者の経費にもなる。</p>
+<div class="card"><div class="cwrap">
+<svg viewBox="0 0 640 230" class="chart" role="img" aria-label="250万円の内訳の2通りの読み方">
+<text x="6" y="22" class="lab" font-weight="700">読み方① 2.5倍に元本を含む（デッキの現行案）</text>
+<rect x="6" y="30" width="162" height="34" class="bpr"/><text x="87" y="52" class="lab onbar" text-anchor="middle">元本の返還 100万円</text>
+<rect x="168" y="30" width="244" height="34" class="bsi"/><text x="290" y="52" class="lab" text-anchor="middle">利益の分配 150万円</text>
+<text x="6" y="82" class="tick">合計 250万円　源泉 150万円×20.42%＝30.6万円</text>
+<text x="6" y="118" class="lab" font-weight="700">読み方② 2.5倍は分配だけ。元本は別に返す（契約の既定の読み方）</text>
+<rect x="6" y="126" width="404" height="34" class="bsi"/><text x="208" y="148" class="lab" text-anchor="middle">利益の分配 250万円</text>
+<rect x="410" y="126" width="162" height="34" class="bpr"/><text x="491" y="148" class="lab onbar" text-anchor="middle">元本 100万円</text>
+<text x="6" y="178" class="tick">合計 350万円　源泉 250万円×20.42%＝51.1万円</text>
+<text x="6" y="204" class="tick warn">商法542条は、契約が終わるとき営業者は出資の価額を返還するとしている。</text>
+<text x="6" y="220" class="tick warn">契約で「250万円に元本を含む」と書かないと、②に読まれるおそれ（契約で変える余地は未確認）。</text>
+</svg></div></div>
+<p>毎月の5%は「利益の分配」なので、<b>元本の返し方を別に決めておく</b>必要がある。決め方は3つ（総額は同じ。変わるのは年ごとの経費・源泉・出資者の所得）:</p>
+<div class="tw"><table>
+<tr><th>元本の戻し方</th><th>中身</th><th>営業者の経費が立つ時期</th></tr>
+<tr><td>先に元本100万円を返す</td><td>最初の払いは払戻し（源泉なし）。そのあとが分配</td><td>遅い（元本を返し終えてから）</td></tr>
+<tr><td>毎回、元本:分配＝100:150 で割る</td><td>毎月の払いを2行に割る（融資の按分と同じ型）</td><td>なだらか</td></tr>
+<tr><td>分配を先に、最後に元本</td><td>250万円に届く前に事業をやめたら、残りの元本を返す</td><td>早い</td></tr>
+</table></div>
+<p class="small mut">契約書に「何を何に当てるか」を書いてあれば、そのとおりに記録できる。<b>書いてないと、毎月の払いが元本か分配か、誰も決められない</b>。「事業をやめたら全額返す」も、<b>返すのは出した額か、損失で減った後の残額か</b>を決める必要がある（商法538条: 損失があれば、それを埋めたあとでなければ出資者は利益の配当を請求できない。542条: 出資が損失で減っていたら残額を返せば足りる）。「全額返す」は損失分担より出資者に有利な約束なので、契約書で明確に書く。<span class="tag u">契約での修正の可否は未確認</span></p>
+
+<h3 id="s3-4" data-sc="3-4 出資者の側の税金">3-4　出資者の側の税金</h3>
+<ul>
+<li>分配は原則<b>雑所得</b>。引かれた源泉税は、確定申告で払う税金から引ける（引ききれなければ還付）。</li>
+<li>元本の払戻しは、所得ではない（通達の注）。</li>
+<li>分配が「利益に関係なく一定額」だと、匿名組合の分配ではなく<b>貸付金の利息</b>として扱われうる（通達の注）。毎月 max(…) の融資と、利益の%の投資を、<b>混ぜない</b>のが安全。</li>
+</ul>
+
+<h2 id="s4" data-ch="4 記録と証拠">4　記録と証拠 ― 何を、どこに残すか</h2>
+<div class="card"><div class="cwrap">
+<svg viewBox="0 0 640 150" class="chart" role="img" aria-label="記録のつながり">
+<rect class="bx" x="6" y="30" width="110" height="60" rx="8"/><text x="61" y="54" class="lab" text-anchor="middle">契約書・</text><text x="61" y="72" class="lab" text-anchor="middle">借用書</text>
+<rect class="bx" x="170" y="30" width="110" height="60" rx="8"/><text x="225" y="54" class="lab" text-anchor="middle">送金の記録</text><text x="225" y="72" class="tick" text-anchor="middle">PayPay 履歴</text>
+<rect class="bxa" x="334" y="30" width="110" height="60" rx="8"/><text x="389" y="54" class="lab" text-anchor="middle">帳簿</text><text x="389" y="72" class="tick" text-anchor="middle">借入金・利息</text>
+<rect class="bx" x="498" y="30" width="136" height="60" rx="8"/><text x="566" y="54" class="lab" text-anchor="middle">確定申告</text><text x="566" y="72" class="tick" text-anchor="middle">経費・源泉・調書</text>
+<path class="ar" d="M116,60 H168"/><path class="ar" d="M280,60 H332"/><path class="ar" d="M444,60 H496"/>
+<text x="6" y="125" class="tick">毎月の実績（利益の計算）と請求書は、分配や max の金額の根拠として帳簿とつなぐ</text>
+</svg></div></div>
+<ul class="chk">
+<li><b>受け取りの日</b>: PayPay の履歴（日付・金額・相手）を画面保存か書き出しで残す。いつ・誰が・何のために入れたかを1行メモ（借入か出資か）。</li>
+<li><b>返済のたび</b>: 送った額・日付・元本と利息の内訳を1行。分配は源泉徴収額（20.42%）まで。</li>
+<li><b>契約書・借用書</b>: 当事者・金額・日付・返し方（割り方・期日）・利率・途中でやめたときの扱い・手取りか額面か。2人連名なら<b>誰が債務者か</b>（連帯債務にするか）も。</li>
+<li><b>毎月の実績データ・請求書</b>: 毎月出す実績（利益の数字）は、<b>帳簿の利益と同じ数字</b>であること。「利益」の定義（何を引くか）を決め、帳簿と食い違わないようにする（max の金額・分配の根拠になる）。</li>
+<li><b>事業用の口座・PayPay</b>: 個人の生活のお金と混ぜない。混ぜると、何が事業のお金か切り分けが困難。</li>
+<li><b>保存</b>: 帳簿は原則7年・請求書などは5年（国税庁 No.2070・青色申告者の場合の記載）。</li>
+</ul>
+<h3 id="s4-2" data-sc="4-2 印紙">4-2　印紙（収入印紙）の要否</h3>
+<div class="tw"><table>
+<tr><th>書類</th><th>印紙</th><th>目安</th></tr>
+<tr><td>借用書・金銭消費貸借契約書（紙）</td><td><b>要る</b>（第1号の3文書）。記載金額は<b>元本のみ</b>（利息を含まない・通達23条）</td><td>元本100万円以下 1,000円／100万円超500万円以下 2,000円（国税庁 No.7140）</td></tr>
+<tr><td>PDF 等の電磁的な契約書</td><td>課税されない（紙でなければ不課税）</td><td>—</td></tr>
+<tr><td>お金を受け取った受取書・領収書</td><td>借入金・出資金の受取は売上代金でないので、第17号の2。5万円未満は非課税、営業に関しなければ非課税</td><td>返済方法・利率を書いた受取書は借用書扱い（1号の3）</td></tr>
+<tr><td>匿名組合契約書</td><td>課税・不課税と明記した国税庁の資料は<b>未到達</b>（どの号にも当たらない可能性が高い、という読み）。元本の返還や固定利率を書くと、貸借と見られる余地</td><td><span class="tag u">税務署に事前確認</span></td></tr>
+</table></div>
+<p class="small mut">課否は名称でなく内容で決まる（No.7100）。印紙を忘れると過怠税（原則3倍、自己申告で1.1倍・最低1,000円）。</p>
+
+<h2 id="s5" data-ch="5 確定申告と2人の場合">5　確定申告のタイミングと、2人でやる場合の所得</h2>
+<h3 id="s5-1" data-sc="5-1 年の流れ">5-1　年の流れ（2026年分）</h3>
+<div class="card"><div class="cwrap">
+<svg viewBox="0 0 640 180" class="chart" role="img" aria-label="2026年分の確定申告までの時間軸">
+<path class="ar" d="M20,70 H620"/>
+<circle cx="70" cy="70" r="6" class="bpr"/><text x="70" y="52" class="tick" text-anchor="middle">2026年11月</text><text x="70" y="96" class="lab" text-anchor="middle">受け取り開始</text><text x="70" y="112" class="tick" text-anchor="middle">帳簿に載せる</text>
+<circle cx="205" cy="70" r="6" class="bpr"/><text x="205" y="52" class="tick" text-anchor="middle">毎月</text><text x="205" y="96" class="lab" text-anchor="middle">分配の翌月10日</text><text x="205" y="112" class="tick" text-anchor="middle">源泉を納付（匿名組合）</text>
+<circle cx="340" cy="70" r="6" class="bpr"/><text x="340" y="52" class="tick" text-anchor="middle">2026年12月31日</text><text x="340" y="96" class="lab" text-anchor="middle">1年分を締める</text><text x="340" y="112" class="tick" text-anchor="middle">利息・分配の合計</text>
+<circle cx="470" cy="70" r="6" class="bw"/><text x="470" y="52" class="tick" text-anchor="middle">2027年1月31日</text><text x="470" y="96" class="lab" text-anchor="middle">支払調書</text><text x="470" y="112" class="tick" text-anchor="middle">（匿名組合の分配）</text>
+<circle cx="590" cy="70" r="6" class="bw"/><text x="580" y="52" class="tick" text-anchor="middle">2027年3月15日</text><text x="580" y="96" class="lab" text-anchor="middle">申告・納付の期限</text><text x="580" y="112" class="tick" text-anchor="middle">（2/16〜 申告期間）</text>
+<text x="6" y="150" class="tick">開始日の「2月16日」は解説サイトの記述（国税庁の2027年分の公表は未確認）。</text>
+<text x="6" y="166" class="tick">期限の3月15日は国税庁「主な国税の納期限」。</text>
+</svg></div></div>
+<ul>
+<li><b>2026年分は、2026年1月〜12月の分</b>。11月に受け取って返し始めれば、2026年分に載る（返済と利息の一部）。</li>
+<li>青色申告にするなら、<b>事業を始めた日から2か月以内</b>に承認申請（その年の1月16日以後に始めた場合・国税庁 No.2070）。</li>
+<li>開業届（個人事業の開廃業等届出書）の期限は、国税庁の表で「事業開始の年分の確定申告期限まで」。</li>
+<li>支払調書: 分配の確定した年の翌年1月31日。同一人への年間支払が5万円以下なら提出不要（正本 03_tax.md）。</li>
+</ul>
+<h3 id="s5-2" data-sc="5-2 2人の場合の所得">5-2　個人事業主2人でやる場合、誰の所得になるか</h3>
+<div class="tw"><table>
+<tr><th>形</th><th>所得は誰の</th><th>借入・出資の契約の相手は</th></tr>
+<tr><td><b>ゆうと1人の事業</b>、拓也は業務委託（システム担当）</td><td>事業の利益はゆうとの所得。拓也へ払うお金はゆうとの経費（外注費）、拓也の側は拓也の所得</td><td>ゆうと</td></tr>
+<tr><td><b>2人の共同経営</b>（組合）</td><td>事業の利益は、取り決めた持分に応じて<b>各人</b>に分かれる（所得税基本通達36・37共-19の趣旨・原文の確認は未了）。<span class="tag u">未確認</span></td><td>2人連名。連帯債務にするか、持分で分けるか</td></tr>
+<tr><td><b>法人</b></td><td>法人の所得（法人税）。個人は給与・役員報酬など</td><td>法人（個人保証を求められうる）</td></tr>
+</table></div>
+<p>いまの状態（11月1日時点）は<b>形が未決</b>。上の3つのどれかを決めないと、<b>借入金を誰の帳簿に載せるか</b>、利息を誰の経費にするかが決まらない。2人連名で借りるなら、民法436〜445条の連帯債務になる（各自が全額の責任を負い、負担部分は契約で決める・正本 01_loan.md）。</p>
+
+<h2 id="s6" data-ch="6 決めること">6　拓也とゆうとが決める必要のあること</h2>
+<ol class="dec">
+<li><b>事業の主体をどうするか</b>: ゆうと1人／2人の共同経営／法人。借入・出資の契約相手、帳簿を持つ人、確定申告をする人が決まる（5章）。</li>
+<li><b>誰が借入金・出資金を受ける口座か</b>: 事業用の口座（または PayPay 残高）を1つ決め、個人の生活のお金と分ける（4章）。</li>
+<li><b>りょうま・ともきとの契約の形</b>: 融資は借用書、投資は匿名組合契約にするか（3-1）。金商法の論点は弁護士へ。</li>
+<li><b>融資の各回の元本・利息の割り方</b>: 按分か、利息先か。契約書に書く（2-3）。</li>
+<li><b>ともき案の利率</b>: 100万円→120万円・5か月は年換算約48%で、法定上限（年15%）を超える。形を変えるか（2-3）。</li>
+<li><b>投資の2.5倍に元本を含めるか</b>: 含める（現行案）なら契約書にそう書く。元本の戻し方（先／按分／最後）も（3-3）。</li>
+<li><b>「5%」は源泉徴収の前か後か</b>: 前（額面）なら出し手の手取りは約4%。誰が納付・支払調書を出すか（3-2）。</li>
+<li><b>「事業利益」の定義と、毎月の実績・請求書の出し方</b>: 帳簿の数字と合わせる。max の金額の根拠になる（4章）。</li>
+<li><b>記帳と申告の担当</b>: 誰が帳簿をつけるか。青色申告承認申請は事業開始から2か月以内（5章）。</li>
+<li><b>税理士に頼むか、いつ頼むか</b>: 源泉徴収・支払調書・匿名組合の印紙は、初回だけでも確認する価値が高い。</li>
+</ol>
+
+<div class="card warnc"><b>最終確認は税理士へ。</b>この資料は国税庁・e-Gov の公開資料と正本 canon をもとにした基礎の整理で、個別の税務判断ではない。</div>
+
+<h3 id="s7" data-sc="確かめられなかった点">確かめられなかった点（未確認）</h3>
+<ul class="small">
+<li>2027年分の確定申告「2月16日開始」の国税庁の公表（期限の3月15日は国税庁で確認済み）。</li>
+<li>個人が個人へ払う貸付金利息の源泉徴収が不要という、国税庁の一次の明記。</li>
+<li>借入元本の返済が必要経費に当たらないことの、国税庁の一次の明記（会計の一般論として記載）。</li>
+<li>匿名組合の出資金が収入に含まれないことの直接の一次、個人営業者を名指しした源泉徴収の国税庁質疑、匿名組合契約書の印紙の課否。</li>
+<li>商法542条の「出資の価額の返還」を、契約で「元本込み2.5倍」と修正できるか（契約自由の範囲）。</li>
+<li>基本通達36・37共-19（共同経営の所得帰属）の原文。</li>
+<li>利息を経費にする時期（発生主義か支払時か）、「契約の形を決めない」場合の税務、贈与とみなされる条件。</li>
+</ul>
+
+<p class="small mut" style="margin-top:40px">出典: 国税庁 <a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2210.htm">No.2210 必要経費</a>・<a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1500.htm">No.1500 雑所得</a>・<a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2070.htm">No.2070 青色申告制度</a>・<a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2090.htm">No.2090 開業届等</a>・<a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/inshi/7140.htm">No.7140 印紙税額</a>・<a href="https://www.nta.go.jp/taxes/nozei/nofu/24200042/noufu_kigen.htm">主な国税の納期限</a>・<a href="https://www.nta.go.jp/taxes/tetsuzuki/shinsei/annai/hotei/01.htm">法定調書の提出期限</a>・<a href="https://www.nta.go.jp/law/tsutatsu/kihon/shotoku/05/16.htm">所得税基本通達36・37共</a>・<a href="https://www.nta.go.jp/law/tsutatsu/kihon/inshi/inshi01/05.htm">印紙税法基本通達</a>／e-Gov <a href="https://laws.e-gov.go.jp/law/132AC0000000048">商法535〜542条</a>・<a href="https://laws.e-gov.go.jp/law/340AC0000000033">所得税法</a>・<a href="https://laws.e-gov.go.jp/law/329AC0000000100">利息制限法</a>／正本 canon「japan-small-biz-funding-law」／会議の時刻＝11月1日 Zoom の経過時間。</p>
+</main>
+<script>
+(function(){
+  var ch=document.getElementById('tch'),sc=document.getElementById('tsc');
+  var hs=[].slice.call(document.querySelectorAll('h2[data-ch],h3[data-sc]'));
+  function upd(){
+    var off=(document.getElementById('top').offsetHeight||40)+60,c='はじめに',s='';
+    if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-2)off=window.innerHeight*0.85;
+    for(var i=0;i<hs.length;i++){
+      if(hs[i].getBoundingClientRect().top-off>0)break;
+      if(hs[i].tagName==='H2'){c=hs[i].getAttribute('data-ch');s='';}else{s=hs[i].getAttribute('data-sc');}
+    }
+    ch.textContent=c;sc.textContent=s;
+  }
+  window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
+})();
+</script>
+</body>
+</html>
