@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>チケット事業 資金のご相談</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- 写し: 正本は claude.ai の Artifact（docs/funding/README.md）。ここを直さない -->
+<!-- #allow-pii: 載る氏名は作成者本人2名（スライド表紙と同じ）。「事業 資金」の氏名判定は誤検知 -->
+<style>
+
+
+/* 資金のご相談デッキの見た目。方向＝会場の暗がり（濃紺）と半券の朱、数字は凝縮体で大きく。
+   色・書体はここの :root のトークンだけで決める（個々の規則に生の色を書かない） */
+:root{
+  --bg:#e7eaef; --paper:#ffffff; --ink:#0b1422; --sub:#5c6678; --line:#dbe0e9;
+  --accent:#e2552b; --accent-soft:#fceae3; --navy:#102844; --navy-soft:#e3e9f3;
+  --muted:#aab3c1; --muted-soft:#edeff4; --ok:#1f7a52; --ok-soft:#ddefe6;
+  --ph:#8a5a00; --ph-bg:#fff0c9;
+  --disp:"Zen Kaku Gothic New","Noto Sans JP",system-ui,sans-serif;
+  --numf:Archivo,"Zen Kaku Gothic New","Noto Sans JP",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0a0f18; --paper:#131a26; --ink:#e8edf5; --sub:#97a2b4; --line:#273041;
+    --accent:#ff7044; --accent-soft:#3a1d12; --navy:#9dbce4; --navy-soft:#1a2436;
+    --muted:#485264; --muted-soft:#1c2432; --ok:#52c08a; --ok-soft:#142e22;
+    --ph:#ffd479; --ph-bg:#3a2f12;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0a0f18; --paper:#131a26; --ink:#e8edf5; --sub:#97a2b4; --line:#273041;
+  --accent:#ff7044; --accent-soft:#3a1d12; --navy:#9dbce4; --navy-soft:#1a2436;
+  --muted:#485264; --muted-soft:#1c2432; --ok:#52c08a; --ok-soft:#142e22;
+  --ph:#ffd479; --ph-bg:#3a2f12;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;line-height:1.62;-webkit-text-size-adjust:100%}
+.num,.big{font-family:var(--numf);font-variant-numeric:tabular-nums;letter-spacing:-.015em}
+
+/* 上部の帯（デッキ名・いまの章・ページ） */
+.band{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;align-items:center;gap:14px;padding:9px 18px;
+  background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);font-size:13px}
+.band b{font-family:var(--disp);font-weight:900;white-space:nowrap;letter-spacing:.02em}
+.band .now{color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.band .where{font-family:var(--numf);font-weight:700;color:var(--sub);white-space:nowrap}
+.band button{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:5px;padding:3px 9px;font-size:12px;cursor:pointer}
+.band button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+main{max-width:1120px;margin:0 auto;padding:22px 16px 64px;display:flex;flex-direction:column;gap:24px}
+.slide{position:relative;container-type:inline-size;background:var(--paper);border-radius:10px;border:1px solid var(--line);
+  box-shadow:0 10px 30px rgba(10,20,40,.07);aspect-ratio:16/9;overflow:hidden;
+  padding:4.4cqw 5.2cqw 3.8cqw;display:flex;flex-direction:column;scroll-margin-top:58px;
+  font-size:clamp(14px,1.78cqw,21px)}
+/* 左に「節番号＋章名」を大きく置く＝いまどこの何を見ているかが一目で分かる。右端はページ番号 */
+.hd{display:flex;align-items:baseline;font-size:.8em;color:var(--sub);
+  margin-bottom:1.05em;padding-bottom:.5em;border-bottom:1px solid var(--line);gap:.8em}
+.sc{font-family:var(--numf);font-weight:900;font-size:1.65em;line-height:1;color:var(--accent);letter-spacing:-.01em}
+.ch{font-family:var(--disp);font-weight:900;font-size:1.22em;color:var(--ink);letter-spacing:.02em;flex:1;min-width:0}
+.lbl:before{content:"";display:inline-block;width:.42em;height:.42em;background:var(--accent);margin-right:.6em;vertical-align:.1em}
+.pg{font-family:var(--numf);font-weight:700;letter-spacing:.06em;white-space:nowrap;opacity:.7}
+.pg i{display:none}
+h2{font-family:var(--disp);font-size:2.45em;line-height:1.22;font-weight:900;letter-spacing:.004em;margin-bottom:.4em}
+h2 em{font-style:normal;color:var(--accent);word-break:keep-all}
+.lead{color:var(--sub);font-size:1em;margin-bottom:1.1em;max-width:62ch}
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.foot{font-size:.7em;color:var(--sub);margin-top:1.1em;padding-top:.6em;border-top:1px solid var(--line)}
+.ph{background:var(--ph-bg);color:var(--ph);border-radius:.25em;padding:0 .35em;font-weight:700;white-space:nowrap}
+
+/* 表紙 */
+.cover{background:
+  radial-gradient(120% 90% at 12% 0%,#1b3f66 0%,transparent 60%),
+  linear-gradient(160deg,#102844 0%,#070e18 100%);
+  color:#fff;justify-content:center;border-color:transparent}
+.cover .kicker{font-size:.9em;opacity:.78;letter-spacing:.24em;font-weight:700;margin-bottom:1.3em;
+  padding-left:.9em;border-left:3px solid var(--accent)}
+.cover h1{font-family:var(--disp);font-size:3.3em;line-height:1.22;font-weight:900;letter-spacing:-.01em;margin-bottom:.55em}
+.cover h1 em{font-style:normal;color:#ff8a5c}
+.cover .pitch{font-family:var(--disp);font-size:1.45em;font-weight:900;line-height:1.42;margin-bottom:.75em;text-wrap:balance}
+.cover .who{font-size:1em;opacity:.82}
+.cover .who b{font-family:var(--numf);font-weight:800}
+.cover .ph{background:rgba(255,255,255,.13);color:#ffd2b8}
+.cover .tag{position:absolute;right:5.2cqw;bottom:4cqw;font-family:var(--numf);font-weight:600;font-size:.78em;opacity:.6;letter-spacing:.02em}
+
+/* まとめ：いま と 自前 の比較 */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:3cqw;align-items:end}
+.case h3{font-family:var(--disp);font-size:1em;font-weight:900;margin-bottom:.5em}
+.case h3 small{font-weight:400;color:var(--sub);margin-left:.4em}
+.bar{display:flex;height:3.2em;border-radius:.3em;overflow:hidden;font-weight:800}
+.bar span{display:flex;align-items:center;justify-content:center;font-size:.9em;white-space:nowrap}
+.bar .ours{background:var(--accent);color:#fff}
+.bar .theirs{background:var(--muted-soft);color:var(--sub);border:2px dashed var(--muted)}
+
+/* 枚どうしの行き来（本文の「→ B1-1」と索引の各行） */
+a.jump{color:inherit;text-decoration-color:var(--accent);text-underline-offset:.2em}
+.foot a.jump,.lead a.jump,.use a.jump{color:var(--accent);font-weight:700;text-decoration:none;
+  border-bottom:1px solid currentColor;white-space:nowrap}
+.foot a.jump:hover,.lead a.jump:hover,.use a.jump:hover{background:var(--accent-soft)}
+.toc a.jump{display:contents;text-decoration:none}
+.backlink{font-size:.72em;color:var(--sub);margin-top:.9em}
+.backlink a.jump{color:var(--accent);font-weight:700;text-decoration:none;border-bottom:1px solid currentColor}
+.toc [data-ch]{cursor:pointer}
+.toc [data-ch]:hover .t{color:var(--accent)}
+
+/* 索引 */
+.toc{display:grid;grid-template-columns:repeat(2,1fr);gap:1em 2.4em}
+.toc [data-ch]{display:grid;grid-template-columns:auto 1fr;gap:.15em 1.1em;padding:1em 0;border-top:2px solid var(--ink)}
+.toc .n{font-family:var(--numf);font-size:2.3em;font-weight:900;color:var(--accent);line-height:.95;grid-row:span 2}
+.toc .t{font-family:var(--disp);font-weight:900;font-size:1.15em}
+.toc .q{color:var(--sub);font-size:.9em}
+
+/* 流れ図 */
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:.9em}
+.step{border-radius:.5em;padding:1.1em 1.15em 1em;background:var(--paper);border:1px solid var(--line);
+  border-top:3px solid var(--navy);display:flex;flex-direction:column;gap:.32em}
+.step .no{font-family:var(--numf);font-weight:800;color:var(--navy);font-size:.8em;letter-spacing:.06em}
+.step .t{font-family:var(--disp);font-weight:900;font-size:1.32em;line-height:1.3}
+.step .m{font-family:var(--numf);font-weight:800;font-size:1.6em}
+.step .d{color:var(--sub);font-size:.84em;line-height:1.5}
+.step.out .m{color:var(--accent)}
+.step.in .m{color:var(--ok)}
+.flow .ar{align-self:center;font-family:var(--numf);font-size:1.5em;font-weight:800;color:var(--muted)}
+
+/* 2つの軸 */
+.levers{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:1em;align-items:center;text-align:center}
+.lever{border:1px solid var(--line);border-top:3px solid var(--navy);border-radius:.5em;padding:1.2em .8em}
+.lever .ic{font-size:2.2em;line-height:1}
+.lever .t{font-family:var(--disp);font-weight:900;font-size:1.3em;margin:.3em 0 .1em}
+.lever .d{color:var(--sub);font-size:.85em}
+.lever.hot{border-color:var(--accent);border-top-color:var(--accent);background:var(--accent-soft)}
+.op{font-family:var(--numf);font-size:2.1em;font-weight:800;color:var(--muted)}
+
+/* 成功例カード */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1em}
+.card{border-radius:.5em;border:1px solid var(--line);border-top:3px solid var(--navy);padding:1.1em 1.1em 1em;display:flex;flex-direction:column;gap:.15em}
+.card .nm{font-family:var(--disp);font-weight:900;font-size:.95em;color:var(--sub)}
+.card .p{font-family:var(--numf);font-size:2.9em;font-weight:900;color:var(--accent);line-height:1.05;margin:.1em 0 .05em}
+.card .p small{font-size:.36em;font-weight:800;margin-left:.15em;color:var(--sub)}
+.card .d{font-size:.8em;color:var(--sub)}
+.card .meter{height:.45em;border-radius:.25em;background:var(--muted-soft);margin-top:.7em;overflow:hidden}
+.card .meter i{display:block;height:100%;background:var(--accent)}
+
+/* 表 */
+table{width:100%;border-collapse:collapse;font-size:.92em}
+th,td{padding:.6em .7em;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:.76em;color:var(--sub);font-weight:700;letter-spacing:.05em;border-bottom:2px solid var(--ink)}
+th small{display:block;font-weight:400;font-size:.92em;opacity:.85;white-space:nowrap}
+table.tight td,table.tight th{padding:.42em .6em}
+table.tight{font-size:.86em}
+th:first-child,td:first-child{text-align:left}
+td.hl{font-family:var(--numf);font-weight:900;color:var(--accent);font-size:1.08em}
+.mult{display:inline-block;min-width:3.4em;text-align:center;border-radius:.25em;background:var(--accent-soft);color:var(--accent);font-weight:900;padding:.05em .3em}
+
+svg{display:block;width:100%;height:auto}
+svg text{font-family:"Noto Sans JP",sans-serif;fill:var(--ink)}
+svg .sub{fill:var(--sub)}
+svg .num{font-family:var(--numf)}
+svg .on{fill:#fff}
+.gm{display:none;flex-direction:column;gap:14px}
+.gr .l{display:flex;justify-content:space-between;gap:1em;font-size:.95em}
+.gr .track{height:14px;border-radius:3px;background:var(--muted-soft);margin:4px 0 2px;overflow:hidden}
+.gr .track i{display:block;height:100%;border-radius:3px;background:var(--accent)}
+.gr .dt{font-size:.78em;color:var(--sub)}
+
+/* 2本の棒で比べる */
+.vs{display:grid;grid-template-columns:1.2fr 1fr;gap:3cqw;align-items:center}
+.vsbars{display:flex;flex-direction:column;gap:1.3em}
+.vsrow .l{font-size:.9em;margin-bottom:.35em;display:flex;justify-content:space-between;align-items:baseline;gap:1em}
+.vsrow .l b{font-family:var(--numf);font-weight:900;font-size:1.5em;white-space:nowrap}
+.vsrow .track{height:2.3em;background:var(--muted-soft);border-radius:.25em;overflow:hidden}
+.vsrow .fill{height:100%;border-radius:.25em}
+.callout{border-left:.4em solid var(--accent);padding:.8em 1.1em;background:var(--accent-soft);border-radius:0 .4em .4em 0}
+.callout .big{font-family:var(--numf);font-size:3em;font-weight:900;color:var(--accent);line-height:1.05}
+
+/* 2つ並べて比べる */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1.4em}
+.opt{border-radius:.5em;border:1px solid var(--line);border-top:3px solid var(--navy);padding:1.15em 1.25em}
+.opt h3{font-family:var(--disp);font-size:1.2em;font-weight:900;margin-bottom:.6em}
+.opt dl{display:grid;grid-template-columns:auto 1fr;gap:.4em 1em;font-size:.9em}
+.opt dt{color:var(--sub);font-weight:700}
+.opt dd{font-weight:500}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);position:relative;gap:1em}
+.timeline:before{content:"";position:absolute;left:4%;right:4%;top:1.05em;height:2px;background:var(--line)}
+.tl{position:relative;text-align:center;padding-top:2.6em}
+.tl:before{content:"";position:absolute;left:50%;top:.45em;width:1.1em;height:1.1em;margin-left:-.55em;border-radius:50%;background:var(--paper);border:3px solid var(--accent)}
+.tl .w{font-family:var(--disp);font-weight:900;font-size:1.05em}
+.tl .d{font-size:.85em;color:var(--sub)}
+
+/* 結論・まとめ（濃色でリズムを作る） */
+.conclusion{background:
+  radial-gradient(110% 80% at 88% 0%,#1d4166 0%,transparent 62%),
+  linear-gradient(160deg,#102844 0%,#070e18 100%);color:#fff;border-color:transparent}
+.conclusion .hd{color:rgba(255,255,255,.62);border-bottom-color:rgba(255,255,255,.16)}
+.conclusion .ch{color:#fff}
+.conclusion a.jump{color:#ff8a5c}
+.conclusion .sc{color:#ff8a5c}
+.conclusion h2 em{color:#ff8a5c}
+.conclusion .foot{color:rgba(255,255,255,.6);border-top-color:rgba(255,255,255,.16)}
+.asks{display:grid;grid-template-columns:repeat(3,1fr);gap:1em}
+.ask{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-top:3px solid #ff8a5c;border-radius:.4em;padding:.95em 1em}
+.ask .k{font-size:.8em;opacity:.72;font-weight:700}
+.ask .v{font-family:var(--disp);font-weight:900;font-size:1.4em;margin-top:.25em;line-height:1.3}
+/* まとめ：額とお返しを大きく、用途は薄く */
+.ask .amt{font-family:var(--numf);font-weight:900;font-size:1.85em;line-height:1.1;color:#ff8a5c;margin:.1em 0 .15em}
+.ask .ret{font-family:var(--disp);font-weight:900;font-size:1.1em;line-height:1.35}
+.ask .ret .ph{font-weight:900}
+.ask .u{font-size:.82em;opacity:.55;margin-top:.5em;line-height:1.45}
+.sumwrap{display:grid;grid-template-columns:1.35fr 1fr;gap:1.8em;align-items:center}
+.srows{display:flex;flex-direction:column;gap:.75em}
+.srow{display:grid;grid-template-columns:auto 1fr;gap:.1em .9em;padding-bottom:.6em;
+  border-bottom:1px solid rgba(255,255,255,.14)}
+.srow .k{grid-row:span 2;font-family:var(--numf);font-weight:800;font-size:.8em;opacity:.7;
+  align-self:center;white-space:nowrap}
+.srow .amt{font-family:var(--disp);font-weight:900;font-size:1.45em;line-height:1.2;color:#ff8a5c}
+.srow .ret{font-size:.85em;opacity:.8;word-break:keep-all}
+.srows .note{font-size:.8em;opacity:.7;line-height:1.5}
+.conclusion .ph{background:rgba(255,255,255,.14);color:#ffd2b8}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:.4em .6em;margin-top:1.6em;font-size:.9em}
+.path span{background:var(--muted-soft);border-radius:2em;padding:.3em .9em;font-weight:500}
+.path span.goal{background:var(--accent);color:#fff;font-weight:900}
+.path i{font-style:normal;color:var(--sub)}
+tr.sum td{border-top:2px solid var(--ink);font-weight:800}
+.ask.wide{grid-column:1/-1}
+.panel{display:grid;grid-template-columns:repeat(4,1fr);gap:.8em}
+.stg{border-radius:.5em;background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--navy);padding:1em;display:flex;flex-direction:column;gap:.45em}
+.stg .no{font-family:var(--disp);font-weight:900;color:var(--navy);font-size:.95em}
+.stg b{font-size:.95em;line-height:1.45}
+.stg dl{display:grid;grid-template-columns:auto 1fr;gap:.25em .6em;font-size:.78em;margin-top:auto}
+.stg dt{color:var(--sub)}
+.stg .who{font-weight:700}
+.stg.hot{background:var(--accent-soft);border-color:var(--accent);border-top-color:var(--accent)}
+.stg.hot .no,.stg.hot .who{color:var(--accent)}
+.badge{font-size:.7em;font-weight:800;background:var(--navy-soft);color:var(--navy);border-radius:.25em;padding:.05em .4em;vertical-align:middle}
+table.funnel td,table.funnel th{text-align:center}
+table.funnel td:first-child{text-align:left;font-weight:700}
+table.funnel-m{display:none}
+table.funnel-m td:first-child{font-weight:700}
+/* 奥付は項目が増えるので 16:9 に収めない */
+.colophon{aspect-ratio:auto;min-height:0}
+.colophon ul{list-style:none;display:flex;flex-direction:column;gap:.7em;font-size:.92em}
+.colophon li{padding-left:1.2em;position:relative}
+.colophon li:before{content:"";position:absolute;left:0;top:.7em;width:.45em;height:.45em;background:var(--accent)}
+
+/* プランの枚：まず「いくら・どう返すか」、その下に「何に使うか」 */
+.deal{display:grid;grid-template-columns:1fr 1fr;gap:1.2em}
+.deal .bx{border-radius:.5em;padding:1.05em 1.2em;display:flex;flex-direction:column;gap:.12em;
+  border:1px solid var(--line);border-top:3px solid var(--navy)}
+.deal .bx.hot{background:var(--accent-soft);border-color:var(--accent);border-top-color:var(--accent)}
+.deal .k{font-size:.8em;color:var(--sub);font-weight:700;letter-spacing:.06em}
+.deal .v{font-family:var(--disp);font-weight:900;font-size:1.85em;line-height:1.22}
+.deal .hot .v{color:var(--accent)}
+.deal .d{font-size:.85em;color:var(--sub);margin-top:.15em}
+.use{border-left:.35em solid var(--navy);background:var(--navy-soft);border-radius:0 .4em .4em 0;
+  padding:.8em 1.1em;font-size:.88em;margin-top:1.2em}
+.use .k{font-weight:900;font-family:var(--disp);margin-right:.5em}
+.use p+p{margin-top:.35em}
+.use dl{display:grid;grid-template-columns:auto 1fr;gap:.45em 1.2em;align-items:baseline}
+.use dt{font-family:var(--disp);font-weight:900;color:var(--navy);white-space:nowrap}
+.use dd{color:var(--ink)}
+
+/* 3つの鎖（揃っている2つ・足りない1つ） */
+.chain{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2em}
+.lk{border-radius:.5em;padding:1.1em 1.2em;display:flex;flex-direction:column;gap:.35em;background:var(--ok-soft)}
+.lk .k{font-size:.85em;color:var(--sub);font-weight:700}
+.lk b{font-family:var(--disp);font-size:1.3em;font-weight:900}
+.lk .s{font-weight:800;color:var(--ok)}
+.lk.ng{background:var(--accent-soft);border:2px dashed var(--accent)}
+.lk.ng .s{color:var(--accent)}
+/* 0→1 と 1→100 の対 */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:2em}
+.duo .side{border-top:4px solid var(--muted);padding-top:.9em;display:flex;flex-direction:column;gap:.3em}
+.duo .side.us{border-top-color:var(--accent)}
+.duo .big{font-family:var(--numf);font-size:3.2em;font-weight:900;line-height:1.05;color:var(--navy)}
+.duo .us .big{color:var(--accent)}
+.duo b{font-family:var(--disp);font-size:1.2em;font-weight:900}
+.duo .side span:last-child{color:var(--sub)}
+.step.hot{background:var(--accent-soft);border-color:var(--accent);border-top-color:var(--accent)}
+.step.hot .no{color:var(--accent)}
+table.scale td,table.scale th{font-size:1.05em;padding:.55em .8em}
+/* 量→要る資金→戻る利益 の3つの大きな数字 */
+.big3{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:1em}
+.big3 .bx{border-radius:.5em;padding:1.1em;background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--navy);display:flex;flex-direction:column;gap:.25em}
+.big3 .bx.hot{background:var(--accent-soft);border-color:var(--accent);border-top-color:var(--accent)}
+.big3 .k{font-size:.85em;color:var(--sub);font-weight:700}
+.big3 .v{font-family:var(--numf);font-size:2.6em;font-weight:900;line-height:1.08}
+.big3 .v small{font-size:.42em;margin-left:.12em;color:var(--sub)}
+.big3 .hot .v{color:var(--accent)}
+.big3 .d{font-size:.82em;color:var(--sub)}
+.big3 .ar{align-self:center;font-family:var(--numf);font-size:1.4em;font-weight:800;color:var(--muted)}
+.cards.c3{grid-template-columns:repeat(3,1fr)}
+.panel.p5{grid-template-columns:repeat(5,1fr)}
+.two.t3{grid-template-columns:repeat(3,1fr)}
+.two.t4{grid-template-columns:repeat(4,1fr)}
+.slide[data-sec^="B"] h2{text-wrap:balance}
+/* 改行の既定（2026-10-30 拓也「改行が気持ち悪い」・skill slide-skeleton と同じ）: 日本語は文節で折る・
+   最後の行に1〜2字を残さない・大きな数字は割らずに箱の幅に合わせて字を縮める。検査は slide_text_check.py */
+.slide{word-break:auto-phrase;text-wrap:pretty}
+.slide td,.slide th{word-break:normal}
+.slide h1,.slide h2{text-wrap:balance}
+.num,.big3 .v,.card .p,.vsrow .l b{white-space:nowrap}
+.big3 .bx,.card{container-type:inline-size;min-width:0}
+.big3 .v{font-size:min(2.6em,17cqi)}
+.card .p{font-size:min(2.9em,19cqi)}
+/* 補足：質疑で開く枚は文字が多くてよい＝16:9 に収めず縦に伸ばす */
+.slide[data-sec^="B"],.slide[data-role="backup"]{aspect-ratio:auto;min-height:0}
+.slide.dense{font-size:clamp(13px,1.52cqw,18px)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* スマホ幅：16:9 をやめて縦に流す */
+@media (max-width:760px){
+  main{padding:12px 12px 48px;gap:14px}
+  .slide{aspect-ratio:auto;padding:22px 18px 20px;font-size:15px;min-height:0}
+  h2{font-size:1.62em}
+  .cover{min-height:70vh}
+  .cover h1{font-size:2.1em}
+  .cover .tag{position:static;margin-top:1.4em}
+  .split,.vs,.two,.duo,.chain,.deal{grid-template-columns:1fr;gap:14px}
+  .big3{grid-template-columns:1fr;gap:8px}
+  .big3 .ar{transform:rotate(90deg);justify-self:center;line-height:1}
+  .cards.c3{grid-template-columns:1fr}
+  .slide table th,.slide table td{font-size:11px;padding:4px 3px;white-space:normal}
+  .toc{grid-template-columns:1fr;gap:0}
+  .flow,.levers{grid-template-columns:1fr;gap:8px}
+  .flow .ar{transform:rotate(90deg);justify-self:center;font-size:1.3em;line-height:1}
+  .levers .op{font-size:1.4em;line-height:1}
+  .cards{grid-template-columns:1fr 1fr}
+  .panel,.panel.p5,.two.t3,.two.t4{grid-template-columns:1fr}
+  .tablewrap:has(table.funnel){display:none}
+  table.funnel-m{display:table}
+  .asks{grid-template-columns:1fr}
+  .timeline{grid-template-columns:1fr;gap:4px}
+  .timeline:before{left:.6em;right:auto;top:.6em;bottom:.6em;width:2px;height:auto}
+  .tl{text-align:left;padding:0 0 .8em 2.2em}
+  .tl:before{left:.6em;top:.2em}
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .band .now{display:none}
+  .gantt svg{display:none}
+  .gantt .gm{display:flex}
+}
+@media print{
+  .band{display:none}
+  body{background:#fff}
+  main{padding:0;gap:0;max-width:none}
+  .slide{box-shadow:none;border-radius:0;border:none;break-after:page;width:100%}
+}
+
+/* 濃色の枚に置く図は、文字を白で描く */
+.conclusion svg text{fill:#fff}
+.conclusion svg .sub{fill:rgba(255,255,255,.7)}
+
+/* 基本式から演繹する縦の鎖 */
+.chainv{display:flex;flex-direction:column;gap:.1em}
+.chainv .eq{font-family:var(--disp);font-weight:900;font-size:1.08em;text-align:center;
+  background:var(--accent-soft);color:var(--accent);border-radius:.3em;padding:.35em .5em}
+.chainv .ar{text-align:center;color:var(--muted);font-weight:800;line-height:1.1}
+.chainv .row{font-size:.9em;text-align:center;line-height:1.5}
+
+/* 表の「1枚あたり」は全体の数字の後ろに小さく */
+.pu{font-size:.78em;color:var(--sub);font-weight:500;margin-left:.15em;white-space:nowrap}
+</style>
+</head>
+<body data-skeleton="talk">
+<div class="band" role="navigation"><b>資金のご相談</b><span class="now" id="now">表紙</span><span class="where" id="where">01/36</span><button type="button" id="theme" aria-label="明暗を切り替える">◐</button></div>
+<main>
+
+<section class="slide cover" data-role="cover" id="s1">
+<div class="kicker">品川湧登・武者野拓也　2026年11月6⁠日</div>
+<h1>チケット抽選代行事業<br><em>資金のご相談</em></h1>
+<div class="pitch">勝ち方は分かった。止まっているのは、払う現金だけ</div>
+<div class="who">稼働2か月で利益 <b>約⁠200⁠万円</b>（2026年9〜10月）</div>
+<div class="tag">ご相談：総額 300⁠万円の出資</div>
+</section>
+
+<section class="slide conclusion" data-role="summary" id="s2">
+<div class="hd"><span class="ch lbl">結論</span><span class="pg">02/36</span></div>
+<h2>当たりを払い切る300⁠万円の出資で、<em>標準の見通しで16か月</em>に2.5⁠倍</h2>
+<div class="body"><div class="asks">
+<div class="ask"><div class="k">実績（稼働2か月）</div><div class="amt">約⁠200⁠万円</div><div class="ret">利益<br>払った額の2.8⁠倍で売れた</div></div>
+<div class="ask"><div class="k">集める額</div><div class="amt">300⁠万円</div><div class="ret">出資の総額<br>当選分の支払い・名義・開発に</div></div>
+<div class="ask"><div class="k">標準の見通し</div><div class="amt">16か月</div><div class="ret">750⁠万円をお渡し<br>年あたり116⁠%</div></div>
+</div>
+<p class="foot">悪い見通しでも36か月までに 371.5⁠万円をお渡し＝遅れても出資額を上回る。前の月の売上の10⁠%を2.5⁠倍まで・事業計画（2026年11月4⁠日）の数字 <a class="jump" href="#s8">→ 2-2</a></p></div>
+</section>
+
+<section class="slide" data-role="toc" id="s3">
+<div class="hd"><span class="ch lbl">目次</span><span class="pg">03/36</span></div>
+<h2>2つの問いに答えます</h2>
+<p class="lead">何の事業か → そこにお金をどう入れ、どう戻すか、の順に話します</p>
+<div class="body"><div class="toc">
+<div data-ch="1"><a class="jump" href="#s4"><span class="n">1</span><span class="t">事業</span><span class="q">何で利益が出て、いま何が足りないのか？</span></a></div>
+<div data-ch="2"><a class="jump" href="#s7"><span class="n">2</span><span class="t">出資</span><span class="q">いくら要り、どう戻り、うまくいかないときはどうするのか？</span></a></div>
+</div></div>
+</section>
+
+<section class="slide" data-sec="1-1" id="s4">
+<div class="hd"><span class="sc">1-1</span><span class="ch">第1章 事業</span><span class="pg"><i>1-1｜</i>04/36</span></div>
+<h2>行きたいのに、<em>当たらない</em>人がいる</h2>
+<div class="body"><svg viewBox="0 0 700 260" role="img" aria-label="応募のうち当たるのは約5%、残りは取引サイトへ"><circle cx="24" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="52" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="79" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="106" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="134" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="162" cy="26" r="6.2" fill="var(--accent)"/><circle cx="189" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="216" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="244" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="272" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="299" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="326" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="354" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="382" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="409" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="436" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="464" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="492" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="519" cy="26" r="6.2" fill="var(--accent)"/><circle cx="546" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="574" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="602" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="629" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="656" cy="26" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="24" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="52" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="79" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="106" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="134" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="162" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="189" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="216" cy="54" r="6.2" fill="var(--accent)"/><circle cx="244" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="272" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="299" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="326" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="354" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="382" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="409" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="436" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="464" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="492" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="519" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="546" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="574" cy="54" r="6.2" fill="var(--accent)"/><circle cx="602" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="629" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="656" cy="54" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="24" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="52" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="79" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="106" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="134" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="162" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="189" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="216" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="244" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="272" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="299" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="326" cy="81" r="6.2" fill="var(--accent)"/><circle cx="354" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="382" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="409" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="436" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="464" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="492" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="519" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="546" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="574" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="602" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="629" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="656" cy="81" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="24" cy="108" r="6.2" fill="var(--accent)"/><circle cx="52" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="79" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="106" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="134" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="162" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="189" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="216" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="244" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="272" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="299" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="326" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="354" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="382" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="409" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="436" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="464" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="492" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="519" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="546" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="574" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="602" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="629" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="656" cy="108" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="24" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="52" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="79" cy="136" r="6.2" fill="var(--accent)"/><circle cx="106" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="134" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="162" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="189" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="216" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="244" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="272" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="299" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="326" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="354" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="382" cy="136" r="6.2" fill="var(--accent)"/><circle cx="409" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="436" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="464" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="492" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="519" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="546" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="574" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="602" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="629" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="656" cy="136" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="24" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="52" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="79" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="106" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="134" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="162" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="189" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="216" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="244" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="272" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="299" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="326" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="354" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="382" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="409" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="436" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="464" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="492" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="519" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="546" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="574" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="602" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="629" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="656" cy="164" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="24" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="52" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="79" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="106" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="134" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="162" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="189" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="216" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="244" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="272" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="299" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="326" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="354" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="382" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="409" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="436" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="464" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="492" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="519" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="546" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="574" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="602" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="629" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/><circle cx="656" cy="191" r="4.8" fill="var(--muted)" opacity="0.45"/>
+<text x="24" y="232" font-size="17" font-weight="700">応募した人</text><text x="24" y="254" font-size="15" class="sub">席より人が多い＝抽選になる</text>
+<circle cx="330" cy="226" r="6.2" fill="var(--accent)"/><text x="345" y="232" font-size="17" font-weight="700" fill="var(--accent)">当たる 約⁠5⁠%</text>
+<text x="345" y="254" font-size="15" class="sub">残りは、お金を出しても行きたい人</text></svg>
+<p class="foot">外れた人は、取引サイトで<b>定価の 2〜4⁠倍</b>でも買います。私たちは、当てられなかった人の代わりに当てて、席を届けています <a class="jump" href="#s13">→ B1-2</a></p></div>
+</section>
+
+<section class="slide" data-sec="1-2" id="s5">
+<div class="hd"><span class="sc">1-2</span><span class="ch">第1章 事業</span><span class="pg"><i>1-2｜</i>05/36</span></div>
+<h2>1⁠枚 当たるたび、<em>3.2⁠万円</em>の利益</h2>
+<div class="body"><svg viewBox="0 0 700 250" role="img" aria-label="応募は1名義1口。当たった1枚は定価1.75万円で買い4.9万円で売れる"><path d="M16 40 h32 a4 4 0 0 1 0 8 a4 4 0 0 1 0 8 v18 h-32 z" fill="var(--muted)" opacity="0.32"/><path d="M60 40 h32 a4 4 0 0 1 0 8 a4 4 0 0 1 0 8 v18 h-32 z" fill="var(--muted)" opacity="0.32"/><path d="M104 40 h32 a4 4 0 0 1 0 8 a4 4 0 0 1 0 8 v18 h-32 z" fill="var(--muted)" opacity="0.32"/><path d="M148 40 h32 a4 4 0 0 1 0 8 a4 4 0 0 1 0 8 v18 h-32 z" fill="var(--muted)" opacity="0.32"/><path d="M192 40 h32 a4 4 0 0 1 0 8 a4 4 0 0 1 0 8 v18 h-32 z" fill="var(--muted)" opacity="0.32"/><path d="M236 40 h32 a4 4 0 0 1 0 8 a4 4 0 0 1 0 8 v18 h-32 z" fill="var(--accent)" opacity="1"/>
+<text x="16" y="96" font-size="16" font-weight="700">1名義＝1⁠人ぶんのアカウント</text>
+<text x="16" y="118" font-size="15" class="sub">会員の応募は約⁠5〜7⁠%が当たる</text>
+<text x="300" y="30" font-size="16" font-weight="700">当たった1⁠枚の算段</text>
+<rect x="300" y="44" width="118" height="38" rx="4" fill="var(--navy)"/><text x="430" y="69" font-size="16" font-weight="700">定価 1.75⁠万円 を払う</text>
+<rect x="300" y="96" width="330" height="38" rx="4" fill="var(--accent)"/><text x="312" y="120" font-size="16" font-weight="700" class="on">4.9⁠万円で売れる</text>
+<text x="300" y="170" font-size="15" class="sub">差が利益</text><text x="372" y="172" font-size="26" font-weight="900" class="num" fill="var(--accent)">3.2⁠万円</text>
+<text x="300" y="200" font-size="15" class="sub">払った額の 2.8⁠倍 で売れている（10月の3⁠件）</text>
+<text x="16" y="240" font-size="17" font-weight="700">行きたいのに当たらない人が、定価の2〜4⁠倍でも買う</text></svg>
+<p class="foot">人気公演は定価では取れない＝定価で取れた席に値が付く <a class="jump" href="#s13">→ B1-2</a></p></div>
+</section>
+
+<section class="slide" data-sec="1-3" id="s6">
+<div class="hd"><span class="sc">1-3</span><span class="ch">第1章 事業</span><span class="pg"><i>1-3｜</i>06/36</span></div>
+<h2>稼働2か月で利益<em>約⁠200⁠万円</em>。止めているのは<em>払う現金</em></h2>
+<div class="body"><div class="duo">
+<div class="side"><span class="big">約⁠200<small style="font-size:.4em">万円</small></span><b>稼働2か月の利益（2026年9〜10月）</b>
+<span>支払いのあった3案件は、払った額の2.8⁠倍で売れた</span></div>
+<div class="side us"><span class="big">33.2<small style="font-size:.4em">万円</small></span><b>10月の利益の半分を、立て替えの代わりに渡した</b>
+<span>当選分を払う現金が無いため。出資で自分で払えば、ここも残る（分配0）</span></div></div>
+<p class="foot">一部は入金待ち（入金は公演の後）<a class="jump" href="#s15">→ B1-4</a>・案件ごとの数字 <a class="jump" href="#s12">→ B1-1</a></p></div>
+</section>
+
+<section class="slide gantt" data-sec="2-1" id="s7">
+<div class="hd"><span class="sc">2-1</span><span class="ch">第2章 出資</span><span class="pg"><i>2-1｜</i>07/36</span></div>
+<h2>出資がないと最初の3か月で手元がマイナス。<em>300⁠万円</em>なら切らさない</h2>
+<div class="body"><svg viewBox="0 0 700 230" role="img" aria-label="3つの見通しの手元の現金（実線＝出資あり・点線＝出資なし）"><line x1="60" x2="636" y1="196.0" y2="196.0" stroke="var(--line)"/><text x="54" y="200.0" font-size="12" text-anchor="end" class="sub num">-200</text><line x1="60" x2="636" y1="167.0" y2="167.0" stroke="var(--line)"/><text x="54" y="171.0" font-size="12" text-anchor="end" class="sub num">0</text><line x1="60" x2="636" y1="138.0" y2="138.0" stroke="var(--line)"/><text x="54" y="142.0" font-size="12" text-anchor="end" class="sub num">200</text><line x1="60" x2="636" y1="109.0" y2="109.0" stroke="var(--line)"/><text x="54" y="113.0" font-size="12" text-anchor="end" class="sub num">400</text><line x1="60" x2="636" y1="80.0" y2="80.0" stroke="var(--line)"/><text x="54" y="84.0" font-size="12" text-anchor="end" class="sub num">600</text><line x1="60" x2="636" y1="51.0" y2="51.0" stroke="var(--line)"/><text x="54" y="55.0" font-size="12" text-anchor="end" class="sub num">800</text><line x1="60" x2="636" y1="22.0" y2="22.0" stroke="var(--line)"/><text x="54" y="26.0" font-size="12" text-anchor="end" class="sub num">1,000</text><line x1="60" x2="636" y1="167.0" y2="167.0" stroke="var(--ink)" stroke-width="1.5"/><text x="60.0" y="212" font-size="12" text-anchor="middle" class="sub">26年11月</text><text x="132.0" y="212" font-size="12" text-anchor="middle" class="sub">26年12月</text><text x="204.0" y="212" font-size="12" text-anchor="middle" class="sub">27年1月</text><text x="276.0" y="212" font-size="12" text-anchor="middle" class="sub">27年2月</text><text x="348.0" y="212" font-size="12" text-anchor="middle" class="sub">27年3月</text><text x="420.0" y="212" font-size="12" text-anchor="middle" class="sub">27年4月</text><text x="492.0" y="212" font-size="12" text-anchor="middle" class="sub">27年5月</text><text x="564.0" y="212" font-size="12" text-anchor="middle" class="sub">27年6月</text><text x="636.0" y="212" font-size="12" text-anchor="middle" class="sub">27年7月</text><text x="60" y="13" font-size="13" class="sub">手元の現金（万円・月末）　実線＝出資あり　点線＝出資なし</text><polyline points="60.0,130.0 132.0,134.1 204.0,141.7 276.0,141.2 348.0,140.9 420.0,140.1 492.0,139.0 564.0,137.4 636.0,135.4" fill="none" stroke="var(--accent)" stroke-width="3"/><polyline points="60.0,173.5 132.0,177.6 204.0,185.0 276.0,184.4 348.0,183.3 420.0,181.6 492.0,179.4 564.0,176.7 636.0,173.5" fill="none" stroke="var(--accent)" stroke-width="3" stroke-dasharray="6 5" opacity=".8"/><polyline points="60.0,134.2 132.0,146.5 204.0,148.4 276.0,147.5 348.0,135.4 420.0,108.8 492.0,78.9 564.0,44.8 636.0,22.0" fill="none" stroke="var(--navy)" stroke-width="3"/><polyline points="60.0,177.7 132.0,190.0 204.0,191.6 276.0,188.7 348.0,173.5 420.0,142.3 492.0,105.9 564.0,64.4 636.0,22.0" fill="none" stroke="var(--navy)" stroke-width="3" stroke-dasharray="6 5" opacity=".8"/><polyline points="60.0,148.0 132.0,132.6 204.0,104.3 276.0,39.2 348.0,22.0 420.0,22.0 492.0,22.0 564.0,22.0 636.0,22.0" fill="none" stroke="var(--ok)" stroke-width="3"/><polyline points="60.0,191.5 132.0,176.1 204.0,142.3 276.0,67.3 348.0,22.0 420.0,22.0 492.0,22.0 564.0,22.0 636.0,22.0" fill="none" stroke="var(--ok)" stroke-width="3" stroke-dasharray="6 5" opacity=".8"/><text x="642" y="26.0" font-size="13" font-weight="700" fill="var(--navy)">標準</text><text x="642" y="41.0" font-size="13" font-weight="700" fill="var(--ok)">良い</text><text x="642" y="139.4" font-size="13" font-weight="700" fill="var(--accent)">悪い</text></svg>
+<div class="gm"><div class="gr"><div class="l"><span>悪い</span><b class="num">−123.8 → 174.2</b></div><div class="dt">出資なしの底（2027年1月）→ 出資ありの手元の最低（万円）</div></div><div class="gr"><div class="l"><span>標準</span><b class="num">−169.9 → 128.2</b></div><div class="dt">出資なしの底（2027年1月）→ 出資ありの手元の最低（万円）</div></div><div class="gr"><div class="l"><span>良い</span><b class="num">−168.8 → 131.2</b></div><div class="dt">出資なしの底（2026年11月）→ 出資ありの手元の最低（万円）</div></div></div>
+<p class="foot">標準の見通しでも、約⁠128⁠万円が手元に残る。使い道は当選分の支払い・名義の回線・システム開発費 <a class="jump" href="#s25">→ B3-2</a>・B3-3</p></div>
+</section>
+
+<section class="slide gantt" data-sec="2-2" id="s8">
+<div class="hd"><span class="sc">2-2</span><span class="ch">第2章 出資</span><span class="pg"><i>2-2｜</i>08/36</span></div>
+<h2>出資は、<em>売上の10⁠%</em>を750⁠万円まで</h2>
+<div class="body"><div class="path"><span>使い道 支払い・名義・開発</span><i>→</i><span>立て替えが要らない</span><i>→</i>
+<span class="goal">前の月の売上の10⁠%を毎月</span></div>
+<svg viewBox="0 0 700 220" role="img" aria-label="3つの見通しの、出資者へのお渡しの累計と上限"><line x1="60" x2="636" y1="186.0" y2="186.0" stroke="var(--line)"/><text x="54" y="190.0" font-size="12" text-anchor="end" class="sub num">0</text><line x1="60" x2="636" y1="145.0" y2="145.0" stroke="var(--line)"/><text x="54" y="149.0" font-size="12" text-anchor="end" class="sub num">200</text><line x1="60" x2="636" y1="104.0" y2="104.0" stroke="var(--line)"/><text x="54" y="108.0" font-size="12" text-anchor="end" class="sub num">400</text><line x1="60" x2="636" y1="63.0" y2="63.0" stroke="var(--line)"/><text x="54" y="67.0" font-size="12" text-anchor="end" class="sub num">600</text><line x1="60" x2="636" y1="22.0" y2="22.0" stroke="var(--line)"/><text x="54" y="26.0" font-size="12" text-anchor="end" class="sub num">800</text><text x="60.0" y="202" font-size="12" text-anchor="middle" class="sub">0か月</text><text x="175.2" y="202" font-size="12" text-anchor="middle" class="sub">7か月</text><text x="290.4" y="202" font-size="12" text-anchor="middle" class="sub">14か月</text><text x="405.6" y="202" font-size="12" text-anchor="middle" class="sub">21か月</text><text x="520.8" y="202" font-size="12" text-anchor="middle" class="sub">28か月</text><text x="636.0" y="202" font-size="12" text-anchor="middle" class="sub">35か月</text><line x1="60" x2="636" y1="124.5" y2="124.5" stroke="var(--sub)" stroke-dasharray="4 4"/><text x="66" y="118.5" font-size="13" class="sub">出資額 300</text><line x1="60" x2="636" y1="32.2" y2="32.2" stroke="var(--sub)" stroke-dasharray="4 4"/><text x="66" y="26.2" font-size="13" class="sub">上限 750</text><text x="60" y="13" font-size="13" class="sub">出資者へのお渡しの累計（万円）</text><polyline points="60.0,186.0 76.5,186.0 92.9,185.6 109.4,185.6 125.8,184.4 142.3,183.1 158.7,181.7 175.2,180.2 191.7,178.5 208.1,176.7 224.6,174.8 241.0,172.8 257.5,170.7 273.9,168.5 290.4,166.3 306.9,163.9 323.3,161.5 339.8,158.9 356.2,156.3 372.7,153.6 389.1,150.9 405.6,148.2 422.1,145.4 438.5,142.7 455.0,139.9 471.4,137.2 487.9,134.5 504.3,131.7 520.8,129.0 537.3,126.3 553.7,123.5 570.2,120.8 586.6,118.0 603.1,115.3 619.5,112.6 636.0,109.8" fill="none" stroke="var(--accent)" stroke-width="3"/><polyline points="60.0,186.0 76.5,186.0 92.9,185.6 109.4,182.9 125.8,178.5 142.3,171.9 158.7,162.6 175.2,152.2 191.7,140.6 208.1,128.0 224.6,114.2 241.0,99.4 257.5,83.8 273.9,68.2 290.4,52.6 306.9,37.0 323.3,32.2 339.8,32.2 356.2,32.2 372.7,32.2 389.1,32.2 405.6,32.2 422.1,32.2 438.5,32.2 455.0,32.2 471.4,32.2 487.9,32.2 504.3,32.2 520.8,32.2 537.3,32.2 553.7,32.2 570.2,32.2 586.6,32.2 603.1,32.2 619.5,32.2 636.0,32.2" fill="none" stroke="var(--navy)" stroke-width="3"/><circle cx="323.3" cy="32.2" r="6" fill="var(--navy)"/><text x="323.3" y="54.2" font-size="13" font-weight="700" text-anchor="middle" fill="var(--navy)">16か月</text><polyline points="60.0,186.0 76.5,186.0 92.9,178.2 109.4,164.4 125.8,140.1 142.3,101.6 158.7,59.2 175.2,32.2 191.7,32.2 208.1,32.2 224.6,32.2 241.0,32.2 257.5,32.2 273.9,32.2 290.4,32.2 306.9,32.2 323.3,32.2 339.8,32.2 356.2,32.2 372.7,32.2 389.1,32.2 405.6,32.2 422.1,32.2 438.5,32.2 455.0,32.2 471.4,32.2 487.9,32.2 504.3,32.2 520.8,32.2 537.3,32.2 553.7,32.2 570.2,32.2 586.6,32.2 603.1,32.2 619.5,32.2 636.0,32.2" fill="none" stroke="var(--ok)" stroke-width="3"/><circle cx="175.2" cy="32.2" r="6" fill="var(--ok)"/><text x="175.2" y="54.2" font-size="13" font-weight="700" text-anchor="middle" fill="var(--ok)">7か月</text><text x="642" y="36.2" font-size="13" font-weight="700" fill="var(--navy)">標準</text><text x="642" y="51.2" font-size="13" font-weight="700" fill="var(--ok)">良い</text><text x="642" y="113.8" font-size="13" font-weight="700" fill="var(--accent)">悪い</text></svg><div class="gm"><div class="gr"><div class="l"><span>悪い</span><b>36か月で 371.5⁠万円</b></div><div class="track"><i style="width:50%"></i></div><div class="dt">36か月までのお渡し 371.5⁠万円（上限 750⁠万円）</div></div><div class="gr"><div class="l"><span>標準</span><b>届くのは 2028年3月</b></div><div class="track"><i style="width:100%"></i></div><div class="dt">36か月までのお渡し 750.0⁠万円（上限 750⁠万円）</div></div><div class="gr"><div class="l"><span>良い</span><b>届くのは 2027年6月</b></div><div class="track"><i style="width:100%"></i></div><div class="dt">36か月までのお渡し 750.0⁠万円（上限 750⁠万円）</div></div></div>
+<p class="foot">期限は切りません。悪い見通しでは36か月で 371.5⁠万円＝戻らないのでなく、戻るのが遅れる。条件は例です <a class="jump" href="#s31">→ B5-1</a></p></div>
+</section>
+
+<section class="slide" data-sec="2-3" id="s9">
+<div class="hd"><span class="sc">2-3</span><span class="ch">第2章 出資</span><span class="pg"><i>2-3｜</i>09/36</span></div>
+<h2>ずれたときの手は、<em>先に決めてある</em></h2>
+<div class="body"><div class="two">
+<div class="opt"><h3>動かすもの（標準・出資なし）</h3><dl>
+<dt>入金が3か月ずれる</dt><dd>手元の底 <b class="num">−365.9⁠万円</b>（いまの2か月では −169.9⁠万円）</dd>
+<dt>応募が月1回に減る</dt><dd>36か月後の手元 3,914⁠万円（月3回なら 10,596⁠万円）</dd></dl></div>
+<div class="opt" style="border-top-color:var(--accent)"><h3>そのときの手</h3><dl>
+<dt>①</dt><dd>手元がマイナスになる見込みなら、2回目を集める</dd>
+<dt>②</dt><dd>数か月でやめたら、全額お返し（契約書に書く）</dd>
+<dt>③</dt><dd>毎月、経費の請求書と利益の実績をお渡し</dd></dl></div></div>
+<p class="foot">つまみを1つずつ動かした結果 <a class="jump" href="#s29">→ B4-1</a>・2回目の合図と目安 <a class="jump" href="#s30">→ B4-2</a></p></div>
+</section>
+
+<section class="slide conclusion" data-role="conclusion" id="s10">
+<div class="hd"><span class="ch lbl">まとめ</span><span class="pg">10/36</span></div>
+<h2><em>300⁠万円</em>の出資を、標準の見通しで16か月に2.5⁠倍に</h2>
+<div class="body"><div class="srows">
+<div class="srow"><span class="k">事業</span><span class="amt">稼働2か月で利益 約⁠200⁠万円</span>
+<span class="ret">目利き1⁠人×機械の名義。止めているのは当選分を払う現金</span></div>
+<div class="srow"><span class="k">出資</span><span class="amt">300⁠万円 → 750⁠万円</span>
+<span class="ret">前の月の売上の10⁠%を毎月・標準で16か月・年あたり116⁠%・期限なし・条件は例</span></div>
+<div class="srow"><span class="k">お約束</span><span class="amt">やめたら全額お返し</span><span class="ret">毎月、経費の請求書と利益の実績をお渡しします</span></div>
+</div></div>
+</section>
+
+<section class="slide" data-role="backup" id="s11">
+<div class="hd"><span class="ch lbl">補足</span><span class="pg">11/36</span></div>
+<h2>補足：聞かれそうなこと</h2>
+<p class="lead">ここから先は質問が来たときに開く資料です。B1・B2 は実績、B3 から先の数字は事業計画（2026年11月4⁠日）の既定のつまみ。</p>
+<div class="body"><div class="toc"><div data-ch="B1"><a class="jump" href="#s12"><span class="n">B1</span><span class="t">事業の裏付け</span><span class="q">4案件の数字・歩留まり・名義の内訳・お金が寝る日数は？</span></a></div><div data-ch="B2"><a class="jump" href="#s18"><span class="n">B2</span><span class="t">体制と自動化</span><span class="q">誰が何をしていて、どこまで人の手が要らないのか？</span></a></div><div data-ch="B3"><a class="jump" href="#s24"><span class="n">B3</span><span class="t">数字の中身</span><span class="q">36か月の手元・必要な額・使い道の内訳・前提は？</span></a></div><div data-ch="B4"><a class="jump" href="#s29"><span class="n">B4</span><span class="t">計画を動かすもの</span><span class="q">何が計画をどれだけ動かすのか？ 2回目はいつ？</span></a></div><div data-ch="B5"><a class="jump" href="#s31"><span class="n">B5</span><span class="t">返し方の細部</span><span class="q">出資の条件は？ 上限を上げて事業は大丈夫か？ 融資なら？</span></a></div><div data-ch="B6"><a class="jump" href="#s34"><span class="n">B6</span><span class="t">想定問答</span><span class="q">負ける条件・競合・やめたら・税は？</span></a></div></div></div>
+</section>
+
+<section class="slide" data-sec="B1-1" id="s12">
+<div class="hd"><span class="sc">B1-1</span><span class="ch">補足B1 事業の裏付け</span><span class="pg"><i>B1-1｜</i>12/36</span></div>
+<h2>4案件の数字（払った額の<em>2〜4⁠倍</em>の売上）</h2>
+<div class="body"><div class="tablewrap"><table class="tight"><thead><tr><th>案件</th><th>応募</th><th>当選</th><th>支払い</th><th>売上</th><th>利益</th><th>戻り（売上÷支払い）</th></tr></thead><tbody><tr><td>フェデラー</td><td>—</td><td>80</td><td>0⁠円</td><td>—</td><td><b>112⁠万</b></td><td>—</td></tr><tr><td>野球</td><td>150</td><td>8</td><td>8.8⁠万</td><td>36⁠万</td><td><b>27.2⁠万</b></td><td>4.1⁠倍</td></tr><tr><td>あんスタ</td><td>52</td><td>8</td><td>8⁠万</td><td>24⁠万</td><td><b>16⁠万</b></td><td>3.0⁠倍</td></tr><tr><td>刀剣乱舞</td><td>100</td><td>5</td><td>20⁠万</td><td>43.3⁠万</td><td><b>23.2⁠万</b></td><td>2.2⁠倍</td></tr><tr><td><b>支払いのあった3案件</b></td><td>302</td><td>21</td><td>36.8⁠万</td><td>103.3⁠万</td><td><b>66.4⁠万</b></td><td><b>2.8⁠倍</b></td></tr></tbody></table></div>
+<p class="backlink">当たった中で説明しやすい4⁠件です（ほかにも応募・当選はあります）。フェデラーはゲスト応募で、当選した権利をそのまま渡すかたちのため支払いが0⁠円・売上は利益と同じ112⁠万円。
+4⁠件の利益の合計は178.4⁠万円で、稼働2か月の約⁠200⁠万円はほかの応募・当選も含む（案件記録の合計 売上215.3⁠万円・支払い36.8⁠万円）。本編の「2.8⁠倍」は支払いのあった3案件だけで数えています。<a class="jump" href="#s6">← 本編 1-3</a> へ戻る</p></div>
+</section>
+
+<section class="slide" data-sec="B1-2" id="s13">
+<div class="hd"><span class="sc">B1-2</span><span class="ch">補足B1 事業の裏付け</span><span class="pg"><i>B1-2｜</i>13/36</span></div>
+<h2>実測の歩留まり：302応募 → 21当選 → <em>7.0⁠%</em></h2>
+<div class="body"><div class="tablewrap"><table class="tight"><thead><tr><th>案件</th><th>応募</th><th>当選</th><th>当選率</th><th>支払い</th><th>利益</th><th>1当選の利益</th></tr></thead><tbody><tr><td>野球</td><td>150</td><td>8</td><td>5.3⁠%</td><td>8.8⁠万</td><td>27.2⁠万</td><td>3.4⁠万</td></tr><tr><td>あんスタ</td><td>52</td><td>8</td><td>15.4⁠%</td><td>8⁠万</td><td>16⁠万</td><td>2.0⁠万</td></tr><tr><td>刀剣乱舞</td><td>100</td><td>5</td><td>5.0⁠%</td><td>20⁠万</td><td>23.2⁠万</td><td>4.6⁠万</td></tr><tr><td><b>合計</b></td><td>302</td><td>21</td><td><b>7.0⁠%</b></td><td>36.8⁠万</td><td>66.4⁠万</td><td><b>3.2⁠万</b></td></tr></tbody></table></div>
+<p class="backlink">支払いのあった3案件（会員の応募）。フェデラーはゲスト応募で性質が違うため外しています。
+事業計画の当選率・1当選の利益は、この実測より控えめに置いています（<a class="jump" href="#s28">→ B3-5</a>）。<a class="jump" href="#s4">← 本編 1-1</a> へ戻る</p></div>
+</section>
+
+<section class="slide" data-sec="B1-3" id="s14">
+<div class="hd"><span class="sc">B1-3</span><span class="ch">補足B1 事業の裏付け</span><span class="pg"><i>B1-3｜</i>14/36</span></div>
+<h2>名義は2⁠本立て：ゆうとの<em>手作業</em>＋武者野の<em>bot</em></h2>
+<div class="body"><div class="tablewrap"><table class="tight"><thead><tr><th>作り方</th><th>名義の数</th><th>数えた元</th></tr></thead><tbody><tr><td>bot（武者野）</td><td><span class="num">約⁠100</span></td><td>bot の登録台帳（9月29⁠日に1⁠件目）</td></tr><tr><td>手作業（ゆうと）</td><td><span class="num">約⁠200</span></td><td>ゆうとが手で作ったぶん</td></tr><tr><td><b>合計</b></td><td><b class="num">約⁠300</b></td><td>2026年10月末の時点</td></tr></tbody></table></div>
+<p class="backlink">数えているのは名義の数です（1名義で ローチケ・ぴあ・e+ など計5社のアカウントを作ります）。
+bot は 9月29⁠日に1⁠件目を作り、1か月で約⁠100名義まで来ました。ここから先は回線の数と端末の台数がそのまま速さになります（<a class="jump" href="#s16">→ B1-5</a>）。
+電話番号は LinksMate の回線で用意し、作成の手間は bot で消しています（<a class="jump" href="#s20">→ B2-3</a>）。<a class="jump" href="#s6">← 本編 1-3</a> へ戻る</p></div>
+</section>
+
+<section class="slide gantt" data-sec="B1-4" id="s15">
+<div class="hd"><span class="sc">B1-4</span><span class="ch">補足B1 事業の裏付け</span><span class="pg"><i>B1-4｜</i>15/36</span></div>
+<h2>払ってから入金まで、<em>長いと約⁠70⁠日</em>お金が寝る</h2>
+<div class="body"><svg viewBox="0 0 1000 310" role="img" aria-label="4案件の 抽選から支払い、支払いから着金までの期間"><g font-size="15"><line x1="160" y1="22" x2="160" y2="250" stroke="var(--line)"></line><text x="160" y="276" text-anchor="middle" class="sub">9月</text><line x1="357" y1="22" x2="357" y2="250" stroke="var(--line)"></line><text x="357" y="276" text-anchor="middle" class="sub">10月</text><line x1="560" y1="22" x2="560" y2="250" stroke="var(--line)"></line><text x="560" y="276" text-anchor="middle" class="sub">11月</text><line x1="757" y1="22" x2="757" y2="250" stroke="var(--line)"></line><text x="757" y="276" text-anchor="middle" class="sub">12月</text></g><text x="0" y="56" font-size="18" font-weight="700">フェデラー</text><line x1="212" y1="50" x2="317" y2="50" stroke="var(--muted)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"></line><rect x="317" y="36" width="125" height="28" rx="6" fill="var(--accent)" opacity=".35"></rect><text x="452" y="56" font-size="15" class="sub num">20⁠日・支払い0⁠円</text><text x="0" y="111" font-size="18" font-weight="700">野球</text><line x1="462" y1="105" x2="488" y2="105" stroke="var(--muted)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"></line><rect x="488" y="91" width="66" height="28" rx="6" fill="var(--accent)"></rect><text x="564" y="111" font-size="15" class="sub num">10⁠日・8.8⁠万円</text><text x="0" y="166" font-size="18" font-weight="700">あんスタ</text><line x1="481" y1="160" x2="527" y2="160" stroke="var(--muted)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"></line><rect x="527" y="146" width="400" height="28" rx="6" fill="var(--accent)"></rect><text x="727" y="166" font-size="15" text-anchor="middle" class="num on">約⁠60⁠日・8⁠万円</text><text x="0" y="221" font-size="18" font-weight="700">刀剣乱舞</text><line x1="337" y1="215" x2="390" y2="215" stroke="var(--muted)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"></line><rect x="390" y="201" width="478" height="28" rx="6" fill="var(--accent)"></rect><text x="629" y="221" font-size="15" text-anchor="middle" class="num on">約⁠70⁠日・20⁠万円</text><line x1="560" y1="300" x2="600" y2="300" stroke="var(--muted)" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round"></line><text x="608" y="305" font-size="14" class="sub">抽選→支払い</text><rect x="770" y="291" width="40" height="16" rx="4" fill="var(--accent)"></rect><text x="818" y="305" font-size="14" class="sub">支払い→入金</text></svg><div class="gm" aria-hidden="true"><div class="gr"><div class="l"><b>刀剣乱舞</b><span class="num">約⁠70⁠日・20⁠万円</span></div><div class="track"><i style="width:100%"></i></div><div class="dt num">10/6 支払い → 12/18 入金</div></div><div class="gr"><div class="l"><b>あんスタ</b><span class="num">約⁠60⁠日・8⁠万円</span></div><div class="track"><i style="width:84%"></i></div><div class="dt num">10/27 支払い → 12/27 入金</div></div><div class="gr"><div class="l"><b>フェデラー</b><span class="num">20⁠日・支払い0⁠円</span></div><div class="track"><i style="width:27%;opacity:.35"></i></div><div class="dt num">9/25 支払い → 10/14 入金</div></div><div class="gr"><div class="l"><b>野球</b><span class="num">10⁠日・8.8⁠万円</span></div><div class="track"><i style="width:14%"></i></div><div class="dt num">10/21 支払い → 10/31 入金</div></div></div>
+<p class="backlink">払うのは当選の後、入金は公演の後。10月27⁠日〜31⁠日は3案件ぶん 36.8⁠万円が同時に寝ていました。
+長いと約⁠70⁠日・支払い額で重み付けると約⁠54⁠日で、事業計画の「入金のずれ 2か月」はこれ（悪い3か月・良い1か月）。<a class="jump" href="#s6">← 本編 1-3</a> へ戻る</p></div>
+</section>
+
+<section class="slide" data-sec="B1-5" id="s16">
+<div class="hd"><span class="sc">B1-5</span><span class="ch">補足B1 事業の裏付け</span><span class="pg"><i>B1-5｜</i>16/36</span></div>
+<h2>名義を作る速さは、<em>端末の数</em>で決まる</h2>
+<div class="body"><div class="duo">
+<div class="side us"><span class="big">20<small style="font-size:.4em">本／月</small></span><b>端末1台で作れる回線</b><span>1アカウントにつき端末1台、月に20回線まで。翌月もまた20⁠本</span></div>
+<div class="side"><span class="big">200<small style="font-size:.4em">名義／月</small></span><b>いまの10台で作れる上限</b><span>端末は使い回せる設備、回線は1⁠本1,500⁠円の使い切り</span></div></div>
+<p class="backlink">事業計画の「新しく作る名義/月」と「名義の上限」は、いまの端末の数で足りる側に置いています（<a class="jump" href="#s28">→ B3-5</a>）。<a class="jump" href="#s6">← 本編 1-3</a> へ戻る</p></div>
+</section>
+
+<section class="slide" data-sec="B1-6" id="s17">
+<div class="hd"><span class="sc">B1-6</span><span class="ch">補足B1 事業の裏付け</span><span class="pg"><i>B1-6｜</i>17/36</span></div>
+<h2>売上を追いすぎて、<em>手元の現金</em>を見ていなかった</h2>
+<div class="body"><div class="flow">
+<div class="step"><span class="no">やったこと</span><span class="t">量を優先</span><span class="d">bot・回線・応募を先に増やした</span></div>
+<div class="ar">→</div>
+<div class="step hot"><span class="no">結果</span><span class="t">現金が先に出る</span><span class="d">入金は公演の後（長いと約⁠70⁠日）</span></div>
+<div class="ar">→</div>
+<div class="step"><span class="no">いま</span><span class="t">立て替えに頼る</span><span class="d">当選分を協力者に立て替えてもらい、利益の半分を渡している</span></div></div>
+<p class="backlink">この反省から、事業計画は売上でなく毎月の手元の現金で引いています（36か月・月次）。毎月の固定費（システム開発費 月10⁠万円・その他 月2⁠万円）と名義の回線代も計画に入れました（<a class="jump" href="#s27">→ B3-4</a>・B3-5）。</p></div>
+</section>
+
+<section class="slide" data-sec="B2-1" id="s18">
+<div class="hd"><span class="sc">B2-1</span><span class="ch">補足B2 体制と自動化</span><span class="pg"><i>B2-1｜</i>18/36</span></div>
+<h2>bot は量、手作業は確実さ。<em>どちらも要る</em></h2>
+<div class="body"><div class="two">
+<div class="opt"><h3>手作業（ゆうと）</h3><dl>
+<dt>やり方</dt><dd>MNP 界隈のつながりで案件を拾い、協力者を募ってフィーを払い応募してもらう</dd>
+<dt>強み</dt><dd>確実に当たる（協力者の目利き）</dd>
+<dt>弱み</dt><dd>手間がかかり、人の数で頭打ち</dd></dl></div>
+<div class="opt" style="border-top-color:var(--accent)"><h3>bot（武者野）</h3><dl>
+<dt>やり方</dt><dd>アカウント作成と抽選の応募を自動で大量に</dd>
+<dt>強み</dt><dd>量を増やしても手間が増えない</dd>
+<dt>いまの実測</dt><dd>ゲスト応募は約⁠16⁠%（手の会員応募は約⁠7⁠%）。ゲストは1当選の利益が会員より薄い（<a class="jump" href="#s28">→ B3-5</a>）<a class="jump" href="#s19">→ B2-2</a></dd></dl></div></div>
+<p class="backlink">いまはゲスト応募を bot、会員の名義の応募を手で分けています。<a class="jump" href="#s6">← 本編 1-3</a> へ戻る</p></div>
+</section>
+
+<section class="slide" data-sec="B2-2" id="s19">
+<div class="hd"><span class="sc">B2-2</span><span class="ch">補足B2 体制と自動化</span><span class="pg"><i>B2-2｜</i>19/36</span></div>
+<h2>bot は「作る」も「当てる」も、<em>すでに動いている</em></h2>
+<div class="body"><div class="flow">
+<div class="step"><span class="no">① 作る</span><span class="t">名義 約⁠100</span><span class="d">9月29⁠日に1⁠件目。1か月で約⁠100名義＝5社ぶんで約⁠500アカウント。電話番号も自前で用意（1⁠本 1,500⁠円）</span></div>
+<div class="ar">→</div>
+<div class="step"><span class="no">② 出す</span><span class="t">応募 約⁠500⁠件</span><span class="d">ゲスト応募を自動で。手で頼むと1応募50⁠円＝2.5⁠万円、bot は何件出しても0⁠円</span></div>
+<div class="ar">→</div>
+<div class="step hot"><span class="no">③ 当てる</span><span class="t">当選 80⁠枚</span><span class="d">当選率 約⁠16⁠%（会員の手作業の実測は約⁠7⁠%・ゲストは1当選の利益が薄い）。9月のフェデラーで利益112⁠万円</span></div></div>
+<p class="backlink">人が増えないと増えない手作業に対して、bot は出す数を増やしても手間が増えません。会員の名義での応募はこれから bot にも回します。<a class="jump" href="#s6">← 本編 1-3</a> へ戻る</p></div>
+</section>
+
+<section class="slide" data-sec="B2-3" id="s20">
+<div class="hd"><span class="sc">B2-3</span><span class="ch">補足B2 体制と自動化</span><span class="pg"><i>B2-3｜</i>20/36</span></div>
+<h2>回線1⁠本あたり<em>30〜60分</em>の手作業が、ほぼ<em>0</em>に</h2>
+<div class="body"><div class="two">
+<div class="opt"><h3>人がやると（1⁠本あたり30〜60分）</h3><dl>
+<dt>①</dt><dd>LinksMate に回線を申し込む（本人確認・支払い）</dd>
+<dt>②</dt><dd>届いた番号で各サイトのアカウントを登録する</dd>
+<dt>③</dt><dd>SMS に届いたコードを読んで入力する</dd>
+<dt>④</dt><dd>使い終わった回線を解約する</dd></dl></div>
+<div class="opt" style="border-top-color:var(--accent)"><h3>いま（①〜④を機械が通しで）</h3><dl>
+<dt>人が触る所</dt><dd>支払いを通す1点だけ（それも機械が画面を出すところまで）</dd>
+<dt>並べ方</dt><dd>端末を増やせば台数ぶん同時に走る <a class="jump" href="#s16">→ B1-5</a></dd>
+<dt>1,000名義なら</dt><dd>人の手だと500〜1,000時間（ひとりで3〜6か月）。機械は寝ている間に進む</dd></dl></div></div>
+<p class="backlink">仕組みはもう動いています。止まっているのは回線を買い、当選分を払うお金の側です。<a class="jump" href="#s6">← 本編 1-3</a> へ戻る</p></div>
+</section>
+
+<section class="slide" data-sec="B2-4" id="s21">
+<div class="hd"><span class="sc">B2-4</span><span class="ch">補足B2 体制と自動化</span><span class="pg"><i>B2-4｜</i>21/36</span></div>
+<h2>SMS・電話番号の認証も<em>人が触らない</em></h2>
+<div class="body"><div class="flow">
+<div class="step"><span class="no">① 入口</span><span class="t">番号を求められる</span><span class="d">アカウント登録の途中で、電話番号と SMS のコードを要求される</span></div>
+<div class="ar">→</div>
+<div class="step"><span class="no">② 受け取る</span><span class="t">実機に届いた SMS を読む</span><span class="d">Android の実機を機械が操作し、届いたコードをその場で読み取る</span></div>
+<div class="ar">→</div>
+<div class="step hot"><span class="no">③ 通過</span><span class="t">自動で入力</span><span class="d">クラウドから実機まで経路をつないであり、人が PC の前にいなくても進む</span></div></div>
+<p class="backlink">番号を自前で用意できること（1⁠本 1,500⁠円）と、届いたコードを機械が読めることが揃って初めて、名義づくりは人数と関係なく増やせます <a class="jump" href="#s20">→ B2-3</a></p></div>
+</section>
+
+<section class="slide" data-sec="B2-5" id="s22">
+<div class="hd"><span class="sc">B2-5</span><span class="ch">補足B2 体制と自動化</span><span class="pg"><i>B2-5｜</i>22/36</span></div>
+<h2>同じ部品で、<em>スマホのゲームも無人で回る</em></h2>
+<div class="body"><div class="two">
+<div class="opt"><h3>やったこと</h3><dl>
+<dt>対象</dt><dd>あんさんぶるスターズ（Music／Basic の両方）</dd>
+<dt>やり方</dt><dd>Android 実機の画面を機械が読んで押す。手順を書けばそのまま回り続ける</dd>
+<dt>並列</dt><dd>端末を並べた台数ぶん、同時に走る</dd></dl></div>
+<div class="opt" style="border-top-color:var(--accent)"><h3>ここが言いたいこと</h3><dl>
+<dt>横に広がる</dt><dd>部品はチケットのために作ったものと同じ。別の反復作業にも、作り直さずに当てられる</dd>
+<dt>この事業では</dt><dd>名義づくり・応募・当落の確認が、同じ部品の上に乗っている</dd></dl></div></div>
+<p class="backlink">「ウェブやアプリの反復作業を数時間で自動化できる」こと自体が、この事業の土台です <a class="jump" href="#s18">→ B2-1</a></p></div>
+</section>
+
+<section class="slide" data-sec="B2-6" id="s23">
+<div class="hd"><span class="sc">B2-6</span><span class="ch">補足B2 体制と自動化</span><span class="pg"><i>B2-6｜</i>23/36</span></div>
+<h2>目利きは<em>1⁠人ぶん</em>、量は<em>機械</em></h2>
+<div class="body"><svg viewBox="0 0 700 250" role="img" aria-label="目利き1人と機械が作る名義を掛ける。ゲスト応募は bot が回し、会員の名義の応募はこれから">
+<rect x="16" y="10" width="300" height="88" rx="6" fill="var(--navy-soft)" stroke="var(--navy)" stroke-width="2"/>
+<text x="166" y="38" font-size="17" font-weight="700" text-anchor="middle">目利き　儲かる1⁠件を選ぶ</text>
+<text x="166" y="64" font-size="15" text-anchor="middle" class="sub">業界10年の協力者 1⁠人</text>
+<text x="166" y="86" font-size="15" text-anchor="middle" class="sub">手作業＝出せる量に上限</text>
+<text x="350" y="64" font-size="30" font-weight="800" text-anchor="middle" class="sub">×</text>
+<rect x="384" y="10" width="300" height="88" rx="6" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+<text x="534" y="38" font-size="17" font-weight="700" text-anchor="middle">名義　機械が作る</text>
+<text x="534" y="64" font-size="15" text-anchor="middle" class="sub">いま 約⁠300（bot 約⁠100＋手作業 約⁠200）</text>
+<text x="534" y="86" font-size="15" text-anchor="middle" class="sub">増やしても手間は増えない</text>
+<text x="350" y="130" font-size="17" font-weight="700" text-anchor="middle" fill="var(--accent)">利益は、名義の数に比例する</text>
+<rect x="16" y="150" width="330" height="86" rx="6" fill="none" stroke="var(--accent)" stroke-width="2"/>
+<text x="181" y="178" font-size="16" font-weight="700" text-anchor="middle">ゲスト応募＝bot が回している</text>
+<text x="181" y="204" font-size="15" text-anchor="middle" class="sub">約⁠500⁠件 出して 80⁠枚 当選（約⁠16⁠%）</text>
+<text x="181" y="226" font-size="15" text-anchor="middle" class="sub">9月のフェデラー＝利益 112⁠万円</text>
+<rect x="362" y="150" width="322" height="86" rx="6" fill="none" stroke="var(--navy)" stroke-width="2"/>
+<text x="523" y="178" font-size="16" font-weight="700" text-anchor="middle">会員の名義＝応募はこれから</text>
+<text x="523" y="204" font-size="15" text-anchor="middle" class="sub">10月の会員応募は 302⁠件（1名義 約⁠1回）</text>
+<text x="523" y="226" font-size="15" text-anchor="middle" class="sub">二人とも「作る側」に手を取られていた</text></svg>
+<p class="backlink">回線の発行からアカウント登録・SMS 認証まで人が触らない <a class="jump" href="#s20">→ B2-3</a>・B2-4。<a class="jump" href="#s6">← 本編 1-3</a> へ戻る</p></div>
+</section>
+
+<section class="slide" data-sec="B3-1" id="s24">
+<div class="hd"><span class="sc">B3-1</span><span class="ch">補足B3 数字の中身</span><span class="pg"><i>B3-1｜</i>24/36</span></div>
+<h2>手元の現金、36か月の6⁠本の線</h2>
+<div class="body"><svg viewBox="0 0 700 260" role="img" aria-label="3つの見通しの手元の現金（実線＝出資あり・点線＝出資なし）"><line x1="60" x2="636" y1="226.0" y2="226.0" stroke="var(--line)"/><text x="54" y="230.0" font-size="12" text-anchor="end" class="sub num">-2,000</text><line x1="60" x2="636" y1="193.8" y2="193.8" stroke="var(--line)"/><text x="54" y="197.8" font-size="12" text-anchor="end" class="sub num">4,000</text><line x1="60" x2="636" y1="161.6" y2="161.6" stroke="var(--line)"/><text x="54" y="165.6" font-size="12" text-anchor="end" class="sub num">10,000</text><line x1="60" x2="636" y1="129.4" y2="129.4" stroke="var(--line)"/><text x="54" y="133.4" font-size="12" text-anchor="end" class="sub num">16,000</text><line x1="60" x2="636" y1="97.2" y2="97.2" stroke="var(--line)"/><text x="54" y="101.2" font-size="12" text-anchor="end" class="sub num">22,000</text><line x1="60" x2="636" y1="64.9" y2="64.9" stroke="var(--line)"/><text x="54" y="68.9" font-size="12" text-anchor="end" class="sub num">28,000</text><line x1="60" x2="636" y1="32.7" y2="32.7" stroke="var(--line)"/><text x="54" y="36.7" font-size="12" text-anchor="end" class="sub num">34,000</text><line x1="60" x2="636" y1="215.3" y2="215.3" stroke="var(--ink)" stroke-width="1.5"/><text x="60.0" y="242" font-size="12" text-anchor="middle" class="sub">26年11月</text><text x="142.3" y="242" font-size="12" text-anchor="middle" class="sub">27年4月</text><text x="224.6" y="242" font-size="12" text-anchor="middle" class="sub">27年9月</text><text x="306.9" y="242" font-size="12" text-anchor="middle" class="sub">28年2月</text><text x="389.1" y="242" font-size="12" text-anchor="middle" class="sub">28年7月</text><text x="471.4" y="242" font-size="12" text-anchor="middle" class="sub">28年12月</text><text x="553.7" y="242" font-size="12" text-anchor="middle" class="sub">29年5月</text><text x="636.0" y="242" font-size="12" text-anchor="middle" class="sub">29年10月</text><text x="60" y="13" font-size="13" class="sub">手元の現金（万円・月末）2026年11月〜2029年10月　実線＝出資あり　点線＝出資なし</text><polyline points="60.0,213.9 76.5,214.0 92.9,214.3 109.4,214.3 125.8,214.3 142.3,214.3 158.7,214.2 175.2,214.2 191.7,214.1 208.1,214.0 224.6,213.9 241.0,213.8 257.5,213.7 273.9,213.5 290.4,213.4 306.9,213.2 323.3,213.2 339.8,213.0 356.2,212.8 372.7,212.6 389.1,212.4 405.6,212.2 422.1,212.0 438.5,211.7 455.0,211.5 471.4,211.3 487.9,211.1 504.3,210.9 520.8,211.5 537.3,211.3 553.7,211.0 570.2,210.8 586.6,210.6 603.1,210.3 619.5,210.1 636.0,209.9" fill="none" stroke="var(--accent)" stroke-width="3"/><polyline points="60.0,215.5 76.5,215.7 92.9,215.9 109.4,215.9 125.8,215.9 142.3,215.8 158.7,215.7 175.2,215.6 191.7,215.5 208.1,215.4 224.6,215.2 241.0,215.1 257.5,214.9 273.9,214.7 290.4,214.5 306.9,214.2 323.3,214.3 339.8,214.0 356.2,213.8 372.7,213.5 389.1,213.2 405.6,212.9 422.1,212.6 438.5,212.3 455.0,212.0 471.4,211.7 487.9,211.4 504.3,211.1 520.8,211.8 537.3,211.5 553.7,211.2 570.2,210.9 586.6,210.6 603.1,210.3 619.5,210.0 636.0,209.7" fill="none" stroke="var(--accent)" stroke-width="3" stroke-dasharray="6 5" opacity=".8"/><polyline points="60.0,214.0 76.5,214.5 92.9,214.6 109.4,214.5 125.8,214.1 142.3,213.1 158.7,212.0 175.2,210.7 191.7,209.3 208.1,207.7 224.6,205.8 241.0,203.7 257.5,201.7 273.9,199.6 290.4,197.6 306.9,195.5 323.3,198.0 339.8,195.6 356.2,193.1 372.7,190.7 389.1,188.2 405.6,185.8 422.1,183.3 438.5,180.9 455.0,178.4 471.4,175.9 487.9,173.5 504.3,171.0 520.8,177.2 537.3,174.8 553.7,172.3 570.2,169.9 586.6,167.4 603.1,165.0 619.5,162.5 636.0,160.1" fill="none" stroke="var(--navy)" stroke-width="3"/><polyline points="60.0,215.7 76.5,216.1 92.9,216.2 109.4,216.1 125.8,215.5 142.3,214.3 158.7,213.0 175.2,211.5 191.7,209.7 208.1,207.8 224.6,205.5 241.0,203.1 257.5,200.6 273.9,198.1 290.4,195.7 306.9,193.2 323.3,196.2 339.8,193.7 356.2,191.3 372.7,188.8 389.1,186.4 405.6,183.9 422.1,181.4 438.5,179.0 455.0,176.5 471.4,174.1 487.9,171.6 504.3,169.2 520.8,175.6 537.3,173.1 553.7,170.6 570.2,168.2 586.6,165.7 603.1,163.3 619.5,160.8 636.0,158.4" fill="none" stroke="var(--navy)" stroke-width="3" stroke-dasharray="6 5" opacity=".8"/><polyline points="60.0,214.6 76.5,214.0 92.9,212.9 109.4,210.5 125.8,205.0 142.3,198.7 158.7,192.6 175.2,186.0 191.7,178.8 208.1,171.5 224.6,164.3 241.0,157.0 257.5,149.8 273.9,142.6 290.4,135.3 306.9,128.1 323.3,142.7 339.8,135.5 356.2,128.2 372.7,121.0 389.1,113.7 405.6,106.5 422.1,99.2 438.5,92.0 455.0,84.8 471.4,77.5 487.9,70.3 504.3,63.0 520.8,81.9 537.3,74.6 553.7,67.4 570.2,60.1 586.6,52.9 603.1,45.6 619.5,38.4 636.0,31.1" fill="none" stroke="var(--ok)" stroke-width="3"/><polyline points="60.0,216.2 76.5,215.6 92.9,214.3 109.4,211.6 125.8,205.4 142.3,198.1 158.7,190.9 175.2,183.6 191.7,176.4 208.1,169.1 224.6,161.9 241.0,154.6 257.5,147.4 273.9,140.1 290.4,132.9 306.9,125.6 323.3,141.0 339.8,133.8 356.2,126.5 372.7,119.3 389.1,112.0 405.6,104.8 422.1,97.6 438.5,90.3 455.0,83.1 471.4,75.8 487.9,68.6 504.3,61.3 520.8,80.2 537.3,72.9 553.7,65.7 570.2,58.4 586.6,51.2 603.1,43.9 619.5,36.7 636.0,29.4" fill="none" stroke="var(--ok)" stroke-width="3" stroke-dasharray="6 5" opacity=".8"/><text x="642" y="35.1" font-size="13" font-weight="700" fill="var(--ok)">良い</text><text x="642" y="164.1" font-size="13" font-weight="700" fill="var(--navy)">標準</text><text x="642" y="213.9" font-size="13" font-weight="700" fill="var(--accent)">悪い</text></svg>
+<div class="tablewrap"><table class="tight"><thead><tr><th>見通し・出資</th><th>手元の底（万円）</th><th>底の月</th><th>36か月後の手元（万円）</th></tr></thead><tbody><tr><td>悪い・出資なし</td><td><span class="num">−123.8</span></td><td>2027年1月</td><td><span class="num">1,029</span></td></tr><tr><td>悪い・出資あり</td><td><span class="num">174.2</span></td><td>2027年1月</td><td><span class="num">1,000</span></td></tr><tr><td>標準・出資なし</td><td><span class="num">−169.9</span></td><td>2027年1月</td><td><span class="num">10,596</span></td></tr><tr><td>標準・出資あり</td><td><span class="num">128.2</span></td><td>2027年1月</td><td><span class="num">10,281</span></td></tr><tr><td>良い・出資なし</td><td><span class="num">−168.8</span></td><td>2026年11月</td><td><span class="num">34,615</span></td></tr><tr><td>良い・出資あり</td><td><span class="num">131.2</span></td><td>2026年11月</td><td><span class="num">34,300</span></td></tr></tbody></table></div>
+<p class="backlink">出資ありは 300⁠万円を2026年11月に受け、前の月の売上の10⁠%を2.5⁠倍までお渡しした後の手元。点線も協力者への分配0で引いた線（いまの分配50⁠%なら底はさらに深い）。税は翌年3月にまとめて払う簡略（30⁠%）。<a class="jump" href="#s7">← 本編 2-1</a> へ戻る</p></div>
+</section>
+
+<section class="slide" data-sec="B3-2" id="s25">
+<div class="hd"><span class="sc">B3-2</span><span class="ch">補足B3 数字の中身</span><span class="pg"><i>B3-2｜</i>25/36</span></div>
+<h2><em>300⁠万円</em>なら、標準の見通しでも約⁠128⁠万円が手元に残る</h2>
+<div class="body"><div class="vsbars"><div class="vsrow"><div class="l"><span>悪い</span><span>必要 <b style="font-size:1.1em">125.8⁠万円</b>　余裕 <b style="font-size:1.1em">174.2⁠万円</b></span></div><div class="track" style="display:flex;height:1.5em"><div class="fill" style="width:41.9%;background:var(--navy)"></div><div class="fill" style="width:58.1%;background:var(--accent-soft)"></div></div></div><div class="vsrow"><div class="l"><span>標準</span><span>必要 <b style="font-size:1.1em">171.8⁠万円</b>　余裕 <b style="font-size:1.1em">128.2⁠万円</b></span></div><div class="track" style="display:flex;height:1.5em"><div class="fill" style="width:57.3%;background:var(--navy)"></div><div class="fill" style="width:42.7%;background:var(--accent-soft)"></div></div></div><div class="vsrow"><div class="l"><span>良い</span><span>必要 <b style="font-size:1.1em">168.8⁠万円</b>　余裕 <b style="font-size:1.1em">131.2⁠万円</b></span></div><div class="track" style="display:flex;height:1.5em"><div class="fill" style="width:56.2%;background:var(--navy)"></div><div class="fill" style="width:43.8%;background:var(--accent-soft)"></div></div></div></div>
+<p class="backlink">棒の全体＝300⁠万円。必要＝手元が一度もマイナスにならない最小の額。使い道は当選分の支払い・名義の回線・システム開発費。
+いまの計画の前提: 出資を受けたら、業界10年の協力者への利益の分配は0（立て替えが要らなくなる）。<a class="jump" href="#s7">← 本編 2-1</a> へ戻る</p></div>
+</section>
+
+<section class="slide" data-sec="B3-3" id="s26">
+<div class="hd"><span class="sc">B3-3</span><span class="ch">補足B3 数字の中身</span><span class="pg"><i>B3-3｜</i>26/36</span></div>
+<h2>使い道：最初の3か月の出入り（標準・出資あり）</h2>
+<div class="body"><div class="tablewrap"><table class="tight"><thead><tr><th>2026年11月〜2027年1月の合計</th><th>万円</th></tr></thead><tbody><tr><td>当選分の支払い（定価）</td><td>252.5</td></tr><tr><td>名義の回線</td><td>29.7</td></tr><tr><td>応募の費用</td><td>5.1</td></tr><tr><td>システム開発費ほか（住宅IP・クラウド）</td><td>36.0</td></tr><tr><td>出資者へのお渡し</td><td>2.0</td></tr><tr><td>出ていく合計</td><td><b>325.2</b></td></tr><tr><td>入ってくる売上（差し引く）</td><td>153.3</td></tr><tr><td>出ていく − 入ってくる＝最小の必要額</td><td><b>171.8</b></td></tr></tbody></table></div>
+<p class="backlink">手元の最低は2027年1月の 128.2⁠万円（300⁠万円 − 最小の必要額）。当選は月ごとに増え、売上の入金は支払いの2か月後に来るので、最初の数か月は出る方が多い。
+出資を受けたら業界10年の協力者への利益の分配は0（いまは利益の半分で立て替えをお願いしている）＝これがいまの計画の前提。<a class="jump" href="#s7">← 本編 2-1</a> へ戻る</p></div>
+</section>
+
+<section class="slide" data-sec="B3-4" id="s27">
+<div class="hd"><span class="sc">B3-4</span><span class="ch">補足B3 数字の中身</span><span class="pg"><i>B3-4｜</i>27/36</span></div>
+<h2>月次の表（標準・出資あり・最初の12か月）</h2>
+<div class="body"><div class="tablewrap"><table class="tight"><thead><tr><th>月</th><th>売上の入金</th><th>当選の支払い</th><th>経費</th><th>出資者へ</th><th>月末の手元</th></tr></thead><tbody><tr><td>2026年11月</td><td>0.0</td><td>51.2</td><td>22.6</td><td>0.0</td><td><b>226.1</b></td></tr><tr><td>2026年12月</td><td>19.6</td><td>81.0</td><td>23.5</td><td>0.0</td><td><b>141.2</b></td></tr><tr><td>2027年1月</td><td>133.8</td><td>120.2</td><td>24.6</td><td>2.0</td><td><b>128.2</b></td></tr><tr><td>2027年2月</td><td>214.5</td><td>168.6</td><td>26.0</td><td>13.4</td><td><b>134.7</b></td></tr><tr><td>2027年3月</td><td>320.9</td><td>189.3</td><td>26.6</td><td>21.4</td><td><b>218.2</b></td></tr><tr><td>2027年4月</td><td>452.2</td><td>209.7</td><td>27.2</td><td>32.1</td><td><b>401.5</b></td></tr><tr><td>2027年5月</td><td>508.6</td><td>229.6</td><td>27.7</td><td>45.2</td><td><b>607.5</b></td></tr><tr><td>2027年6月</td><td>563.8</td><td>249.1</td><td>28.3</td><td>50.9</td><td><b>843.0</b></td></tr><tr><td>2027年7月</td><td>617.9</td><td>268.3</td><td>27.0</td><td>56.4</td><td><b>1,109.2</b></td></tr><tr><td>2027年8月</td><td>670.9</td><td>282.6</td><td>21.4</td><td>61.8</td><td><b>1,414.2</b></td></tr><tr><td>2027年9月</td><td>722.8</td><td>282.3</td><td>21.5</td><td>67.1</td><td><b>1,766.1</b></td></tr><tr><td>2027年10月</td><td>761.8</td><td>282.4</td><td>21.5</td><td>72.3</td><td><b>2,151.8</b></td></tr></tbody></table></div>
+<p class="backlink">単位は万円。経費＝名義の回線＋応募の費用＋システム開発費ほか。出資者へ＝前の月の売上の入金 × 10⁠%。</p></div>
+</section>
+
+<section class="slide" data-sec="B3-5" id="s28">
+<div class="hd"><span class="sc">B3-5</span><span class="ch">補足B3 数字の中身</span><span class="pg"><i>B3-5｜</i>28/36</span></div>
+<h2>前提（事業計画のつまみ）</h2>
+<div class="body"><div class="tablewrap"><table class="tight"><thead><tr><th>つまみ</th><th>悪い</th><th>標準</th><th>良い</th></tr></thead><tbody><tr><td>月初の会員名義</td><td>300</td><td>300</td><td>300</td></tr><tr><td>新しく作る名義/月</td><td>50</td><td>90</td><td>200</td></tr><tr><td>名義の上限</td><td>1,000</td><td>1,000</td><td>1,000</td></tr><tr><td>使えなくなる割合/月</td><td>4⁠%</td><td>2⁠%</td><td>1⁠%</td></tr><tr><td>1名義の回線代</td><td>1,500⁠円</td><td>1,100⁠円</td><td>1,000⁠円</td></tr><tr><td>1名義の月の応募数（立ち上がった後）</td><td>1</td><td>3</td><td>5</td></tr><tr><td>いまの応募数（1名義の月・立ち上がり前）</td><td>1</td><td>1</td><td>1</td></tr><tr><td>立ち上がりの月数</td><td>3</td><td>3</td><td>3</td></tr><tr><td>当選率（会員）</td><td>4⁠%</td><td>5⁠%</td><td>7⁠%</td></tr><tr><td>1当選の利益（会員）</td><td>25,000⁠円</td><td>30,000⁠円</td><td>35,000⁠円</td></tr><tr><td>1当選の支払い（定価・会員）</td><td>17,500⁠円</td><td>17,500⁠円</td><td>17,500⁠円</td></tr><tr><td>1応募の費用</td><td>50⁠円</td><td>25⁠円</td><td>0⁠円</td></tr><tr><td>ゲスト抽選の数/月</td><td>0.5</td><td>1</td><td>1</td></tr><tr><td>1回のゲスト応募数</td><td>300</td><td>500</td><td>1,000</td></tr><tr><td>当選率（ゲスト）</td><td>2⁠%</td><td>5⁠%</td><td>10⁠%</td></tr><tr><td>1当選の利益（ゲスト）</td><td>10,000⁠円</td><td>15,000⁠円</td><td>15,000⁠円</td></tr><tr><td>1当選の支払い（定価・ゲスト）</td><td>10,000⁠円</td><td>10,000⁠円</td><td>10,000⁠円</td></tr><tr><td>1抽選で値崩れせず売れる枚数</td><td>30</td><td>60</td><td>100</td></tr><tr><td>入金のずれ（支払い→入金）</td><td>3</td><td>2</td><td>1</td></tr><tr><td>当選→現金が出るまで（カード払い）</td><td>0</td><td>0</td><td>0</td></tr><tr><td>業界10年の協力者への分配（利益に対して）</td><td>0⁠%</td><td>0⁠%</td><td>0⁠%</td></tr><tr><td>システム開発費/月</td><td>100,000⁠円</td><td>100,000⁠円</td><td>100,000⁠円</td></tr><tr><td>その他/月</td><td>20,000⁠円</td><td>20,000⁠円</td><td>20,000⁠円</td></tr><tr><td>税（翌年3月にまとめて払う簡略）</td><td>30⁠%</td><td>30⁠%</td><td>30⁠%</td></tr><tr><td>手元の初期値</td><td>0⁠円</td><td>0⁠円</td><td>0⁠円</td></tr></tbody></table></div>
+<p class="backlink">事業計画（2026年11月4⁠日）の既定。当選率・1当選の利益は9〜10月の支払いのあった3案件（302応募→21当選・平均3.2⁠万円 <a class="jump" href="#s13">→ B1-2</a>）から、入金のずれは支払い額で重み付けた約⁠54⁠日（<a class="jump" href="#s15">→ B1-4</a>）から置いた。
+崩れうる前提: ① 同じ公演に大量に当てたとき売値を保てるか（「1抽選で値崩れせず売れる枚数」で置いた） ② 案件を安定して拾えるか（協力者の目利きが律速）。</p></div>
+</section>
+
+<section class="slide" data-sec="B4-1" id="s29">
+<div class="hd"><span class="sc">B4-1</span><span class="ch">補足B4 計画を動かすもの</span><span class="pg"><i>B4-1｜</i>29/36</span></div>
+<h2>動かす大きさの順（標準・出資なし）</h2>
+<div class="body"><div class="tablewrap"><table class="tight"><thead><tr><th>動かしたつまみ</th><th>手元の底（万円）</th><th>36か月後の手元（万円）</th></tr></thead><tbody><tr><td>いまの計画（標準）</td><td><b>−169.9</b></td><td><b>10,596</b></td></tr><tr><td>入金のずれ 3か月</td><td>−365.9</td><td>10,064</td></tr><tr><td>新しく作る名義 月200</td><td>−296.6</td><td>11,067</td></tr><tr><td>1名義の応募 月5回</td><td>−266.6</td><td>17,278</td></tr><tr><td>協力者への分配 50⁠%</td><td>−258.0</td><td>4,766</td></tr><tr><td>カード払い（1か月あと）</td><td>−77.8</td><td>10,818</td></tr><tr><td>入金のずれ 1か月</td><td>−73.9</td><td>11,169</td></tr><tr><td>1名義の応募 月1回</td><td>−135.8</td><td>3,914</td></tr></tbody></table></div>
+<p class="backlink">上から手元の底を深くする順。底を一番動かすのは入金のずれ、36か月後を一番動かすのは1名義の応募の回数（最後の行は応募を減らした側）。<a class="jump" href="#s9">← 本編 2-3</a> へ戻る</p></div>
+</section>
+
+<section class="slide" data-sec="B4-2" id="s30">
+<div class="hd"><span class="sc">B4-2</span><span class="ch">補足B4 計画を動かすもの</span><span class="pg"><i>B4-2｜</i>30/36</span></div>
+<h2>2回目の合図と目安（出資ありの手元の最低）</h2>
+<div class="body"><div class="tablewrap"><table class="tight"><thead><tr><th>見通し</th><th>入金のずれ 1か月</th><th>2か月</th><th>3か月</th></tr></thead><tbody><tr><td>悪い</td><td>255.0</td><td>226.8</td><td>174.2</td></tr><tr><td>標準</td><td>226.1</td><td>128.2</td><td><b style="color:var(--accent)">−81.2</b>（目安 381.2）</td></tr><tr><td>良い</td><td>131.2</td><td><b style="color:var(--accent)">−233.2</b>（目安 533.2）</td><td><b style="color:var(--accent)">−953.2</b>（目安 1,253.2）</td></tr></tbody></table></div>
+<p class="backlink">単位は万円。赤＝手元がマイナスになる見込み＝2回目を集める合図。目安＝300⁠万円 − 底（1回で足りる額の単純な差。出資を増やすとお渡しも増えるので、実際の額はそのときに計画で出し直す）。
+いまの実績の入金のずれは約⁠54⁠日（約⁠2か月）。2回目の額と条件は、その時点の数字でご相談します。<a class="jump" href="#s9">← 本編 2-3</a> へ戻る</p></div>
+</section>
+
+<section class="slide" data-sec="B5-1" id="s31">
+<div class="hd"><span class="sc">B5-1</span><span class="ch">補足B5 返し方の細部</span><span class="pg"><i>B5-1｜</i>31/36</span></div>
+<h2>出資の細部：売上の10⁠%を、2.5⁠倍（750⁠万円）まで</h2>
+<div class="body"><div class="use"><dl>
+<dt>毎月のお渡し</dt><dd>前の月に入った売上の10⁠%を出資者全体に。個々には出していただいた額に応じて分けます</dd>
+<dt>終わり</dt><dd>お渡しの累計が出資額の2.5⁠倍に届いた月。期限は切りません（36か月で届かなくても、届くまで続きます）</dd>
+<dt>人数</dt><dd>全体の取り分が10⁠%なので、出資者が何人でも届く月は同じ</dd>
+<dt>リスク</dt><dd>計画の3つの見通しでは、戻らないのでなく戻るのが遅れる（悪い見通しでも出資額に届く月がある・下の注）。数か月でやめたら全額お返し（契約書に書く）</dd></dl></div>
+<div class="tablewrap"><table class="tight"><thead><tr><th>見通し</th><th>2.5⁠倍に届く月</th><th>36か月までのお渡し（万円）</th><th>年あたり利回り</th><th>事業の手元の最低（万円）</th></tr></thead><tbody><tr><td>悪い</td><td>届かず</td><td>371.5</td><td>—</td><td>174.2</td></tr><tr><td>標準</td><td>16か月（2028年3月）</td><td>750.0</td><td>116⁠%</td><td>128.2</td></tr><tr><td>良い</td><td>7か月（2027年6月）</td><td>750.0</td><td>244⁠%</td><td>131.2</td></tr></tbody></table></div>
+<p class="backlink">年あたり利回り＝月の内部収益率 × 12（複利にしない単純な掛け算）。「届かず」の悪い見通しは、36か月の後もお渡しが続く。
+悪い見通しでもお渡しの累計が出資額（300⁠万円）に届くのは30か月目。<a class="jump" href="#s8">← 本編 2-2</a> へ戻る</p></div>
+</section>
+
+<section class="slide" data-sec="B5-2" id="s32">
+<div class="hd"><span class="sc">B5-2</span><span class="ch">補足B5 返し方の細部</span><span class="pg"><i>B5-2｜</i>32/36</span></div>
+<h2>上限を2.5⁠倍にしても、事業の手元の底は変わらない</h2>
+<div class="body"><div class="tablewrap"><table class="tight"><thead><tr><th>見通し</th><th>手元の最低 1.29⁠倍</th><th>2.5⁠倍</th><th>36か月後の手元 1.29⁠倍</th><th>2.5⁠倍</th></tr></thead><tbody><tr><td>悪い</td><td>174.2</td><td>174.2</td><td>973</td><td>1,000</td></tr><tr><td>標準</td><td>128.2</td><td>128.2</td><td>10,535</td><td>10,281</td></tr><tr><td>良い</td><td>131.2</td><td>131.2</td><td>34,554</td><td>34,300</td></tr></tbody></table></div>
+<p class="backlink">単位は万円。上限の上乗せ分をお渡しするのは、売上が積み上がって手元が厚くなった後＝手元の最低（底）は同じ。変わるのは36か月後の手元だけ
+（標準・良いは減る。悪いは36か月で上限に届かずお渡しは同じ。どちらも、上乗せ分を経費に数える税の簡略の差を含むので、減る額はお渡しの増えた額と一致しない）。</p></div>
+</section>
+
+<section class="slide" data-sec="B5-3" id="s33">
+<div class="hd"><span class="sc">B5-3</span><span class="ch">補足B5 返し方の細部</span><span class="pg"><i>B5-3｜</i>33/36</span></div>
+<h2>融資の形なら：100⁠万円を<em>110⁠万円</em>で、遅くとも11か月で返す</h2>
+<div class="body"><div class="use"><dl>
+<dt>毎月の返済</dt><dd>10⁠万円（貸していただいた額の10⁠%）と、その月の事業<b>利益</b>の10⁠%の大きい方</dd>
+<dt>完済</dt><dd>返済の合計が110⁠万円（110⁠%）に届いたら。最長11か月</dd>
+<dt>出資との違い</dt><dd>出資は<b>売上</b>の10⁠%に掛け、同じ100⁠万円なら上限 250⁠万円まで（標準で16か月）。融資は小さく早く、出資は大きく遅れうる</dd>
+<dt>一括</dt><dd>毎月でなく、決めた月にまとめてお返しする形もご相談できます</dd></dl></div>
+<p class="backlink">本編は出資の形でお話ししています。融資の形をご希望のときのための1⁠枚で、額・率・時期はどれも例です（2026年11月1⁠日に決めた形）。</p></div>
+</section>
+
+<section class="slide" data-sec="B6-1" id="s34">
+<div class="hd"><span class="sc">B6-1</span><span class="ch">補足B6 想定問答</span><span class="pg"><i>B6-1｜</i>34/36</span></div>
+<h2>想定問答：事業について</h2>
+<div class="body"><div class="use"><dl>
+<dt>負ける条件は</dt><dd>入金が遅れる・当選率が下がる・名義が増えない・使えなくなる名義が増える。全部を悪い側に置いたのが「悪い」見通し（入金のずれ3か月・当選率4⁠%・名義 月50・使えなくなる 月4⁠%）</dd>
+<dt>どれくらいぶれるか</dt><dd>36か月後の手元（出資なし）は 悪い 1,029⁠万円・標準 10,596⁠万円・良い 34,615⁠万円。手元の底を一番動かすのは入金のずれ、36か月後を一番動かすのは応募の回数（<a class="jump" href="#s29">→ B4-1</a>）</dd>
+<dt>競合は</dt><dd>業界トップでも約⁠1,000名義（聞き取り）。手作業が中心で、私たちは応募と名義づくりを機械で回している（<a class="jump" href="#s18">→ B2-1</a>）</dd>
+<dt>一番悪いときは</dt><dd>悪い見通しでも出資ありの手元は最低 174.2⁠万円でマイナスにならない。それより悪く入金が遅れたら2回目を集める（<a class="jump" href="#s30">→ B4-2</a>）</dd>
+<dt>難しいところは</dt><dd>名義を増やす速さと、当たった分を払い切る現金。お金で解けるのは後者</dd></dl></div></div>
+</section>
+
+<section class="slide" data-sec="B6-2" id="s35">
+<div class="hd"><span class="sc">B6-2</span><span class="ch">補足B6 想定問答</span><span class="pg"><i>B6-2｜</i>35/36</span></div>
+<h2>想定問答：お金について</h2>
+<div class="body"><div class="use"><dl>
+<dt>事業をやめたら</dt><dd>数か月でやめたら、出していただいた額を全額お返しします。何か月までかは契約書に書いて決めます</dd>
+<dt>何を見せてもらえるか</dt><dd>毎月、経費の請求書と利益の実績をお渡しします。契約書を書くかどうかはお選びいただけます</dd>
+<dt>10⁠%で割に合うか</dt><dd>出資は売上の10⁠%を2.5⁠倍まで。標準の見通しで16か月で届き、年あたり116⁠%（<a class="jump" href="#s31">→ B5-1</a>）</dd>
+<dt>「70⁠日」とは</dt><dd>当選の支払いから売上の入金まで、長いと約⁠70⁠日。支払い額で重み付けると約⁠54⁠日で、計画の「入金のずれ2か月」はこれ（<a class="jump" href="#s15">→ B1-4</a>）</dd>
+<dt>利益の折半は</dt><dd>いまは協力者に立て替えてもらう代わりに利益の半分を渡している。出資を受けたら分配は0（いまの計画の前提）</dd>
+<dt>税は</dt><dd>計画は事業の利益に30⁠%を翌年3月にまとめて払う簡略。受け取る側の扱いは契約の形と一緒にご相談します</dd>
+<dt>融資の形は</dt><dd>ご希望があれば、100⁠万円を110⁠万円で返す形もご相談できます（<a class="jump" href="#s33">→ B5-3</a>）</dd></dl></div></div>
+</section>
+
+<section class="slide colophon" data-role="colophon" id="s36">
+<div class="hd"><span class="ch lbl">奥付</span><span class="pg">36/36</span></div>
+<h2>数字の出どころ</h2>
+<div class="body"><ul>
+<li>稼働2か月の利益 約⁠200⁠万円・4案件の応募数・当選数・支払い・売上・利益・日付（入金は予定日を含む）は、ゆうとの案件記録（2026年10月29⁠日時点）。元の記録はゆうとにお声がけください。「戻り」の倍率は 売上 ÷ 支払い。</li>
+<li>名義の数のうち bot の分は bot の登録台帳（2026年10月29⁠日時点）。手作業の分・合計の約⁠300・協力者と業界の数字は聞き取りの概数。1名義 1,500⁠円は、1⁠人の名義でローチケ・ぴあ・e+ など計5社のアカウントを用意する回線の経費。</li>
+<li>手元・必要額・お渡し・利回り・2回目の目安・動かす大きさは、事業計画（36か月の月次の収支計画・2026年11月4⁠日の既定のつまみ）から計算した見通しです。3つの見通しは 悪い・標準・良い。</li>
+<li>出資の条件は 集める額 300⁠万円・前の月の売上の10⁠%・上限 2.5⁠倍。補足 B5-3 の融資の形は 100⁠万円の例で毎月 10⁠万円か事業利益の10⁠%・110⁠万円で完済（2026年11月1⁠日に決めた形）。</li>
+<li>出資者ごとの額は載せていません（総額だけ）。</li>
+</ul></div>
+</section>
+
+</main>
+<script>
+(function(){
+  // 上部の帯（いまの章・ページ）とキー送り・明暗切替。枚は毎回数え直す（編集で増減するため）
+  function all(){return [].slice.call(document.querySelectorAll('main .slide'));}
+  var now=document.getElementById('now'), where=document.getElementById('where'), tgt=null, tm;
+  function label(s){var c=s.querySelector('.ch');var h=s.querySelector('h2,h1');
+    return (c?c.textContent+'｜':'')+(h?h.textContent.replace(/\s+/g,' '):'');}
+  function idx(sl){var y=window.innerHeight*0.35,best=0;
+    if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4)return sl.length-1;
+    sl.forEach(function(s,i){if(s.getBoundingClientRect().top<y)best=i;});return best;}
+  function upd(){var sl=all();if(!sl.length)return;var i=idx(sl);now.textContent=label(sl[i]);
+    where.textContent=String(i+1).padStart(2,'0')+'/'+String(sl.length).padStart(2,'0');}
+  window.deckNavUpdate=upd;
+  window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
+  document.addEventListener('keydown',function(e){
+    var t=e.target;
+    if(t.closest&&(t.closest('input,textarea,select,[contenteditable="true"],.ed-panel')))return;
+    var d={ArrowDown:1,ArrowRight:1,PageDown:1,' ':1,ArrowUp:-1,ArrowLeft:-1,PageUp:-1}[e.key];
+    if(!d)return; e.preventDefault(); if(e.shiftKey&&e.key===' ')d=-1;
+    var sl=all();
+    var i=Math.max(0,Math.min(sl.length-1,(tgt===null?idx(sl):tgt)+d));tgt=i;clearTimeout(tm);tm=setTimeout(function(){tgt=null;},900);
+    sl[i].scrollIntoView({behavior:'smooth',block:'start'});});
+  var t=document.getElementById('theme'),root=document.documentElement;
+  try{var v=localStorage.getItem('deck-theme');if(v)root.dataset.theme=v;}catch(e){}
+  t.addEventListener('click',function(){
+    var dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme=dark?'light':'dark';
+    try{localStorage.setItem('deck-theme',root.dataset.theme);}catch(e){}});
+})();
+</script>
+</body>
+</html>
