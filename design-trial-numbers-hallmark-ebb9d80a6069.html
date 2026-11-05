@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>9月KPIまとめ</title>
+<style>
+/* Hallmark · checked: 2026-11-05 · genre: modern-minimal (inferred) · theme: none (custom ledger, by request) · shape: app screen */
+/* Hallmark · pre-emit critique: P3 H4 E4 S3 R5 V3 · weakest: S, the page is a plain report so the figure column carries a quiet proportion bar instead of cards */
+/* Hallmark · answered F3 · h1 is a single balanced line at 390 and cannot end on a stub */
+/* Hallmark · answered F25 · the sticky first column keeps the row name in view while the number columns scroll */
+:root {
+  --font-sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+
+  --color-paper: oklch(97.5% 0.006 250);
+  --color-paper-2: oklch(94.5% 0.01 250);
+  --color-ink: oklch(21% 0.014 255);
+  --color-muted: oklch(46% 0.016 255);
+  --color-rule: oklch(88% 0.01 250);
+  --color-rule-strong: oklch(28% 0.02 255);
+  --color-accent: oklch(44% 0.13 255);
+  --color-accent-soft: oklch(80% 0.07 255);
+  --color-good: oklch(40% 0.11 155);
+  --color-bad: oklch(45% 0.17 28);
+  --color-warn: oklch(95.5% 0.045 90);
+  --color-focus: oklch(50% 0.2 255);
+
+  --space-3xs: 2px;
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+
+  --radius: 8px;
+  --measure: 64ch;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-paper: oklch(16% 0.01 255);
+    --color-paper-2: oklch(21.5% 0.012 255);
+    --color-ink: oklch(93% 0.008 255);
+    --color-muted: oklch(72% 0.014 255);
+    --color-rule: oklch(30% 0.012 255);
+    --color-rule-strong: oklch(82% 0.01 255);
+    --color-accent: oklch(76% 0.11 250);
+    --color-accent-soft: oklch(42% 0.08 255);
+    --color-good: oklch(78% 0.14 155);
+    --color-bad: oklch(75% 0.15 25);
+    --color-warn: oklch(26% 0.04 85);
+    --color-focus: oklch(78% 0.16 250);
+  }
+}
+:root[data-theme="dark"] {
+  --color-paper: oklch(16% 0.01 255);
+  --color-paper-2: oklch(21.5% 0.012 255);
+  --color-ink: oklch(93% 0.008 255);
+  --color-muted: oklch(72% 0.014 255);
+  --color-rule: oklch(30% 0.012 255);
+  --color-rule-strong: oklch(82% 0.01 255);
+  --color-accent: oklch(76% 0.11 250);
+  --color-accent-soft: oklch(42% 0.08 255);
+  --color-good: oklch(78% 0.14 155);
+  --color-bad: oklch(75% 0.15 25);
+  --color-warn: oklch(26% 0.04 85);
+  --color-focus: oklch(78% 0.16 250);
+}
+
+* { box-sizing: border-box; }
+html { overflow-x: clip; scrollbar-color: var(--color-rule) var(--color-paper); }
+body {
+  margin: 0;
+  overflow-x: clip;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.8;
+  font-synthesis: none;
+  caret-color: var(--color-accent);
+  -webkit-text-size-adjust: 100%;
+}
+::selection { background: var(--color-accent-soft); color: var(--color-ink); }
+
+main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-md) var(--space-3xl);
+}
+
+h1 {
+  font-size: clamp(30px, 6.4vw, 46px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--space-sm);
+  min-width: 0;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+h2 {
+  font-size: clamp(22px, 4vw, 28px);
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  margin: var(--space-3xl) 0 var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 2px solid var(--color-rule-strong);
+  min-width: 0;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+.sub {
+  color: var(--color-muted);
+  font-size: 14px;
+  line-height: 1.75;
+  margin: var(--space-xs) 0 var(--space-lg);
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+main > h1 + .sub { font-size: 15px; margin-bottom: var(--space-xl); }
+h2 + .sub { margin-top: 0; }
+.scroll + .sub { margin-top: var(--space-md); }
+
+/* lead: the statement set large, no box */
+.lead {
+  padding: var(--space-lg) 0;
+  border-top: 1px solid var(--color-rule);
+  border-bottom: 1px solid var(--color-rule);
+}
+.lead p {
+  margin: 0 0 var(--space-sm);
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+.lead p:first-child {
+  font-size: clamp(24px, 5.2vw, 34px);
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-md);
+  text-wrap: balance;
+}
+.lead p:last-child { margin-bottom: 0; }
+.lead strong { font-weight: 700; }
+
+/* tables: horizontal rules only, no outer box */
+.scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-top: 1px solid var(--color-rule);
+  border-bottom: 1px solid var(--color-rule);
+  scrollbar-color: var(--color-rule) transparent;
+}
+.scroll:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-rule);
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+th:first-child, td:first-child {
+  text-align: left;
+  position: sticky;
+  left: 0;
+  background: var(--color-paper);
+  box-shadow: 1px 0 0 var(--color-rule);
+}
+thead th {
+  background: var(--color-paper-2);
+  color: var(--color-muted);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
+  border-bottom: 1px solid var(--color-rule-strong);
+}
+thead th:first-child { background: var(--color-paper-2); }
+th small {
+  display: block;
+  color: var(--color-muted);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+tbody tr:last-child td { border-bottom: none; }
+td { font-variant-numeric: tabular-nums; }
+td small {
+  display: block;
+  color: var(--color-muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+tr.total td {
+  font-weight: 800;
+  border-top: 2px solid var(--color-rule-strong);
+  background: var(--color-paper-2);
+}
+tr.total td:first-child { background: var(--color-paper-2); }
+@media (max-width: 380px) { th, td { padding: var(--space-sm) var(--space-xs); } }
+
+.big { font-weight: 800; font-size: 20px; line-height: 1.3; letter-spacing: -0.01em; }
+.good { color: var(--color-good); font-weight: 700; }
+.bad { color: var(--color-bad); font-weight: 800; }
+td.bad small, td.good small { font-weight: 400; }
+
+/* funnel: a quiet proportion bar under each count */
+.funnel td:nth-child(2) { position: relative; padding-bottom: var(--space-md); }
+.funnel td:nth-child(2)::after {
+  content: "";
+  position: absolute;
+  right: var(--space-md);
+  bottom: var(--space-xs);
+  height: 3px;
+  width: max(3px, calc(var(--w, 0) * (100% - 2 * var(--space-md))));
+  background: var(--color-accent);
+  border-radius: 2px;
+}
+@media (max-width: 380px) {
+  .funnel td:nth-child(2)::after {
+    right: var(--space-xs);
+    width: max(3px, calc(var(--w, 0) * (100% - 2 * var(--space-xs))));
+  }
+}
+
+/* notes under tables */
+ul { padding-left: var(--space-lg); margin: var(--space-sm) 0; }
+li { margin: var(--space-xs) 0; padding-left: var(--space-3xs); }
+li::marker { color: var(--color-accent); }
+ul.sub { max-width: 72ch; }
+ul.sub li { margin: var(--space-sm) 0; }
+strong { font-weight: 700; color: var(--color-ink); }
+.sub strong { color: var(--color-ink); }
+main > ul:not(.sub) { max-width: 72ch; }
+main > ul:not(.sub) li { margin: var(--space-sm) 0; }
+
+.callout {
+  background: var(--color-warn);
+  border-radius: var(--radius);
+  padding: var(--space-md) var(--space-lg);
+  margin: var(--space-lg) 0;
+  max-width: 72ch;
+  text-wrap: pretty;
+}
+.callout strong { font-weight: 800; }
+
+.foot {
+  color: var(--color-muted);
+  font-size: 13px;
+  line-height: 1.8;
+  margin-top: var(--space-3xl);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-rule);
+  max-width: 72ch;
+}
+
+@media (min-width: 1500px) {
+  main { padding-top: var(--space-3xl); }
+}
+</style>
+</head>
+<body>
+<main>
+<h1>9月 KPI まとめ</h1>
+<p class="sub">人材事業部・全CA ／ 9月の期間はすべて締まっています（最後は 9/30）。値は 2026年10月2日（金）19時時点の歩留まり管理シートで、後からの追記で動くことがあります</p>
+
+<div class="lead">
+  <p><strong>9月の承諾（KGI）は 1人。</strong></p>
+  <p>いちばん大きく漏れたのは<strong class="bad">提案→推薦</strong>です。53人に提案して、期間内に推薦まで進んだのは19人（35.8%）。率で見ると、MKの通過率（62.0%）なら33人で、<strong>14人分の差</strong>があります。</p>
+  <p>もう1つは<strong class="bad">内定後のリリース</strong>です。9月に内定が出た8人を10/2まで追うと、承諾2人・<strong>リリース/見送り4人</strong>・返事待ち1人（9/30内定）・未特定1人でした。</p>
+</div>
+
+<h2>1. ファネル（部全体）</h2>
+<div class="scroll" tabindex="0"><table class="funnel">
+<thead><tr><th>段<br><small>期間</small></th><th>人数</th><th>通過率</th><th>MKの率</th></tr></thead>
+<tbody>
+<tr style="--w:1"><td>有効応募<small>8/18〜9/16</small></td><td class="big">325</td><td>—</td><td>—</td></tr>
+<tr style="--w:0.372"><td>新規面談設定<small>8/20〜9/17</small></td><td class="big">121</td><td>—</td><td>—</td></tr>
+<tr style="--w:0.243"><td>新規面談<small>8/20〜9/17</small></td><td class="big">79</td><td>65.3%<small>着座率</small></td><td>—</td></tr>
+<tr style="--w:0.163"><td>提案<small>8/20〜9/17</small></td><td class="big">53</td><td class="good">67.1%</td><td>64.6%</td></tr>
+<tr style="--w:0.058"><td>推薦<small>8/20〜9/17</small></td><td class="big">19</td><td class="bad">35.8%</td><td>62.0%</td></tr>
+<tr style="--w:0.058"><td>面接設定<small>8/21〜9/18</small></td><td class="big">19</td><td>—</td><td>70.5%</td></tr>
+<tr style="--w:0.052"><td>面接実施<small>9/1〜9/30</small></td><td class="big">17</td><td class="good">89.5%</td><td>74.2%</td></tr>
+<tr style="--w:0.025"><td>内定<small>9/1〜9/30</small></td><td class="big">8</td><td class="bad">47.1%</td><td>69.6%</td></tr>
+<tr style="--w:0.003"><td>承諾（KGI）<small>9/1〜9/30</small></td><td class="big">1</td><td class="bad">12.5%</td><td>81.3%</td></tr>
+</tbody></table></div>
+<ul class="sub">
+  <li>通過率＝その段の人数 ÷ 1つ上の段の人数。分子と分母はそれぞれの期間で取っています。</li>
+  <li>着座率＝新規面談 ÷ 新規面談設定（日次KPIシートと同じ定義）。新規面談設定は正式な期間表に無いので、新規面談と同じ 8/20〜9/17 で取っています。</li>
+  <li>新規面談設定の率は出していません。公式の設定率は分母が35歳以下の有効応募（indeed＋求人BOX）で、この表の有効応募とは母集団が違うためです。</li>
+  <li>面接設定は期間がずれていて、8月以前に推薦した人も含むため率を出していません（計算上は100%になる）。</li>
+  <li>MKの率は 8/21 の1on1で共有された値です。6段とも整数の比に小数2桁まで一致する（最小の組で 110→71→44→31→23→16→13人）ので、<strong>目標ではなくMKの実績値</strong>とみられます（未確認）。</li>
+  <li>有効応募の内訳: SeeD 228・求人BOX 97（Indeed の Gooner 名義はアカウント停止で0）。総応募は494。</li>
+  <li>事業部目標として共有されたのは新規面談148（期間・母集団は未確認）。他の段の目標件数は148にMKの率を掛けた値なので載せていません。</li>
+</ul>
+
+<h2>2. 除外後の有効応募と設定率</h2>
+<p class="sub">重複・過去応募・外国人の疑い・架電時のリリースを、有効応募から1段ずつ除いた人数（有効応募の期間 8/18〜9/16）</p>
+<div class="scroll" tabindex="0"><table>
+<thead><tr><th>段</th><th>人数</th><th>減った数</th></tr></thead>
+<tbody>
+<tr><td>総応募</td><td>494</td><td>—</td></tr>
+<tr><td>有効✅</td><td>325</td><td>—</td></tr>
+<tr><td>重複を1人に畳む</td><td>304</td><td>−21</td></tr>
+<tr><td>過去応募を除く</td><td>298</td><td>−6</td></tr>
+<tr><td>外国人の疑いを除く</td><td>296〜251</td><td>−2〜−47</td></tr>
+<tr><td>架電時のリリースを除く</td><td>284〜240</td><td>−12〜−11</td></tr>
+<tr class="total"><td>除外後の有効応募</td><td>284〜240</td><td></td></tr>
+</tbody></table></div>
+<ul class="sub">
+  <li><strong>設定率</strong>（新規面談設定121 ÷ 有効応募）: 素の値 37.2% → 除外後 <strong>42.6%〜50.4%</strong>。着座率（着座÷設定）は分母が変わらないので 65.3% のまま。</li>
+  <li><strong>幅は「外国人の疑い」の判定差</strong>: 機械の判定（外国語名の列・氏名の文字種）だと47人ですが、大半は求人BOXの氏名にスペースが無いことと、林・森などの1字姓による誤判定です。氏名を目で見て絞ると2人（再現性の無い参考値）。日本人の姓の一覧で戻す中間の判定だと、除外後は257人です。</li>
+  <li><strong>重複</strong>は全件が電話番号の一致で決まりました（同じリスト内19・媒体またぎ2）。<strong>過去応募</strong>は期間より前の応募行がある人で、6人中5人は30日以内の再応募です。</li>
+  <li><strong>架電時のリリース</strong>12人の内訳: 開始時期3・既往歴1・本人の意向（他社内定など）2・連絡がつかない3・理由の記載なし3。電話の会話の中でCAが基準で切ったのは4人です。</li>
+  <li>別に見つかったこと: 有効応募の36%（116人）は、リストに架電の記録（担当者・メモ・通電・不在）が一切ありません。</li>
+</ul>
+
+<h2>3. CA別</h2>
+<p class="sub">面談〜推薦（3つとも同じ期間 8/20〜9/17 なので率を取れます）</p>
+<div class="scroll" tabindex="0"><table>
+<thead><tr><th>CA</th><th>新規面談</th><th>提案</th><th>推薦</th><th>提案率</th><th>推薦率</th></tr></thead>
+<tbody>
+<tr><td>中原</td><td>21</td><td>15</td><td>6</td><td>71%</td><td>40%</td></tr>
+<tr><td>齋藤</td><td>15</td><td>13</td><td>5</td><td>87%</td><td>38%</td></tr>
+<tr><td>佐藤</td><td>0</td><td>1</td><td>2</td><td>—</td><td>—</td></tr>
+<tr><td>横尾</td><td>15</td><td>5</td><td>1</td><td>33%</td><td class="bad">20%</td></tr>
+<tr><td>武者野</td><td>28</td><td>19</td><td>5</td><td>68%</td><td class="bad">26%</td></tr>
+<tr><td>小野</td><td>0</td><td>0</td><td>0</td><td>—</td><td>—</td></tr>
+<tr class="total"><td>計</td><td>79</td><td>53</td><td>19</td><td>67%</td><td>36%</td></tr>
+</tbody></table></div>
+<p class="sub">推薦率が低いのは横尾（20%）と武者野（26%）。武者野は提案19人に対し、期間内に推薦まで進んだのは5人です（期間の翌日以降に推薦した人は10月に入ります）。佐藤の推薦2が提案1より多いのは、期間より前に提案した人を期間内に推薦したためとみられます（未確認）。</p>
+
+<p class="sub">面接〜承諾（列ごとに期間が違うので、横に並べて率を取らないでください）</p>
+<div class="scroll" tabindex="0"><table>
+<thead><tr><th>CA</th><th>面接設定<br><small>8/21〜9/18</small></th><th>面接実施<br><small>9月</small></th><th>内定<br><small>9月</small></th><th>承諾<br><small>9月</small></th></tr></thead>
+<tbody>
+<tr><td>中原</td><td>5</td><td>6</td><td>2</td><td>0</td></tr>
+<tr><td>齋藤</td><td>6</td><td>2</td><td>2</td><td>1</td></tr>
+<tr><td>佐藤</td><td>2</td><td>2</td><td>1</td><td>0</td></tr>
+<tr><td>横尾</td><td>0</td><td>2</td><td>1</td><td>0</td></tr>
+<tr><td>武者野</td><td>6</td><td>5</td><td>2</td><td>0</td></tr>
+<tr><td>小野</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr class="total"><td>計</td><td>19</td><td>17</td><td>8</td><td>1</td></tr>
+</tbody></table></div>
+<p class="sub">参考: CA別の新規面談設定と着座率（面談÷設定）は 中原30（70%）・齋藤22（68%）・佐藤25（0%）・横尾16（94%）・武者野26（108%）・小野2（0%）、計121（65.3%）。設定は架電した人、面談は面談した人に付くので、CA別の着座率は100%を超えることがあり、部全体以外は参考値です。</p>
+
+<div class="callout">
+  <strong>佐藤さんに確認したいこと</strong>: 新規面談設定25人に対して新規面談0人です。架電を担当して面談は他のCAに付いている（役割どおり）のか、新規面談数の入力漏れなのか、シートからは区別できません。
+</div>
+
+<h2>4. 数字の確かさ</h2>
+<ul>
+  <li><strong>推薦数</strong>: 武者野分の初回推薦2人がシートに入っていなかったため、10/2 に追記しました（武者野 3→5・部全体 17→19）。</li>
+  <li><strong>承諾数</strong>: MKリスト由来の選考記録と一致（1人）。Firestore 側の素の集計は14人と出ますが、うち13人は 9/3 にMKリストを初めて取り込んだときの過去分です。</li>
+  <li><strong>内定数</strong>: シート8人・MKリスト7人。差の1人は武者野の 9/9 分で、まだ特定できていません。9/8 の人の二重計上（その場合は部全体 8→7）か、MKリストに無い内定のどちらかです。</li>
+  <li><strong>内定後の追跡</strong>: 上の「承諾2・リリース/見送り4」は MKリスト由来の選考記録を1人ずつ追ったものです。「リリース」が本人の辞退か企業側かは、記録の語からは区別できません。</li>
+  <li><strong>武者野の新規面談</strong>: シート28人・面談記録24人分。シートが多い理由（録画の無い面談か、同じ人が別日に計上されたか）は未検証です。</li>
+  <li><strong>他のCAの新規面談〜面接設定</strong>: 突き合わせる記録が無いため、シートの値をそのまま載せています。</li>
+</ul>
+
+<p class="foot">
+数え方: すべて人数（1人を何社に出しても1）。期間の正本は docs/KPI_GLOSSARY.md「KPIの集計期間」。<br>
+出典: 歩留まり管理シート daily_各CA（新規面談〜承諾）／Slack の応募リスト（有効応募）／MKリスト由来の選考記録（内定・承諾の照合）。
+</p>
+</main>
+</body>
+</html>
