@@ -211,16 +211,11 @@ tr.verdict-row td { padding-top: 0; }
   margin: 0 0 16px; font-size: 14.5px; line-height: 1.65;
 }
 .card .place dt { color: var(--sub); font-size: 13px; font-weight: 600; padding-top: 1px; }
-.card .point, .card .caution {
+.card .point {
   margin: 0 0 12px; padding: 2px 0 2px 12px; font-size: 14.5px; line-height: 1.7;
   border-left: 2px solid var(--good); color: var(--ink);
 }
 .card .point b { color: var(--good); font-size: 13px; letter-spacing: .04em; }
-.card .caution { border-left: 4px solid var(--note); }
-.card .caution .c-h { margin: 0 0 4px; color: var(--note); font-size: 15px; font-weight: 800; letter-spacing: .04em; }
-.card .caution ul { margin: 0; padding: 0 0 0 1.1em; }
-.card .caution li { margin: 0 0 4px; }
-.card .caution li:last-child { margin-bottom: 0; }
 .card .links { margin-top: auto; padding-top: 12px; }
 .card .deck-mini {
   align-self: flex-start; padding: 4px 14px;
@@ -229,19 +224,18 @@ tr.verdict-row td { padding-top: 0; }
 .card .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
 @supports (grid-template-rows: subgrid) {
   @media (min-width: 861px) {
-    .card { display: grid; grid-template-rows: subgrid; grid-row: span 10; row-gap: 0; align-content: start; }
+    .card { display: grid; grid-template-rows: subgrid; grid-row: span 9; row-gap: 0; align-content: start; }
     .card > h3 { grid-row: 1 / span 1; }
     .card > .what { grid-row: 2 / span 1; }
     .card > .nums { grid-row: 3 / span 3; }
     .card > .place { grid-row: 6 / span 1; }
     .card > .point { grid-row: 7 / span 1; }
-    .card > .caution { grid-row: 8 / span 1; }
-    .card > .verdict { grid-row: 9 / span 1; }
-    .card > .links { grid-row: 10 / span 1; }
+    .card > .verdict { grid-row: 8 / span 1; }
+    .card > .links { grid-row: 9 / span 1; }
     .card > .nums { display: grid; grid-template-rows: subgrid; }
     .card .s-salary { grid-row: 1; } .card .s-annual { grid-row: 2; } .card .s-holidays { grid-row: 3; }
     .card > .place { align-content: start; }
-    .card > .point, .card > .caution, .card > .verdict { align-self: start; }
+    .card > .point, .card > .verdict { align-self: start; }
     .card > .links { align-self: start; margin-top: 0; }
   }
 }
@@ -315,7 +309,6 @@ svg.lg-ic { width: 18px; height: 18px; flex: none; }
 .fig .pt-n { fill: var(--ink); font-size: 16px; font-weight: 700; text-anchor: middle; }
 .fig .lead { stroke: var(--sub); stroke-width: 1; }
 .fig .open-ar { stroke: var(--sub); stroke-width: 2; }
-.cmp .care { font-weight: 600; }
 .fig .true-pos { fill: var(--sub); }
 .fig a.pt:hover .mk, .fig a.pt:focus .mk { stroke-width: 5; }
 .legend .mk { fill: var(--paper); stroke-width: 3; }
@@ -335,8 +328,8 @@ table.cmp { border-collapse: collapse; width: 100%; font-size: 15px; background:
 table.cmp caption { text-align: left; font-size: 14px; color: var(--sub); padding: 0 0 6px; }
 table.cmp th, table.cmp td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
 table.cmp th { color: var(--sub); font-weight: 600; font-size: 13.5px; background: var(--paper); border-bottom: 1.5px solid var(--sub); }
-table.cmp th:nth-child(1) { width: 20%; } table.cmp th:nth-child(2) { width: 27%; } table.cmp th:nth-child(3) { width: 10%; }
-table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%; }
+table.cmp th:nth-child(1) { width: 26%; } table.cmp th:nth-child(2) { width: 14%; } table.cmp th:nth-child(3) { width: 24%; }
+table.cmp th:nth-child(4) { width: 20%; }
 .cmp .clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .cmp .clamp.sub { color: var(--sub); font-size: 13.5px; }
 .cmp .main { display: block; }
@@ -348,7 +341,6 @@ table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%
 .cmp .cmp-chosen { display: block; font-size: 13px; font-weight: 700; color: var(--ink); }
 .cmp .links { display: flex; flex-wrap: wrap; gap: 2px 10px; margin-top: 4px; }
 .cmp .links .deck-mini { font-size: 13px; }
-.cmp .more { display: block; font-size: 13px; color: var(--accent); }
 .cmp .empty { color: var(--sub); }
 .cmp-key { margin: 6px 0 0; font-size: 13.5px; color: var(--sub); }
 .detail-layer { border-top: 1.5px solid var(--sub); padding-top: 4px; }
@@ -359,7 +351,6 @@ table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%
   table.cmp tr { padding: 10px 0; border-bottom: 1px solid var(--line); }
   table.cmp td { border: none; padding: 1px 0; }
   table.cmp td:not(.c-co)::before { content: attr(data-h); display: block; color: var(--sub); font-size: 12.5px; }
-  table.cmp td[data-h="気をつけたいこと"]::before { color: var(--ink); font-weight: 700; font-size: 13.5px; }
   .fig .tick { font-size: 18px; } .fig .ax-l { font-size: 17px; }
   .fig .pt-n { font-size: 20px; }
 }
@@ -382,7 +373,7 @@ table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%
 @media (min-width: 861px) {
   .cards.live { grid-template-columns: 1fr; gap: 28px; }
   .cards.live > .card {
-    display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
     grid-template-rows: auto auto auto auto auto 1fr; grid-row: auto; column-gap: 28px; row-gap: 0;
     padding: 16px 24px 18px;
   }
@@ -391,9 +382,8 @@ table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%
   .cards.live > .card > .nums { grid-column: 1; grid-row: 3 / span 2; display: block; margin: 0; padding: 6px 0 4px; align-self: start; }
   .cards.live > .card > .place { grid-column: 2; grid-row: 3; margin: 0 0 12px; font-size: 20px; line-height: 1.5; align-self: start; }
   .cards.live > .card > .point { grid-column: 2; grid-row: 4; margin: 0; font-size: 20px; line-height: 1.55; align-self: start; }
-  .cards.live > .card > .caution { grid-column: 3; grid-row: 3 / span 2; margin: 0; font-size: 20px; line-height: 1.5; align-self: start; }
-  .cards.live > .card > .verdict { grid-column: 1 / span 2; grid-row: 5; margin-top: 12px; font-size: 17px; align-self: start; }
-  .cards.live > .card > .links { grid-column: 3; grid-row: 5; margin-top: 0; padding-top: 12px; align-self: start; }
+  .cards.live > .card > .verdict { grid-column: 1 / -1; grid-row: 5; margin-top: 12px; font-size: 17px; align-self: start; }
+  .cards.live > .card > .links { grid-column: 1 / -1; grid-row: 6; margin-top: 0; padding-top: 12px; align-self: start; }
   .cards.live .stat { padding-bottom: 6px; }
   .cards.live .stat dt { font-size: 16px; }
   .cards.live .stat dd, .cards.live .s-salary dd { font-size: 32px; line-height: 1.3; }
@@ -403,7 +393,6 @@ table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%
   .cards.live .place dt { font-size: 16px; padding-top: 0; }
   .cards.live .place dd { margin-bottom: 8px; }
   .cards.live .point b { font-size: 16px; }
-  .cards.live .caution .c-h { font-size: 20px; }
   .cards.live .deck-mini { font-size: 16px; }
 }
 @media screen and (min-width: 861px) {
@@ -479,9 +468,9 @@ table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%
 </section>
 <section id="compare" data-section="compare" data-chapter="compare">
 <h2>選んだ会社の比較</h2>
-<div class="cmp-top"><figure class="fig" data-figure="compare"><svg class="fig-cmp" viewBox="0 0 560 272" role="img" aria-labelledby="fig-cmp-t fig-cmp-d" preserveAspectRatio="xMidYMid meet"><title id="fig-cmp-t">選んだ4社の比較（2026年11月時点の求人票・会社資料より）</title><desc id="fig-cmp-d">1 弁護士法人東京新橋法律事務所: 月給のまん中 27.5万円・年間休日 125日／2 コクー: 月給のまん中 28万円・年間休日 124日／3 BREXA Communications: 月給のまん中 23.5万円・年間休日 124日</desc><defs><marker id="cmp-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="grid" x1="72.0" y1="14" x2="72.0" y2="212"/><text class="tick" x="72.0" y="237" text-anchor="middle">18</text><line class="grid" x1="137.4" y1="14" x2="137.4" y2="212"/><text class="tick" x="137.4" y="237" text-anchor="middle">20</text><line class="grid" x1="202.9" y1="14" x2="202.9" y2="212"/><text class="tick" x="202.9" y="237" text-anchor="middle">22</text><line class="grid" x1="268.3" y1="14" x2="268.3" y2="212"/><text class="tick" x="268.3" y="237" text-anchor="middle">24</text><line class="grid" x1="333.7" y1="14" x2="333.7" y2="212"/><text class="tick" x="333.7" y="237" text-anchor="middle">26</text><line class="grid" x1="399.1" y1="14" x2="399.1" y2="212"/><text class="tick" x="399.1" y="237" text-anchor="middle">28</text><line class="grid" x1="464.6" y1="14" x2="464.6" y2="212"/><text class="tick" x="464.6" y="237" text-anchor="middle">30</text><line class="grid" x1="530.0" y1="14" x2="530.0" y2="212"/><text class="tick" x="530.0" y="237" text-anchor="middle">32</text><line class="grid" x1="72" y1="212.0" x2="530" y2="212.0"/><text class="tick" x="60" y="217.0" text-anchor="end">110</text><line class="grid" x1="72" y1="172.4" x2="530" y2="172.4"/><text class="tick" x="60" y="177.4" text-anchor="end">115</text><line class="grid" x1="72" y1="132.8" x2="530" y2="132.8"/><text class="tick" x="60" y="137.8" text-anchor="end">120</text><line class="grid" x1="72" y1="93.2" x2="530" y2="93.2"/><text class="tick" x="60" y="98.2" text-anchor="end">125</text><line class="grid" x1="72" y1="53.6" x2="530" y2="53.6"/><text class="tick" x="60" y="58.6" text-anchor="end">130</text><line class="grid" x1="72" y1="14.0" x2="530" y2="14.0"/><text class="tick" x="60" y="19.0" text-anchor="end">135</text><line class="axis" x1="72" y1="212" x2="530" y2="212"/><line class="axis" x1="72" y1="14" x2="72" y2="212"/><text class="ax-l" x="301.0" y="264" text-anchor="middle">月給の目安（万円）→</text><text class="ax-l" x="20" y="113.0" text-anchor="middle" transform="rotate(-90 20 113.0)">年間休日（日）→</text><a class="pt" href="#card-tokyo_shinbashi_law" aria-label="1. 弁護士法人東京新橋法律事務所（カードへ）" data-key="tokyo_shinbashi_law"><title>1. 弁護士法人東京新橋法律事務所（カードへ）</title><circle class="ring" cx="382.8" cy="93.2" r="21"/><rect class="mk cat-1" x="369.8" y="80.2" width="26.0" height="26.0"/><text class="pt-n" x="382.8" y="98.7">1</text></a><line class="lead" x1="399.1" y1="101.1" x2="435.1" y2="101.1"/><circle class="true-pos" cx="399.1" cy="101.1" r="3"/><a class="pt" href="#card-cocoo" aria-label="2. コクー（カードへ）" data-key="cocoo"><title>2. コクー（カードへ）</title><circle class="ring" cx="435.1" cy="101.1" r="21"/><rect class="mk cat-1" x="422.1" y="88.1" width="26.0" height="26.0"/><text class="pt-n" x="435.1" y="106.6">2</text></a><a class="pt" href="#card-brexa_communications" aria-label="3. BREXA Communications（カードへ）" data-key="brexa_communications"><title>3. BREXA Communications（カードへ）</title><circle class="ring" cx="251.9" cy="101.1" r="21"/><rect class="mk cat-1" x="238.9" y="88.1" width="26.0" height="26.0"/><text class="pt-n" x="251.9" y="106.6">3</text></a></svg></figure><div class="cmp-side"><p class="lead">面談の希望から4社を選びました。右ほど月給が高く、上ほど年間休日が多い会社です。番号や社名を押すと詳しい説明に移ります。気になる会社は番号か社名でLINEへ（例「2が気になります」）。</p><ul class="legend" aria-label="図の見方"><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><rect class="mk cat-1" x="6.0" y="6.0" width="18.0" height="18.0"/></svg>事務</li><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><circle class="ring" cx="15" cy="15" r="11"/></svg>応募する会社</li></ul><p class="fig-note">図に載せていない: 4 スタッフサービス ミラエール推進部（年収で書かれていて月給が分からない）</p><details class="fig-how"><summary>図の見方</summary><p class="fig-note">年間休日の差は最大1日です。月給は書かれた幅のまん中に置いています。</p></details></div></div>
+<div class="cmp-top"><figure class="fig" data-figure="compare"><svg class="fig-cmp" viewBox="0 0 560 272" role="img" aria-labelledby="fig-cmp-t fig-cmp-d" preserveAspectRatio="xMidYMid meet"><title id="fig-cmp-t">選んだ5社の比較（2026年11月時点の求人票・会社資料より）</title><desc id="fig-cmp-d">1 弁護士法人東京新橋法律事務所: 月給のまん中 27.5万円・年間休日 125日／2 コクー: 月給のまん中 28万円・年間休日 124日／3 BREXA Communications: 月給のまん中 23.5万円・年間休日 124日／5 DYMキャリア: 月給のまん中 21.5万円・年間休日 120日</desc><defs><marker id="cmp-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="grid" x1="72.0" y1="14" x2="72.0" y2="212"/><text class="tick" x="72.0" y="237" text-anchor="middle">18</text><line class="grid" x1="148.3" y1="14" x2="148.3" y2="212"/><text class="tick" x="148.3" y="237" text-anchor="middle">20</text><line class="grid" x1="224.7" y1="14" x2="224.7" y2="212"/><text class="tick" x="224.7" y="237" text-anchor="middle">22</text><line class="grid" x1="301.0" y1="14" x2="301.0" y2="212"/><text class="tick" x="301.0" y="237" text-anchor="middle">24</text><line class="grid" x1="377.3" y1="14" x2="377.3" y2="212"/><text class="tick" x="377.3" y="237" text-anchor="middle">26</text><line class="grid" x1="453.7" y1="14" x2="453.7" y2="212"/><text class="tick" x="453.7" y="237" text-anchor="middle">28</text><line class="grid" x1="530.0" y1="14" x2="530.0" y2="212"/><text class="tick" x="530.0" y="237" text-anchor="middle">30</text><line class="grid" x1="72" y1="212.0" x2="530" y2="212.0"/><text class="tick" x="60" y="217.0" text-anchor="end">110</text><line class="grid" x1="72" y1="172.4" x2="530" y2="172.4"/><text class="tick" x="60" y="177.4" text-anchor="end">115</text><line class="grid" x1="72" y1="132.8" x2="530" y2="132.8"/><text class="tick" x="60" y="137.8" text-anchor="end">120</text><line class="grid" x1="72" y1="93.2" x2="530" y2="93.2"/><text class="tick" x="60" y="98.2" text-anchor="end">125</text><line class="grid" x1="72" y1="53.6" x2="530" y2="53.6"/><text class="tick" x="60" y="58.6" text-anchor="end">130</text><line class="grid" x1="72" y1="14.0" x2="530" y2="14.0"/><text class="tick" x="60" y="19.0" text-anchor="end">135</text><line class="axis" x1="72" y1="212" x2="530" y2="212"/><line class="axis" x1="72" y1="14" x2="72" y2="212"/><text class="ax-l" x="301.0" y="264" text-anchor="middle">月給の目安（万円）→</text><text class="ax-l" x="20" y="113.0" text-anchor="middle" transform="rotate(-90 20 113.0)">年間休日（日）→</text><a class="pt" href="#card-tokyo_shinbashi_law" aria-label="1. 弁護士法人東京新橋法律事務所（カードへ）" data-key="tokyo_shinbashi_law"><title>1. 弁護士法人東京新橋法律事務所（カードへ）</title><circle class="ring" cx="434.6" cy="93.2" r="21"/><rect class="mk cat-1" x="421.6" y="80.2" width="26.0" height="26.0"/><text class="pt-n" x="434.6" y="98.7">1</text></a><line class="lead" x1="453.7" y1="101.1" x2="489.7" y2="101.1"/><circle class="true-pos" cx="453.7" cy="101.1" r="3"/><a class="pt" href="#card-cocoo" aria-label="2. コクー（カードへ）" data-key="cocoo"><title>2. コクー（カードへ）</title><circle class="ring" cx="489.7" cy="101.1" r="21"/><rect class="mk cat-1" x="476.7" y="88.1" width="26.0" height="26.0"/><text class="pt-n" x="489.7" y="106.6">2</text></a><a class="pt" href="#card-brexa_communications" aria-label="3. BREXA Communications（カードへ）" data-key="brexa_communications"><title>3. BREXA Communications（カードへ）</title><circle class="ring" cx="281.9" cy="101.1" r="21"/><rect class="mk cat-1" x="268.9" y="88.1" width="26.0" height="26.0"/><text class="pt-n" x="281.9" y="106.6">3</text></a><a class="pt" href="#card-dym" aria-label="5. DYMキャリア（カードへ）" data-key="dym"><title>5. DYMキャリア（カードへ）</title><circle class="ring" cx="205.6" cy="132.8" r="21"/><rect class="mk cat-1" x="192.6" y="119.8" width="26.0" height="26.0"/><text class="pt-n" x="205.6" y="138.3">5</text></a></svg></figure><div class="cmp-side"><p class="lead">面談の希望から5社を選びました。右ほど月給が高く、上ほど年間休日が多い会社です。番号や社名を押すと詳しい説明に移ります。気になる会社は番号か社名でLINEへ（例「2が気になります」）。</p><ul class="legend" aria-label="図の見方"><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><rect class="mk cat-1" x="6.0" y="6.0" width="18.0" height="18.0"/></svg>事務</li><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><circle class="ring" cx="15" cy="15" r="11"/></svg>応募する会社</li></ul><p class="fig-note">図に載せていない: 4 スタッフサービス ミラエール推進部（年収で書かれていて月給が分からない）</p><details class="fig-how"><summary>図の見方</summary><p class="fig-note">年間休日の差は最大5日です。月給は書かれた幅のまん中に置いています。</p></details></div></div>
 <table class="cmp">
-  <caption>選んだ4社の比較（2026年11月時点の求人票・会社資料より）</caption>
+  <caption>選んだ5社の比較（2026年11月時点の求人票・会社資料より）</caption>
   <thead><tr><th>会社</th><th>仕事の種類</th><th>勤務地</th><th>月給（月額）</th><th>休日（年間）</th></tr></thead>
   <tbody>
     <tr data-key="tokyo_shinbashi_law"><td class="c-co" data-h="会社"><span class="no">1</span><a class="to-card" href="#card-tokyo_shinbashi_law">弁護士法人東京新橋法律事務所</a><span class="cmp-chosen">応募する会社</span><span class="links"><a class="deck-mini" href="https://tslaw.or.jp/" target="_blank" rel="noopener" aria-label="弁護士法人東京新橋法律事務所のホームページ">会社のHP →</a>
@@ -492,6 +481,8 @@ table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%
     <a class="deck-mini" href="https://drive.google.com/file/d/1enC8GuJqNI5dTR0d9e_EUQIdOFDnFCTZ/view" target="_blank" rel="noopener" aria-label="BREXA Communicationsの資料（会社概要・採用情報）">会社概要・採用情報 →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="main">東京・神奈川・埼玉・千葉</span><span class="clamp sub">（客先常駐・転勤なし・勤務エリアの選択は不可）</span></td><td data-h="月給（月額）"><span class="main">月給22万〜25万円ほど</span><span class="clamp sub">（想定年収320万〜350万円・賞与年2回）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日124日</span></td></tr>
 <tr data-key="staffservice_mirai"><td class="c-co" data-h="会社"><span class="no">4</span><a class="to-card" href="#card-staffservice_mirai">スタッフサービス ミラエール推進部</a><span class="cmp-chosen">応募する会社</span><span class="links"><a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1o31QH1qaAuheG_WwoFBcrVvgKVDLC1iP/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料（会社の資料）">会社の資料 →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="main">転勤なし・自宅から90分以内の配属先</span><span class="clamp sub">（東京・神奈川・埼玉・千葉・大阪・京都・滋賀・広島・愛知・兵庫）</span></td><td data-h="月給（月額）"><span class="main">270万〜330万円ほど</span><span class="clamp sub">（地域別の月給・エリアにより異なる）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
+<tr data-key="dym"><td class="c-co" data-h="会社"><span class="no">5</span><a class="to-card" href="#card-dym">DYMキャリア</a><span class="cmp-chosen">応募する会社</span><span class="links"><a class="deck-mini" href="https://dymcareer.jp/" target="_blank" rel="noopener" aria-label="DYMキャリアのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1__iQf-UT0FoNY6RHu5CMwd2qKcZvn52x/view" target="_blank" rel="noopener" aria-label="DYMキャリアの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="main">東京・神奈川・千葉・埼玉</span><span class="clamp sub">（本社＝品川区大崎・客先常駐/自社内勤務・転勤なし）</span><span class="clamp sub">最終学歴は高卒以上が必須。</span></td><td data-h="月給（月額）"><span class="main">月給21万〜22万円ほど</span><span class="clamp sub">（想定年収252万〜270万円・賞与年1回、昨年度実績1か月分）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日120日</span></td></tr>
   </tbody>
 </table>
 <p class="cmp-key">続きは各社の説明に。</p>
@@ -550,6 +541,30 @@ table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%
     <div class="links"><a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1o31QH1qaAuheG_WwoFBcrVvgKVDLC1iP/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料（会社の資料）">会社の資料 →</a></div>
   </article>
+  <article class="card" id="card-dym">
+    <h3>DYMキャリア<span class="chosen">応募する会社</span></h3>
+    <p class="what">事務職（配属先に応じて一般事務・営業事務・貿易事務・経理事務・人事総務・医療事務のいずれか）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給21万〜22万円ほど</span><span class="aside">（想定年収252万〜270万円・賞与年1回、昨年度実績1か月分）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">土日祝休み（一部シフト制あり）・完全週休2日制・</span><span class="main">年間休日120日・残業月平均4時間以下</span></dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京・神奈川・千葉・埼玉（本社＝品川区大崎・客先常駐/自社内勤務・転勤なし）</dd><dt>条件</dt><dd>最終学歴は高卒以上が必須。</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　ブランクのある方・未経験の方を歓迎していて、入社前にPCの基本操作、入社後に3日間の研修（Word・Excel・AI活用）があります。残業は月平均4時間以下・年間休日120日です。配属先で2〜3年ほど働いたあと、その会社の直接雇用に切り替わった例もあり、MOSや簿記の受験費用の補助もあります。月給21万〜22万円で、前回伺った現実ラインちょうどです。※DYMキャリアに期限なく雇われ、取引先の企業で働く形です。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://dymcareer.jp/" target="_blank" rel="noopener" aria-label="DYMキャリアのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1__iQf-UT0FoNY6RHu5CMwd2qKcZvn52x/view" target="_blank" rel="noopener" aria-label="DYMキャリアの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </article>
+  <article class="card" id="card-meldia_jimu">
+    <h3>メルディア（契約書づくりの事務）<span class="chosen">応募する会社</span></h3>
+    <p class="what">不動産の売買で使う契約書や重要事項説明書をつくる内勤の事務（物件の調査・書類の作成・印刷・電話対応など）。宅地建物取引士の資格があれば、契約の場で説明書を読み上げる仕事も加わる</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給30万円〜35万円</span><span class="aside">（下限の月給30万円は基本給22.55万円＋みなし残業代7.45万円）。賞与は年2回（6月・12月）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd><span class="lead">求人票の想定は</span><span class="main">400万〜500万円</span><span class="aside">（賞与込み）。固定給だけなら年360万円（月給30万円×12・みなし残業代込み）＋賞与（年2回・額の記載なし）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">完全週休2日制</span><span class="aside">（火曜・水曜休み）・年間休日115日（計画有給5日を含む）</span></dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>荻窪本店・横浜・溝の口・朝霞台・足立・江戸川・さいたま・本八幡のいずれかの支店（配属先は応募から内定までの間に決まり、希望は考慮される。転勤なし）</dd><dt>条件</dt><dd>選考: 書類 → 一次面接（現場・人事・Webも可）→ 最終面接（社長）</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　ここでご紹介する中で、いちばんお給料が高い事務です（月給30万〜35万円・みなし残業代込み・賞与年2回）。不動産の売買で使う契約書や重要事項説明書をつくる内勤の仕事で、前回お話しした「専門性＋事務」の入口そのものです。※休みは火曜・水曜で、土日は出勤になります。土日に働けるかどうかで、受けるかを一緒に決めましょう。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://meldia.co.jp/" target="_blank" rel="noopener" aria-label="メルディア（契約書づくりの事務）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1lVW_go_m_OqRHxtsg0Us0nQTBJHQT0uq/view" target="_blank" rel="noopener" aria-label="メルディア（契約書づくりの事務）の資料（採用案内）">採用案内 →</a></div>
+  </article>
 </div>
 
 </section>
@@ -566,7 +581,7 @@ table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%
 </section>
 <section id="flow" data-section="flow" data-chapter="next">
 <h2>これからの進め方</h2>
-<figure class="fig fig-flow-w" data-figure="flow"><svg class="fig-flow" viewBox="0 0 400 212" role="img" aria-labelledby="fig-flow-t fig-flow-d" preserveAspectRatio="xMidYMid meet"><title id="fig-flow-t">これからの進め方</title><desc id="fig-flow-d">1. 「応募する会社」の4社へ、こちらから推薦を進めます／2. 書類選考の結果や面接の日程が決まったら、すぐLINEでお知らせします／3. 11月9日（月）10:30から、面接の練習をします</desc><defs><marker id="fl-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="fl-l" x1="20" y1="38" x2="20" y2="76" marker-end="url(#fl-ar)"/><line class="fl-l" x1="20" y1="114" x2="20" y2="152" marker-end="url(#fl-ar)"/><circle class="fl-c" cx="20" cy="20" r="16"/><text class="fl-n" x="20" y="26" text-anchor="middle">1</text><text class="fl-t" x="46" y="26">「応募する会社」の4社へ、こちらから推</text><text class="fl-t" x="46" y="50">薦を進めます</text><circle class="fl-c" cx="20" cy="96" r="16"/><text class="fl-n" x="20" y="102" text-anchor="middle">2</text><text class="fl-t" x="46" y="102">書類選考の結果や面接の日程が決まったら、</text><text class="fl-t" x="46" y="126">すぐLINEでお知らせします</text><circle class="fl-c" cx="20" cy="172" r="16"/><text class="fl-n" x="20" y="178" text-anchor="middle">3</text><text class="fl-t" x="46" y="178">11月9日（月）10:30から、面接の練習を</text><text class="fl-t" x="46" y="202">します</text></svg></figure>
+<figure class="fig fig-flow-w" data-figure="flow"><svg class="fig-flow" viewBox="0 0 400 212" role="img" aria-labelledby="fig-flow-t fig-flow-d" preserveAspectRatio="xMidYMid meet"><title id="fig-flow-t">これからの進め方</title><desc id="fig-flow-d">1. このページの6社へ、こちらから推薦を進めます／2. 書類選考の結果や面接の日程が決まったら、すぐLINEでお知らせします／3. 11月9日（月）10:30から、面接の練習をします</desc><defs><marker id="fl-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="fl-l" x1="20" y1="38" x2="20" y2="76" marker-end="url(#fl-ar)"/><line class="fl-l" x1="20" y1="114" x2="20" y2="152" marker-end="url(#fl-ar)"/><circle class="fl-c" cx="20" cy="20" r="16"/><text class="fl-n" x="20" y="26" text-anchor="middle">1</text><text class="fl-t" x="46" y="26">このページの6社へ、こちらから推薦を進</text><text class="fl-t" x="46" y="50">めます</text><circle class="fl-c" cx="20" cy="96" r="16"/><text class="fl-n" x="20" y="102" text-anchor="middle">2</text><text class="fl-t" x="46" y="102">書類選考の結果や面接の日程が決まったら、</text><text class="fl-t" x="46" y="126">すぐLINEでお知らせします</text><circle class="fl-c" cx="20" cy="172" r="16"/><text class="fl-n" x="20" y="178" text-anchor="middle">3</text><text class="fl-t" x="46" y="178">11月9日（月）10:30から、面接の練習を</text><text class="fl-t" x="46" y="202">します</text></svg></figure>
 </section>
 </div>
 <footer>※条件は各社の求人票・会社資料（2026年11月時点）に書かれている内容です。月給の幅は、これまでの経験と選考での評価で決まります。<br>※「会社のHP →」は各社の公式ホームページに、「会社の資料 →」は会社説明の資料（PDF）につながります。</footer>
@@ -578,7 +593,7 @@ table.cmp th:nth-child(4) { width: 14%; } table.cmp th:nth-child(5) { width: 16%
   var cards = Array.prototype.slice.call(document.querySelectorAll(".cards.live > .card"));
   if (!cards.length) return;
   var pos = document.querySelector(".band-pos");
-  var NAMES = ["弁護士法人東京新橋法律事務所", "コクー", "BREXA Communications", "スタッフサービス ミラエール推進部"];
+  var NAMES = ["弁護士法人東京新橋法律事務所", "コクー", "BREXA Communications", "スタッフサービス ミラエール推進部", "DYMキャリア", "メルディア（契約書づくりの事務）"];
   function off() {
     var v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--band-offset"));
     return isNaN(v) ? 56 : v;
