@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>9月KPIまとめ</title>
+<style>
+:root {
+  --bg: #f6f6f3; --surface: #ffffff; --text: #1d1d1f; --muted: #62626a;
+  --line: #e4e4df; --good: #1f7a4d; --bad: #b3261e;
+  --warn-bg: #fff6e0; --warn-line: #e8c46a; --head: #f0f0eb;
+  --ring: 0 0 0 1px oklch(0 0 0 / 0.06), 0 1px 2px -1px oklch(0 0 0 / 0.06), 0 2px 6px 0 oklch(0 0 0 / 0.04);
+  --ring-warn: 0 0 0 1px var(--warn-line), 0 2px 6px 0 oklch(0 0 0 / 0.04);
+  --r-outer: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151517; --surface: #1f1f22; --text: #ececee; --muted: #a4a4ac;
+    --line: #34343a; --good: #6fd19f; --bad: #ff8a80;
+    --warn-bg: #2e2716; --warn-line: #8a7230; --head: #27272b;
+    --ring: 0 0 0 1px oklch(1 0 0 / 0.08);
+    --ring-warn: 0 0 0 1px var(--warn-line);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #151517; --surface: #1f1f22; --text: #ececee; --muted: #a4a4ac;
+  --line: #34343a; --good: #6fd19f; --bad: #ff8a80;
+  --warn-bg: #2e2716; --warn-line: #8a7230; --head: #27272b;
+  --ring: 0 0 0 1px oklch(1 0 0 / 0.08);
+  --ring-warn: 0 0 0 1px var(--warn-line);
+}
+* { box-sizing: border-box; }
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", "Meiryo", system-ui, sans-serif;
+  line-height: 1.75; font-size: 15px;
+}
+main { max-width: 760px; margin: 0 auto; padding: 36px 16px 72px; }
+h1 { font-size: 26px; line-height: 1.35; letter-spacing: -0.01em; margin: 0 0 4px; text-wrap: balance; }
+h2 {
+  font-size: 18px; line-height: 1.4; margin: 48px 0 12px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--line); text-wrap: balance;
+}
+p, li { text-wrap: pretty; }
+.sub { color: var(--muted); font-size: 13px; margin: 6px 0 16px; }
+.lead {
+  background: var(--surface); box-shadow: var(--ring); border-radius: var(--r-outer);
+  padding: 16px 18px; margin-top: 16px;
+}
+.lead p { margin: 0 0 8px; }
+.lead p:last-child { margin-bottom: 0; }
+.scroll {
+  overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--surface);
+  box-shadow: var(--ring); border-radius: var(--r-outer);
+}
+table { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
+th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; position: sticky; left: 0; background: var(--surface); box-shadow: 2px 0 0 var(--line); }
+th small { display: block; color: var(--muted); font-size: 11px; font-weight: 400; line-height: 1.3; }
+thead th { background: var(--head); font-weight: 600; font-size: 12.5px; color: var(--muted); }
+thead th:first-child { background: var(--head); }
+tbody tr:last-child td { border-bottom: none; }
+@media (max-width: 380px) { th, td { padding: 9px 7px; } }
+tr.total td { font-weight: 700; border-top: 2px solid var(--line); background: var(--head); }
+td { font-variant-numeric: tabular-nums; }
+td small { display: block; color: var(--muted); font-size: 12px; line-height: 1.3; }
+.big { font-weight: 700; font-size: 16px; }
+.good { color: var(--good); font-weight: 600; }
+.bad { color: var(--bad); font-weight: 700; }
+.callout {
+  background: var(--warn-bg); box-shadow: var(--ring-warn); border-radius: var(--r-outer);
+  padding: 14px 18px; margin: 20px 0;
+}
+ul { padding-left: 20px; margin: 8px 0; }
+li { margin: 6px 0; }
+li::marker { color: var(--muted); }
+.foot { color: var(--muted); font-size: 12px; margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); }
+@media (max-width: 480px) {
+  main { padding-top: 28px; }
+  h1 { font-size: 23px; }
+}
+</style>
+</head>
+<body>
+<main>
+<h1>9月 KPI まとめ</h1>
+<p class="sub">人材事業部・全CA ／ 9月の期間はすべて締まっています（最後は 9/30）。値は 2026年10月2日（金）19時時点の歩留まり管理シートで、後からの追記で動くことがあります</p>
+
+<div class="lead">
+  <p><strong>9月の承諾（KGI）は 1人。</strong></p>
+  <p>いちばん大きく漏れたのは<strong class="bad">提案→推薦</strong>です。53人に提案して、期間内に推薦まで進んだのは19人（35.8%）。率で見ると、MKの通過率（62.0%）なら33人で、<strong>14人分の差</strong>があります。</p>
+  <p>もう1つは<strong class="bad">内定後のリリース</strong>です。9月に内定が出た8人を10/2まで追うと、承諾2人・<strong>リリース/見送り4人</strong>・返事待ち1人（9/30内定）・未特定1人でした。</p>
+</div>
+
+<h2>1. ファネル（部全体）</h2>
+<div class="scroll"><table>
+<thead><tr><th>段<br><small>期間</small></th><th>人数</th><th>通過率</th><th>MKの率</th></tr></thead>
+<tbody>
+<tr><td>有効応募<small>8/18〜9/16</small></td><td class="big">325</td><td>—</td><td>—</td></tr>
+<tr><td>新規面談設定<small>8/20〜9/17</small></td><td class="big">121</td><td>—</td><td>—</td></tr>
+<tr><td>新規面談<small>8/20〜9/17</small></td><td class="big">79</td><td>65.3%<small>着座率</small></td><td>—</td></tr>
+<tr><td>提案<small>8/20〜9/17</small></td><td class="big">53</td><td class="good">67.1%</td><td>64.6%</td></tr>
+<tr><td>推薦<small>8/20〜9/17</small></td><td class="big">19</td><td class="bad">35.8%</td><td>62.0%</td></tr>
+<tr><td>面接設定<small>8/21〜9/18</small></td><td class="big">19</td><td>—</td><td>70.5%</td></tr>
+<tr><td>面接実施<small>9/1〜9/30</small></td><td class="big">17</td><td class="good">89.5%</td><td>74.2%</td></tr>
+<tr><td>内定<small>9/1〜9/30</small></td><td class="big">8</td><td class="bad">47.1%</td><td>69.6%</td></tr>
+<tr><td>承諾（KGI）<small>9/1〜9/30</small></td><td class="big">1</td><td class="bad">12.5%</td><td>81.3%</td></tr>
+</tbody></table></div>
+<ul class="sub">
+  <li>通過率＝その段の人数 ÷ 1つ上の段の人数。分子と分母はそれぞれの期間で取っています。</li>
+  <li>着座率＝新規面談 ÷ 新規面談設定（日次KPIシートと同じ定義）。新規面談設定は正式な期間表に無いので、新規面談と同じ 8/20〜9/17 で取っています。</li>
+  <li>新規面談設定の率は出していません。公式の設定率は分母が35歳以下の有効応募（indeed＋求人BOX）で、この表の有効応募とは母集団が違うためです。</li>
+  <li>面接設定は期間がずれていて、8月以前に推薦した人も含むため率を出していません（計算上は100%になる）。</li>
+  <li>MKの率は 8/21 の1on1で共有された値です。6段とも整数の比に小数2桁まで一致する（最小の組で 110→71→44→31→23→16→13人）ので、<strong>目標ではなくMKの実績値</strong>とみられます（未確認）。</li>
+  <li>有効応募の内訳: SeeD 228・求人BOX 97（Indeed の Gooner 名義はアカウント停止で0）。総応募は494。</li>
+  <li>事業部目標として共有されたのは新規面談148（期間・母集団は未確認）。他の段の目標件数は148にMKの率を掛けた値なので載せていません。</li>
+</ul>
+
+<h2>2. 除外後の有効応募と設定率</h2>
+<p class="sub">重複・過去応募・外国人の疑い・架電時のリリースを、有効応募から1段ずつ除いた人数（有効応募の期間 8/18〜9/16）</p>
+<div class="scroll"><table>
+<thead><tr><th>段</th><th>人数</th><th>減った数</th></tr></thead>
+<tbody>
+<tr><td>総応募</td><td>494</td><td>—</td></tr>
+<tr><td>有効✅</td><td>325</td><td>—</td></tr>
+<tr><td>重複を1人に畳む</td><td>304</td><td>−21</td></tr>
+<tr><td>過去応募を除く</td><td>298</td><td>−6</td></tr>
+<tr><td>外国人の疑いを除く</td><td>296〜251</td><td>−2〜−47</td></tr>
+<tr><td>架電時のリリースを除く</td><td>284〜240</td><td>−12〜−11</td></tr>
+<tr class="total"><td>除外後の有効応募</td><td>284〜240</td><td></td></tr>
+</tbody></table></div>
+<ul class="sub">
+  <li><strong>設定率</strong>（新規面談設定121 ÷ 有効応募）: 素の値 37.2% → 除外後 <strong>42.6%〜50.4%</strong>。着座率（着座÷設定）は分母が変わらないので 65.3% のまま。</li>
+  <li><strong>幅は「外国人の疑い」の判定差</strong>: 機械の判定（外国語名の列・氏名の文字種）だと47人ですが、大半は求人BOXの氏名にスペースが無いことと、林・森などの1字姓による誤判定です。氏名を目で見て絞ると2人（再現性の無い参考値）。日本人の姓の一覧で戻す中間の判定だと、除外後は257人です。</li>
+  <li><strong>重複</strong>は全件が電話番号の一致で決まりました（同じリスト内19・媒体またぎ2）。<strong>過去応募</strong>は期間より前の応募行がある人で、6人中5人は30日以内の再応募です。</li>
+  <li><strong>架電時のリリース</strong>12人の内訳: 開始時期3・既往歴1・本人の意向（他社内定など）2・連絡がつかない3・理由の記載なし3。電話の会話の中でCAが基準で切ったのは4人です。</li>
+  <li>別に見つかったこと: 有効応募の36%（116人）は、リストに架電の記録（担当者・メモ・通電・不在）が一切ありません。</li>
+</ul>
+
+<h2>3. CA別</h2>
+<p class="sub">面談〜推薦（3つとも同じ期間 8/20〜9/17 なので率を取れます）</p>
+<div class="scroll"><table>
+<thead><tr><th>CA</th><th>新規面談</th><th>提案</th><th>推薦</th><th>提案率</th><th>推薦率</th></tr></thead>
+<tbody>
+<tr><td>中原</td><td>21</td><td>15</td><td>6</td><td>71%</td><td>40%</td></tr>
+<tr><td>齋藤</td><td>15</td><td>13</td><td>5</td><td>87%</td><td>38%</td></tr>
+<tr><td>佐藤</td><td>0</td><td>1</td><td>2</td><td>—</td><td>—</td></tr>
+<tr><td>横尾</td><td>15</td><td>5</td><td>1</td><td>33%</td><td class="bad">20%</td></tr>
+<tr><td>武者野</td><td>28</td><td>19</td><td>5</td><td>68%</td><td class="bad">26%</td></tr>
+<tr><td>小野</td><td>0</td><td>0</td><td>0</td><td>—</td><td>—</td></tr>
+<tr class="total"><td>計</td><td>79</td><td>53</td><td>19</td><td>67%</td><td>36%</td></tr>
+</tbody></table></div>
+<p class="sub">推薦率が低いのは横尾（20%）と武者野（26%）。武者野は提案19人に対し、期間内に推薦まで進んだのは5人です（期間の翌日以降に推薦した人は10月に入ります）。佐藤の推薦2が提案1より多いのは、期間より前に提案した人を期間内に推薦したためとみられます（未確認）。</p>
+
+<p class="sub">面接〜承諾（列ごとに期間が違うので、横に並べて率を取らないでください）</p>
+<div class="scroll"><table>
+<thead><tr><th>CA</th><th>面接設定<br><small>8/21〜9/18</small></th><th>面接実施<br><small>9月</small></th><th>内定<br><small>9月</small></th><th>承諾<br><small>9月</small></th></tr></thead>
+<tbody>
+<tr><td>中原</td><td>5</td><td>6</td><td>2</td><td>0</td></tr>
+<tr><td>齋藤</td><td>6</td><td>2</td><td>2</td><td>1</td></tr>
+<tr><td>佐藤</td><td>2</td><td>2</td><td>1</td><td>0</td></tr>
+<tr><td>横尾</td><td>0</td><td>2</td><td>1</td><td>0</td></tr>
+<tr><td>武者野</td><td>6</td><td>5</td><td>2</td><td>0</td></tr>
+<tr><td>小野</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr class="total"><td>計</td><td>19</td><td>17</td><td>8</td><td>1</td></tr>
+</tbody></table></div>
+<p class="sub">参考: CA別の新規面談設定と着座率（面談÷設定）は 中原30（70%）・齋藤22（68%）・佐藤25（0%）・横尾16（94%）・武者野26（108%）・小野2（0%）、計121（65.3%）。設定は架電した人、面談は面談した人に付くので、CA別の着座率は100%を超えることがあり、部全体以外は参考値です。</p>
+
+<div class="callout">
+  <strong>佐藤さんに確認したいこと</strong>: 新規面談設定25人に対して新規面談0人です。架電を担当して面談は他のCAに付いている（役割どおり）のか、新規面談数の入力漏れなのか、シートからは区別できません。
+</div>
+
+<h2>4. 数字の確かさ</h2>
+<ul>
+  <li><strong>推薦数</strong>: 武者野分の初回推薦2人がシートに入っていなかったため、10/2 に追記しました（武者野 3→5・部全体 17→19）。</li>
+  <li><strong>承諾数</strong>: MKリスト由来の選考記録と一致（1人）。Firestore 側の素の集計は14人と出ますが、うち13人は 9/3 にMKリストを初めて取り込んだときの過去分です。</li>
+  <li><strong>内定数</strong>: シート8人・MKリスト7人。差の1人は武者野の 9/9 分で、まだ特定できていません。9/8 の人の二重計上（その場合は部全体 8→7）か、MKリストに無い内定のどちらかです。</li>
+  <li><strong>内定後の追跡</strong>: 上の「承諾2・リリース/見送り4」は MKリスト由来の選考記録を1人ずつ追ったものです。「リリース」が本人の辞退か企業側かは、記録の語からは区別できません。</li>
+  <li><strong>武者野の新規面談</strong>: シート28人・面談記録24人分。シートが多い理由（録画の無い面談か、同じ人が別日に計上されたか）は未検証です。</li>
+  <li><strong>他のCAの新規面談〜面接設定</strong>: 突き合わせる記録が無いため、シートの値をそのまま載せています。</li>
+</ul>
+
+<p class="foot">
+数え方: すべて人数（1人を何社に出しても1）。期間の正本は docs/KPI_GLOSSARY.md「KPIの集計期間」。<br>
+出典: 歩留まり管理シート daily_各CA（新規面談〜承諾）／Slack の応募リスト（有効応募）／MKリスト由来の選考記録（内定・承諾の照合）。
+</p>
+</main>
+</body>
+</html>
