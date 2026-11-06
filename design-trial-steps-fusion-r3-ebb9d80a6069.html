@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>内定前に確認する13項目</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{
+  --bg:#f7f5f1; --fg:#1f1b17; --muted:#5a5148; --line:#ddd6ca; --card:#fff;
+  --accent:#a34714; --accentbg:#fbf0e7; --key:#a8211a; --keybg:#fcefed;
+  --ok:#25593a; --okbg:#edf5ef; --okline:rgba(37,89,58,.4);
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px;
+  --lh:1.8; --shadow:0 1px 2px rgba(60,40,20,.06);
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#161412; --fg:#e8e3db; --muted:#b3a99d; --line:#3a352e; --card:#211e1a;
+    --accent:#eba274; --accentbg:#2c211a; --key:#ffa79d; --keybg:#2f1c1a;
+    --ok:#9bd7b0; --okbg:#1a2620; --okline:rgba(155,215,176,.4); --lh:1.9; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161412; --fg:#e8e3db; --muted:#b3a99d; --line:#3a352e; --card:#211e1a;
+  --accent:#eba274; --accentbg:#2c211a; --key:#ffa79d; --keybg:#2f1c1a;
+  --ok:#9bd7b0; --okbg:#1a2620; --okline:rgba(155,215,176,.4); --lh:1.9; --shadow:none;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{color-scheme:light}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--fg);margin:0;
+  padding:var(--s5) max(16px,env(safe-area-inset-right)) 64px max(16px,env(safe-area-inset-left));
+  font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","YuGothic",Meiryo,sans-serif;
+  font-size:1rem;line-height:var(--lh);letter-spacing:0}
+@supports (text-autospace:normal){body{text-autospace:normal}}
+.wrap{max-width:43em;margin:0 auto}
+p{margin:var(--s3) 0;text-wrap:pretty;max-width:40em}
+b{font-weight:700}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere;font-weight:700}
+h1{font-size:1.75rem;margin:0 0 var(--s3);line-height:1.4;letter-spacing:.01em}
+.lead{color:var(--fg);font-size:1.0625rem;margin:0 0 var(--s2)}
+.date{color:var(--muted);font-size:.875rem;line-height:1.5;margin:0 0 var(--s5)}
+h2{font-size:1.375rem;line-height:1.4;margin:56px 0 var(--s3);padding-bottom:var(--s2);border-bottom:2px solid var(--accent)}
+h3{font-size:1.125rem;line-height:1.4;margin:var(--s5) 0 var(--s2);color:var(--accent)}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
+.box,.key,.ok{border-radius:12px;padding:var(--s4);margin:var(--s4) 0;box-shadow:var(--shadow)}
+.box{background:var(--card);border:1px solid var(--line)}
+.key{background:var(--keybg);border:1px solid var(--key);border-left-width:5px}
+.ok{background:var(--okbg);border:1px solid var(--okline);border-left:5px solid var(--ok)}
+.box>p:first-child,.key>p:first-child,.ok>p:first-child{margin-top:0}
+.q{background:var(--accentbg);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-weight:700}
+.q .why{display:block;font-weight:400;font-size:.9375rem;color:var(--muted);margin-top:6px}
+ol.qs{list-style:none;counter-reset:q;padding-left:0;margin:var(--s4) 0;display:grid;gap:var(--s3)}
+ol.qs>li{counter-increment:q;position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:var(--s3) var(--s3) var(--s3) calc(44px + var(--s3) * 2);margin:0;box-shadow:var(--shadow);line-height:1.7}
+ol.qs>li::before{content:counter(q);position:absolute;left:var(--s3);top:var(--s3);width:44px;height:44px;
+  background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.125rem;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+:root[data-theme="dark"] ol.qs>li::before{color:#1a120c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) ol.qs>li::before{color:#1a120c}}
+ol.qs>li:nth-child(-n+4){border-color:var(--accent);border-width:1px 1px 1px 5px}
+ol.qs .t{font-weight:700;display:block}
+ol.qs .why{display:block;font-size:.9375rem;line-height:1.75;color:var(--muted);margin-top:var(--s2);font-weight:400}
+.scroll{overflow-x:auto;margin:var(--s3) 0;border:1px solid var(--line);border-radius:8px}
+.scroll:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+table{border-collapse:collapse;width:100%;font-size:.9375rem;line-height:1.5;min-width:520px;background:var(--card)}
+th,td{border:1px solid var(--line);padding:12px 14px;text-align:left;vertical-align:top;overflow-wrap:normal}
+.scroll th,.scroll td{border-top:0}.scroll th:first-child,.scroll td:first-child{border-left:0}.scroll th:last-child,.scroll td:last-child{border-right:0}
+th{background:var(--accentbg);font-weight:700}
+a{color:var(--accent);text-underline-offset:.2em}
+.calc{font-variant-numeric:tabular-nums;font-weight:700}
+hr{border:0;border-top:1px solid var(--line);margin:var(--s5) 0 0}
+.foot{color:var(--muted);font-size:.9375rem;margin-top:var(--s5)}
+.src{display:block;font-size:.875rem;color:var(--muted);margin-top:var(--s2);line-height:1.7}
+.src a{color:var(--muted);text-decoration:underline}
+@media (max-width:480px){
+  h1{font-size:1.5rem}h2{font-size:1.25rem}
+  .box,.key,.ok{padding:var(--s3)}
+  ol.qs>li{padding:var(--s3);padding-top:calc(44px + var(--s3) * 1.5)}
+}
+</style>
+</head>
+<body>
+
+<main class="wrap">
+
+<h1>内定を受ける前に、確認しておく13項目</h1>
+<p class="lead">面談でお話しした内容のまとめです。月曜のすり合わせにそのまま持っていけます。</p>
+<p class="date">2026年8月22日（土）作成</p>
+
+<div class="key">
+<p style="margin-top:0"><b>先にお伝えしたいこと。</b></p>
+<p><b>面談でうかがった限り、すでにお気持ちは他の3社の方に傾いておられるように感じました。</b>会社の規模も福利厚生も、そちらの方がいい、と。<b>それならこの資料は「決めるための資料」ではありません。月曜のすり合わせで、聞くべきことを取りこぼさないためのリストです。</b></p>
+<p>傾いているのにお渡しするのには、理由が2つあります。<b>1つは、条件を聞かないまま辞退すると、その会社が実際どうだったのかが分からないまま終わるからです。</b>もう1つは、<b>ここで聞いた答えが、そのまま他の3社を見るときの物差しになるからです。</b>月給42万円の中身が分かると、他社の「月給いくら」も同じ目で読めるようになります。</p>
+<p style="margin-bottom:0">★<b>13項目は、全部「求職者が普通に聞いていい質問」です。</b>むしろ、聞いて機嫌が悪くなる会社なら、その時点で分かるので<b>それも情報だと思ってください。</b></p>
+</div>
+
+<h2>1. なぜ確認が必要なのか（3つの数字）</h2>
+
+<h3>① 月給の内訳</h3>
+<div class="box">
+<p style="margin-top:0">求人に書かれていた内訳は、<b>基本給25万円 ＋ 乗車手当5万円 ＋ 技術手当12万円</b>でした。
+<span class="src">出所＝面談中にご提示いただいた求人情報（2026年8月22日）</span></p>
+<p>★<b>ここで大事なのは、基本給が25万円だという点です。</b>40万円ではありません。<br>
+<b>賞与は基本給を基準に計算されるのが一般的</b>です。基本給25万円なら、「賞与4ヶ月分」でも100万円です。</p>
+<p style="margin-bottom:0">★★<b>ただし、残業代は違います。ここは法律で決まっています。</b>下の②で説明します。</p>
+</div>
+
+<div class="key">
+<p style="margin-top:0">★★★<b>これは知っておいて損がないので、先にお伝えします。</b></p>
+<p><b>残業代の計算のもとになる賃金から外していい手当は、法律で7つだけと決められています。</b><br>
+<b>家族手当・通勤手当・別居手当・子女教育手当・住宅手当・臨時に支払われた賃金・1か月を超える期間ごとに支払われる賃金</b>の7つです。</p>
+<p>★<b>つまり「技術手当」と「乗車手当」は、この7つに入っていません。</b>
+残業代を計算するときは、<b>25万円ではなく42万円を基準にしないといけない</b>ということになります。</p>
+<p style="margin-bottom:0">★<b>しかも、名前ではなく中身で判断されます。</b>厚生労働省の資料に「<b>名称ではなく内容により判断される</b>」と明記されています。
+たとえば「住宅手当」という名前でも、全員に一律・定額で払われているものは<b>除外できません</b>。<br>
+<span class="src">根拠＝労働基準法 第37条第5項／労働基準法施行規則 第21条。
+解説＝<a href="https://jsite.mhlw.go.jp/tochigi-roudoukyoku/hourei_seido_tetsuzuki/roudoukijun_keiyaku/roukijou/roukihou_point/kijunhou_kaisetsu/article37.html">厚生労働省 栃木労働局「時間外、休日及び深夜の割増賃金（第37条）」</a>／
+<a href="https://jsite.mhlw.go.jp/aichi-roudoukyoku/var/rev0/0119/6635/warimashikiso.pdf">厚生労働省 愛知労働局「割増賃金の基礎となる賃金について」(PDF)</a>／
+条文＝<a href="https://laws.e-gov.go.jp/law/322M40000100023">労働基準法施行規則（e-Gov 法令検索）</a>／
+<a href="https://www.check-roudou.mhlw.go.jp/qa/roudousya/chingin/q3.html">厚生労働省「確かめよう労働条件」Q&amp;A</a></span></p>
+</div>
+
+<h3>② 技術手当12万円が固定なのか、変動なのか</h3>
+<div class="key">
+<p style="margin-top:0">お話の中で「<b>対応した件数に応じて上乗せされるのかもしれない</b>」とおっしゃっていました。<b>これはとても鋭い読みだと思います。</b>
+<span class="src">出所＝2026年8月22日の面談でのご発言</span></p>
+<p>もしその通りなら、<b>技術手当は毎月変わります。</b>つまり<b>42万円は「件数をこなせた月」の金額</b>ということになります。</p>
+<p style="margin-bottom:0">★<b>ここが一番確認していただきたいところです。</b>いまのお仕事が完全歩合で、収入が月ごとにばらつくことを負担に感じておられました。<b>同じ形に戻ってしまう可能性があります。</b></p>
+</div>
+
+<p>参考までに、金額の計算をひとつ。基本給25万円を月160時間で割ると時給1,563円、残業代は1.25倍で1,953円です。<b>これで60時間ぶんを計算すると、約11.7万円。技術手当の12万円とほぼ同じ額になります。</b><br>
+<span class="calc">25万 ÷ 160h × 1.25 × 60h ≒ 11.7万</span><br>
+つまり<b>「技術手当」という名前で、あらかじめ残業代が組み込まれている可能性</b>もあります。これも聞けば分かります。
+<span class="src">計算の前提＝月の所定労働時間を160時間、時間外の割増率を1.25倍として計算。割増率25%以上は労働基準法 第37条第1項の定め（<a href="https://jsite.mhlw.go.jp/tochigi-roudoukyoku/hourei_seido_tetsuzuki/roudoukijun_keiyaku/roukijou/roukihou_point/kijunhou_kaisetsu/article37.html">厚生労働省 栃木労働局の解説</a>）。★所定労働時間は会社ごとに違うので、実際の数字は下の質問3で確認してください</span></p>
+
+<h3>③ 年間休日と、実際の労働時間</h3>
+<div class="box">
+<p style="margin-top:0">年間休日は<b>109日・シフト制</b>とうかがいました。土日祝が休みの会社は<b>だいたい120〜125日</b>なので、<b>11〜16日多く働きます。ほぼ半月から1ヶ月ぶん</b>です。
+<span class="src">109日の出所＝面談中にご提示いただいた求人情報。★数字が「109日」で合っているかは下の質問8で確認してください（お話の途中だったので聞き取りに幅があります）</span></p>
+<p style="margin-bottom:0">これを時給に直すと見え方が変わります。<br>
+・年間休日109日 → 働くのは256日・約2,048時間。残業を月20時間とすると<b>2,288時間</b>。<br>
+・<b>450万円 ÷ 2,288時間 ＝ 時給およそ1,970円。</b><br>
+★<b>年収で見ると高い。でも時間で割ると、そこまで大きな差ではなくなります。</b>
+<span class="src">計算の前提＝1日8時間・残業月20時間と仮定。★残業時間は分からないので<b>仮の数字</b>です。実際の残業時間は下の質問7で確認してください。年収450万円は「1年目450〜500万円」とうかがった下限側を採用しています</span></p>
+</div>
+
+<hr>
+
+<h2>2. 月曜に聞く13項目</h2>
+
+<p><b>1〜4がいちばん重要です。</b>ここが確定しないと、他の数字の意味が決まりません。</p>
+
+<ol class="qs">
+<li><span class="t">これは正社員の雇用契約でしょうか。業務委託・個人事業主契約ではないでしょうか。</span>
+<span class="why">★これが全部の前提です。もし業務委託だと、社会保険を全額自分で払うことになり、有給休暇も残業代も付きません。手取りで年に数十万円変わります。</span></li>
+
+<li><span class="t">社会保険は会社が半分負担していただけますか。有給休暇はありますか。</span>
+<span class="why">上とセットで確認してください。「社会保険完備」と書いてあっても、契約形態を明示していない求人があります。</span></li>
+
+<li><span class="t">基本給25万円の中に、固定残業手当（みなし残業）は含まれていますか。含まれている場合、何円・何時間分でしょうか。</span>
+<span class="why">含まれていない場合は「含まれていない」と言っていただけると確実です。</span></li>
+
+<li><span class="t">技術手当12万円は、毎月固定でしょうか。それとも対応した件数によって変わりますか。変わる場合、直近で一番少なかった月はいくらでしたか。</span>
+<span class="why">★ここが今日いちばんお伝えしたかった質問です。「一番少なかった月」を聞くと、年収の下限が見えます。</span></li>
+
+<li><span class="t">賞与は年何回・何ヶ月分でしょうか。「業績により」の場合、直近3年の実績を教えていただけますか。</span>
+<span class="why">賞与が無い場合、月給40万×12＝480万円は、賞与4ヶ月ある会社の月給30万円と同じ年収になります。</span></li>
+
+<li><span class="t">残業代は、基本給25万円を基準に計算されますか。それとも手当を含めた42万円が基準ですか。賞与はどちらが基準ですか。</span>
+<span class="why">★<b>残業代については、法律上は42万円が基準になるはずです。</b>上に書いた通り、除外していい手当は7つだけで、技術手当と乗車手当はそこに入っていません。もし「25万円を基準に計算しています」という答えなら、<b>そのまま受け取らず一度こちらにご連絡ください。</b>どちらで計算するかで単価が1.7倍違います（1,953円 と 3,281円）。賞与の基準は法律の定めがないので、会社ごとに違います。</span></li>
+
+<li><span class="t">残業代は出ますか。月の平均労働時間は何時間くらいでしょうか。</span>
+<span class="why">求人に書かれていなかった項目です。</span></li>
+
+<li><span class="t">年間休日は109日で合っていますか。シフト制の場合、土日はどのくらい休めますか。年末年始とお盆は休めますか。代休は取れますか。</span>
+<span class="why">生活の設計に直結します。いまのお仕事から働き方が変わる部分です。</span></li>
+
+<li><span class="t">夜勤や、呼び出しの待機は月に何回ありますか。手当はいくらで、待機している時間は労働時間に入りますか。</span>
+<span class="why">24時間稼働の設備を扱う仕事では、ここが年収の中身を大きく左右します。</span></li>
+
+<li><span class="t">未経験の方は、いくらから始まりますか。</span>
+<span class="why">★これを聞くと、ご自身の経験がいくらぶん評価されているかが逆算できます。未経験の方も同じ金額なら、「経験があるから」という説明とは別の理由で高い、ということになります。</span></li>
+
+<li><span class="t">入社3年目の方は、だいたいいくらになりますか。</span>
+<span class="why">★1年目から3年目で上がっていれば、育てて上げていく会社です。変わらないなら、入口が上限に近いということになります。</span></li>
+
+<li><span class="t">携帯販売やMNPに関わる業務はありますか。ある場合、それは最初の数ヶ月だけですか、それともずっとですか。</span>
+<span class="why">未経験の方を高めの給与で採る会社で見かける形なので、念のためです。会社概要と求人票で業務内容が違う場合、実際に就くのは求人票の仕事になります。</span></li>
+
+<li><span class="t">転勤はありますか。勤務地は確定していますか。この1年で何名入社されて、何名退職されましたか。</span>
+<span class="why">拠点が全国にある会社では、勤務地が動くことがあります。入社数と退職数は、いちばん正直な数字です。聞きにくい質問ですが、普通に聞いて大丈夫です。</span></li>
+</ol>
+
+<hr>
+
+<h2>3. 口コミについて</h2>
+
+<div class="box">
+<p style="margin-top:0">検索してみたところ、口コミは見つかりました。ご自身で読んでいただくのが一番いいので、URLをお渡しします。</p>
+<div class="scroll" tabindex="0" role="region" aria-label="口コミサイトの一覧"><table>
+<tr><th>サイト</th><th>件数・評点</th><th>リンク</th></tr>
+<tr><td>転職会議</td><td>10件・総合 2.71</td><td><a href="https://jobtalk.jp/companies/6121593/answers">口コミを見る</a></td></tr>
+<tr><td>エン カイシャの評判</td><td>2件・スコア非表示</td><td><a href="https://en-hyouban.com/company/10200231848/">口コミを見る</a></td></tr>
+</table></div>
+<p style="margin-bottom:0">★<b>読むときに、ひとつだけ気をつけていただきたいこと。</b><br>
+<b>口コミは、辞めた方が書くものが多くなります。</b>ですので<b>厳しめに出るのが普通</b>です。点数だけを見て判断しないでください。同じ業界の会社を並べると、どこも2点台になります。</p>
+</div>
+
+<div class="key">
+<p style="margin-top:0">★<b>そのうえで、1点だけお伝えします。</b></p>
+<p><b>2つのサイトで、別々の方が「個人事業主契約」という書き方をされています。</b>社会保険が自己負担になる、という記述もあります。</p>
+<p style="margin-bottom:0"><b>ただし、これがご自身の受ける枠と同じとは限りません。</b>正社員の枠と業務委託の枠を、両方持っている会社もあります。<b>だからこそ、上の質問1と2を最初に聞いていただきたいのです。</b></p>
+</div>
+
+<div class="key">
+<p style="margin-top:0">★★<b>そのうえで、「個人事業主で月40万円」はどう見ればいいのか。面談でお話しした内容です。</b></p>
+<p><b>個人事業主の月40万円は、正社員の月30万円くらいと同じ価値だと思ってください。</b>正社員なら会社が半分払ってくれる社会保険料を全額自分で負担し、仕事に使う経費も自分持ちになるからです。手元に残る額で並べると、そのくらいの差が出ます。</p>
+<p>★<b>これは僕自身の実感でもあります。</b>運送（ヤマト運輸の個人事業主委託）をやっていたとき、荷物の多いエリアを取れた月は<b>月商80万円</b>まで行きました。ただ<b>ガソリン代などの経費で15万円ほど出ていく</b>ので手元は65万円、ならすと月40〜50万円という水準です。
+<span class="src">出所＝2026年8月22日の面談でお話しした、武者野本人の就業実績（社会保険料の労使折半は健康保険法 第161条・厚生年金保険法 第82条）</span></p>
+<p style="margin-bottom:0">★★<b>ここが「怖い」の答えだと思っています。</b>個人事業主の報酬が高いのは、会社が気前がいいからではありません。<b>不安定さの裏返しとして高い</b>、という仕組みです。エリアを外されればその月から吹き飛びますし、仕事を取ってくるのは自分です。<b>だから40万円という金額そのものは、おかしくありません。</b>決め手になるのは金額ではなく、<b>どちらの働き方を選ぶか</b>の方です。まず月曜に、雇用形態（質問1）をはっきりさせてください。そこが決まらないと、この40万円は他社の月給と並べられません。</p>
+</div>
+
+<hr>
+
+<h2>4. 月曜が、条件を確認できる最後の場です</h2>
+
+<div class="ok">
+<p style="margin-top:0">「一度面接をして、次は直接お会いしてすり合わせ」とうかがいました。</p>
+<p>★<b>「すり合わせ」と言われているなら、それはまさに条件を決める場です。会社側も、条件の話をするつもりで設定しています。</b></p>
+<p style="margin-bottom:0">ですので、<b>この13項目を持っていくのは、まったく失礼になりません。</b>むしろ、そのための場です。<br>
+そして、<b>ここを過ぎると条件は入社してから知ることになります。聞けるのは月曜です。</b></p>
+</div>
+
+<div class="box">
+<p style="margin-top:0"><b>聞いた答えは、そのまま送っていただければ一緒に読みます。</b></p>
+<p style="margin-bottom:0">数字の意味が分かりにくい形で返ってくることもあります（「みなし残業45時間」「年俸制」など）。そういうときは、そのまま転記して送ってください。<b>どういう意味なのかをこちらで整理してお返しします。</b></p>
+</div>
+
+<p class="foot">この資料は面談でお話しした内容をまとめたものです。金額の計算には仮定を置いている箇所があります（残業時間など）。実際の数字は、上の質問で確認したものが正となります。</p>
+
+</main>
+
+</body>
+</html>
