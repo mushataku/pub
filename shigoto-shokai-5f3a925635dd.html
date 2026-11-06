@@ -415,7 +415,7 @@ table.cmp th:nth-child(4) { width: 20%; }
     document.addEventListener("DOMContentLoaded", spy);
     return;
   }
-  var MAP = [["top", "intro", "ごあいさつ"], ["heard", "intro", "伺ったこと"], ["compare", "compare", "選んだ会社の比較"], ["companies", "detail", "ご紹介した会社"], ["industry", "docs", "業界の説明資料"], ["flow", "next", "これからの進め方"]];
+  var MAP = [["top", "intro", "ごあいさつ"], ["heard", "intro", "伺ったこと"], ["compare", "compare", "選んだ会社の比較"], ["companies", "detail", "ご紹介した会社"], ["chosen", "detail", "応募する会社"], ["industry", "docs", "業界の説明資料"], ["flow", "next", "これからの進め方"]];
   var band = document.getElementById("band");
   if (!band || !("IntersectionObserver" in window)) return;
   var now = band.querySelector(".band-now");
@@ -450,7 +450,7 @@ table.cmp th:nth-child(4) { width: 20%; }
   <p class="date">2026年11月6日（金）</p>
 </header>
 
-<nav class="page-nav" aria-label="ページ内リンク"><ul><li><a href="#companies">ご紹介した会社</a></li><li><a href="#industry">業界の説明資料</a></li></ul></nav>
+<nav class="page-nav" aria-label="ページ内リンク"><ul><li><a href="#companies">ご紹介した会社</a></li><li><a href="#chosen">応募する会社</a></li><li><a href="#industry">業界の説明資料</a></li></ul></nav>
 <div class="live-flow" data-layer="live">
 <section class="thanks" data-no-figure="あいさつの数文">
 <p><b>本日もお時間をいただきありがとうございます。</b></p>
@@ -469,20 +469,20 @@ table.cmp th:nth-child(4) { width: 20%; }
 </section>
 <section id="compare" data-section="compare" data-chapter="compare">
 <h2>選んだ会社の比較</h2>
-<div class="cmp-top"><figure class="fig" data-figure="compare"><svg class="fig-cmp" viewBox="0 0 560 272" role="img" aria-labelledby="fig-cmp-t fig-cmp-d" preserveAspectRatio="xMidYMid meet"><title id="fig-cmp-t">選んだ5社の比較（2026年11月時点の求人票・会社資料より）</title><desc id="fig-cmp-d">1 BREXA Communications: 月給のまん中 23.5万円・年間休日 124日／2 プラウドデータ: 月給のまん中 21万円・年間休日 125日／3 コクー: 月給のまん中 28万円・年間休日 124日／5 エイトビット: 月給のまん中 23万円・年間休日 123日</desc><defs><marker id="cmp-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="grid" x1="72.0" y1="14" x2="72.0" y2="212"/><text class="tick" x="72.0" y="237" text-anchor="middle">18</text><line class="grid" x1="148.3" y1="14" x2="148.3" y2="212"/><text class="tick" x="148.3" y="237" text-anchor="middle">20</text><line class="grid" x1="224.7" y1="14" x2="224.7" y2="212"/><text class="tick" x="224.7" y="237" text-anchor="middle">22</text><line class="grid" x1="301.0" y1="14" x2="301.0" y2="212"/><text class="tick" x="301.0" y="237" text-anchor="middle">24</text><line class="grid" x1="377.3" y1="14" x2="377.3" y2="212"/><text class="tick" x="377.3" y="237" text-anchor="middle">26</text><line class="grid" x1="453.7" y1="14" x2="453.7" y2="212"/><text class="tick" x="453.7" y="237" text-anchor="middle">28</text><line class="grid" x1="530.0" y1="14" x2="530.0" y2="212"/><text class="tick" x="530.0" y="237" text-anchor="middle">30</text><line class="grid" x1="72" y1="212.0" x2="530" y2="212.0"/><text class="tick" x="60" y="217.0" text-anchor="end">110</text><line class="grid" x1="72" y1="172.4" x2="530" y2="172.4"/><text class="tick" x="60" y="177.4" text-anchor="end">115</text><line class="grid" x1="72" y1="132.8" x2="530" y2="132.8"/><text class="tick" x="60" y="137.8" text-anchor="end">120</text><line class="grid" x1="72" y1="93.2" x2="530" y2="93.2"/><text class="tick" x="60" y="98.2" text-anchor="end">125</text><line class="grid" x1="72" y1="53.6" x2="530" y2="53.6"/><text class="tick" x="60" y="58.6" text-anchor="end">130</text><line class="grid" x1="72" y1="14.0" x2="530" y2="14.0"/><text class="tick" x="60" y="19.0" text-anchor="end">135</text><line class="axis" x1="72" y1="212" x2="530" y2="212"/><line class="axis" x1="72" y1="14" x2="72" y2="212"/><text class="ax-l" x="301.0" y="264" text-anchor="middle">月給の目安（万円）→</text><text class="ax-l" x="20" y="113.0" text-anchor="middle" transform="rotate(-90 20 113.0)">年間休日（日）→</text><a class="pt" href="#card-brexa_communications" aria-label="1. BREXA Communications（カードへ）" data-key="brexa_communications"><title>1. BREXA Communications（カードへ）</title><rect class="mk cat-1" x="268.9" y="88.1" width="26.0" height="26.0"/><text class="pt-n" x="281.9" y="106.6">1</text></a><line class="open-ar" x1="203.5" y1="93.2" x2="230.5" y2="93.2" marker-end="url(#cmp-ar)"/><a class="pt" href="#card-proud_data" aria-label="2. プラウドデータ（カードへ）" data-key="proud_data"><title>2. プラウドデータ（カードへ）</title><polygon class="mk cat-2" points="186.5,77.0 201.4,104.2 171.6,104.2"/><text class="pt-n" x="186.5" y="98.7">2</text></a><a class="pt" href="#card-cocoo" aria-label="3. コクー（カードへ）" data-key="cocoo"><title>3. コクー（カードへ）</title><rect class="mk cat-1" x="440.7" y="88.1" width="26.0" height="26.0"/><text class="pt-n" x="453.7" y="106.6">3</text></a><line class="lead" x1="262.8" y1="109.0" x2="334.8" y2="109.0"/><circle class="true-pos" cx="262.8" cy="109.0" r="3"/><a class="pt" href="#card-eightbit" aria-label="5. エイトビット（カードへ）" data-key="eightbit"><title>5. エイトビット（カードへ）</title><rect class="mk cat-1" x="321.8" y="96.0" width="26.0" height="26.0"/><text class="pt-n" x="334.8" y="114.5">5</text></a></svg></figure><div class="cmp-side"><p class="lead">面談の希望から5社を選びました。右ほど月給が高く、上ほど年間休日が多い会社です。番号や社名を押すと詳しい説明に移ります。気になる会社は番号か社名でLINEへ（例「2が気になります」）。</p><ul class="legend" aria-label="図の見方"><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><rect class="mk cat-1" x="6.0" y="6.0" width="18.0" height="18.0"/></svg>事務</li><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><polygon class="mk cat-2" points="15.0,3.8 25.4,22.6 4.7,22.6"/></svg>IT</li><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><path class="fl-a" d="M4,13 H20 V9 L28,15 L20,21 V17 H4 z"/></svg>月給の上限なし</li></ul><p class="fig-note">図に載せていない: 4 スタッフサービス ミラエール推進部（年収で書かれていて月給が分からない）</p><details class="fig-how"><summary>図の見方</summary><p class="fig-note">2 は月給の上限が書かれていないため、下限の位置に置いて → を付けました。</p><p class="fig-note">年間休日の差は最大2日です。月給は書かれた幅のまん中に置いています。</p></details></div></div>
+<div class="cmp-top"><figure class="fig" data-figure="compare"><svg class="fig-cmp" viewBox="0 0 560 272" role="img" aria-labelledby="fig-cmp-t fig-cmp-d" preserveAspectRatio="xMidYMid meet"><title id="fig-cmp-t">選んだ5社の比較（2026年11月時点の求人票・会社資料より）</title><desc id="fig-cmp-d">1 BREXA Communications: 月給のまん中 23.5万円・年間休日 124日／2 プラウドデータ: 月給のまん中 21万円・年間休日 125日／3 コクー: 月給のまん中 28万円・年間休日 124日／5 エイトビット: 月給のまん中 23万円・年間休日 123日</desc><defs><marker id="cmp-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="grid" x1="72.0" y1="14" x2="72.0" y2="212"/><text class="tick" x="72.0" y="237" text-anchor="middle">18</text><line class="grid" x1="148.3" y1="14" x2="148.3" y2="212"/><text class="tick" x="148.3" y="237" text-anchor="middle">20</text><line class="grid" x1="224.7" y1="14" x2="224.7" y2="212"/><text class="tick" x="224.7" y="237" text-anchor="middle">22</text><line class="grid" x1="301.0" y1="14" x2="301.0" y2="212"/><text class="tick" x="301.0" y="237" text-anchor="middle">24</text><line class="grid" x1="377.3" y1="14" x2="377.3" y2="212"/><text class="tick" x="377.3" y="237" text-anchor="middle">26</text><line class="grid" x1="453.7" y1="14" x2="453.7" y2="212"/><text class="tick" x="453.7" y="237" text-anchor="middle">28</text><line class="grid" x1="530.0" y1="14" x2="530.0" y2="212"/><text class="tick" x="530.0" y="237" text-anchor="middle">30</text><line class="grid" x1="72" y1="212.0" x2="530" y2="212.0"/><text class="tick" x="60" y="217.0" text-anchor="end">110</text><line class="grid" x1="72" y1="172.4" x2="530" y2="172.4"/><text class="tick" x="60" y="177.4" text-anchor="end">115</text><line class="grid" x1="72" y1="132.8" x2="530" y2="132.8"/><text class="tick" x="60" y="137.8" text-anchor="end">120</text><line class="grid" x1="72" y1="93.2" x2="530" y2="93.2"/><text class="tick" x="60" y="98.2" text-anchor="end">125</text><line class="grid" x1="72" y1="53.6" x2="530" y2="53.6"/><text class="tick" x="60" y="58.6" text-anchor="end">130</text><line class="grid" x1="72" y1="14.0" x2="530" y2="14.0"/><text class="tick" x="60" y="19.0" text-anchor="end">135</text><line class="axis" x1="72" y1="212" x2="530" y2="212"/><line class="axis" x1="72" y1="14" x2="72" y2="212"/><text class="ax-l" x="301.0" y="264" text-anchor="middle">月給の目安（万円）→</text><text class="ax-l" x="20" y="113.0" text-anchor="middle" transform="rotate(-90 20 113.0)">年間休日（日）→</text><a class="pt" href="#card-brexa_communications" aria-label="1. BREXA Communications（カードへ）" data-key="brexa_communications"><title>1. BREXA Communications（カードへ）</title><circle class="ring" cx="281.9" cy="101.1" r="21"/><rect class="mk cat-1" x="268.9" y="88.1" width="26.0" height="26.0"/><text class="pt-n" x="281.9" y="106.6">1</text></a><line class="open-ar" x1="203.5" y1="93.2" x2="230.5" y2="93.2" marker-end="url(#cmp-ar)"/><a class="pt" href="#card-proud_data" aria-label="2. プラウドデータ（カードへ）" data-key="proud_data"><title>2. プラウドデータ（カードへ）</title><circle class="ring" cx="186.5" cy="93.2" r="21"/><polygon class="mk cat-2" points="186.5,77.0 201.4,104.2 171.6,104.2"/><text class="pt-n" x="186.5" y="98.7">2</text></a><a class="pt" href="#card-cocoo" aria-label="3. コクー（カードへ）" data-key="cocoo"><title>3. コクー（カードへ）</title><circle class="ring" cx="453.7" cy="101.1" r="21"/><rect class="mk cat-1" x="440.7" y="88.1" width="26.0" height="26.0"/><text class="pt-n" x="453.7" y="106.6">3</text></a><line class="lead" x1="262.8" y1="109.0" x2="334.8" y2="109.0"/><circle class="true-pos" cx="262.8" cy="109.0" r="3"/><a class="pt" href="#card-eightbit" aria-label="5. エイトビット（カードへ）" data-key="eightbit"><title>5. エイトビット（カードへ）</title><circle class="ring" cx="334.8" cy="109.0" r="21"/><rect class="mk cat-1" x="321.8" y="96.0" width="26.0" height="26.0"/><text class="pt-n" x="334.8" y="114.5">5</text></a></svg></figure><div class="cmp-side"><p class="lead">面談の希望から5社を選びました。右ほど月給が高く、上ほど年間休日が多い会社です。番号や社名を押すと詳しい説明に移ります。気になる会社は番号か社名でLINEへ（例「2が気になります」）。</p><ul class="legend" aria-label="図の見方"><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><rect class="mk cat-1" x="6.0" y="6.0" width="18.0" height="18.0"/></svg>事務</li><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><polygon class="mk cat-2" points="15.0,3.8 25.4,22.6 4.7,22.6"/></svg>IT</li><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><circle class="ring" cx="15" cy="15" r="11"/></svg>応募する会社</li><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><path class="fl-a" d="M4,13 H20 V9 L28,15 L20,21 V17 H4 z"/></svg>月給の上限なし</li></ul><p class="fig-note">図に載せていない: 4 スタッフサービス ミラエール推進部（年収で書かれていて月給が分からない）</p><details class="fig-how"><summary>図の見方</summary><p class="fig-note">2 は月給の上限が書かれていないため、下限の位置に置いて → を付けました。</p><p class="fig-note">年間休日の差は最大2日です。月給は書かれた幅のまん中に置いています。</p></details></div></div>
 <table class="cmp">
   <caption>選んだ5社の比較（2026年11月時点の求人票・会社資料より）</caption>
   <thead><tr><th>会社</th><th>仕事の種類</th><th>勤務地</th><th>月給（月額）</th><th>休日（年間）</th></tr></thead>
   <tbody>
-    <tr data-key="brexa_communications"><td class="c-co" data-h="会社"><span class="no">1</span><a class="to-card" href="#card-brexa_communications">BREXA Communications</a><span class="links"><a class="deck-mini" href="https://communications.brexa.com/" target="_blank" rel="noopener" aria-label="BREXA Communicationsのホームページ">会社のHP →</a>
+    <tr data-key="brexa_communications"><td class="c-co" data-h="会社"><span class="no">1</span><a class="to-card" href="#card-brexa_communications">BREXA Communications</a><span class="cmp-chosen">応募する会社</span><span class="links"><a class="deck-mini" href="https://communications.brexa.com/" target="_blank" rel="noopener" aria-label="BREXA Communicationsのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1enC8GuJqNI5dTR0d9e_EUQIdOFDnFCTZ/view" target="_blank" rel="noopener" aria-label="BREXA Communicationsの資料（会社概要・採用情報）">会社概要・採用情報 →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="main">東京・神奈川・埼玉・千葉</span><span class="clamp sub">（客先常駐・転勤なし・勤務エリアの選択は不可）</span></td><td data-h="月給（月額）"><span class="main">月給22万〜25万円ほど</span><span class="clamp sub">（想定年収320万〜350万円・賞与年2回）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日124日</span></td></tr>
-<tr data-key="proud_data"><td class="c-co" data-h="会社"><span class="no">2</span><a class="to-card" href="#card-proud_data">プラウドデータ</a><span class="links"><a class="deck-mini" href="http://www.proud-g.jp/" target="_blank" rel="noopener" aria-label="プラウドデータのホームページ">会社のHP →</a>
+<tr data-key="proud_data"><td class="c-co" data-h="会社"><span class="no">2</span><a class="to-card" href="#card-proud_data">プラウドデータ</a><span class="cmp-chosen">応募する会社</span><span class="links"><a class="deck-mini" href="http://www.proud-g.jp/" target="_blank" rel="noopener" aria-label="プラウドデータのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1WgxBFeIRKBJeZDwA0258T6zUiOPS0D8K/view" target="_blank" rel="noopener" aria-label="プラウドデータの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">IT</td><td data-h="勤務地"><span class="main">東京・神奈川・千葉・埼玉</span><span class="clamp sub">（一都三県のプロジェクト先。品川・川崎・横浜エリアが中心。客先常駐・配属先で勤務地が変わる。本社は東京都千代田区麹町）</span><span class="clamp sub">日本国籍の方が対象。</span></td><td data-h="月給（月額）"><span class="main">月給21万円〜</span><span class="clamp sub">（基本給＋職務手当＋諸手当＋交通費。配属先の案件と社内評価に応じて上がる。想定年収280万〜1,000万円）。賞与は現在なし</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
-<tr data-key="cocoo"><td class="c-co" data-h="会社"><span class="no">3</span><a class="to-card" href="#card-cocoo">コクー</a><span class="links"><a class="deck-mini" href="https://cocoo.co.jp/corporate/" target="_blank" rel="noopener" aria-label="コクーのホームページ">会社のHP →</a>
+<tr data-key="cocoo"><td class="c-co" data-h="会社"><span class="no">3</span><a class="to-card" href="#card-cocoo">コクー</a><span class="cmp-chosen">応募する会社</span><span class="links"><a class="deck-mini" href="https://cocoo.co.jp/corporate/" target="_blank" rel="noopener" aria-label="コクーのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1L9dp3hvYCocRwZSJQ5GZAC0UMuk3-Z-m/view" target="_blank" rel="noopener" aria-label="コクーの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="main">東京23区内・富山県・静岡県浜松市・大阪府・福岡県</span><span class="clamp sub">（福岡市/北九州市）の本社・各拠点（客先常駐・自社内勤務の両方あり）</span></td><td data-h="月給（月額）"><span class="main">月給24万〜32万円ほど</span><span class="clamp sub">（想定年収288万〜400万円・業績賞与＋昇給年2回）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日124日</span></td></tr>
-<tr data-key="staffservice_mirai"><td class="c-co" data-h="会社"><span class="no">4</span><a class="to-card" href="#card-staffservice_mirai">スタッフサービス ミラエール推進部</a><span class="links"><a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a>
+<tr data-key="staffservice_mirai"><td class="c-co" data-h="会社"><span class="no">4</span><a class="to-card" href="#card-staffservice_mirai">スタッフサービス ミラエール推進部</a><span class="cmp-chosen">応募する会社</span><span class="links"><a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1o31QH1qaAuheG_WwoFBcrVvgKVDLC1iP/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料（会社の資料）">会社の資料 →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="main">転勤なし・自宅から90分以内の配属先</span><span class="clamp sub">（東京・神奈川・埼玉・千葉・大阪・京都・滋賀・広島・愛知・兵庫）</span></td><td data-h="月給（月額）"><span class="main">270万〜330万円ほど</span><span class="clamp sub">（地域別の月給・エリアにより異なる）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
-<tr data-key="eightbit"><td class="c-co" data-h="会社"><span class="no">5</span><a class="to-card" href="#card-eightbit">エイトビット</a><span class="links"><a class="deck-mini" href="https://eightbit.co.jp/" target="_blank" rel="noopener" aria-label="エイトビットのホームページ">会社のHP →</a>
+<tr data-key="eightbit"><td class="c-co" data-h="会社"><span class="no">5</span><a class="to-card" href="#card-eightbit">エイトビット</a><span class="cmp-chosen">応募する会社</span><span class="links"><a class="deck-mini" href="https://eightbit.co.jp/" target="_blank" rel="noopener" aria-label="エイトビットのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1tdCLghTqSENmdXpA9gukw9K-Nps3vuay/view" target="_blank" rel="noopener" aria-label="エイトビットの資料（事務職の採用案内）">事務職の採用案内 →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="main">東京23区内・埼玉・千葉・神奈川</span><span class="clamp sub">（客先常駐・配属先のプロジェクトによって変わる・転居を伴う転勤なし・勤務地は希望を考慮）。本社は東京都豊島区東池袋</span><span class="clamp sub">最終学歴は高卒以上。就業経験6か月以上（アルバイト可）。半年以上のブランクはNGだが、アルバイトや職業訓練校など何かしら活動をしていればOK。</span></td><td data-h="月給（月額）"><span class="main">月給21万〜25万円ほど</span><span class="clamp sub">（想定年収267万〜350万円・賞与年2回・昇給年1回）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日123日</span></td></tr>
   </tbody>
 </table>
@@ -495,7 +495,7 @@ table.cmp th:nth-child(4) { width: 20%; }
 
 <div class="cards live" data-live="picks">
   <article class="card" id="card-brexa_communications">
-    <h3>BREXA Communications</h3>
+    <h3>BREXA Communications<span class="chosen">応募する会社</span></h3>
     <p class="what">通信インフラの事務サポート（携帯キャリア向け専用システムへのデータ入力・法人顧客からの電話/メール問い合わせ対応・スマホ/タブレットの発注手配や在庫管理・基地局工事の日程調整・申請書類作成・法人営業担当のサポートなど）</p>
     <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給22万〜25万円ほど</span><span class="aside">（想定年収320万〜350万円・賞与年2回）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日祝休み・年間休日124日・月平均残業10時間以下</dd></div></dl>
     <dl class="place">
@@ -507,7 +507,7 @@ table.cmp th:nth-child(4) { width: 20%; }
     <a class="deck-mini" href="https://drive.google.com/file/d/1enC8GuJqNI5dTR0d9e_EUQIdOFDnFCTZ/view" target="_blank" rel="noopener" aria-label="BREXA Communicationsの資料（会社概要・採用情報）">会社概要・採用情報 →</a></div>
   </article>
   <article class="card" id="card-proud_data">
-    <h3>プラウドデータ</h3>
+    <h3>プラウドデータ<span class="chosen">応募する会社</span></h3>
     <p class="what">未経験からのインフラエンジニア（サーバー・ネットワーク）。入社後はヒアリングとOJTで方向性を決め、Linux・ネットワーク基礎やAWSの学習を経て、運用・保守・監視・テクニカルサポート・社内SEなどの現場へ（SES＝客先常駐が中心）</p>
     <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給21万円〜</span><span class="aside">（基本給＋職務手当＋諸手当＋交通費。配属先の案件と社内評価に応じて上がる。想定年収280万〜1,000万円）。賞与は現在なし</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>求人票の年収イメージは、未経験入社後に毎年60万円前後の年収アップ実績あり・1年あたり月額5〜8万円の昇給を目指す設計・5〜6年で年収500万〜600万円を目指す想定。年収1,000万円レンジは経験・配属先の案件しだいで、入社時の数字ではない</dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">完全週休2日制</span><span class="aside">（土日祝休み）・年間休日125日・勤務は9:00〜18:00・月平均残業10時間以下（残業代・深夜・休日出勤手当は別途支給）</span></dd></div></dl>
     <dl class="place">
@@ -519,7 +519,7 @@ table.cmp th:nth-child(4) { width: 20%; }
     <a class="deck-mini" href="https://drive.google.com/file/d/1WgxBFeIRKBJeZDwA0258T6zUiOPS0D8K/view" target="_blank" rel="noopener" aria-label="プラウドデータの資料（会社説明スライド）">会社説明スライド →</a></div>
   </article>
   <article class="card" id="card-cocoo">
-    <h3>コクー</h3>
+    <h3>コクー<span class="chosen">応募する会社</span></h3>
     <p class="what">IT事務職（SES事業部のバックオフィス。データ入力・見積書/納品書などの資料作成・売上データ集計・電話対応・BI更新作業など）</p>
     <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給24万〜32万円ほど</span><span class="aside">（想定年収288万〜400万円・業績賞与＋昇給年2回）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日祝休み・完全週休2日制・年間休日124日・残業月平均20時間以下</dd></div></dl>
     <dl class="place">
@@ -531,7 +531,7 @@ table.cmp th:nth-child(4) { width: 20%; }
     <a class="deck-mini" href="https://drive.google.com/file/d/1L9dp3hvYCocRwZSJQ5GZAC0UMuk3-Z-m/view" target="_blank" rel="noopener" aria-label="コクーの資料（会社説明スライド）">会社説明スライド →</a></div>
   </article>
   <article class="card" id="card-staffservice_mirai">
-    <h3>スタッフサービス ミラエール推進部</h3>
+    <h3>スタッフサービス ミラエール推進部<span class="chosen">応募する会社</span></h3>
     <p class="what">一般事務（人事・総務・経理・貿易・金融・英文事務・受付・データ入力など、案件により内容が変わる）</p>
     <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">270万〜330万円ほど</span><span class="aside">（地域別の月給・エリアにより異なる）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">土日祝・完全週休2日・</span><span class="main">年間休日125日</span><span class="aside">（祝日は配属先により異なる）・残業月10時間以下</span></dd></div></dl>
     <dl class="place">
@@ -543,7 +543,7 @@ table.cmp th:nth-child(4) { width: 20%; }
     <a class="deck-mini" href="https://drive.google.com/file/d/1o31QH1qaAuheG_WwoFBcrVvgKVDLC1iP/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料（会社の資料）">会社の資料 →</a></div>
   </article>
   <article class="card" id="card-eightbit">
-    <h3>エイトビット</h3>
+    <h3>エイトビット<span class="chosen">応募する会社</span></h3>
     <p class="what">一般事務・営業事務・採用アシスタント・総務事務・経理アシスタント・IT事務（ヘルプデスク含む）のいずれか（配属先と仕事内容は希望と適性をもとに決定。データ入力・電話や来客対応・書類作成・見積書や請求書の作成・アカウント発行やPC管理など）</p>
     <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給21万〜25万円ほど</span><span class="aside">（想定年収267万〜350万円・賞与年2回・昇給年1回）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日祝休み・年間休日123日・勤務は9:00〜18:00・月平均残業20時間以下</dd></div></dl>
     <dl class="place">
@@ -603,6 +603,71 @@ table.cmp th:nth-child(4) { width: 20%; }
 </div>
 
 </section>
+<section id="chosen" data-section="chosen" data-no-figure="応募先のカードそのものが一覧（比較の図はトップ）">
+<h2>応募する会社</h2>
+<div class="cards">
+  <article class="card">
+    <h3>BREXA Communications<span class="chosen">応募する会社</span></h3>
+    <p class="what">通信インフラの事務サポート（携帯キャリア向け専用システムへのデータ入力・法人顧客からの電話/メール問い合わせ対応・スマホ/タブレットの発注手配や在庫管理・基地局工事の日程調整・申請書類作成・法人営業担当のサポートなど）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給22万〜25万円ほど</span><span class="aside">（想定年収320万〜350万円・賞与年2回）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日祝休み・年間休日124日・月平均残業10時間以下</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京・神奈川・埼玉・千葉（客先常駐・転勤なし・勤務エリアの選択は不可）</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　応募いただいた「IT事務」にいちばん近い仕事です。携帯電話会社向けのシステムへのデータ入力、スマホやタブレットの発注・在庫管理、基地局工事の日程調整などを担当します。根本さんがSESで携わった運用・監視と同じく、通信やシステムを裏から支える仕事です。選考はWEB面接1回だけで、土日祝休み・年間休日124日・残業は月10時間以下。通信の国家資格の取得も会社が支援してくれます。※お客さまのオフィスで働く形で、配属先は会社が決めます。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://communications.brexa.com/" target="_blank" rel="noopener" aria-label="BREXA Communicationsのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1enC8GuJqNI5dTR0d9e_EUQIdOFDnFCTZ/view" target="_blank" rel="noopener" aria-label="BREXA Communicationsの資料（会社概要・採用情報）">会社概要・採用情報 →</a></div>
+  </article>
+  <article class="card">
+    <h3>プラウドデータ<span class="chosen">応募する会社</span></h3>
+    <p class="what">未経験からのインフラエンジニア（サーバー・ネットワーク）。入社後はヒアリングとOJTで方向性を決め、Linux・ネットワーク基礎やAWSの学習を経て、運用・保守・監視・テクニカルサポート・社内SEなどの現場へ（SES＝客先常駐が中心）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給21万円〜</span><span class="aside">（基本給＋職務手当＋諸手当＋交通費。配属先の案件と社内評価に応じて上がる。想定年収280万〜1,000万円）。賞与は現在なし</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>求人票の年収イメージは、未経験入社後に毎年60万円前後の年収アップ実績あり・1年あたり月額5〜8万円の昇給を目指す設計・5〜6年で年収500万〜600万円を目指す想定。年収1,000万円レンジは経験・配属先の案件しだいで、入社時の数字ではない</dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">完全週休2日制</span><span class="aside">（土日祝休み）・年間休日125日・勤務は9:00〜18:00・月平均残業10時間以下（残業代・深夜・休日出勤手当は別途支給）</span></dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京・神奈川・千葉・埼玉（一都三県のプロジェクト先。品川・川崎・横浜エリアが中心。客先常駐・配属先で勤務地が変わる。本社は東京都千代田区麹町）</dd><dt>条件</dt><dd>日本国籍の方が対象。</dd><dt>条件</dt><dd>関東圏外にお住まいの場合は引越しが可能なことが選考条件。</dd><dt>条件</dt><dd>選考は書類選考→面接（対面1回。関東圏外はオンライン可）→内定。適性テストなし。</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　未経験からインフラエンジニア（サーバー・ネットワーク）を目指す会社です。入社後はPCの基礎からLinux・ネットワーク・AWSまで学び、運用・保守・監視などから現場に出ます。根本さんが2年間経験したシステムの運用・監視の続きを、今度は土日祝休み（年間休日125日・9:00〜18:00・残業月10時間以下）で積み上げられます。面接は1回で、転勤はありません。※お客さまのオフィスで働く形で、品川・川崎・横浜方面の現場が中心のため、配属先によってはご自宅から40分を超えることがあります。</p>
+    
+    <div class="links"><a class="deck-mini" href="http://www.proud-g.jp/" target="_blank" rel="noopener" aria-label="プラウドデータのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1WgxBFeIRKBJeZDwA0258T6zUiOPS0D8K/view" target="_blank" rel="noopener" aria-label="プラウドデータの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </article>
+  <article class="card">
+    <h3>コクー<span class="chosen">応募する会社</span></h3>
+    <p class="what">IT事務職（SES事業部のバックオフィス。データ入力・見積書/納品書などの資料作成・売上データ集計・電話対応・BI更新作業など）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給24万〜32万円ほど</span><span class="aside">（想定年収288万〜400万円・業績賞与＋昇給年2回）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日祝休み・完全週休2日制・年間休日124日・残業月平均20時間以下</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京23区内・富山県・静岡県浜松市・大阪府・福岡県（福岡市/北九州市）の本社・各拠点（客先常駐・自社内勤務の両方あり）</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　IT企業のバックオフィスを支える「IT事務」です。入社後はExcel研修から始まり、MOS、その先のVBA・BI・RPAまで段階的に学べます。コンカフェで関数を調べながら給与計算のシートを自分で作った根本さんなら、学んだ分だけ仕事が楽になる面白さを感じられるはずです。土日祝休み・完全週休2日・年間休日124日で、案件が無い期間もお給料が出る正社員です。月給24万円〜（20時間分の固定残業代込み）。※東京23区内の勤務で、お客さまのオフィスで働くことがあります。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://cocoo.co.jp/corporate/" target="_blank" rel="noopener" aria-label="コクーのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1L9dp3hvYCocRwZSJQ5GZAC0UMuk3-Z-m/view" target="_blank" rel="noopener" aria-label="コクーの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </article>
+  <article class="card">
+    <h3>スタッフサービス ミラエール推進部<span class="chosen">応募する会社</span></h3>
+    <p class="what">一般事務（人事・総務・経理・貿易・金融・英文事務・受付・データ入力など、案件により内容が変わる）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">270万〜330万円ほど</span><span class="aside">（地域別の月給・エリアにより異なる）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">土日祝・完全週休2日・</span><span class="main">年間休日125日</span><span class="aside">（祝日は配属先により異なる）・残業月10時間以下</span></dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>転勤なし・自宅から90分以内の配属先（東京・神奈川・埼玉・千葉・大阪・京都・滋賀・広島・愛知・兵庫）</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　「落ち着いて働きたい」「土日祝休み」にいちばん確実に応えられる会社です。扱うお仕事の9割以上が土日休みで、年間休日125日・残業は月10時間以下。アルバイト経験があれば職種未経験でも応募できます。シフトや給与計算を担当してきた根本さんの経験は、事務の現場でそのまま活かせます。※スタッフサービスに期限なく雇われ、配属先の企業で働く無期雇用派遣です。配属先と仕事の内容は選べず、ご自宅から90分以内の職場に配属されます。一般事務のため電話対応が入ることもあります。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1o31QH1qaAuheG_WwoFBcrVvgKVDLC1iP/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料（会社の資料）">会社の資料 →</a></div>
+  </article>
+  <article class="card">
+    <h3>エイトビット<span class="chosen">応募する会社</span></h3>
+    <p class="what">一般事務・営業事務・採用アシスタント・総務事務・経理アシスタント・IT事務（ヘルプデスク含む）のいずれか（配属先と仕事内容は希望と適性をもとに決定。データ入力・電話や来客対応・書類作成・見積書や請求書の作成・アカウント発行やPC管理など）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給21万〜25万円ほど</span><span class="aside">（想定年収267万〜350万円・賞与年2回・昇給年1回）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日祝休み・年間休日123日・勤務は9:00〜18:00・月平均残業20時間以下</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京23区内・埼玉・千葉・神奈川（客先常駐・配属先のプロジェクトによって変わる・転居を伴う転勤なし・勤務地は希望を考慮）。本社は東京都豊島区東池袋</dd><dt>条件</dt><dd>最終学歴は高卒以上。就業経験6か月以上（アルバイト可）。半年以上のブランクはNGだが、アルバイトや職業訓練校など何かしら活動をしていればOK。</dd><dt>条件</dt><dd>主要都市（新宿・渋谷・大崎・東京・品川）へ70分以内で通えること。</dd><dt>条件</dt><dd>選考は書類選考→オンライン面接（1〜2回）→内定。</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　未経験の方は研修（ビジネスマナー・PCスキル）から始められる正社員採用で、土日祝休み・年間休日123日・9:00〜18:00です。配属先の仕事には一般事務のほかIT事務やヘルプデスクも含まれ、事務からITへ広げていけます。資格の受験費用は会社負担で、取得すると資格手当が付きます。※お客さまのオフィスで働く形で、配属先と仕事の内容は希望と適性をもとに会社が決めます。電話や来客の対応が入ることもあります。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://eightbit.co.jp/" target="_blank" rel="noopener" aria-label="エイトビットのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1tdCLghTqSENmdXpA9gukw9K-Nps3vuay/view" target="_blank" rel="noopener" aria-label="エイトビットの資料（事務職の採用案内）">事務職の採用案内 →</a></div>
+  </article>
+</div>
+</section>
 <section id="industry" data-section="industry" data-no-figure="資料へのリンクの一覧">
 <h2>業界の説明資料</h2>
 <ul class="videos">
@@ -616,7 +681,7 @@ table.cmp th:nth-child(4) { width: 20%; }
 </section>
 <section id="flow" data-section="flow" data-chapter="next">
 <h2>これからの進め方</h2>
-<figure class="fig fig-flow-w" data-figure="flow"><svg class="fig-flow" viewBox="0 0 400 312" role="img" aria-labelledby="fig-flow-t fig-flow-d" preserveAspectRatio="xMidYMid meet"><title id="fig-flow-t">これからの進め方</title><desc id="fig-flow-d">1. このページの会社から、受ける会社を一緒に決めます（5〜6社を並行して受けるのがおすすめです）／2. 決まった会社へ、こちらから推薦を進めます。書類はお作りしたものを使います／3. 書類選考の結果や面接の日程が決まったら、すぐLINEでお知らせします／4. 2週間ほどで内定を2〜3社いただき、その中から根本さんが選ぶ形を目指します</desc><defs><marker id="fl-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="fl-l" x1="20" y1="38" x2="20" y2="100" marker-end="url(#fl-ar)"/><line class="fl-l" x1="20" y1="138" x2="20" y2="176" marker-end="url(#fl-ar)"/><line class="fl-l" x1="20" y1="214" x2="20" y2="252" marker-end="url(#fl-ar)"/><circle class="fl-c" cx="20" cy="20" r="16"/><text class="fl-n" x="20" y="26" text-anchor="middle">1</text><text class="fl-t" x="46" y="26">このページの会社から、受ける会社を一緒</text><text class="fl-t" x="46" y="50">に決めます（5〜6社を並行して受けるの</text><text class="fl-t" x="46" y="74">がおすすめです）</text><circle class="fl-c" cx="20" cy="120" r="16"/><text class="fl-n" x="20" y="126" text-anchor="middle">2</text><text class="fl-t" x="46" y="126">決まった会社へ、こちらから推薦を進めま</text><text class="fl-t" x="46" y="150">す。書類はお作りしたものを使います</text><circle class="fl-c" cx="20" cy="196" r="16"/><text class="fl-n" x="20" y="202" text-anchor="middle">3</text><text class="fl-t" x="46" y="202">書類選考の結果や面接の日程が決まったら、</text><text class="fl-t" x="46" y="226">すぐLINEでお知らせします</text><circle class="fl-c" cx="20" cy="272" r="16"/><text class="fl-n" x="20" y="278" text-anchor="middle">4</text><text class="fl-t" x="46" y="278">2週間ほどで内定を2〜3社いただき、その</text><text class="fl-t" x="46" y="302">中から根本さんが選ぶ形を目指します</text></svg></figure>
+<figure class="fig fig-flow-w" data-figure="flow"><svg class="fig-flow" viewBox="0 0 400 270" role="img" aria-labelledby="fig-flow-t fig-flow-d" preserveAspectRatio="xMidYMid meet"><title id="fig-flow-t">これからの進め方</title><desc id="fig-flow-d">1. 上の5社へ、お作りした書類で応募を進めます／2. 11月9日（月）12:00から、面接の練習をします／3. 書類選考の結果や面接の日程が決まったら、すぐLINEでお知らせします／4. 2週間ほどで内定を2〜3社いただき、その中から根本さんが選ぶ形を目指します</desc><defs><marker id="fl-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="fl-l" x1="20" y1="38" x2="20" y2="58" marker-end="url(#fl-ar)"/><line class="fl-l" x1="20" y1="96" x2="20" y2="134" marker-end="url(#fl-ar)"/><line class="fl-l" x1="20" y1="172" x2="20" y2="210" marker-end="url(#fl-ar)"/><circle class="fl-c" cx="20" cy="20" r="16"/><text class="fl-n" x="20" y="26" text-anchor="middle">1</text><text class="fl-t" x="46" y="26">上の5社へ、お作りした書類で応募を進めます</text><circle class="fl-c" cx="20" cy="78" r="16"/><text class="fl-n" x="20" y="84" text-anchor="middle">2</text><text class="fl-t" x="46" y="84">11月9日（月）12:00から、面接の練習を</text><text class="fl-t" x="46" y="108">します</text><circle class="fl-c" cx="20" cy="154" r="16"/><text class="fl-n" x="20" y="160" text-anchor="middle">3</text><text class="fl-t" x="46" y="160">書類選考の結果や面接の日程が決まったら、</text><text class="fl-t" x="46" y="184">すぐLINEでお知らせします</text><circle class="fl-c" cx="20" cy="230" r="16"/><text class="fl-n" x="20" y="236" text-anchor="middle">4</text><text class="fl-t" x="46" y="236">2週間ほどで内定を2〜3社いただき、その</text><text class="fl-t" x="46" y="260">中から根本さんが選ぶ形を目指します</text></svg></figure>
 </section>
 </div>
 <footer>※条件は各社の求人票・会社資料（2026年11月時点）に書かれている内容です。月給の幅は、これまでの経験と選考での評価で決まります。<br>※「会社のHP →」は各社の公式ホームページに、「会社の資料 →」は会社説明の資料（PDF）につながります。</footer>
