@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>X を1アカウントで育てる調査まとめ</title>
+<style>
+:root{
+  --bg:#f5f6f8; --surface:#ffffff; --text:#1b1f24; --sub:#434b55; --line:#b9c0c9; --line-soft:#dde1e6;
+  --accent:#1e3fa8; --accent-fill:#2f5fd0; --accent-tint:#e4ecff;
+  --warn-fill:#c2410c; --warn-tint:#fdeadf; --warn-text:#8f2a05;
+  --human-tint:#fbeccc; --band:#ffffff; --on-fill:#ffffff;
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111317; --surface:#1a1d23; --text:#e6e8eb; --sub:#bcc2cb; --line:#5a626d; --line-soft:#2d323a;
+    --accent:#9db9ff; --accent-fill:#7da3ff; --accent-tint:#1f2c4a;
+    --warn-fill:#ff8a5c; --warn-tint:#3a2217; --warn-text:#ffb08f;
+    --human-tint:#3d3118; --band:#1a1d23; --on-fill:#111317;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111317; --surface:#1a1d23; --text:#e6e8eb; --sub:#bcc2cb; --line:#5a626d; --line-soft:#2d323a;
+  --accent:#9db9ff; --accent-fill:#7da3ff; --accent-tint:#1f2c4a;
+  --warn-fill:#ff8a5c; --warn-tint:#3a2217; --warn-text:#ffb08f;
+  --human-tint:#3d3118; --band:#1a1d23; --on-fill:#111317;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",YuGothic,Meiryo,sans-serif;
+  font-size:1rem;line-height:1.8;letter-spacing:0;overflow-wrap:break-word;line-break:auto}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) body{line-height:1.9}}
+:root[data-theme="dark"] body{line-height:1.9}
+
+/* 帯 */
+.band{position:sticky;top:0;z-index:10;background:var(--band);border-bottom:1px solid var(--line);
+  padding:var(--s2) max(16px,env(safe-area-inset-right)) var(--s2) max(16px,env(safe-area-inset-left));}
+.band-in{max-width:44rem;margin:0 auto;display:flex;flex-wrap:wrap;gap:0 var(--s3);align-items:baseline}
+.band-t{font-size:.875rem;line-height:1.5;font-weight:700;color:var(--text);white-space:nowrap}
+.band-p{font-size:.875rem;line-height:1.5;color:var(--sub);min-width:0;flex:1 1 12rem}
+.band-p b{color:var(--text);font-weight:700}
+.band-p .sep{padding:0 .35em}
+@media (min-width:640px){.band-p{flex:1 1 auto}}
+
+main{max-width:44rem;margin:0 auto;padding:var(--s4) max(16px,env(safe-area-inset-right)) var(--s5) max(16px,env(safe-area-inset-left))}
+h1,h2,h3,h4{word-break:keep-all;overflow-wrap:anywhere;font-weight:700;letter-spacing:0;line-height:1.4;margin:0}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
+h1{font-size:1.75rem;margin:0 0 var(--s3)}
+h2{font-size:1.5rem;margin:var(--s5) 0 var(--s3);padding-top:var(--s3);border-top:2px solid var(--text);scroll-margin-top:76px}
+h3{font-size:1.25rem;margin:var(--s4) 0 var(--s2);scroll-margin-top:76px}
+h4{font-size:1rem;margin:var(--s3) 0 var(--s2);color:var(--text)}
+p,li{text-wrap:pretty}
+p{margin:0 0 1em;max-width:40em}
+ul,ol{margin:0 0 1em;padding-left:1.4em;max-width:40em}
+li{margin-bottom:.4em}
+a{color:var(--accent);text-decoration:underline;text-underline-offset:.15em;overflow-wrap:anywhere}
+a:visited{color:#6b2fa0}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) a:visited{color:#d5b4ff}}
+:root[data-theme="dark"] a:visited{color:#d5b4ff}
+.meta{color:var(--sub);font-size:1rem;margin-bottom:var(--s3)}
+.nw{white-space:nowrap}
+.brk{overflow-wrap:anywhere;word-break:break-all}
+
+.tag{display:inline-block;font-size:.8125rem;line-height:1.4;padding:0 .45em;margin:0 .2em;border:1px solid var(--line);
+  border-radius:4px;background:var(--surface);color:var(--text);vertical-align:baseline;white-space:nowrap;letter-spacing:0}
+.tg-s{border-style:solid;border-color:var(--accent);}
+.tg-m{border-style:double;border-width:3px;padding:0 .35em}
+.tg-w{border-style:dashed;border-color:var(--warn-text)}
+
+.lead{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:var(--s3);margin:0 0 var(--s3)}
+.lead ol{margin:0;padding-left:1.5em}
+.weak{background:var(--warn-tint);border:1px solid var(--warn-fill);border-radius:8px;padding:var(--s3);margin:0 0 var(--s3);max-width:40em}
+.weak h2{all:unset;display:block;font-size:1.125rem;font-weight:700;margin-bottom:var(--s2);color:var(--warn-text)}
+.weak ul{margin:0;padding-left:1.3em}
+.weak li:last-child{margin-bottom:0}
+.note{border-left:4px solid var(--accent);padding:var(--s1) var(--s3);margin:0 0 1em;background:var(--surface);max-width:40em}
+.legend{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s3);font-size:.875rem;line-height:1.5;color:var(--sub);margin:0 0 var(--s3);max-width:40em}
+.legend span.i{display:inline-block}
+
+.toc{background:var(--surface);border:1px solid var(--line-soft);border-radius:8px;padding:var(--s3);margin:0 0 var(--s3);max-width:40em}
+.toc h2{all:unset;display:block;font-weight:700;margin-bottom:var(--s2)}
+.toc ol{margin:0;padding-left:1.6em;columns:1}
+.toc li{margin-bottom:.1em;line-height:1.7}
+.toc a{display:inline-block;padding:.1em 0}
+
+figure{margin:0 0 var(--s4);max-width:30rem}
+.fg{background:var(--surface);border:1px solid var(--line-soft);border-radius:8px;padding:var(--s3)}
+@media (max-width:400px){.fg{padding:var(--s2)}}
+figcaption{font-size:.875rem;line-height:1.6;color:var(--sub);margin-top:var(--s2)}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:inherit;font-size:13.5px;fill:var(--text);letter-spacing:0}
+svg text.b{font-weight:700}
+svg text.s{fill:var(--sub);font-size:13.5px}
+svg text.w{fill:var(--on-fill);font-weight:700}
+svg .bx{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+svg .hl{fill:var(--accent-tint);stroke:var(--accent-fill)}
+svg .gone{fill:var(--warn-tint);stroke:var(--warn-fill);stroke-dasharray:5 3}
+svg .pos{fill:var(--accent-fill)}
+svg .posout{fill:none;stroke:var(--accent-fill);stroke-width:1.5}
+svg .neg{fill:var(--warn-fill)}
+svg .trk{fill:var(--line-soft)}
+svg .ln{stroke:var(--line-soft);stroke-width:1}
+svg .ar{stroke:var(--sub);stroke-width:1.5}
+svg .arh{fill:var(--sub)}
+svg .pill-ai{fill:var(--accent-tint);stroke:var(--accent-fill);stroke-width:1.5}
+svg .pill-hu{fill:var(--human-tint);stroke:var(--warn-fill);stroke-width:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--line-soft);border-radius:8px;background:var(--surface);margin:0 0 var(--s3);max-width:100%}
+.tw:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+table{border-collapse:collapse;width:100%;font-size:.875rem;line-height:1.6}
+th,td{text-align:left;vertical-align:top;padding:var(--s2) var(--s2);border-bottom:1px solid var(--line-soft);overflow-wrap:normal;word-break:normal}
+th{background:var(--bg);font-weight:700;font-size:.875rem}
+td:first-child{min-width:9em}
+tr:last-child td{border-bottom:0}
+
+.dec{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:var(--s3);margin:0 0 var(--s3);max-width:40em}
+.dec h3{margin-top:0}
+.dec p:last-child,.dec ul:last-child{margin-bottom:0}
+.kv{display:grid;grid-template-columns:7em 1fr;gap:var(--s1) var(--s3);margin:0 0 var(--s2);font-size:1rem;max-width:40em}
+.kv dt{font-weight:700;color:var(--text)}
+.kv dd{margin:0}
+@media (max-width:420px){.kv{grid-template-columns:1fr;gap:0}.kv dd{margin-bottom:var(--s2)}}
+footer{color:var(--sub);font-size:.875rem;line-height:1.7;max-width:40em;margin-top:var(--s5)}
+@media (prefers-contrast:more){.tag,.bx{border-color:currentColor}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="band" data-chrome>
+  <div class="band-in">
+    <div class="band-t">X を1アカウントで育てる</div>
+    <div class="band-p" id="bandPos" aria-hidden="true"><b id="bandCh"></b><span class="sep" id="bandSep" hidden>›</span><span id="bandSec"></span></div>
+  </div>
+</div>
+<main id="top">
+
+<h1>X を<wbr>1アカウントで<wbr>育てる<wbr>調査まとめ</h1>
+<p class="meta">武者野さん向け。2026-11-07 時点。詳細と出典は repo の <span class="brk">docs/research/x-single-account-growth-2026-11.md</span> が正本です。ここは判断に要る部分だけを、重みを付けて抜き出しました。</p>
+
+<div class="lead" id="s0">
+<h2 style="all:unset;display:block;font-weight:700;font-size:1.125rem;margin-bottom:8px;line-height:1.4">先に結論</h2>
+<ol>
+<li><strong>武者野さんの決定（2026-11-07）：X は本命の一つ。</strong>理由は「投稿は資産化にならないけどアカウントは資産になる」。下の弱点は消えていません。</li>
+<li>育て方の骨格は、テキスト＋図の「1本目で完結する投稿」を1日1〜3本、CA が体験つきで返信、リンクはプロフィールに置いて LINE へ、週次で中央値を測る、です。</li>
+<li>基本は Grok ではありません。投稿は人か公式 API、下書きは Claude、Grok は X の検索役です。</li>
+<li>評価の中身は噂でなくなりました。2026-08-13 以降、公開コードに重みの実数があります。大きいのは読者の返信、引用、共有、フォロー。いいねは軽く、ミュート、興味なし、通報は桁違いに重い。<span class="tag tg-s">一次</span></li>
+<li>AI は下書きまで。投稿と返信は人が押します。AI 返信 bot は事前の書面承認が要ります。<span class="tag tg-s">一次</span></li>
+<li>施工管理ニッチは、求人・紹介・派遣の定型投稿が最大級の層（27.5%、次点は26%）で、反応はほとんどありません。565件中87%が反応ゼロ。<span class="tag tg-s">一次</span><span class="tag tg-s">小標本</span> 空きは「エージェント不信への正面回答」「数字つきの一次体験」「チェックリスト型」と読めます。<span class="tag tg-w">推測</span></li>
+</ol>
+</div>
+
+<div class="weak">
+<h2>弱い所（先に言います）</h2>
+<ul>
+<li><strong>本丸の棄却理由「資産化しない、放置耐性がない」は、コードで裏づけられました。</strong>（48時間は For You 候補の足切りで、検索やプロフィール経由の残り方は調べていません。）X は48時間で候補から消えるフロー媒体で、残るのはフォロワーと関係、LINE 登録です。判断軸の「止まらない運用」とは緊張があります。一方、棄却理由のうち、ルールとしての「リンク減点」と「新規アカウント係数」は、コードに見つかりませんでした（リンクの実効は割れています）。</li>
+<li>小規模・日本語・人材で応募が増えると証明された型は、1件も見つかりませんでした。第三者が検証できる90日記録は0件、人材×X×LINE の数字付き事例も0件です。<span class="tag tg-w">未到達</span> だから計画は「測りながら進め、見直し条件を先に書く」形です。</li>
+<li>投稿を週1回の予約にまとめられるかは未確認です。純正の予約投稿の公式記載が見つかっていません。</li>
+</ul>
+</div>
+
+<p class="legend" aria-label="確度タグの見方"><span class="i"><span class="tag tg-s">一次</span> 公式・公開コード・査読論文・生データを見せた当事者</span><span class="i"><span class="tag tg-s">独立</span> 利害のない第三者</span><span class="i"><span class="tag tg-m">事業者</span> 売る側のデータ</span><span class="i"><span class="tag tg-w">未検証</span> 自称・伝聞</span><span class="i"><span class="tag tg-w">推測</span> ここでの推論</span><span class="i"><span class="tag tg-w">未到達</span> 調べたが届かなかった</span></p>
+
+<nav class="toc" aria-labelledby="tocT">
+<h2 id="tocT">目次</h2>
+<ol>
+<li><a href="#c1">判断軸との緊張</a></li>
+<li><a href="#c2">何が評価されるか</a></li>
+<li><a href="#c3">規約の線と、投稿の3段階</a></li>
+<li><a href="#c4">運用ノウハウ</a></li>
+<li><a href="#c5">施工管理ニッチの実測</a></li>
+<li><a href="#c6">技術構成と OSS の判定</a></li>
+<li><a href="#c7">定番の真偽表</a></li>
+<li><a href="#c8">90日の進め方と見直し条件</a></li>
+<li><a href="#c9">調べ切れなかったこと</a></li>
+<li><a href="#c10">決まったことと残り</a></li>
+<li><a href="#c11">出典</a></li>
+</ol>
+</nav>
+
+<h2 id="c1">1. 判断軸との<wbr>緊張</h2>
+<p>事業の判断軸は、工数あたりの応募貢献、止まらない運用、自動化に寄せる、の3つです。X はこれらと緊張がある媒体です。一方、資産は投稿でなくアカウント（フォロワーと関係）に残ります。</p>
+<div class="tw" role="region" tabindex="0" aria-label="判断軸と X の性質の対応">
+<table><thead><tr><th scope="col">判断軸</th><th scope="col">X の性質</th></tr></thead><tbody>
+<tr><td>止まらない運用 &gt; 一時的なバズ</td><td>48時間で配信候補から消える。返信にも人の手が要る</td></tr>
+<tr><td>武者野さん本人の手動投稿を前提にしない</td><td>純正の予約が使えなければ、毎日の手投稿になる</td></tr>
+<tr><td>自動化に寄せる（人はクリエイティブの承認だけ）</td><td>AI は下書きまで。投稿と返信は人が押す（段階 A）</td></tr>
+<tr><td>工数あたりの応募貢献</td><td>小規模・日本語・人材での実績は未確認 <span class="tag tg-w">未到達</span></td></tr>
+</tbody></table></div>
+<p>本命の一つとして回す条件は、次の3点です。</p>
+<ol>
+<li><strong>張り付くのは武者野さんでなく CA。</strong>同じ整理を Threads でも採っています。</li>
+<li><strong>投稿は週1回のまとめ作業に圧縮する。</strong>純正の予約か同等の手段が使えることを、準備日の go 条件にします。</li>
+<li><strong>時間あたりの LINE 登録を、他媒体と比べ続ける。</strong>判断軸は比較量です。比較先の数字は、まだありません。</li>
+</ol>
+
+<h2 id="c2">2. 何が<wbr>評価されるか</h2>
+<p>2026-08-13 以降、<span class="nw">xai-org/x-algorithm</span> の公開コードに重みの実数が入りました。照合した版は HEAD <span class="nw">3b6919f</span> です。重みは cron で同期されるため、使う前に原典で確かめ直してください。</p>
+
+<h3 id="c2a">2-1. 行動ごとの重み</h3>
+<figure><div class="fg"><svg viewBox="0 0 300 560" role="img" aria-labelledby="f1t f1d" xmlns="http://www.w3.org/2000/svg"><title id="f1t">重みの棒グラフ</title><desc id="f1d">プラスは最大 +20、マイナスは最大 −234。二つの目盛りは別で、通報は共有の約12倍の大きさ。</desc><text x="0" y="15" class="b">プラスの行動（目盛り 0〜20）</text><text x="0" y="38">リンクをコピーして共有</text><rect x="0" y="44" width="210.0" height="9" rx="2" class="pos"/><text x="216.0" y="53" class="b">+20.0</text><text x="0" y="74">相互の相手の元投稿への返信（加算）</text><rect x="0" y="80" width="157.5" height="9" rx="2" class="pos"/><text x="163.5" y="89" class="b">+15.0</text><text x="0" y="110">返信</text><rect x="0" y="116" width="52.5" height="9" rx="2" class="pos"/><text x="58.5" y="125" class="b">+5.0</text><text x="0" y="146">引用</text><rect x="0" y="152" width="52.5" height="9" rx="2" class="pos"/><text x="58.5" y="161" class="b">+5.0</text><text x="0" y="182">DM で共有</text><rect x="0" y="188" width="52.5" height="9" rx="2" class="pos"/><text x="58.5" y="197" class="b">+5.0</text><text x="0" y="218">著者をフォロー</text><rect x="0" y="224" width="42.0" height="9" rx="2" class="pos"/><text x="48.0" y="233" class="b">+4.0</text><text x="0" y="254">共有</text><rect x="0" y="260" width="22.2" height="9" rx="2" class="pos"/><text x="28.238999999999997" y="269" class="b">+2.118</text><text x="0" y="290">リポスト</text><rect x="0" y="296" width="10.5" height="9" rx="2" class="pos"/><text x="16.5" y="305" class="b">+1.0</text><text x="0" y="326">いいね</text><rect x="0" y="332" width="7.4" height="9" rx="2" class="pos"/><text x="13.434" y="341" class="b">+0.708</text><line x1="0" x2="300" y1="344" y2="344" class="ln"/><text x="0" y="366" class="b">マイナスの行動（目盛りが違う：0〜234）</text><text x="0" y="388">ブロック</text><rect x="0" y="394" width="28.1" height="9" rx="2" class="neg"/><text x="34.08" y="403" class="b">−31.2</text><text x="0" y="424">興味なし</text><rect x="0" y="430" width="47.8" height="9" rx="2" class="neg"/><text x="53.763" y="439" class="b">−53.07</text><text x="0" y="460">ミュート</text><rect x="0" y="466" width="52.9" height="9" rx="2" class="neg"/><text x="58.92" y="475" class="b">−58.8</text><text x="0" y="496">通報</text><rect x="0" y="502" width="210.6" height="9" rx="2" class="neg"/><text x="216.6" y="511" class="b">−234.0</text><text x="0" y="532" class="s">参考：+20.0 の長さ（同じ目盛り）</text><rect x="0.75" y="538.75" width="16.5" height="7.5" rx="2" class="posout"/><text x="24.0" y="547" class="s">+20.0</text></svg></div><figcaption>図1　行動ごとの重み。値は「その人がその行動をとる予測確率」に掛かる</figcaption></figure>
+<p>式は「スコア = Σ(重み × その人がその行動をとる予測確率)」です。重みは生の件数に掛かりません。「通報1件でいいね468件が消える」は誤読だと、README とコードのコメントが明言しています。<span class="tag tg-s">一次</span></p>
+<p>確率と掛け算なので、重みが大きくても確率が小さければ寄与は小さくなります。実際の順位は外から分かりません。プロフィールクリックと動画の視聴の重みは 0 です。ブックマークに直接の重みはありませんが、閲覧者の履歴などには入っていて、間接の余地はあります。</p>
+
+<h3 id="c2b">2-2. 投稿の一生</h3>
+<figure><div class="fg"><svg viewBox="0 0 300 500" role="img" aria-labelledby="f2t f2d" xmlns="http://www.w3.org/2000/svg"><title id="f2t">投稿の一生</title><desc id="f2d">投稿後2時間は小規模著者向けの抽選枠、48時間で候補から消える。フォロー外には元投稿だけが出る。</desc><rect x="0" y="0" width="300" height="106" rx="6" class="bx hl"/><text x="12" y="22" class="b">① 投稿〜2時間</text><text x="12" y="42">cold start の抽選枠。条件は</text><text x="12" y="62">元投稿・フォロワー5万以下・</text><text x="12" y="82">表示200回未満（全員の保証なし）</text><line x1="150" x2="150" y1="106" y2="125" class="ar"/><path d="M145 124 L150 130 L155 124 Z" class="arh"/><rect x="0" y="130" width="300" height="106" rx="6" class="bx"/><text x="12" y="152" class="b">② 2時間〜48時間</text><text x="12" y="172">cold start の後は通常の順位づけ。</text><text x="12" y="192">同じ著者が並ぶと2本目から ×0.625、</text><text x="12" y="212">下限 ×0.25</text><line x1="150" x2="150" y1="236" y2="255" class="ar"/><path d="M145 254 L150 260 L155 254 Z" class="arh"/><rect x="0" y="260" width="300" height="66" rx="6" class="bx gone"/><text x="12" y="282" class="b">③ 48時間を過ぎる</text><text x="12" y="302">For You の候補から消える</text><text x="0" y="352" class="b">For You で誰に出るか</text><rect x="0" y="362" width="144" height="126" rx="6" class="bx"/><text x="12" y="384" class="b">フォロワー</text><text x="12" y="404">元投稿、返信、</text><text x="12" y="424">リポストが出る</text><rect x="156" y="362" width="144" height="126" rx="6" class="bx"/><text x="168" y="384" class="b">フォロー外</text><text x="168" y="404">元投稿だけ。</text><text x="168" y="424">返信とスレッドの</text><text x="168" y="444">2本目以降は出ない</text></svg></div><figcaption>図2　投稿の一生と、見える範囲。スレッド2本目以降が出ないのは推測</figcaption></figure>
+<ul>
+<li>2時間以内の cold start は、フォロワー5万以下・表示200回未満で、既に候補に入っていて順位が上位97%以内の元投稿への抽選枠です。当たると1リクエスト1件まで、15位相当に引き上げられます。実験群の制御つきで、全員に適用される保証はありません。</li>
+<li>同じ著者は、1回の取得で2本目から ×0.625、3本目 ×0.4375、下限 ×0.25 に下がります。</li>
+<li>フォロー外への配信は ×0.75。フォロワー向けでも、自分の返信とリポストは同じ ×0.75 です。</li>
+<li>相互フォローの相手の元投稿への返信は、重みが +15 加算されます。ただし相互の相手のタイムラインの中だけで、見知らぬ人への到達は増えません。</li>
+</ul>
+<p>ここまで全部 <span class="tag tg-s">一次</span> です。スレッド2本目以降が出ないのは、2本目以降が返信なので同じ条件に当たる、という読みです。<span class="tag tg-w">推測</span> だから、1本目で完結する投稿にします。</p>
+
+<h3 id="c2c">2-3. ラベル（シャドウバンの実体）</h3>
+<ul>
+<li><strong>固定ポストの URL 評判。</strong>固定した投稿の URL が低評価だと、1週間スパム扱いのラベルが付き、フォロー外のおすすめと通知から落ちます。フォロワーのホームには残ります。<span class="nw">lin.ee</span> の判定は不明です。<span class="tag tg-s">一次</span></li>
+<li><strong>同文判定。</strong>日本語を含む CJK 専用の同文ジョブがあります。閾値は非公開で、効果の配線は公開分で未確認です。<span class="tag tg-s">一次</span></li>
+<li><strong>通知フィルタ。</strong>閲覧者が設定していれば、アイコン未設定、電話・メール未確認、作成72時間未満のアカウントの返信は、フォローされていない相手の通知に出ません。<span class="tag tg-s">一次</span></li>
+<li><strong>返信の LLM 判定。</strong>返信先の元投稿の著者が25万フォロワー超だと採点され、0点ならフォロー外の閲覧者の画面から外れます。25万以下は別のスパム判定です。プロンプトは非公開です。<span class="tag tg-s">一次</span></li>
+<li><strong>Under the Hood。</strong>自分のアカウントと投稿のラベルを確認できる公式ツールです。試験提供で、自分のアカウントで使えるかは要確認です。<span class="tag tg-s">一次</span></li>
+</ul>
+<p>Premium の加点は、順位の式に見つかりません。信用スコアの種にはなっていますが、自動スパムルールから外す免除の閾値は、小規模には届かないとみています。<span class="tag tg-s">一次</span><span class="tag tg-w">推測</span> 新規アカウントの順位抑制も、公開コードに見つかりません。むしろ小規模には cold start があります。</p>
+<p>言えないのは、本番の学習済みモデル、10%未満の実験、一部のルール、日本語特有の扱いです。</p>
+
+<h2 id="c3">3. 規約の線と、<wbr>投稿の<wbr>3段階</h2>
+<p>決め手は「人が能動的に行うか」です。X の自動化の定義は「人が能動的に行わず、繰り返し動作するもの」で、AI 返信 bot は事前の書面承認が要ります。人が押せば、この論点の大半は当たらないと読めます。<span class="tag tg-w">推測</span></p>
+
+<h3 id="c3a">3-1. 規約の線</h3>
+<div class="tw" role="region" tabindex="0" aria-labelledby="c3a">
+<table><thead><tr><th scope="col">やること</th><th scope="col">可否</th><th scope="col">ひとこと</th></tr></thead><tbody>
+<tr><td>人が投稿、人が返信（下書きは AI）</td><td>可</td><td>自動化の定義に当たらないと読める <span class="tag tg-w">推測</span></td></tr>
+<tr><td>情報提供目的の自動投稿</td><td>条件つき</td><td>ラベルと bio での明示、人の管理アカウントとの紐づけが要る</td></tr>
+<tr><td>AI 生成の自動返信</td><td>書面承認が要る</td><td>事前の書面承認なしは不可</td></tr>
+<tr><td>AI 生成の自動投稿</td><td>グレー</td><td>開発者ガイドの見出しは承認が要る、警告文は返信のみ名指し。警告文と見出しの両方を読んで判断する</td></tr>
+<tr><td>キーワードに反応する自動返信</td><td>不可</td><td>検索語だけを根拠にした自動返信は許されない</td></tr>
+<tr><td>API からの返信（2026-02-23〜）</td><td>限定</td><td>相手が自分を @メンションか引用した場合のみ</td></tr>
+<tr><td>1アカウント内の類似投稿</td><td>不可</td><td>同じ型の連投は避ける</td></tr>
+<tr><td>自動いいね、一括・自動フォロー</td><td>不可</td><td></td></tr>
+<tr><td>新規フォロワーへの自動 DM</td><td>不可</td><td>（運用案）DM を自動化するなら、相手から来た後に1回、オプトアウト付き</td></tr>
+<tr><td>公に不満を書いた人への自動の声かけ</td><td>不可</td><td></td></tr>
+<tr><td>画面のスクリプト操作</td><td>不可</td><td>永久凍結の対象</td></tr>
+<tr><td>リプ＋いいねを条件にした LINE 企画</td><td>要注意</td><td>参加条件のフォローや RT が操作と見なされうる</td></tr>
+<tr><td>X のデータと LINE・面談記録の紐づけ</td><td>同意が要る</td><td>「驚かれるなら紐づけない」</td></tr>
+</tbody></table></div>
+<p>投稿上限は未認証で1日 50投稿・200返信です。<span class="tag tg-s">一次</span> 法令側は別で、ステマ告示と職安法の的確表示は白のみ。ポジションを初日から宣言する方針がそのまま当たります。</p>
+
+<h3 id="c3b">3-2. 投稿の3段階</h3>
+<figure><div class="fg"><svg viewBox="0 0 300 410" role="img" aria-labelledby="f4t f4d" xmlns="http://www.w3.org/2000/svg"><title id="f4t">投稿の3段階</title><desc id="f4d">A 人が画面で投稿は推奨、B 承認ごとに API は可、C cron の自動投稿は本命では非推奨。</desc><rect x="0" y="0" width="300" height="102" rx="6" class="bx hl"/><text x="12" y="24" class="b">○ 推奨</text><text x="12" y="48" class="b">A　人が X の画面で投稿・予約</text><text x="12" y="70">API の書き込みなし、$0.20 なし、</text><text x="12" y="90">Automated ラベルの論点なし</text><rect x="0" y="114" width="300" height="122" rx="6" class="bx "/><text x="12" y="138" class="b">△ 可</text><text x="12" y="162" class="b">B　承認ごとに人が API で投稿</text><text x="12" y="184">投稿元のアプリ名が公開される。</text><text x="12" y="204">「人が能動的に行う」に当たると</text><text x="12" y="224">読めるが、明文はない</text><rect x="0" y="248" width="300" height="122" rx="6" class="bx gone"/><text x="12" y="272" class="b">× 毎日の運用の本命としては非推奨</text><text x="12" y="296" class="b">C　承認済みを cron で自動投稿</text><text x="12" y="318">自動アカウントの要件（ラベル、</text><text x="12" y="338">bio での明示）が当たる。AI 生成物の</text><text x="12" y="358">承認の論点も残る</text><text x="300" y="400" class="s" text-anchor="end">下ほど自動度が高い</text></svg></div><figcaption>図3　投稿の3段階の判定</figcaption></figure>
+<p>推奨は A です。API の書き込みがなく、$0.20（URL 付き投稿の API 料金）もラベルの論点もありません。B は投稿元のアプリ名が公開されます。C は Automated ラベルと bio での明示が当たるうえ、AI 生成物の承認の論点も残ります。</p>
+<p>ただし A には条件があります。純正の予約投稿は、公式ヘルプで確認できていません。使えなければ毎日の手投稿になり、判断軸と衝突するので、段階 B か予約ツールに進みます。B は承認ごとの投稿なので、週1回のまとめ作業に圧縮するには予約ツールの検討が要ります。<span class="tag tg-w">推測</span> 開始時に画面で確かめます。</p>
+
+<h2 id="c4">4. 運用ノウハウ</h2>
+<p>証拠の強さ付きです。総じて、一次で固い部分は「何が評価されるか」で、運用の細部は弱い根拠の仮置きが多いです。</p>
+
+<h3 id="c4a">4-1. 立ち上げ</h3>
+<ul>
+<li>アイコン設定、電話とメールの確認を初日に済ませます。作成72時間は、フォローされていない人への返信を控えます。<span class="tag tg-s">一次</span> CA の返信が本格化するのは、その後と読めます。<span class="tag tg-w">推測</span></li>
+<li>プロフィールは「フォローすると何が得られるか」＋「人材紹介会社です」。23人から982人になった記録（週次でプロフィールを A/B）が根拠ですが、n=1 です。<span class="tag tg-s">一次</span> 弱いが安い。</li>
+<li>テーマは3つに絞ります。読者が揃うほど予測が当たる、という推論です。<span class="tag tg-w">推測</span></li>
+<li>Under the Hood を週1回見ます。</li>
+<li>LINE の URL はプロフィール欄に置き、固定ポストは無リンクで始めます。短縮や多段転送は挟みません。<span class="tag tg-s">一次</span></li>
+</ul>
+
+<h3 id="c4b">4-2. 投稿</h3>
+<ul>
+<li><strong>返信か共有が起きる投稿を作る。</strong>問い、比較、同僚に送りたくなる表。重みが根拠です。<span class="tag tg-s">一次</span></li>
+<li><strong>1本目で完結させる。</strong>スレッドの2本目以降はフォロー外に出ません。<span class="tag tg-s">一次</span><span class="tag tg-w">推測</span></li>
+<li><strong>1日1〜3本で始める。</strong>仮置きです。増やして有利になる根拠がなく、類似投稿の禁止と著者多様性の減衰があります。</li>
+<li><strong>同じ型の連投をしない。</strong>規約、CJK の同文ジョブ、ニッチの実測（同じ型30件で反応0）が根拠です。</li>
+<li><strong>形式はテキスト＋図から。</strong>動画視聴の重みは 0 です。Buffer の集計の値は、テキスト 3.56%、画像 3.40%、動画 2.96%、リンク 2.25% でした（指標の定義は原典で確認）。<span class="tag tg-m">事業者</span></li>
+<li><strong>時間帯で悩まない。</strong>3時間刻みでは差が読めませんでした。<span class="tag tg-s">一次</span><span class="tag tg-s">小標本</span></li>
+<li><strong>煽らない、対象を絞る。</strong>ミュートは −58.8、興味なしは −53.07 です。</li>
+</ul>
+
+<h3 id="c4c">4-3. 交流</h3>
+<ul>
+<li>他人への返信は拡散でなく、関係づくりです。フォロー外の For You に出ず、フォロワー向けでも ×0.75 なので、主に届くのはそのスレッドを開く人です。<span class="tag tg-s">一次</span></li>
+<li>38,100フォロワーで1日100返信を7日続けた記録は、純増350で、主因は自分の投稿でした。一方、開始時23人の記録では、毎日5件以上・約15分の体験つき返信を怠った週に、返信率が 38.5% から 18.9% に落ちています。どちらも n=1 です。<span class="tag tg-s">一次</span></li>
+<li>相互フォローは相手を選びます。狙うのは同業の SNS 運用者でなく、施工管理の現職と元職です。「相互1000人でも LINE 登録がほぼない」という投稿があります。<span class="tag tg-w">未検証</span></li>
+<li>25万フォロワー超への薄い返信は分が悪い戦術です。<span class="tag tg-s">一次</span><span class="tag tg-w">推測</span></li>
+<li>返信は人が書きます。CA の日中の返信体制が使えます。X Pro に担当者を追加できるのは Premium 以上です。<span class="tag tg-s">一次</span></li>
+</ul>
+
+<h3 id="c4d">4-4. 導線</h3>
+<figure><div class="fg"><svg viewBox="0 0 300 404" role="img" aria-labelledby="f6t f6d" xmlns="http://www.w3.org/2000/svg"><title id="f6t">X から LINE、面談までの導線と計測点</title><desc id="f6d">X の投稿、プロフィール、LINE 登録、面談、応募の順に進み、各段に計測点がある。</desc><rect x="0" y="0" width="300" height="74" rx="6" class="bx"/><text x="12" y="22" class="b">① X の投稿</text><text x="12" y="42">計る：表示の中央値、返信率</text><text x="12" y="62" class="s">本文は読み物。固定ポストは無リンク</text><line x1="150" x2="150" y1="74" y2="91" class="ar"/><path d="M145 90 L150 96 L155 90 Z" class="arh"/><rect x="0" y="96" width="300" height="74" rx="6" class="bx"/><text x="12" y="118" class="b">② プロフィール</text><text x="12" y="138">計る：プロフィールクリック率</text><text x="12" y="158" class="s">LINE の URL はここに置く</text><line x1="150" x2="150" y1="170" y2="187" class="ar"/><path d="M145 186 L150 192 L155 186 Z" class="arh"/><rect x="0" y="192" width="300" height="74" rx="6" class="bx"/><text x="12" y="214" class="b">③ LINE 登録</text><text x="12" y="234">計る：リンククリック、X 経由の登録</text><text x="12" y="254" class="s">経路別リンクで測る（X 用は未発行）</text><line x1="150" x2="150" y1="266" y2="283" class="ar"/><path d="M145 282 L150 288 L155 282 Z" class="arh"/><rect x="0" y="288" width="300" height="38" rx="6" class="bx"/><text x="12" y="310" class="b">④ 面談</text><line x1="150" x2="150" y1="326" y2="343" class="ar"/><path d="M145 342 L150 348 L155 342 Z" class="arh"/><rect x="0" y="348" width="300" height="54" rx="6" class="bx hl"/><text x="12" y="370" class="b">⑤ 応募</text><text x="12" y="390">計る：運用の分数あたりの応募（最終指標）</text></svg></div><figcaption>図4　X から応募までの導線と、各段の計測点</figcaption></figure>
+<p>プロフィールクリックの重みは 0 なので、到達の最適化と導線の最適化は別物です。「この人の他の投稿も読みたい」を、投稿の中で作る必要があります。</p>
+<p>リンクの減点は、ルールとしては見つかりません。実測は割れています。</p>
+<ul>
+<li>コードは減点項なし、リンクを開くは +0.2 です。<span class="tag tg-s">一次</span> X の製品責任者も減点を否定し、本文に置くよう勧めています（発言のみ）。施工管理の565件では、反応ありの割合がリンク入り 15.2%、なし 11.8% でした（単純比較）。</li>
+<li>自己実験では、リンク入りで いいね −24%（p=0.02）、閲覧 −23%（p=0.16）でした。6投稿です。<span class="tag tg-s">一次</span> 約435万件の観察は、閲覧÷フォロワーの中央値がリンクなし 0.246、ニュースリンク 0.033 でした（2022〜23年）。<span class="tag tg-s">独立</span> 60アカウントでは、リンクありとなしの比が中央値 1.05 でした（比の定義は原典で確認）。<span class="tag tg-m">事業者</span></li>
+</ul>
+<p>結論は、どちらに転んでも困らない形にすることです。<strong>本文は読み物、リンクはプロフィール。</strong>リンクの有無は自分で測ります。減点がなければ、リンクをプロフィールに置くぶん、1段の移動で離脱が増えます。<span class="tag tg-w">推測</span></p>
+<ul>
+<li>LINE は経路別リンクで測ります。note、Threads、TikTok のリンクはありますが、X は未発行です。</li>
+<li>特典は「診断、チェックリスト、テンプレ」が空いています（該当15件・8アカウントのみ）。競合は「LINE で求人」「DM で相談」が主です。</li>
+<li>DM は人が返します。</li>
+<li>X は1日で消える前提で作ります。凍結の記録は、数秒で戻る例と何か月も戻らない例が同日に併存し、復旧の再現手順は取れませんでした。資産は LINE に移します。</li>
+</ul>
+
+<h3 id="c4e">4-5. 計測</h3>
+<ul>
+<li><strong>週次で見るのは5つ。</strong>投稿ごとの表示の中央値、返信率、プロフィールクリック率、リンククリック、X 経由の LINE 登録。最終指標は「運用の分数あたりの応募」です。</li>
+<li><strong>平均でなく中央値。</strong>ニッチは反応上位10件が総反応の82%を占める裾の重い分布です。無料アカウントの投稿の中央値は100表示未満でした。<span class="tag tg-m">事業者</span></li>
+<li><strong>x_api.py は着手するときに作る。</strong>計測だけ先に作ってもかまいません（まだ未作成）。プロフィール欄のリンクのクリックを API の指標で拾えるかは未確認です。<span class="tag tg-w">未検証</span></li>
+<li><strong>API は読むだけ。</strong>非公開指標（リンククリックなど）は投稿後30日以内のみ取れます。月 $1 前後の見込みです。</li>
+<li><strong>リンク有無の実験。</strong>同じ内容を時間差で出すと、類似投稿の禁止に触れうるので、別の内容で交互に出します。n が小さいので方向だけ見ます。<span class="tag tg-w">推測</span></li>
+</ul>
+
+<h2 id="c5">5. 施工管理ニッチの<wbr>実測</h2>
+<figure><div class="fg"><svg viewBox="0 0 300 330" role="img" aria-labelledby="f5t f5d" xmlns="http://www.w3.org/2000/svg"><title id="f5t">施工管理ニッチの実測</title><desc id="f5d">565件中87%が反応ゼロ。発信者別の反応あり件数は、求人系2/33、ニュース8/31、元施工管理0/23、現職4/20、資格0/13。</desc><text x="0" y="15" class="b">565件のうち、反応ゼロ 490件（87%）</text><rect x="0" y="24" width="300" height="16" rx="3" class="trk"/><rect x="0" y="24" width="261.0" height="16" rx="3" class="neg"/><text x="255" y="37" class="w" text-anchor="end">87%</text><text x="0" y="62" class="s">細く残った右端が、反応のある13%</text><line x1="0" x2="300" y1="76" y2="76" class="ln"/><text x="0" y="98" class="b">発信者の内訳（無作為120件を手で分類）</text><text x="0" y="120">求人・紹介・派遣</text><text x="300" y="120" class="b" text-anchor="end">反応あり 2/33</text><rect x="0" y="126" width="198.0" height="10" rx="2" class="pos"/><text x="204.0" y="136" class="s">27.5%</text><text x="0" y="160">情報・ニュース</text><text x="300" y="160" class="b" text-anchor="end">反応あり 8/31</text><rect x="0" y="166" width="187.2" height="10" rx="2" class="pos"/><text x="193.20000000000002" y="176" class="s">26%</text><text x="0" y="200">元施工管理の個人発信</text><text x="300" y="200" class="b" text-anchor="end">反応あり 0/23</text><rect x="0" y="206" width="136.8" height="10" rx="2" class="pos"/><text x="142.8" y="216" class="s">19%</text><text x="0" y="240">現職・一般の個人</text><text x="300" y="240" class="b" text-anchor="end">反応あり 4/20</text><rect x="0" y="246" width="122.4" height="10" rx="2" class="pos"/><text x="128.4" y="256" class="s">17%</text><text x="0" y="280">資格</text><text x="300" y="280" class="b" text-anchor="end">反応あり 0/13</text><rect x="0" y="286" width="79.2" height="10" rx="2" class="pos"/><text x="85.2" y="296" class="s">11%</text><text x="0" y="318" class="s">棒の長さ＝構成比（反応率でない）</text></svg></div><figcaption>図5　施工管理ニッチの実測（2026-10-14〜11-07、565件、319アカウント）。元施工管理の個人発信は誘導・商材ありの投稿</figcaption></figure>
+<p>Yahoo!リアルタイム検索からの取得で、全体の標本ではありません。発信者の内訳は、無作為120件を手で分類した値で、±8ポイント程度は構成比の誤差です。元施工管理の個人発信（0/23）は、誘導・商材ありの投稿です。フォロワー数は取れていません。反応数は取得時点の値で、新しい投稿ほど低く出ます。検索語に転職・求人系が多く、求人側が多めに出ている可能性があります。<span class="tag tg-s">一次</span><span class="tag tg-s">小標本</span></p>
+<ul>
+<li>いいね中央値は 0。上位10件が総反応の 82% を占めます（切り抜きや恋愛の助言など、求職の文脈から外れた投稿も混じります）。</li>
+<li>競合の導線は DM 62件、LINE 35件、プロフィール・固定 11件、無料 12件です。派遣系の1アカウントは、同じ型を1日4回の固定時刻で30件出して反応計 0 でした。ただし応募は反応に出ない形で来ている可能性があり、成果が出ていないとは言えません。</li>
+<li>反応を取る型は、年収・転勤・残業の数字つき体験談、断定、職種の裏事情です。</li>
+<li>求職者の不信は「未経験なのに施工管理ばかり勧められる」「勝手に応募される」「登録直後から毎日電話」です。疑いの軸は「手数料で動く人か」。競合はここに答えていません。</li>
+<li>好意的な型は「ノルマがない」「合わない人には転職しない方がいいと言う」「経験者本人」です。</li>
+</ul>
+<div class="note"><strong>空き位置</strong><span class="tag tg-w">推測</span><br>数字つきの体験談は反応を取る型に挙がる一方、元施工管理の個人発信は反応あり 0/23 でした。空きに見える所と通る所は一致しない可能性があります。<br>① エージェント不信への正面回答　② 自社の面談由来の、数字つき一次情報（匿名化済み）　③ 同僚に送りたくなるチェックリスト。空いていることと通ることは別で、通るかは測るしかありません。</div>
+
+<h2 id="c6">6. 技術構成と <wbr>OSS の判定</h2>
+<figure><div class="fg"><svg viewBox="0 0 300 284" role="img" aria-labelledby="f3t f3d" xmlns="http://www.w3.org/2000/svg"><title id="f3t">工程ごとの機械と人の分担</title><desc id="f3d">ネタ集め、下書き、計測は機械。承認、投稿、返信とDMは人。</desc><text x="122" y="16" class="b" text-anchor="middle">機械</text><text x="232" y="16" class="b" text-anchor="middle">人</text><line x1="0" x2="300" y1="26" y2="26" class="ln"/><text x="0" y="53" class="b">ネタ集め</text><rect x="76" y="34" width="92" height="28" rx="14" class="pill-ai"/><text x="122" y="53" text-anchor="middle">x_search.py</text><line x1="0" x2="300" y1="68" y2="68" class="ln"/><text x="0" y="95" class="b">下書き</text><rect x="76" y="76" width="92" height="28" rx="14" class="pill-ai"/><text x="122" y="95" text-anchor="middle">Claude</text><line x1="0" x2="300" y1="110" y2="110" class="ln"/><text x="0" y="137" class="b">承認</text><rect x="170" y="118" width="124" height="28" rx="6" class="pill-hu"/><text x="232" y="137" text-anchor="middle">人が承認</text><line x1="0" x2="300" y1="152" y2="152" class="ln"/><text x="0" y="179" class="b">投稿</text><rect x="170" y="160" width="124" height="28" rx="6" class="pill-hu"/><text x="232" y="179" text-anchor="middle">人が貼って予約</text><line x1="0" x2="300" y1="194" y2="194" class="ln"/><text x="0" y="221" class="b">返信・DM</text><rect x="170" y="202" width="124" height="28" rx="6" class="pill-hu"/><text x="232" y="221" text-anchor="middle">CA が人手で</text><line x1="0" x2="300" y1="236" y2="236" class="ln"/><text x="0" y="263" class="b">計測</text><rect x="76" y="244" width="92" height="28" rx="14" class="pill-ai"/><text x="122" y="263" text-anchor="middle">未作成</text><line x1="0" x2="300" y1="278" y2="278" class="ln"/></svg></div><figcaption>図6　工程ごとの機械と人の分担</figcaption></figure>
+<p>ネタ集めは、Yahoo!リアルタイム検索経由で X に触れない <span class="nw">x_search.py</span> から始め、深掘りだけ Grok に回します。Grok は未試用です。人が使うなら月額プランのアプリ内、Claude から自動で呼ぶなら xAI API（従量）です。API の X Search は、取得した投稿1,000件あたり $5、プロフィール1,000件あたり $10 に、トークン代が加わります。回数でなく件数で数え、親投稿と引用投稿も含みます。<span class="tag tg-s">一次</span>下書きは既存の <span class="nw">/sns-draft</span> と validator で、数字台帳とフィードバック台帳が使えます（X 用の drafts の置き場は未作成）。投稿は段階 A（図3）。計測の <span class="nw">x_api.py</span> は読むだけで、まだ作っていません。402（クレジット切れ）を沈黙させない作りにします。</p>
+<p>完成品で、1アカウント・人が承認・公式のみ、の要件を満たす OSS は見つかりませんでした。作るなら自作が一番小さい、という判断です。</p>
+<h3 id="c6a">6-1. OSS の判定</h3>
+<div class="tw" role="region" tabindex="0" aria-labelledby="c6a">
+<table><thead><tr><th scope="col">repo（★は11-07 時点）</th><th scope="col">判定</th></tr></thead><tbody>
+<tr><td>xdk-python（★49）、tweepy（★11,180）、xurl（★1,365）</td><td><strong>土台に使う。</strong>公式か実績あり。xdk は実バグ2件</td></tr>
+<tr><td>x-research-skill（★1,244）</td><td>考え方だけ借りる。公式 Bearer で読むだけ。料金表が2月時点で古い</td></tr>
+<tr><td>last30days-skill（★66,873）</td><td><strong>X は公式経路のみ。Cookie 経路は使わない</strong></td></tr>
+<tr><td>postiz-app（★41,040）</td><td>予約だけ欲しいときの候補。重い、AGPL、失敗を成功と表示する不具合が未修正</td></tr>
+<tr><td>marketingskills（★58,957）</td><td>X 連携なし。汎用コピーのみ</td></tr>
+<tr><td>x-harness-oss（★103）</td><td><strong>使わない。</strong>BAN 対策を売りにした設計、Cookie スクレイパー、リプ条件の LINE ゲート</td></tr>
+<tr><td>XActions、twscrape、Cookie で指標を取る系</td><td><strong>使わない。</strong>規約違反</td></tr>
+</tbody></table></div>
+
+<h2 id="c7">7. 定番の<wbr>真偽表</h2>
+<p>出回っている定番を、公開コードと記録に照らした結果です。</p>
+<div class="tw" role="region" tabindex="0" aria-label="定番の真偽表">
+<table><thead><tr><th scope="col">定番</th><th scope="col">判定</th><th scope="col">根拠</th></tr></thead><tbody>
+<tr><td>リプライは ×27</td><td>古い</td><td>2023年の 13.5÷0.5。現行は 5÷0.708 ≒ 7、相互なら 20÷0.708 ≒ 28</td></tr>
+<tr><td>通報1件でいいね468件分</td><td>誤読</td><td>公式が否定。確率に掛かるため</td></tr>
+<tr><td>リンクは減点</td><td>ルールなし、実測は割れる</td><td>4-4 のとおり</td></tr>
+<tr><td>Premium は順位加点</td><td>式に見つからない</td><td>公式は返信の上位表示のみ。中央値10倍は選別バイアスが濃厚で、n=1 で伸びない記録もある</td></tr>
+<tr><td>新規アカウントは抑制</td><td>順位では見つからない</td><td>通知フィルタのみ。逆に cold start がある</td></tr>
+<tr><td>ブックマーク10倍</td><td>確認できず</td><td>直接の重みは 0。間接の余地はある</td></tr>
+<tr><td>リプ周りが最強</td><td>拡散としては弱い</td><td>フォロー外に出ない。関係づくりには使える</td></tr>
+<tr><td>動画が伸びる</td><td>直接の重みは 0</td><td>間接の余地は推測</td></tr>
+<tr><td>毎日たくさん出せ</td><td>根拠なし</td><td>増やして有利になる証拠なし。減衰と類似投稿禁止がある</td></tr>
+<tr><td>公式 API なら安全</td><td>保証なし</td><td>公式 API 利用者の凍結報告あり <span class="tag tg-w">未検証</span></td></tr>
+<tr><td>AI の文章は減点される</td><td>式に見つからない</td><td>問題は定型と中身の薄さと見るのが無難 <span class="tag tg-w">推測</span></td></tr>
+</tbody></table></div>
+
+<h2 id="c8">8. 90日の進め方と<wbr>見直し条件</h2>
+<figure><div class="fg"><svg viewBox="0 0 300 564" role="img" aria-labelledby="f7t f7d" xmlns="http://www.w3.org/2000/svg"><title id="f7t">90日の流れ</title><desc id="f7d">準備1日のあと、1〜14日、15〜30日、31〜60日、61〜90日の4期間。90日目に見直し条件を確認。</desc><text x="0" y="14" class="b">準備</text><text x="300" y="14" text-anchor="end">計1時間</text><rect x="0" y="22" width="300" height="8" rx="2" class="trk"/><rect x="0.0" y="22" width="6.7" height="8" rx="2" class="pos"/><text x="0" y="52">予約の有無を画面で確認（go 条件）</text><text x="0" y="72">アカウント、プロフィール、見直し条件</text><text x="0" y="102" class="b">1〜14日目</text><text x="300" y="102" text-anchor="end">週2時間</text><rect x="0" y="110" width="300" height="8" rx="2" class="trk"/><rect x="3.3" y="110" width="46.7" height="8" rx="2" class="pos"/><text x="0" y="140">毎日1本。現職・元職を20〜50人フォロー</text><text x="0" y="160">CA が1日15分、体験つきで返信</text><text x="0" y="180">基準線を測る</text><text x="0" y="210" class="b">15〜30日目</text><text x="300" y="210" text-anchor="end">週2時間</text><rect x="0" y="218" width="300" height="8" rx="2" class="trk"/><rect x="50.0" y="218" width="53.3" height="8" rx="2" class="pos"/><text x="0" y="248">Premium を試す。3テーマを比較</text><text x="0" y="268">固定ポストを作る</text><text x="0" y="288">加入前に成否の基準を決める（案：</text><text x="0" y="308">同じ型の表示の中央値が1.5倍以上、</text><text x="0" y="328">かつ LINE 登録が増える。未達なら解約。</text><text x="0" y="348">小標本なので方向だけ見る）</text><text x="0" y="378" class="b">31〜60日目</text><text x="300" y="378" text-anchor="end">週2時間</text><rect x="0" y="386" width="300" height="8" rx="2" class="trk"/><rect x="103.3" y="386" width="100.0" height="8" rx="2" class="pos"/><text x="0" y="416">LINE 特典を作り、経路別に計測</text><text x="0" y="436">リンク有無を別内容で交互に</text><text x="0" y="466" class="b">61〜90日目</text><text x="300" y="466" text-anchor="end">週2時間</text><rect x="0" y="474" width="300" height="8" rx="2" class="trk"/><rect x="203.3" y="474" width="100.0" height="8" rx="2" class="pos"/><text x="0" y="504">登録につながった型に寄せる</text><text x="0" y="524">段階B が要るか判断</text><path d="M298 538 l-7 -9 h14 z" class="neg"/><text x="282" y="552" class="b" text-anchor="end">90日目：見直し条件を確認</text></svg></div><figcaption>図7　90日の流れ（日数は根拠のない仮置き）</figcaption></figure>
+<p>数値は根拠のない仮置きです。測りながら直します。</p>
+<h3 id="c8a">8-1. 週の回し方</h3>
+<ol>
+<li>月曜に Claude が、面談ネタと台帳から7〜10本を下書きします。</li>
+<li>武者野さんが10分で承認します。</li>
+<li>貼って予約します（10〜15分）。</li>
+<li>平日に CA が15分、返信します。</li>
+<li>日曜に指標を取り、次週に反映します。</li>
+</ol>
+<h3 id="c8b">8-2. 見直し条件（案）</h3>
+<p>判断軸どおり、「運用の時間あたりの LINE 登録（→ 面談 → 応募）」で見ます。</p>
+<ul>
+<li>90日で X 経由の登録が 0 なら、型か体制を見直します。</li>
+<li>他媒体の時間あたりの半分未満でも、型か体制を見直します。</li>
+<li>表示の中央値は診断に使い、見直しの基準にしません。</li>
+</ul>
+
+<h3 id="c8c">8-3. Premium の成否の基準（案）</h3>
+<p>加入前に決めます。同じ型の表示の中央値が 1.5 倍以上になり、かつ LINE 登録が増えること。未達なら解約します。小標本なので、方向だけ見ます。</p>
+
+<h2 id="c9">9. 調べ切れなかったこと</h2>
+<ul>
+<li>Reddit、5ch、爆サイ、はてブ、OpenWork、転職会議は、取得が拒否されました。求職者の声は X と知恵袋のみです。<span class="tag tg-w">未到達</span></li>
+<li>小規模アカウントの検証可能な90日記録。読めたのは自己申告のみです。<span class="tag tg-w">未到達</span></li>
+<li>人材・転職の X から LINE への、数字付き事例。<span class="tag tg-w">未到達</span></li>
+<li>Premium の小規模での前後比較。自分で測るのが最短です。<span class="tag tg-w">未到達</span></li>
+<li>雇用広告のポリシーは未着手。純正の予約投稿の公式記載は、読めた範囲に無し。Grok X Search の実力は未試用。</li>
+<li><span class="nw">x_search.py</span> は直近の一部のみで、投稿者のフォロワー数は取れません。</li>
+</ul>
+
+<h2 id="c10">10. 決まったことと<wbr>残り</h2>
+<h3 id="d1">決まったこと</h3>
+<div class="dec">
+<dl class="kv">
+<dt>X の位置づけ</dt><dd>本命の一つ（2026-11-07、武者野さんの決定）。理由は「投稿は資産化にならないけどアカウントは資産になる」。「放置耐性がない」という弱点は残ったままです。見直し条件は、時間あたりの LINE 登録で見ます。</dd>
+<dt>Premium</dt><dd>試す。開始15日目ごろ、980円/月（日本・Web。統合中のため購入画面で再確認）。順位の式に加点は見つかっていません。公式の特典は、返信の上位表示、長文、編集です（X Pro の担当者追加も Premium 以上）。小規模での前後比較は見つからず、自分で測ります。</dd>
+</dl>
+</div>
+<h3 id="d2">残り</h3>
+<div class="dec">
+<dl class="kv">
+<dt>決済手段</dt><dd>Premium の決済手段を、武者野さんが決めます。X Premium は The X Subscription へ統合中のため、加入前に購入画面で価格を確認します。</dd>
+<dt>予約投稿</dt><dd>純正の予約投稿の有無を、準備日に画面で確認します（go 条件）。公式の記載は読めた範囲に見つかっていません。</dd>
+</dl>
+</div>
+<p>準備日の1時間は、アカウント作成（電話確認は本人）、予約投稿の確認（最優先）、アイコンとプロフィール、X 用の LINE 経路リンクの発行、見直し条件を書く、の順です。Grok は加入後にアプリ内で試し、自動で呼びたくなったら API にします。</p>
+
+<h2 id="c11">11. 出典</h2>
+<p>全件は正本の10章にあります。主なものだけ載せます。</p>
+<h3 id="c11a">X 公式・公開コード</h3>
+<ul>
+<li><a href="https://github.com/xai-org/x-algorithm">公開コード（x-algorithm）</a></li>
+<li><a href="https://help.x.com/en/rules-and-policies/x-automation">自動化ルール（2026年4月更新）</a></li>
+<li><a href="https://help.x.com/en/rules-and-policies/x-limits">投稿上限</a></li>
+<li><a href="https://help.x.com/ja/using-x/x-premium">Premium と料金</a></li>
+<li><a href="https://docs.x.com/developer-guidelines">開発者ガイド</a></li>
+<li><a href="https://docs.x.com/x-api/getting-started/pricing">API の料金</a>、<a href="https://docs.x.com/changelog">変更履歴</a></li>
+<li><a href="https://x.com/i/jf/under_the_hood">Under the Hood（ラベルの確認）</a></li>
+</ul>
+<h3 id="c11b">研究と事業者のデータ</h3>
+<ul>
+<li><a href="https://arxiv.org/html/2410.17390v4">Galeazzi ほか（NDSS 2026）</a>。<span class="tag tg-s">一次</span> 論文の全文は再確認していません。</li>
+<li><a href="https://arxiv.org/html/2305.16941v6">Milli ほか</a>（For You の評価）</li>
+<li><a href="https://www.engadget.com/social-media/xs-open-source-algorithm-isnt-a-win-for-transparency-researchers-say-181836233.html">Engadget 2026-02</a>（重み公開の前の談話）</li>
+<li><span class="tag tg-m">事業者</span> <a href="https://buffer.com/resources/x-premium-review/">Buffer（Premium）</a>、<a href="https://buffer.com/resources/state-of-social-media-engagement-2026/">Buffer（エンゲージメント）</a>、<a href="https://metricool.com/x-Twitter-Statistics/">Metricool</a>、<a href="https://opentweet.io/answers/does-x-penalize-links-2026">OpenTweet</a></li>
+</ul>
+<h3 id="c11c">当事者の記録</h3>
+<ul>
+<li><a href="https://note.com/awajima_55/n/n87338b7d5394">23人から982人への1か月（note）</a>。<span class="tag tg-s">一次</span></li>
+<li><a href="https://qiita.com/t_maki/items/5591e87b3d40797861d7">Claude Code と GitHub Actions の自動投稿（Qiita）</a>。11フォロワー、月約 $3。</li>
+<li><a href="https://note.com/youcanchooose/n/nf2bfbf472ee3">自動投稿で約60日後に凍結（note）</a></li>
+<li><a href="https://note.com/fond_cedum5410/n/n7d90d4b4b745">少フォロワーで Premium に入っても伸びなかった（note）</a></li>
+</ul>
+<footer>正本：repo の <span class="brk">docs/research/x-single-account-growth-2026-11.md</span>（照合日 2026-11-07）。このページは判断用の抜粋です。削った留保が正本にあるので、細部は正本で確かめてください。</footer>
+</main>
+
+<script>
+(function(){
+  var band=document.querySelector('.band');
+  var chEl=document.getElementById('bandCh'), secEl=document.getElementById('bandSec'), sepEl=document.getElementById('bandSep');
+  var heads=[].slice.call(document.querySelectorAll('main h2[id^="c"], main h3[id]'));
+  var first=document.querySelector('main h2[id^="c"]');
+  function th(){return band.getBoundingClientRect().height+24;}
+  function clean(t){return t.replace(/\s+/g,' ').trim();}
+  function update(){
+    var t=th(), ch=null, sec=null;
+    for(var i=0;i<heads.length;i++){
+      var h=heads[i];
+      if(h.getBoundingClientRect().top<=t){
+        if(h.tagName==='H2'){ch=h;sec=null;} else if(h.closest('.dec')){ if(!ch) ch=null; sec=h; } else {sec=h;}
+      } else break;
+    }
+    if(!ch){
+      chEl.textContent = window.scrollY<200 ? '先に結論と弱点' : (first?clean(first.textContent):'');
+      secEl.textContent=''; sepEl.hidden=true; return;
+    }
+    chEl.textContent=clean(ch.textContent);
+    if(sec && sec!==ch){ secEl.textContent=clean(sec.textContent); sepEl.hidden=false; }
+    else { secEl.textContent=''; sepEl.hidden=true; }
+  }
+  var io=null;
+  function arm(){
+    if(io) io.disconnect();
+    if(!('IntersectionObserver' in window)) { window.addEventListener('scroll',update,{passive:true}); return; }
+    io=new IntersectionObserver(update,{rootMargin:'-'+Math.round(th())+'px 0px 0px 0px',threshold:[0,1]});
+    heads.forEach(function(h){io.observe(h);});
+  }
+  arm(); update();
+  window.addEventListener('resize',function(){arm();update();});
+  window.addEventListener('hashchange',function(){setTimeout(update,50);});
+  window.addEventListener('load',update);
+  var raf=0, idle=0;
+  window.addEventListener('scroll',function(){
+    if(!raf){ raf=requestAnimationFrame(function(){raf=0;update();}); }
+    clearTimeout(idle); idle=setTimeout(update,120);
+  },{passive:true});
+})();
+</script>
+</body>
+</html>
