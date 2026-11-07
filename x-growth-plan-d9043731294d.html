@@ -141,6 +141,8 @@ footer{color:var(--sub);font-size:.875rem;line-height:1.7;max-width:40em;margin-
 <h1>X を<wbr>1アカウントで<wbr>育てる<wbr>調査まとめ</h1>
 <p class="meta">武者野さん向け。2026-11-07 時点。詳細と出典は repo の <span class="brk">docs/research/x-single-account-growth-2026-11.md</span> が正本です。ここは判断に要る部分だけを、重みを付けて抜き出しました。</p>
 
+<div class="note"><strong>先に訂正します。</strong>この調査の読者像は、施工管理の経験者ではありません。未経験枠の「ユウタ」（24歳・飲食ホール3年目）です。施工管理の測定（5章）は、読者そのものでなく、受け皿側（求人・紹介する側）を測っています。</div>
+
 <div class="lead" id="s0">
 <h2 style="all:unset;display:block;font-weight:700;font-size:1.125rem;margin-bottom:8px;line-height:1.4">先に結論</h2>
 <ol>
@@ -149,14 +151,16 @@ footer{color:var(--sub);font-size:.875rem;line-height:1.7;max-width:40em;margin-
 <li>基本は Grok ではありません。投稿は人か公式 API、下書きは Claude、Grok は X の検索役です。</li>
 <li>評価の中身は噂でなくなりました。2026-08-13 以降、公開コードに重みの実数があります。大きいのは読者の返信、引用、共有、フォロー。いいねは軽く、ミュート、興味なし、通報は桁違いに重い。<span class="tag tg-s">一次</span></li>
 <li>AI は下書きまで。投稿と返信は人が押します。AI 返信 bot は事前の書面承認が要ります。<span class="tag tg-s">一次</span></li>
-<li>施工管理ニッチは、求人・紹介・派遣の定型投稿が最大級の層（27.5%、次点は26%）で、反応はほとんどありません。565件中87%が反応ゼロ。<span class="tag tg-s">一次</span><span class="tag tg-s">小標本</span> 空きは「エージェント不信への正面回答」「数字つきの一次体験」「チェックリスト型」と読めます。<span class="tag tg-w">推測</span></li>
+<li>受け皿側の施工管理界隈は、求人・紹介・派遣の定型投稿が最大級の層（27.5%、次点は26%）で、反応はほとんどありません。565件中87%が反応ゼロ。<span class="tag tg-s">一次</span><span class="tag tg-s">小標本</span> 空きは「エージェント不信への正面回答」「数字つきの一次体験」「チェックリスト型」と読めます。<span class="tag tg-w">推測</span></li>
+<li><strong>ユウタ層の声は、X に少ない。</strong>無作為120件のうち、強い当事者は 8%（95%区間で 5〜15%）、強と緩いを合わせても 20% です。その反応はほぼ無し。読むだけの人は見えません。<span class="tag tg-s">一次</span><span class="tag tg-s">小標本</span></li>
 </ol>
 </div>
 
 <div class="weak">
 <h2>弱い所（先に言います）</h2>
 <ul>
-<li><strong>本丸の棄却理由「資産化しない、放置耐性がない」は、コードで裏づけられました。</strong>（48時間は For You 候補の足切りで、検索やプロフィール経由の残り方は調べていません。）X は48時間で候補から消えるフロー媒体で、残るのはフォロワーと関係、LINE 登録です。判断軸の「止まらない運用」とは緊張があります。一方、棄却理由のうち、ルールとしての「リンク減点」と「新規アカウント係数」は、コードに見つかりませんでした（リンクの実効は割れています）。</li>
+<li><strong>本丸の棄却理由「資産化しない、放置耐性がない」は、コードで裏づけられました。</strong>X は48時間で候補から消えるフロー媒体で、残るのはフォロワーと関係、LINE 登録です。判断軸の「止まらない運用」とは緊張があります。一方、棄却理由のうち、ルールとしての「リンク減点」と「新規アカウント係数」は、コードに見つかりませんでした（リンクの実効は割れています）。なお48時間は For You 候補の足切りで、検索やプロフィール経由の残り方は調べていません。</li>
+<li>読者のユウタ層は、X に居ても少ない側です（強い当事者 8%・強と緩いを合わせても 20%、反応ほぼ無し）。読むだけの人は未到達です。</li>
 <li>小規模・日本語・人材で応募が増えると証明された型は、1件も見つかりませんでした。第三者が検証できる90日記録は0件、人材×X×LINE の数字付き事例も0件です。<span class="tag tg-w">未到達</span> だから計画は「測りながら進め、見直し条件を先に書く」形です。</li>
 <li>投稿を週1回の予約にまとめられるかは未確認です。純正の予約投稿の公式記載が見つかっていません。</li>
 </ul>
@@ -171,7 +175,7 @@ footer{color:var(--sub);font-size:.875rem;line-height:1.7;max-width:40em;margin-
 <li><a href="#c2">何が評価されるか</a></li>
 <li><a href="#c3">規約の線と、投稿の3段階</a></li>
 <li><a href="#c4">運用ノウハウ</a></li>
-<li><a href="#c5">施工管理ニッチの実測</a></li>
+<li><a href="#c5">実測：受け皿側と読者</a></li>
 <li><a href="#c6">技術構成と OSS の判定</a></li>
 <li><a href="#c7">定番の真偽表</a></li>
 <li><a href="#c8">90日の進め方と見直し条件</a></li>
@@ -190,11 +194,12 @@ footer{color:var(--sub);font-size:.875rem;line-height:1.7;max-width:40em;margin-
 <tr><td>自動化に寄せる（人はクリエイティブの承認だけ）</td><td>AI は下書きまで。投稿と返信は人が押す（段階 A）</td></tr>
 <tr><td>工数あたりの応募貢献</td><td>小規模・日本語・人材での実績は未確認 <span class="tag tg-w">未到達</span></td></tr>
 </tbody></table></div>
-<p>本命の一つとして回す条件は、次の3点です。</p>
+<p>本命の一つとして回す条件は、次の4点です。</p>
 <ol>
 <li><strong>張り付くのは武者野さんでなく CA。</strong>同じ整理を Threads でも採っています。</li>
 <li><strong>投稿は週1回のまとめ作業に圧縮する。</strong>純正の予約か同等の手段が使えることを、準備日の go 条件にします。</li>
 <li><strong>時間あたりの LINE 登録を、他媒体と比べ続ける。</strong>判断軸は比較量です。比較先の数字は、まだありません。</li>
+<li><strong>入口を X だけに頼らない。</strong>「アカウントは資産」は、読者が揃ってはじめて成り立ちます。入口を他にも持ち、判定はフォロワー数でなく、X 経由の LINE 登録で行います。</li>
 </ol>
 
 <h2 id="c2">2. 何が<wbr>評価されるか</h2>
@@ -246,7 +251,7 @@ footer{color:var(--sub);font-size:.875rem;line-height:1.7;max-width:40em;margin-
 <tr><td>リプ＋いいねを条件にした LINE 企画</td><td>要注意</td><td>参加条件のフォローや RT が操作と見なされうる</td></tr>
 <tr><td>X のデータと LINE・面談記録の紐づけ</td><td>同意が要る</td><td>「驚かれるなら紐づけない」</td></tr>
 </tbody></table></div>
-<p>投稿上限は未認証で1日 50投稿・200返信です。<span class="tag tg-s">一次</span> 法令側は別で、ステマ告示と職安法の的確表示は白のみ。ポジションを初日から宣言する方針がそのまま当たります。</p>
+<p>投稿上限は未認証で1日 50投稿・200返信です。<span class="tag tg-s">一次</span> 法令側は別です。職安法の的確表示は白のみで、広告には職業紹介所である旨を明示します（業務運営要領 p139）。<span class="tag tg-s">一次</span> ポジションを初日から宣言する方針が、そのまま当たります。ステマ告示は未到達で、弁護士の確認を推奨します。</p>
 
 <h3 id="c3b">3-2. 投稿の3段階</h3>
 <figure><div class="fg"><svg viewBox="0 0 300 410" role="img" aria-labelledby="f4t f4d" xmlns="http://www.w3.org/2000/svg"><title id="f4t">投稿の3段階</title><desc id="f4d">A 人が画面で投稿は推奨、B 承認ごとに API は可、C cron の自動投稿は本命では非推奨。</desc><rect x="0" y="0" width="300" height="102" rx="6" class="bx hl"/><text x="12" y="24" class="b">○ 推奨</text><text x="12" y="48" class="b">A　人が X の画面で投稿・予約</text><text x="12" y="70">API の書き込みなし、$0.20 なし、</text><text x="12" y="90">Automated ラベルの論点なし</text><rect x="0" y="114" width="300" height="122" rx="6" class="bx "/><text x="12" y="138" class="b">△ 可</text><text x="12" y="162" class="b">B　承認ごとに人が API で投稿</text><text x="12" y="184">投稿元のアプリ名が公開される。</text><text x="12" y="204">「人が能動的に行う」に当たると</text><text x="12" y="224">読めるが、明文はない</text><rect x="0" y="248" width="300" height="122" rx="6" class="bx gone"/><text x="12" y="272" class="b">× 毎日の運用の本命としては非推奨</text><text x="12" y="296" class="b">C　承認済みを cron で自動投稿</text><text x="12" y="318">自動アカウントの要件（ラベル、</text><text x="12" y="338">bio での明示）が当たる。AI 生成物の</text><text x="12" y="358">承認の論点も残る</text><text x="300" y="400" class="s" text-anchor="end">下ほど自動度が高い</text></svg></div><figcaption>図3　投稿の3段階の判定</figcaption></figure>
@@ -259,7 +264,7 @@ footer{color:var(--sub);font-size:.875rem;line-height:1.7;max-width:40em;margin-
 <h3 id="c4a">4-1. 立ち上げ</h3>
 <ul>
 <li>アイコン設定、電話とメールの確認を初日に済ませます。作成72時間は、フォローされていない人への返信を控えます。<span class="tag tg-s">一次</span> CA の返信が本格化するのは、その後と読めます。<span class="tag tg-w">推測</span></li>
-<li>プロフィールは「フォローすると何が得られるか」＋「人材紹介会社です」。23人から982人になった記録（週次でプロフィールを A/B）が根拠ですが、n=1 です。<span class="tag tg-s">一次</span> 弱いが安い。</li>
+<li>プロフィールは「フォローすると何が得られるか」＋「有料職業紹介事業者（人材紹介）です」。23人から982人になった記録（週次でプロフィールを A/B）が根拠ですが、n=1 です。<span class="tag tg-s">一次</span> 弱いが安い。</li>
 <li>テーマは3つに絞ります。読者が揃うほど予測が当たる、という推論です。<span class="tag tg-w">推測</span></li>
 <li>Under the Hood を週1回見ます。</li>
 <li>LINE の URL はプロフィール欄に置き、固定ポストは無リンクで始めます。短縮や多段転送は挟みません。<span class="tag tg-s">一次</span></li>
@@ -280,7 +285,7 @@ footer{color:var(--sub);font-size:.875rem;line-height:1.7;max-width:40em;margin-
 <ul>
 <li>他人への返信は拡散でなく、関係づくりです。フォロー外の For You に出ず、フォロワー向けでも ×0.75 なので、主に届くのはそのスレッドを開く人です。<span class="tag tg-s">一次</span></li>
 <li>38,100フォロワーで1日100返信を7日続けた記録は、純増350で、主因は自分の投稿でした。一方、開始時23人の記録では、毎日5件以上・約15分の体験つき返信を怠った週に、返信率が 38.5% から 18.9% に落ちています。どちらも n=1 です。<span class="tag tg-s">一次</span></li>
-<li>相互フォローは相手を選びます。狙うのは同業の SNS 運用者でなく、施工管理の現職と元職です。「相互1000人でも LINE 登録がほぼない」という投稿があります。<span class="tag tg-w">未検証</span></li>
+<li>相互フォローは相手を選びます。狙うのは同業の SNS 運用者でなく、同世代の当事者、業者でない元当事者、IT 現場の若手です。「相互1000人でも LINE 登録がほぼない」という投稿があります。<span class="tag tg-w">未検証</span></li>
 <li>25万フォロワー超への薄い返信は分が悪い戦術です。<span class="tag tg-s">一次</span><span class="tag tg-w">推測</span></li>
 <li>返信は人が書きます。CA の日中の返信体制が使えます。X Pro に担当者を追加できるのは Premium 以上です。<span class="tag tg-s">一次</span></li>
 </ul>
@@ -305,13 +310,15 @@ footer{color:var(--sub);font-size:.875rem;line-height:1.7;max-width:40em;margin-
 <ul>
 <li><strong>週次で見るのは5つ。</strong>投稿ごとの表示の中央値、返信率、プロフィールクリック率、リンククリック、X 経由の LINE 登録。最終指標は「運用の分数あたりの応募」です。</li>
 <li><strong>平均でなく中央値。</strong>ニッチは反応上位10件が総反応の82%を占める裾の重い分布です。無料アカウントの投稿の中央値は100表示未満でした。<span class="tag tg-m">事業者</span></li>
-<li><strong>x_api.py は着手するときに作る。</strong>計測だけ先に作ってもかまいません（まだ未作成）。プロフィール欄のリンクのクリックを API の指標で拾えるかは未確認です。<span class="tag tg-w">未検証</span></li>
+<li><strong>x_api.py は足場があります。</strong>計測だけ先に使ってもかまいません。プロフィール欄のリンクのクリックを API の指標で拾えるかは未確認です。<span class="tag tg-w">未検証</span></li>
 <li><strong>API は読むだけ。</strong>非公開指標（リンククリックなど）は投稿後30日以内のみ取れます。月 $1 前後の見込みです。</li>
 <li><strong>リンク有無の実験。</strong>同じ内容を時間差で出すと、類似投稿の禁止に触れうるので、別の内容で交互に出します。n が小さいので方向だけ見ます。<span class="tag tg-w">推測</span></li>
 </ul>
 
-<h2 id="c5">5. 施工管理ニッチの<wbr>実測</h2>
-<figure><div class="fg"><svg viewBox="0 0 300 330" role="img" aria-labelledby="f5t f5d" xmlns="http://www.w3.org/2000/svg"><title id="f5t">施工管理ニッチの実測</title><desc id="f5d">565件中87%が反応ゼロ。発信者別の反応あり件数は、求人系2/33、ニュース8/31、元施工管理0/23、現職4/20、資格0/13。</desc><text x="0" y="15" class="b">565件のうち、反応ゼロ 490件（87%）</text><rect x="0" y="24" width="300" height="16" rx="3" class="trk"/><rect x="0" y="24" width="261.0" height="16" rx="3" class="neg"/><text x="255" y="37" class="w" text-anchor="end">87%</text><text x="0" y="62" class="s">細く残った右端が、反応のある13%</text><line x1="0" x2="300" y1="76" y2="76" class="ln"/><text x="0" y="98" class="b">発信者の内訳（無作為120件を手で分類）</text><text x="0" y="120">求人・紹介・派遣</text><text x="300" y="120" class="b" text-anchor="end">反応あり 2/33</text><rect x="0" y="126" width="198.0" height="10" rx="2" class="pos"/><text x="204.0" y="136" class="s">27.5%</text><text x="0" y="160">情報・ニュース</text><text x="300" y="160" class="b" text-anchor="end">反応あり 8/31</text><rect x="0" y="166" width="187.2" height="10" rx="2" class="pos"/><text x="193.20000000000002" y="176" class="s">26%</text><text x="0" y="200">元施工管理の個人発信</text><text x="300" y="200" class="b" text-anchor="end">反応あり 0/23</text><rect x="0" y="206" width="136.8" height="10" rx="2" class="pos"/><text x="142.8" y="216" class="s">19%</text><text x="0" y="240">現職・一般の個人</text><text x="300" y="240" class="b" text-anchor="end">反応あり 4/20</text><rect x="0" y="246" width="122.4" height="10" rx="2" class="pos"/><text x="128.4" y="256" class="s">17%</text><text x="0" y="280">資格</text><text x="300" y="280" class="b" text-anchor="end">反応あり 0/13</text><rect x="0" y="286" width="79.2" height="10" rx="2" class="pos"/><text x="85.2" y="296" class="s">11%</text><text x="0" y="318" class="s">棒の長さ＝構成比（反応率でない）</text></svg></div><figcaption>図5　施工管理ニッチの実測（2026-10-14〜11-07、565件、319アカウント）。元施工管理の個人発信は誘導・商材ありの投稿</figcaption></figure>
+<h2 id="c5">5. 実測：受け皿側と<wbr>読者</h2>
+<h3 id="c5a">5-1. 受け皿側：施工管理（565件）</h3>
+<p>これは読者そのものでなく、受け皿側（求人・紹介する側）の測定です。</p>
+<figure><div class="fg"><svg viewBox="0 0 300 330" role="img" aria-labelledby="f5t f5d" xmlns="http://www.w3.org/2000/svg"><title id="f5t">施工管理ニッチの実測</title><desc id="f5d">565件中87%が反応ゼロ。発信者別の反応あり件数は、求人系2/33、ニュース8/31、元施工管理0/23、現職4/20、資格0/13。</desc><text x="0" y="15" class="b">565件のうち、反応ゼロ 490件（87%）</text><rect x="0" y="24" width="300" height="16" rx="3" class="trk"/><rect x="0" y="24" width="261.0" height="16" rx="3" class="neg"/><text x="255" y="37" class="w" text-anchor="end">87%</text><text x="0" y="62" class="s">細く残った右端が、反応のある13%</text><line x1="0" x2="300" y1="76" y2="76" class="ln"/><text x="0" y="98" class="b">発信者の内訳（無作為120件を手で分類）</text><text x="0" y="120">求人・紹介・派遣</text><text x="300" y="120" class="b" text-anchor="end">反応あり 2/33</text><rect x="0" y="126" width="198.0" height="10" rx="2" class="pos"/><text x="204.0" y="136" class="s">27.5%</text><text x="0" y="160">情報・ニュース</text><text x="300" y="160" class="b" text-anchor="end">反応あり 8/31</text><rect x="0" y="166" width="187.2" height="10" rx="2" class="pos"/><text x="193.20000000000002" y="176" class="s">26%</text><text x="0" y="200">元施工管理の個人発信</text><text x="300" y="200" class="b" text-anchor="end">反応あり 0/23</text><rect x="0" y="206" width="136.8" height="10" rx="2" class="pos"/><text x="142.8" y="216" class="s">19%</text><text x="0" y="240">現職・一般の個人</text><text x="300" y="240" class="b" text-anchor="end">反応あり 4/20</text><rect x="0" y="246" width="122.4" height="10" rx="2" class="pos"/><text x="128.4" y="256" class="s">17%</text><text x="0" y="280">資格</text><text x="300" y="280" class="b" text-anchor="end">反応あり 0/13</text><rect x="0" y="286" width="79.2" height="10" rx="2" class="pos"/><text x="85.2" y="296" class="s">11%</text><text x="0" y="318" class="s">棒の長さ＝構成比（反応率でない）</text></svg></div><figcaption>図5　受け皿側（施工管理）の実測（2026-10-14〜11-07、565件、319アカウント）。元施工管理の個人発信は誘導・商材ありの投稿</figcaption></figure>
 <p>Yahoo!リアルタイム検索からの取得で、全体の標本ではありません。発信者の内訳は、無作為120件を手で分類した値で、±8ポイント程度は構成比の誤差です。元施工管理の個人発信（0/23）は、誘導・商材ありの投稿です。フォロワー数は取れていません。反応数は取得時点の値で、新しい投稿ほど低く出ます。検索語に転職・求人系が多く、求人側が多めに出ている可能性があります。<span class="tag tg-s">一次</span><span class="tag tg-s">小標本</span></p>
 <ul>
 <li>いいね中央値は 0。上位10件が総反応の 82% を占めます（切り抜きや恋愛の助言など、求職の文脈から外れた投稿も混じります）。</li>
@@ -320,11 +327,27 @@ footer{color:var(--sub);font-size:.875rem;line-height:1.7;max-width:40em;margin-
 <li>求職者の不信は「未経験なのに施工管理ばかり勧められる」「勝手に応募される」「登録直後から毎日電話」です。疑いの軸は「手数料で動く人か」。競合はここに答えていません。</li>
 <li>好意的な型は「ノルマがない」「合わない人には転職しない方がいいと言う」「経験者本人」です。</li>
 </ul>
-<div class="note"><strong>空き位置</strong><span class="tag tg-w">推測</span><br>数字つきの体験談は反応を取る型に挙がる一方、元施工管理の個人発信は反応あり 0/23 でした。空きに見える所と通る所は一致しない可能性があります。<br>① エージェント不信への正面回答　② 自社の面談由来の、数字つき一次情報（匿名化済み）　③ 同僚に送りたくなるチェックリスト。空いていることと通ることは別で、通るかは測るしかありません。</div>
+<h3 id="c5b">5-2. 読者側：ユウタ語（1,026件）</h3>
+<figure><div class="fg"><svg viewBox="0 0 300 390" role="img" aria-labelledby="f8t f8d" xmlns="http://www.w3.org/2000/svg"><title id="f8t">ユウタ語の実測</title><desc id="f8d">1,026件中87%が反応ゼロ。当事者の一人称（強）は120件中10件で反応0。雑音が35.8%。</desc><text x="0" y="15" class="b">1,026件のうち、反応ゼロ 893件（87.0%）</text><rect x="0" y="24" width="300" height="16" rx="3" class="trk"/><rect x="0" y="24" width="261.0" height="16" rx="3" class="neg"/><text x="255" y="37" class="w" text-anchor="end">87%</text><line x1="0" x2="300" y1="56" y2="56" class="ln"/><text x="0" y="78" class="b">発信者の内訳（無作為120件を手で分類）</text><text x="0" y="100">当事者の一人称（強）</text><text x="300" y="100" class="b" text-anchor="end">反応あり 0/10</text><rect x="0" y="106" width="53.1" height="10" rx="2" class="pos"/><text x="59.120000000000005" y="116" class="s">8.3%</text><text x="0" y="140">当事者の一人称（緩い）</text><text x="300" y="140" class="b" text-anchor="end">反応あり 2/14</text><rect x="0" y="146" width="74.9" height="10" rx="2" class="pos"/><text x="80.88" y="156" class="s">11.7%</text><text x="0" y="180">スクール・アフィ・体験談誘導</text><text x="300" y="180" class="b" text-anchor="end">反応あり 4/22</text><rect x="0" y="186" width="117.1" height="10" rx="2" class="pos"/><text x="123.12" y="196" class="s">18.3%</text><text x="0" y="220">転職エージェント・求人</text><text x="300" y="220" class="b" text-anchor="end">反応あり 1/11</text><rect x="0" y="226" width="58.9" height="10" rx="2" class="pos"/><text x="64.88" y="236" class="s">9.2%</text><text x="0" y="260">現職・経験者の発信</text><text x="300" y="260" class="b" text-anchor="end">反応あり 3/13</text><rect x="0" y="266" width="69.1" height="10" rx="2" class="pos"/><text x="75.12" y="276" class="s">10.8%</text><text x="0" y="300">bot に見えるもの</text><text x="300" y="300" class="b" text-anchor="end">反応あり 0/7</text><rect x="0" y="306" width="37.1" height="10" rx="2" class="pos"/><text x="43.12" y="316" class="s">5.8%</text><text x="0" y="340">その他（雑音）</text><text x="300" y="340" class="b" text-anchor="end">反応あり 5/43</text><rect x="0" y="346" width="229.1" height="10" rx="2" class="pos"/><text x="235.12" y="356" class="s">35.8%</text><text x="0" y="378" class="s">棒の長さ＝構成比（反応率でない）</text></svg></div><figcaption>図6　読者側（ユウタ語）の実測（主に 2026-10-08〜11-07、1,026件、686アカウント、42語）</figcaption></figure>
+<p>語は42語（ユウタの状態に重なる検索語。学歴・職歴の不安、飲食・接客、転職の足踏みなど）、取得は1,026件、686アカウントです。分類は手作業で境界例が多く、検索語の偏りもあります。期間は主に 2026-10-08〜11-07。Yahoo!リアルタイム検索からの取得で、無作為120件を手で分類しました。<span class="tag tg-s">一次</span><span class="tag tg-s">小標本</span></p>
+<ul>
+<li>ユウタ型の本人の声は 120件中 10件（8.3%、95%区間でおよそ 5〜15%）。その反応は 0 件です。緩く「自分の状態を一人称で語る当事者」まで広げると 24件（20%）ですが、反応が付いたのは 2件でした。</li>
+<li>ユウタ層に向けて発信している側は 120件中 40件（33%）で、本人の声の約4倍です。7アカウントだけで取得1,026件の 16% を占めます。</li>
+<li>反応の薄さは施工管理と同じです。反応ゼロは 87.0%（893件）、いいね中央値は 0 です。違うのは、誰が居るかです。ユウタ語の界隈は、業者と無関係な雑音（恋愛・就活・学歴論争・成人向け広告）が 36% を占めます。</li>
+<li>同じ本文が複数の ID で出る定型連投が 20%。独立した話者は、数字より少ないはずです。</li>
+<li>「少ない」は「X に居ない」と同じではありません。ユウタ層は TikTok・Google 検索・LINE など、投稿しない形で動いている可能性が高いです。<span class="tag tg-w">推測</span> 反応ゼロは、読まれていない証拠でもありません。閲覧数が取れないためです。</li>
+</ul>
+<div class="note"><strong>空き位置</strong><span class="tag tg-w">推測</span><br>数字つきの体験談は反応を取る型に挙がる一方、受け皿側の元施工管理の個人発信は、反応あり 0/23 でした。空きに見える所と通る所は一致しない可能性があります。<br>① エージェント不信への正面回答　② 自社の面談由来の、数字つき一次情報（匿名化済み）　③ 同僚に送りたくなるチェックリスト。空いていることと通ることは別で、通るかは測るしかありません。</div>
 
 <h2 id="c6">6. 技術構成と <wbr>OSS の判定</h2>
-<figure><div class="fg"><svg viewBox="0 0 300 284" role="img" aria-labelledby="f3t f3d" xmlns="http://www.w3.org/2000/svg"><title id="f3t">工程ごとの機械と人の分担</title><desc id="f3d">ネタ集め、下書き、計測は機械。承認、投稿、返信とDMは人。</desc><text x="122" y="16" class="b" text-anchor="middle">機械</text><text x="232" y="16" class="b" text-anchor="middle">人</text><line x1="0" x2="300" y1="26" y2="26" class="ln"/><text x="0" y="53" class="b">ネタ集め</text><rect x="76" y="34" width="92" height="28" rx="14" class="pill-ai"/><text x="122" y="53" text-anchor="middle">x_search.py</text><line x1="0" x2="300" y1="68" y2="68" class="ln"/><text x="0" y="95" class="b">下書き</text><rect x="76" y="76" width="92" height="28" rx="14" class="pill-ai"/><text x="122" y="95" text-anchor="middle">Claude</text><line x1="0" x2="300" y1="110" y2="110" class="ln"/><text x="0" y="137" class="b">承認</text><rect x="170" y="118" width="124" height="28" rx="6" class="pill-hu"/><text x="232" y="137" text-anchor="middle">人が承認</text><line x1="0" x2="300" y1="152" y2="152" class="ln"/><text x="0" y="179" class="b">投稿</text><rect x="170" y="160" width="124" height="28" rx="6" class="pill-hu"/><text x="232" y="179" text-anchor="middle">人が貼って予約</text><line x1="0" x2="300" y1="194" y2="194" class="ln"/><text x="0" y="221" class="b">返信・DM</text><rect x="170" y="202" width="124" height="28" rx="6" class="pill-hu"/><text x="232" y="221" text-anchor="middle">CA が人手で</text><line x1="0" x2="300" y1="236" y2="236" class="ln"/><text x="0" y="263" class="b">計測</text><rect x="76" y="244" width="92" height="28" rx="14" class="pill-ai"/><text x="122" y="263" text-anchor="middle">未作成</text><line x1="0" x2="300" y1="278" y2="278" class="ln"/></svg></div><figcaption>図6　工程ごとの機械と人の分担</figcaption></figure>
-<p>ネタ集めは、Yahoo!リアルタイム検索経由で X に触れない <span class="nw">x_search.py</span> から始め、深掘りだけ Grok に回します。Grok は未試用です。人が使うなら月額プランのアプリ内、Claude から自動で呼ぶなら xAI API（従量）です。API の X Search は、取得した投稿1,000件あたり $5、プロフィール1,000件あたり $10 に、トークン代が加わります。回数でなく件数で数え、親投稿と引用投稿も含みます。<span class="tag tg-s">一次</span>下書きは既存の <span class="nw">/sns-draft</span> と validator で、数字台帳とフィードバック台帳が使えます（X 用の drafts の置き場は未作成）。投稿は段階 A（図3）。計測の <span class="nw">x_api.py</span> は読むだけで、まだ作っていません。402（クレジット切れ）を沈黙させない作りにします。</p>
+<figure><div class="fg"><svg viewBox="0 0 300 284" role="img" aria-labelledby="f3t f3d" xmlns="http://www.w3.org/2000/svg"><title id="f3t">工程ごとの機械と人の分担</title><desc id="f3d">ネタ集め、下書き、計測は機械。承認、投稿、返信とDMは人。</desc><text x="122" y="16" class="b" text-anchor="middle">機械</text><text x="232" y="16" class="b" text-anchor="middle">人</text><line x1="0" x2="300" y1="26" y2="26" class="ln"/><text x="0" y="53" class="b">ネタ集め</text><rect x="76" y="34" width="92" height="28" rx="14" class="pill-ai"/><text x="122" y="53" text-anchor="middle">x_search.py</text><line x1="0" x2="300" y1="68" y2="68" class="ln"/><text x="0" y="95" class="b">下書き</text><rect x="76" y="76" width="92" height="28" rx="14" class="pill-ai"/><text x="122" y="95" text-anchor="middle">Claude</text><line x1="0" x2="300" y1="110" y2="110" class="ln"/><text x="0" y="137" class="b">承認</text><rect x="170" y="118" width="124" height="28" rx="6" class="pill-hu"/><text x="232" y="137" text-anchor="middle">人が承認</text><line x1="0" x2="300" y1="152" y2="152" class="ln"/><text x="0" y="179" class="b">投稿</text><rect x="170" y="160" width="124" height="28" rx="6" class="pill-hu"/><text x="232" y="179" text-anchor="middle">人が貼って予約</text><line x1="0" x2="300" y1="194" y2="194" class="ln"/><text x="0" y="221" class="b">返信・DM</text><rect x="170" y="202" width="124" height="28" rx="6" class="pill-hu"/><text x="232" y="221" text-anchor="middle">CA が人手で</text><line x1="0" x2="300" y1="236" y2="236" class="ln"/><text x="0" y="263" class="b">計測</text><rect x="76" y="244" width="92" height="28" rx="14" class="pill-ai"/><text x="122" y="263" text-anchor="middle">足場あり</text><line x1="0" x2="300" y1="278" y2="278" class="ln"/></svg></div><figcaption>図7　工程ごとの機械と人の分担</figcaption></figure>
+<ul>
+<li><strong>ネタ集め。</strong><span class="nw">x_search.py</span> から始めます。Yahoo!リアルタイム検索経由で、X 本体を操作しません。深掘りだけ Grok に回します。</li>
+<li><strong>Grok。</strong>未試用です。人が使うなら月額プランのアプリ内、Claude から自動で呼ぶなら xAI API（従量）です。API の X Search は、取得した投稿1,000件あたり $5、プロフィール1,000件あたり $10 に、トークン代が加わります。回数でなく件数で数え、親投稿と引用投稿も含みます。<span class="tag tg-s">一次</span></li>
+<li><strong>下書き。</strong>既存の <span class="nw">/sns-draft</span> と validator で、数字台帳とフィードバック台帳が使えます（X 用の drafts は、初日パックの足場ができています）。</li>
+<li><strong>投稿。</strong>段階 A（図3）です。</li>
+<li><strong>計測。</strong><span class="nw">x_api.py</span> は足場ができています。計測は読むだけで、投稿は承認つきの実行に限ります。402（クレジット切れ）を沈黙させない作りにします。</li>
+</ul>
 <p>完成品で、1アカウント・人が承認・公式のみ、の要件を満たす OSS は見つかりませんでした。作るなら自作が一番小さい、という判断です。</p>
 <h3 id="c6a">6-1. OSS の判定</h3>
 <div class="tw" role="region" tabindex="0" aria-labelledby="c6a">
@@ -356,7 +379,7 @@ footer{color:var(--sub);font-size:.875rem;line-height:1.7;max-width:40em;margin-
 </tbody></table></div>
 
 <h2 id="c8">8. 90日の進め方と<wbr>見直し条件</h2>
-<figure><div class="fg"><svg viewBox="0 0 300 564" role="img" aria-labelledby="f7t f7d" xmlns="http://www.w3.org/2000/svg"><title id="f7t">90日の流れ</title><desc id="f7d">準備1日のあと、1〜14日、15〜30日、31〜60日、61〜90日の4期間。90日目に見直し条件を確認。</desc><text x="0" y="14" class="b">準備</text><text x="300" y="14" text-anchor="end">計1時間</text><rect x="0" y="22" width="300" height="8" rx="2" class="trk"/><rect x="0.0" y="22" width="6.7" height="8" rx="2" class="pos"/><text x="0" y="52">予約の有無を画面で確認（go 条件）</text><text x="0" y="72">アカウント、プロフィール、見直し条件</text><text x="0" y="102" class="b">1〜14日目</text><text x="300" y="102" text-anchor="end">週2時間</text><rect x="0" y="110" width="300" height="8" rx="2" class="trk"/><rect x="3.3" y="110" width="46.7" height="8" rx="2" class="pos"/><text x="0" y="140">毎日1本。現職・元職を20〜50人フォロー</text><text x="0" y="160">CA が1日15分、体験つきで返信</text><text x="0" y="180">基準線を測る</text><text x="0" y="210" class="b">15〜30日目</text><text x="300" y="210" text-anchor="end">週2時間</text><rect x="0" y="218" width="300" height="8" rx="2" class="trk"/><rect x="50.0" y="218" width="53.3" height="8" rx="2" class="pos"/><text x="0" y="248">Premium を試す。3テーマを比較</text><text x="0" y="268">固定ポストを作る</text><text x="0" y="288">加入前に成否の基準を決める（案：</text><text x="0" y="308">同じ型の表示の中央値が1.5倍以上、</text><text x="0" y="328">かつ LINE 登録が増える。未達なら解約。</text><text x="0" y="348">小標本なので方向だけ見る）</text><text x="0" y="378" class="b">31〜60日目</text><text x="300" y="378" text-anchor="end">週2時間</text><rect x="0" y="386" width="300" height="8" rx="2" class="trk"/><rect x="103.3" y="386" width="100.0" height="8" rx="2" class="pos"/><text x="0" y="416">LINE 特典を作り、経路別に計測</text><text x="0" y="436">リンク有無を別内容で交互に</text><text x="0" y="466" class="b">61〜90日目</text><text x="300" y="466" text-anchor="end">週2時間</text><rect x="0" y="474" width="300" height="8" rx="2" class="trk"/><rect x="203.3" y="474" width="100.0" height="8" rx="2" class="pos"/><text x="0" y="504">登録につながった型に寄せる</text><text x="0" y="524">段階B が要るか判断</text><path d="M298 538 l-7 -9 h14 z" class="neg"/><text x="282" y="552" class="b" text-anchor="end">90日目：見直し条件を確認</text></svg></div><figcaption>図7　90日の流れ（日数は根拠のない仮置き）</figcaption></figure>
+<figure><div class="fg"><svg viewBox="0 0 300 584" role="img" aria-labelledby="f7t f7d" xmlns="http://www.w3.org/2000/svg"><title id="f7t">90日の流れ</title><desc id="f7d">準備1日のあと、1〜14日、15〜30日、31〜60日、61〜90日の4期間。90日目に見直し条件を確認。</desc><text x="0" y="14" class="b">準備</text><text x="300" y="14" text-anchor="end">計1時間</text><rect x="0" y="22" width="300" height="8" rx="2" class="trk"/><rect x="0.0" y="22" width="6.7" height="8" rx="2" class="pos"/><text x="0" y="52">予約の有無を画面で確認（go 条件）</text><text x="0" y="72">アカウント、プロフィール、見直し条件</text><text x="0" y="102" class="b">1〜14日目</text><text x="300" y="102" text-anchor="end">週2時間</text><rect x="0" y="110" width="300" height="8" rx="2" class="trk"/><rect x="3.3" y="110" width="46.7" height="8" rx="2" class="pos"/><text x="0" y="140">毎日1本。同世代の当事者・元当事者・</text><text x="0" y="160">IT 現場の若手を20〜50人フォロー</text><text x="0" y="180">CA が1日15分、体験つきで返信</text><text x="0" y="200">基準線を測る</text><text x="0" y="230" class="b">15〜30日目</text><text x="300" y="230" text-anchor="end">週2時間</text><rect x="0" y="238" width="300" height="8" rx="2" class="trk"/><rect x="50.0" y="238" width="53.3" height="8" rx="2" class="pos"/><text x="0" y="268">Premium を試す。3テーマを比較</text><text x="0" y="288">固定ポストを作る</text><text x="0" y="308">加入前に成否の基準を決める（案：</text><text x="0" y="328">同じ型の表示の中央値が1.5倍以上、</text><text x="0" y="348">かつ LINE 登録が増える。未達なら解約。</text><text x="0" y="368">小標本なので方向だけ見る）</text><text x="0" y="398" class="b">31〜60日目</text><text x="300" y="398" text-anchor="end">週2時間</text><rect x="0" y="406" width="300" height="8" rx="2" class="trk"/><rect x="103.3" y="406" width="100.0" height="8" rx="2" class="pos"/><text x="0" y="436">LINE 特典を作り、経路別に計測</text><text x="0" y="456">リンク有無を別内容で交互に</text><text x="0" y="486" class="b">61〜90日目</text><text x="300" y="486" text-anchor="end">週2時間</text><rect x="0" y="494" width="300" height="8" rx="2" class="trk"/><rect x="203.3" y="494" width="100.0" height="8" rx="2" class="pos"/><text x="0" y="524">登録につながった型に寄せる</text><text x="0" y="544">段階B が要るか判断</text><path d="M298 558 l-7 -9 h14 z" class="neg"/><text x="282" y="572" class="b" text-anchor="end">90日目：見直し条件を確認</text></svg></div><figcaption>図8　90日の流れ（日数は根拠のない仮置き）</figcaption></figure>
 <p>数値は根拠のない仮置きです。測りながら直します。</p>
 <h3 id="c8a">8-1. 週の回し方</h3>
 <ol>
@@ -380,6 +403,8 @@ footer{color:var(--sub);font-size:.875rem;line-height:1.7;max-width:40em;margin-
 <h2 id="c9">9. 調べ切れなかったこと</h2>
 <ul>
 <li>Reddit、5ch、爆サイ、はてブ、OpenWork、転職会議は、取得が拒否されました。求職者の声は X と知恵袋のみです。<span class="tag tg-w">未到達</span></li>
+<li>読むだけの人（投稿せず見ている層）は、X の検索では見えません。<span class="tag tg-w">未到達</span></li>
+<li>ステマ告示は、一次の確認に届いていません。弁護士の確認を推奨します。<span class="tag tg-w">未到達</span></li>
 <li>小規模アカウントの検証可能な90日記録。読めたのは自己申告のみです。<span class="tag tg-w">未到達</span></li>
 <li>人材・転職の X から LINE への、数字付き事例。<span class="tag tg-w">未到達</span></li>
 <li>Premium の小規模での前後比較。自分で測るのが最短です。<span class="tag tg-w">未到達</span></li>
@@ -399,6 +424,7 @@ footer{color:var(--sub);font-size:.875rem;line-height:1.7;max-width:40em;margin-
 <div class="dec">
 <dl class="kv">
 <dt>決済手段</dt><dd>Premium の決済手段を、武者野さんが決めます。X Premium は The X Subscription へ統合中のため、加入前に購入画面で価格を確認します。</dd>
+<dt>X の位置づけ（再確認）</dt><dd>ユウタ層の声が X に少ない結果を受けて、X を本命の一つのままにするか。推奨は、本命の一つのまま90日測り、入口を X だけに頼らないことです。</dd>
 <dt>予約投稿</dt><dd>純正の予約投稿の有無を、準備日に画面で確認します（go 条件）。公式の記載は読めた範囲に見つかっていません。</dd>
 </dl>
 </div>
@@ -409,6 +435,7 @@ footer{color:var(--sub);font-size:.875rem;line-height:1.7;max-width:40em;margin-
 <h3 id="c11a">X 公式・公開コード</h3>
 <ul>
 <li><a href="https://github.com/xai-org/x-algorithm">公開コード（x-algorithm）</a></li>
+<li><a href="https://www.mhlw.go.jp/content/11600000/001756229.pdf">職業紹介事業の業務運営要領（厚生労働省 PDF）</a></li>
 <li><a href="https://help.x.com/en/rules-and-policies/x-automation">自動化ルール（2026年4月更新）</a></li>
 <li><a href="https://help.x.com/en/rules-and-policies/x-limits">投稿上限</a></li>
 <li><a href="https://help.x.com/ja/using-x/x-premium">Premium と料金</a></li>
