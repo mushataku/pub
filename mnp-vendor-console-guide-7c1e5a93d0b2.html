@@ -9,40 +9,40 @@
      本線＝契約者さんに専用リンクを渡すだけ（2026-11-02〜）。業者さんが代わりに入れる道は末尾の「こんなときは」に1行だけ。
      上の帯（題・章・いまの節）は sticky＋IntersectionObserver。画像は撮影の道具が data-shot で差し替える。 -->
 <style>
-  :root{--ink:#16211e;--ink-2:#56655f;--line:#d3dad7;--paper:#f6f7f6;--card:#fff;
-        --you:#e8590c;--you-soft:#fff1e6;--auto:#5b6b66;--auto-soft:#edf0ef;--holder:#1a7f37;--dont:#c62828;--band:rgba(255,255,255,.94)}
+  :root{--ink:#16211e;--ink-2:#3f4a47;--line:#d3dad7;--paper:#f6f7f6;--card:#fff;
+        --you:#8f3500;--on-you:#fff;--you-soft:#fff1e6;--auto:#4a5651;--auto-soft:#edf0ef;--holder:#0f5f27;--on-holder:#fff;--dont:#c62828;--band:rgba(255,255,255,.94)}
   @media (prefers-color-scheme: dark){
     :root{--ink:#e6ebe9;--ink-2:#a7b4af;--line:#3a4440;--paper:#151a19;--card:#1e2523;
-          --you:#ff8a4c;--you-soft:#3a2617;--auto:#a7b4af;--auto-soft:#232b29;--holder:#4cc26a;--band:rgba(21,26,25,.94)}
+          --you:#ffa270;--on-you:#1d1208;--you-soft:#3a2617;--auto:#a7b4af;--auto-soft:#232b29;--holder:#4cc26a;--on-holder:#0b1f10;--band:rgba(21,26,25,.94)}
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.75 system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif}
   a{color:var(--you)}
   .band{position:sticky;top:0;z-index:10;background:var(--band);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);
-        padding:6px 18px;display:flex;gap:8px;align-items:baseline;font-size:13px;line-height:1.5;white-space:nowrap;overflow:hidden}
+        padding:6px 18px;display:flex;gap:8px;align-items:baseline;font-size:14px;line-height:1.5;white-space:nowrap;overflow:hidden}
   .band b{flex:none;font-size:14px}
   .band span{overflow:hidden;text-overflow:ellipsis;color:var(--ink-2)}
   .band span em{font-style:normal;color:var(--ink);font-weight:700}
   section,h2{scroll-margin-top:56px}
   .wrap{max-width:46rem;margin:0 auto;padding:18px 18px 64px}
-  .kicker{margin:0;color:var(--ink-2);font-size:14px;font-weight:700}
+  .kicker{margin:0;color:var(--ink-2);font-size:16px;font-weight:700}
   h1{font-size:27px;line-height:1.35;margin:2px 0 12px}
   h1 .you{color:var(--you)}
   h2{font-size:21px;line-height:1.4;margin:40px 0 12px;padding-top:14px;border-top:2px solid var(--ink);display:flex;gap:10px;align-items:center}
   h3{font-size:17px;margin:24px 0 8px}
   p{margin:0 0 12px}
-  .num{flex:none;display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--you);color:#fff;font-size:18px}
-  .num.auto{background:var(--holder)}
+  .num{flex:none;display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--you);color:var(--on-you);font-size:18px}
+  .num.auto{background:var(--holder);color:var(--on-holder)}
   ol.three{list-style:none;padding:0;margin:0 0 14px;display:grid;gap:8px}
-  ol.three a{background:var(--card);border:2px solid var(--you);border-radius:12px;padding:8px 14px;font-weight:700;display:flex;gap:10px;align-items:center;color:var(--ink);text-decoration:none}
+  ol.three a{background:var(--card);border:2px solid var(--you);border-radius:12px;padding:8px 14px;min-height:44px;font-weight:700;display:flex;gap:10px;align-items:center;color:var(--ink);text-decoration:none}
   ol.three b{color:var(--you);font-size:20px}
   .lede{background:var(--auto-soft);border-radius:12px;padding:10px 14px}
   .lede b{color:var(--ink)}
   figure{margin:0}
-  .flow{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 4px 6px;margin:16px 0 6px}
+  .flow{background:#fff;color:#16211e;border:1px solid var(--line);border-radius:14px;padding:12px 4px 6px;margin:16px 0 6px}
   .flow svg{display:block;width:100%;max-width:540px;height:auto;margin:0 auto}
   .flow text{font-family:inherit}
-  .flow .cap{color:#56655f}
+  .flow .cap{color:#3f4a47}
   .cap{font-size:14px;color:var(--ink-2);margin:6px 2px 0}
   .start{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:22px 0 0}
   .start p{margin:0 0 8px}
@@ -50,16 +50,16 @@
   .pair{display:grid;gap:16px;align-items:start}
   @media (min-width:720px){.pair{grid-template-columns:1fr 300px}}
   .shot{position:relative}
-  .shot::before{content:"見本の画面";position:absolute;top:8px;right:8px;background:rgba(22,33,30,.82);color:#fff;font-size:12px;line-height:1.6;padding:1px 9px;border-radius:999px}
+  .shot::before{content:"見本の画面";position:absolute;top:8px;right:8px;background:rgba(22,33,30,.82);color:#fff;font-size:14px;line-height:1.6;padding:1px 9px;border-radius:999px}
   .shot img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:#fff}
   .pair .shot{max-width:320px;width:100%;margin:0 auto}
   ol.marks{list-style:none;padding:0;margin:0 0 12px}
   ol.marks li{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
-  ol.marks i{flex:none;font-style:normal;display:inline-grid;place-items:center;width:26px;height:26px;margin-top:2px;border-radius:50%;background:var(--you);color:#fff;font-weight:700;font-size:15px}
-  .tip{background:var(--you-soft);border-radius:10px;padding:10px 14px;font-size:15px}
+  ol.marks i{flex:none;font-style:normal;display:inline-grid;place-items:center;width:26px;height:26px;margin-top:2px;border-radius:50%;background:var(--you);color:var(--on-you);font-weight:700;font-size:15px}
+  .tip{background:var(--you-soft);border-radius:10px;padding:10px 14px;font-size:16px}
   ul.tip{margin:0 0 12px;padding-left:1.9em}
   ul.tip li{margin:2px 0}
-  .small{font-size:14px;color:var(--ink-2)}
+  .small{font-size:16px;color:var(--ink-2)}
   .tmpl{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:16px 0}
   .tmpl h3{margin:0 0 8px}
   .tmpl blockquote{margin:0 0 10px;padding:10px 12px;background:var(--paper);border-left:4px solid var(--you);border-radius:6px;font-size:15px;line-height:1.7;overflow-wrap:anywhere}
@@ -71,11 +71,16 @@
   .faq dt::before{content:"Q. ";color:var(--you)}
   .faq dd{margin:2px 0 12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
   .faq dd:last-child{border-bottom:0}
+  summary{cursor:pointer;padding:11px 0;min-height:44px;box-sizing:border-box}
   .faq .shot{max-width:320px;margin:10px 0 0}
   .faq figcaption{font-size:14px;color:var(--ink-2);margin-top:4px}
   .except{border:2px dashed var(--you);border-radius:12px;padding:12px 16px;background:var(--card)}
   .except .shots2{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));align-items:start;margin-top:10px}
   .except figcaption{font-size:14px;margin-top:4px;color:var(--ink-2)}
+  /* 和文の床: 文として読む p・li は 16px 以上（本文が 17px の画面は 17px のまま） */
+  b{font-weight:700}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
 </style>
 </head>
 <body>
@@ -89,27 +94,27 @@
     <li><a href="#s-issue"><b>②</b>契約者さんのリンクを発行する</a></li>
     <li><a href="#s-send"><b>③</b>リンクと番号を契約者さんへ送る</a></li>
   </ol>
-  <p class="lede">「契約者さん」＝回線の名義人さんご本人のことです。個人情報は、<b>聞き取りも転記もしません</b>。契約者さんが<b>同じリンク1本</b>で、自分の情報の入力・本人確認・予約番号の受け取りまで進みます。会員登録・回線の申込・予約番号の発行は、こちらが自動でやります。</p>
+  <p class="lede">「契約者さん」＝回線の契約者さんご本人のことです。個人情報は、<b>聞き取りも転記もしません</b>。契約者さんが<b>同じリンク1本</b>で、自分の情報の入力・本人確認・予約番号の受け取りまで進みます。会員登録・回線の申込・予約番号の発行は、こちらが自動でやります。</p>
 
   <figure class="flow">
     <svg viewBox="0 0 360 430" role="img" aria-labelledby="flow-t flow-d">
       <title id="flow-t">1件の流れ</title>
       <desc id="flow-d">あなたはコンソールでリンクを発行し、リンクと番号を契約者さんへ送ります。契約者さんはリンクを開いて番号を入れ、自分の情報を入力して送ります。同じページで本人確認をします。こちらが会員登録と回線の申込を進め、予約番号を発行します。予約番号はあなたのコンソールと契約者さんのページに出ます。</desc>
       <defs>
-        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#56655f"/></marker>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3f4a47"/></marker>
       </defs>
       <rect x="4" y="48" width="114" height="378" rx="8" fill="#fff6ef"/>
       <rect x="123" y="48" width="114" height="378" rx="8" fill="#effaf2"/>
       <rect x="242" y="48" width="114" height="378" rx="8" fill="#f3f5f4"/>
-      <rect x="4" y="4" width="114" height="40" rx="8" fill="#e8590c"/>
-      <rect x="123" y="4" width="114" height="40" rx="8" fill="#1a7f37"/>
-      <rect x="242" y="4" width="114" height="40" rx="8" fill="#5b6b66"/>
+      <rect x="4" y="4" width="114" height="40" rx="8" fill="#8f3500"/>
+      <rect x="123" y="4" width="114" height="40" rx="8" fill="#0f5f27"/>
+      <rect x="242" y="4" width="114" height="40" rx="8" fill="#4a5651"/>
       <g fill="#fff" text-anchor="middle">
-        <text x="61" y="22" font-size="13.5" font-weight="700">あなた</text><text x="61" y="38" font-size="11.5">業者さん</text>
-        <text x="180" y="22" font-size="13.5" font-weight="700">契約者さん</text><text x="180" y="38" font-size="11.5">スマホで</text>
-        <text x="299" y="22" font-size="13.5" font-weight="700">こちら</text><text x="299" y="38" font-size="11.5">自動で進めます</text>
+        <text x="61" y="22" font-size="14" font-weight="700">あなた</text><text x="61" y="38" font-size="14">業者さん</text>
+        <text x="180" y="22" font-size="14" font-weight="700">契約者さん</text><text x="180" y="38" font-size="14">スマホで</text>
+        <text x="299" y="22" font-size="14" font-weight="700">こちら</text><text x="299" y="38" font-size="14">自動で進めます</text>
       </g>
-      <g fill="none" stroke="#56655f" stroke-width="1.6" marker-end="url(#ah)">
+      <g fill="none" stroke="#3f4a47" stroke-width="1.6" marker-end="url(#ah)">
         <path d="M61 104 V118"/>
         <path d="M112 145 H174 V164"/>
         <path d="M180 210 V224"/>
@@ -117,21 +122,21 @@
         <path d="M299 308 V322"/>
         <path d="M248 345 H118"/>
       </g>
-      <rect x="10" y="58" width="102" height="46" rx="10" fill="#e8590c"/>
-      <g fill="#fff" text-anchor="middle"><text x="61" y="78" font-size="13.5" font-weight="700">② 発行</text><text x="61" y="96" font-size="11.5">呼び名・回線数・稼働日</text></g>
-      <rect x="10" y="120" width="102" height="50" rx="10" fill="#e8590c"/>
-      <g fill="#fff" text-anchor="middle"><text x="61" y="140" font-size="13.5" font-weight="700">③ 送る</text><text x="61" y="158" font-size="11.5">リンクと番号を LINE で</text></g>
-      <rect x="129" y="166" width="102" height="44" rx="10" fill="#1a7f37"/>
-      <g fill="#fff" text-anchor="middle"><text x="180" y="185" font-size="12.5" font-weight="700">番号を入れて</text><text x="180" y="201" font-size="12.5" font-weight="700">自分で入力</text></g>
-      <rect x="129" y="226" width="102" height="44" rx="10" fill="#1a7f37"/>
-      <g fill="#fff" text-anchor="middle"><text x="180" y="245" font-size="12.5" font-weight="700">同じページで</text><text x="180" y="261" font-size="12.5" font-weight="700">本人確認</text></g>
-      <rect x="248" y="264" width="102" height="44" rx="10" fill="#fff" stroke="#5b6b66" stroke-width="1.5"/>
-      <g fill="#16211e" text-anchor="middle" font-size="12.5"><text x="299" y="283">会員登録・</text><text x="299" y="299">回線の申込</text></g>
-      <rect x="248" y="324" width="102" height="44" rx="10" fill="#fff" stroke="#5b6b66" stroke-width="1.5"/>
-      <g fill="#16211e" text-anchor="middle" font-size="12.5"><text x="299" y="343">予約番号を</text><text x="299" y="359">発行</text></g>
-      <rect x="10" y="322" width="102" height="50" rx="10" fill="#fff" stroke="#e8590c" stroke-width="2"/>
-      <g fill="#16211e" text-anchor="middle" font-size="12.5"><text x="61" y="342" font-weight="700">予約番号が</text><text x="61" y="360">コンソールに届く</text></g>
-      <text x="180" y="404" text-anchor="middle" font-size="12" fill="#56655f">契約者さんのページにも同じ番号が出ます</text>
+      <rect x="10" y="58" width="102" height="46" rx="10" fill="#8f3500"/>
+      <g fill="#fff" text-anchor="middle"><text x="61" y="78" font-size="14" font-weight="700">② 発行</text><text x="61" y="96" font-size="14">呼び名・回線数・稼働日</text></g>
+      <rect x="10" y="120" width="102" height="50" rx="10" fill="#8f3500"/>
+      <g fill="#fff" text-anchor="middle"><text x="61" y="140" font-size="14" font-weight="700">③ 送る</text><text x="61" y="158" font-size="14">リンクと番号を LINE で</text></g>
+      <rect x="129" y="166" width="102" height="44" rx="10" fill="#0f5f27"/>
+      <g fill="#fff" text-anchor="middle"><text x="180" y="185" font-size="14" font-weight="700">番号を入れて</text><text x="180" y="201" font-size="14" font-weight="700">自分で入力</text></g>
+      <rect x="129" y="226" width="102" height="44" rx="10" fill="#0f5f27"/>
+      <g fill="#fff" text-anchor="middle"><text x="180" y="245" font-size="14" font-weight="700">同じページで</text><text x="180" y="261" font-size="14" font-weight="700">本人確認</text></g>
+      <rect x="248" y="264" width="102" height="44" rx="10" fill="#fff" stroke="#4a5651" stroke-width="1.5"/>
+      <g fill="#16211e" text-anchor="middle" font-size="14"><text x="299" y="283">会員登録・</text><text x="299" y="299">回線の申込</text></g>
+      <rect x="248" y="324" width="102" height="44" rx="10" fill="#fff" stroke="#4a5651" stroke-width="1.5"/>
+      <g fill="#16211e" text-anchor="middle" font-size="14"><text x="299" y="343">予約番号を</text><text x="299" y="359">発行</text></g>
+      <rect x="10" y="322" width="102" height="50" rx="10" fill="#fff" stroke="#8f3500" stroke-width="2"/>
+      <g fill="#16211e" text-anchor="middle" font-size="14"><text x="61" y="342" font-weight="700">予約番号が</text><text x="61" y="360">コンソールに届く</text></g>
+      <text x="180" y="404" text-anchor="middle" font-size="14" fill="#3f4a47">契約者さんのページにも同じ番号が出ます</text>
     </svg>
     <figcaption class="cap">オレンジが、あなたの手番（②③）。緑は契約者さんがスマホで、灰色はこちらが自動で行います。①の登録は最初の1回だけです。</figcaption>
   </figure>
@@ -151,12 +156,12 @@
   <div class="pair">
     <div>
       <ol class="marks">
-        <li><i>1</i><span>「新しい名義人の依頼」の一番上、「<b>📨 契約者に入力してもらう</b>」に<b>呼び名（姓だけで可）・回線数・稼働日</b>を入れる</span></li>
+        <li><i>1</i><span>「新しい契約者の依頼」の一番上、「<b>📨 契約者に入力してもらう</b>」に<b>呼び名（姓だけで可）・回線数・稼働日</b>を入れる</span></li>
         <li><i>2</i><span>「<b>リンクを発行する</b>」を押す</span></li>
         <li><i>3</i><span>出てきた<b>リンクとログイン番号（6桁）</b>を「<b>📋 リンクと番号をまとめてコピー</b>」でコピーする（番号はこの画面でしか出ません）</span></li>
       </ol>
       <ul class="tip">
-        <li><b>回線数</b>：この名義人さんで作る回線の数（1〜5。1つの口座に5回線まで）。</li>
+        <li><b>回線数</b>：この契約者さんで作る回線の数（1〜5。1つの口座に5回線まで）。</li>
         <li><b>稼働日</b>：契約者さんが回線を使い始める日。入力の締切は稼働日の前日（遅くても発行から14日）で、コピーした文面に日付が入ります。あとから依頼の詳しい画面で変えられます（予約番号が出るまで）。</li>
       </ul>
     </div>
@@ -212,7 +217,7 @@
   <h2>こちらから届くメール（見るだけ）</h2>
   <p>メールが届くのは次の<b>5つ</b>のときで、そのたびに<b>1通</b>です。リンクを発行した直後や、本人確認のボタンを出し直したときには届きません。</p>
   <ul class="tip">
-    <li>名義人さんの本人確認待ちになった</li>
+    <li>契約者さんの本人確認待ちになった</li>
     <li>本人確認済みになった</li>
     <li>申込完了になった</li>
     <li>予約番号発行済みになった（回線が複数のときは、番号が増えるたびに届くことがあります）</li>
@@ -221,9 +226,9 @@
   <div class="tmpl">
     <h3>メールの見本</h3>
     <p class="small" style="margin:0 0 4px">件名</p>
-    <blockquote id="mail-subject">【ナゲバン】xx-1007aが名義人さんの本人確認待ちになりました</blockquote>
+    <blockquote id="mail-subject">【ナゲバン】xx-1007aの本人確認のご案内ができました</blockquote>
     <p class="small" style="margin:0 0 4px">本文</p>
-    <blockquote id="mail-body">xx-1007aが名義人さんの本人確認待ちになりました。業者コンソールを見てください。<br>https://bot-lab-mnp-vendor-trpn7kfx7q-an.a.run.app/<br><br>お知らせ: 契約者さんが本人確認の段に入りました。本人確認の案内は、最初にお渡しした契約者ページに出ています（契約者さんはそのページを開くだけで進めます）。業者の作業はありません。</blockquote>
+    <blockquote id="mail-body">xx-1007aの本人確認のご案内ができました。業者コンソールを見てください。<br>https://bot-lab-mnp-vendor-trpn7kfx7q-an.a.run.app/<br><br>お知らせ: 契約者さんが本人確認の段に入りました。本人確認の案内は、最初にお渡しした契約者ページに出ています（契約者さんはそのページを開くだけで進めます）。業者の作業はありません。</blockquote>
     <p class="small" style="margin:0">「xx-1007a」には受付番号（依頼のときに「控え」を入れていればその言葉）が入ります。契約者さんのリンクから来た依頼では、<b>業者さんが送るものはありません</b>（案内は最初に渡したリンクの先に出ています）。本人確認の URL そのものや予約番号はメールに書きません。中身は、メールのリンクからコンソールを開いて見てください。</p>
   </div>
   </section>
@@ -242,7 +247,7 @@
     <dt>依頼を取り消したいときは？</dt>
     <dd>依頼の詳しい画面の下にある畳んだ<b>「この依頼を取り消す」</b>を開いて押します（確認が1回出ます）。<b>押すと元に戻せません</b>。渡したリンクも使えなくなり、依頼は一覧の下の「取り消し済みの依頼」に移ります。<b>取り消せるのは、受付〜本人確認待ちの間だけ</b>です（申込に進んだ後は担当者へご連絡ください）。</dd>
     <dt>あとから回線を足したいときは？</dt>
-    <dd>依頼の詳しい画面の、お名前のすぐ下の<b>「＋ この名義人に回線を追加」</b>（または「受け付けた内容」の回線数の横の<b>「回線を追加する」</b>）を押し、足したい回線数を選んで「追加する」を押します（確認が1回出ます）。<b>押すと取り消せません</b>（減らす操作はここにはありません）。回線は1本ずつ手続きし、<b>予約番号は回線ごとに</b>詳しい画面に出ます。足した回線ぶんの金額（回線数×単価）が残高から引かれ、足りないときは入金を確認するまで待ちになります。1つの口座は5回線までです。</dd>
+    <dd>依頼の詳しい画面の、お名前のすぐ下の<b>「＋ この契約者に回線を追加」</b>（または「受け付けた内容」の回線数の横の<b>「回線を追加する」</b>）を押し、足したい回線数を選んで「追加する」を押します（確認が1回出ます）。<b>押すと取り消せません</b>（減らす操作はここにはありません）。回線は1本ずつ手続きし、<b>予約番号は回線ごとに</b>詳しい画面に出ます。足した回線ぶんの金額（回線数×単価）が残高から引かれ、足りないときは入金を確認するまで待ちになります。1つの口座は5回線までです。</dd>
     <dt>稼働日が変わったら？</dt>
     <dd>詳しい画面の「稼働日を変える」で直せます（予約番号が出るまで）。</dd>
     <dt>暗証番号をまちがえて書類が使えなくなったときは？</dt>
@@ -267,7 +272,7 @@
         <figcaption>このとき契約者さんに出ている画面</figcaption></figure>
     </div>
   </div>
-  <p class="small" style="margin-top:14px"><b>こんなときは</b>：契約者さんにどうしても入れてもらえないときだけ、「新しい名義人の依頼」の下の折りたたみ「ご本人に入れてもらえないとき（業者が代わりに入力）」から業者さんが入れられます。</p>
+  <p class="small" style="margin-top:14px"><b>こんなときは</b>：契約者さんにどうしても入れてもらえないときだけ、「新しい契約者の依頼」の下の折りたたみ「ご本人に入れてもらえないとき（業者が代わりに入力）」から業者さんが入れられます。</p>
   </section>
 </main>
 <script>
