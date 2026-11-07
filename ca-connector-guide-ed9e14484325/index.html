@@ -15,6 +15,8 @@ h2{font-size:18px;margin:0 0 8px}
 svg{width:100%;height:auto;max-width:560px;display:block;margin:8px auto}
 svg text{fill:var(--fg);font-size:14px}svg .b{fill:var(--card);stroke:var(--acc);stroke-width:2}svg .a{stroke:var(--acc);stroke-width:2;fill:none}
 .mut{color:var(--mut);font-size:14px}
+
+h1,h2,h3{word-break:auto-phrase}
 </style></head><body>
 <header><b>会社資料コネクタ 設定の手順</b><span id="now"></span></header>
 <main>
@@ -28,11 +30,11 @@ svg text{fill:var(--fg);font-size:14px}svg .b{fill:var(--card);stroke:var(--acc)
 <rect class="b" x="310" y="20" width="240" height="50" rx="10"/><text x="326" y="50">② ツールを「常に許可」</text></svg>
 <p class="mut">この2手のあとは、新しいチャットでもそのまま聞けます。</p></section>
 
-<section id="s2"><h2>手1: コネクタを足して接続する</h2>
-<div class="card"><ol>
-<li>claude.ai を開き、<b>カスタマイズ → コネクタ → 自分のもの → ＋追加 → カスタムコネクタを追加</b></li>
-<li>名前は「会社資料」、URL は<b>拓也から送られたもの</b>をそのまま貼る（別の形に直さない）</li>
-<li><b>Connect</b> を押し、Google のログインで<b>Gooner の業務アドレス</b>を選ぶ（1タップ）</li>
+<section id="s2"><h2>手1: コネクタに接続する</h2>
+<div class="card"><p>コネクタは Gooner の組織に登録済みです。自分で追加や URL の入力をする必要はありません。</p><ol>
+<li>claude.ai を<b>Gooner の組織</b>で開き、<b>カスタマイズ → コネクタ → 自分のもの</b>を開く</li>
+<li>一覧の「会社資料」の<b>連携/連携させる</b>を押す</li>
+<li>Google のログインで<b>Gooner の業務アドレス</b>を選ぶ（1タップ）</li>
 <li>「このコネクタを使える人の一覧に入っていない」と出たら、拓也に連絡（アドレスの登録漏れ）</li></ol></div></section>
 
 <section id="s3"><h2>手2: 権限を「常に許可」にする</h2>
@@ -47,7 +49,8 @@ svg text{fill:var(--fg);font-size:14px}svg .b{fill:var(--card);stroke:var(--acc)
 
 <section id="s5"><h2>困ったとき</h2>
 <div class="card"><ul>
-<li>「到達できませんでした」→ URL の貼り間違い。送られた URL をそのまま貼り直す</li>
+<li>一覧に「会社資料」が無い → 個人用の組織を開いている可能性があります。Gooner の組織に切り替える</li>
+<li>「カスタムコネクタを追加」が押せない → 正常です。追加は不要なので、一覧の「会社資料」から接続する</li>
 <li>呼び出されない → チャット下の「＋」→ コネクタで「会社資料」が入っているか見る</li>
 <li>資料に無いこと → 「載っていない」と返るのが正しい動き。推測で答えさせない</li></ul></div></section>
 </main>
