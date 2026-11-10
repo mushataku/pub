@@ -4,21 +4,43 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>面接練習フィードバック</title>
+<title>松山さん 面接対策</title>
 <style>
-:root{--bg:#faf8f5;--card:#ffffff;--ink:#22201c;--muted:#6b665e;--line:#e6e1d8;--accent:#c2562b;--accent-soft:#fbeee7;--good:#2f7a4f;--good-soft:#e8f4ec;--warn:#9a6a12;--warn-soft:#fbf3e2;}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#171513;--card:#211e1b;--ink:#efebe5;--muted:#a49d92;--line:#36312b;--accent:#ec8a5f;--accent-soft:#3a251b;--good:#7cc79a;--good-soft:#1d3226;--warn:#e2b45a;--warn-soft:#3a2f17;}}
-:root[data-theme="dark"]{--bg:#171513;--card:#211e1b;--ink:#efebe5;--muted:#a49d92;--line:#36312b;--accent:#ec8a5f;--accent-soft:#3a251b;--good:#7cc79a;--good-soft:#1d3226;--warn:#e2b45a;--warn-soft:#3a2f17;}
+:root{--bg:#faf7f2;--card:#ffffff;--ink:#2a2420;--muted:#6b625a;--line:#e3dacd;--accent:#c2562b;--accent-soft:#f8e9e0;--dark:#2a2420;--dark-ink:#faf7f2;--good:#2f7a4f;--good-soft:#e8f4ec;--warn:#9a6a12;--warn-soft:#fbf3e2;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#171513;--card:#221e1b;--ink:#efebe5;--muted:#a59d93;--line:#38322c;--accent:#ec8a5f;--accent-soft:#3a251b;--dark:#2e2823;--dark-ink:#efebe5;--good:#7cc79a;--good-soft:#1d3226;--warn:#e2b45a;--warn-soft:#3a2f17;}}
+:root[data-theme="dark"]{--bg:#171513;--card:#221e1b;--ink:#efebe5;--muted:#a59d93;--line:#38322c;--accent:#ec8a5f;--accent-soft:#3a251b;--dark:#2e2823;--dark-ink:#efebe5;--good:#7cc79a;--good-soft:#1d3226;--warn:#e2b45a;--warn-soft:#3a2f17;}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;line-height:1.8;font-size:16px}
-.wrap{max-width:720px;margin:0 auto;padding:32px 16px 64px}
-header{margin-bottom:28px}
-.eyebrow{font-size:13px;color:var(--muted);letter-spacing:.08em}
-h1{font-size:26px;line-height:1.4;margin:6px 0 12px}
-.lead{color:var(--muted);margin:0}
-h2{font-size:20px;margin:40px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--accent)}
-h3{font-size:17px;margin:24px 0 8px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 18px;margin:14px 0}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 64px}
+.tabs input{position:absolute;opacity:0;pointer-events:none}
+.tabbar{position:sticky;top:0;z-index:5;display:flex;gap:8px;background:var(--bg);padding:10px 0 12px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+.tabbar label{flex:1;text-align:center;padding:10px 8px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--muted);font-weight:700;font-size:15px;cursor:pointer;line-height:1.4}
+.tabbar label small{display:block;font-weight:400;font-size:12px}
+#t1:checked ~ .tabbar label[for="t1"],#t2:checked ~ .tabbar label[for="t2"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.panel{display:none}
+#t1:checked ~ #p1,#t2:checked ~ #p2{display:block}
+.hero{background:var(--dark);color:var(--dark-ink);border-radius:16px;padding:24px 20px;margin:16px 0 24px}
+.hero .eyebrow{color:#e8a27f;font-weight:700;font-size:14px;letter-spacing:.06em}
+.hero h1{font-size:24px;line-height:1.4;margin:6px 0 10px}
+.hero p{margin:2px 0;opacity:.92}
+h2{font-size:20px;margin:36px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--accent)}
+h3{font-size:17px;margin:4px 0 6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:640px){.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:1fr 1fr 1fr}}
+.when{color:var(--accent);font-weight:700;font-size:14px}
+.big{background:var(--accent);color:#fff;border-radius:12px;padding:16px 18px;margin:12px 0}
+.big h3{color:#fff}
+.step{display:flex;gap:12px;align-items:flex-start}
+.num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;display:flex;align-items:center;justify-content:center}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--accent-soft)}
+td:first-child{font-weight:700;width:32%}
+ol,ul{padding-left:1.3em;margin:6px 0}
+li{margin:4px 0}
+.muted{color:var(--muted)}
+.note{color:var(--muted);font-size:14px}
 .ten{background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:8px;padding:12px 14px;margin:12px 0;font-weight:600}
 .ten small{display:block;font-weight:400;color:var(--muted);font-size:13px;margin-bottom:2px}
 .good{background:var(--good-soft);border-radius:8px;padding:10px 14px;margin:10px 0}
@@ -26,8 +48,6 @@ h3{font-size:17px;margin:24px 0 8px}
 .warn{background:var(--warn-soft);border-radius:8px;padding:10px 14px;margin:10px 0}
 .warn b{color:var(--warn)}
 .q{font-weight:700}
-ol,ul{padding-left:1.3em;margin:8px 0}
-li{margin:4px 0}
 .flow{display:flex;flex-direction:column;gap:6px;margin:10px 0}
 .flow div{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
 .flow .n{color:var(--accent);font-weight:700;margin-right:6px}
@@ -39,13 +59,174 @@ h1,h2,h3{word-break:auto-phrase}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap tabs">
+<input type="radio" name="tab" id="t1" checked>
+<input type="radio" name="tab" id="t2">
+<div class="tabbar">
+<label for="t1">面接対策<small>11月11日（水）</small></label>
+<label for="t2">練習のフィードバック<small>11月9日（月）</small></label>
+</div>
 
-<header>
+<div class="panel" id="p1">
+
+<div class="hero">
+<div class="eyebrow">11月11日（水）8:30〜10:00 打ち合わせ用</div>
+<h1>松山さん 面接対策<br>コクー様・ミラエール様</h1>
+<p>コクー様 一次面接　11月12日（木）10:00〜</p>
+<p>スタッフサービス・ミラエール様 面接　11月13日（金）11:00〜</p>
+</div>
+
+<h2>今日の流れ</h2>
+<table>
+<tr><th>時間</th><th>やること</th></tr>
+<tr><td>8:30〜8:35</td><td>予定の確認</td></tr>
+<tr><td>8:35〜8:55</td><td>宿題の「10秒の答え」チェック</td></tr>
+<tr><td>8:55〜9:05</td><td>コクー様ってどんな会社？</td></tr>
+<tr><td>9:05〜9:25</td><td>コクー様で聞かれそうな質問の練習</td></tr>
+<tr><td>9:25〜9:40</td><td>通勤・勤務時間・入社時期の伝え方とアンケート</td></tr>
+<tr><td>9:40〜9:50</td><td>ミニ模擬面接（5問）</td></tr>
+<tr><td>9:50〜10:00</td><td>ミラエール様に向けて・当日の準備</td></tr>
+</table>
+
+<h2>面接の予定</h2>
+<div class="grid two">
+<div class="card">
+<div class="when">11月12日（木）10:00〜11:00</div>
+<h3>コクー様 一次面接</h3>
+<p>対人面接・オンライン（約1時間）</p>
+<p class="muted">面接日までに：<br>① DXタイプ診断（約10分）<br>② 勤務条件アンケート（約3分・打ち合わせで一緒に確認）</p>
+</div>
+<div class="card">
+<div class="when">11月13日（金）11:00〜</div>
+<h3>スタッフサービス・ミラエール様 面接</h3>
+<p>Web面接（約1時間）</p>
+<p class="muted">当日のご案内はミラエール様からメールで届きます</p>
+</div>
+</div>
+
+<h2>答え方の基本：最初に「10秒の答え」</h2>
+<div class="card"><div class="step"><div class="num">1</div><div><b>10秒の答え</b><br>いちばん伝えたい結論を最初に</div></div></div>
+<div class="card"><div class="step"><div class="num">2</div><div><b>二言目</b><br>次に聞かれそうな「具体的には？」「なぜ？」への答え</div></div></div>
+<div class="card"><div class="step"><div class="num">3</div><div><b>補足</b><br>背景や過去の経緯は、聞かれたら</div></div></div>
+<p>途中で話を切られても、最初の10秒でいちばん伝えたいことが伝わっていれば大丈夫です。</p>
+
+<h2>宿題チェック：あなたの「10秒の答え」</h2>
+<p>用意してきた答えを、まず聞かせてください。直すのは順番だけです。</p>
+<ol>
+<li>経歴を教えてください</li>
+<li>今のお仕事のきっかけ／退職理由</li>
+<li>なぜ事務職を希望するのか</li>
+<li>なぜ人事・総務に興味があるのか</li>
+<li>大学を中退した理由</li>
+<li>ブランクの期間の過ごし方</li>
+<li>あなたの強み・弱み</li>
+</ol>
+
+<h2>どの会社でも同じに言う答え</h2>
+<table>
+<tr><th>質問</th><th>10秒の答え（叩き台）</th></tr>
+<tr><td>退職理由</td><td>契約期間満了です。</td></tr>
+<tr><td>なぜ事務職か</td><td>人を裏で支える仕事がしたいからです。</td></tr>
+<tr><td>大学を中退した理由</td><td>同時に進めていた声優の仕事が軌道に乗ったので、そちらに専念するためです。</td></tr>
+<tr><td>2017年からの期間</td><td>子育てに専念するためです。</td></tr>
+<tr><td>強み</td><td>決めた目標に向けて、独学で最後までやり切ることです。</td></tr>
+</table>
+<p class="note">二言目は「練習のフィードバック」のタブも見ながら確認しましょう。</p>
+
+<h2>コクー様ってどんな会社？</h2>
+<div class="grid two">
+<div class="card"><h3>働き方</h3><p>コクーの正社員として雇われ、お客様の会社に常駐して事務をします（会社は「正社員型派遣」と呼んでいます）。</p></div>
+<div class="card"><h3>配属先</h3><p>スキルと希望を考えて会社が決めます。希望は伝えられますが、選べる前提ではありません。</p></div>
+<div class="card"><h3>研修</h3><p>今は20日間。ビジネス基礎 → Excel → AI・資料作成 → データ活用（Power BI）。配属が決まるまで本社で待つ期間がある場合もあります。</p></div>
+<div class="card"><h3>条件（求人票）</h3><p>9:00〜18:00・土日祝休み。月給は固定残業20時間分を含めて24万円から。</p></div>
+</div>
+<p class="note">お手元の会社説明資料にある「研修10日間」は、以前の情報です。出所：コクー様の公式サイト・求人票（会社の説明）。</p>
+
+<h2>コクー様に一番伝えたい強み</h2>
+<div class="big">
+<h3>独学で9つの資格に、すべて一度で合格</h3>
+<p>MOS Excel エキスパートを含みます。Excel を武器にする会社に、学び続けられる人だと一番伝わる材料です。</p>
+</div>
+<div class="grid three">
+<div class="card"><h3>学ぶのが苦にならない</h3><p class="muted">取ってほしい資格があれば取る、という姿勢</p></div>
+<div class="card"><h3>記録を丁寧に残す</h3><p class="muted">塾で保護者向けの日報を毎回くわしく作成</p></div>
+<div class="card"><h3>任され、求められる</h3><p class="muted">新人教育・在庫管理。閉店後に復帰を頼まれた</p></div>
+</div>
+<p>Excel は「実務ではこれから。だから研修と現場で実務の力にしたい」と正直に言うのが一番つながります。</p>
+
+<h2>コクー様で聞かれそうな質問</h2>
+<table>
+<tr><th>質問</th><th>10秒の答え（叩き台）</th></tr>
+<tr><td>なぜコクーか</td><td>独学で身につけた Excel を、実務で使える力に変えたいからです。</td></tr>
+<tr><td>将来なりたい姿</td><td>まずは関数と集計で正確に仕事をこなし、いずれはマクロで周りの作業を楽にできる人になりたいです。</td></tr>
+<tr><td>お客様先での勤務・配属</td><td>理解しています。現場を知っている方に合う場所を決めていただけるのはありがたいです。</td></tr>
+<tr><td>研修・学び続けられるか</td><td>勉強は好きで、苦になりません。</td></tr>
+<tr><td>他の事業部に興味は</td><td>ぜひ詳しく伺いたいです。（その場で決めず、内容を聞く）</td></tr>
+</table>
+<p class="note">叩き台です。ご自分の言葉に直して使いましょう。</p>
+
+<h2>通勤・勤務時間・入社時期の伝え方</h2>
+<div class="grid two">
+<div class="card">
+<h3>まず教えてください</h3>
+<ul>
+<li>朝の予定（何時に家を出られるか）</li>
+<li>働いている間のご家庭の体制</li>
+<li>通勤は、本当は何分までなら続けられるか</li>
+<li>帰りは何時までなら大丈夫か</li>
+<li>入社は12月と1月、どちらがいいか</li>
+</ul>
+</div>
+<div class="card">
+<h3>そのうえで一緒に決めること</h3>
+<ul>
+<li>勤務条件アンケートに書く内容</li>
+<li>面接で言う通勤・勤務時間・入社時期</li>
+<li>ミラエール様でも同じ言い方にそろえる</li>
+</ul>
+</div>
+</div>
+<p>アンケートは配属先を決める参考になります。面接で話す内容と同じ数字・同じ言い方にしておきましょう。</p>
+
+<h2>コクー様とミラエール様の使い分け</h2>
+<div class="card">
+<h3>同じに言うこと</h3>
+<p>経歴・退職理由・中退・ブランク・なぜ事務か・強み弱み・通勤・入社時期。働き方もどちらも「その会社の正社員として雇われ、お客様の会社で働く」形です。</p>
+</div>
+<div class="grid two">
+<div class="big"><h3>コクー様で話すこと</h3><p>Excel を専門的に深めたい → マクロで周りを楽に → いずれ教える・支える側へ</p></div>
+<div class="card"><h3>ミラエール様で話すこと</h3><p>いろいろな現場で事務を経験して、合う場所を見つけたい → いずれ人事・総務へ</p></div>
+</div>
+<p>どちらも根っこは「まず事務の実務の土台を作る」。だから矛盾しません。</p>
+
+<h2>逆質問の候補（コクー様）</h2>
+<ol>
+<li>配属先はどのように決まりますか。通勤や勤務時間の希望は、どの段階で相談できますか。</li>
+<li>研修のあと、配属が決まるまでは、どのくらいの期間で、どう過ごすことが多いですか。</li>
+<li>未経験で入った方は、1年目にどんな業務から始めて、どのくらいで関数やマクロを使う仕事に進みますか。</li>
+<li>入社までに勉強しておくとよいことはありますか。</li>
+</ol>
+<p class="note">2つくらい選んで、聞きたい順に並べておきましょう。</p>
+
+<h2>面接の日のチェック</h2>
+<ul>
+<li>開始の10分前には入室できるように</li>
+<li>カメラ・マイク・通信を前日に確認</li>
+<li>服装・身だしなみは対面の面接と同じに</li>
+<li>10秒の答えと逆質問のメモを手元に</li>
+<li>つながらないときは、すぐLINEで連絡</li>
+<li><b>終わったら、LINEで一言お知らせください</b></li>
+</ul>
+<footer><p>いよいよ本番です。一緒にがんばりましょう！<br>武者野</p></footer>
+</div>
+
+<div class="panel" id="p2">
+
+<div class="hero">
 <div class="eyebrow">11月9日（月）面接練習のふりかえり</div>
-<h1>松山さん 面接練習フィードバック</h1>
-<p class="lead">先日はありがとうございました！練習でお話しした内容を、あとから見返せるようにまとめました。11月11日（水）8:30〜の打ち合わせは、このページを見ながら進めます。</p>
-</header>
+<h1>面接練習フィードバック</h1>
+<p>練習でお話しした内容を、あとから見返せるようにまとめました。</p>
+</div>
 
 <h2>まず全体の手ごたえ</h2>
 <div class="card">
@@ -59,19 +240,18 @@ h1,h2,h3{word-break:auto-phrase}
 <p>これまでどんなことがあって、どう考えてきて、その結果いまこの会社の扉の前に立っているのか。面接は、その<b>人生のストーリー</b>を伝える場だと考えています。</p>
 <h3>よく聞かれる質問への答えを「在庫」にしておく</h3>
 <p>経歴・退職理由・志望理由・強み弱み・ブランクの過ごし方……。よく聞かれる質問がよく聞かれるのは、<b>それを聞けばその人のストーリーがだいたい分かる、便利な質問だから</b>です。</p>
-<p>なので、この質問たちに対して「自分が100%納得できる答え」を用意しておくと、自分のストーリーを自分がいちばん分かっている状態になります。そうすると、急に変わった質問が来ても<b>「なんて答えよう」ではなく「どの在庫で答えよう」</b>と考えられるので、ぐっと楽になります。</p>
+<p>この質問たちに「自分が100%納得できる答え」を用意しておくと、急に変わった質問が来ても<b>「なんて答えよう」ではなく「どの在庫で答えよう」</b>と考えられるので、ぐっと楽になります。</p>
 </div>
 
 <h2>いちばん大事なこと：10秒の答え</h2>
 <div class="card">
 <p>質問されたとき、<b>話す時間が10秒しかなかったら何と答えるか</b>。それをとにかく突き詰めて、最初に言うようにしてください。</p>
-<p>面接は、自分という人を相手に伝える場です。時間は限られていて、話の途中で次の質問に移られることもあります。最後まで聞いてもらって初めて伝わる話し方だと、途中で切られたときに<b>いちばん伝えたいことが伝わらないまま</b>終わってしまいます。</p>
+<p>面接は時間が限られていて、話の途中で次の質問に移られることもあります。最後まで聞いてもらって初めて伝わる話し方だと、途中で切られたときに<b>いちばん伝えたいことが伝わらないまま</b>終わってしまいます。</p>
 <div class="flow">
 <div><span class="n">1</span>結論（10秒の答え）</div>
 <div><span class="n">2</span>相手が次に聞きそうなこと（具体的には？なぜ？）への答え</div>
 <div><span class="n">3</span>背景・過去の経緯などの補足（聞かれたら）</div>
 </div>
-<p>答えを言ったら、<b>「次にどんな質問が来そうか」</b>まで考えておくと、二言目がすっと出てきます。</p>
 </div>
 
 <h2>質問ごとのフィードバック</h2>
@@ -79,8 +259,7 @@ h1,h2,h3{word-break:auto-phrase}
 <div class="card">
 <p class="q">Q. 経歴を教えてください</p>
 <div class="good"><b>よかったところ</b>：1分〜1分半くらいの長さで、よどみなく話せていました。長さはこのくらいで十分です。</div>
-<div class="warn"><b>意識したいところ</b>：「なぜそうしたか（きっかけ・理由）」が入ると、経歴というより自己紹介寄りになります。経歴の基本の型は、<b>事実を淡々と、古い順に</b>です。理由は聞かれたら話す補足に回しましょう。</div>
-<p>型のイメージ（30秒くらい）：</p>
+<div class="warn"><b>意識したいところ</b>：「なぜそうしたか（きっかけ・理由）」が入ると、経歴というより自己紹介寄りになります。経歴の基本の型は、<b>事実を淡々と、古い順に</b>です。</div>
 <ol>
 <li>大学（看護学部）を中退</li>
 <li>在学中から続けていたアルバイトと、声優の仕事（個人事業主）</li>
@@ -92,49 +271,42 @@ h1,h2,h3{word-break:auto-phrase}
 
 <div class="card">
 <p class="q">Q. 今のお仕事を始めたきっかけは？／退職理由は？</p>
-<div class="good"><b>よかったところ</b>：上のお子さんの小学校入学と、下のお子さんの卒園のタイミングで、まずは人と接する仕事で慣らしてから、本格的に働こうと考えた——という流れがとても自然です。このままで大丈夫です。</div>
-<p>退職理由は<b>「契約期間満了です」</b>で問題ありません。書類もこの表現に合わせて直してあります。</p>
+<div class="good"><b>よかったところ</b>：まずは人と接する仕事で慣らしてから、本格的に働こうと考えた——という流れがとても自然です。このままで大丈夫です。</div>
+<p>退職理由は<b>「契約期間満了です」</b>で問題ありません。</p>
 </div>
 
 <div class="card">
 <p class="q">Q. なぜ事務職を希望するのですか？</p>
 <div class="ten"><small>10秒の答え（叩き台）</small>人を裏で支える仕事がしたいからです。</div>
-<p>この一言を最初に言うと、次は「具体的にどんなことをしたいですか？」「なぜ人を支えたいのですか？」と聞かれやすくなります。そこで、表に立つ仕事（接客など）を続けてきた中で、裏で支える役回りの方が自分に合っていると気づいた——という話を<b>二言目</b>として出しましょう。</p>
-<div class="warn"><b>意識したいところ</b>：練習では「学生の頃は手に職を、と言われて医療系を学んだ」から話し始めていました。これは補足なので、最初ではなく後ろに回しましょう。</div>
+<p>次に「具体的には？」「なぜ？」と聞かれやすいので、表に立つ仕事を続けてきた中で、裏で支える役回りの方が自分に合っていると気づいた——という話を<b>二言目</b>として出しましょう。</p>
+<div class="warn"><b>意識したいところ</b>：「学生の頃は医療系を学んだ」から話し始めると補足が先になります。後ろに回しましょう。</div>
 </div>
 
 <div class="card">
 <p class="q">Q. なぜ人事・総務に興味があるのですか？</p>
-<div class="good"><b>よかったところ</b>：「困ったとき、誰にも相談できずに追い詰められた人を、なんとかしてあげたい」「これまでも、つい話したくなる、言うつもりのなかったことまで話してしまう、と言われて相談を受けることが多かった」という話は、松山さんらしさが伝わるとてもいい答えです。</div>
-<p>これも、最初の一言（10秒の答え）を決めてから、このエピソードを続けるとさらに伝わりやすくなります。</p>
+<div class="good"><b>よかったところ</b>：「困ったとき、誰にも相談できずに追い詰められた人を、なんとかしてあげたい」「これまでも相談を受けることが多かった」という話は、松山さんらしさが伝わるとてもいい答えです。</div>
 </div>
 
 <div class="card">
 <p class="q">Q. 大学を中退された理由は？</p>
-<p>ここが一番、一緒に設計したいところです。</p>
 <h3>なぜ聞かれるのか</h3>
-<p>会社がいちばん心配しているのは<b>「すぐに辞めてしまわないか」</b>です。未経験の方を1人採用して育てるには大きな費用がかかり、2〜3年働いてもらってやっと元が取れるくらいの投資です。</p>
-<p>そして面接官も、採用した人がすぐ辞めてしまうと「なぜこの人を採ったのか」と説明を求められます。なので面接官は、話していて「この人いいな」と思ったうえで、<b>「この人を採っていい理由」を欲しがっています</b>。中退の質問は、その材料を探している質問です。</p>
+<p>会社がいちばん心配しているのは<b>「すぐに辞めてしまわないか」</b>です。面接官は、話していて「この人いいな」と思ったうえで、<b>「この人を採っていい理由」を欲しがっています</b>。</p>
 <h3>どう答えるか</h3>
 <p>中退は「途中で投げ出した」話ではありません。<b>2つの道を同時に進めていて、そのうち片方（声優の仕事）が軌道に乗ったので、そちらに専念した</b>という話です。</p>
 <div class="ten"><small>10秒の答え（叩き台）</small>同時に進めていた声優の仕事が軌道に乗ったので、そちらに専念するためです。</div>
-<p>そのあとに続けるのは、<b>客観的な事実</b>です。「どのくらい仕事をもらっていたのか」「どのくらいの収入になっていたのか」と聞かれたら、役の数や仕事量、収入の目安を数字で答えましょう。学業と両立できないくらい仕事が増えて、仕事として生活していける見込みが立ったから専念した——と伝われば、「すぐ辞める人」という心配は生まれません。</p>
-<h3>話す順番に注意</h3>
-<p>練習では、「もともと麻薬取締官になりたかったけれど……」という入学のきっかけから話し始めていました。</p>
+<p>そのあとは<b>客観的な事実</b>（どのくらい仕事をもらっていたか・収入の目安）を、聞かれたら数字で答えましょう。</p>
 <div class="flow">
 <div><span class="bad">入学のきっかけ → 看護への違和感 → 声優が軌道に乗った → 中退</span></div>
 <div><b>中退した理由（声優に専念）→ 声優の仕事の客観的な事実 → 入学の経緯は聞かれたら</b></div>
 </div>
-<p>上の順番だと、途中で話を切られたときに「周りに流されて入学して、結局辞めた人」に見えてしまいます。いちばん伝えたいこと（声優が軌道に乗ったから専念した）を<b>最初に</b>言えば、どこで切られても大丈夫です。</p>
 </div>
 
 <div class="card">
 <p class="q">Q. 2017年からのブランクについて</p>
 <p>「子育てに専念するためです」で十分です。お子さんが小学校に上がり、これからは腰を据えて長く働いていける、という今の状況を添えましょう。</p>
-<p>家庭のことをどこまで話すかは、11日の打ち合わせで一緒に決めましょう。</p>
 </div>
 
-<h2>11日（水）までの宿題</h2>
+<h2>宿題</h2>
 <div class="homework">
 <p><b>よく聞かれる質問それぞれに、自分の「10秒の答え」を用意してきてください。</b></p>
 <ul>
@@ -146,22 +318,10 @@ h1,h2,h3{word-break:auto-phrase}
 <li>ブランクの期間の過ごし方</li>
 <li>あなたの強み・弱み</li>
 </ul>
-<p>イメージは、寝ているところを起こされて「なぜ事務職なんですか？」と聞かれても、パッと「人を支えたいからです」と答えられるくらいです。そのくらい自分の中に落とし込めると、本番で迷わなくなります。</p>
-<p>用意してきた答えを11日に一緒にチェックして、磨いていきましょう！</p>
+<p>寝ているところを起こされて「なぜ事務職なんですか？」と聞かれても、パッと「人を支えたいからです」と答えられるくらい、自分の中に落とし込めると本番で迷わなくなります。</p>
 </div>
-
-<h2>このあとの面接予定</h2>
-<div class="card">
-<ul>
-<li><b>11月12日（木）10:00〜</b> コクー様 一次面接（対人・オンライン）</li>
-<li><b>11月13日（金）11:00〜</b> スタッフサービス・ミラエール様 面接（Web）</li>
-</ul>
-<p>コクー様の事前対応（DXタイプ診断・勤務条件アンケート）も、11日の打ち合わせで一緒に確認しましょう。</p>
+<footer><p>わからないところがあれば、いつでもLINEで聞いてください。<br>武者野</p></footer>
 </div>
-
-<footer>
-<p>わからないところや、話していて引っかかるところがあれば、いつでもLINEで聞いてください。<br>武者野</p>
-</footer>
 
 </div>
 </body>
