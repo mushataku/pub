@@ -6,11 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>松山さん 面接対策</title>
 <style>
-:root{--bg:#faf7f2;--card:#ffffff;--ink:#2a2420;--muted:#6b625a;--line:#e3dacd;--accent:#c2562b;--accent-soft:#f8e9e0;--dark:#2a2420;--dark-ink:#faf7f2;--good:#2f7a4f;--good-soft:#e8f4ec;--warn:#9a6a12;--warn-soft:#fbf3e2;}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#171513;--card:#221e1b;--ink:#efebe5;--muted:#a59d93;--line:#38322c;--accent:#ec8a5f;--accent-soft:#3a251b;--dark:#2e2823;--dark-ink:#efebe5;--good:#7cc79a;--good-soft:#1d3226;--warn:#e2b45a;--warn-soft:#3a2f17;}}
-:root[data-theme="dark"]{--bg:#171513;--card:#221e1b;--ink:#efebe5;--muted:#a59d93;--line:#38322c;--accent:#ec8a5f;--accent-soft:#3a251b;--dark:#2e2823;--dark-ink:#efebe5;--good:#7cc79a;--good-soft:#1d3226;--warn:#e2b45a;--warn-soft:#3a2f17;}
+:root{--bg:#faf7f2;--card:#ffffff;--ink:#2a2420;--muted:#6b625a;--line:#e3dacd;--accent:#c2562b;--accent-soft:#f8e9e0;--dark:#2a2420;--dark-ink:#faf7f2;--good:#2f7a4f;--good-soft:#e8f4ec;--warn:#9a6a12;--warn-soft:#fbf3e2;--link:#1f5fa8;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#171513;--card:#221e1b;--ink:#efebe5;--muted:#a59d93;--line:#38322c;--accent:#ec8a5f;--accent-soft:#3a251b;--dark:#2e2823;--dark-ink:#efebe5;--good:#7cc79a;--good-soft:#1d3226;--warn:#e2b45a;--warn-soft:#3a2f17;--link:#8cb8ec;}}
+:root[data-theme="dark"]{--bg:#171513;--card:#221e1b;--ink:#efebe5;--muted:#a59d93;--line:#38322c;--accent:#ec8a5f;--accent-soft:#3a251b;--dark:#2e2823;--dark-ink:#efebe5;--good:#7cc79a;--good-soft:#1d3226;--warn:#e2b45a;--warn-soft:#3a2f17;--link:#8cb8ec;}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;line-height:1.8;font-size:16px}
+a{color:var(--link);word-break:break-all}
 .wrap{max-width:760px;margin:0 auto;padding:24px 16px 64px}
 .tabs input{position:absolute;opacity:0;pointer-events:none}
 .tabbar{position:sticky;top:0;z-index:5;display:flex;gap:8px;background:var(--bg);padding:10px 0 12px;margin-bottom:8px;border-bottom:1px solid var(--line)}
@@ -41,6 +42,13 @@ ol,ul{padding-left:1.3em;margin:6px 0}
 li{margin:4px 0}
 .muted{color:var(--muted)}
 .note{color:var(--muted);font-size:14px}
+.feat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.feat .tag{display:inline-block;font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+.feat .fact{margin:4px 0 10px}
+.feat .so{background:var(--good-soft);border-radius:8px;padding:10px 12px;margin:8px 0}
+.feat .so b{color:var(--good)}
+.feat .say{background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:6px;padding:8px 12px;margin:8px 0;font-weight:600}
+.feat .src{font-size:13px;color:var(--muted);margin-top:8px}
 .ten{background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:8px;padding:12px 14px;margin:12px 0;font-weight:600}
 .ten small{display:block;font-weight:400;color:var(--muted);font-size:13px;margin-bottom:2px}
 .good{background:var(--good-soft);border-radius:8px;padding:10px 14px;margin:10px 0}
@@ -81,11 +89,11 @@ h1,h2,h3{word-break:auto-phrase}
 <tr><th>時間</th><th>やること</th></tr>
 <tr><td>8:30〜8:35</td><td>予定の確認</td></tr>
 <tr><td>8:35〜8:55</td><td>宿題の「10秒の答え」チェック</td></tr>
-<tr><td>8:55〜9:05</td><td>コクー様ってどんな会社？</td></tr>
-<tr><td>9:05〜9:25</td><td>コクー様で聞かれそうな質問の練習</td></tr>
-<tr><td>9:25〜9:40</td><td>通勤・勤務時間・入社時期の伝え方とアンケート</td></tr>
-<tr><td>9:40〜9:50</td><td>ミニ模擬面接（5問）</td></tr>
-<tr><td>9:50〜10:00</td><td>ミラエール様に向けて・当日の準備</td></tr>
+<tr><td>8:55〜9:15</td><td>コクー様の特色と、話す方向</td></tr>
+<tr><td>9:15〜9:30</td><td>コクー様で聞かれそうな質問の練習</td></tr>
+<tr><td>9:30〜9:40</td><td>通勤・勤務時間・入社時期の伝え方とアンケート</td></tr>
+<tr><td>9:40〜9:55</td><td>ミラエール様の特色と、話す方向</td></tr>
+<tr><td>9:55〜10:00</td><td>当日の準備</td></tr>
 </table>
 
 <h2>面接の予定</h2>
@@ -100,7 +108,7 @@ h1,h2,h3{word-break:auto-phrase}
 <div class="when">11月13日（金）11:00〜</div>
 <h3>スタッフサービス・ミラエール様 面接</h3>
 <p>Web面接（約1時間）</p>
-<p class="muted">当日のご案内はミラエール様からメールで届きます</p>
+<p class="muted">当日のご案内はミラエール様からメールで届きます。<br>面接前に：紹介動画（約20分）を見ておく</p>
 </div>
 </div>
 
@@ -133,26 +141,61 @@ h1,h2,h3{word-break:auto-phrase}
 </table>
 <p class="note">二言目は「練習のフィードバック」のタブも見ながら確認しましょう。</p>
 
-<h2>コクー様ってどんな会社？</h2>
-<div class="grid two">
-<div class="card"><h3>働き方</h3><p>コクーの正社員として雇われ、お客様の会社に常駐して事務をします（会社は「正社員型派遣」と呼んでいます）。</p></div>
-<div class="card"><h3>配属先</h3><p>スキルと希望を考えて会社が決めます。希望は伝えられますが、選べる前提ではありません。</p></div>
-<div class="card"><h3>研修</h3><p>今は20日間。ビジネス基礎 → Excel → AI・資料作成 → データ活用（Power BI）。配属が決まるまで本社で待つ期間がある場合もあります。</p></div>
-<div class="card"><h3>条件（求人票）</h3><p>9:00〜18:00・土日祝休み。月給は固定残業20時間分を含めて24万円から。</p></div>
-</div>
-<p class="note">お手元の会社説明資料にある「研修10日間」は、以前の情報です。出所：コクー様の公式サイト・求人票（会社の説明）。</p>
+<h2>コクー様の特色と、話す方向</h2>
+<p>会社の特色を知っておくと、「なぜこの会社なのか」に自分の言葉で答えられます。特色ごとに「だから、こう話す」をまとめました。リンクは会社の公式ページです。</p>
 
-<h2>コクー様に一番伝えたい強み</h2>
-<div class="big">
-<h3>独学で9つの資格に、すべて一度で合格</h3>
-<p>MOS Excel エキスパートを含みます。Excel を武器にする会社に、学び続けられる人だと一番伝わる材料です。</p>
+<div class="feat">
+<span class="tag">特色1</span>
+<h3>Excel のプロを育てる会社</h3>
+<p class="fact">事務の主力は「EXCEL女子」という事業部。仕事は「データ入力・資料作成」→「関数やピボットでの集計・分析」→「マクロで自動化・改善提案」と、3段階で上がっていく設計になっていると会社は説明しています。</p>
+<div class="so"><b>だから、こう話す</b>：独学で取った9つの資格、とくに MOS Excel エキスパートを中心に。「Excel を実務で使える力にしたい」「いずれはマクロで周りの作業を楽にしたい」と、3段階の上の方まで見ていることを伝える。</div>
+<div class="say">例）独学で身につけた Excel を、実務で使える力に変えたいと思っています。</div>
+<p class="src">根拠：<a href="https://cocoo.co.jp/corporate/profile/">コクー 会社概要</a></p>
 </div>
-<div class="grid three">
-<div class="card"><h3>学ぶのが苦にならない</h3><p class="muted">取ってほしい資格があれば取る、という姿勢</p></div>
-<div class="card"><h3>記録を丁寧に残す</h3><p class="muted">塾で保護者向けの日報を毎回くわしく作成</p></div>
-<div class="card"><h3>任され、求められる</h3><p class="muted">新人教育・在庫管理。閉店後に復帰を頼まれた</p></div>
+
+<div class="feat">
+<span class="tag">特色2</span>
+<h3>研修は20日間。Excel だけでなく AI やデータ活用まで</h3>
+<p class="fact">今の研修は20日間で、ビジネス基礎 → Excel → 実務演習（議事録・AI・PowerPoint）→ データ活用（Power BI）の順だと会社は説明しています。お手元の会社説明資料にある「10日間」は以前の情報です。</p>
+<div class="so"><b>だから、こう話す</b>：「勉強は苦にならない」という姿勢に加えて、AI 実務技能検定で学んだこと（AI に何を読み込ませていいか、議事録の作らせ方）を一言添える。研修の中身とつながっている人だと伝わります。</div>
+<div class="say">例）勉強は好きで苦になりません。AI の使い方も資格の勉強で学んだので、研修でさらに深めたいです。</div>
+<p class="src">根拠：<a href="https://recruit.cocoo.co.jp/slug-about/training/exjds-2d62381-2db7-4ee3-aeac-cb166856936a">コクー 研修ページ（20日間）</a></p>
 </div>
-<p>Excel は「実務ではこれから。だから研修と現場で実務の力にしたい」と正直に言うのが一番つながります。</p>
+
+<div class="feat">
+<span class="tag">特色3</span>
+<h3>コクーの正社員として、お客様の会社で働く</h3>
+<p class="fact">雇われるのはコクーの正社員で、働く場所はお客様の会社が中心です。配属先はスキルと希望を考えて会社が決めます。研修のあと、配属が決まるまで本社で過ごす期間があったという社員の声もあります。</p>
+<div class="so"><b>だから、こう話す</b>：この働き方を理解していることを、自分から先に伝える。条件（近さ・時間）から話し始めず、「いろいろな現場で経験を積みたい」「合う場所を判断してもらえるのはありがたい」を軸に。待つ期間があっても、指示を待たずに自分で勉強できる人だと伝える（9資格を独学で取った実績がそのまま証拠になります）。</div>
+<div class="say">例）お客様先で働く形だと理解しています。現場を知っている方に合う場所を決めていただけるのは、未経験の私にはありがたいです。</div>
+<p class="src">根拠：<a href="https://recruit.cocoo.co.jp/recruit-ex-inexperienced">コクー 採用ページ（プロフェッショナル事務・未経験）</a>／<a href="https://note.cocoo.co.jp/n/n2f85c44eaaa8">コクー公式 note（社員の声）</a></p>
+</div>
+
+<div class="feat">
+<span class="tag">特色4</span>
+<h3>求める人：学び続ける・自分から動く・人と関わるのが好き</h3>
+<p class="fact">会社は、理念への共感・主体性・コミュニケーションが好き・学び続けたい・ポジティブ、を求める人物像に挙げています。面接では「なりたい姿」を伝えることが求められる、とも書いています。</p>
+<div class="so"><b>だから、こう話す</b>：
+<br>・学び続ける → 独学で9資格、すべて一度で合格
+<br>・自分から動く → 新人教育や在庫管理を任された、閉店後に復帰を頼まれた
+<br>・人と関わる → 相談を受けることが多かった、塾で保護者向けの日報を毎回くわしく書いた
+<br>そして「なりたい姿」は、3段階の先＝「マクロで周りを楽にし、いずれは教える・支える側に」。</div>
+<div class="say">例）まずは関数と集計で正確に仕事をこなし、いずれはマクロで周りの作業を楽にできる人になりたいです。</div>
+<p class="src">根拠：<a href="https://recruit.cocoo.co.jp/menu">コクー 採用情報（選考の流れ）</a></p>
+</div>
+
+<div class="feat">
+<span class="tag">特色5</span>
+<h3>ほかの事業部（データサイエンス等）も一緒に考えてくれる</h3>
+<p class="fact">「面接前のお願い」のページに、応募したポジションに限らず、データサイエンス事業部なども含めて活躍できる環境を一緒に探したい、とあります。研修の後半にもデータ活用（Power BI）が入っています。</p>
+<div class="so"><b>だから、こう話す</b>：打診されたら前向きに「ぜひ詳しく伺いたいです」。その場で受ける・断るは決めず、仕事の中身・研修・働く場所や時間を聞いて、あとで一緒に考えましょう。</div>
+</div>
+
+<div class="card">
+<h3>条件（求人票）</h3>
+<p>9:00〜18:00・土日祝休み。月給は固定残業20時間分を含めて24万円から。年間休日は124日（会社の採用サイト）。</p>
+<p class="src note">根拠：<a href="https://recruit.cocoo.co.jp/about">コクー 採用サイト（会社について）</a></p>
+</div>
 
 <h2>コクー様で聞かれそうな質問</h2>
 <table>
@@ -163,6 +206,7 @@ h1,h2,h3{word-break:auto-phrase}
 <tr><td>研修・学び続けられるか</td><td>勉強は好きで、苦になりません。</td></tr>
 <tr><td>他の事業部に興味は</td><td>ぜひ詳しく伺いたいです。（その場で決めず、内容を聞く）</td></tr>
 </table>
+<p>Excel は「実務ではこれから。だから研修と現場で実務の力にしたい」と正直に言うのが一番つながります。</p>
 <p class="note">叩き台です。ご自分の言葉に直して使いましょう。</p>
 
 <h2>通勤・勤務時間・入社時期の伝え方</h2>
@@ -188,6 +232,59 @@ h1,h2,h3{word-break:auto-phrase}
 </div>
 <p>アンケートは配属先を決める参考になります。面接で話す内容と同じ数字・同じ言い方にしておきましょう。</p>
 
+<h2>ミラエール様の特色と、話す方向</h2>
+
+<div class="feat">
+<span class="tag">特色1</span>
+<h3>事務未経験から、大手企業でオフィスワークデビュー</h3>
+<p class="fact">スタッフサービスの正社員（無期雇用）として雇われ、配属先の会社で働く形です。会社は、扱う仕事の多くが事務職だと説明しています。配属後は簡単な仕事から始めて、時間をかけて慣れていく流れです。</p>
+<div class="so"><b>だから、こう話す</b>：「まずは事務の実務の土台を、しっかり作りたい」。9資格で知識はあるけれど実務はこれから、という今の自分にぴったりの入口だと伝える。</div>
+<div class="say">例）資格で身につけた知識を、まずは実務の現場で確かな力にしたいと考えています。</div>
+<p class="src">根拠：<a href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html">スタッフサービス「ミラエール」公式ページ</a></p>
+</div>
+
+<div class="feat">
+<span class="tag">特色2</span>
+<h3>配属先は「配属担当」が希望と適性から選ぶ。転居はなし</h3>
+<p class="fact">入社前の面談をもとに、希望と適性に応じて配属担当が選ぶ、と会社は説明しています。全ての希望を叶えるのは難しいこともある、とも書いています。地域限定の勤務で、転居を伴う配属先の変更はありません。</p>
+<div class="so"><b>だから、こう話す</b>：11月5日に松山さんが話してくれた「いろいろ現場を見てきた方に、こっちの方がいいよって言ってもらえる方がありがたい」が、そのまま使えます。プロに合う場所を見つけてもらいながら、自分に合う事務を見つけていきたい、という方向で。</div>
+<div class="say">例）いろいろな現場をご存じの方に、合う場所を一緒に考えていただけるのが魅力です。</div>
+<p class="src">根拠：<a href="https://www.022022.net/promotion/career/">ミラエール キャリア採用ページ（よくある質問）</a></p>
+</div>
+
+<div class="feat">
+<span class="tag">特色3</span>
+<h3>学び続けられる仕組みが厚い</h3>
+<p class="fact">入社前の研修（マナー・PC など）に加えて、無料のビジネススクール（最大101講座）や、Excel 初級〜上級などの学習アプリ（200種類以上の動画）があると会社は説明しています。</p>
+<div class="so"><b>だから、こう話す</b>：独学で9資格を取ってきたこと＝この仕組みを一番使いこなせる人だ、と伝える。「入社後もスクールやアプリで学び続けたい」と具体的に言えると強いです。</div>
+<p class="src">根拠：<a href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html">スタッフサービス「ミラエール」公式ページ</a></p>
+</div>
+
+<div class="feat">
+<span class="tag">特色4</span>
+<h3>配属先で直接雇用になる道がある（会社は「卒業」と呼んでいます）</h3>
+<p class="fact">経験を積んで、配属先の会社に直接雇用されて「卒業」する人がいる、と会社は説明しています。これまでに3,000人以上が卒業した、と会社は発表しています。</p>
+<div class="so"><b>だから、こう話す</b>：「一つの現場で信頼を積み重ねて、長く働きたい」。その先に、人事・総務のように人を支える仕事へ広げていきたい、という将来像につなげる。11月5日に話してくれた「来てくれと求められて、そこに行けるのはいいな」という気持ちが、ここに重なります。</div>
+<div class="say">例）配属先で信頼される人になり、いずれは人事・総務の仕事にも挑戦したいです。</div>
+<p class="src">根拠：<a href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html">スタッフサービス「ミラエール」公式ページ</a></p>
+</div>
+
+<div class="feat">
+<span class="tag">面接の傾向</span>
+<h3>これまでの経歴の「空白」を、時系列で細かく聞かれたことがある</h3>
+<p class="fact">弊社からミラエール様を受けた方の例（1件）では、前の仕事を辞めてからの期間や、学生時代の期間について、時系列で細かく聞かれました。</p>
+<div class="so"><b>だから、こう準備する</b>：「大学在学中から声優とアルバイト → 2017年から子育てに専念 → 2024年から資格の勉強 → 2026年10月から派遣」を、年と一緒に一本で話せるようにしておく。打ち合わせで一度通して話してみましょう。</div>
+</div>
+
+<div class="card">
+<h3>面接前にやっておくこと</h3>
+<ul>
+<li>ミラエール様の紹介動画（約20分）を見る：<a href="https://youtu.be/AQk0HNjk8EM">紹介動画</a></li>
+<li>Teams のアプリを入れておく（手順は面接案内のメールに付いています）</li>
+<li>面接案内のメールが届いているか、迷惑メールも含めて確認する</li>
+</ul>
+</div>
+
 <h2>コクー様とミラエール様の使い分け</h2>
 <div class="card">
 <h3>同じに言うこと</h3>
@@ -195,18 +292,31 @@ h1,h2,h3{word-break:auto-phrase}
 </div>
 <div class="grid two">
 <div class="big"><h3>コクー様で話すこと</h3><p>Excel を専門的に深めたい → マクロで周りを楽に → いずれ教える・支える側へ</p></div>
-<div class="card"><h3>ミラエール様で話すこと</h3><p>いろいろな現場で事務を経験して、合う場所を見つけたい → いずれ人事・総務へ</p></div>
+<div class="card"><h3>ミラエール様で話すこと</h3><p>いろいろな現場で事務の土台を作り、合う場所を見つけたい → 配属先で信頼を積み、いずれ人事・総務へ</p></div>
 </div>
 <p>どちらも根っこは「まず事務の実務の土台を作る」。だから矛盾しません。</p>
 
-<h2>逆質問の候補（コクー様）</h2>
+<h2>逆質問の候補</h2>
+<div class="grid two">
+<div class="card">
+<h3>コクー様</h3>
 <ol>
 <li>配属先はどのように決まりますか。通勤や勤務時間の希望は、どの段階で相談できますか。</li>
 <li>研修のあと、配属が決まるまでは、どのくらいの期間で、どう過ごすことが多いですか。</li>
 <li>未経験で入った方は、1年目にどんな業務から始めて、どのくらいで関数やマクロを使う仕事に進みますか。</li>
 <li>入社までに勉強しておくとよいことはありますか。</li>
 </ol>
-<p class="note">2つくらい選んで、聞きたい順に並べておきましょう。</p>
+</div>
+<div class="card">
+<h3>ミラエール様</h3>
+<ol>
+<li>配属先が決まるまでに、希望をお伝えする面談はどのような流れですか。</li>
+<li>直接雇用（卒業）された方は、どのくらい働いてから、どんなきっかけで決まることが多いですか。</li>
+<li>入社後に使えるスクールや学習アプリで、事務の方によく使われているものはありますか。</li>
+</ol>
+</div>
+</div>
+<p class="note">各社2つくらい選んで、聞きたい順に並べておきましょう。</p>
 
 <h2>面接の日のチェック</h2>
 <ul>
