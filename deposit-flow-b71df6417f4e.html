@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex, nofollow">
+<title>業者の入金が残高に入るまで</title>
+<style>
+:root{
+  --ink:#1f2328; --sub:#4e5864; --line:#d0d7de; --bg:#ffffff; --soft:#f6f8fa;
+  --ours:#0b5cb8; --ours-bg:#e8f1fc; --ours-line:#7fb0e8;
+  --ext:#4e5864; --ext-bg:#f1f3f5; --ext-line:#b8c0c8;
+  --warn:#a34700; --warn-bg:#fff1e3; --warn-line:#f0a860;
+  --fixed:#176b3e; --fixed-bg:#e4f4ea; --fixed-line:#7cc89c;
+  --hand:#8a2c8f; --hand-bg:#f8e9f8;
+  --accent:#0b5cb8;
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ink:#e6edf3; --sub:#a9b3bd; --line:#3a424b; --bg:#14181d; --soft:#1d232a;
+    --ours:#7cb8ff; --ours-bg:#132a45; --ours-line:#3c6ea8;
+    --ext:#a9b3bd; --ext-bg:#20262d; --ext-line:#4a535d;
+    --warn:#ffb070; --warn-bg:#3a2410; --warn-line:#8a5420;
+    --fixed:#6fd69a; --fixed-bg:#12301f; --fixed-line:#2f7a4c;
+    --hand:#f0a0f4; --hand-bg:#33193a;
+    --accent:#7cb8ff;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#e6edf3; --sub:#a9b3bd; --line:#3a424b; --bg:#14181d; --soft:#1d232a;
+  --ours:#7cb8ff; --ours-bg:#132a45; --ours-line:#3c6ea8;
+  --ext:#a9b3bd; --ext-bg:#20262d; --ext-line:#4a535d;
+  --warn:#ffb070; --warn-bg:#3a2410; --warn-line:#8a5420;
+  --fixed:#6fd69a; --fixed-bg:#12301f; --fixed-line:#2f7a4c;
+  --hand:#f0a0f4; --hand-bg:#33193a;
+  --accent:#7cb8ff;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:96px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic UI","Meiryo",sans-serif;
+  font-size:16px;line-height:1.75;overflow-wrap:anywhere}
+main{max-width:760px;margin:0 auto;padding:var(--s3) 16px 64px}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
+h1{font-size:1.45rem;line-height:1.45;margin:.4em 0 .3em}
+h2{font-size:1.2rem;line-height:1.5;margin:2.4em 0 .7em;padding-bottom:.25em;border-bottom:2px solid var(--line)}
+h3{font-size:1.02rem;margin:1.4em 0 .4em}
+p{margin:.6em 0;max-width:40em}
+a{color:var(--accent)}
+.meta{color:var(--sub);font-size:.9rem}
+.lead{background:var(--soft);border-left:4px solid var(--ours);padding:var(--s2) var(--s3);margin:var(--s3) 0}
+.lead ol{margin:.3em 0;padding-left:1.4em}
+.lead li{margin:.25em 0}
+
+/* 上の帯（読み物の既定・main の外） */
+.band{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.band-in{max-width:760px;margin:0 auto;padding:6px 16px;display:flex;gap:var(--s2);align-items:baseline;flex-wrap:wrap}
+.band b{font-size:.92rem}
+.band .now{font-size:.88rem;color:var(--sub)}
+.band nav{width:100%;display:flex;gap:4px 14px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;font-size:.86rem}
+.band nav::-webkit-scrollbar{display:none}
+.band nav a{white-space:nowrap;flex:none;text-decoration:none;color:var(--sub);padding:2px 0;border-bottom:2px solid transparent}
+.band nav a[aria-current="true"]{color:var(--ink);border-bottom-color:var(--ours)}
+
+/* 凡例 */
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.9rem;margin:var(--s2) 0}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{display:inline-block;width:14px;height:14px;border-radius:3px;border:2px solid}
+.sw.ext{background:var(--ext-bg);border-color:var(--ext-line)}
+.sw.ours{background:var(--ours-bg);border-color:var(--ours-line)}
+.tag{display:inline-block;font-size:.82rem;line-height:1.5;padding:0 6px;border-radius:4px;font-weight:700;white-space:nowrap}
+.tag.warn{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-line)}
+.tag.fixed{background:var(--fixed-bg);color:var(--fixed);border:1px solid var(--fixed-line)}
+.tag.hand{background:var(--hand-bg);color:var(--hand)}
+
+/* 全体図（PC は横・狭い幅は縦） */
+.wide{width:min(1060px,calc(100vw - 32px));position:relative;left:50%;transform:translateX(-50%);margin:var(--s3) 0}
+figure{margin:0}
+figcaption{font-size:.9rem;color:var(--sub);margin-top:6px;max-width:760px;margin-left:auto;margin-right:auto}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic UI","Meiryo",sans-serif;fill:var(--ink)}
+svg .t-sub{fill:var(--sub)}
+svg .b-ext{fill:var(--ext-bg);stroke:var(--ext-line);stroke-width:2}
+svg .b-ours{fill:var(--ours-bg);stroke:var(--ours-line);stroke-width:2}
+svg .b-lane{fill:none;stroke:var(--ext-line);stroke-width:2;stroke-dasharray:6 5}
+svg .arr{stroke:var(--sub);stroke-width:2;fill:none}
+svg .arr-h{fill:var(--sub)}
+svg .num{fill:var(--ink);font-weight:700}
+svg .m-fixed{fill:var(--fixed-bg);stroke:var(--fixed-line);stroke-width:1.5}
+svg .m-warn{fill:var(--warn-bg);stroke:var(--warn-line);stroke-width:1.5}
+svg .m-fixed-t{fill:var(--fixed);font-weight:700}
+svg .m-warn-t{fill:var(--warn);font-weight:700}
+.fig-v{display:none}
+@media (max-width:899px){.fig-h{display:none}.fig-v{display:block}.wide{width:100%;left:0;transform:none}}
+
+/* 段のカード */
+.steps{list-style:none;margin:var(--s3) 0;padding:0;display:grid;gap:var(--s3)}
+.step{border:2px solid var(--ours-line);background:var(--bg);border-radius:10px;padding:var(--s2) var(--s3) var(--s3)}
+.step.ext{border-color:var(--ext-line)}
+.step h3{margin:.3em 0 .5em;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.step h3 .n{display:inline-grid;place-items:center;min-width:1.8em;height:1.8em;border-radius:50%;background:var(--ours-bg);color:var(--ours);font-size:.95rem;border:2px solid var(--ours-line)}
+.step.ext h3 .n{background:var(--ext-bg);color:var(--ext);border-color:var(--ext-line)}
+.step dl{margin:0;display:grid;grid-template-columns:7.5em 1fr;gap:4px 12px}
+.step dt{color:var(--sub);font-size:.92rem;padding-top:1px}
+.step dd{margin:0}
+@media (max-width:480px){.step dl{grid-template-columns:1fr}.step dt{padding-top:6px}}
+.note{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:8px;padding:var(--s2) var(--s3);margin-top:var(--s2)}
+.note.ok{background:var(--fixed-bg);border-color:var(--fixed-line)}
+.who{font-size:.85rem;color:var(--sub);font-weight:400}
+
+/* 時刻の物差し */
+.case{border:1px solid var(--line);border-radius:10px;padding:var(--s2) var(--s3) var(--s3);margin:var(--s3) 0}
+.case h3{margin:.3em 0 .2em}
+.ruler{position:relative;height:104px;margin:12px 18px 8px}
+.ruler .axis{position:absolute;left:0;right:0;top:44px;height:4px;background:var(--line);border-radius:2px}
+.ruler .gap{position:absolute;top:42px;height:8px;border-radius:4px}
+.ruler .gap.wait{background:var(--warn-line)}
+.ruler .gap.go{background:var(--ours-line)}
+.ruler .pt{position:absolute;top:8px;min-width:26px;height:26px;padding:0 4px;transform:translateX(-50%);border-radius:13px;
+  display:grid;place-items:center;white-space:nowrap;font-size:.8rem;font-weight:700;background:var(--bg);border:2px solid var(--ours);color:var(--ours)}
+.ruler .pt.lo{top:58px}
+.ruler .pt::after{content:"";position:absolute;left:50%;width:2px;height:10px;background:currentColor}
+.ruler .pt:not(.lo)::after{top:24px}
+.ruler .pt.lo::after{top:-12px}
+.ruler .pt.ext{border-color:var(--ext);color:var(--ext)}
+.ruler .pt.hand{border-color:var(--hand);color:var(--hand)}
+.ruler .tick{position:absolute;top:84px;font-size:.78rem;color:var(--sub);transform:translateX(-50%);white-space:nowrap}
+.ruler .tick::before{content:"";position:absolute;left:50%;top:-12px;width:1px;height:8px;background:var(--sub)}
+.evs{margin:var(--s2) 0 0;padding-left:0;list-style:none;display:grid;gap:2px}
+.evs li{display:grid;grid-template-columns:1.8em 5.2em 4.6em 1fr;gap:6px;align-items:baseline}
+.evs .k{font-weight:700;color:var(--ours)}
+.evs .k.ext{color:var(--ext)}
+.evs .k.hand{color:var(--hand)}
+.evs .t{font-variant-numeric:tabular-nums}
+.evs .d{font-variant-numeric:tabular-nums;color:var(--sub);text-align:right}
+@media (max-width:560px){.evs{gap:8px}.evs li{grid-template-columns:1.8em 5.4em 1fr}.evs li > span:last-child{grid-column:2 / 4}.evs .d{text-align:left}.evs .d::before{content:"経過 "}}
+.sum{font-weight:700}
+
+/* 表 */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:8px;margin:var(--s3) 0}
+table{border-collapse:collapse;width:100%;min-width:46em;font-size:.92rem}
+table.off{min-width:34em}
+.tbl thead th:nth-child(5){min-width:9em}
+table.off td:nth-child(2),table.off td:nth-child(4){min-width:11em}
+table.off td:nth-child(3){min-width:8em}
+caption{text-align:left;padding:8px 12px;font-weight:700;caption-side:top;position:sticky;left:0}
+th,td{border-top:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+thead th{background:var(--soft);font-size:.86rem}
+td.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.tm{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 疑う順 */
+.sym{border:2px solid var(--line);border-radius:10px;padding:var(--s2) var(--s3) var(--s3);margin:var(--s3) 0}
+.sym h3{margin:.3em 0 .5em}
+.sym ol{margin:0;padding-left:1.5em}
+.sym li{margin:.45em 0}
+.sym .look{display:block;font-size:.92rem;color:var(--sub)}
+.foot{margin-top:var(--s5);font-size:.9rem;color:var(--sub);border-top:1px solid var(--line);padding-top:var(--s3)}
+</style>
+</head>
+<body>
+<header class="band" data-chrome>
+  <div class="band-in">
+    <b>業者の入金が残高に入るまで</b><span class="now" id="now">— 要点</span>
+    <nav aria-label="章">
+      <a href="#s-sum">要点</a><a href="#s-map">全体図</a><a href="#s-steps">各段</a><a href="#s-time">時刻の物差し</a><a href="#s-off">標準からの外れ</a><a href="#s-doubt">止まったら</a>
+    </nav>
+  </div>
+</header>
+<main>
+<h1>業者の入金がナゲバンの残高に入るまで</h1>
+<p class="meta">拓也へ。2026年11月11日（水）0時30分 時点のコードと本番の記録で書いた。時刻はすべて日本時間（JST）。</p>
+
+<h2 id="s-sum">要点</h2>
+<div class="lead">
+<p>拓也がこれを読み終えたら「入金が残高に入らないとき、どの段を疑うか」を自分で言える、を目指した1枚。</p>
+<ol>
+<li>入金は <strong>7つの段</strong>を通る。銀行（PayPay銀行）とメール（Gmail）は外の段、<strong>④の起こし役から先がこちらの段</strong>。</li>
+<li>遅れの正体は <strong>④「読み手を誰が起こすか」</strong>。11月10日のテラコヤの 100,000円は④の push が来ず、<strong>着金から残高まで33分</strong>（人が手で起こした）。この回は業者の「支払いました」も無かった。11月8日は「支払いました」の後の撃ち直しで起きたとみられ（起こした側のログは未確認）、<strong>9分38秒</strong>。</li>
+<li>④の外れ2つは <strong>11月10日〜11日0時03分に直した</strong>（中身は「標準の形からの外れ」）。実際の入金で push が読み手を起こすかは<strong>次の入金でまだ確かめていない</strong>。</li>
+</ol>
+</div>
+
+<h2 id="s-map">全体図</h2>
+<div class="legend" aria-label="凡例">
+  <span><i class="sw ext"></i>外の段（業者・銀行・Gmail）</span>
+  <span><i class="sw ours"></i>こちらの段（ナゲバン）</span>
+  <span><i class="tag fixed">直した</i>標準の形から外れていて、直した段</span>
+  <span><i class="tag warn">未</i>まだ外れている段</span>
+</div>
+<div class="wide">
+<figure class="fig-h">
+<svg viewBox="0 0 1060 330" role="img" aria-labelledby="fh-t">
+  <title id="fh-t">入金の7段（左から右）。①業者が振込 ②PayPay銀行に着金 ③alumni にメール ④起こし役 ⑤読み手 Job ⑥受付段が照合して残高へ ⑦依頼が進む。PayPay 送金の道は②から⑤が Pixel の PayPay の通知に替わる。</title>
+  <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="arr-h" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+  <!-- 区切り: 外 / こちら -->
+  <text x="10" y="22" font-size="14" class="t-sub">外の段</text>
+  <text x="458" y="22" font-size="14" class="t-sub">ここからこちらの段 →</text>
+  <line x1="450" y1="30" x2="450" y2="200" stroke="var(--line)" stroke-width="2" stroke-dasharray="4 4"/>
+  <!-- 7 boxes: x = 6 + i*150, w=136 -->
+  <g>
+    <rect class="b-ext" x="6" y="44" width="136" height="120" rx="10"/>
+    <text x="74" y="72" font-size="17" text-anchor="middle" class="num">①</text>
+    <text x="74" y="98" font-size="16" text-anchor="middle">業者が振込</text>
+    <text x="74" y="122" font-size="13" text-anchor="middle" class="t-sub">テラコヤ・komai</text>
+    <text x="74" y="140" font-size="13" text-anchor="middle" class="t-sub">kosei</text>
+
+    <rect class="b-ext" x="156" y="44" width="136" height="120" rx="10"/>
+    <text x="224" y="72" font-size="17" text-anchor="middle" class="num">②</text>
+    <text x="224" y="98" font-size="16" text-anchor="middle">PayPay銀行</text>
+    <text x="224" y="118" font-size="16" text-anchor="middle">に着金</text>
+    <text x="224" y="142" font-size="13" text-anchor="middle" class="t-sub">明細に誰・いくら</text>
+
+    <rect class="b-ext" x="306" y="44" width="136" height="120" rx="10"/>
+    <text x="374" y="72" font-size="17" text-anchor="middle" class="num">③</text>
+    <text x="374" y="98" font-size="16" text-anchor="middle">alumni に</text>
+    <text x="374" y="118" font-size="16" text-anchor="middle">入金メール</text>
+    <text x="374" y="142" font-size="13" text-anchor="middle" class="t-sub">日時だけ・額なし</text>
+
+    <rect class="b-ours" x="456" y="44" width="136" height="120" rx="10"/>
+    <text x="524" y="72" font-size="17" text-anchor="middle" class="num">④</text>
+    <text x="524" y="98" font-size="16" text-anchor="middle">起こし役</text>
+    <text x="524" y="122" font-size="13" text-anchor="middle" class="t-sub">Gmail watch→</text>
+    <text x="524" y="140" font-size="13" text-anchor="middle" class="t-sub">push の受け口</text>
+
+    <rect class="b-ours" x="606" y="44" width="136" height="120" rx="10"/>
+    <text x="674" y="72" font-size="17" text-anchor="middle" class="num">⑤</text>
+    <text x="674" y="98" font-size="16" text-anchor="middle">読み手 Job</text>
+    <text x="674" y="122" font-size="13" text-anchor="middle" class="t-sub">Pixel で銀行の</text>
+    <text x="674" y="140" font-size="13" text-anchor="middle" class="t-sub">通知・明細を読む</text>
+
+    <rect class="b-ours" x="756" y="44" width="136" height="120" rx="10"/>
+    <text x="824" y="72" font-size="17" text-anchor="middle" class="num">⑥</text>
+    <text x="824" y="98" font-size="16" text-anchor="middle">受付段が照合</text>
+    <text x="824" y="122" font-size="13" text-anchor="middle" class="t-sub">振込名義→業者</text>
+    <text x="824" y="140" font-size="13" text-anchor="middle" class="t-sub">→残高に足す</text>
+
+    <rect class="b-ours" x="906" y="44" width="136" height="120" rx="10"/>
+    <text x="974" y="72" font-size="17" text-anchor="middle" class="num">⑦</text>
+    <text x="974" y="98" font-size="16" text-anchor="middle">依頼が進む</text>
+    <text x="974" y="122" font-size="13" text-anchor="middle" class="t-sub">残高から</text>
+    <text x="974" y="140" font-size="13" text-anchor="middle" class="t-sub">回線×単価を引く</text>
+  </g>
+  <!-- arrows -->
+  <g marker-end="url(#ah)">
+    <line class="arr" x1="142" y1="104" x2="154" y2="104"/>
+    <line class="arr" x1="292" y1="104" x2="304" y2="104"/>
+    <line class="arr" x1="442" y1="104" x2="454" y2="104"/>
+    <line class="arr" x1="592" y1="104" x2="604" y2="104"/>
+    <line class="arr" x1="742" y1="104" x2="754" y2="104"/>
+    <line class="arr" x1="892" y1="104" x2="904" y2="104"/>
+  </g>
+  <!-- marks -->
+  <rect class="m-fixed" x="470" y="172" width="108" height="24" rx="5"/>
+  <text x="524" y="189" font-size="13" text-anchor="middle" class="m-fixed-t">直した 外れ1・2</text>
+  <rect class="m-warn" x="620" y="172" width="272" height="24" rx="5"/>
+  <text x="756" y="189" font-size="13" text-anchor="middle" class="m-warn-t">未 外れ3：④〜⑦の時刻が残らない</text>
+  <!-- PayPay 送金の道 -->
+  <rect class="b-lane" x="156" y="228" width="586" height="74" rx="10"/>
+  <text x="172" y="254" font-size="15">PayPay 送金の道（kosei など）：②〜⑤ がこう替わる</text>
+  <text x="172" y="282" font-size="14" class="t-sub">業者の PayPay → 拓也の PayPay → Pixel に「受け取り完了」の通知 → 読み手 Job が通知を読む</text>
+  <line class="arr" x1="74" y1="164" x2="74" y2="264" />
+  <line class="arr" x1="74" y1="264" x2="154" y2="264" marker-end="url(#ah)"/>
+  <line class="arr" x1="742" y1="264" x2="824" y2="264"/>
+  <line class="arr" x1="824" y1="264" x2="824" y2="168" marker-end="url(#ah)"/>
+  <text x="836" y="300" font-size="13" class="t-sub">起こすのは「支払いました」と定期</text>
+</svg>
+<figcaption>全体図。⑤の読み手が入口に1行足すと、その場で⑥の受付段を起こす。⑦は⑥の直後か、遅くとも次の10分おきの定期で進む。遅れの大半は④（読み手を誰がいつ起こすか）。</figcaption>
+</figure>
+
+<figure class="fig-v">
+<svg viewBox="0 0 360 900" role="img" aria-labelledby="fv-t">
+  <title id="fv-t">入金の7段（上から下）。①業者が振込 ②PayPay銀行に着金 ③alumni にメール ④起こし役 ⑤読み手 Job ⑥受付段が照合して残高へ ⑦依頼が進む。</title>
+  <defs><marker id="ahv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="arr-h" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+  <!-- boxes: y = 10 + i*124, h=96, x=8 w=244 -->
+  <rect class="b-ext" x="8" y="10" width="244" height="96" rx="10"/>
+  <text x="24" y="44" font-size="19" class="num">①</text><text x="56" y="44" font-size="18">業者が振込</text>
+  <text x="56" y="74" font-size="15" class="t-sub">テラコヤ・komai・kosei</text>
+
+  <rect class="b-ext" x="8" y="134" width="244" height="96" rx="10"/>
+  <text x="24" y="168" font-size="19" class="num">②</text><text x="56" y="168" font-size="18">PayPay銀行に着金</text>
+  <text x="56" y="198" font-size="15" class="t-sub">明細に誰・いくら</text>
+
+  <rect class="b-ext" x="8" y="258" width="244" height="96" rx="10"/>
+  <text x="24" y="292" font-size="19" class="num">③</text><text x="56" y="292" font-size="18">alumni に入金メール</text>
+  <text x="56" y="322" font-size="15" class="t-sub">日時だけ・額も名義もなし</text>
+
+  <text x="8" y="374" font-size="14" class="t-sub">— ここからこちらの段 —</text>
+
+  <rect class="b-ours" x="8" y="382" width="244" height="96" rx="10"/>
+  <text x="24" y="416" font-size="19" class="num">④</text><text x="56" y="416" font-size="18">起こし役</text>
+  <text x="56" y="446" font-size="15" class="t-sub">watch→push の受け口</text>
+  <rect class="m-fixed" x="150" y="390" width="96" height="24" rx="5"/>
+  <text x="198" y="407" font-size="14" text-anchor="middle" class="m-fixed-t">直した</text>
+
+  <rect class="b-ours" x="8" y="506" width="244" height="96" rx="10"/>
+  <text x="24" y="540" font-size="19" class="num">⑤</text><text x="56" y="540" font-size="18">読み手 Job</text>
+  <text x="56" y="570" font-size="15" class="t-sub">Pixel で通知・明細を読む</text>
+
+  <rect class="b-ours" x="8" y="630" width="244" height="96" rx="10"/>
+  <text x="24" y="664" font-size="19" class="num">⑥</text><text x="56" y="664" font-size="18">受付段が照合</text>
+  <text x="56" y="694" font-size="15" class="t-sub">振込名義→業者→残高</text>
+
+  <rect class="b-ours" x="8" y="754" width="244" height="96" rx="10"/>
+  <text x="24" y="788" font-size="19" class="num">⑦</text><text x="56" y="788" font-size="18">依頼が進む</text>
+  <text x="56" y="818" font-size="15" class="t-sub">残高から回線×単価</text>
+
+  <g marker-end="url(#ahv)">
+    <line class="arr" x1="60" y1="106" x2="60" y2="132"/>
+    <line class="arr" x1="60" y1="230" x2="60" y2="256"/>
+    <line class="arr" x1="60" y1="354" x2="60" y2="380"/>
+    <line class="arr" x1="60" y1="478" x2="60" y2="504"/>
+    <line class="arr" x1="60" y1="602" x2="60" y2="628"/>
+    <line class="arr" x1="60" y1="726" x2="60" y2="752"/>
+  </g>
+  <!-- 外れ3 の帯 -->
+  <rect class="m-warn" x="262" y="382" width="30" height="468" rx="5"/>
+  <text x="277" y="616" font-size="14" text-anchor="middle" class="m-warn-t" transform="rotate(90 277 616)">未 外れ3：④〜⑦の時刻が残らない</text>
+  <!-- PayPay 送金の道 -->
+  <rect class="b-lane" x="302" y="134" width="52" height="468" rx="10"/>
+  <text x="328" y="368" font-size="14" text-anchor="middle" transform="rotate(90 328 368)">PayPay 送金の道：Pixel の通知を読む</text>
+  <text x="8" y="884" font-size="14" class="t-sub">右の点線＝PayPay 送金の道（②〜⑤が替わる）</text>
+</svg>
+<figcaption>全体図（縦）。④が読み手を起こすまでが外の段からの受け渡し。⑤が1行足すとすぐ⑥が動く。</figcaption>
+</figure>
+</div>
+
+<h2 id="s-steps">各段（何をする・入力→出力・止まるとどうなる・保険）</h2>
+<ol class="steps">
+<li class="step ext"><h3><span class="n">①</span>業者が振込 <span class="who">業者</span></h3>
+<dl>
+<dt>何をする</dt><dd>業者コンソールの入金待ちの欄（「PayPay」「銀行振込」）を見て、拓也の PayPay銀行の口座へ振り込む。</dd>
+<dt>入力→出力</dt><dd>業者の口座 → 振込（振込名義のカナ付き）</dd>
+<dt>止まると</dt><dd>法人口座から振ると<strong>振込名義が登録外</strong>になりうる（⑥で照合できない）。</dd>
+<dt>保険</dt><dd>業者が「支払いました」を押すと、申告の額と時刻が残る（⑥の照合と④の起こしに使う）。</dd>
+</dl></li>
+
+<li class="step ext"><h3><span class="n">②</span>PayPay銀行に着金 <span class="who">銀行</span></h3>
+<dl>
+<dt>何をする</dt><dd>口座に入金が載る。明細に「誰が・いくら・取引番号」。</dd>
+<dt>入力→出力</dt><dd>振込 → 明細の1行・アプリの入金通知</dd>
+<dt>止まると</dt><dd>銀行側の遅れはこちらから見えない（実績では着金→メールが1分30秒〜2分49秒）。</dd>
+<dt>保険</dt><dd>なし（外の段）。</dd>
+</dl></li>
+
+<li class="step ext"><h3><span class="n">③</span>alumni の受信箱に「振込入金のご連絡」 <span class="who">Gmail</span></h3>
+<dl>
+<dt>何をする</dt><dd>入金があったと<strong>最初に知らせてくる口</strong>。本文は入金日時だけで、<strong>金額も名義も無い</strong>（11月10日に本文全体を確認）。</dd>
+<dt>入力→出力</dt><dd>着金 → メール1通。受信箱のフィルタ「通知/金融」がラベルを付け、<strong>受信トレイから外す</strong>。</dd>
+<dt>止まると</dt><dd>メールが来ないと④が起きない。メールだけでは残高に足さない（額を推測しない）。</dd>
+<dt>保険</dt><dd>⑤の定期（4時間おき）が Gmail を検索して拾う。</dd>
+</dl></li>
+
+<li class="step"><h3><span class="n">④</span>起こし役（Gmail watch → push の受け口） <span class="tag fixed">直した 外れ1・2</span></h3>
+<dl>
+<dt>何をする</dt><dd>Gmail の watch がメールの到着を Pub/Sub に流し、受け口 <code>/bank-push</code> が受け取って⑤の読み手 Job を起こす。<strong>起こすだけで残高には触らない</strong>。</dd>
+<dt>入力→出力</dt><dd>入金メールの到着 → 読み手 Job の起動1回</dd>
+<dt>止まると</dt><dd>⑤が次の保険（4時間おきの定期か「支払いました」）まで起きない＝<strong>遅れの大半はここ</strong>。11月10日はこれで33分（手で起こした）。</dd>
+<dt>保険</dt><dd>⑤の定期（4時間おき）／業者の「支払いました」の直後と、その後30分の撃ち直し／旗 <code>ALERT_paypay_bank_unread</code>（<strong>メールは来たのに</strong>30分たっても入口に行が無い）／旗 <code>ALERT_paypay_bank_watch_expired</code>（watch の期限切れ）。</dd>
+</dl>
+<div class="note ok">11月10日〜11日に2つ直した（中身は<a href="#s-off">「標準の形からの外れ」</a>）。<strong>実際の入金で push が読み手を起こすかは、まだ確かめていない</strong>（次の入金で確かめる）。</div>
+</li>
+
+<li class="step"><h3><span class="n">⑤</span>読み手 Job（<code>bot-lab-paypay-reader</code>）</h3>
+<dl>
+<dt>何をする</dt><dd>クラウドから遠隔で Pixel につなぎ、PayPay銀行アプリの通知を読む。通知で足りなければアプリを開いて明細を読み、閉じる。</dd>
+<dt>入力→出力</dt><dd>Pixel の通知・明細 → 入口 <code>bank_inbox.jsonl</code> に1件1行（時刻・名義・金額）→ すぐ⑥を起こす</dd>
+<dt>止まると</dt><dd>Pixel がつながらない・銀行アプリがログアウト・画面が読めない。PayPay銀行アプリは<strong>同時に1台しかログインできない</strong>。</dd>
+<dt>保険</dt><dd>旗 <code>ALERT_paypay_bank_unread</code>（<strong>メールは来たのに</strong>30分たっても入口に行が無い）／旗 <code>ALERT_paypay_reader_offline</code>（<strong>Pixel かアプリにつながらない</strong>状態が30分続く）。どちらも Discord の <code>claude</code> チャンネルに拓也宛てで届く。</dd>
+</dl></li>
+
+<li class="step"><h3><span class="n">⑥</span>受付段が照合して残高へ</h3>
+<p>受付段＝MNP タイプBの依頼を受け付けて、残高を出し入れする係（⑥と⑦は同じ係）。</p>
+<dl>
+<dt>何をする</dt><dd>入口の行の振込名義を、業者ごとの登録名義と完全一致で照らし、当たった業者の台帳 <code>balance/</code> に足す（credit）。</dd>
+<dt>入力→出力</dt><dd>入口の1行 → 台帳の credit 1件（業者の残高が増える）</dd>
+<dt>止まると</dt><dd>名義が登録外・2業者に当たる → 足さずに「照合できない入金」へ（Discord に知らせる）。</dd>
+<dt>保険</dt><dd>業者の「支払いました」と<strong>同額・前後30分以内がちょうど1件</strong>なら自動で足し、その名義を覚える。それ以外は管理が業者コンソールで割り当て（1タップ・名義も覚える）。</dd>
+</dl></li>
+
+<li class="step"><h3><span class="n">⑦</span>依頼が進む</h3>
+<dl>
+<dt>何をする</dt><dd>残高から依頼の分（回線の数×単価）を引き（charge）、依頼を次の段へ進める。</dd>
+<dt>入力→出力</dt><dd>残高 → charge 1件・依頼の段が進む</dd>
+<dt>止まると</dt><dd>残高が足りない（入金待ちの表示が「あと ○円」のまま）。</dd>
+<dt>保険</dt><dd>受付段の定期（10分おき）が拾い直す。</dd>
+</dl></li>
+</ol>
+
+<h2 id="s-time">時刻の物差し（実例）</h2>
+<p>銀行振込の道で台帳に入った入金の全4件（2026年11月5日〜10日・業者はどれもテラコヤ）。時刻は秒まで、「経過」は②着金からの分:秒。</p>
+<p class="meta">出所: ②着金＝明細の入金時刻（入口 <code>bank_inbox.jsonl</code>）／③メール＝alumni の Gmail の受信時刻／⑤読んだ＝読み手 Job のログ（入口に行を足した時刻）／⑥残高＝台帳 credit の時刻／⑦依頼＝直後の charge の時刻。2026年11月11日 0時30分に読んだ値。</p>
+
+<div class="case">
+<h3>11月10日（火）テラコヤ 100,000円 — push が来ず、手で起こした</h3>
+<p class="meta">物差し: ②着金（17:07:41）からの経過 0〜40分・1目盛り10分・JST・銀行振込の道・11月11日0時30分時点の記録</p>
+<div class="ruler" aria-hidden="true">
+  <div class="axis"></div>
+  <div class="gap wait" style="left:7.0%;width:68.8%"></div>
+  <div class="gap go" style="left:75.8%;width:8.6%"></div>
+  <span class="pt ext" style="left:0%">②</span>
+  <span class="pt ext lo" style="left:7.0%">③</span>
+  <span class="pt hand" style="left:75.8%">手</span>
+  <span class="pt lo" style="left:82.5%">⑤⑥⑦</span>
+  <span class="tick" style="left:0%">0分</span><span class="tick" style="left:25%">10</span><span class="tick" style="left:50%">20</span><span class="tick" style="left:75%">30</span><span class="tick" style="left:100%">40</span>
+</div>
+<ul class="evs">
+<li><span class="k ext">②</span><span class="t">17:07:41</span><span class="d">0:00</span><span>PayPay銀行に着金</span></li>
+<li><span class="k ext">③</span><span class="t">17:10:30</span><span class="d">2:49</span><span>入金メール到着 → <strong>④ push 来ず</strong>。業者の「支払いました」も無く、その撃ち直しの保険も動かなかった（橙の区間＝誰も起こしていない）</span></li>
+<li><span class="k hand">手</span><span class="t">17:38頃</span><span class="d">約30:19</span><span>司令塔が手で読み手を起こした</span></li>
+<li><span class="k">⑤</span><span class="t">17:40:27</span><span class="d">32:46</span><span>読み手が明細を読んで入口に1行</span></li>
+<li><span class="k">⑥</span><span class="t">17:40:41</span><span class="d">33:00</span><span>残高に 100,000円</span></li>
+<li><span class="k">⑦</span><span class="t">17:41:25</span><span class="d">33:44</span><span>依頼の charge（−10,000円）</span></li>
+</ul>
+<p class="sum">着金→残高 33分00秒。うち約27分半は「メールは来たのに誰も起こしていない」時間。</p>
+</div>
+
+<div class="case">
+<h3>11月8日（日）テラコヤ 5,000円 — 「支払いました」の後に起きた</h3>
+<p class="meta">物差し: ②着金（18:45:44）からの経過 0〜40分・1目盛り10分・JST・銀行振込の道・11月11日0時30分時点の記録。申告は着金の1分51秒前（物差しの左の外）</p>
+<div class="ruler" aria-hidden="true">
+  <div class="axis"></div>
+  <div class="gap wait" style="left:6.5%;width:17.0%"></div>
+  <div class="gap go" style="left:23.5%;width:22.3%"></div>
+  <span class="pt ext" style="left:0%">②</span>
+  <span class="pt ext lo" style="left:6.5%">③</span>
+  <span class="pt" style="left:23.8%">⑤⑥</span>
+  <span class="pt lo" style="left:45.8%">⑦</span>
+  <span class="tick" style="left:0%">0分</span><span class="tick" style="left:25%">10</span><span class="tick" style="left:50%">20</span><span class="tick" style="left:75%">30</span><span class="tick" style="left:100%">40</span>
+</div>
+<ul class="evs">
+<li><span class="k ext">①</span><span class="t">18:43:53</span><span class="d">−1:51</span><span>業者が「支払いました」（申告）</span></li>
+<li><span class="k ext">②</span><span class="t">18:45:44</span><span class="d">0:00</span><span>PayPay銀行に着金</span></li>
+<li><span class="k ext">③</span><span class="t">18:48:19</span><span class="d">2:35</span><span>入金メール到着（このころの watch は受信トレイだけ＝push は出ない形）</span></li>
+<li><span class="k">⑤</span><span class="t">18:55:07</span><span class="d">9:23</span><span>読み手が明細を読んで入口に1行（申告の後の撃ち直しで起きたと見ている。起こした側のログは未確認）</span></li>
+<li><span class="k">⑥</span><span class="t">18:55:22</span><span class="d">9:38</span><span>残高に 5,000円</span></li>
+<li><span class="k">⑦</span><span class="t">19:04:02</span><span class="d">18:18</span><span>依頼の charge（−5,000円）</span></li>
+</ul>
+<p class="sum">着金→残高 9分38秒。</p>
+</div>
+
+<div class="tbl" role="region" aria-label="入金4件の各段の時刻" tabindex="0">
+<table>
+<caption>入金4件の各段の時刻（2026年11月5日〜10日・銀行振込・テラコヤ・JST・11月11日 0時30分時点。着金→残高＝②明細の入金時刻から⑥台帳 credit の時刻まで）</caption>
+<thead><tr><th>入金日</th><th>額（円）</th><th>②着金</th><th>③メール</th><th>⑤を起こしたもの</th><th>⑤読んだ</th><th>⑥残高</th><th>着金→残高</th></tr></thead>
+<tbody>
+<tr><td class="tm">11月10日（火）</td><td class="r">100,000</td><td class="tm">17:07:41</td><td class="tm">17:10:30</td><td>手（push 来ず）</td><td class="tm">17:40:27</td><td class="tm">17:40:41</td><td class="r">33分00秒</td></tr>
+<tr><td class="tm">11月8日（日）</td><td class="r">5,000</td><td class="tm">18:45:44</td><td class="tm">18:48:19</td><td>「支払いました」の後</td><td class="tm">18:55:07</td><td class="tm">18:55:22</td><td class="r">9分38秒</td></tr>
+<tr><td class="tm">11月6日（木）</td><td class="r">2,500</td><td class="tm">15:40:49</td><td class="tm">15:42:19</td><td>立ち上げ中の手動の回</td><td class="tm">16:11:15</td><td class="tm">18:09:04</td><td class="r">2時間28分</td></tr>
+<tr><td class="tm">11月5日（水）</td><td class="r">5,000</td><td class="tm">14:46:18</td><td class="tm">14:48:17</td><td>読み手の銀行の読みが未配備</td><td>記録なし</td><td class="tm">15:03:53 ※</td><td class="r">17分35秒 ※</td></tr>
+</tbody>
+</table>
+</div>
+<p class="meta">※11月5日は管理が手で残高に入れた時刻。読み手の行は配備後の 20:55:17 に入り、二重分は同時刻に調整で戻した。11月5日・6日は読み手を作っている最中で、いまの形の所要時間の参考にならない。11月6日は⑤から⑥まで約2時間かかった（原因は記録から確かめていない）。台帳に対応する行が無い入金メール1通（11月5日 12:53）は除いた。</p>
+
+<h2 id="s-off">標準の形からの外れ（3つ）</h2>
+<div class="tbl" role="region" aria-label="標準の形からの外れ" tabindex="0">
+<table class="off">
+<thead><tr><th>段</th><th>外れ</th><th>標準の形</th><th>いま</th></tr></thead>
+<tbody>
+<tr><td>④</td><td>watch が受信トレイ（INBOX）だけを見る。フィルタで受信トレイを外れる入金メールでは push が出ない</td><td>入金メールが付くラベルも watch する</td><td><span class="tag fixed">直した</span> 11月11日 0時03分に張り直し。実入金での確認は次の入金（票 <code>bank-watch-follow-inbox-filter-prod-check</code>）</td></tr>
+<tr><td>④</td><td>push の中身（どこまで読んだかの番号＝historyId）を見ず、直近1時間を検索＋10分の時間窓で判断。LinksMate の受け口も同じ形だった</td><td>番号から <code>history.list</code> で増えたメールだけを引く</td><td><span class="tag fixed">直した</span> 11月10日 19時台にデプロイ（票 <code>bank-push-history-list</code>）</td></tr>
+<tr><td>④〜⑦</td><td>各段の時刻が構造的に残らない（この図の時刻は、ログと台帳とメールを後から突き合わせた）</td><td>入金1件ごとに段の時刻を1行で持つ</td><td><span class="tag warn">未</span> 票 <code>deposit-latency-timeline</code></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="s-doubt">止まったとき疑う順</h2>
+<p>症状ごとに、上から順に段を疑う。「見る口」は画面か旗の名前。旗は Discord の <code>claude</code> チャンネルに、拓也宛ての知らせとして旗の名前で届く。</p>
+
+<div class="sym">
+<h3>業者が「振り込んだ」と言うのに、残高が増えない</h3>
+<ol>
+<li><strong>①業者が「支払いました」を押したか</strong><span class="look">見る口: 業者コンソールの申告。押していなければ④の撃ち直しも⑥の自動照合も動かない</span></li>
+<li><strong>②着金したか</strong><span class="look">見る口: 司令塔（Claude）に「②の明細を見て」と頼む。<strong>自分の端末で PayPay銀行アプリにログインしない</strong>（同時に1台しかログインできず、Pixel の読み手が追い出される）。着金が無ければ業者側か銀行側</span></li>
+<li><strong>③メールが来たか</strong><span class="look">見る口: alumni の Gmail のラベル「通知/金融」に「振込入金のご連絡」（受信トレイには出ない）</span></li>
+<li><strong>④⑤読み手が起きて読めたか</strong><span class="look">見る口: 旗 <code>ALERT_paypay_bank_unread</code>（メールの30分後に立つ）・<code>ALERT_paypay_reader_offline</code>（Pixel かアプリにつながらない）。急ぐなら、業者コンソールに管理として業者の立場で入り、入金待ちの「支払いました」を押す（読み手がすぐ起き、30分のあいだ撃ち直す）か、司令塔に「読み手を1回起こして」と頼む</span></li>
+<li><strong>⑥照合できたか</strong><span class="look">見る口: Discord の「照合できない入金」・業者コンソール（管理）の照合できない入金の一覧 → 業者に割り当て（1タップ）</span></li>
+</ol>
+</div>
+
+<div class="sym">
+<h3>Discord に「照合できない入金」が来た</h3>
+<ol>
+<li><strong>⑥振込名義が登録外</strong>（法人口座・家族名義など）<span class="look">見る口: 業者コンソール（管理）で割り当てる。割り当てた名義は覚えるので次からは自動</span></li>
+<li><strong>⑥名義が2つの業者に当たる</strong><span class="look">見る口: 業者コンソール（管理）で割り当てる</span></li>
+<li><strong>①業者の「支払いました」が無い・額が違う</strong><span class="look">見る口: 業者コンソールの申告。同額・前後30分以内がちょうど1件なら自動で足す</span></li>
+</ol>
+</div>
+
+<div class="sym">
+<h3>旗 <code>ALERT_paypay_bank_unread</code> が立った（メールは来たのに30分読めない）</h3>
+<ol>
+<li><strong>④起こし役が起こしていない</strong><span class="look">見る口: 旗 <code>ALERT_paypay_bank_watch_expired</code>（watch の失効）。無ければ受け口が起こせていない</span></li>
+<li><strong>⑤読み手が読めない</strong><span class="look">見る口: 旗 <code>ALERT_paypay_reader_offline</code>・Pixel がつながっているか・PayPay銀行アプリが別の端末でログインされていないか</span></li>
+</ol>
+</div>
+
+<div class="sym">
+<h3>残高は増えたのに、依頼が進まない</h3>
+<ol>
+<li><strong>⑥本当に残高に入ったか</strong><span class="look">見る口: 業者コンソールの残高（台帳の入金の行）</span></li>
+<li><strong>⑦残高が依頼の分に足りない</strong><span class="look">見る口: 業者コンソールの入金待ちの表示（「あと ○円」）</span></li>
+<li><strong>⑦受付段が止まっている</strong><span class="look">見る口: 業者コンソールの依頼の段（10分たっても動かないか）・Discord の <code>claude</code> チャンネルの受付段の見張りの知らせ</span></li>
+</ol>
+</div>
+
+<div class="sym">
+<h3>PayPay 送金（kosei など）が残高に入らない</h3>
+<ol>
+<li><strong>Pixel に PayPay の「受け取り完了」の通知が来たか</strong><span class="look">見る口: 旗 <code>ALERT_paypay_needs_check</code>（読めない通知・同額の重なり）</span></li>
+<li><strong>PayPay がログアウトしていないか</strong><span class="look">見る口: 旗 <code>ALERT_paypay_reader_offline</code>（理由「PayPay がログアウトしている」）</span></li>
+<li><strong>⑥表示名が登録外</strong><span class="look">見る口: Discord の「照合できない入金」→ 業者コンソールで割り当て</span></li>
+</ol>
+</div>
+
+<p class="foot">仕様の正本は bot-lab の <code>docs/SPEC.md</code>「お金（前払い残高・入金・LP 購入・返金）」の節。振込先の口座番号・個人のアドレスと振込名義はこのページに載せていない。</p>
+</main>
+<script>
+(function(){
+  var heads=[].slice.call(document.querySelectorAll('main h2[id]'));
+  var links={}; [].forEach.call(document.querySelectorAll('.band nav a'),function(a){links[a.getAttribute('href').slice(1)]=a;});
+  var now=document.getElementById('now');
+  function pick(){
+    var lim=document.querySelector('.band').getBoundingClientRect().bottom+24, cur=heads[0];
+    for(var i=0;i<heads.length;i++){ if(heads[i].getBoundingClientRect().top<=lim) cur=heads[i]; }
+    if(!cur) return;
+    now.textContent='— '+cur.textContent;
+    for(var k in links){ if(k===cur.id) links[k].setAttribute('aria-current','true'); else links[k].removeAttribute('aria-current'); }
+  }
+  window.addEventListener('scroll',pick,{passive:true}); window.addEventListener('resize',pick); pick();
+})();
+</script>
+</body>
+</html>
