@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="ja">
-<head>
+<head><!--gp-portal:s--><meta name="x-build" content="78bb17902b"><!--gp-portal:e-->
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>松山さん 面接対策</title>
+<title>松山さん 専用ページ</title>
 <style>
 :root{--bg:#faf7f2;--card:#ffffff;--ink:#2a2420;--muted:#6b625a;--line:#e3dacd;--accent:#c2562b;--accent-soft:#f8e9e0;--dark:#2a2420;--dark-ink:#faf7f2;--good:#2f7a4f;--good-soft:#e8f4ec;--warn:#9a6a12;--warn-soft:#fbf3e2;--link:#1f5fa8;}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#171513;--card:#221e1b;--ink:#efebe5;--muted:#a59d93;--line:#38322c;--accent:#ec8a5f;--accent-soft:#3a251b;--dark:#2e2823;--dark-ink:#efebe5;--good:#7cc79a;--good-soft:#1d3226;--warn:#e2b45a;--warn-soft:#3a2f17;--link:#8cb8ec;}}
@@ -14,12 +14,12 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans",
 a{color:var(--link);word-break:break-all}
 .wrap{max-width:760px;margin:0 auto;padding:24px 16px 64px}
 .tabs input{position:absolute;opacity:0;pointer-events:none}
-.tabbar{position:sticky;top:0;z-index:5;display:flex;gap:8px;background:var(--bg);padding:10px 0 12px;margin-bottom:8px;border-bottom:1px solid var(--line)}
-.tabbar label{flex:1;text-align:center;padding:10px 8px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--muted);font-weight:700;font-size:15px;cursor:pointer;line-height:1.4}
-.tabbar label small{display:block;font-weight:400;font-size:12px}
-#t1:checked ~ .tabbar label[for="t1"],#t2:checked ~ .tabbar label[for="t2"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.tabbar{position:sticky;top:0;z-index:5;display:flex;gap:6px;background:var(--bg);padding:10px 0 12px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+.tabbar label{flex:1;text-align:center;padding:9px 4px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--muted);font-weight:700;font-size:14px;cursor:pointer;line-height:1.35}
+.tabbar label small{display:block;font-weight:400;font-size:11px}
+#t0:checked ~ .tabbar label[for="t0"],#t1:checked ~ .tabbar label[for="t1"],#t2:checked ~ .tabbar label[for="t2"]{background:var(--accent);border-color:var(--accent);color:#fff}
 .panel{display:none}
-#t1:checked ~ #p1,#t2:checked ~ #p2{display:block}
+#t0:checked ~ #p0,#t1:checked ~ #p1,#t2:checked ~ #p2{display:block}
 .hero{background:var(--dark);color:var(--dark-ink);border-radius:16px;padding:24px 20px;margin:16px 0 24px}
 .hero .eyebrow{color:#e8a27f;font-weight:700;font-size:14px;letter-spacing:.06em}
 .hero h1{font-size:24px;line-height:1.4;margin:6px 0 10px}
@@ -32,6 +32,7 @@ h3{font-size:17px;margin:4px 0 6px}
 .when{color:var(--accent);font-weight:700;font-size:14px}
 .big{background:var(--accent);color:#fff;border-radius:12px;padding:16px 18px;margin:12px 0}
 .big h3{color:#fff}
+.big a{color:#fff}
 .step{display:flex;gap:12px;align-items:flex-start}
 .num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;display:flex;align-items:center;justify-content:center}
 table{width:100%;border-collapse:collapse;font-size:15px}
@@ -42,6 +43,13 @@ ol,ul{padding-left:1.3em;margin:6px 0}
 li{margin:4px 0}
 .muted{color:var(--muted)}
 .note{color:var(--muted);font-size:14px}
+.co{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:16px 18px;margin:14px 0}
+.co.wait{border-left-color:var(--muted)}
+.co .status{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:var(--accent);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+.co.wait .status{background:var(--muted)}
+.co .dt{font-size:18px;font-weight:700;margin:2px 0 8px}
+.check li{list-style:none;margin-left:-1.3em}
+.check li::before{content:"□ ";color:var(--accent);font-weight:700}
 .feat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
 .feat .tag{display:inline-block;font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 10px;margin-bottom:6px}
 .feat .fact{margin:4px 0 10px}
@@ -68,18 +76,83 @@ h1,h2,h3{word-break:auto-phrase}
 </head>
 <body>
 <div class="wrap tabs">
-<input type="radio" name="tab" id="t1" checked>
+<input type="radio" name="tab" id="t0" checked>
+<input type="radio" name="tab" id="t1">
 <input type="radio" name="tab" id="t2">
 <div class="tabbar">
-<label for="t1">面接対策<small>11月11日（水）</small></label>
-<label for="t2">練習のフィードバック<small>11月9日（月）</small></label>
+<label for="t0">ホーム<small>今の状況</small></label>
+<label for="t1">面接対策<small>11月11日</small></label>
+<label for="t2">フィードバック<small>11月9日</small></label>
+</div>
+
+<div class="panel" id="p0">
+
+<div class="hero">
+<div class="eyebrow">11月11日（水）時点</div>
+<h1>松山さん 専用ページ</h1>
+<p>選考の状況と、これからやることをまとめています。</p>
+<p>新しい資料はこのページにタブで足していきます。</p>
+</div>
+
+<h2>面接の予定</h2>
+
+<div class="co">
+<span class="status">面接決定</span>
+<h3>コクー様　一次面接</h3>
+<div class="dt">11月12日（木）10:00〜11:00</div>
+<p><b>入室URL</b>：<a href="https://sokumen.net/interview/P4Vh3wQ8">https://sokumen.net/interview/P4Vh3wQ8</a><br><span class="note">イヤホンを付けて、ほかのアプリを閉じた状態での参加がおすすめとのことです。</span></p>
+<p><b>つながらないとき</b>：予備URL <a href="https://us02web.zoom.us/j/3708144903">https://us02web.zoom.us/j/3708144903</a>（ID：370 814 4903）<br><span class="note">コクー様の連絡先の電話番号は、11月10日にお送りしたLINEに載せています。このLINEでもすぐ教えてください。</span></p>
+<p><b>面接までにやること</b></p>
+<ul class="check">
+<li>DXタイプ診断（約10分）</li>
+<li>勤務条件アンケート（約3分・今日の打ち合わせで一緒に確認してから）</li>
+</ul>
+<p class="note">ページ：<a href="https://pebble-purpose-c20.notion.site/EXJ-408de3eaa4bd80af8fb8d92045e8badd?source=copy_link">コクー様「面接前のお願い」</a></p>
+</div>
+
+<div class="co">
+<span class="status">面接決定</span>
+<h3>スタッフサービス・ミラエール様　面接</h3>
+<div class="dt">11月13日（金）11:00〜（約1時間）</div>
+<p><b>入り方</b>：Web面接です。当日のご案内はミラエール様からメールで届きます。</p>
+<p><b>面接までにやること</b></p>
+<ul class="check">
+<li>ミラエール様の紹介動画（約20分）を見る：<a href="https://youtu.be/AQk0HNjk8EM">紹介動画</a></li>
+<li>Teams のアプリを入れておく（手順は案内メールに付いています）</li>
+<li>案内メールが届いているか、迷惑メールも含めて確認する</li>
+</ul>
+</div>
+
+<div class="co wait">
+<span class="status">日程調整中</span>
+<h3>DYMキャリア様</h3>
+<div class="dt">書類選考通過・面接日程を調整中</div>
+<p>12日・13日の午前は避けて調整しています。決まりましたらすぐにご連絡します。</p>
+</div>
+
+<h2>今日の打ち合わせ</h2>
+<div class="card">
+<p><b>11月11日（水）8:30〜10:00</b>　いつもの Zoom です。</p>
+<p>「面接対策」のタブを見ながら、10秒の答えのチェック、コクー様・ミラエール様それぞれの話し方、アンケートの書き方を一緒に決めます。</p>
+</div>
+
+<h2>このページの使い方</h2>
+<div class="card">
+<ul>
+<li><b>ホーム</b>：今の選考の状況と、やること（最新の状態に更新していきます）</li>
+<li><b>面接対策</b>：コクー様・ミラエール様の特色と、話し方のまとめ</li>
+<li><b>フィードバック</b>：11月9日の面接練習のふりかえりと宿題</li>
+</ul>
+<p class="note">わからないことがあれば、いつでもLINEで聞いてください。</p>
+</div>
+<footer><p>武者野</p></footer>
 </div>
 
 <div class="panel" id="p1">
 
 <div class="hero">
 <div class="eyebrow">11月11日（水）8:30〜10:00 打ち合わせ用</div>
-<h1>松山さん 面接対策<br>コクー様・ミラエール様</h1>
+<h1>面接対策<br>コクー様・ミラエール様</h1>
 <p>コクー様 一次面接　11月12日（木）10:00〜</p>
 <p>スタッフサービス・ミラエール様 面接　11月13日（金）11:00〜</p>
 </div>
@@ -95,22 +168,6 @@ h1,h2,h3{word-break:auto-phrase}
 <tr><td>9:40〜9:55</td><td>ミラエール様の特色と、話す方向</td></tr>
 <tr><td>9:55〜10:00</td><td>当日の準備</td></tr>
 </table>
-
-<h2>面接の予定</h2>
-<div class="grid two">
-<div class="card">
-<div class="when">11月12日（木）10:00〜11:00</div>
-<h3>コクー様 一次面接</h3>
-<p>対人面接・オンライン（約1時間）</p>
-<p class="muted">面接日までに：<br>① DXタイプ診断（約10分）<br>② 勤務条件アンケート（約3分・打ち合わせで一緒に確認）</p>
-</div>
-<div class="card">
-<div class="when">11月13日（金）11:00〜</div>
-<h3>スタッフサービス・ミラエール様 面接</h3>
-<p>Web面接（約1時間）</p>
-<p class="muted">当日のご案内はミラエール様からメールで届きます。<br>面接前に：紹介動画（約20分）を見ておく</p>
-</div>
-</div>
 
 <h2>答え方の基本：最初に「10秒の答え」</h2>
 <div class="card"><div class="step"><div class="num">1</div><div><b>10秒の答え</b><br>いちばん伝えたい結論を最初に</div></div></div>
@@ -139,7 +196,7 @@ h1,h2,h3{word-break:auto-phrase}
 <tr><td>2017年からの期間</td><td>子育てに専念するためです。</td></tr>
 <tr><td>強み</td><td>決めた目標に向けて、独学で最後までやり切ることです。</td></tr>
 </table>
-<p class="note">二言目は「練習のフィードバック」のタブも見ながら確認しましょう。</p>
+<p class="note">二言目は「フィードバック」のタブも見ながら確認しましょう。</p>
 
 <h2>コクー様の特色と、話す方向</h2>
 <p>会社の特色を知っておくと、「なぜこの会社なのか」に自分の言葉で答えられます。特色ごとに「だから、こう話す」をまとめました。リンクは会社の公式ページです。</p>
@@ -247,7 +304,7 @@ h1,h2,h3{word-break:auto-phrase}
 <span class="tag">特色2</span>
 <h3>配属先は「配属担当」が希望と適性から選ぶ。転居はなし</h3>
 <p class="fact">入社前の面談をもとに、希望と適性に応じて配属担当が選ぶ、と会社は説明しています。全ての希望を叶えるのは難しいこともある、とも書いています。地域限定の勤務で、転居を伴う配属先の変更はありません。</p>
-<div class="so"><b>だから、こう話す</b>：11月5日に松山さんが話してくれた「いろいろ現場を見てきた方に、こっちの方がいいよって言ってもらえる方がありがたい」が、そのまま使えます。プロに合う場所を見つけてもらいながら、自分に合う事務を見つけていきたい、という方向で。</div>
+<div class="so"><b>だから、こう話す</b>：11月5日に話してくれた「いろいろ現場を見てきた方に、こっちの方がいいよって言ってもらえる方がありがたい」が、そのまま使えます。プロに合う場所を見つけてもらいながら、自分に合う事務を見つけていきたい、という方向で。</div>
 <div class="say">例）いろいろな現場をご存じの方に、合う場所を一緒に考えていただけるのが魅力です。</div>
 <p class="src">根拠：<a href="https://www.022022.net/promotion/career/">ミラエール キャリア採用ページ（よくある質問）</a></p>
 </div>
@@ -274,15 +331,6 @@ h1,h2,h3{word-break:auto-phrase}
 <h3>これまでの経歴の「空白」を、時系列で細かく聞かれたことがある</h3>
 <p class="fact">弊社からミラエール様を受けた方の例（1件）では、前の仕事を辞めてからの期間や、学生時代の期間について、時系列で細かく聞かれました。</p>
 <div class="so"><b>だから、こう準備する</b>：「大学在学中から声優とアルバイト → 2017年から子育てに専念 → 2024年から資格の勉強 → 2026年10月から派遣」を、年と一緒に一本で話せるようにしておく。打ち合わせで一度通して話してみましょう。</div>
-</div>
-
-<div class="card">
-<h3>面接前にやっておくこと</h3>
-<ul>
-<li>ミラエール様の紹介動画（約20分）を見る：<a href="https://youtu.be/AQk0HNjk8EM">紹介動画</a></li>
-<li>Teams のアプリを入れておく（手順は面接案内のメールに付いています）</li>
-<li>面接案内のメールが届いているか、迷惑メールも含めて確認する</li>
-</ul>
 </div>
 
 <h2>コクー様とミラエール様の使い分け</h2>
