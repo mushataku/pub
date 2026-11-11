@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ja"><head><!--gp-portal:s--><meta name="x-build" content="bad4ec3ed9"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e--><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Linuxの復習 高橋さん</title>
+<style>
+:root{--bg:#fff;--fg:#1d1d1f;--mut:#555;--line:#d4d4d4;--box:#f3f6fb;--acc:#1f5fbf;--grn:#1e6b34;--say:#fff8e6;--code:#eef1f5;--codefg:#1d1d1f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17181a;--fg:#ececec;--mut:#b4b4b4;--line:#3a3a3a;--box:#20242b;--acc:#8ab8ff;--grn:#7fd99a;--say:#2a2618;--code:#262b33;--codefg:#ececec}}
+:root[data-theme="dark"]{--bg:#17181a;--fg:#ececec;--mut:#b4b4b4;--line:#3a3a3a;--box:#20242b;--acc:#8ab8ff;--grn:#7fd99a;--say:#2a2618;--code:#262b33;--codefg:#ececec}
+*{box-sizing:border-box}
+html{scroll-padding-top:64px}
+body{background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Meiryo",system-ui,sans-serif;line-height:1.75;margin:0;font-size:17px;overflow-wrap:anywhere}
+main{max-width:900px;margin:0 auto;padding:16px}
+main p,main li{max-width:40em}
+h1{font-size:1.5rem;margin:.4em 0 .2em}
+h2{font-size:1.2rem;border-left:6px solid var(--acc);padding-left:10px;margin-top:2.4em}
+h3{font-size:1.05rem;margin:1.2em 0 .4em}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
+p{margin:.8em 0}
+.box{background:var(--box);border-radius:10px;padding:12px 16px;margin:12px 0}
+.say{background:var(--say);border-left:4px solid var(--acc);border-radius:6px;padding:10px 14px;margin:8px 0}
+.say .t{font-size:.85em;color:var(--mut);display:block;margin-bottom:2px}
+.mut{color:var(--mut);font-size:.9em}
+.ok{color:var(--grn);font-weight:700}
+code,kbd{font-family:ui-monospace,"SFMono-Regular",Consolas,"Menlo",monospace;background:var(--code);color:var(--codefg);border-radius:4px;padding:.05em .35em;font-size:.92em;white-space:nowrap}
+pre{background:var(--code);color:var(--codefg);border-radius:8px;padding:10px 14px;overflow-x:auto;font-size:15px;line-height:1.6;margin:8px 0}
+pre code{background:none;padding:0;white-space:pre}
+.flow{list-style:none;margin:12px 0;padding:0;max-width:30em}
+.flow li{border:2px solid var(--acc);border-radius:10px;padding:8px 12px;margin:0;max-width:none}
+.flow li + li{margin-top:26px;position:relative}
+.flow li + li::before{content:"↑";position:absolute;top:-25px;left:24px;color:var(--acc);font-weight:700}
+.flow .k{font-weight:700}
+.tw{overflow-x:auto;margin:10px 0}
+table{border-collapse:collapse;width:100%;min-width:520px}
+td,th{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:var(--box)}
+td:first-child{white-space:nowrap}
+ol.steps{padding-left:1.4em;margin:.4em 0}
+ol.steps > li{margin:1em 0}
+ul,ol{margin:.3em 0 .3em 1.2em;padding:0}
+details{border:1px solid var(--line);border-radius:10px;padding:8px 14px;margin:10px 0}
+summary{cursor:pointer;font-weight:700;padding:4px 0;min-height:32px}
+details[open] summary{margin-bottom:6px}
+.band{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:6px 16px;font-size:14px;line-height:1.5;display:flex;gap:.6em;align-items:baseline;flex-wrap:wrap}
+.band b{font-size:14px}
+.band span{color:var(--mut)}
+a{color:var(--acc)}
+</style></head><body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=bad4ec3ed9">ホーム</a></li><li><a href="./t6168f1fc.html?v=bad4ec3ed9">ご紹介したお仕事</a></li><li class="gp-cur"><a href="./te94ab580.html?v=bad4ec3ed9" aria-current="page">Linuxの復習</a></li></ul></nav><!--gp-portal:e-->
+<div class="band" data-chrome aria-hidden="true"><b>Linuxの復習（高橋さん）</b><span id="cur"></span></div>
+<main>
+<h1>Linuxの復習（高橋さん）</h1>
+<div class="mut">11月11日　高橋さんへ　／　株式会社SeeD 武者野　／　面接で「サーバーを立てた話」を聞かれたときのための整理</div>
+
+<div class="box"><p><b>先に結論：面接までに、次の3つを自分の言葉で言えるようにしておきましょう</b></p>
+<ol>
+<li><b>何の上で、何を動かしたか</b>（例：自宅のPCに仮想マシンを作り、Ubuntu を入れて、Webサーバーを動かした）</li>
+<li><b>よく使うコマンド2〜3個と、何のために使ったか</b>（例：<code>systemctl status</code> でWebサーバーが動いているか確かめた）</li>
+<li><b>つまずいたところと、どう乗り越えたか</b>（例：最初はコマンドが何も分からなかったが、ChatGPT と教科書で一つずつ調べた）</li>
+</ol>
+<p class="mut">高橋さんがやったことを、言葉と流れで整理し直したページです。分からない言葉があれば、2. から読んでください。</p></div>
+
+<h2 id="s1">1. 高橋さんがやったことの全体像</h2>
+<p>高橋さんが話してくれた「Linuxで仮想サーバーを立てて、ホームページが見られるか確かめた」は、仕組みで言うと次の4段の積み重ねです。下から順に積んで、一番上のブラウザで画面が出たら成功です。</p>
+<ul class="flow">
+<li><span class="k">④ ブラウザ</span>：Chrome などで開いて、ホームページが表示されるか確かめる</li>
+<li><span class="k">③ Webサーバー</span>（nginx や Apache）：ホームページを配るソフト</li>
+<li><span class="k">② Linux</span>（Ubuntu など）：仮想のPCに入れたOS</li>
+<li><span class="k">① 仮想マシン</span>（VirtualBox など）：自宅のPCの中に作った、もう1台のPC</li>
+</ul>
+<p class="mut">上の図は、上が最後の確認、下が土台です。</p>
+<p>面接で「どんな環境で？」と聞かれたら、この4段を下から言えば十分に伝わります。ソフトの名前（VirtualBox・Ubuntu・nginx など）は、高橋さんが実際に使ったものに置き換えてください。名前を思い出せないときは、仮想マシンのソフトを開けば画面に出ています。</p>
+
+<h2 id="s2">2. 言葉の整理</h2>
+<h3>仮想マシン（VirtualBox など）</h3>
+<p>自分のPCの中に、ソフトで作ったもう1台のPCを動かす仕組みです。Windows の画面の中にウィンドウが1つ開き、その中で別のOSがまるごと動きます。PCを買い足さずに練習台が手に入り、設定を間違えても消して作り直せます。同じ種類のソフトに VMware や Windows 標準の Hyper-V があります。仕事で使うクラウド（AWS など）のサーバーも、仕組みとしてはこの延長です。</p>
+
+<h3>Linux と Ubuntu</h3>
+<p>Linux はOSの中心の部分だけを指す言葉です。それに画面・コマンド・ソフトを入れる仕組みなどを一式まとめて、すぐ使えるOSにしたものを「ディストリビューション（配布版）」と呼びます。Ubuntu はその1つで、一番よく使われています。</p>
+<p>たとえると、Linux がエンジンで、Ubuntu はそのエンジンを積んだ車の車種です。ほかの車種に、企業のサーバーで定番の Red Hat Enterprise Linux や、そこから生まれた Rocky Linux・AlmaLinux があります。</p>
+<p class="mut">日本の企業のサーバーは Red Hat 系が多いですが、LinuC の試験は種類に寄らない内容です。Ubuntu で練習したことは、そのまま話して大丈夫です。</p>
+
+<h3>Webサーバー（nginx・Apache）</h3>
+<p>ブラウザから「このページをください」と頼まれたら、ホームページのファイルを返すソフトです。nginx（エンジンエックス）と Apache（アパッチ）が二大定番です。高橋さんが「ホームページが見られた」のは、このソフトが仮想マシンの中で動いていたからです。</p>
+
+<h3>IPアドレス</h3>
+<p>ネットワークの中での住所です。仮想マシンにも住所が割り当てられていて、ブラウザにその住所を打ち込むと、仮想マシンの中のWebサーバーに届きます。</p>
+
+<h2 id="s3">3. サーバーを立てた流れ（Ubuntu と nginx の例）</h2>
+<p>ChatGPT に教わった手順も、だいたいこの流れだったはずです。一つずつ、何のために打つのかを言えるようにしておくと、面接での説明が具体的になります。</p>
+<ol class="steps">
+<li><b>ソフトの一覧を新しくする</b>
+<pre><code>sudo apt update</code></pre>
+<span class="mut"><code>sudo</code> は「管理者の権限で実行する」、<code>apt</code> は Ubuntu でソフトを入れる道具です（Red Hat 系では <code>dnf</code>）。</span></li>
+<li><b>Webサーバーを入れる</b>
+<pre><code>sudo apt install nginx</code></pre></li>
+<li><b>動いているか確かめる</b>
+<pre><code>systemctl status nginx</code></pre>
+<span class="mut">緑の文字で <code>active (running)</code> と出ていれば動いています。止まっていたら <code>sudo systemctl start nginx</code> で起動します。</span></li>
+<li><b>仮想マシンの住所（IPアドレス）を調べる</b>
+<pre><code>ip a</code></pre>
+<span class="mut"><code>inet 192.168.…</code> のように出る数字が住所です。</span></li>
+<li><b>まず仮想マシンの中から確かめる</b>
+<pre><code>curl localhost</code></pre>
+<span class="mut">ホームページの中身（HTML の文字）が返ってくれば、Webサーバーは正しく動いています。</span></li>
+<li><b>ブラウザで開く</b>：調べた住所をブラウザに打ち込み、「Welcome to nginx!」などのページが出たら成功です。</li>
+</ol>
+<div class="box"><p><b>見えないときに確かめる順番</b>（インフラの仕事そのものです）</p>
+<ol>
+<li><code>systemctl status</code> で、Webサーバーが動いているか</li>
+<li><code>curl localhost</code> で、中からは見えるか</li>
+<li>中から見えて外から見えないなら、通信の通り道（仮想マシンのネットワークの設定・ファイアウォール）を疑う</li>
+</ol>
+<p>高橋さんが面白いと話していた「問題なく動いているかを確かめる」は、まさにこの順番で原因を絞っていく作業です。</p></div>
+
+<h2 id="s4">4. よく使う基本のコマンド</h2>
+<div class="tw" role="region" aria-labelledby="s4" tabindex="0">
+<table>
+<thead><tr><th>用途</th><th>コマンド</th><th>何をするか</th></tr></thead>
+<tbody>
+<tr><td>場所と中身を見る</td><td><code>pwd</code> <code>ls</code> <code>cd</code></td><td>いまいる場所を出す／中のファイルを並べる／別の場所へ移る</td></tr>
+<tr><td>ファイルを読む</td><td><code>cat</code> <code>less</code></td><td>中身を表示する（<code>less</code> は長いファイルを1画面ずつ読める）</td></tr>
+<tr><td>ファイルを編集する</td><td><code>nano</code> <code>vi</code></td><td>設定ファイルを書き換える（<code>nano</code> の方がやさしい）</td></tr>
+<tr><td>ソフトを入れる</td><td><code>sudo apt install</code></td><td>ソフトを入れる（Red Hat 系は <code>dnf</code>）</td></tr>
+<tr><td>サービスを動かす</td><td><code>systemctl</code></td><td>起動・停止・状態の確認（<code>start</code>・<code>stop</code>・<code>status</code>）</td></tr>
+<tr><td>通信を確かめる</td><td><code>ping</code> <code>curl</code> <code>ip a</code></td><td>相手に届くか／ページの中身を取る／自分の住所を見る</td></tr>
+<tr><td>状態を見る</td><td><code>ps</code> <code>top</code> <code>df -h</code></td><td>動いているもの／重さ（CPU・メモリ）／ディスクの空き</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="s5">5. 履歴を見るコマンド</h2>
+<p>自分が今まで打ったコマンドは、Linux が覚えています。面接の前に一度見返すと、自分が実際によく使ったコマンドが分かります。</p>
+<div class="tw" role="region" aria-labelledby="s5" tabindex="0">
+<table>
+<thead><tr><th>やりたいこと</th><th>操作</th></tr></thead>
+<tbody>
+<tr><td>打ったコマンドを一覧で見る</td><td><code>history</code>（直近20件だけなら <code>history 20</code>）</td></tr>
+<tr><td>1つ前のコマンドに戻る</td><td>キーボードの <kbd>↑</kbd></td></tr>
+<tr><td>過去のコマンドを文字で探す</td><td><kbd>Ctrl</kbd>＋<kbd>R</kbd> を押してから文字を打つ</td></tr>
+<tr><td>一覧の番号でもう一度実行する</td><td><code>!105</code>（105番を実行）</td></tr>
+<tr><td>誰がいつログインしたか</td><td><code>last</code></td></tr>
+<tr><td>システムやソフトの動作記録</td><td><code>journalctl -u nginx</code>（nginx の記録だけ）</td></tr>
+<tr><td>Webサーバーへのアクセスを流れるまま見る</td><td><code>tail -f /var/log/nginx/access.log</code>（止めるのは <kbd>Ctrl</kbd>＋<kbd>C</kbd>）</td></tr>
+</tbody>
+</table>
+</div>
+<p class="mut">ブラウザでページを開いた瞬間に <code>tail -f</code> の画面へ1行増えるのを見ると、「ブラウザの頼みがサーバーに届いた」ことが目で分かります。時間があればやってみてください。</p>
+
+<h2 id="s6">6. 面接での言い方</h2>
+<p>前回の練習と同じく、はじめの一言を10秒で言い、聞かれたら付け足す形です。下の例のソフトの名前は、高橋さんが使ったものに置き換えてください。</p>
+<div class="say"><span class="t">Q. どんな環境でサーバーを立てたんですか？</span>「自宅のPCに VirtualBox で仮想マシンを作り、Ubuntu を入れて、nginx でWebサーバーを立てました。ブラウザでページが表示されるところまで確かめました。」</div>
+<div class="say"><span class="t">Q. 一番使うコマンドは何ですか？</span>「<code>systemctl status</code> です。Webサーバーが動いているかを確かめるのに、一番よく使いました。」</div>
+<div class="say"><span class="t">Q. 一番難しかったところは？</span>「コマンド入力です。最初は何も分からなかったので、ChatGPT と教科書で一つずつ意味を調べながら進めました。」</div>
+<div class="box"><ul>
+<li>コマンドは<b>名前と、何のために使ったか</b>をセットで言います。名前だけより、ずっと「本当に触った人」に聞こえます</li>
+<li>答えにするコマンドは、<code>history</code> で実際に打ったものから選ぶのが一番です。自分で使ったものなら、深掘りされても答えられます</li>
+<li>分からないことを聞かれたら、「そこはまだ触れていません。次は〇〇を触ってみたいと思っています」と答えれば大丈夫です。次は AWS を触りたい、という高橋さんの話につなげられます</li>
+</ul></div>
+
+<h2 id="s7">7. 確認クイズ（答えは押すと開きます）</h2>
+<details><summary>Q1. Linux と Ubuntu の関係は？</summary><p>Linux はOSの中心の部分で、Ubuntu はそれを一式まとめて使える形にした配布版（ディストリビューション）の1つ。エンジンと車種の関係です。</p></details>
+<details><summary>Q2. 仮想マシンを使う良いところは？</summary><p>PCを買い足さずに練習台が手に入り、間違えても消して作り直せること。元のPCには影響しません。</p></details>
+<details><summary>Q3. Webサーバーが動いているかを確かめるコマンドは？</summary><p><code>systemctl status nginx</code>（Apache なら <code>systemctl status apache2</code>）。<code>active (running)</code> と出れば動いています。</p></details>
+<details><summary>Q4. 自分の住所（IPアドレス）を調べるコマンドは？</summary><p><code>ip a</code></p></details>
+<details><summary>Q5. 中からは見えるのにブラウザから見えないとき、どこを疑う？</summary><p>Webサーバー自体は動いているので、通信の通り道（仮想マシンのネットワークの設定・ファイアウォール）を疑います。</p></details>
+<details><summary>Q6. 今まで打ったコマンドを一覧で見るには？</summary><p><code>history</code>。過去のコマンドを文字で探すなら <kbd>Ctrl</kbd>＋<kbd>R</kbd>。</p></details>
+
+<p class="mut">分からないところがあれば、LINE でいつでも聞いてください。次の練習で、ここに書いた3つの答えを一緒に声に出してみましょう。</p>
+</main>
+<script>
+(function(){
+  var cur=document.getElementById('cur');
+  var hs=[].slice.call(document.querySelectorAll('main h2'));
+  function upd(){
+    var t='';
+    for(var i=0;i<hs.length;i++){ if(hs[i].getBoundingClientRect().top<80){ t=hs[i].textContent; } }
+    cur.textContent=t?'／ '+t:'';
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd);
+  upd();
+})();
+</script>
+<!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=bad4ec3ed9">ホーム</a></li><li><a href="./t6168f1fc.html?v=bad4ec3ed9">ご紹介したお仕事</a></li><li class="gp-cur"><a href="./te94ab580.html?v=bad4ec3ed9" aria-current="page">Linuxの復習</a></li></ul></nav><!--gp-portal:e--></body></html>
