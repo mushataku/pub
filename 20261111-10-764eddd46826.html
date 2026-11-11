@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>高橋さんの10秒面接ドリル</title>
+<style>
+:root{
+  --bg:#f7f6f3; --surface:#ffffff; --text:#1d1d1f; --muted:#4a4a4f; --line:#d9d7d1;
+  --accent:#1f5fbf; --accent-text:#ffffff; --accent-soft:#e6eefb;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --ng:#a3321d; --ng-soft:#fbe9e5; --warn:#7a5200; --warn-soft:#fbf1dc;
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px;
+  --r:12px;
+  --font:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI","Yu Gothic","Meiryo",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#16171a; --surface:#202227; --text:#f2f2f4; --muted:#c4c4ca; --line:#3a3c43;
+    --accent:#8db4f5; --accent-text:#0d1420; --accent-soft:#25324a;
+    --ok:#8fd6a6; --ok-soft:#1d3326; --ng:#f2a896; --ng-soft:#3d2420; --warn:#f0c870; --warn-soft:#3a3020;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.7;letter-spacing:0.01em}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{max-width:720px;margin:0 auto;padding:var(--s2) var(--s3);display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap}
+.bar h1{font-size:18px;line-height:1.4;margin:0;flex:1 1 auto;word-break:keep-all;overflow-wrap:anywhere}
+.tabs{display:flex;gap:var(--s1)}
+.tabs button{font:inherit;font-size:15px;min-height:44px;padding:0 var(--s3);border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-text);border-color:var(--accent)}
+main{max-width:720px;margin:0 auto;padding:var(--s3) var(--s3) var(--s5)}
+[hidden]{display:none!important}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;box-shadow:0 0 0 5px var(--bg)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:var(--s4) var(--s3)}
+.meta{display:flex;justify-content:space-between;gap:var(--s2);color:var(--muted);font-size:14px;flex-wrap:wrap}
+.q{font-size:24px;line-height:1.5;font-weight:700;margin:var(--s3) 0 var(--s4);word-break:auto-phrase;overflow-wrap:anywhere}
+.timer{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s3)}
+.ring{width:72px;height:72px;flex:none}
+.ring circle{fill:none;stroke-width:8}
+.ring .bgc{stroke:var(--line)}
+.ring .fg{stroke:var(--accent);stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .2s linear}
+.ring text{font-size:26px;font-weight:700;fill:var(--text);font-family:var(--font)}
+.ring.over .fg{stroke:var(--ng)}
+.timer .hint{color:var(--muted);font-size:15px;margin:0}
+.answer{border-top:1px dashed var(--line);margin-top:var(--s3);padding-top:var(--s3)}
+.answer .lbl{font-size:14px;color:var(--muted);margin:0 0 var(--s1)}
+.answer p.a{font-size:18px;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.answer p.empty{color:var(--muted)}
+.row{display:flex;gap:var(--s2);flex-wrap:wrap;margin-top:var(--s3)}
+.btn{font-size:16px;min-height:48px;padding:0 var(--s4);border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer;flex:1 1 auto}
+.btn.primary{background:var(--accent);color:var(--accent-text);border-color:var(--accent);font-weight:700}
+.btn.ok{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+.btn.ng{background:var(--ng-soft);color:var(--ng);border-color:var(--ng)}
+.btn.small{flex:0 0 auto;min-height:40px;font-size:14px;padding:0 var(--s3)}
+.opts{margin-top:var(--s4);display:grid;gap:var(--s2)}
+.opts label{display:flex;align-items:center;gap:var(--s2);font-size:15px;min-height:40px}
+.opts input[type=checkbox]{width:22px;height:22px}
+.opts select{font:inherit;font-size:16px;min-height:40px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text);padding:0 var(--s2)}
+.lead{color:var(--muted);font-size:15px;margin:0 0 var(--s3)}
+.item{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:var(--s3);margin-bottom:var(--s3)}
+.item label{display:block;font-size:14px;color:var(--muted);margin-bottom:var(--s1)}
+.item input[type=text],.item textarea,.item select{width:100%;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:8px;padding:var(--s2);background:var(--bg);color:var(--text)}
+.item textarea{min-height:5.5em;resize:vertical;line-height:1.6}
+.item .q-in{font-weight:700}
+.item .foot{display:flex;justify-content:space-between;align-items:center;gap:var(--s2);margin-top:var(--s2);flex-wrap:wrap}
+.len{font-size:14px;padding:2px var(--s2);border-radius:999px}
+.len.g{background:var(--ok-soft);color:var(--ok)}
+.len.y{background:var(--warn-soft);color:var(--warn)}
+.len.r{background:var(--ng-soft);color:var(--ng)}
+.stat{font-size:14px;color:var(--muted)}
+.draft{font-size:13px;color:var(--warn)}
+.grid2{display:grid;grid-template-columns:1fr;gap:var(--s2);margin-bottom:var(--s2)}
+.help h2{font-size:18px;margin:var(--s4) 0 var(--s2)}
+.help ol,.help ul{padding-left:1.4em;margin:0}
+.help li{margin-bottom:var(--s2)}
+.help p{max-width:40em}
+.backup textarea{width:100%;min-height:8em;font:inherit;font-size:14px;border:1px solid var(--line);border-radius:8px;padding:var(--s2);background:var(--bg);color:var(--text)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:var(--s2) var(--s3);border-radius:999px;font-size:15px;opacity:0;pointer-events:none;transition:opacity .2s;max-width:calc(100% - 32px)}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+
+h1,h2,h3{word-break:auto-phrase}
+</style>
+</head>
+<body>
+<header data-chrome>
+  <div class="bar">
+    <h1>高橋さんの<wbr>10秒面接<wbr>ドリル</h1>
+    <div class="tabs" role="tablist" aria-label="画面の切り替え">
+      <button role="tab" id="tab-practice" aria-controls="v-practice" aria-selected="true">練習</button>
+      <button role="tab" id="tab-edit" aria-controls="v-edit" aria-selected="false">答えを書く</button>
+      <button role="tab" id="tab-help" aria-controls="v-help" aria-selected="false">📖 使い方</button>
+    </div>
+  </div>
+</header>
+<main>
+  <!-- 練習 -->
+  <section id="v-practice" role="tabpanel" aria-labelledby="tab-practice">
+    <div class="card" aria-live="polite">
+      <div class="meta"><span id="p-cat">—</span><span id="p-count">—</span></div>
+      <p class="q" id="p-q">読み込み中…</p>
+      <div class="timer">
+        <svg class="ring" id="ring" viewBox="0 0 80 80" aria-hidden="true">
+          <circle class="bgc" cx="40" cy="40" r="34"></circle>
+          <circle class="fg" id="ring-fg" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="0"></circle>
+          <text id="ring-t" x="40" y="49" text-anchor="middle">10</text>
+        </svg>
+        <p class="hint" id="p-hint">考える時間はいくらでも大丈夫です。話し始めるときに「話す」を押してください。</p>
+      </div>
+      <div class="row" id="row-start">
+        <button class="btn primary" id="b-start">話す（10秒）</button>
+        <button class="btn" id="b-reveal">答えを見る</button>
+      </div>
+      <div class="answer" id="p-answer" hidden>
+        <p class="lbl">高橋さんの10秒の答え</p>
+        <p class="a" id="p-a"></p>
+      </div>
+      <div class="row" id="row-judge" hidden>
+        <button class="btn ok" id="b-ok">言えた</button>
+        <button class="btn ng" id="b-ng">詰まった</button>
+      </div>
+      <div class="row">
+        <button class="btn small" id="b-skip">次の質問へ</button>
+      </div>
+    </div>
+    <div class="opts">
+      <label><input type="checkbox" id="o-speak"> 質問を声で読み上げる（面接官の代わり）</label>
+      <label><input type="checkbox" id="o-show"> 最初から答えを見せる（覚える段階）</label>
+      <label><input type="checkbox" id="o-auto"> 10秒たったら答えを自動で出す</label>
+      <label>出す質問 <select id="o-cat"></select></label>
+    </div>
+  </section>
+
+  <!-- 答えを書く -->
+  <section id="v-edit" role="tabpanel" aria-labelledby="tab-edit" hidden>
+    <p class="lead">質問ごとに、最初の10秒で言う答えを書いてください。目安は50字くらいです（話す速さはだいたい1秒5字）。入っている文は面談で高橋さんが話した言葉からつくった<strong>たたき台</strong>なので、ご自分の言い方に書き直してください。書いた内容はこの端末に自動で保存されます。</p>
+    <div id="list"></div>
+    <div class="row">
+      <button class="btn primary" id="b-add">質問を足す</button>
+    </div>
+    <div class="item backup">
+      <label for="bk">武者野に見せる・別の端末へ移す</label>
+      <div class="row" style="margin-top:0">
+        <button class="btn small" id="b-copy-text">答えの一覧をコピー（LINEに貼れます）</button>
+        <button class="btn small" id="b-export">保存用の文字をつくる</button>
+        <button class="btn small" id="b-import">貼った文字から戻す</button>
+      </div>
+      <textarea id="bk" placeholder="「保存用の文字をつくる」を押すとここに出ます。別の端末ではここに貼ってから「貼った文字から戻す」を押してください。"></textarea>
+      <div class="row">
+        <button class="btn small" id="b-reset">たたき台に戻す</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 使い方 -->
+  <section id="v-help" role="tabpanel" aria-labelledby="tab-help" hidden class="help">
+    <h2>このドリルでやること</h2>
+    <p>面接では、聞かれたことにまず10秒で結論だけ答えます。その10秒を、寝ていても出てくるくらい体になじませるための道具です。</p>
+    <h2>使い方</h2>
+    <ol>
+      <li>「答えを書く」で、質問ごとに10秒の答えを書く（たたき台を自分の言い方に直す）</li>
+      <li>「練習」で、出てきた質問に声に出して答える。話し始めるときに「話す」を押すと10秒を数えます</li>
+      <li>答えを見て、言えたら「言えた」、詰まったら「詰まった」。詰まった質問ほど多く出ます</li>
+      <li>慣れてきたら「質問を声で読み上げる」をオンにして、画面を見ずに答える</li>
+    </ol>
+    <h2>答え方の型（11月10日の資料のおさらい）</h2>
+    <ul>
+      <li>はい・いいえで答えられる質問は「はい」「いいえ」から</li>
+      <li>前置きを削って、一番言いたいことから</li>
+      <li>詰まったら「すみません、一旦整理させてください」と言い直してよい</li>
+    </ul>
+    <h2>保存について</h2>
+    <p>書いた答えはこのスマホ（このブラウザ）にだけ保存されます。別のスマホやパソコンでは見えません。端末を替えるときや、武者野に答えを見せたいときは「答えを書く」の一番下のボタンを使ってください。</p>
+  </section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script id="seed" type="application/json">
+{"page":"takahashi-k-10s","version":1,"questions":[
+{"id":"q01","cat":"共通","q":"自己紹介と経歴を教えてください","a":"高校卒業後はイラストレーターとして個人事業主で活動し、アルバイトを経て、アウトバウンドの営業も経験しました。いまはガソリンスタンドで働きながら、ITの勉強と転職活動をしています。"},
+{"id":"q02","cat":"共通","q":"なぜIT業界なのですか","a":"知的好奇心を満たし続けられる仕事だと思ったからです。"},
+{"id":"q03","cat":"共通","q":"なぜ開発でなくインフラなのですか","a":"技術に集中できるインフラを、心から志望しています。クリエイターの仕事は目立つことが仕事になる面があり、そこが自分のやりたいことではないと感じたからです。"},
+{"id":"q04","cat":"共通","q":"インフラは入りやすいから選んだだけではないですか","a":"いいえ、違います。インフラを本気で志望しています。目立つことより、裏側で技術に集中して支える仕事がしたいからです。"},
+{"id":"q05","cat":"共通","q":"ゲームが好きだからITを目指しているのですか","a":"入り口としては、そうです。ただ、インフラを目指した経緯は別で、自分でサーバーを立てて触ってみて、興味を持ちました。"},
+{"id":"q06","cat":"共通","q":"サーバーを立てたきっかけは何ですか","a":"ChatGPTにインフラエンジニアを目指すには何から始めるか聞いたところ、「Linuxを触ってみましょう」と返ってきたのがきっかけです。"},
+{"id":"q07","cat":"共通","q":"いま何を勉強していますか","a":"Linuxを自宅のパソコンと仮想マシンで勉強しています。LinuCレベル1の受験を目標にしています。"},
+{"id":"q08","cat":"共通","q":"最初につまずいたところはありますか","a":"コマンド入力です。最初は何も分かりませんでしたが、今は少しずつ使えるようになりました。"},
+{"id":"q09","cat":"共通","q":"よく使うコマンドは何ですか","a":"cdです。ディレクトリを移動するときに使います。（ほかに2〜3個、名前と何をするものかを書き足す）"},
+{"id":"q10","cat":"共通","q":"最初は保守・運用から始まることが多いですが、大丈夫ですか","a":"はい、大丈夫です。最初はそうなることは承知しています。早く上流工程に携われるよう、一生懸命勉強します。"},
+{"id":"q11","cat":"共通","q":"現職を辞める理由は何ですか","a":"ITに進むための生活と収入の基盤づくりの期間が終わり、勉強も進んだので、転職を決めました。"},
+{"id":"q12","cat":"共通","q":"前職を短期間で辞めた理由は何ですか","a":"短期で辞めてしまったことは反省しています。ITの道に進みたい気持ちが固まり、勉強の時間をとるためにアルバイトに切り替えました。"},
+{"id":"q13","cat":"共通","q":"転職回数が多いですが、長く働けますか","a":"はい、働けます。この1年はITに進むための準備に使ってきて、いまは進む道が決まっています。"},
+{"id":"q14","cat":"共通","q":"将来どうなりたいですか","a":"まず運用・監視で基礎を固め、LinuCやAWSを取りながら、設計・構築の工程に携わりたいです。"},
+{"id":"q15","cat":"共通","q":"趣味は何ですか","a":"絵を描くことと、ゲームをすることです。"},
+{"id":"q16","cat":"共通","q":"あなたの強みは何ですか","a":""},
+{"id":"q17","cat":"共通","q":"最後に何か質問はありますか","a":""},
+{"id":"q18","cat":"会社ごと","q":"なぜ当社（オープンアップIT）なのですか","a":""},
+{"id":"q19","cat":"会社ごと","q":"なぜ当社（GOOYA）なのですか／会社説明の動画で印象に残った点は","a":""},
+{"id":"q20","cat":"会社ごと","q":"なぜ当社（プラウドデータ）なのですか","a":""},
+{"id":"q21","cat":"会社ごと","q":"なぜ当社（KSKテクノサポート）なのですか","a":""}
+]}
+</script>
+<script>
+(function(){
+  "use strict";
+  var SEED = JSON.parse(document.getElementById("seed").textContent);
+  var KEY = "drill10s:" + SEED.page;
+  var CHARS_PER_SEC = 5;
+  var mem = null; // localStorage が使えないときの退避先
+
+  function load(){
+    var raw = null;
+    try { raw = localStorage.getItem(KEY); } catch(e) { raw = null; }
+    if (!raw && mem) return mem;
+    var st = null;
+    try { st = raw ? JSON.parse(raw) : null; } catch(e) { st = null; }
+    if (!st || !Array.isArray(st.questions)) st = fresh();
+    // たたき台に後から足された質問を取り込む（本人が消したものは戻さない）
+    var have = {}; st.questions.forEach(function(x){ have[x.id] = 1; });
+    var removed = st.removed || [];
+    SEED.questions.forEach(function(sq){
+      if (!have[sq.id] && removed.indexOf(sq.id) < 0) st.questions.push(seedItem(sq));
+    });
+    return st;
+  }
+  function seedItem(sq){ return {id:sq.id, cat:sq.cat, q:sq.q, a:sq.a, draft:!!sq.a, ok:0, ng:0}; }
+  function fresh(){ return {questions: SEED.questions.map(seedItem), removed: [], prefs:{}}; }
+  function save(){
+    mem = state;
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+  }
+  var state = load();
+  state.prefs = state.prefs || {};
+
+  // ---------- 表示切り替え ----------
+  var tabs = ["practice","edit","help"];
+  function show(name){
+    tabs.forEach(function(t){
+      document.getElementById("tab-"+t).setAttribute("aria-selected", t===name ? "true":"false");
+      document.getElementById("v-"+t).hidden = t!==name;
+    });
+    stopTimer();
+    if (typeof speechSynthesis !== "undefined") { try { speechSynthesis.cancel(); } catch(e){} }
+    if (name==="edit") renderList();
+    if (name==="practice") { renderCats(); next(); }
+    window.scrollTo(0,0);
+  }
+  tabs.forEach(function(t){ document.getElementById("tab-"+t).addEventListener("click", function(){ show(t); }); });
+
+  function toast(msg){
+    var el = document.getElementById("toast");
+    el.textContent = msg; el.classList.add("show");
+    clearTimeout(toast._t); toast._t = setTimeout(function(){ el.classList.remove("show"); }, 2000);
+  }
+
+  // ---------- 練習 ----------
+  var cur = null, lastId = null, timer = null, t0 = 0;
+  var RING = 213.6;
+  var elQ = document.getElementById("p-q"), elA = document.getElementById("p-a"),
+      elAns = document.getElementById("p-answer"), elJudge = document.getElementById("row-judge"),
+      elStart = document.getElementById("row-start"), elCat = document.getElementById("p-cat"),
+      elCount = document.getElementById("p-count"), elHint = document.getElementById("p-hint"),
+      ring = document.getElementById("ring"), ringFg = document.getElementById("ring-fg"), ringT = document.getElementById("ring-t");
+  var oSpeak = document.getElementById("o-speak"), oShow = document.getElementById("o-show"),
+      oAuto = document.getElementById("o-auto"), oCat = document.getElementById("o-cat");
+  oSpeak.checked = !!state.prefs.speak; oShow.checked = !!state.prefs.show;
+  oAuto.checked = state.prefs.auto !== false;
+  if (typeof speechSynthesis === "undefined") { oSpeak.disabled = true; oSpeak.parentNode.title = "この端末では読み上げが使えません"; }
+
+  function renderCats(){
+    var cats = []; state.questions.forEach(function(x){ if (x.cat && cats.indexOf(x.cat)<0) cats.push(x.cat); });
+    var v = state.prefs.cat || "all";
+    oCat.innerHTML = "";
+    var o = document.createElement("option"); o.value = "all"; o.textContent = "すべて"; oCat.appendChild(o);
+    o = document.createElement("option"); o.value = "weak"; o.textContent = "詰まったことがある質問だけ"; oCat.appendChild(o);
+    cats.forEach(function(c){ var o2 = document.createElement("option"); o2.value = c; o2.textContent = c; oCat.appendChild(o2); });
+    oCat.value = (v==="all"||v==="weak"||cats.indexOf(v)>=0) ? v : "all";
+  }
+  function pool(){
+    var c = oCat.value || "all";
+    return state.questions.filter(function(x){
+      if (!x.q || !x.q.trim()) return false;
+      if (c==="all") return true;
+      if (c==="weak") return x.ng > 0;
+      return x.cat === c;
+    });
+  }
+  function weight(x){ return Math.max(0.4, 1 + x.ng*1.5 - x.ok*0.4) * (x.a && x.a.trim() ? 1 : 0.7); }
+  function pick(list){
+    var cand = list.length > 1 ? list.filter(function(x){ return x.id !== lastId; }) : list;
+    var sum = 0; cand.forEach(function(x){ sum += weight(x); });
+    var r = Math.random()*sum;
+    for (var i=0;i<cand.length;i++){ r -= weight(cand[i]); if (r <= 0) return cand[i]; }
+    return cand[cand.length-1];
+  }
+  function next(){
+    stopTimer();
+    var list = pool();
+    var total = list.length;
+    if (!total){
+      cur = null;
+      elQ.textContent = oCat.value==="weak" ? "詰まった質問はまだありません。「すべて」に切り替えて練習してください。" : "質問がありません。「答えを書く」で質問を足してください。";
+      elCat.textContent = "—"; elCount.textContent = "";
+      elStart.hidden = true; elAns.hidden = true; elJudge.hidden = true; return;
+    }
+    cur = pick(list); lastId = cur.id;
+    elCat.textContent = cur.cat || "";
+    elCount.textContent = "この質問: 言えた " + cur.ok + "回・詰まった " + cur.ng + "回";
+    elQ.textContent = cur.q;
+    setRing(10, false);
+    elHint.textContent = "考える時間はいくらでも大丈夫です。話し始めるときに「話す」を押してください。";
+    elStart.hidden = false; elJudge.hidden = true;
+    elAns.hidden = true;
+    fillAnswer();
+    if (oShow.checked) revealAnswer();
+    if (oSpeak.checked) speak(cur.q);
+  }
+  function fillAnswer(){
+    if (cur.a && cur.a.trim()){ elA.textContent = cur.a; elA.className = "a"; }
+    else { elA.textContent = "まだ答えが書かれていません。「答えを書く」で書いておきましょう。"; elA.className = "a empty"; }
+  }
+  function revealAnswer(){ elAns.hidden = false; elJudge.hidden = false; }
+  function setRing(sec, over){
+    var frac = Math.max(0, Math.min(1, sec/10));
+    ringFg.setAttribute("stroke-dashoffset", String(RING*(1-frac)));
+    ringT.textContent = over ? "0" : String(Math.ceil(sec));
+    ring.classList.toggle("over", !!over);
+  }
+  function startTimer(){
+    if (!cur) return;
+    stopTimer();
+    if (typeof speechSynthesis !== "undefined") { try { speechSynthesis.cancel(); } catch(e){} }
+    t0 = Date.now();
+    elHint.textContent = "どうぞ。10秒で結論まで。";
+    document.getElementById("b-start").textContent = "もう一度（10秒）";
+    timer = setInterval(function(){
+      var left = 10 - (Date.now()-t0)/1000;
+      if (left <= 0){
+        setRing(0, true); stopTimer();
+        elHint.textContent = "10秒です。答えと比べてみましょう。";
+        if (oAuto.checked) revealAnswer();
+      } else setRing(left, false);
+    }, 100);
+  }
+  function stopTimer(){ if (timer){ clearInterval(timer); timer = null; } document.getElementById("b-start").textContent = "話す（10秒）"; }
+  function speak(text){
+    if (typeof speechSynthesis === "undefined") return;
+    try {
+      speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text); u.lang = "ja-JP"; u.rate = 1.0;
+      speechSynthesis.speak(u);
+    } catch(e){}
+  }
+  function judge(ok){
+    if (!cur) return;
+    if (ok) cur.ok++; else cur.ng++;
+    save(); next();
+  }
+  document.getElementById("b-start").addEventListener("click", startTimer);
+  document.getElementById("b-reveal").addEventListener("click", function(){ stopTimer(); revealAnswer(); });
+  document.getElementById("b-ok").addEventListener("click", function(){ judge(true); });
+  document.getElementById("b-ng").addEventListener("click", function(){ judge(false); });
+  document.getElementById("b-skip").addEventListener("click", next);
+  oSpeak.addEventListener("change", function(){ state.prefs.speak = oSpeak.checked; save(); if (oSpeak.checked && cur) speak(cur.q); });
+  oShow.addEventListener("change", function(){ state.prefs.show = oShow.checked; save(); if (oShow.checked && cur) revealAnswer(); });
+  oAuto.addEventListener("change", function(){ state.prefs.auto = oAuto.checked; save(); });
+  oCat.addEventListener("change", function(){ state.prefs.cat = oCat.value; save(); next(); });
+
+  // ---------- 答えを書く ----------
+  var listEl = document.getElementById("list");
+  function lenInfo(s){
+    var n = (s||"").replace(/\s/g,"").length;
+    var sec = Math.round(n / CHARS_PER_SEC);
+    var cls = sec <= 11 ? "g" : (sec <= 15 ? "y" : "r");
+    var msg = n === 0 ? "まだ空です" : (n + "字・約" + sec + "秒" + (cls==="r" ? "（長いので短く）" : cls==="y" ? "（少し長め）" : ""));
+    return {cls: n===0 ? "y" : cls, msg: msg};
+  }
+  function renderList(){
+    listEl.innerHTML = "";
+    state.questions.forEach(function(x, i){
+      var box = document.createElement("div"); box.className = "item";
+      var qid = "q-" + x.id, aid = "a-" + x.id, cid = "c-" + x.id;
+      box.innerHTML =
+        '<div class="grid2"><div><label for="'+qid+'">質問 '+(i+1)+'</label><input type="text" class="q-in" id="'+qid+'"></div>' +
+        '<div><label for="'+cid+'">分類</label><input type="text" id="'+cid+'" list="cats"></div></div>' +
+        '<label for="'+aid+'">10秒の答え</label><textarea id="'+aid+'"></textarea>' +
+        '<div class="foot"><span><span class="len"></span> <span class="draft"></span></span>' +
+        '<span class="stat"></span>' +
+        '<button class="btn small del" type="button">この質問を消す</button></div>';
+      var qi = box.querySelector("#"+CSS.escape(qid)), ai = box.querySelector("#"+CSS.escape(aid)), ci = box.querySelector("#"+CSS.escape(cid));
+      var lenEl = box.querySelector(".len"), draftEl = box.querySelector(".draft"), del = box.querySelector(".del");
+      qi.value = x.q; ai.value = x.a; ci.value = x.cat || "";
+      function upd(){
+        var li = lenInfo(ai.value); lenEl.className = "len " + li.cls; lenEl.textContent = li.msg;
+        draftEl.textContent = x.draft ? "たたき台のまま" : "";
+      }
+      box.querySelector(".stat").textContent = "言えた " + x.ok + "・詰まった " + x.ng;
+      upd();
+      qi.addEventListener("input", function(){ x.q = qi.value; save(); });
+      ci.addEventListener("input", function(){ x.cat = ci.value.trim(); save(); });
+      ai.addEventListener("input", function(){ x.a = ai.value; x.draft = false; save(); upd(); });
+      var armed = false, armT = null;
+      del.addEventListener("click", function(){
+        if (!armed){ armed = true; del.textContent = "もう一度押すと消えます"; armT = setTimeout(function(){ armed = false; del.textContent = "この質問を消す"; }, 3000); return; }
+        clearTimeout(armT);
+        state.questions = state.questions.filter(function(y){ return y !== x; });
+        state.removed = state.removed || [];
+        if (/^q\d+$/.test(x.id) && state.removed.indexOf(x.id) < 0) state.removed.push(x.id);
+        save(); renderList(); toast("「" + (x.q || "質問") + "」を消しました");
+      });
+      listEl.appendChild(box);
+    });
+    var dl = document.getElementById("cats");
+    if (!dl){ dl = document.createElement("datalist"); dl.id = "cats"; document.body.appendChild(dl); }
+    dl.innerHTML = "";
+    var cats = []; state.questions.forEach(function(x){ if (x.cat && cats.indexOf(x.cat)<0) cats.push(x.cat); });
+    cats.forEach(function(c){ var o = document.createElement("option"); o.value = c; dl.appendChild(o); });
+  }
+  document.getElementById("b-add").addEventListener("click", function(){
+    var x = {id: "u" + Date.now().toString(36), cat: "自分で追加", q: "", a: "", draft: false, ok: 0, ng: 0};
+    state.questions.push(x); save(); renderList();
+    var el = document.getElementById("q-" + x.id); if (el){ el.focus(); el.scrollIntoView({block:"center"}); }
+  });
+
+  // ---------- 書き出し・読み込み ----------
+  var bk = document.getElementById("bk");
+  function copy(text, okMsg){
+    function fallback(){ bk.value = text; bk.focus(); bk.select(); try { document.execCommand("copy"); toast(okMsg); } catch(e){ toast("下の欄の文字を長押ししてコピーしてください"); } }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function(){ toast(okMsg); }, fallback);
+    else fallback();
+  }
+  document.getElementById("b-copy-text").addEventListener("click", function(){
+    var lines = ["【10秒の答え】"];
+    state.questions.forEach(function(x){ if (!x.q) return; lines.push(""); lines.push("Q. " + x.q); lines.push("A. " + (x.a && x.a.trim() ? x.a.trim() : "（未記入）")); });
+    var t = lines.join("\n"); bk.value = t; copy(t, "コピーしました。LINEに貼って送れます");
+  });
+  document.getElementById("b-export").addEventListener("click", function(){
+    var t = JSON.stringify({page: SEED.page, questions: state.questions, removed: state.removed || []});
+    bk.value = t; copy(t, "保存用の文字をコピーしました");
+  });
+  document.getElementById("b-import").addEventListener("click", function(){
+    var t = bk.value.trim();
+    if (!t){ toast("先に下の欄へ保存用の文字を貼ってください"); bk.focus(); return; }
+    try {
+      var d = JSON.parse(t);
+      if (!d || !Array.isArray(d.questions)) throw new Error("x");
+      state.questions = d.questions.filter(function(x){ return x && typeof x.q === "string"; }).map(function(x){
+        return {id: String(x.id || ("u"+Math.random().toString(36).slice(2))), cat: String(x.cat||""), q: x.q, a: String(x.a||""), draft: !!x.draft, ok: +x.ok||0, ng: +x.ng||0};
+      });
+      state.removed = Array.isArray(d.removed) ? d.removed : [];
+      save(); renderList(); toast("戻しました（" + state.questions.length + "問）");
+    } catch(e){ toast("読み込めませんでした。「保存用の文字をつくる」で出た文字を、そのまま全部貼ってください"); }
+  });
+  var resetArmed = false, resetT = null, bReset = document.getElementById("b-reset");
+  bReset.addEventListener("click", function(){
+    if (!resetArmed){ resetArmed = true; bReset.textContent = "書いた答えが全部消えます。もう一度押すと戻します"; resetT = setTimeout(function(){ resetArmed = false; bReset.textContent = "たたき台に戻す"; }, 4000); return; }
+    clearTimeout(resetT); resetArmed = false; bReset.textContent = "たたき台に戻す";
+    var prefs = state.prefs; state = fresh(); state.prefs = prefs; save(); renderList(); toast("たたき台に戻しました");
+  });
+
+  // キーボード: スペース=話す、Enter=次へ（練習中のみ・入力欄の外）
+  document.addEventListener("keydown", function(e){
+    if (document.getElementById("v-practice").hidden) return;
+    var tag = (e.target.tagName||"").toLowerCase();
+    if (tag==="input"||tag==="textarea"||tag==="select"||tag==="button") return;
+    if (e.key===" "){ e.preventDefault(); startTimer(); }
+    else if (e.key==="Enter"){ e.preventDefault(); next(); }
+  });
+
+  save();
+  renderCats();
+  next();
+})();
+</script>
+</body>
+</html>
