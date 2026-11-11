@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>買取業界はなぜ「成長産業」と言われるのか — 拓也さんの勉強ノート</title>
+<style>
+:root{
+  --bg:#fbfaf7; --surface:#f1efe9; --text:#1d1d1b; --muted:#4a4a46; --line:#d6d3ca;
+  --accent:#7a3e00; --ok:#1f5a2e; --part:#6b4a00; --no:#7a1f1f;
+  --band-bg:rgba(251,250,247,.96);
+  --font-body:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Meiryo","Noto Sans JP",system-ui,sans-serif;
+  --fs-body:17px; --fs-small:14px; --lh:1.85;
+  --s1:.5rem; --s2:1rem; --s3:1.75rem; --s4:3rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#161614; --surface:#22221f; --text:#ecebe6; --muted:#bdbbb3; --line:#3a3a35;
+    --accent:#f0b46a; --ok:#8fd19e; --part:#e8c56b; --no:#f0a0a0;
+    --band-bg:rgba(22,22,20,.96);
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:var(--fs-body);line-height:var(--lh);letter-spacing:.01em}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere;line-height:1.45;letter-spacing:0;scroll-margin-top:4.5rem}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3), main section > :is(h2,h3){word-break:auto-phrase;text-wrap:balance}}
+main{max-width:46rem;margin:0 auto;padding:var(--s2) var(--s2) var(--s4)}
+main p, main li{max-width:40em}
+h1{font-size:1.65rem;margin:var(--s3) 0 var(--s1)}
+h2{font-size:1.35rem;margin:var(--s4) 0 var(--s2);padding-top:var(--s1);border-top:2px solid var(--line)}
+h3{font-size:1.12rem;margin:var(--s3) 0 var(--s1)}
+p{margin:0 0 var(--s2)}
+ul,ol{padding-left:1.4em;margin:0 0 var(--s2)}
+li{margin:.25em 0}
+a{color:var(--accent);text-underline-offset:.2em}
+strong{font-weight:700}
+.lead{font-size:1.06rem}
+.note{color:var(--muted);font-size:var(--fs-small);line-height:1.7}
+.box{background:var(--surface);border-left:4px solid var(--accent);padding:var(--s2);margin:0 0 var(--s3);border-radius:4px}
+.box p:last-child,.box ul:last-child,.box ol:last-child{margin-bottom:0}
+.tbl{overflow-x:auto;margin:0 0 var(--s3);border:1px solid var(--line);border-radius:4px}
+.tbl:focus{outline:2px solid var(--accent);outline-offset:2px}
+table{border-collapse:collapse;width:100%;font-size:var(--fs-small);line-height:1.65;min-width:30rem}
+th,td{padding:.5rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--surface);font-weight:700}
+td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ok{color:var(--ok);font-weight:700}
+.part{color:var(--part);font-weight:700}
+.no{color:var(--no);font-weight:700}
+.script{background:var(--surface);padding:var(--s2);border-radius:6px;border:1px solid var(--line)}
+.script p{margin:0}
+/* 帯（data-chrome・main の外） */
+.band{position:sticky;top:0;z-index:10;background:var(--band-bg);border-bottom:1px solid var(--line);backdrop-filter:blur(4px)}
+.band-inner{max-width:46rem;margin:0 auto;padding:.4rem var(--s2);font-size:var(--fs-small);line-height:1.5}
+.band .t{font-weight:700;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.band .pos{color:var(--muted);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toc ol{padding-left:1.4em}
+</style>
+</head>
+<body>
+<div class="band" data-chrome aria-hidden="true">
+  <div class="band-inner">
+    <span class="t">買取業界はなぜ「成長産業」と言われるのか</span>
+    <span class="pos" id="band-pos">はじめに</span>
+  </div>
+</div>
+<main>
+<h1 id="top">買取業界はなぜ<wbr>「成長産業」と<wbr>言われるのか — <wbr>拓也さんの<wbr>勉強ノート</h1>
+<p class="note">2026年11月12日（木）作成。数字はすべて canon（<code>canons/kaitori-industry/</code>）の値で、出所と時点を添えています。</p>
+
+<section id="intro" data-chapter="はじめに">
+<h2 id="s0">はじめに — 先に結論</h2>
+<p class="lead">拓也さん、結論から書きます。<strong>買取業界が急に伸びているのは本当です。ただし伸びの芯は「中古品が売れる市場全体」ではなく、「金を中心に家の物を買い取るチェーン」で、金相場の上昇に強く乗っています。</strong></p>
+<div class="box">
+<ol>
+<li><strong>はっきり急に伸びているのは「金を中心に買い取るチェーン」</strong>です。2023年から2025年に金の値段が約2倍になり、同じ時期に金の買取が大きい会社の売上が1.4〜2.2倍になりました。</li>
+<li>店を一気に増やせたのは、<strong>売り場の要らない小さな買取店をフランチャイズ（FC）で増やす仕組み</strong>と、テレビCMなどで「家の物は売れる」と知らせたからです。</li>
+<li>一方で<strong>中古品が売れる市場全体</strong>は、数え方で答えが割れます。2012年から見ると、業界紙の推計では約2.3倍、国（環境省）の推計では車を除いて+7.8%です。</li>
+<li>裏返すと、<strong>金相場と店の増えすぎに弱い</strong>。2025年のリユース業の休廃業・解散は10年で最多でした。売上の伸びのうち、扱う量が増えた分と金の値上がりそのものの分を分けた数字はありません。</li>
+</ol>
+</div>
+<p>このノートは、まず「買取業はどう儲けているか」を押さえ、そのあと「本当に伸びているのか」「なぜ注目されているのか」を要因ごとに数字で確かめます。最後に、求職者に1分で話す台本を置きました。</p>
+<nav class="toc" aria-label="目次">
+<ol>
+<li><a href="#s1">そもそも買取業はどう儲けているか</a></li>
+<li><a href="#s2">市場は本当に伸びているのか</a></li>
+<li><a href="#s3">なぜいま注目され、成長産業とされているのか</a></li>
+<li><a href="#s4">決まりごとと影の部分</a></li>
+<li><a href="#s5">働く側から見た仕事</a></li>
+<li><a href="#s6">求職者に1分で話すなら</a></li>
+<li><a href="#s7">確かめられなかったこと</a></li>
+</ol>
+</nav>
+</section>
+
+<section id="ch1" data-chapter="第1章 どう儲けているか">
+<h2 id="s1">第1章 そもそも買取業はどう儲けているか</h2>
+<p>買取業の利益は、<strong>お客さんから買った値段と、それを売った値段の差</strong>です。仕入れ先が「一般の人の家」であることが、普通の小売と違うところです。</p>
+
+<h3 id="s1-1">3つの買い方</h3>
+<div class="tbl" role="region" tabindex="0" aria-labelledby="s1-1">
+<table>
+<thead><tr><th>買い方</th><th>中身</th><th>数字の例</th></tr></thead>
+<tbody>
+<tr><td>店頭買取</td><td>お客さんが店に持ち込む。買取専門店は売り場が無く、カウンターと査定道具だけ</td><td>来店は1日5〜10名（買取大吉の求人）</td></tr>
+<tr><td>出張買取</td><td>査定員がお客さんの家へ行く。押し買いを防ぐ法律（第4章）がかかる</td><td>BuySell は2025年に出張訪問44.5万件。1件あたりの粗利は約7.5万円、広告費は約2.4万円</td></tr>
+<tr><td>宅配買取</td><td>箱で送ってもらう。ゲーム・本・玩具に多い</td><td>規模の数字は取れていない</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="s1-2">買った物の行き先（出口）</h3>
+<ul>
+<li><strong>業者どうしのオークション</strong>: 古物商どうしでしか売り買いできない場です（古物営業法14条3項）。自社でオークションを運営する会社もあります（バリュエンス、おたからや、コメ兵）。</li>
+<li><strong>自社の店・ネット通販</strong>: たとえば BuySell は、まず自社の EC や催事で売り、売れ残りをオークションへ回します。</li>
+<li><strong>金・プラチナ</strong>: 地金として法人へ売ります。量は出ますが、利ざやは薄めです。</li>
+<li><strong>海外</strong>: 海外の店や海外のバイヤーへ売ります。規模の数字は取れていません。</li>
+</ul>
+
+<h3 id="s1-3">粗利率は「小売まで持つか」で変わる</h3>
+<div class="tbl" role="region" tabindex="0" aria-labelledby="s1-3">
+<table>
+<thead><tr><th>会社</th><th>中身</th><th>粗利率</th></tr></thead>
+<tbody>
+<tr><td>トレジャー・ファクトリー</td><td>総合リユース・小売が主</td><td class="num">59.1%</td></tr>
+<tr><td>ブックオフ</td><td>本・総合</td><td class="num">56.7%</td></tr>
+<tr><td>BuySell</td><td>出張買取＋自社販売</td><td class="num">53.0%</td></tr>
+<tr><td>バリュエンス（なんぼや）</td><td>ブランド買取＋業者への卸</td><td class="num">25.1%</td></tr>
+<tr><td>コメ兵</td><td>ブランド・金・法人販売</td><td class="num">21.3%</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note">各社の直近の決算期（2025〜2026年）の値です。業態が違うので「どこが儲かるか」の比較には使えません。言えるのは「卸や金地金の比率が高いほど粗利率は低い」ことだけです。コメ兵は、金地金の法人販売が増えたことを粗利率が下がった理由に挙げています。</p>
+
+<h3 id="s1-4">FC（フランチャイズ）の仕組み</h3>
+<p>おたからや・買取大吉のような買取専門チェーンの多くは FC です。<strong>本部がブランド・広告・査定の支援・出口（オークションや物流）を持ち、加盟店が店を出してお客さんから買います</strong>。おたからやの元本部社員は「買った品は全部本部に流し、本部の査定額とお客さんへの買取額の差が店の利益になる」と説明しています（YouTube の証言）。</p>
+<p>売り場も在庫も要らないので、<strong>小さな店を早く安く増やせます</strong>。これが第3章の「店が急に増えた」の土台です。加盟の初期費用はおよそ数百万〜1,000万円という例が出ています（PR 配信の数字なので確度は低めです）。</p>
+<p class="note">「おたからやで働く」は本部（いーふらん）の社員とは限りません。店の多くは加盟店（別の会社）です。</p>
+</section>
+
+<section id="ch2" data-chapter="第2章 本当に伸びているのか">
+<h2 id="s2">第2章 市場は本当に伸びているのか</h2>
+<p>「リユース市場は3兆円で毎年伸びている」はよく聞く数字ですが、出所は業界紙の推計です。国（環境省）の推計と並べると、見え方が変わります。</p>
+
+<h3 id="s2-1">物差しが2本ある</h3>
+<div class="tbl" role="region" tabindex="0" aria-labelledby="s2-1">
+<table>
+<thead><tr><th></th><th>A: 業界紙（リユース経済新聞）</th><th>B: 環境省（車・バイクを除く）</th></tr></thead>
+<tbody>
+<tr><th scope="row">何を数えたか</th><td>中古品を売った店の売上（車・住宅・輸出は除く）</td><td>消費者が中古品を買った額（アンケートで推計）</td></tr>
+<tr><th scope="row">2012年</th><td class="num">1兆3,594億円</td><td class="num">1兆1,887億円</td></tr>
+<tr><th scope="row">2023〜2024年</th><td class="num">3兆1,227億円（2023）</td><td class="num">1兆2,813億円（2024）</td></tr>
+<tr><th scope="row">最新</th><td class="num">約3.5兆円（2025）</td><td>—（3年ごとの調査）</td></tr>
+<tr><th scope="row">伸び方</th><td><strong>2012→2023で約2.3倍</strong>（2009年からだと約2.8倍）・16年連続の拡大</td><td><strong>12年で+7.8%</strong></td></tr>
+</tbody>
+</table>
+</div>
+<p>同じ「車を除く」でも約2.5倍の開きがあり、その原因はまだ分かっていません。環境省自身も、業界紙の推計の定義を「不明」と注記しています。</p>
+<div class="box"><p><strong>話すときの言い方</strong>: 「業界紙の推計では約3.5兆円（2025年）で16年連続の拡大。ただし国の推計では、車を除くと12年で1割も伸びていない」。<strong>どちらの物差しかを必ず添えます。</strong></p></div>
+
+<h3 id="s2-2">売る人は増えていない、という数字もある</h3>
+<p>環境省の同じ調査では、過去1年に物を売ったり譲ったりしたことが「無い」人は、<strong>2012年57.7%から2024年70.0%へ増えています</strong>。フリマアプリで売った人も、2021年11.0%から2024年9.9%に減りました。一方で、リユース店に売った人は2024年に14.3%と、減っていた流れから増加に転じています。</p>
+<p>つまり「みんなが売るようになった」より、<strong>売る人が店に戻り、1回に売る額が大きくなった</strong>と読む方が数字に合います。金やブランド品は1点が高いので、これは次の章の「金の値上がり」とつながります。</p>
+<p class="note">ここの「1回の額が大きくなった」は数字から読んだ解釈で、直接は測っていません。</p>
+
+<h3 id="s2-3">買い取る側の規模</h3>
+<p>業界紙の最新データブック（2026年10月発刊）の見出しには「<strong>買取市場規模 19.2%増の1.8兆円</strong>」（2025年）とあります。販売側（約3.5兆円）より伸びが速いです。ただし本文は有料で、何を数えた額かは確かめられていません。</p>
+</section>
+
+<section id="ch3" data-chapter="第3章 なぜ注目されているのか">
+<h2 id="s3">第3章 なぜいま注目され、成長産業とされているのか</h2>
+<p>「注目される理由」と「実際に伸びた理由」は別物です。先に、なぜ目に入るのかを押さえてから、よく言われる理由を数字で確かめます。</p>
+
+<h3 id="s3-0">なぜ「注目」されるのか — 目に入るもの</h3>
+<ul>
+<li><strong>見出しの数字</strong>: 業界紙が毎年「市場は16年連続の拡大」「買取市場は1年で19.2%増」と出し、報道がそれを引きます。</li>
+<li><strong>国の目標</strong>: 環境省はリユース市場を2030年に4.6兆円にする目標を置きました（予測ではなく目標です）。</li>
+<li><strong>街で店が目に入る</strong>: 1本の商店街に買取店が11軒並ぶ様子がテレビで流れ、X では「タピオカ店みたいな増え方」という声が出ています。</li>
+<li><strong>テレビCM</strong>: 出張買取の BuySell は売上の約1割強を広告に使っています。</li>
+<li><strong>会社の急伸</strong>: 業界ランキングの上位に、売上が1年で2倍を超えた会社が2社あります（いーふらん 219%・貴瞬 207%）。</li>
+</ul>
+<p>では、実際に伸びた理由は何か。よく言われる理由を7つ並べて、1つずつ数字で確かめました。印の意味は次のとおりです。</p>
+<ul>
+<li><span class="ok">✅ 確かめた</span>: 数字と出所がある</li>
+<li><span class="part">△ 一部だけ</span>: 数字はあるが、市場を押し上げたかどうかは確かめていない</li>
+<li><span class="no">❓ 通説・未確認</span>: 数字が取れなかった</li>
+</ul>
+
+<h3 id="s3-1">よく言われる7つの理由の判定</h3>
+<div class="tbl" role="region" tabindex="0" aria-labelledby="s3-1">
+<table>
+<thead><tr><th>理由</th><th>判定</th><th>確かめたこと</th></tr></thead>
+<tbody>
+<tr><td>金・ブランド品の相場の上昇</td><td><span class="ok">✅</span> 金の相場<br><span class="part">△</span> 市場全体<br><span class="no">❓</span> ブランド</td><td>金の小売価格の年平均は、2023年 8,834円/g から2025年 17,302円/g へ<strong>約2倍</strong>（田中貴金属）。同じ時期に、金の買取が大きい会社の売上が急伸した。ただし2012〜2019年は金がほぼ横ばいでも市場は伸びており、<strong>金だけでは市場全体の動きを説明できない</strong>。ブランド品の相場の数字は取れず、ブランド・時計が主のバリュエンスは前年比104%にとどまる</td></tr>
+<tr><td>円安と海外への再販</td><td><span class="no">❓</span></td><td>中古品の輸出額や海外バイヤーの比率は取れなかった。あるのは会社の発信だけ（例: コメ兵の店で中国人客向けの販売が約1.4倍）</td></tr>
+<tr><td>フリマアプリで売り買いが当たり前に</td><td><span class="ok">✅</span> 普及<br><span class="part">△</span> いまの押し上げ</td><td>フリマ・ネットオークションの市場は2018年 1.59兆円 → 2025年 2.69兆円。ただしメルカリの流通総額は+4%（2025年6月期）、フリマで買う人の割合は頭打ち</td></tr>
+<tr><td>物価高と節約志向</td><td><span class="part">△</span></td><td>手放し先を選ぶ理由の1位は「金銭的な理由」56.0%（2024年・環境省）。時期は合うが、因果は確かめていない</td></tr>
+<tr><td>循環経済・SDGs の追い風</td><td><span class="part">△</span></td><td>国はリユース市場を2030年に4.6兆円にする<strong>目標</strong>を置いた（予測ではない）。意識が購入額を押し上げた数字は無い</td></tr>
+<tr><td>高齢化と生前整理・相続</td><td><span class="no">❓</span></td><td>規模の数字は取れなかった。むしろ60代以上は「売っていない」人が74.1%で若い世代より多い。高齢者は<strong>押し買いの被害の約8割</strong>という形で数字に出てくる</td></tr>
+<tr><td>家に眠っている物（かくれ資産）</td><td><span class="part">△</span></td><td>約90.5兆円（2025年版・メルカリとニッセイ基礎研究所の推計）。ただし「使っていない物をフリマの平均価格で値付けした在庫の推計」で、売られる額ではない。市場が伸びる根拠にはならない</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="s3-2">リストに無かったが、店を増やした理由</h3>
+<ol>
+<li><strong>売り場の要らない FC 店を早く増やせる</strong>: おたからやは2024年11月の1,200店から2026年11月には約2,130店になりました（自社発表）。買取大吉も FC を含めて2,000店を超えています。古物商の許可件数は2025年末に61万5,194件で、1年で4万件以上増えています（警察庁。個人も含みます）。業界紙の見出しでは、リユース店は2025年に初めて2万店を超えました。</li>
+<li><strong>テレビCMなどで「売れる」と知らせる</strong>: 出張買取の BuySell は、売上の約1割強を広告に使っています（出張1件あたり約2.4万円）。</li>
+<li><strong>コロナ禍の片付け</strong>: 家にいる時間が増えて不用品の整理が進んだ、と東京商工リサーチや業界紙が書いています（△）。</li>
+</ol>
+
+<h3 id="s3-3">本当に伸びている会社を見ると</h3>
+<div class="tbl" role="region" tabindex="0" aria-labelledby="s3-3">
+<table>
+<thead><tr><th>順位</th><th>会社</th><th>リユース売上</th><th>前年比</th><th>主な商材</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td>ゲオ（セカンドストリート）</td><td class="num">3,006.1億円</td><td class="num">109%</td><td>衣料・総合</td></tr>
+<tr><td class="num">2</td><td>コメ兵</td><td class="num">2,217.1億円</td><td class="num"><strong>139%</strong></td><td>ブランド・時計・金</td></tr>
+<tr><td class="num">3</td><td>いーふらん（おたからや）</td><td class="num">2,000億円</td><td class="num"><strong>219%</strong></td><td>金・ブランドの買取専門</td></tr>
+<tr><td class="num">4</td><td>ブックオフ</td><td class="num">1,183.2億円</td><td class="num">107%</td><td>本・総合</td></tr>
+<tr><td class="num">5</td><td>BuySell</td><td class="num">1,006.1億円</td><td class="num"><strong>168%</strong></td><td>出張買取</td></tr>
+<tr><td class="num">6</td><td>エンパワー（買取大吉）</td><td class="num">890.4億円</td><td class="num">119%</td><td>金・ブランドの買取専門</td></tr>
+<tr><td class="num">7</td><td>バリュエンス（なんぼや）</td><td class="num">814.2億円</td><td class="num">104%</td><td>ブランド・時計</td></tr>
+<tr><td class="num">8</td><td>貴瞬</td><td class="num">709.5億円</td><td class="num"><strong>207%</strong></td><td>貴金属</td></tr>
+<tr><td class="num">9</td><td>エコリング</td><td class="num">637.7億円</td><td class="num">136%</td><td>ブランド・総合買取</td></tr>
+<tr><td class="num">10</td><td>甲南チケット</td><td class="num">616.6億円</td><td class="num">120%</td><td>金券・貴金属</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note">リユース経済新聞「リユース売上ランキング2026（2025年度実績）」（2026年7月25日掲載）の上位10社です。主な商材の列は、各社の業態を要約したものです。</p>
+<p><strong>前年比が大きいのは、金（貴金属）の買取が大きい会社です。</strong>本や衣料が中心の会社は1桁台の伸びで、ブランド・時計が主のバリュエンスも104%です。これが「買取業界は成長産業」と言われる実体だと考えています。</p>
+<p>ただし、この売上の伸びには<strong>金の値上がりそのもの</strong>が含まれます。扱う量が増えた手がかり（店の数が2年で約1.8倍・古物商の許可が1年で7%増・店で売った人の割合が2024年に増加）はありますが、量と値段を分けた数字はありません。コメ兵は、利ざやの薄い金地金の販売が増えたと自ら説明しています。</p>
+
+<h3 id="s3-4">この章のまとめ</h3>
+<div class="box">
+<p>注目されるのは、業界紙の「16年連続」の見出し・国の目標・街に増えた店・CM・売上が倍になった会社が<strong>目に入るから</strong>です。実際に伸びた理由は、<strong>①金の相場が2年で約2倍</strong>になって家の金の値打ちが上がり、<strong>②売り場の要らない FC 店</strong>がその買い取りを全国で受け止め、<strong>③CM で「売れる」と知らせた</strong>ことです。フリマの普及は「売る」を当たり前にした土台ですが、いまは減速しています。円安・輸出・ブランド相場・相続は、よく言われるものの数字では確かめられませんでした。</p>
+<p>「成長産業か」に答えるなら、<strong>いまの急伸は金相場に乗ったもので、相場が落ちても伸び続ける産業かは、まだ数字では言えません。</strong></p>
+</div>
+</section>
+
+<section id="ch4" data-chapter="第4章 決まりごとと影">
+<h2 id="s4">第4章 決まりごとと影の部分</h2>
+<h3 id="s4-1">3つの法律</h3>
+<ul>
+<li><strong>古物営業法</strong>は、盗品を買わないための法律です。公安委員会の許可が要り（3条）、相手の住所・氏名・職業・年齢を確かめ（15条・1万円未満は原則不要）、帳簿を3年保存します。2020年4月からは、主たる営業所で1つ許可を取れば全国に店を出せるようになりました。</li>
+<li><strong>特定商取引法の訪問購入</strong>は、押し買いを防ぐ法律です（2013年施行）。頼まれていない家への勧誘は禁止されています（電話での「売る物はありませんか」も含みます）。クーリング・オフは8日で、その間は品物の引渡しを断れます。<strong>店頭買取にクーリング・オフはありません。</strong></li>
+<li><strong>犯罪収益移転防止法</strong>は、お金の洗浄を防ぐ法律です。代金が200万円を超える貴金属等の売買では本人確認をし、記録を7年保存します。</li>
+</ul>
+<h3 id="s4-2">影の部分</h3>
+<ul>
+<li>訪問購入の相談は<strong>年7千〜8千件台</strong>あります（2023年度 8,623件、2025年度 7,523件・国民生活センター）。契約した人の8割近くが60歳以上です（2023年の発表）。</li>
+<li>店頭での貴金属の買取の相談は、2020年度の165件から2025年度は937件と約6倍になりました（国民生活センターの数字を報じた記事）。</li>
+<li>警察官を名乗って金を買わせて奪う詐欺や、「買取業者」が強盗の下見をする例を、警察が注意喚起しています。</li>
+<li><strong>店の増えすぎ</strong>: 2025年のリユース業の休廃業・解散は122件で10年で最多、倒産は25件でした（東京商工リサーチ）。買取価格の競争で、会社ごとの利益の差が広がっています。</li>
+<li><strong>相場の逆風</strong>: 急に伸びた分は金相場に乗っています。相場が下がれば、そのまま逆風になります。</li>
+</ul>
+</section>
+
+<section id="ch5" data-chapter="第5章 働く側から">
+<h2 id="s5">第5章 働く側から見た仕事</h2>
+<ul>
+<li><strong>1日</strong>: 店頭では1日5〜10組の査定、出張では1日4件前後（1件1〜2時間）が目安です。出張は車で直行直帰することが多く、基本1人で回ります。</li>
+<li><strong>鑑定</strong>: 「ブランド鑑定士」は公的な資格ではありません。写真を本部に送り、本部が値を決める仕組みの会社が多いです。研修はおよそ1か月で、「3〜5年で一人前」という声があります。</li>
+<li><strong>給与</strong>: 固定25〜30万円前後に、<strong>粗利に応じた歩合</strong>が乗る形が多いです。求人票の「年収1,000万」は上位の例で、当事者からは「手取り20万円台」という声も複数あります。「ノルマなし」と書いてあっても、店の予算や粗利の目標に歩合がつながっていることがよくあります。</li>
+<li><strong>実際の中身</strong>: 物を見る仕事に見えて、実際は<strong>お客さんに値段を納得してもらう営業</strong>です。当事者が3人以上同じことを書いていたのは「離職率が高い」だけでした。一方で「一流品に触れられて楽しい」という声もあります。</li>
+<li><strong>キャリア</strong>: スタッフ → 店長 → エリア（SV）→ 本部、または独立して自分の店を持つ道があります。</li>
+</ul>
+</section>
+
+<section id="ch6" data-chapter="第6章 1分で話すなら">
+<h2 id="s6">第6章 求職者に1分で話すなら</h2>
+<p>数字はすべて canon の値で、時点を添えています。</p>
+<div class="script">
+<p>「中古品の市場全体がどれだけ伸びたかは、数え方で大きく違います。はっきり伸びているのは、金を買い取るお店のチェーンです。金の値段がこの2年でほぼ2倍になり、家にある金を売りに来る人の受け皿として、小さな買取店がフランチャイズで一気に増えました。おたからやは、この2年で店が約1.8倍です。ただ、実際に働くのは加盟店の会社のことが多いです。仕事は物を見るだけでなく、お客さんに値段を納得してもらう営業で、給料は固定給に粗利に応じた歩合が乗る形が多いです。一方で、店は増えすぎていて、2025年は業界の休廃業が10年で一番多かった。面接では『金の値段が下がったら何で稼ぎますか』と聞いてみてください。」</p>
+</div>
+<p class="note">約300字・声に出して約1分。数字は3つに絞りました。出所: 金＝田中貴金属の年平均（2023年 8,834円/g → 2025年 17,302円/g）／おたからや＝運営会社の自社発表（2024年11月 1,200店 → 2026年11月 約2,130店）／休廃業＝東京商工リサーチ（2026年5月25日・122件）。「業界紙では16年連続の拡大」と聞かれたら、第2章の言い方（国の推計では車を除いて12年で+7.8%）で答えます。</p>
+</section>
+
+<section id="ch7" data-chapter="確かめられなかったこと">
+<h2 id="s7">確かめられなかったこと</h2>
+<ul>
+<li>中古品の輸出額（「円安で海外に売れる」を確かめる唯一の数字）</li>
+<li>買取市場1.8兆円の中身（店頭・出張・宅配・金地金の内訳）</li>
+<li>業界紙と環境省の推計が約2.5倍違う理由</li>
+<li>相続・生前整理からの買取の規模</li>
+<li>買取職の年収の中央値</li>
+</ul>
+<p class="note">詳しい出典と数字の使い方は canon の <code>README.md</code> と <code>number_ledger.md</code>（誤用8点）にあります。</p>
+</section>
+</main>
+<script>
+(function(){
+  var pos=document.getElementById('band-pos');
+  var heads=[].slice.call(document.querySelectorAll('main h2, main h3'));
+  function update(){
+    var y=window.scrollY+80, ch='はじめに', sec='';
+    for(var i=0;i<heads.length;i++){
+      var h=heads[i];
+      if(h.getBoundingClientRect().top+window.scrollY<=y){
+        if(h.tagName==='H2'){ch=h.closest('section').getAttribute('data-chapter');sec='';}
+        else{sec=h.textContent;}
+      }
+    }
+    pos.textContent=sec?ch+' ／ '+sec:ch;
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  window.addEventListener('resize',update);
+  update();
+})();
+</script>
+</body>
+</html>
