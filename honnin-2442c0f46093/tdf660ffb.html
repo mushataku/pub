@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head><!--gp-portal:s--><meta name="x-build" content="954bf25f4f"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>書類のフィードバック</title>
+<style>
+:root{
+  --bg:#fdfcfa; --fg:#241f1a; --muted:#7b7168; --line:#e6e0d6;
+  --card:#ffffff; --before:#9a9188; --after:#c2622f; --afterbg:#fdf3ec; --beforebg:#f4f2ef;
+  --good:#2f6b45;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#191714; --fg:#f0ebe3; --muted:#a89e93; --line:#37322b;
+    --card:#221f1b; --before:#8b8279; --after:#e79b63; --afterbg:#2b201a; --beforebg:#201e1b; --good:#8fd0a6;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#191714; --fg:#f0ebe3; --muted:#a89e93; --line:#37322b;
+  --card:#221f1b; --before:#8b8279; --after:#e79b63; --afterbg:#2b201a; --beforebg:#201e1b; --good:#8fd0a6;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);margin:0;padding:34px 26px 40px;
+  font-family:-apple-system,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic UI",sans-serif;line-height:1.6}
+.wrap{max-width:960px;margin:0 auto}
+h1{font-size:1.7rem;margin:0 0 6px;letter-spacing:.02em}
+.lead{color:var(--muted);font-size:1rem;margin:0 0 26px}
+.pair{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px}
+.col{flex:1 1 380px;min-width:0;border-radius:12px;padding:16px 18px;border:1px solid var(--line)}
+.col.b{background:var(--beforebg)}
+.col.a{background:var(--afterbg);border-color:var(--after)}
+.label{font-size:.82rem;font-weight:700;letter-spacing:.08em;margin:0 0 10px}
+.col.b .label{color:var(--before)}
+.col.a .label{color:var(--after)}
+.quote{font-size:1rem;line-height:1.85;margin:0}
+.quote em{font-style:normal;background:linear-gradient(transparent 62%,rgba(194,98,47,.28) 62%);font-weight:700}
+.sect{margin:36px 0 0;font-size:1.12rem;font-weight:700;color:var(--after)}
+.why{margin:14px 0 0;padding:15px 18px;background:var(--card);border:1px solid var(--line);
+  border-left:4px solid var(--good);border-radius:0 12px 12px 0;font-size:.98rem;line-height:1.8}
+.why .k{font-size:.8rem;font-weight:700;letter-spacing:.14em;color:var(--good);margin-right:.6em}
+.good{margin:14px 0 0;padding:15px 18px 12px;background:var(--card);border:1px solid var(--line);
+  border-left:4px solid var(--good);border-radius:0 12px 12px 0;font-size:.98rem;line-height:1.8}
+.good ul{margin:0;padding-left:20px}
+.good li{margin:0 0 6px}
+.foot{margin:34px 0 0;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:12px;font-size:1.02rem;line-height:1.85}
+.foot b{color:var(--after)}
+.note{margin:10px 0 0;font-size:.88rem;color:var(--muted)}
+.bridge{margin:44px 0 0;padding:20px 0 0;border-top:2px solid var(--line);font-size:1.06rem;line-height:1.9;text-align:center}
+.bridge b{color:var(--after)}
+@media(max-width:720px){h1{font-size:1.3rem}body{padding:24px 16px 32px}}
+
+h1,h2,h3{word-break:auto-phrase}
+</style>
+</head>
+<body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=954bf25f4f">ホーム</a></li><li class="gp-cur"><a href="./tdf660ffb.html?v=954bf25f4f" aria-current="page">書類のフィードバック</a></li></ul></nav><!--gp-portal:e-->
+<div class="wrap">
+
+<h1>書類のフィードバック</h1>
+<p class="lead">11月4日付でお送りいただいた履歴書・職務経歴書をもとに、私の方で作り直したのが今回お渡しする書類です。岩永さんの書類にもともとあった良いところはそのまま残しています。<b>良かった点・気になった点・どこをどう変えたのか</b>をお伝えします。</p>
+
+<p class="sect">■ 良かった点</p>
+<div class="good">
+<ul>
+<li><b>実績が数字で書かれていた。</b>「月5件あった労災を月1件未満へ」「社長と2名体制で営業成績1位」「20名超のチームを1人で統括」。読み手が一番知りたいのは「で、何ができる人か」で、数字がその答えになっています。</li>
+<li><b>職歴ごとに「職務内容」と「実績・貢献」を分けて書かれていた。</b>何をしたかと、その結果どうなったかが分かれていて、読みやすい構成でした。</li>
+<li><b>経験の幅そのものが強み。</b>製造・品質管理から営業、運転、起業、チームの統括まで、現場と管理の両方を経験されています。これは簡単には真似できません。</li>
+</ul>
+</div>
+
+<p class="sect">■ 気になった点</p>
+<div class="good" style="border-left-color:var(--after)">
+<ul>
+<li><b>ITの話が、書類のどこにも出てこない。</b>経歴要約にも自己PRにも、岩永さんが目指しておられるWebエンジニアの話がありません。PPKでHTML・CSS・JavaScriptを自分で学んで作っておられることは、面談で伺って初めて分かりました。</li>
+<li><b>退職理由が1社ずつ書かれていて、前向きな印象より先に読み手の目に入る。</b>書類の中で説明しなくても、面接で聞かれたときに話せば十分です。</li>
+<li><b>資格欄の説明が、未使用であることの言い訳に見えてしまう。</b>「一度も使用したことがございません」と書くと、せっかくの資格が控えめに見えてしまいます。</li>
+<li><b>自己PRが、どの職種にも当てはまる書き方になっていた。</b>岩永さんならではのエピソードを入れると、一気に強くなります。</li>
+</ul>
+</div>
+
+<p class="sect">■ 変更1：経歴要約を、「IT職を目指す人」として読める形に変えた</p>
+<div class="pair">
+  <div class="col b">
+    <p class="label">お送りいただいた書き方</p>
+    <p class="quote">製品および物流の第一線における実務から、組織マネジメント、さらには自らでの会社設立まで、現場のオペレーションと管理の双方で豊富なキャリアを築いてまいりました。</p>
+  </div>
+  <div class="col a">
+    <p class="label">作り直した書き方（職務要約）</p>
+    <p class="quote">Web制作会社の経営では、<em>HTML・CSS・JavaScriptによるサイト制作や保守、アクセス解析に基づくマーケティング</em>を手がけ、近年は<em>生成AIツール（Gemini等）の活用</em>も始めています。今後は、現場で培った実務力と人への理解を土台に、<em>ITエンジニア</em>として長く貢献したいと考えております。</p>
+  </div>
+</div>
+<div class="why"><span class="k">設計思想</span>今回の応募で読み手が知りたいのは、<b>この人はITに向かう人なのか、そのとき何を持ってくるのか</b>です。幅広い経験は残したまま、後半でWeb制作の経験と、これからITエンジニアになりたいという方向をはっきり書きました。事実は増やしていません。面談で伺ったことを、書類の上に出しただけです。</div>
+
+<p class="sect">■ 変更2：冒頭に《ハイライト》の3行を置いた</p>
+<div class="pair">
+  <div class="col b">
+    <p class="label">お送りいただいた書き方</p>
+    <p class="quote">冒頭は文章の「経歴要約」（経験を2つの段落で紹介する形）</p>
+  </div>
+  <div class="col a">
+    <p class="label">作り直した書き方</p>
+    <p class="quote">★ <em>20名超のチームを1人で統括</em><br>★ <em>自ら会社を設立し、運営</em><br>★ <em>品質管理の現場で、月5件の労災を月1件未満へ</em></p>
+  </div>
+</div>
+<div class="why"><span class="k">設計思想</span>応募書類は、最初の数十秒で読むかどうかが決まります。だから<b>最初の3行を読むだけで、岩永さんの強みが3つ伝わる</b>ようにしました。どれも元の書類にあった実績で、数字が入っているものを選んでいます。</div>
+
+<p class="sect">■ 変更3：PPKの経験を、「何をどう使ったか」が分かる書き方にした</p>
+<div class="pair">
+  <div class="col b">
+    <p class="label">お送りいただいた書き方</p>
+    <p class="quote">クライアント企業のWebサイト（HP）の新規制作、保守・点検業務</p>
+  </div>
+  <div class="col a">
+    <p class="label">作り直した書き方</p>
+    <p class="quote">クライアント企業のWebサイトの新規制作、保守・点検（<em>HTML・CSS・JavaScript</em>）／アクセス解析や売上データに基づく<em>Webコンサルティング</em>、動画コンテンツの編集・制作</p>
+  </div>
+</div>
+<div class="why"><span class="k">設計思想</span>「Webサイトを作った」だけだと、どこまでできるのかが読み手に伝わりません。面談で伺った<b>HTML・CSS・JavaScriptから自分で作っている</b>ことを、技術名で書きました。ITエンジニアを目指すうえで、一番伝えたい部分です。</div>
+
+<p class="sect">■ 変更4：自己PRを、岩永さんのエピソードで書き直した</p>
+<div class="pair">
+  <div class="col b">
+    <p class="label">お送りいただいた書き方</p>
+    <p class="quote">持ち前の対話力を活かして周囲と迅速に信頼関係を構築し、部門を横断した協働体制を築くことを得意としています。</p>
+  </div>
+  <div class="col a">
+    <p class="label">作り直した書き方</p>
+    <p class="quote">高校生の頃から心理学に関心を持ち、本を読み、多くの人と関わりながら学んできました。相手の考えを捉えて関係を築くことが得意で、<em>クライアントとの定例会議で現場の状況を言葉にして伝え、改善を提案</em>しました。</p>
+  </div>
+</div>
+<div class="why"><span class="k">設計思想</span>「対話力があります」だけでは、誰の書類にも書いてある言葉になります。<b>面談で話してくださった心理学への関心と、実際にクライアントへ改善を提案した場面</b>を入れると、岩永さんにしか書けない自己PRになります。ここも新しい事実は足していません。</div>
+
+<p class="sect">■ 細かい整え</p>
+<div class="pair">
+  <div class="col b">
+    <p class="label">お送りいただいた書き方</p>
+    <p class="quote">各社の「退職理由」／資格ごとの「実務経験0年以上」「一度も使用したことがございません」といった説明</p>
+  </div>
+  <div class="col a">
+    <p class="label">作り直した書き方</p>
+    <p class="quote">退職理由の記載は外し、資格は<em>名称だけを並べた一覧</em>にした</p>
+  </div>
+</div>
+<div class="why"><span class="k">設計思想</span>退職の事情は、<b>面接で聞かれたときに岩永さんの言葉で話す方が伝わります</b>。資格は持っていること自体が材料なので、使ったかどうかの説明は書類に入れません。</div>
+
+<div class="foot">
+仕上げの検算はひとつだけ——「<b>書いてあることを、面接で全部そのまま自分の言葉で話せるか</b>」。盛った表現や、実際にやっていないことは書き足していません。全部、岩永さんが話してくださったことと、お送りいただいた書類にあることです。だからこの書類は面接でそのまま使えますし、<b>今回お渡しするデータは、今後どこに出すときでも使っていただけます。</b>
+</div>
+<p class="note">「自分の言葉で話せない」と感じるところがあれば、遠慮なく言ってください。すぐ直します。</p>
+
+<div class="bridge">
+その上で、ここからは<b>提携している会社のお話</b>をさせてください。
+</div>
+
+</div>
+<!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=954bf25f4f">ホーム</a></li><li class="gp-cur"><a href="./tdf660ffb.html?v=954bf25f4f" aria-current="page">書類のフィードバック</a></li></ul></nav><!--gp-portal:e--></body>
+</html>
