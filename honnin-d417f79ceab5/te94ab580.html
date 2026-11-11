@@ -1,202 +1,241 @@
 <!doctype html>
-<html lang="ja"><head><!--gp-portal:s--><meta name="x-build" content="4d802db273"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e--><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="ja"><head><!--gp-portal:s--><meta name="x-build" content="e1e321fb44"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e--><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Linuxの復習 高橋さん</title>
 <style>
-:root{--bg:#fff;--fg:#1d1d1f;--mut:#555;--line:#d4d4d4;--box:#f3f6fb;--acc:#1f5fbf;--accbg:#e6efff;--grn:#1e6b34;--grnbg:#e5f5ea;--org:#9a4a00;--orgbg:#fff1e0;--pur:#5b3fa8;--purbg:#efe9ff;--say:#fff8e6;--term:#14171c;--termfg:#e6e6e6;--tgrn:#7ee08f;--tdim:#9aa4b2}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17181a;--fg:#ececec;--mut:#b4b4b4;--line:#3a3a3a;--box:#20242b;--acc:#8ab8ff;--accbg:#1c2a40;--grn:#7fd99a;--grnbg:#18301f;--org:#ffb36b;--orgbg:#3a2814;--pur:#c3b0ff;--purbg:#2a2342;--say:#2a2618}}
-:root[data-theme="dark"]{--bg:#17181a;--fg:#ececec;--mut:#b4b4b4;--line:#3a3a3a;--box:#20242b;--acc:#8ab8ff;--accbg:#1c2a40;--grn:#7fd99a;--grnbg:#18301f;--org:#ffb36b;--orgbg:#3a2814;--pur:#c3b0ff;--purbg:#2a2342;--say:#2a2618}
+/* ===== 本人ページ共通（ひな形 2026-11-12・手本＝松山さんFBの調子） ===== */
+:root{color-scheme:light;
+  --bg:#fdfcfa;--fg:#241f1a;--mut:#5c534b;--line:#e6e0d6;--card:#ffffff;--box:#f4f2ef;
+  --acc:#c2622f;--accink:#8a3c15;--accbg:#fdf3ec;
+  --good:#2f6b45;--goodink:#24553a;--goodbg:#eef6f0;
+  --term:#1f1b17;--termbar:#2e2924;--termfg:#ece6dd;--tgrn:#9fd8b0;--tdim:#b3a99e;--thl:#34402c;--tdot:#6a6158}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
+  --bg:#191714;--fg:#f0ebe3;--mut:#b8afa5;--line:#37322b;--card:#221f1b;--box:#201e1b;
+  --acc:#e79b63;--accink:#f0b081;--accbg:#2b201a;
+  --good:#8fd0a6;--goodink:#9ad8b0;--goodbg:#1a2620;
+  --term:#100e0c;--termbar:#262019;--termfg:#ece6dd;--tgrn:#9fd8b0;--tdim:#b3a99e;--thl:#34402c;--tdot:#5a524a}}
+:root[data-theme="dark"]{color-scheme:dark;
+  --bg:#191714;--fg:#f0ebe3;--mut:#b8afa5;--line:#37322b;--card:#221f1b;--box:#201e1b;
+  --acc:#e79b63;--accink:#f0b081;--accbg:#2b201a;
+  --good:#8fd0a6;--goodink:#9ad8b0;--goodbg:#1a2620;
+  --term:#100e0c;--termbar:#262019;--termfg:#ece6dd;--tgrn:#9fd8b0;--tdim:#b3a99e;--thl:#34402c;--tdot:#5a524a}
 *{box-sizing:border-box}
-html{scroll-padding-top:64px}
-body{background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Meiryo",system-ui,sans-serif;line-height:1.75;margin:0;font-size:17px;overflow-wrap:anywhere}
-main{max-width:860px;margin:0 auto;padding:16px}
-main p{max-width:40em;margin:.7em 0}
-h1{font-size:1.5rem;margin:.4em 0 .2em}
-h2{font-size:1.25rem;border-left:6px solid var(--acc);padding-left:10px;margin:2.6em 0 .6em}
-h3{font-size:1.05rem;margin:1.4em 0 .5em}
+html{scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Meiryo",system-ui,sans-serif;font-size:17px;line-height:1.8;letter-spacing:.02em;overflow-wrap:anywhere}
+.band{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 24px;font-size:14px;line-height:1.5;display:flex;gap:.6em;align-items:baseline;flex-wrap:wrap}
+.band span{color:var(--mut)}
+main{max-width:820px;margin:0 auto;padding:40px 24px 64px}
+main p{max-width:40em;margin:.8em 0}
+h1{font-size:1.7rem;line-height:1.4;margin:0 0 6px}
+h2{font-size:1.2rem;line-height:1.5;color:var(--accink);margin:3.2em 0 .8em}
+h3{font-size:1.04rem;line-height:1.5;margin:2.2em 0 .6em}
 h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere}
-@supports (word-break:auto-phrase){main > :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
-.mut{color:var(--mut);font-size:.9em}
-.cap{color:var(--mut);font-size:15px;margin:6px 0 0}
-code,kbd{font-family:ui-monospace,"SFMono-Regular",Consolas,"Menlo",monospace;font-size:.92em}
-p code,li code,.card code,.chart code,.env code,.route code,.tip code,.bub code,.note code,details code{background:var(--box);border:1px solid var(--line);border-radius:4px;padding:0 .3em;overflow-wrap:anywhere}
-kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:0 .45em;background:var(--bg);font-weight:700;line-height:1.5}
-.blank{display:inline-block;min-width:5em;border-bottom:2px solid var(--org);margin:0 .2em}
+@supports (word-break:auto-phrase){main :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
+.meta{color:var(--mut);font-size:14px;margin:0 0 24px}
+.mut{color:var(--mut)}
+.cap{color:var(--mut);font-size:15px;margin:10px 0 0}
+a{color:var(--accink);text-underline-offset:.2em}
+code,kbd{font-family:ui-monospace,"SFMono-Regular",Consolas,Menlo,monospace;font-size:.92em}
+:not(pre)>code{background:var(--box);border:1px solid var(--line);border-radius:4px;padding:0 .3em}
+kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:0 .45em;background:var(--card);font-weight:700;line-height:1.5}
 
-.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:14px 0;padding:0;list-style:none}
-.toc a{display:block;border:1px solid var(--line);border-radius:10px;padding:8px 10px;text-decoration:none;color:var(--fg);background:var(--box);min-height:44px;font-size:15px;line-height:1.45}
-.toc a b{color:var(--acc);margin-right:.3em}
+/* 目次 */
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:20px 0;padding:0;list-style:none}
+.toc a{display:block;border:1px solid var(--line);border-radius:10px;padding:9px 12px;text-decoration:none;color:var(--fg);background:var(--card);min-height:44px;font-size:15px;line-height:1.45}
+.toc a b{color:var(--accink);margin-right:.35em}
 
-.goals{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:12px 0}
-.goal{border-radius:12px;padding:12px 14px;border:2px solid var(--acc);background:var(--accbg)}
-.goal .n{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--acc);color:var(--bg);font-weight:700;margin-right:6px}
+/* 対比の箱2つ（そのままで良い／次に直す） */
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px;margin:16px 0}
+.keep,.fix{border-radius:12px;padding:14px 18px;border:1px solid var(--line);font-size:16px;line-height:1.75;min-width:0}
+.keep{background:var(--goodbg)}
+.fix{background:var(--accbg);border-color:var(--acc)}
+.keep .h,.fix .h{font-weight:700;font-size:14px;letter-spacing:.08em;margin:0 0 6px}
+.keep .h{color:var(--goodink)}.fix .h{color:var(--accink)}
+.ex{display:block;color:var(--mut);font-size:15px;margin-top:6px}
+
+/* 注記（左に細い線） */
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--good);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;max-width:40em}
+.say{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;max-width:40em}
+
+/* 段階図（終わった＝緑の薄塗り／いまここ＝テラコッタ／これから＝灰の線） */
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--mut);margin:8px 0}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;border:1px solid var(--line)}
+.legend .d::before{background:var(--goodbg);border-color:var(--goodbg)}
+.legend .n::before{background:var(--accbg);border:2px solid var(--acc)}
+.track{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:14px 0;background:var(--card)}
+.track .hd{font-weight:700;margin:0 0 10px}
+.track .nt{font-size:15px;margin:10px 0 0;line-height:1.7}
+.stages{display:flex;list-style:none;margin:0;padding:0;gap:6px}
+.stages li{flex:1 1 0;min-width:0;border:1px solid var(--line);border-radius:10px;padding:8px 6px;text-align:center;font-size:14px;line-height:1.5;color:var(--mut);background:transparent}
+.stages li .mk{display:block;font-size:16px;line-height:1.4;font-weight:700}
+.stages li small{display:block;font-size:13px;color:var(--fg);margin-top:2px}
+.stages li.done{background:var(--goodbg);border-color:var(--goodbg);color:var(--goodink)}
+.stages li.now{background:var(--accbg);border:2px solid var(--acc);color:var(--accink);font-weight:700}
+
+/* チェックリスト */
+.prog{display:flex;align-items:center;gap:12px;margin:12px 0;font-size:15px}
+.prog .bar{flex:1;max-width:320px;height:10px;border-radius:5px;background:var(--box);border:1px solid var(--line);overflow:hidden}
+.prog .bar i{display:block;height:100%;width:0;background:var(--good)}
+.tl{list-style:none;margin:18px 0;padding:0 0 0 16px;border-left:2px solid var(--line)}
+.tl > li{position:relative;margin:0 0 26px;padding-left:16px}
+.tl > li::before{content:"";position:absolute;left:-24px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--acc)}
+.tl > li.big::before{background:var(--acc)}
+.tl .dt{font-weight:700;margin-bottom:6px}
+.tag{display:inline-block;margin-left:8px;border-radius:999px;padding:0 .65em;font-size:13px;font-weight:700;border:1px solid var(--line);background:var(--box);color:var(--mut)}
+.chk{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0;background:var(--card);min-height:44px;cursor:pointer;max-width:40em}
+.chk input{flex:none;width:22px;height:22px;margin-top:3px;accent-color:var(--good)}
+.chk span{font-size:16px;line-height:1.65}
+.chk input:checked + span{color:var(--mut);text-decoration:line-through}
+.chk input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+
+/* 開く箱 */
+details{border:1px solid var(--line);border-radius:10px;padding:6px 16px;margin:10px 0;background:var(--card)}
+summary{cursor:pointer;font-weight:700;padding:6px 0;min-height:32px}
+details[open]{background:var(--box)}
+details p{margin:.3em 0 .6em}
+
+@media (max-width:560px){
+  .band{padding:8px 16px}
+  main{padding:28px 16px 48px}
+  h1{font-size:1.4rem}
+  .stages{flex-direction:column}
+  .stages li{text-align:left;display:flex;gap:10px;align-items:baseline}
+  .stages li .mk{flex:none;width:1.4em}
+  .stages li small{display:inline;margin:0 0 0 .4em}
+}
+/* ===== ここまで共通 ===== */
+/* ===== Linux の復習だけの部品（色はトークンだけ） ===== */
+.blank{display:inline-block;min-width:5em;border-bottom:2px solid var(--acc);margin:0 .2em}
+.goals{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0}
+.goal{border-radius:12px;padding:14px 16px;border:1px solid var(--line);background:var(--card)}
+.goal .n{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--accink);color:var(--bg);font-weight:700;font-size:14px;margin-right:8px}
 .goal .h{font-weight:700}
-.goal .e{font-size:15px;color:var(--mut);margin-top:4px;line-height:1.6}
-
-/* 環境えらび */
-.envs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:12px 0}
-.env{border:2px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--bg)}
+.goal .e{font-size:15px;color:var(--mut);margin-top:6px;line-height:1.65}
+.envs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0}
+.env{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--card)}
 .env .hd{display:flex;gap:8px;align-items:center;font-weight:700}
 .env .hd .ic{font-size:24px}
-.env ul{margin:.4em 0 0 1.1em;font-size:15px;line-height:1.6}
+.env ul{margin:.4em 0 0 1.1em;padding:0;font-size:15px;line-height:1.65}
 .env.main{border-color:var(--acc)}
-
-/* 積み木 */
-.stack{display:flex;flex-direction:column;gap:6px;margin:14px 0;max-width:520px}
-.layer{border-radius:10px;padding:10px 12px;display:flex;gap:10px;align-items:center;border:2px solid}
+.stack{display:flex;flex-direction:column;gap:6px;margin:16px 0;max-width:520px}
+.layer{border-radius:10px;padding:10px 14px;display:flex;gap:12px;align-items:center;border:1px solid var(--line);background:var(--card)}
 .layer .ic{font-size:26px;line-height:1;width:34px;text-align:center;flex:none}
-.layer .t{font-weight:700;line-height:1.4}
-.layer .s{font-size:14px;color:var(--mut);line-height:1.5}
-.l4{border-color:var(--org);background:var(--orgbg)}
-.l3{border-color:var(--grn);background:var(--grnbg)}
-.l2{border-color:var(--pur);background:var(--purbg)}
-.l1{border-color:var(--acc);background:var(--accbg)}
-.l0{border-color:var(--line);background:var(--box)}
-.vm{border:2px dashed var(--acc);border-radius:12px;padding:6px;display:flex;flex-direction:column;gap:6px}
-.vm .tag{font-size:14px;color:var(--acc);font-weight:700;padding:0 4px}
-.hint{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:15px;color:var(--mut);margin:6px 0}
-.hint span::before{content:"▸ ";color:var(--acc)}
-
-/* 横の流れ */
-.flow{display:flex;align-items:stretch;flex-wrap:wrap;margin:14px 0}
-.node{flex:1 1 120px;border:2px solid var(--line);border-radius:12px;padding:10px;text-align:center;background:var(--box);min-width:110px}
+.layer .t{font-weight:700;line-height:1.45}
+.layer .s{font-size:14px;color:var(--mut);line-height:1.55}
+.l4{border-color:var(--acc);background:var(--accbg)}
+.l0{background:var(--box)}
+.vm{border:1.5px dashed var(--acc);border-radius:12px;padding:6px;display:flex;flex-direction:column;gap:6px}
+.vm .tag2{font-size:14px;color:var(--accink);font-weight:700;padding:0 4px}
+.hint{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:15px;color:var(--mut);margin:8px 0}
+.hint span::before{content:"▸ ";color:var(--accink)}
+.flow{display:flex;align-items:stretch;flex-wrap:wrap;margin:16px 0}
+.node{flex:1 1 120px;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;background:var(--card);min-width:110px}
+.node.vmn{border:1.5px dashed var(--acc)}
+.node.srv{border-color:var(--good)}
 .node .ic{font-size:30px;line-height:1.2}
-.node .t{font-weight:700;line-height:1.4}
-.node .s{font-size:14px;color:var(--mut);line-height:1.5}
-.arrow{flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4px 6px;font-size:14px;color:var(--mut);text-align:center;line-height:1.35}
-.arrow .a{font-size:24px;color:var(--acc);font-weight:700;line-height:1}
-.arrow .a.back{color:var(--grn)}
+.node .t{font-weight:700;line-height:1.45}
+.node .s{font-size:14px;color:var(--mut);line-height:1.55}
+.arrow{flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4px 8px;font-size:14px;color:var(--mut);text-align:center;line-height:1.4}
+.arrow .a{font-size:22px;color:var(--accink);font-weight:700;line-height:1}
 @media (max-width:560px){.flow{flex-direction:column}.arrow .a{transform:rotate(90deg)}.arrow{padding:6px 0}}
-
-/* 往復の図 */
-.rt{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin:14px 0;max-width:620px}
-.rt .mid{display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--mut);text-align:center;line-height:1.35}
+.rt{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin:16px 0;max-width:620px}
+.rt .mid{display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--mut);text-align:center;line-height:1.4}
 .rt .mid .a{font-size:22px;font-weight:700;display:block;line-height:1}
-.rt .go .a{color:var(--acc)}.rt .ret .a{color:var(--grn)}
-@media (max-width:420px){.rt{grid-template-columns:1fr}.rt .mid{flex-direction:row;justify-content:center;gap:20px}.rt .go .a{transform:rotate(90deg)}.rt .ret .a{transform:rotate(90deg)}}
-
-/* 通り道の図 */
-.routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:12px 0}
-.route{border:2px solid var(--line);border-radius:12px;padding:10px 12px}
+.rt .go .a{color:var(--accink)}.rt .ret .a{color:var(--goodink)}
+@media (max-width:420px){.rt{grid-template-columns:1fr}.rt .mid{flex-direction:row;justify-content:center;gap:20px}.rt .go .a,.rt .ret .a{transform:rotate(90deg)}}
+.routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:14px 0}
+.route{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--card)}
 .route .hd{font-weight:700;margin-bottom:6px}
-.route .mini{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:6px 0;font-size:14px}
-.route .bx{border:1.5px solid var(--line);border-radius:8px;padding:2px 8px;background:var(--box);white-space:nowrap}
-.route .bx.vmx{border-style:dashed;border-color:var(--acc)}
-.route .ar{color:var(--acc);font-weight:700}
-.route .addr{font-size:15px;margin-top:4px}
-.route .s{font-size:14px;color:var(--mut);line-height:1.55}
-.route.ng{border-color:var(--org);background:var(--orgbg)}
-.k{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;border-radius:6px;color:#fff;font-weight:700;font-size:14px;margin-right:6px;padding:0 4px}
-.k.a{background:#6b4fc8}.k.b,.lane.b .k{background:#1f5fbf}.k.c,.lane.c .k{background:#1e7d3a}.k.x,.lane.x .k{background:#b3261e}
-.rmap{margin:12px 0;max-width:620px}
-.rmap .pc{border:2px solid var(--fg);border-radius:14px;padding:30px 10px 10px;position:relative;background:var(--box)}
-.rmap .lb{position:absolute;top:6px;left:12px;font-size:14px;font-weight:700}
-.rmap .pcbr{display:inline-block;border:2px solid var(--org);background:var(--orgbg);border-radius:10px;padding:4px 10px;font-weight:700;font-size:15px}
-.rmap .lanes{display:flex;flex-direction:column;gap:4px;margin:6px 0 6px 18px;padding-left:10px;border-left:2px solid var(--line)}
+.route .s{font-size:14px;color:var(--mut);line-height:1.6}
+.route.ng{border-color:var(--acc);background:var(--accbg)}
+.k{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;border-radius:6px;background:var(--mut);color:var(--bg);font-weight:700;font-size:14px;margin-right:6px;padding:0 4px}
+.k.x,.lane.x .k{background:var(--accink)}
+.rmap{margin:14px 0;max-width:620px}
+.rmap .pc{border:1.5px solid var(--mut);border-radius:14px;padding:32px 12px 12px;position:relative;background:var(--box)}
+.rmap .lb{position:absolute;top:7px;left:12px;font-size:14px;font-weight:700}
+.rmap .pcbr{display:inline-block;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:4px 10px;font-weight:700;font-size:15px}
+.rmap .lanes{display:flex;flex-direction:column;gap:4px;margin:8px 0 8px 18px;padding-left:10px;border-left:2px solid var(--line)}
 .rmap .lane{display:flex;align-items:center;gap:6px;font-size:14px;flex-wrap:wrap}
 .rmap .lane .k{margin:0}
 .rmap .ln{color:var(--mut);font-family:ui-monospace,Consolas,monospace;font-weight:700}
-.rmap .lane.b .ln{color:#1f5fbf}.rmap .lane.c .ln{color:var(--grn)}.rmap .lane.x .ln{color:#b3261e}
-.rmap .vmb{border:2px dashed var(--acc);border-radius:12px;padding:28px 10px 10px;position:relative;background:var(--bg)}
+.rmap .lane.b .ln,.rmap .lane.c .ln{color:var(--goodink)}.rmap .lane.x .ln{color:var(--accink)}
+.rmap .vmb{border:1.5px dashed var(--acc);border-radius:12px;padding:30px 10px 10px;position:relative;background:var(--card)}
 .rmap .in{font-size:14px;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
-.rmap code{background:var(--box);border:1px solid var(--line);border-radius:4px;padding:0 .3em}
-.win{display:flex;gap:10px;margin:6px 0 4px}
-.win .w{width:96px;height:58px;border:2px solid var(--line);border-radius:6px;position:relative;background:var(--box);overflow:hidden}
+.win{display:flex;gap:10px;margin:8px 0 4px}
+.win .w{width:96px;height:58px;border:1px solid var(--mut);border-radius:6px;position:relative;background:var(--box);overflow:hidden}
 .win .w::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:var(--line)}
-.win .w .vmw{position:absolute;left:14px;top:16px;right:10px;bottom:6px;border:2px solid var(--acc);border-radius:4px;background:var(--purbg)}
-.win .w .tm{position:absolute;left:10px;top:16px;right:10px;bottom:6px;border-radius:4px;background:#14171c;color:#7ee08f;font:10px/1.2 ui-monospace,Consolas,monospace;padding:3px}
-
-/* 車 */
-.cars{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:10px 0}
-.car{border:2px solid var(--pur);border-radius:12px;padding:10px;text-align:center;background:var(--purbg)}
+.win .w .vmw{position:absolute;left:14px;top:16px;right:10px;bottom:6px;border:1.5px solid var(--acc);border-radius:4px;background:var(--accbg)}
+.win .w .tm{position:absolute;left:10px;top:16px;right:10px;bottom:6px;border-radius:4px;background:var(--term);color:var(--tgrn);font:10px/1.2 ui-monospace,Consolas,monospace;padding:3px}
+.cars{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:12px 0}
+.car{border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;background:var(--card)}
 .car .ic{font-size:28px;line-height:1.2}
 .car .t{font-weight:700}
-.car .s{font-size:14px;color:var(--mut);line-height:1.5}
-.engine{border:2px solid var(--fg);border-radius:12px;padding:10px 14px;text-align:center;margin:10px auto;max-width:420px;background:var(--box)}
+.car .s{font-size:14px;color:var(--mut);line-height:1.55}
+.engine{border:1px solid var(--acc);border-radius:12px;padding:10px 14px;text-align:center;margin:12px auto;max-width:420px;background:var(--accbg)}
 .engine .ic{font-size:28px}
-.down{text-align:center;color:var(--mut);font-size:14px;line-height:1.4}
-.down .a{display:block;font-size:22px;color:var(--pur)}
-
-/* ターミナル */
-.term{background:var(--term);color:var(--termfg);border-radius:10px;overflow:hidden;margin:8px 0;font-family:ui-monospace,"SFMono-Regular",Consolas,"Menlo",monospace;font-size:14px;line-height:1.6}
-.term .bar{background:#2a2f37;padding:5px 10px;display:flex;gap:6px;align-items:center}
-.term .bar i{width:10px;height:10px;border-radius:50%;display:inline-block;background:#ff5f57}
-.term .bar i:nth-child(2){background:#febc2e}.term .bar i:nth-child(3){background:#28c840}
+.down{text-align:center;color:var(--mut);font-size:14px;line-height:1.45}
+.down .a{display:block;font-size:22px;color:var(--accink)}
+.term{background:var(--term);color:var(--termfg);border-radius:10px;overflow:hidden;margin:8px 0;font-family:ui-monospace,"SFMono-Regular",Consolas,Menlo,monospace;font-size:14px;line-height:1.65;letter-spacing:0}
+.term .bar{background:var(--termbar);padding:5px 10px;display:flex;gap:6px;align-items:center}
+.term .bar i{width:10px;height:10px;border-radius:50%;display:inline-block;background:var(--tdot)}
 .term pre{margin:0;padding:10px 12px;white-space:pre-wrap;overflow-wrap:anywhere}
-.term .p{color:var(--tgrn);font-weight:700}
+.term .p,.term .g{color:var(--tgrn);font-weight:700}
 .term .d{color:var(--tdim)}
-.term .g{color:var(--tgrn);font-weight:700}
-.term .hl{background:#3b4a1f;color:#e9ffb8;border-radius:3px}
-
-/* 手順 */
-.steps{list-style:none;margin:12px 0;padding:0;counter-reset:st}
-.steps > li{position:relative;border:1px solid var(--line);border-radius:12px;padding:12px 14px 12px 54px;margin:0 0 14px;counter-increment:st}
-.steps > li::before{content:counter(st);position:absolute;left:12px;top:12px;width:30px;height:30px;border-radius:50%;background:var(--acc);color:var(--bg);font-weight:700;display:flex;align-items:center;justify-content:center}
-.steps > li + li::after{content:"";position:absolute;left:26px;top:-15px;height:14px;border-left:2px dashed var(--acc)}
+.term .hl{background:var(--thl);color:#e9f5dc;border-radius:3px}
+.steps{list-style:none;margin:16px 0;padding:0;counter-reset:st}
+.steps > li{position:relative;border:1px solid var(--line);border-radius:12px;padding:14px 16px 14px 56px;margin:0 0 16px;counter-increment:st;background:var(--card)}
+.steps > li::before{content:counter(st);position:absolute;left:14px;top:14px;width:28px;height:28px;border-radius:50%;background:var(--accink);color:var(--bg);font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center}
+.steps > li + li::after{content:"";position:absolute;left:27px;top:-17px;height:16px;border-left:1.5px dashed var(--mut)}
 .steps .why{font-weight:700}
-.steps .note{font-size:15px;color:var(--mut);line-height:1.6}
-.ok-pill{display:inline-block;background:var(--grnbg);color:var(--grn);border:1px solid var(--grn);border-radius:999px;padding:0 .6em;font-size:14px;font-weight:700}
-.swap{display:grid;grid-template-columns:auto auto 1fr;gap:2px 8px;font-size:14px;margin-top:8px;border:1px dashed var(--line);border-radius:8px;padding:6px 10px;align-items:baseline}
+.steps .note2{font-size:15px;color:var(--mut);line-height:1.65}
+.ok-pill{display:inline-block;background:var(--goodbg);color:var(--goodink);border:1px solid var(--good);border-radius:999px;padding:0 .6em;font-size:14px;font-weight:700}
+.swap{display:grid;grid-template-columns:auto auto 1fr;gap:2px 8px;font-size:14px;margin-top:8px;border:1px dashed var(--line);border-radius:10px;padding:8px 12px;align-items:baseline}
 .swap .h{grid-column:1/-1;font-weight:700;color:var(--mut)}
-.swap .ar{color:var(--acc)}
-
+.swap .h.n0{font-weight:400}
+.swap .ar{color:var(--accink)}
 .browser{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:8px 0;max-width:420px}
 .browser .url{background:var(--box);padding:6px 10px;font-size:14px;border-bottom:1px solid var(--line);font-family:ui-monospace,Consolas,monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .browser .pg{padding:14px;background:#fff;color:#111}
 .browser .pg .w{font-size:20px;font-weight:700;font-family:Arial,sans-serif}
 .browser .pg .w2{font-size:14px;color:#333;font-family:Arial,sans-serif}
-
-/* 切り分け */
-.chart{display:flex;flex-direction:column;margin:12px 0;max-width:600px}
-.q{border:2px solid var(--acc);background:var(--accbg);border-radius:12px;padding:10px 12px}
+.chart{display:flex;flex-direction:column;margin:14px 0;max-width:600px}
+.q{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:10px 14px}
 .q .t{font-weight:700}
-.branch{display:flex;gap:10px;align-items:stretch;margin:6px 0 6px 18px;padding-left:14px;border-left:3px solid var(--acc)}
-.yes,.no{flex:1;border-radius:10px;padding:8px 10px;font-size:15px;line-height:1.55}
-.yes{background:var(--grnbg);border:1px solid var(--grn)}
-.no{background:var(--orgbg);border:1px solid var(--org)}
-.yes b{color:var(--grn)}.no b{color:var(--org)}
+.branch{display:flex;gap:10px;align-items:stretch;margin:6px 0 6px 18px;padding-left:14px;border-left:2px solid var(--line)}
+.yes,.no{flex:1;border-radius:10px;padding:8px 12px;font-size:15px;line-height:1.6;border:1px solid var(--line)}
+.yes{background:var(--goodbg)}
+.no{background:var(--accbg);border-color:var(--acc)}
+.yes b{color:var(--goodink)}.no b{color:var(--accink)}
 @media (max-width:420px){.branch{flex-direction:column}}
-
-/* コマンドカード */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:12px 0}
-.card{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--bg);min-width:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:14px 0}
+.card{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--card);min-width:0}
 .card .hd{display:flex;align-items:center;gap:8px;font-weight:700;margin-bottom:6px}
 .card .hd .ic{font-size:22px;width:30px;text-align:center}
 .card dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:baseline}
 .card dt{margin:0;min-width:0}
-.card dd{margin:0;font-size:15px;line-height:1.55}
-
-.keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0}
-.key{border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;background:var(--box)}
-.key .k{font-size:20px;margin-bottom:6px}
-.key .s{font-size:15px;line-height:1.55}
-
-/* 面接 */
-.chat{display:flex;flex-direction:column;gap:8px;margin:12px 0;max-width:640px}
-.bub{border-radius:14px;padding:10px 14px;max-width:90%;line-height:1.7}
+.card dd{margin:0;font-size:15px;line-height:1.6}
+.keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0}
+.key{border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;background:var(--card)}
+.key .kk{font-size:20px;margin-bottom:6px}
+.key .s{font-size:15px;line-height:1.6}
+.chat{display:flex;flex-direction:column;gap:10px;margin:16px 0;max-width:640px}
+.bub{border-radius:14px;padding:10px 14px;max-width:90%;line-height:1.75}
 .bub .who{display:block;font-size:13px;color:var(--mut);font-weight:700}
 .bub.qq{background:var(--box);border:1px solid var(--line);align-self:flex-start;border-top-left-radius:4px}
-.bub.aa{background:var(--say);border:1px solid var(--org);align-self:flex-end;border-top-right-radius:4px}
+.bub.aa{background:var(--accbg);border:1px solid var(--acc);align-self:flex-end;border-top-right-radius:4px}
 .bub .ex{display:block;font-size:14px;color:var(--mut);margin-top:4px}
-.tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:12px 0}
-.tip{border-radius:12px;padding:10px 12px;font-size:15px;line-height:1.6}
-.tip.good{background:var(--grnbg);border:1px solid var(--grn)}
-.tip.bad{background:var(--orgbg);border:1px solid var(--org)}
+.bub .ex.warn{color:var(--accink);font-weight:700}
+.tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0}
+.tip{border-radius:12px;padding:12px 14px;font-size:15px;line-height:1.65;border:1px solid var(--line)}
+.tip.good{background:var(--goodbg)}
+.tip.bad{background:var(--accbg);border-color:var(--acc)}
 .tip .h{font-weight:700;margin-bottom:4px}
-
-details{border:1px solid var(--line);border-radius:10px;padding:6px 14px;margin:10px 0}
-summary{cursor:pointer;font-weight:700;padding:6px 0;min-height:32px}
-details[open]{background:var(--box)}
-details p{margin:.3em 0 .6em}
-
-.band{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:6px 16px;font-size:14px;line-height:1.5;display:flex;gap:.6em;align-items:baseline;flex-wrap:wrap}
-.band span{color:var(--mut)}
-a{color:var(--acc)}
-</style></head><body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=4d802db273">ホーム</a></li><li><a href="./t6168f1fc.html?v=4d802db273">ご紹介したお仕事</a></li><li class="gp-cur"><a href="./te94ab580.html?v=4d802db273" aria-current="page">Linuxの復習</a></li><li><a href="./t05de6be6.html?v=4d802db273">面接練習のふりかえり</a></li><li><a href="./tf761eb8a.html?v=4d802db273">3社の選考とこれからやること</a></li></ul></nav><!--gp-portal:e-->
+.tip.good .h{color:var(--goodink)}.tip.bad .h{color:var(--accink)}
+</style></head><body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=e1e321fb44">ホーム</a></li><li><a href="./t6168f1fc.html?v=e1e321fb44">ご紹介したお仕事</a></li><li class="gp-cur"><a href="./te94ab580.html?v=e1e321fb44" aria-current="page">Linuxの復習</a></li><li><a href="./t05de6be6.html?v=e1e321fb44">面接練習のふりかえり</a></li><li><a href="./tf761eb8a.html?v=e1e321fb44">3社の選考とこれからやること</a></li></ul></nav><!--gp-portal:e-->
 <div class="band" data-chrome aria-hidden="true"><b>Linuxの復習（高橋さん）</b><span id="cur"></span></div>
 <main>
 <h1>Linuxの復習（高橋さん）</h1>
-<p class="mut">11月11日　高橋さんへ　／　株式会社SeeD 武者野</p>
+<p class="meta">11月11日　高橋さんへ　／　株式会社SeeD 武者野</p>
 <p>高橋さんが「Linuxで仮想サーバーを立てて、ホームページが見られるか確かめた」ことを、図で整理し直しました。<b>オレンジの下線（＿＿）は、高橋さんご自身の答えで埋める所</b>です。</p>
 
 <h2 id="s0">ゴール：面接までにこの3つを言えるように</h2>
@@ -229,7 +268,7 @@ a{color:var(--acc)}
 <h3>全体像：下から積んだ4段</h3>
 <div class="stack" role="img" aria-label="自宅のPCの上に仮想マシンのソフト、その中にLinuxとWebサーバー、一番上がブラウザ">
 <div class="layer l4"><span class="ic" aria-hidden="true">🌐</span><div><div class="t">④ ブラウザ</div><div class="s">ページが出るか確かめる（ここがゴール）</div></div></div>
-<div class="vm"><span class="tag">①が作った仮想マシン（PCの中のもう1台）</span>
+<div class="vm"><span class="tag2">①が作った仮想マシン（PCの中のもう1台）</span>
 <div class="layer l3"><span class="ic" aria-hidden="true">📄</span><div><div class="t">③ Webサーバー</div><div class="s">ホームページを配るソフト（nginx・Apache）</div></div></div>
 <div class="layer l2"><span class="ic" aria-hidden="true">🐧</span><div><div class="t">② Linux</div><div class="s">入れたOS（Ubuntu など）</div></div></div>
 </div>
@@ -243,7 +282,7 @@ a{color:var(--acc)}
 <div class="flow" role="img" aria-label="自宅のPCがCPUとメモリを貸して仮想マシンを作り、そこでLinuxが動く">
 <div class="node"><div class="ic" aria-hidden="true">💻</div><div class="t">自宅のPC</div><div class="s">本物の機械</div></div>
 <div class="arrow"><span class="a" aria-hidden="true">→</span>CPU・メモリを<br>少し貸す</div>
-<div class="node" style="border-style:dashed;border-color:var(--acc)"><div class="ic" aria-hidden="true">📦</div><div class="t">仮想マシン</div><div class="s">ソフトで作ったPC</div></div>
+<div class="node vmn"><div class="ic" aria-hidden="true">📦</div><div class="t">仮想マシン</div><div class="s">ソフトで作ったPC</div></div>
 <div class="arrow"><span class="a" aria-hidden="true">→</span>OSを入れる</div>
 <div class="node"><div class="ic" aria-hidden="true">🐧</div><div class="t">Linux が動く</div><div class="s">壊しても作り直せる</div></div>
 </div>
@@ -263,7 +302,7 @@ a{color:var(--acc)}
 <div class="rt" role="img" aria-label="ブラウザがページを頼み、Webサーバーがページを返す往復">
 <div class="node"><div class="ic" aria-hidden="true">🌐</div><div class="t">ブラウザ</div><div class="s">住所か名前を打つ</div></div>
 <div class="mid"><div class="go"><span class="a" aria-hidden="true">→</span>ページをください</div><div class="ret"><span class="a" aria-hidden="true">←</span>ページを返す</div></div>
-<div class="node" style="border-color:var(--grn)"><div class="ic" aria-hidden="true">📄</div><div class="t">Webサーバー</div><div class="s">nginx・Apache</div></div>
+<div class="node srv"><div class="ic" aria-hidden="true">📄</div><div class="t">Webサーバー</div><div class="s">nginx・Apache</div></div>
 </div>
 <p class="cap">IPアドレス＝ネットワークの中の住所。住所を打つと、その住所の機械のWebサーバーに届きます。</p>
 
@@ -295,27 +334,27 @@ a{color:var(--acc)}
 <ol class="steps">
 <li><div class="why">ソフトの一覧を最新にする</div>
 <div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><span class="p">$</span> sudo apt update</pre></div>
-<div class="note"><code>sudo</code>＝管理者の権限で　／　<code>apt</code>＝Ubuntu でソフトを入れる道具</div></li>
+<div class="note2"><code>sudo</code>＝管理者の権限で　／　<code>apt</code>＝Ubuntu でソフトを入れる道具</div></li>
 <li><div class="why">Webサーバー（nginx）を入れる</div>
 <div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><span class="p">$</span> sudo apt install nginx</pre></div>
-<div class="note">Ubuntu では、入れた時点で自動で起動します</div></li>
+<div class="note2">Ubuntu では、入れた時点で自動で起動します</div></li>
 <li><div class="why">動いているか確かめる</div>
 <div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><span class="p">$</span> systemctl status nginx
 <span class="g">●</span> nginx.service - A high performance web server
      Active: <span class="g hl">active (running)</span></pre></div>
-<div class="note"><span class="ok-pill">緑で active (running)</span> なら動いている。画面が止まったら <kbd>q</kbd> で抜ける。止まっていたら <code>sudo systemctl start nginx</code></div></li>
+<div class="note2"><span class="ok-pill">緑で active (running)</span> なら動いている。画面が止まったら <kbd>q</kbd> で抜ける。止まっていたら <code>sudo systemctl start nginx</code></div></li>
 <li><div class="why">まず仮想マシンの中から見えるか確かめる</div>
 <div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><span class="p">$</span> curl localhost
 <span class="d">&lt;title&gt;</span>Welcome to nginx!<span class="d">&lt;/title&gt; ...</span></pre></div>
-<div class="note">ページの中身（HTML）が返れば、Webサーバーは動いている。<code>command not found</code> と出たら <code>sudo apt install curl</code></div></li>
+<div class="note2">ページの中身（HTML）が返れば、Webサーバーは動いている。<code>command not found</code> と出たら <code>sudo apt install curl</code></div></li>
 <li><div class="why">ブラウザで開く（住所は 2. の通り道 A〜C のどれか）</div>
 <div class="browser"><div class="url">localhost ／ localhost:8080 ／ 192.168.…</div><div class="pg"><div class="w">Welcome to nginx!</div><div class="w2">If you see this page, the nginx web server is successfully installed...</div></div></div>
-<div class="note"><span class="ok-pill">この画面が出たら成功</span></div></li>
+<div class="note2"><span class="ok-pill">この画面が出たら成功</span></div></li>
 </ol>
 <div class="swap"><span class="h">Apache を使った場合の読み替え</span>
 <span>nginx</span><span class="ar">→</span><span><code>apache2</code></span>
 <span>Welcome to nginx!</span><span class="ar">→</span><span>Apache2 Ubuntu Default Page</span>
-<span class="h" style="font-weight:400">例：<code>systemctl status apache2</code></span></div>
+<span class="h n0">例：<code>systemctl status apache2</code></span></div>
 
 <h3>見えないときは、この順で原因を絞る</h3>
 <p>高橋さんが面白いと話していた「ちゃんと動いているかを確かめる」は、まさにこの作業です。</p>
@@ -349,10 +388,10 @@ a{color:var(--acc)}
   <span class="hl">106  cd ~</span></pre></div>
 <p class="cap">表示は例です。この例なら「一番使うのは <code>cd</code>」が本当の答えになります。</p>
 <div class="keys">
-<div class="key"><div class="k"><kbd>↑</kbd></div><div class="s">1つ前のコマンドに戻る</div></div>
-<div class="key"><div class="k"><kbd>Ctrl</kbd> ＋ <kbd>R</kbd></div><div class="s">過去のコマンドを文字で探す</div></div>
-<div class="key"><div class="k"><kbd>Ctrl</kbd> ＋ <kbd>C</kbd></div><div class="s">動いているものを止める</div></div>
-<div class="key"><div class="k"><kbd>q</kbd></div><div class="s">止まった画面から抜ける</div></div>
+<div class="key"><div class="kk"><kbd>↑</kbd></div><div class="s">1つ前のコマンドに戻る</div></div>
+<div class="key"><div class="kk"><kbd>Ctrl</kbd> ＋ <kbd>R</kbd></div><div class="s">過去のコマンドを文字で探す</div></div>
+<div class="key"><div class="kk"><kbd>Ctrl</kbd> ＋ <kbd>C</kbd></div><div class="s">動いているものを止める</div></div>
+<div class="key"><div class="kk"><kbd>q</kbd></div><div class="s">止まった画面から抜ける</div></div>
 </div>
 
 <h2 id="s6">6. 面接での言い方</h2>
@@ -365,7 +404,7 @@ a{color:var(--acc)}
 <div class="bub qq"><span class="who">面接官</span>一番難しかったところは？</div>
 <div class="bub aa"><span class="who">高橋さん</span>コマンド入力です。最初は何も分からなかったので、ChatGPT と教科書で一つずつ意味を調べながら進めました。</div>
 <div class="bub qq"><span class="who">面接官</span>具体的に、どこで詰まってどう直しましたか？</div>
-<div class="bub aa"><span class="who">高橋さん</span><span class="blank"></span>で詰まりました。<span class="blank"></span>して解決しました。<span class="ex">例：「打っても command not found と出て、綴りを直しました」／「入れたのに画面が出ず、status で止まっているのに気づいて start しました」</span><span class="ex" style="color:var(--org);font-weight:700">例をそのまま言わない。実際に起きたことだけを話す</span></div>
+<div class="bub aa"><span class="who">高橋さん</span><span class="blank"></span>で詰まりました。<span class="blank"></span>して解決しました。<span class="ex">例：「打っても command not found と出て、綴りを直しました」／「入れたのに画面が出ず、status で止まっているのに気づいて start しました」</span><span class="ex warn">例をそのまま言わない。実際に起きたことだけを話す</span></div>
 <div class="bub qq"><span class="who">面接官</span>今、どのくらい使えますか？</div>
 <div class="bub aa"><span class="who">高橋さん</span>基本の操作は、調べればすぐできます。いまは history を見直して、調べずに打てるように覚え直しています。</div>
 <div class="bub qq"><span class="who">面接官</span>なぜその OS（配布版）を選んだんですか？</div>
@@ -394,6 +433,7 @@ a{color:var(--acc)}
   function upd(){
     var t='';
     for(var i=0;i<hs.length;i++){ if(hs[i].getBoundingClientRect().top<80){ t=hs[i].textContent; } }
+    if(hs.length && window.scrollY>0 && window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-2){ t=hs[hs.length-1].textContent; }
     cur.textContent=t?'／ '+t:'';
   }
   window.addEventListener('scroll',upd,{passive:true});
@@ -401,4 +441,4 @@ a{color:var(--acc)}
   upd();
 })();
 </script>
-<!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=4d802db273">ホーム</a></li><li><a href="./t6168f1fc.html?v=4d802db273">ご紹介したお仕事</a></li><li class="gp-cur"><a href="./te94ab580.html?v=4d802db273" aria-current="page">Linuxの復習</a></li><li><a href="./t05de6be6.html?v=4d802db273">面接練習のふりかえり</a></li><li><a href="./tf761eb8a.html?v=4d802db273">3社の選考とこれからやること</a></li></ul></nav><!--gp-portal:e--></body></html>
+<!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=e1e321fb44">ホーム</a></li><li><a href="./t6168f1fc.html?v=e1e321fb44">ご紹介したお仕事</a></li><li class="gp-cur"><a href="./te94ab580.html?v=e1e321fb44" aria-current="page">Linuxの復習</a></li><li><a href="./t05de6be6.html?v=e1e321fb44">面接練習のふりかえり</a></li><li><a href="./tf761eb8a.html?v=e1e321fb44">3社の選考とこれからやること</a></li></ul></nav><!--gp-portal:e--></body></html>
