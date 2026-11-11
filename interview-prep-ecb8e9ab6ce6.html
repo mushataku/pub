@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="ja">
-<head><!--gp-portal:s--><meta name="x-build" content="78bb17902b"><!--gp-portal:e-->
+<head><!--gp-portal:s--><meta name="x-build" content="5f1090c0c6"><!--gp-portal:e-->
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,12 +14,12 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans",
 a{color:var(--link);word-break:break-all}
 .wrap{max-width:760px;margin:0 auto;padding:24px 16px 64px}
 .tabs input{position:absolute;opacity:0;pointer-events:none}
-.tabbar{position:sticky;top:0;z-index:5;display:flex;gap:6px;background:var(--bg);padding:10px 0 12px;margin-bottom:8px;border-bottom:1px solid var(--line)}
-.tabbar label{flex:1;text-align:center;padding:9px 4px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--muted);font-weight:700;font-size:14px;cursor:pointer;line-height:1.35}
+.tabbar{position:sticky;top:0;z-index:5;display:flex;gap:5px;background:var(--bg);padding:10px 0 12px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+.tabbar label{flex:1;text-align:center;padding:8px 2px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--muted);font-weight:700;font-size:13px;cursor:pointer;line-height:1.35}
 .tabbar label small{display:block;font-weight:400;font-size:11px}
-#t0:checked ~ .tabbar label[for="t0"],#t1:checked ~ .tabbar label[for="t1"],#t2:checked ~ .tabbar label[for="t2"]{background:var(--accent);border-color:var(--accent);color:#fff}
+#t0:checked ~ .tabbar label[for="t0"],#t1:checked ~ .tabbar label[for="t1"],#t2:checked ~ .tabbar label[for="t2"],#t3:checked ~ .tabbar label[for="t3"]{background:var(--accent);border-color:var(--accent);color:#fff}
 .panel{display:none}
-#t0:checked ~ #p0,#t1:checked ~ #p1,#t2:checked ~ #p2{display:block}
+#t0:checked ~ #p0,#t1:checked ~ #p1,#t2:checked ~ #p2,#t3:checked ~ #p3{display:block}
 .hero{background:var(--dark);color:var(--dark-ink);border-radius:16px;padding:24px 20px;margin:16px 0 24px}
 .hero .eyebrow{color:#e8a27f;font-weight:700;font-size:14px;letter-spacing:.06em}
 .hero h1{font-size:24px;line-height:1.4;margin:6px 0 10px}
@@ -50,6 +50,8 @@ li{margin:4px 0}
 .co .dt{font-size:18px;font-weight:700;margin:2px 0 8px}
 .check li{list-style:none;margin-left:-1.3em}
 .check li::before{content:"□ ";color:var(--accent);font-weight:700}
+.check li.done::before{content:"✓ ";color:var(--good)}
+.check li.done{color:var(--muted)}
 .feat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
 .feat .tag{display:inline-block;font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 10px;margin-bottom:6px}
 .feat .fact{margin:4px 0 10px}
@@ -77,12 +79,14 @@ h1,h2,h3{word-break:auto-phrase}
 <body>
 <div class="wrap tabs">
 <input type="radio" name="tab" id="t0" checked>
+<input type="radio" name="tab" id="t3">
 <input type="radio" name="tab" id="t1">
 <input type="radio" name="tab" id="t2">
 <div class="tabbar">
 <label for="t0">ホーム<small>今の状況</small></label>
-<label for="t1">面接対策<small>11月11日</small></label>
-<label for="t2">フィードバック<small>11月9日</small></label>
+<label for="t3">今日のFB<small>11月11日</small></label>
+<label for="t1">面接対策<small>2社の特色</small></label>
+<label for="t2">前回のFB<small>11月9日</small></label>
 </div>
 
 <div class="panel" id="p0">
@@ -100,12 +104,13 @@ h1,h2,h3{word-break:auto-phrase}
 <span class="status">面接決定</span>
 <h3>コクー様　一次面接</h3>
 <div class="dt">11月12日（木）10:00〜11:00</div>
-<p><b>入室URL</b>：<a href="https://sokumen.net/interview/P4Vh3wQ8">https://sokumen.net/interview/P4Vh3wQ8</a><br><span class="note">イヤホンを付けて、ほかのアプリを閉じた状態での参加がおすすめとのことです。</span></p>
+<p><b>入室URL</b>：<a href="https://sokumen.net/interview/P4Vh3wQ8">https://sokumen.net/interview/P4Vh3wQ8</a><br><span class="note">イヤホンを付けて、ほかのアプリを閉じた状態での参加がおすすめとのことです。前もって一度つないで、接続を試しておくと安心です。</span></p>
 <p><b>つながらないとき</b>：予備URL <a href="https://us02web.zoom.us/j/3708144903">https://us02web.zoom.us/j/3708144903</a>（ID：370 814 4903）<br><span class="note">コクー様の連絡先の電話番号は、11月10日にお送りしたLINEに載せています。このLINEでもすぐ教えてください。</span></p>
 <p><b>面接までにやること</b></p>
 <ul class="check">
-<li>DXタイプ診断（約10分）</li>
-<li>勤務条件アンケート（約3分・今日の打ち合わせで一緒に確認してから）</li>
+<li class="done">DXタイプ診断（済み）</li>
+<li class="done">勤務条件アンケート（済み）</li>
+<li>入室URLの接続テスト</li>
 </ul>
 <p class="note">ページ：<a href="https://pebble-purpose-c20.notion.site/EXJ-408de3eaa4bd80af8fb8d92045e8badd?source=copy_link">コクー様「面接前のお願い」</a></p>
 </div>
@@ -130,62 +135,123 @@ h1,h2,h3{word-break:auto-phrase}
 <p>12日・13日の午前は避けて調整しています。決まりましたらすぐにご連絡します。</p>
 </div>
 
-<h2>今日の打ち合わせ</h2>
-<div class="card">
-<p><b>11月11日（水）8:30〜10:00</b>　いつもの Zoom です。</p>
-<p>「面接対策」のタブを見ながら、10秒の答えのチェック、コクー様・ミラエール様それぞれの話し方、アンケートの書き方を一緒に決めます。</p>
-</div>
-
 <h2>このページの使い方</h2>
 <div class="card">
 <ul>
 <li><b>ホーム</b>：今の選考の状況と、やること（最新の状態に更新していきます）</li>
+<li><b>今日のFB</b>：11月11日の面接練習のふりかえり</li>
 <li><b>面接対策</b>：コクー様・ミラエール様の特色と、話し方のまとめ</li>
-<li><b>フィードバック</b>：11月9日の面接練習のふりかえりと宿題</li>
+<li><b>前回のFB</b>：11月9日の面接練習のふりかえり</li>
 </ul>
 <p class="note">わからないことがあれば、いつでもLINEで聞いてください。</p>
 </div>
 <footer><p>武者野</p></footer>
 </div>
 
+<div class="panel" id="p3">
+
+<div class="hero">
+<div class="eyebrow">11月11日（水）面接練習のふりかえり</div>
+<h1>今日のフィードバック</h1>
+<p>コクー様の面接を想定した練習の内容をまとめました。</p>
+</div>
+
+<h2>まず全体の手ごたえ</h2>
+<div class="card">
+<p>ご自身では「70点」とのことでしたが、前回からの変化をすごく感じました。<b>結論から端的に話すことが、しっかり意識できています。</b>話が長いなと感じる場面も、受け答えの違和感も、ほぼありませんでした。</p>
+<p>前回お伝えしたことの、さらに一歩先まで準備してきてくださって、本当にうれしかったです。</p>
+<div class="good"><b>この調子でいけば大丈夫です</b>：直すところは、下の3つだけです。</div>
+</div>
+
+<h2>いちばん伝えたいこと：想定外の質問は、来て当たり前</h2>
+<div class="card">
+<p>「予想していない質問に詰まったので、もっとインプットすれば大丈夫」とおっしゃっていましたが、ここは考え方を少し変えてほしいところです。</p>
+<ul>
+<li><b>想定していない質問は、どれだけ準備しても必ず来ます。</b>30個、50個と用意しても、面接官によって角度が違うので、全部は防げません。</li>
+<li>なので、「詰まらないように準備を増やす」より、<b>詰まったときにどうするか</b>を持っておく方が大事です。</li>
+</ul>
+<div class="ten"><small>詰まったときは、こう言えばOK</small>「なるほど、少し考えてもいいですか？」<br>「すみません、緊張して整理できなくなってしまったので、もう一度考え直してもいいですか？」</div>
+<p>これは全然悪い印象になりません。未経験からがんばっていく面接で見られているのは、完璧な受け答えより<b>素直さや人柄</b>です。間違えても落ち着いて立て直せるのも、コミュニケーションの力です。</p>
+<p>準備は、よく聞かれる質問への「10秒の答え」と、<b>「なぜ今ここにいるのか」という自分のストーリーを自分が理解していること</b>。この2つで十分です。全部を覚えようとすると苦しくなるので、そこは手放して大丈夫です。</p>
+</div>
+
+<h2>直すところ（3つ）</h2>
+
+<div class="card">
+<p class="q">① 人事・総務に興味を持った理由のエピソードは「アルバイトの話」で</p>
+<p>面接官は「この人がうちに入ったら、どう周りに気づいて支えてくれるんだろう」という目で聞きます。学生時代の話よりも、<b>働いている場面のエピソード</b>の方が、入社後の姿が浮かびやすくなります。</p>
+<div class="so" style="background:var(--good-soft);border-radius:8px;padding:10px 12px"><b style="color:var(--good)">例えばこんな形</b>：アルバイトで新人の教育を任されていたとき、後輩が浮かない顔をしていたので声をかけた → 悩みを聞いて一緒に解決した → その後も一緒に長く働いてくれた</div>
+<p class="note">ドラッグストアでの新人教育など、実際にあった出来事から1つ選んでみてください。</p>
+</div>
+
+<div class="card">
+<p class="q">② 大学中退の理由は「勢いで決めたわけではない」を一言足す</p>
+<p>今の答え（声優の仕事が軌道に乗ったので専念した）で、80〜90点です。残りを埋めるのは、<b>「家族や周りと相談したうえで決めた」</b>の一言です。</p>
+<div class="ten"><small>言い方の例</small>同時に進めていた声優の仕事が軌道に乗ったので、そちらに専念するためです。家族や先生、友人ともしっかり話し合って、後押しももらったうえで決めました。</div>
+<p class="note">聞かれているのは「中退した理由」なので、「御社では辞めません」まで言う必要はありません。無鉄砲に決めたわけではない、が伝われば十分です。</p>
+</div>
+
+<div class="card">
+<p class="q">③ 「麻薬取締官」は、言う前にひと呼吸置く</p>
+<p>松山さんにとっては自然な夢でも、聞く側には耳慣れない言葉なので、さらっと言うとそこで頭が止まって、続きが入ってこなくなります。</p>
+<div class="ten"><small>言い方の例</small>高校が医療系のコースだったのが一つです。それと、少し耳慣れないかもしれませんが、当時は「麻薬取締官」という仕事にすごく興味を持っていて……</div>
+<p>「耳慣れない言葉ですみません」という気づかいが一言入るだけで、むしろチャーミングなポイントになります。</p>
+</div>
+
+<h2>「なりたい姿」はこう組み立てる</h2>
+<div class="card">
+<p>練習で話してくれた内容を、遠い将来 → 2〜3年後 → 具体的な仕事、の順に並べるとこうなります。</p>
+<div class="flow">
+<div><span class="n">将来</span>チームを持って、新人の教育などを束ねられる存在になりたい</div>
+<div><span class="n">2〜3年後</span>自分の仕事は自分で完璧にこなせて、新人1人をしっかり見て、頼られるくらいになっていたい</div>
+<div><span class="n">そのために</span>まずは関数での集計、そしてマクロも使いこなせるようになりたい</div>
+</div>
+<p class="note">コクー様では、会社が掲げている3段階（入力 → 集計・分析 → マクロで自動化）とつなげて話すと、特色にぴったり合います。</p>
+</div>
+
+<h2>働く体制の伝え方</h2>
+<div class="card">
+<p>聞かれたときは、<b>「ちゃんと見通しが立っている」</b>ことが伝わるように話しましょう。</p>
+<ul>
+<li>学童・延長保育・市の助成のベビーシッター・家族の協力など、体制を考えて準備していること</li>
+<li>最初の1〜2か月だけ、まだ決まりきっていない部分があるとしても、解決の目処は立っていること</li>
+<li>どうしても外せない予定（12月初めの園の行事の日など）は、入社時期を相談するときに前もって伝えて大丈夫です。1日のことで不利になることは、基本的にありません</li>
+</ul>
+<p>「家族と話し合って、なんとかして頑張っていきたい」という意欲が伝わることが、いちばん大事です。</p>
+</div>
+
+<h2>逆質問は必ずする</h2>
+<div class="card">
+<p>「今のところはないです」で終わらせず、1つは聞きましょう。中身は、<b>「入ってから、どうすれば活躍・成長できるか」</b>に集約されるものでOKです。</p>
+<p class="note">具体的な候補は「面接対策」タブの最後にまとめています。</p>
+</div>
+
+<h2>そのほか</h2>
+<div class="card">
+<ul>
+<li><b>内定は複数とっておくのがおすすめです。</b>複数あると、勤務時間やお給料などの条件を相談しやすくなります。</li>
+<li>コクー様の入室URLは、前もって一度つないでテストしておきましょう（時間外につないでも問題ありません）。</li>
+<li>ミラエール様の紹介動画と Teams の準備も、意外と時間がないので、できるときに早めにお願いします。</li>
+</ul>
+</div>
+
+<footer><p>明日はいよいよ本番です。いつもの松山さんで大丈夫です！<br>武者野</p></footer>
+</div>
+
 <div class="panel" id="p1">
 
 <div class="hero">
-<div class="eyebrow">11月11日（水）8:30〜10:00 打ち合わせ用</div>
-<h1>面接対策<br>コクー様・ミラエール様</h1>
+<div class="eyebrow">コクー様・ミラエール様</div>
+<h1>面接対策<br>2社の特色と話し方</h1>
 <p>コクー様 一次面接　11月12日（木）10:00〜</p>
 <p>スタッフサービス・ミラエール様 面接　11月13日（金）11:00〜</p>
 </div>
-
-<h2>今日の流れ</h2>
-<table>
-<tr><th>時間</th><th>やること</th></tr>
-<tr><td>8:30〜8:35</td><td>予定の確認</td></tr>
-<tr><td>8:35〜8:55</td><td>宿題の「10秒の答え」チェック</td></tr>
-<tr><td>8:55〜9:15</td><td>コクー様の特色と、話す方向</td></tr>
-<tr><td>9:15〜9:30</td><td>コクー様で聞かれそうな質問の練習</td></tr>
-<tr><td>9:30〜9:40</td><td>通勤・勤務時間・入社時期の伝え方とアンケート</td></tr>
-<tr><td>9:40〜9:55</td><td>ミラエール様の特色と、話す方向</td></tr>
-<tr><td>9:55〜10:00</td><td>当日の準備</td></tr>
-</table>
 
 <h2>答え方の基本：最初に「10秒の答え」</h2>
 <div class="card"><div class="step"><div class="num">1</div><div><b>10秒の答え</b><br>いちばん伝えたい結論を最初に</div></div></div>
 <div class="card"><div class="step"><div class="num">2</div><div><b>二言目</b><br>次に聞かれそうな「具体的には？」「なぜ？」への答え</div></div></div>
 <div class="card"><div class="step"><div class="num">3</div><div><b>補足</b><br>背景や過去の経緯は、聞かれたら</div></div></div>
 <p>途中で話を切られても、最初の10秒でいちばん伝えたいことが伝わっていれば大丈夫です。</p>
-
-<h2>宿題チェック：あなたの「10秒の答え」</h2>
-<p>用意してきた答えを、まず聞かせてください。直すのは順番だけです。</p>
-<ol>
-<li>経歴を教えてください</li>
-<li>今のお仕事のきっかけ／退職理由</li>
-<li>なぜ事務職を希望するのか</li>
-<li>なぜ人事・総務に興味があるのか</li>
-<li>大学を中退した理由</li>
-<li>ブランクの期間の過ごし方</li>
-<li>あなたの強み・弱み</li>
-</ol>
 
 <h2>どの会社でも同じに言う答え</h2>
 <table>
@@ -196,7 +262,7 @@ h1,h2,h3{word-break:auto-phrase}
 <tr><td>2017年からの期間</td><td>子育てに専念するためです。</td></tr>
 <tr><td>強み</td><td>決めた目標に向けて、独学で最後までやり切ることです。</td></tr>
 </table>
-<p class="note">二言目は「フィードバック」のタブも見ながら確認しましょう。</p>
+<p class="note">二言目は「今日のFB」「前回のFB」のタブも見ながら確認しましょう。</p>
 
 <h2>コクー様の特色と、話す方向</h2>
 <p>会社の特色を知っておくと、「なぜこの会社なのか」に自分の言葉で答えられます。特色ごとに「だから、こう話す」をまとめました。リンクは会社の公式ページです。</p>
@@ -250,7 +316,7 @@ h1,h2,h3{word-break:auto-phrase}
 
 <div class="card">
 <h3>条件（求人票）</h3>
-<p>9:00〜18:00・土日祝休み。月給は固定残業20時間分を含めて24万円から。年間休日は124日（会社の採用サイト）。</p>
+<p>9:00〜18:00・土日祝休み。月給は固定残業20時間分を含めて24万円から。年間休日は124日（会社の採用サイト）。慣れないうちは多少の残業もあると思いますが、Excel の工夫次第で早く終えられる仕事です。</p>
 <p class="src note">根拠：<a href="https://recruit.cocoo.co.jp/about">コクー 採用サイト（会社について）</a></p>
 </div>
 
@@ -258,36 +324,13 @@ h1,h2,h3{word-break:auto-phrase}
 <table>
 <tr><th>質問</th><th>10秒の答え（叩き台）</th></tr>
 <tr><td>なぜコクーか</td><td>独学で身につけた Excel を、実務で使える力に変えたいからです。</td></tr>
-<tr><td>将来なりたい姿</td><td>まずは関数と集計で正確に仕事をこなし、いずれはマクロで周りの作業を楽にできる人になりたいです。</td></tr>
+<tr><td>将来なりたい姿</td><td>いずれはチームの教育を束ねられる存在に。まずは自分の仕事を完璧にこなし、新人を見られるようになりたいです。</td></tr>
 <tr><td>お客様先での勤務・配属</td><td>理解しています。現場を知っている方に合う場所を決めていただけるのはありがたいです。</td></tr>
 <tr><td>研修・学び続けられるか</td><td>勉強は好きで、苦になりません。</td></tr>
 <tr><td>他の事業部に興味は</td><td>ぜひ詳しく伺いたいです。（その場で決めず、内容を聞く）</td></tr>
 </table>
 <p>Excel は「実務ではこれから。だから研修と現場で実務の力にしたい」と正直に言うのが一番つながります。</p>
 <p class="note">叩き台です。ご自分の言葉に直して使いましょう。</p>
-
-<h2>通勤・勤務時間・入社時期の伝え方</h2>
-<div class="grid two">
-<div class="card">
-<h3>まず教えてください</h3>
-<ul>
-<li>朝の予定（何時に家を出られるか）</li>
-<li>働いている間のご家庭の体制</li>
-<li>通勤は、本当は何分までなら続けられるか</li>
-<li>帰りは何時までなら大丈夫か</li>
-<li>入社は12月と1月、どちらがいいか</li>
-</ul>
-</div>
-<div class="card">
-<h3>そのうえで一緒に決めること</h3>
-<ul>
-<li>勤務条件アンケートに書く内容</li>
-<li>面接で言う通勤・勤務時間・入社時期</li>
-<li>ミラエール様でも同じ言い方にそろえる</li>
-</ul>
-</div>
-</div>
-<p>アンケートは配属先を決める参考になります。面接で話す内容と同じ数字・同じ言い方にしておきましょう。</p>
 
 <h2>ミラエール様の特色と、話す方向</h2>
 
@@ -302,18 +345,18 @@ h1,h2,h3{word-break:auto-phrase}
 
 <div class="feat">
 <span class="tag">特色2</span>
-<h3>配属先は「配属担当」が希望と適性から選ぶ。転居はなし</h3>
+<h3>幅広い業種・仕事の中から、合う場所を選んでもらえる</h3>
 <p class="fact">入社前の面談をもとに、希望と適性に応じて配属担当が選ぶ、と会社は説明しています。全ての希望を叶えるのは難しいこともある、とも書いています。地域限定の勤務で、転居を伴う配属先の変更はありません。</p>
-<div class="so"><b>だから、こう話す</b>：11月5日に話してくれた「いろいろ現場を見てきた方に、こっちの方がいいよって言ってもらえる方がありがたい」が、そのまま使えます。プロに合う場所を見つけてもらいながら、自分に合う事務を見つけていきたい、という方向で。</div>
-<div class="say">例）いろいろな現場をご存じの方に、合う場所を一緒に考えていただけるのが魅力です。</div>
+<div class="so"><b>だから、こう話す</b>：「学んだスキルがどんな業界で活かせるのか、一緒にじっくり考えて、事務のプロになっていきたい」。11月5日に話してくれた「いろいろ現場を見てきた方に、こっちの方がいいよって言ってもらえる方がありがたい」も、そのまま使えます。</div>
+<div class="say">例）身につけたスキルがどんな業界で活かせるのか、一緒に考えていただきながら、事務のプロになっていきたいです。</div>
 <p class="src">根拠：<a href="https://www.022022.net/promotion/career/">ミラエール キャリア採用ページ（よくある質問）</a></p>
 </div>
 
 <div class="feat">
 <span class="tag">特色3</span>
-<h3>学び続けられる仕組みが厚い</h3>
+<h3>研修・学びの仕組みがとにかく厚い</h3>
 <p class="fact">入社前の研修（マナー・PC など）に加えて、無料のビジネススクール（最大101講座）や、Excel 初級〜上級などの学習アプリ（200種類以上の動画）があると会社は説明しています。</p>
-<div class="so"><b>だから、こう話す</b>：独学で9資格を取ってきたこと＝この仕組みを一番使いこなせる人だ、と伝える。「入社後もスクールやアプリで学び続けたい」と具体的に言えると強いです。</div>
+<div class="so"><b>だから、こう話す</b>：「勉強が大好きなので、とにかく学び続けたい」を前に出す。独学で9資格を取ってきたこと＝この仕組みを一番使いこなせる人だ、と伝わります。</div>
 <p class="src">根拠：<a href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html">スタッフサービス「ミラエール」公式ページ</a></p>
 </div>
 
@@ -321,7 +364,7 @@ h1,h2,h3{word-break:auto-phrase}
 <span class="tag">特色4</span>
 <h3>配属先で直接雇用になる道がある（会社は「卒業」と呼んでいます）</h3>
 <p class="fact">経験を積んで、配属先の会社に直接雇用されて「卒業」する人がいる、と会社は説明しています。これまでに3,000人以上が卒業した、と会社は発表しています。</p>
-<div class="so"><b>だから、こう話す</b>：「一つの現場で信頼を積み重ねて、長く働きたい」。その先に、人事・総務のように人を支える仕事へ広げていきたい、という将来像につなげる。11月5日に話してくれた「来てくれと求められて、そこに行けるのはいいな」という気持ちが、ここに重なります。</div>
+<div class="so"><b>だから、こう話す</b>：「一つの現場で信頼を積み重ねて、長く働きたい」。その先に、人事・総務のように人を支える仕事へ広げていきたい、という将来像につなげる。</div>
 <div class="say">例）配属先で信頼される人になり、いずれは人事・総務の仕事にも挑戦したいです。</div>
 <p class="src">根拠：<a href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html">スタッフサービス「ミラエール」公式ページ</a></p>
 </div>
@@ -330,7 +373,7 @@ h1,h2,h3{word-break:auto-phrase}
 <span class="tag">面接の傾向</span>
 <h3>これまでの経歴の「空白」を、時系列で細かく聞かれたことがある</h3>
 <p class="fact">弊社からミラエール様を受けた方の例（1件）では、前の仕事を辞めてからの期間や、学生時代の期間について、時系列で細かく聞かれました。</p>
-<div class="so"><b>だから、こう準備する</b>：「大学在学中から声優とアルバイト → 2017年から子育てに専念 → 2024年から資格の勉強 → 2026年10月から派遣」を、年と一緒に一本で話せるようにしておく。打ち合わせで一度通して話してみましょう。</div>
+<div class="so"><b>だから、こう準備する</b>：「大学在学中から声優とアルバイト → 2017年から子育てに専念 → 2024年から資格の勉強 → 2026年10月から派遣」を、年と一緒に一本で話せるようにしておく。</div>
 </div>
 
 <h2>コクー様とミラエール様の使い分け</h2>
@@ -345,22 +388,23 @@ h1,h2,h3{word-break:auto-phrase}
 <p>どちらも根っこは「まず事務の実務の土台を作る」。だから矛盾しません。</p>
 
 <h2>逆質問の候補</h2>
+<p>どれも、ひとことで言えば<b>「入ってから、どうすれば活躍・成長できますか」</b>を具体的にしたものです。</p>
 <div class="grid two">
 <div class="card">
 <h3>コクー様</h3>
 <ol>
-<li>配属先はどのように決まりますか。通勤や勤務時間の希望は、どの段階で相談できますか。</li>
-<li>研修のあと、配属が決まるまでは、どのくらいの期間で、どう過ごすことが多いですか。</li>
 <li>未経験で入った方は、1年目にどんな業務から始めて、どのくらいで関数やマクロを使う仕事に進みますか。</li>
+<li>活躍されている方に共通していることはありますか。</li>
+<li>配属先はどのように決まりますか。通勤や勤務時間の希望は、どの段階で相談できますか。</li>
 <li>入社までに勉強しておくとよいことはありますか。</li>
 </ol>
 </div>
 <div class="card">
 <h3>ミラエール様</h3>
 <ol>
-<li>配属先が決まるまでに、希望をお伝えする面談はどのような流れですか。</li>
-<li>直接雇用（卒業）された方は、どのくらい働いてから、どんなきっかけで決まることが多いですか。</li>
 <li>入社後に使えるスクールや学習アプリで、事務の方によく使われているものはありますか。</li>
+<li>直接雇用（卒業）された方は、どのくらい働いてから、どんなきっかけで決まることが多いですか。</li>
+<li>配属先が決まるまでに、希望をお伝えする面談はどのような流れですか。</li>
 </ol>
 </div>
 </div>
