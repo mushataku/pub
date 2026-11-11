@@ -1,171 +1,391 @@
 <!doctype html>
-<html lang="ja"><head><!--gp-portal:s--><meta name="x-build" content="bad4ec3ed9"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e--><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="ja"><head><!--gp-portal:s--><meta name="x-build" content="a27f367cd0"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e--><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Linuxの復習 高橋さん</title>
 <style>
-:root{--bg:#fff;--fg:#1d1d1f;--mut:#555;--line:#d4d4d4;--box:#f3f6fb;--acc:#1f5fbf;--grn:#1e6b34;--say:#fff8e6;--code:#eef1f5;--codefg:#1d1d1f}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17181a;--fg:#ececec;--mut:#b4b4b4;--line:#3a3a3a;--box:#20242b;--acc:#8ab8ff;--grn:#7fd99a;--say:#2a2618;--code:#262b33;--codefg:#ececec}}
-:root[data-theme="dark"]{--bg:#17181a;--fg:#ececec;--mut:#b4b4b4;--line:#3a3a3a;--box:#20242b;--acc:#8ab8ff;--grn:#7fd99a;--say:#2a2618;--code:#262b33;--codefg:#ececec}
+:root{--bg:#fff;--fg:#1d1d1f;--mut:#555;--line:#d4d4d4;--box:#f3f6fb;--acc:#1f5fbf;--accbg:#e6efff;--grn:#1e6b34;--grnbg:#e5f5ea;--org:#9a4a00;--orgbg:#fff1e0;--pur:#5b3fa8;--purbg:#efe9ff;--say:#fff8e6;--term:#14171c;--termfg:#e6e6e6;--tgrn:#7ee08f;--tdim:#9aa4b2}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17181a;--fg:#ececec;--mut:#b4b4b4;--line:#3a3a3a;--box:#20242b;--acc:#8ab8ff;--accbg:#1c2a40;--grn:#7fd99a;--grnbg:#18301f;--org:#ffb36b;--orgbg:#3a2814;--pur:#c3b0ff;--purbg:#2a2342;--say:#2a2618}}
+:root[data-theme="dark"]{--bg:#17181a;--fg:#ececec;--mut:#b4b4b4;--line:#3a3a3a;--box:#20242b;--acc:#8ab8ff;--accbg:#1c2a40;--grn:#7fd99a;--grnbg:#18301f;--org:#ffb36b;--orgbg:#3a2814;--pur:#c3b0ff;--purbg:#2a2342;--say:#2a2618}
 *{box-sizing:border-box}
 html{scroll-padding-top:64px}
 body{background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Meiryo",system-ui,sans-serif;line-height:1.75;margin:0;font-size:17px;overflow-wrap:anywhere}
-main{max-width:900px;margin:0 auto;padding:16px}
-main p,main li{max-width:40em}
+main{max-width:860px;margin:0 auto;padding:16px}
+main p{max-width:40em;margin:.7em 0}
 h1{font-size:1.5rem;margin:.4em 0 .2em}
-h2{font-size:1.2rem;border-left:6px solid var(--acc);padding-left:10px;margin-top:2.4em}
-h3{font-size:1.05rem;margin:1.2em 0 .4em}
+h2{font-size:1.25rem;border-left:6px solid var(--acc);padding-left:10px;margin:2.6em 0 .6em}
+h3{font-size:1.05rem;margin:1.4em 0 .5em}
 h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere}
 @supports (word-break:auto-phrase){main > :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
-p{margin:.8em 0}
-.box{background:var(--box);border-radius:10px;padding:12px 16px;margin:12px 0}
-.say{background:var(--say);border-left:4px solid var(--acc);border-radius:6px;padding:10px 14px;margin:8px 0}
-.say .t{font-size:.85em;color:var(--mut);display:block;margin-bottom:2px}
 .mut{color:var(--mut);font-size:.9em}
-.ok{color:var(--grn);font-weight:700}
-code,kbd{font-family:ui-monospace,"SFMono-Regular",Consolas,"Menlo",monospace;background:var(--code);color:var(--codefg);border-radius:4px;padding:.05em .35em;font-size:.92em;white-space:nowrap}
-pre{background:var(--code);color:var(--codefg);border-radius:8px;padding:10px 14px;overflow-x:auto;font-size:15px;line-height:1.6;margin:8px 0}
-pre code{background:none;padding:0;white-space:pre}
-.flow{list-style:none;margin:12px 0;padding:0;max-width:30em}
-.flow li{border:2px solid var(--acc);border-radius:10px;padding:8px 12px;margin:0;max-width:none}
-.flow li + li{margin-top:26px;position:relative}
-.flow li + li::before{content:"↑";position:absolute;top:-25px;left:24px;color:var(--acc);font-weight:700}
-.flow .k{font-weight:700}
-.tw{overflow-x:auto;margin:10px 0}
-table{border-collapse:collapse;width:100%;min-width:520px}
-td,th{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
-th{background:var(--box)}
-td:first-child{white-space:nowrap}
-ol.steps{padding-left:1.4em;margin:.4em 0}
-ol.steps > li{margin:1em 0}
-ul,ol{margin:.3em 0 .3em 1.2em;padding:0}
-details{border:1px solid var(--line);border-radius:10px;padding:8px 14px;margin:10px 0}
-summary{cursor:pointer;font-weight:700;padding:4px 0;min-height:32px}
-details[open] summary{margin-bottom:6px}
+.cap{color:var(--mut);font-size:15px;margin:6px 0 0}
+code,kbd{font-family:ui-monospace,"SFMono-Regular",Consolas,"Menlo",monospace;font-size:.92em}
+p code,li code,.card code,.chart code,.env code,.route code,.tip code,.bub code,.note code,details code{background:var(--box);border:1px solid var(--line);border-radius:4px;padding:0 .3em;overflow-wrap:anywhere}
+kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:0 .45em;background:var(--bg);font-weight:700;line-height:1.5}
+.blank{display:inline-block;min-width:5em;border-bottom:2px solid var(--org);margin:0 .2em}
+
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:14px 0;padding:0;list-style:none}
+.toc a{display:block;border:1px solid var(--line);border-radius:10px;padding:8px 10px;text-decoration:none;color:var(--fg);background:var(--box);min-height:44px;font-size:15px;line-height:1.45}
+.toc a b{color:var(--acc);margin-right:.3em}
+
+.goals{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:12px 0}
+.goal{border-radius:12px;padding:12px 14px;border:2px solid var(--acc);background:var(--accbg)}
+.goal .n{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--acc);color:var(--bg);font-weight:700;margin-right:6px}
+.goal .h{font-weight:700}
+.goal .e{font-size:15px;color:var(--mut);margin-top:4px;line-height:1.6}
+
+/* 環境えらび */
+.envs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:12px 0}
+.env{border:2px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--bg)}
+.env .hd{display:flex;gap:8px;align-items:center;font-weight:700}
+.env .hd .ic{font-size:24px}
+.env ul{margin:.4em 0 0 1.1em;font-size:15px;line-height:1.6}
+.env.main{border-color:var(--acc)}
+
+/* 積み木 */
+.stack{display:flex;flex-direction:column;gap:6px;margin:14px 0;max-width:520px}
+.layer{border-radius:10px;padding:10px 12px;display:flex;gap:10px;align-items:center;border:2px solid}
+.layer .ic{font-size:26px;line-height:1;width:34px;text-align:center;flex:none}
+.layer .t{font-weight:700;line-height:1.4}
+.layer .s{font-size:14px;color:var(--mut);line-height:1.5}
+.l4{border-color:var(--org);background:var(--orgbg)}
+.l3{border-color:var(--grn);background:var(--grnbg)}
+.l2{border-color:var(--pur);background:var(--purbg)}
+.l1{border-color:var(--acc);background:var(--accbg)}
+.l0{border-color:var(--line);background:var(--box)}
+.vm{border:2px dashed var(--acc);border-radius:12px;padding:6px;display:flex;flex-direction:column;gap:6px}
+.vm .tag{font-size:14px;color:var(--acc);font-weight:700;padding:0 4px}
+.hint{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:15px;color:var(--mut);margin:6px 0}
+.hint span::before{content:"▸ ";color:var(--acc)}
+
+/* 横の流れ */
+.flow{display:flex;align-items:stretch;flex-wrap:wrap;margin:14px 0}
+.node{flex:1 1 120px;border:2px solid var(--line);border-radius:12px;padding:10px;text-align:center;background:var(--box);min-width:110px}
+.node .ic{font-size:30px;line-height:1.2}
+.node .t{font-weight:700;line-height:1.4}
+.node .s{font-size:14px;color:var(--mut);line-height:1.5}
+.arrow{flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4px 6px;font-size:14px;color:var(--mut);text-align:center;line-height:1.35}
+.arrow .a{font-size:24px;color:var(--acc);font-weight:700;line-height:1}
+.arrow .a.back{color:var(--grn)}
+@media (max-width:560px){.flow{flex-direction:column}.arrow .a{transform:rotate(90deg)}.arrow{padding:6px 0}}
+
+/* 往復の図 */
+.rt{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin:14px 0;max-width:620px}
+.rt .mid{display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--mut);text-align:center;line-height:1.35}
+.rt .mid .a{font-size:22px;font-weight:700;display:block;line-height:1}
+.rt .go .a{color:var(--acc)}.rt .ret .a{color:var(--grn)}
+@media (max-width:420px){.rt{grid-template-columns:1fr}.rt .mid{flex-direction:row;justify-content:center;gap:20px}.rt .go .a{transform:rotate(90deg)}.rt .ret .a{transform:rotate(90deg)}}
+
+/* 通り道の図 */
+.routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:12px 0}
+.route{border:2px solid var(--line);border-radius:12px;padding:10px 12px}
+.route .hd{font-weight:700;margin-bottom:6px}
+.route .mini{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:6px 0;font-size:14px}
+.route .bx{border:1.5px solid var(--line);border-radius:8px;padding:2px 8px;background:var(--box);white-space:nowrap}
+.route .bx.vmx{border-style:dashed;border-color:var(--acc)}
+.route .ar{color:var(--acc);font-weight:700}
+.route .addr{font-size:15px;margin-top:4px}
+.route .s{font-size:14px;color:var(--mut);line-height:1.55}
+.route.ng{border-color:var(--org);background:var(--orgbg)}
+.k{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;border-radius:6px;color:#fff;font-weight:700;font-size:14px;margin-right:6px;padding:0 4px}
+.k.a{background:#6b4fc8}.k.b,.lane.b .k{background:#1f5fbf}.k.c,.lane.c .k{background:#1e7d3a}.k.x,.lane.x .k{background:#b3261e}
+.rmap{margin:12px 0;max-width:620px}
+.rmap .pc{border:2px solid var(--fg);border-radius:14px;padding:30px 10px 10px;position:relative;background:var(--box)}
+.rmap .lb{position:absolute;top:6px;left:12px;font-size:14px;font-weight:700}
+.rmap .pcbr{display:inline-block;border:2px solid var(--org);background:var(--orgbg);border-radius:10px;padding:4px 10px;font-weight:700;font-size:15px}
+.rmap .lanes{display:flex;flex-direction:column;gap:4px;margin:6px 0 6px 18px;padding-left:10px;border-left:2px solid var(--line)}
+.rmap .lane{display:flex;align-items:center;gap:6px;font-size:14px;flex-wrap:wrap}
+.rmap .lane .k{margin:0}
+.rmap .ln{color:var(--mut);font-family:ui-monospace,Consolas,monospace;font-weight:700}
+.rmap .lane.b .ln{color:#1f5fbf}.rmap .lane.c .ln{color:var(--grn)}.rmap .lane.x .ln{color:#b3261e}
+.rmap .vmb{border:2px dashed var(--acc);border-radius:12px;padding:28px 10px 10px;position:relative;background:var(--bg)}
+.rmap .in{font-size:14px;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.rmap code{background:var(--box);border:1px solid var(--line);border-radius:4px;padding:0 .3em}
+.win{display:flex;gap:10px;margin:6px 0 4px}
+.win .w{width:96px;height:58px;border:2px solid var(--line);border-radius:6px;position:relative;background:var(--box);overflow:hidden}
+.win .w::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:var(--line)}
+.win .w .vmw{position:absolute;left:14px;top:16px;right:10px;bottom:6px;border:2px solid var(--acc);border-radius:4px;background:var(--purbg)}
+.win .w .tm{position:absolute;left:10px;top:16px;right:10px;bottom:6px;border-radius:4px;background:#14171c;color:#7ee08f;font:10px/1.2 ui-monospace,Consolas,monospace;padding:3px}
+
+/* 車 */
+.cars{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:10px 0}
+.car{border:2px solid var(--pur);border-radius:12px;padding:10px;text-align:center;background:var(--purbg)}
+.car .ic{font-size:28px;line-height:1.2}
+.car .t{font-weight:700}
+.car .s{font-size:14px;color:var(--mut);line-height:1.5}
+.engine{border:2px solid var(--fg);border-radius:12px;padding:10px 14px;text-align:center;margin:10px auto;max-width:420px;background:var(--box)}
+.engine .ic{font-size:28px}
+.down{text-align:center;color:var(--mut);font-size:14px;line-height:1.4}
+.down .a{display:block;font-size:22px;color:var(--pur)}
+
+/* ターミナル */
+.term{background:var(--term);color:var(--termfg);border-radius:10px;overflow:hidden;margin:8px 0;font-family:ui-monospace,"SFMono-Regular",Consolas,"Menlo",monospace;font-size:14px;line-height:1.6}
+.term .bar{background:#2a2f37;padding:5px 10px;display:flex;gap:6px;align-items:center}
+.term .bar i{width:10px;height:10px;border-radius:50%;display:inline-block;background:#ff5f57}
+.term .bar i:nth-child(2){background:#febc2e}.term .bar i:nth-child(3){background:#28c840}
+.term pre{margin:0;padding:10px 12px;white-space:pre-wrap;overflow-wrap:anywhere}
+.term .p{color:var(--tgrn);font-weight:700}
+.term .d{color:var(--tdim)}
+.term .g{color:var(--tgrn);font-weight:700}
+.term .hl{background:#3b4a1f;color:#e9ffb8;border-radius:3px}
+
+/* 手順 */
+.steps{list-style:none;margin:12px 0;padding:0;counter-reset:st}
+.steps > li{position:relative;border:1px solid var(--line);border-radius:12px;padding:12px 14px 12px 54px;margin:0 0 14px;counter-increment:st}
+.steps > li::before{content:counter(st);position:absolute;left:12px;top:12px;width:30px;height:30px;border-radius:50%;background:var(--acc);color:var(--bg);font-weight:700;display:flex;align-items:center;justify-content:center}
+.steps > li + li::after{content:"";position:absolute;left:26px;top:-15px;height:14px;border-left:2px dashed var(--acc)}
+.steps .why{font-weight:700}
+.steps .note{font-size:15px;color:var(--mut);line-height:1.6}
+.ok-pill{display:inline-block;background:var(--grnbg);color:var(--grn);border:1px solid var(--grn);border-radius:999px;padding:0 .6em;font-size:14px;font-weight:700}
+.swap{display:grid;grid-template-columns:auto auto 1fr;gap:2px 8px;font-size:14px;margin-top:8px;border:1px dashed var(--line);border-radius:8px;padding:6px 10px;align-items:baseline}
+.swap .h{grid-column:1/-1;font-weight:700;color:var(--mut)}
+.swap .ar{color:var(--acc)}
+
+.browser{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:8px 0;max-width:420px}
+.browser .url{background:var(--box);padding:6px 10px;font-size:14px;border-bottom:1px solid var(--line);font-family:ui-monospace,Consolas,monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.browser .pg{padding:14px;background:#fff;color:#111}
+.browser .pg .w{font-size:20px;font-weight:700;font-family:Arial,sans-serif}
+.browser .pg .w2{font-size:14px;color:#333;font-family:Arial,sans-serif}
+
+/* 切り分け */
+.chart{display:flex;flex-direction:column;margin:12px 0;max-width:600px}
+.q{border:2px solid var(--acc);background:var(--accbg);border-radius:12px;padding:10px 12px}
+.q .t{font-weight:700}
+.branch{display:flex;gap:10px;align-items:stretch;margin:6px 0 6px 18px;padding-left:14px;border-left:3px solid var(--acc)}
+.yes,.no{flex:1;border-radius:10px;padding:8px 10px;font-size:15px;line-height:1.55}
+.yes{background:var(--grnbg);border:1px solid var(--grn)}
+.no{background:var(--orgbg);border:1px solid var(--org)}
+.yes b{color:var(--grn)}.no b{color:var(--org)}
+@media (max-width:420px){.branch{flex-direction:column}}
+
+/* コマンドカード */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:12px 0}
+.card{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--bg);min-width:0}
+.card .hd{display:flex;align-items:center;gap:8px;font-weight:700;margin-bottom:6px}
+.card .hd .ic{font-size:22px;width:30px;text-align:center}
+.card dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:baseline}
+.card dt{margin:0;min-width:0}
+.card dd{margin:0;font-size:15px;line-height:1.55}
+
+.keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0}
+.key{border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;background:var(--box)}
+.key .k{font-size:20px;margin-bottom:6px}
+.key .s{font-size:15px;line-height:1.55}
+
+/* 面接 */
+.chat{display:flex;flex-direction:column;gap:8px;margin:12px 0;max-width:640px}
+.bub{border-radius:14px;padding:10px 14px;max-width:90%;line-height:1.7}
+.bub .who{display:block;font-size:13px;color:var(--mut);font-weight:700}
+.bub.qq{background:var(--box);border:1px solid var(--line);align-self:flex-start;border-top-left-radius:4px}
+.bub.aa{background:var(--say);border:1px solid var(--org);align-self:flex-end;border-top-right-radius:4px}
+.bub .ex{display:block;font-size:14px;color:var(--mut);margin-top:4px}
+.tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:12px 0}
+.tip{border-radius:12px;padding:10px 12px;font-size:15px;line-height:1.6}
+.tip.good{background:var(--grnbg);border:1px solid var(--grn)}
+.tip.bad{background:var(--orgbg);border:1px solid var(--org)}
+.tip .h{font-weight:700;margin-bottom:4px}
+
+details{border:1px solid var(--line);border-radius:10px;padding:6px 14px;margin:10px 0}
+summary{cursor:pointer;font-weight:700;padding:6px 0;min-height:32px}
+details[open]{background:var(--box)}
+details p{margin:.3em 0 .6em}
+
 .band{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:6px 16px;font-size:14px;line-height:1.5;display:flex;gap:.6em;align-items:baseline;flex-wrap:wrap}
-.band b{font-size:14px}
 .band span{color:var(--mut)}
 a{color:var(--acc)}
-</style></head><body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=bad4ec3ed9">ホーム</a></li><li><a href="./t6168f1fc.html?v=bad4ec3ed9">ご紹介したお仕事</a></li><li class="gp-cur"><a href="./te94ab580.html?v=bad4ec3ed9" aria-current="page">Linuxの復習</a></li></ul></nav><!--gp-portal:e-->
+</style></head><body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=a27f367cd0">ホーム</a></li><li><a href="./t6168f1fc.html?v=a27f367cd0">ご紹介したお仕事</a></li><li class="gp-cur"><a href="./te94ab580.html?v=a27f367cd0" aria-current="page">Linuxの復習</a></li></ul></nav><!--gp-portal:e-->
 <div class="band" data-chrome aria-hidden="true"><b>Linuxの復習（高橋さん）</b><span id="cur"></span></div>
 <main>
 <h1>Linuxの復習（高橋さん）</h1>
-<div class="mut">11月11日　高橋さんへ　／　株式会社SeeD 武者野　／　面接で「サーバーを立てた話」を聞かれたときのための整理</div>
+<p class="mut">11月11日　高橋さんへ　／　株式会社SeeD 武者野</p>
+<p>高橋さんが「Linuxで仮想サーバーを立てて、ホームページが見られるか確かめた」ことを、図で整理し直しました。<b>オレンジの下線（＿＿）は、高橋さんご自身の答えで埋める所</b>です。</p>
 
-<div class="box"><p><b>先に結論：面接までに、次の3つを自分の言葉で言えるようにしておきましょう</b></p>
-<ol>
-<li><b>何の上で、何を動かしたか</b>（例：自宅のPCに仮想マシンを作り、Ubuntu を入れて、Webサーバーを動かした）</li>
-<li><b>よく使うコマンド2〜3個と、何のために使ったか</b>（例：<code>systemctl status</code> でWebサーバーが動いているか確かめた）</li>
-<li><b>つまずいたところと、どう乗り越えたか</b>（例：最初はコマンドが何も分からなかったが、ChatGPT と教科書で一つずつ調べた）</li>
-</ol>
-<p class="mut">高橋さんがやったことを、言葉と流れで整理し直したページです。分からない言葉があれば、2. から読んでください。</p></div>
-
-<h2 id="s1">1. 高橋さんがやったことの全体像</h2>
-<p>高橋さんが話してくれた「Linuxで仮想サーバーを立てて、ホームページが見られるか確かめた」は、仕組みで言うと次の4段の積み重ねです。下から順に積んで、一番上のブラウザで画面が出たら成功です。</p>
-<ul class="flow">
-<li><span class="k">④ ブラウザ</span>：Chrome などで開いて、ホームページが表示されるか確かめる</li>
-<li><span class="k">③ Webサーバー</span>（nginx や Apache）：ホームページを配るソフト</li>
-<li><span class="k">② Linux</span>（Ubuntu など）：仮想のPCに入れたOS</li>
-<li><span class="k">① 仮想マシン</span>（VirtualBox など）：自宅のPCの中に作った、もう1台のPC</li>
+<h2 id="s0">ゴール：面接までにこの3つを言えるように</h2>
+<div class="goals">
+<div class="goal"><span class="n">1</span><span class="h">何の上で、何を動かしたか</span><div class="e">→ 1. の図で自分の環境を選び、下から順に言う</div></div>
+<div class="goal"><span class="n">2</span><span class="h">よく使うコマンドと、その目的</span><div class="e">→ 5. の <code>history</code> で実際に打ったものから選ぶ</div></div>
+<div class="goal"><span class="n">3</span><span class="h">つまずいた所と、乗り越え方</span><div class="e">→ 6. の穴を、実際の出来事で埋める</div></div>
+</div>
+<ul class="toc">
+<li><a href="#s1"><b>1</b>自分の環境と全体像</a></li>
+<li><a href="#s2"><b>2</b>言葉と通り道</a></li>
+<li><a href="#s3"><b>3</b>サーバーを立てる手順</a></li>
+<li><a href="#s4"><b>4</b>よく使うコマンド</a></li>
+<li><a href="#s5"><b>5</b>履歴の見方</a></li>
+<li><a href="#s6"><b>6</b>面接での言い方</a></li>
+<li><a href="#s7"><b>7</b>確認クイズ</a></li>
 </ul>
-<p class="mut">上の図は、上が最後の確認、下が土台です。</p>
-<p>面接で「どんな環境で？」と聞かれたら、この4段を下から言えば十分に伝わります。ソフトの名前（VirtualBox・Ubuntu・nginx など）は、高橋さんが実際に使ったものに置き換えてください。名前を思い出せないときは、仮想マシンのソフトを開けば画面に出ています。</p>
 
-<h2 id="s2">2. 言葉の整理</h2>
-<h3>仮想マシン（VirtualBox など）</h3>
-<p>自分のPCの中に、ソフトで作ったもう1台のPCを動かす仕組みです。Windows の画面の中にウィンドウが1つ開き、その中で別のOSがまるごと動きます。PCを買い足さずに練習台が手に入り、設定を間違えても消して作り直せます。同じ種類のソフトに VMware や Windows 標準の Hyper-V があります。仕事で使うクラウド（AWS など）のサーバーも、仕組みとしてはこの延長です。</p>
+<h2 id="s1">1. まず、自分の環境はどれ？</h2>
+<p>Linux をPCで動かす方法は主に2つあります。高橋さんが使ったのはどちらか、最初に確かめてください。</p>
+<div class="envs">
+<div class="env main"><div class="hd"><span class="ic" aria-hidden="true">📦</span>仮想マシンのソフト</div>
+<div class="win" aria-hidden="true"><div class="w"><div class="vmw"></div></div></div>
+<ul><li>VirtualBox・VMware など</li><li>アプリを開くと、別ウィンドウにLinuxの画面が丸ごと出る</li><li>このページの説明は、この形が基本</li></ul></div>
+<div class="env"><div class="hd"><span class="ic" aria-hidden="true">🪟</span>WSL（Windows の機能）</div>
+<div class="win" aria-hidden="true"><div class="w"><div class="tm">$ _</div></div></div>
+<ul><li>Windows に Ubuntu をアプリとして入れる</li><li>黒い画面（ターミナル）だけが出る</li><li>ブラウザはPC側で <code>localhost</code> を開けば届く</li><li><code>systemctl</code> が使えない設定のときは <code>sudo service nginx status</code></li></ul></div>
+</div>
 
-<h3>Linux と Ubuntu</h3>
-<p>Linux はOSの中心の部分だけを指す言葉です。それに画面・コマンド・ソフトを入れる仕組みなどを一式まとめて、すぐ使えるOSにしたものを「ディストリビューション（配布版）」と呼びます。Ubuntu はその1つで、一番よく使われています。</p>
-<p>たとえると、Linux がエンジンで、Ubuntu はそのエンジンを積んだ車の車種です。ほかの車種に、企業のサーバーで定番の Red Hat Enterprise Linux や、そこから生まれた Rocky Linux・AlmaLinux があります。</p>
-<p class="mut">日本の企業のサーバーは Red Hat 系が多いですが、LinuC の試験は種類に寄らない内容です。Ubuntu で練習したことは、そのまま話して大丈夫です。</p>
+<h3>全体像：下から積んだ4段</h3>
+<div class="stack" role="img" aria-label="自宅のPCの上に仮想マシンのソフト、その中にLinuxとWebサーバー、一番上がブラウザ">
+<div class="layer l4"><span class="ic" aria-hidden="true">🌐</span><div><div class="t">④ ブラウザ</div><div class="s">ページが出るか確かめる（ここがゴール）</div></div></div>
+<div class="vm"><span class="tag">①が作った仮想マシン（PCの中のもう1台）</span>
+<div class="layer l3"><span class="ic" aria-hidden="true">📄</span><div><div class="t">③ Webサーバー</div><div class="s">ホームページを配るソフト（nginx・Apache）</div></div></div>
+<div class="layer l2"><span class="ic" aria-hidden="true">🐧</span><div><div class="t">② Linux</div><div class="s">入れたOS（Ubuntu など）</div></div></div>
+</div>
+<div class="layer l1"><span class="ic" aria-hidden="true">📦</span><div><div class="t">① 仮想マシンのソフト</div><div class="s">VirtualBox・VMware など</div></div></div>
+<div class="layer l0"><span class="ic" aria-hidden="true">💻</span><div><div class="t">土台：自宅のPC</div></div></div>
+</div>
+<div class="hint"><span>面接では下から言う</span><span>名前は自分が使ったものに置き換える</span><span>思い出せなければソフトを開けば画面に出ている</span><span>WSL なら ①を「WSL」と言う</span></div>
 
-<h3>Webサーバー（nginx・Apache）</h3>
-<p>ブラウザから「このページをください」と頼まれたら、ホームページのファイルを返すソフトです。nginx（エンジンエックス）と Apache（アパッチ）が二大定番です。高橋さんが「ホームページが見られた」のは、このソフトが仮想マシンの中で動いていたからです。</p>
+<h2 id="s2">2. 言葉と通り道</h2>
+<h3>仮想マシン：PCの中に、もう1台のPC</h3>
+<div class="flow" role="img" aria-label="自宅のPCがCPUとメモリを貸して仮想マシンを作り、そこでLinuxが動く">
+<div class="node"><div class="ic" aria-hidden="true">💻</div><div class="t">自宅のPC</div><div class="s">本物の機械</div></div>
+<div class="arrow"><span class="a" aria-hidden="true">→</span>CPU・メモリを<br>少し貸す</div>
+<div class="node" style="border-style:dashed;border-color:var(--acc)"><div class="ic" aria-hidden="true">📦</div><div class="t">仮想マシン</div><div class="s">ソフトで作ったPC</div></div>
+<div class="arrow"><span class="a" aria-hidden="true">→</span>OSを入れる</div>
+<div class="node"><div class="ic" aria-hidden="true">🐧</div><div class="t">Linux が動く</div><div class="s">壊しても作り直せる</div></div>
+</div>
+<p class="cap">仕事で使うクラウド（AWS など）のサーバーも、仕組みはこの延長です。</p>
 
-<h3>IPアドレス</h3>
-<p>ネットワークの中での住所です。仮想マシンにも住所が割り当てられていて、ブラウザにその住所を打ち込むと、仮想マシンの中のWebサーバーに届きます。</p>
+<h3>Linux と Ubuntu：エンジンと車種</h3>
+<div class="engine"><div class="ic" aria-hidden="true">⚙️</div><b>Linux</b>＝OSの中心部分（エンジン）</div>
+<div class="down"><span class="a" aria-hidden="true">↓</span>画面や道具を付けて、すぐ使える形にしたもの＝配布版</div>
+<div class="cars">
+<div class="car"><div class="ic" aria-hidden="true">🚗</div><div class="t">Ubuntu</div><div class="s">一番使われている<br>練習の定番</div></div>
+<div class="car"><div class="ic" aria-hidden="true">🚙</div><div class="t">Red Hat</div><div class="s">企業のサーバーの定番</div></div>
+<div class="car"><div class="ic" aria-hidden="true">🚕</div><div class="t">Debian</div><div class="s">Ubuntu の元になった</div></div>
+</div>
+<p class="cap">LinuC の試験は種類によらない内容です。Ubuntu で練習したことは、そのまま話して大丈夫です。</p>
 
-<h2 id="s3">3. サーバーを立てた流れ（Ubuntu と nginx の例）</h2>
-<p>ChatGPT に教わった手順も、だいたいこの流れだったはずです。一つずつ、何のために打つのかを言えるようにしておくと、面接での説明が具体的になります。</p>
+<h3>Webサーバー：頼まれたらページを返す</h3>
+<div class="rt" role="img" aria-label="ブラウザがページを頼み、Webサーバーがページを返す往復">
+<div class="node"><div class="ic" aria-hidden="true">🌐</div><div class="t">ブラウザ</div><div class="s">住所か名前を打つ</div></div>
+<div class="mid"><div class="go"><span class="a" aria-hidden="true">→</span>ページをください</div><div class="ret"><span class="a" aria-hidden="true">←</span>ページを返す</div></div>
+<div class="node" style="border-color:var(--grn)"><div class="ic" aria-hidden="true">📄</div><div class="t">Webサーバー</div><div class="s">nginx・Apache</div></div>
+</div>
+<p class="cap">IPアドレス＝ネットワークの中の住所。住所を打つと、その住所の機械のWebサーバーに届きます。</p>
+
+<h3>通り道：どこのブラウザで、どの住所を開く？</h3>
+<p>ここは面接でよく突っ込まれます。<b>VirtualBox の最初の設定（NAT）のままだと、PC側のブラウザから仮想マシンの住所には直接届きません。</b>届く道は A〜C の3本です。高橋さんはどれだったか思い出してみてください。</p>
+<p class="cap"><b>localhost</b>＝「この機械じしん」を指す名前（中身は 127.0.0.1）。どの機械で打つかで、指す先が変わります。</p>
+<div class="rmap" role="img" aria-label="PCの箱の中に仮想マシンの箱がある図。Aは仮想マシンの中だけで完結、BとCはPCのブラウザから仮想マシンへ届く矢印、VirtualBoxのNATのままだと届かない">
+<div class="pc"><span class="lb">💻 自宅のPC</span>
+<div class="pcbr">🌐 PCのブラウザ</div>
+<div class="lanes">
+<div class="lane b"><span class="k">B</span><span class="ln">─→</span><code>localhost:8080</code><span class="ln">─→ 📦 届く</span></div>
+<div class="lane c"><span class="k">C</span><span class="ln">─→</span><code>192.168.…</code><span class="ln">─→ 📦 届く</span></div>
+<div class="lane x"><span class="k">✕</span><span class="ln">─╳</span><code>10.0.2.15</code><span class="ln">届かない</span></div>
+</div>
+<div class="vmb"><span class="lb">📦 仮想マシン</span>
+<div class="in"><span class="k a">A</span>🌐 中のブラウザ <span class="ln">─→</span> <code>localhost</code> <span class="ln">─→</span> 📄 nginx</div>
+</div>
+</div>
+</div>
+<div class="routes">
+<div class="route"><div class="hd"><span class="k a">A</span> 仮想マシンの中のブラウザ</div><div class="s">Ubuntu の画面の中で Firefox などを開く。いちばん簡単（画面のある Ubuntu Desktop のときだけ）</div></div>
+<div class="route"><div class="hd"><span class="k b">B</span> ポートフォワード</div><div class="s">VirtualBox の設定で「PCの8080番 → 仮想マシンの80番」に転送する</div></div>
+<div class="route"><div class="hd"><span class="k c">C</span> ブリッジ接続</div><div class="s">仮想マシンが家のネットワークに1台として並ぶ。住所は <code>ip a</code> で調べる</div></div>
+<div class="route ng"><div class="hd"><span class="k x">✕</span> VirtualBox の NAT のまま</div><div class="s"><code>ip a</code> で見える <code>10.0.2.15</code> を打っても届かない。ここで詰まる人が多い（VMware の NAT なら届く）</div></div>
+</div>
+
+<h2 id="s3">3. サーバーを立てる手順（Ubuntu と nginx の例）</h2>
+<p>画面に近い形で並べました。<code>$</code> の後ろが自分で打つ部分です。<b>「何のために打つか」</b>を言えるようにしておきましょう。</p>
 <ol class="steps">
-<li><b>ソフトの一覧を新しくする</b>
-<pre><code>sudo apt update</code></pre>
-<span class="mut"><code>sudo</code> は「管理者の権限で実行する」、<code>apt</code> は Ubuntu でソフトを入れる道具です（Red Hat 系では <code>dnf</code>）。</span></li>
-<li><b>Webサーバーを入れる</b>
-<pre><code>sudo apt install nginx</code></pre></li>
-<li><b>動いているか確かめる</b>
-<pre><code>systemctl status nginx</code></pre>
-<span class="mut">緑の文字で <code>active (running)</code> と出ていれば動いています。止まっていたら <code>sudo systemctl start nginx</code> で起動します。</span></li>
-<li><b>仮想マシンの住所（IPアドレス）を調べる</b>
-<pre><code>ip a</code></pre>
-<span class="mut"><code>inet 192.168.…</code> のように出る数字が住所です。</span></li>
-<li><b>まず仮想マシンの中から確かめる</b>
-<pre><code>curl localhost</code></pre>
-<span class="mut">ホームページの中身（HTML の文字）が返ってくれば、Webサーバーは正しく動いています。</span></li>
-<li><b>ブラウザで開く</b>：調べた住所をブラウザに打ち込み、「Welcome to nginx!」などのページが出たら成功です。</li>
+<li><div class="why">ソフトの一覧を最新にする</div>
+<div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><span class="p">$</span> sudo apt update</pre></div>
+<div class="note"><code>sudo</code>＝管理者の権限で　／　<code>apt</code>＝Ubuntu でソフトを入れる道具</div></li>
+<li><div class="why">Webサーバー（nginx）を入れる</div>
+<div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><span class="p">$</span> sudo apt install nginx</pre></div>
+<div class="note">Ubuntu では、入れた時点で自動で起動します</div></li>
+<li><div class="why">動いているか確かめる</div>
+<div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><span class="p">$</span> systemctl status nginx
+<span class="g">●</span> nginx.service - A high performance web server
+     Active: <span class="g hl">active (running)</span></pre></div>
+<div class="note"><span class="ok-pill">緑で active (running)</span> なら動いている。画面が止まったら <kbd>q</kbd> で抜ける。止まっていたら <code>sudo systemctl start nginx</code></div></li>
+<li><div class="why">まず仮想マシンの中から見えるか確かめる</div>
+<div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><span class="p">$</span> curl localhost
+<span class="d">&lt;title&gt;</span>Welcome to nginx!<span class="d">&lt;/title&gt; ...</span></pre></div>
+<div class="note">ページの中身（HTML）が返れば、Webサーバーは動いている。<code>command not found</code> と出たら <code>sudo apt install curl</code></div></li>
+<li><div class="why">ブラウザで開く（住所は 2. の通り道 A〜C のどれか）</div>
+<div class="browser"><div class="url">localhost ／ localhost:8080 ／ 192.168.…</div><div class="pg"><div class="w">Welcome to nginx!</div><div class="w2">If you see this page, the nginx web server is successfully installed...</div></div></div>
+<div class="note"><span class="ok-pill">この画面が出たら成功</span></div></li>
 </ol>
-<div class="box"><p><b>見えないときに確かめる順番</b>（インフラの仕事そのものです）</p>
-<ol>
-<li><code>systemctl status</code> で、Webサーバーが動いているか</li>
-<li><code>curl localhost</code> で、中からは見えるか</li>
-<li>中から見えて外から見えないなら、通信の通り道（仮想マシンのネットワークの設定・ファイアウォール）を疑う</li>
-</ol>
-<p>高橋さんが面白いと話していた「問題なく動いているかを確かめる」は、まさにこの順番で原因を絞っていく作業です。</p></div>
+<div class="swap"><span class="h">Apache を使った場合の読み替え</span>
+<span>nginx</span><span class="ar">→</span><span><code>apache2</code></span>
+<span>Welcome to nginx!</span><span class="ar">→</span><span>Apache2 Ubuntu Default Page</span>
+<span class="h" style="font-weight:400">例：<code>systemctl status apache2</code></span></div>
 
-<h2 id="s4">4. よく使う基本のコマンド</h2>
-<div class="tw" role="region" aria-labelledby="s4" tabindex="0">
-<table>
-<thead><tr><th>用途</th><th>コマンド</th><th>何をするか</th></tr></thead>
-<tbody>
-<tr><td>場所と中身を見る</td><td><code>pwd</code> <code>ls</code> <code>cd</code></td><td>いまいる場所を出す／中のファイルを並べる／別の場所へ移る</td></tr>
-<tr><td>ファイルを読む</td><td><code>cat</code> <code>less</code></td><td>中身を表示する（<code>less</code> は長いファイルを1画面ずつ読める）</td></tr>
-<tr><td>ファイルを編集する</td><td><code>nano</code> <code>vi</code></td><td>設定ファイルを書き換える（<code>nano</code> の方がやさしい）</td></tr>
-<tr><td>ソフトを入れる</td><td><code>sudo apt install</code></td><td>ソフトを入れる（Red Hat 系は <code>dnf</code>）</td></tr>
-<tr><td>サービスを動かす</td><td><code>systemctl</code></td><td>起動・停止・状態の確認（<code>start</code>・<code>stop</code>・<code>status</code>）</td></tr>
-<tr><td>通信を確かめる</td><td><code>ping</code> <code>curl</code> <code>ip a</code></td><td>相手に届くか／ページの中身を取る／自分の住所を見る</td></tr>
-<tr><td>状態を見る</td><td><code>ps</code> <code>top</code> <code>df -h</code></td><td>動いているもの／重さ（CPU・メモリ）／ディスクの空き</td></tr>
-</tbody>
-</table>
+<h3>見えないときは、この順で原因を絞る</h3>
+<p>高橋さんが面白いと話していた「ちゃんと動いているかを確かめる」は、まさにこの作業です。</p>
+<div class="chart">
+<div class="q"><div class="t">Q1. <code>systemctl status nginx</code> は active？</div></div>
+<div class="branch"><div class="yes"><b>はい</b> → Q2 へ</div><div class="no"><b>いいえ</b> → 止まっている。<code>sudo systemctl start nginx</code></div></div>
+<div class="q"><div class="t">Q2. <code>curl localhost</code> でページが返る？</div></div>
+<div class="branch"><div class="yes"><b>はい</b> → Q3 へ</div><div class="no"><b>いいえ</b> → <code>command not found</code> なら curl を入れる。それ以外は <code>ss -tlnp</code> で80番が開いているか見る</div></div>
+<div class="q"><div class="t">Q3. ブラウザから見える？</div></div>
+<div class="branch"><div class="yes"><b>はい</b> → 成功</div><div class="no"><b>いいえ</b> → 通り道を疑う（2. の A〜C。VirtualBox の NAT のままなら届かない）</div></div>
 </div>
 
-<h2 id="s5">5. 履歴を見るコマンド</h2>
-<p>自分が今まで打ったコマンドは、Linux が覚えています。面接の前に一度見返すと、自分が実際によく使ったコマンドが分かります。</p>
-<div class="tw" role="region" aria-labelledby="s5" tabindex="0">
-<table>
-<thead><tr><th>やりたいこと</th><th>操作</th></tr></thead>
-<tbody>
-<tr><td>打ったコマンドを一覧で見る</td><td><code>history</code>（直近20件だけなら <code>history 20</code>）</td></tr>
-<tr><td>1つ前のコマンドに戻る</td><td>キーボードの <kbd>↑</kbd></td></tr>
-<tr><td>過去のコマンドを文字で探す</td><td><kbd>Ctrl</kbd>＋<kbd>R</kbd> を押してから文字を打つ</td></tr>
-<tr><td>一覧の番号でもう一度実行する</td><td><code>!105</code>（105番を実行）</td></tr>
-<tr><td>誰がいつログインしたか</td><td><code>last</code></td></tr>
-<tr><td>システムやソフトの動作記録</td><td><code>journalctl -u nginx</code>（nginx の記録だけ）</td></tr>
-<tr><td>Webサーバーへのアクセスを流れるまま見る</td><td><code>tail -f /var/log/nginx/access.log</code>（止めるのは <kbd>Ctrl</kbd>＋<kbd>C</kbd>）</td></tr>
-</tbody>
-</table>
+<h2 id="s4">4. よく使うコマンド</h2>
+<p class="mut">サーバーを立てるときに使う、基本の4グループです。</p>
+<div class="cards">
+<div class="card"><div class="hd"><span class="ic" aria-hidden="true">📁</span>場所と中身を見る</div><dl><dt><code>cd</code></dt><dd>別の場所へ移る</dd><dt><code>ls</code></dt><dd>中のファイルを並べる</dd><dt><code>pwd</code></dt><dd>いまいる場所</dd><dt><code>cat</code></dt><dd>ファイルの中身を表示</dd></dl></div>
+<div class="card"><div class="hd"><span class="ic" aria-hidden="true">📥</span>ソフトを入れる</div><dl><dt><code>sudo apt update</code></dt><dd>一覧を最新に</dd><dt><code>sudo apt install</code></dt><dd>ソフトを入れる</dd></dl></div>
+<div class="card"><div class="hd"><span class="ic" aria-hidden="true">⚙️</span>動いているか見る</div><dl><dt><code>systemctl status</code></dt><dd>動いているか確かめる</dd><dt><code>systemctl start</code></dt><dd>起動する</dd></dl></div>
+<div class="card"><div class="hd"><span class="ic" aria-hidden="true">📡</span>通信を確かめる</div><dl><dt><code>ip a</code></dt><dd>自分の住所を見る</dd><dt><code>curl</code></dt><dd>ページの中身を取る</dd><dt><code>ping</code></dt><dd>相手に届くか</dd></dl></div>
 </div>
-<p class="mut">ブラウザでページを開いた瞬間に <code>tail -f</code> の画面へ1行増えるのを見ると、「ブラウザの頼みがサーバーに届いた」ことが目で分かります。時間があればやってみてください。</p>
+<p class="cap">ここにあっても、自分で打っていないものは面接で「よく使う」と言わない。言うのは 5. の <code>history</code> に出てくるものだけ。</p>
+
+<h2 id="s5">5. 履歴の見方：自分の「よく使うコマンド」を確かめる</h2>
+<p>打ったコマンドは Linux が覚えています。<b>面接の前に一度 <code>history</code> を打ってください。</b>何度も出てくるものが、高橋さんの「よく使うコマンド」です。</p>
+<div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><span class="p">$</span> history
+  <span class="hl">101  cd /etc/nginx</span>
+  102  ls
+  <span class="hl">103  cd sites-available</span>
+  104  ls
+  105  cat default
+  <span class="hl">106  cd ~</span></pre></div>
+<p class="cap">表示は例です。この例なら「一番使うのは <code>cd</code>」が本当の答えになります。</p>
+<div class="keys">
+<div class="key"><div class="k"><kbd>↑</kbd></div><div class="s">1つ前のコマンドに戻る</div></div>
+<div class="key"><div class="k"><kbd>Ctrl</kbd> ＋ <kbd>R</kbd></div><div class="s">過去のコマンドを文字で探す</div></div>
+<div class="key"><div class="k"><kbd>Ctrl</kbd> ＋ <kbd>C</kbd></div><div class="s">動いているものを止める</div></div>
+<div class="key"><div class="k"><kbd>q</kbd></div><div class="s">止まった画面から抜ける</div></div>
+</div>
 
 <h2 id="s6">6. 面接での言い方</h2>
-<p>前回の練習と同じく、はじめの一言を10秒で言い、聞かれたら付け足す形です。下の例のソフトの名前は、高橋さんが使ったものに置き換えてください。</p>
-<div class="say"><span class="t">Q. どんな環境でサーバーを立てたんですか？</span>「自宅のPCに VirtualBox で仮想マシンを作り、Ubuntu を入れて、nginx でWebサーバーを立てました。ブラウザでページが表示されるところまで確かめました。」</div>
-<div class="say"><span class="t">Q. 一番使うコマンドは何ですか？</span>「<code>systemctl status</code> です。Webサーバーが動いているかを確かめるのに、一番よく使いました。」</div>
-<div class="say"><span class="t">Q. 一番難しかったところは？</span>「コマンド入力です。最初は何も分からなかったので、ChatGPT と教科書で一つずつ意味を調べながら進めました。」</div>
-<div class="box"><ul>
-<li>コマンドは<b>名前と、何のために使ったか</b>をセットで言います。名前だけより、ずっと「本当に触った人」に聞こえます</li>
-<li>答えにするコマンドは、<code>history</code> で実際に打ったものから選ぶのが一番です。自分で使ったものなら、深掘りされても答えられます</li>
-<li>分からないことを聞かれたら、「そこはまだ触れていません。次は〇〇を触ってみたいと思っています」と答えれば大丈夫です。次は AWS を触りたい、という高橋さんの話につなげられます</li>
-</ul></div>
+<p class="mut">はじめの一言は10秒。オレンジの下線は、高橋さん自身の答えで埋めてください。</p>
+<div class="chat">
+<div class="bub qq"><span class="who">面接官</span>どんな環境でサーバーを立てたんですか？</div>
+<div class="bub aa"><span class="who">高橋さん</span>自宅のPCに<span class="blank"></span>で仮想マシンを作り、<span class="blank"></span>を入れて、<span class="blank"></span>でWebサーバーを立てました。ブラウザで表示されるところまで確かめました。<span class="ex">例：VirtualBox ／ Ubuntu ／ nginx。WSL なら「WSL で Ubuntu を入れて」</span></div>
+<div class="bub qq"><span class="who">面接官</span>一番使うコマンドは何ですか？</div>
+<div class="bub aa"><span class="who">高橋さん</span><span class="blank"></span>です。<span class="blank"></span>のために使っていました。<span class="ex">例：「<code>cd</code> です。設定ファイルのある場所へ移って、中身を確かめるのに使っていました」</span></div>
+<div class="bub qq"><span class="who">面接官</span>一番難しかったところは？</div>
+<div class="bub aa"><span class="who">高橋さん</span>コマンド入力です。最初は何も分からなかったので、ChatGPT と教科書で一つずつ意味を調べながら進めました。</div>
+<div class="bub qq"><span class="who">面接官</span>具体的に、どこで詰まってどう直しましたか？</div>
+<div class="bub aa"><span class="who">高橋さん</span><span class="blank"></span>で詰まりました。<span class="blank"></span>して解決しました。<span class="ex">例：「打っても command not found と出て、綴りを直しました」／「入れたのに画面が出ず、status で止まっているのに気づいて start しました」</span><span class="ex" style="color:var(--org);font-weight:700">例をそのまま言わない。実際に起きたことだけを話す</span></div>
+<div class="bub qq"><span class="who">面接官</span>今、どのくらい使えますか？</div>
+<div class="bub aa"><span class="who">高橋さん</span>基本の操作は、調べればすぐできます。いまは history を見直して、調べずに打てるように覚え直しています。</div>
+<div class="bub qq"><span class="who">面接官</span>なぜその OS（配布版）を選んだんですか？</div>
+<div class="bub aa"><span class="who">高橋さん</span><span class="blank"></span>だからです。<span class="ex">例：「入門者向けの情報が一番多かったからです」（自分で確かめられる理由を）</span></div>
+</div>
+<div class="tips">
+<div class="tip good"><div class="h">◎ こう言う</div>コマンドは<b>名前＋何のため</b>をセットで。<code>history</code> で確かめたものなら、深掘りされても答えられます</div>
+<div class="tip bad"><div class="h">△ 避けたい</div>「まだ頭に入っていなくて」。質問への答えになっていません。1つ選んで言い切れば大丈夫です</div>
+<div class="tip good"><div class="h">◎ 触ったことがないツールを聞かれたら</div>「そこはまだ触れていません。次は AWS を触ってみたいと思っています」</div>
+</div>
 
-<h2 id="s7">7. 確認クイズ（答えは押すと開きます）</h2>
-<details><summary>Q1. Linux と Ubuntu の関係は？</summary><p>Linux はOSの中心の部分で、Ubuntu はそれを一式まとめて使える形にした配布版（ディストリビューション）の1つ。エンジンと車種の関係です。</p></details>
-<details><summary>Q2. 仮想マシンを使う良いところは？</summary><p>PCを買い足さずに練習台が手に入り、間違えても消して作り直せること。元のPCには影響しません。</p></details>
-<details><summary>Q3. Webサーバーが動いているかを確かめるコマンドは？</summary><p><code>systemctl status nginx</code>（Apache なら <code>systemctl status apache2</code>）。<code>active (running)</code> と出れば動いています。</p></details>
-<details><summary>Q4. 自分の住所（IPアドレス）を調べるコマンドは？</summary><p><code>ip a</code></p></details>
-<details><summary>Q5. 中からは見えるのにブラウザから見えないとき、どこを疑う？</summary><p>Webサーバー自体は動いているので、通信の通り道（仮想マシンのネットワークの設定・ファイアウォール）を疑います。</p></details>
-<details><summary>Q6. 今まで打ったコマンドを一覧で見るには？</summary><p><code>history</code>。過去のコマンドを文字で探すなら <kbd>Ctrl</kbd>＋<kbd>R</kbd>。</p></details>
+<h2 id="s7">7. 確認クイズ（押すと答えが開きます）</h2>
+<details><summary>Q1. Linux と Ubuntu の関係は？</summary><p>Linux はエンジン（OSの中心）、Ubuntu はそれを積んだ車種（配布版）の1つ。</p></details>
+<details><summary>Q2. 仮想マシンを使う良いところは？</summary><p>PCを買い足さずに練習台が手に入り、間違えても作り直せる。元のPCには影響しない。</p></details>
+<details><summary>Q3. Webサーバーが動いているか確かめるコマンドは？</summary><p><code>systemctl status nginx</code>。<code>active (running)</code> と出れば動いている。抜けるときは <kbd>q</kbd>。WSL なら <code>sudo service nginx status</code>。</p></details>
+<details><summary>Q4. 中からは見えるのに、PCのブラウザから見えない。何を疑う？</summary><p>通り道。VirtualBox の NAT のままなら届かないので、ポートフォワード（<code>localhost:8080</code>）かブリッジ接続にする。</p></details>
+<details><summary>Q5. localhost とは？</summary><p>「この機械じしん」を指す名前（127.0.0.1）。仮想マシンの中で打てば仮想マシン、PCで打てばPCを指す。</p></details>
+<details><summary>Q6. 自分がよく使うコマンドを確かめるには？</summary><p><code>history</code>。文字で探すなら <kbd>Ctrl</kbd>＋<kbd>R</kbd>。</p></details>
 
-<p class="mut">分からないところがあれば、LINE でいつでも聞いてください。次の練習で、ここに書いた3つの答えを一緒に声に出してみましょう。</p>
+<p class="mut">分からないところがあれば、LINE でいつでも聞いてください。次の練習で、6. の下線を一緒に埋めましょう。</p>
 </main>
 <script>
 (function(){
@@ -181,4 +401,4 @@ a{color:var(--acc)}
   upd();
 })();
 </script>
-<!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=bad4ec3ed9">ホーム</a></li><li><a href="./t6168f1fc.html?v=bad4ec3ed9">ご紹介したお仕事</a></li><li class="gp-cur"><a href="./te94ab580.html?v=bad4ec3ed9" aria-current="page">Linuxの復習</a></li></ul></nav><!--gp-portal:e--></body></html>
+<!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=a27f367cd0">ホーム</a></li><li><a href="./t6168f1fc.html?v=a27f367cd0">ご紹介したお仕事</a></li><li class="gp-cur"><a href="./te94ab580.html?v=a27f367cd0" aria-current="page">Linuxの復習</a></li></ul></nav><!--gp-portal:e--></body></html>
