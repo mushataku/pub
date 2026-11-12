@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>三田さんへ: line-bot の始め方</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1d1d1f; --muted:#4a4a4f; --line:#d4d4d8; --soft:#f4f4f6;
+  --accent:#0b5cad; --accent-bg:#e8f1fb; --stop:#a1121a; --stop-bg:#fdecee; --ok:#11623a; --ok-bg:#e7f5ec;
+  --band:rgba(255,255,255,.96);
+  --font:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","YuGothic",Meiryo,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --s1:.5rem; --s2:1rem; --s3:1.5rem; --s4:2.5rem;
+  --band-h:3.6rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#141416; --fg:#e6e6e6; --muted:#c2c2c8; --line:#3a3a40; --soft:#1e1e22;
+    --accent:#8cc4ff; --accent-bg:#14263a; --stop:#ff9ea4; --stop-bg:#3a1418; --ok:#8fe0b0; --ok-bg:#12301f;
+    --band:rgba(20,20,22,.96);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:calc(var(--band-h) + .5rem)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:1rem;line-height:1.8;letter-spacing:.01em;-webkit-text-size-adjust:100%}
+:lang(en){font-family:var(--font)}
+code{font-family:var(--mono);font-size:.92em;background:var(--soft);border:1px solid var(--line);border-radius:4px;padding:0 .25em;overflow-wrap:anywhere}
+a{color:var(--accent)}
+a:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* 帯 */
+.band{position:sticky;top:0;z-index:10;background:var(--band);border-bottom:1px solid var(--line);backdrop-filter:saturate(1.2) blur(6px)}
+.band-in{max-width:46rem;margin:0 auto;padding:.4rem var(--s2);display:flex;flex-direction:column;gap:0;min-height:var(--band-h);justify-content:center}
+.band-title{font-size:.875rem;color:var(--muted);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.band-now{font-size:.95rem;font-weight:700;line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+main{max-width:46rem;margin:0 auto;padding:var(--s3) var(--s2) var(--s4)}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere;font-weight:700;line-height:1.4}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3), main section > :is(h2,h3){word-break:auto-phrase;text-wrap:balance}}
+h1{font-size:1.6rem;margin:0 0 var(--s1)}
+h2{font-size:1.3rem;margin:var(--s4) 0 var(--s2);padding-top:var(--s2);border-top:1px solid var(--line)}
+h3{font-size:1.1rem;margin:var(--s3) 0 var(--s1)}
+p,li{max-width:40em}
+p{margin:0 0 var(--s2)}
+.lead{color:var(--muted)}
+.toc{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:var(--s2) var(--s3);margin:var(--s3) 0}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:.15rem 0}
+.toc a{display:inline-block;padding:.35rem 0;min-height:44px;line-height:1.9}
+
+/* 最初の約束 */
+.rule{border:2px solid var(--stop);background:var(--stop-bg);border-radius:10px;padding:var(--s2) var(--s3);margin:var(--s3) 0}
+.rule p{margin:0}
+.rule .big{font-size:1.15rem;font-weight:700;color:var(--stop);margin-bottom:.35rem}
+
+/* 流れの図（HTML の箱）*/
+.fig{margin:var(--s3) 0;padding:var(--s2);border:1px solid var(--line);border-radius:10px;background:var(--soft)}
+.fig-cap{font-size:.875rem;color:var(--muted);margin:var(--s1) 0 0;line-height:1.6}
+.flow{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;align-items:stretch;gap:.4rem}
+.flow > li{flex:1 1 7.5rem;max-width:none;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:.55rem .6rem;line-height:1.5;position:relative;font-size:.95rem}
+.flow > li .who{display:block;font-size:.8rem;color:var(--muted);font-weight:400}
+.flow > li strong{display:block}
+.flow > li.me{border-color:var(--accent);background:var(--accent-bg)}
+.flow > li.takuya{border-color:var(--ok);background:var(--ok-bg)}
+.flow > li.stop{border-color:var(--stop);background:var(--stop-bg)}
+.arrow{flex:0 0 auto;align-self:center;color:var(--muted);font-size:1.1rem;line-height:1}
+.flow .arrow{background:none;border:0;padding:0;flex:0 0 1rem;text-align:center}
+@media (max-width:560px){
+  .flow{flex-direction:column}
+  .flow > li{flex:1 1 auto}
+  .flow .arrow{flex:0 0 auto;transform:rotate(90deg);align-self:center}
+}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+@media (max-width:560px){.two{grid-template-columns:1fr}}
+.box{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:.6rem .8rem}
+.box h3{margin:0 0 .3rem;font-size:1rem}
+.box ul{margin:0;padding-left:1.2em}
+.box li{margin:.1rem 0;line-height:1.6}
+.box.stop{border-color:var(--stop)}
+.box.stop h3{color:var(--stop)}
+.box.ok{border-color:var(--ok)}
+.box.ok h3{color:var(--ok)}
+
+/* 手順 */
+.steps{padding-left:0;list-style:none;counter-reset:st;margin:var(--s2) 0}
+.steps > li{counter-increment:st;position:relative;padding:.1rem 0 .1rem 2.4rem;margin:0 0 var(--s2)}
+.steps > li::before{content:counter(st);position:absolute;left:0;top:.15rem;width:1.8rem;height:1.8rem;border-radius:50%;background:var(--accent);color:var(--bg);font-weight:700;text-align:center;line-height:1.8rem;font-size:.95rem}
+.steps > li > strong{display:block}
+.tag{display:inline-block;font-size:.8rem;border:1px solid var(--line);border-radius:999px;padding:0 .5em;color:var(--muted);vertical-align:.1em}
+
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:8px;margin:var(--s2) 0}
+table{border-collapse:collapse;width:100%;min-width:30rem;font-size:.875rem;line-height:1.6}
+th,td{border-bottom:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+tr:last-child td{border-bottom:0}
+
+.note{border-left:4px solid var(--accent);background:var(--accent-bg);padding:.6rem .9rem;border-radius:0 8px 8px 0;margin:var(--s2) 0}
+.note p{margin:0}
+footer{max-width:46rem;margin:0 auto;padding:0 var(--s2) var(--s4);color:var(--muted);font-size:.875rem}
+h2,h3,section{scroll-margin-top:calc(var(--band-h) + .5rem)}
+</style>
+</head>
+<body>
+<div class="band" data-chrome aria-hidden="true">
+  <div class="band-in">
+    <div class="band-title">三田さんへ: line-bot の始め方</div>
+    <div class="band-now" id="band-now">最初の約束</div>
+  </div>
+</div>
+
+<main>
+<h1>三田さんへ: line-bot の<wbr>始め方</h1>
+<p class="lead">三田さんが line-bot に最初の PR を出すまでの 1 枚です。細かい決まりは repo の <code>docs/CONTRIBUTING.md</code> にあります（repo は private なので、招待を受けてから開けます）。</p>
+
+<section id="rule" data-band="最初の約束">
+<div class="rule" role="note">
+  <p class="big">line-bot では、マージボタンを押さないでください。</p>
+  <p>押すと本番の入口で止まり、拓也のデプロイも一緒に止まります（理由は 1 章）。GitHub コネクタのマージ・自動マージも同じです。Approve は拓也がマージの合図に使うので、これも押さないでください。GitHub の Web 画面でファイルを編集して commit するのも、main の更新になるのでやめてください。</p>
+  <p>もし押してしまったら、自分で戻さず（revert も main の更新になります）、すぐ LINE の作業グループに書いてください。拓也が解除します。</p>
+</div>
+</section>
+
+<nav class="toc" aria-label="目次">
+<ol>
+  <li><a href="#why">なぜ押さないのか</a></li>
+  <li><a href="#flow">全体の流れ</a></li>
+  <li><a href="#first">最初の 1 本（殻の確認 PR）</a></li>
+  <li><a href="#branch">枝（branch）と Issue の札（label）</a></li>
+  <li><a href="#guard">番人が止める操作</a></li>
+  <li><a href="#tests">PR のテストと赤い CI</a></li>
+  <li><a href="#broken">壊れたときに見る所</a></li>
+</ol>
+</nav>
+
+<section id="why" data-band="1. なぜ押さないのか">
+<h2>1. なぜ押さないのか</h2>
+<div class="fig" role="figure" aria-labelledby="cap-why">
+  <ol class="flow">
+    <li class="me"><span class="who">三田さんの操作</span><strong>マージボタンを押す</strong>main が三田さんの名前で更新される</li>
+    <li class="arrow" aria-hidden="true">→</li>
+    <li class="stop"><span class="who">本番の入口（Cloud Build の最初の段＝門）</span><strong>門が止める</strong>main を更新したのが拓也でなければ本番に出さない</li>
+    <li class="arrow" aria-hidden="true">→</li>
+    <li class="stop"><span class="who">その結果</span><strong>拓也のデプロイも止まる</strong>拓也が解除するまで、次のデプロイも同じ門で止まる</li>
+  </ol>
+  <p class="fig-cap" id="cap-why">図1: 三田さんが main を更新したときに起きること（赤＝止まる）</p>
+</div>
+<p>line-bot は main が更新されると、そのまま本番の LINE Bot にデプロイされます。ドライバーが配送中に使っているので、拓也が見ていない更新は本番の入口にある<strong>門</strong>（デプロイの最初の段の検査）で止めています。</p>
+<p>門が見るのは「誰が main を更新したか」です。三田さんの PR を拓也がマージするのは拓也の更新なので通ります。三田さんがマージボタンを押すと三田さんの更新になります。門はそれが本番に出るまでの範囲に残る限り止め続けるので、拓也が解除するまで拓也の修正も出せません。</p>
+<p>もう 1 つ、三田さんが作者のコミットが基盤のファイル（<code>.claude/</code>・<code>.github/</code>・<code>cloudbuild.yaml</code>・<code>Dockerfile</code>・<code>CLAUDE.md</code> など・5 章）に触れていると、拓也がマージしても門が止めます（<code>docs/TODO.md</code> と門の試験 2 本だけは門でなく番人が止めます）。基盤を触らない理由はこれです。</p>
+</section>
+
+<section id="flow" data-band="2. 全体の流れ">
+<h2>2. 全体の流れ</h2>
+<div class="fig" role="figure" aria-labelledby="cap-flow">
+  <ol class="flow">
+    <li class="me"><span class="who">三田さん</span><strong>仕事を決める</strong>札が <code>実装OK</code> の Issue か、小さな修正</li>
+    <li class="arrow" aria-hidden="true">→</li>
+    <li class="me"><span class="who">三田さんの Claude</span><strong>枝で実装・テスト</strong><code>kodai/…</code></li>
+    <li class="arrow" aria-hidden="true">→</li>
+    <li class="me"><span class="who">三田さん</span><strong>PR を出す</strong>URL を作業グループに 1 行</li>
+    <li class="arrow" aria-hidden="true">→</li>
+    <li class="takuya"><span class="who">拓也</span><strong>Approve</strong>GitHub で</li>
+    <li class="arrow" aria-hidden="true">→</li>
+    <li class="takuya"><span class="who">拓也の Claude</span><strong>マージと見届け</strong>門・テスト・本番に載ったかを確かめる</li>
+  </ol>
+  <p class="fig-cap" id="cap-flow">図2: 青が三田さんの番、緑が拓也の番。三田さんは PR を出したら止まる</p>
+</div>
+<p>三田さんがやるのは PR を出すところまでです。拓也が Approve すると、拓也の Claude が Approve したコミットと PR の先頭が同じかを確かめてマージし、Cloud Build（門・テスト・デプロイ）と本番の <code>/version</code> で載ったことを見届けます。Approve の後に直して push したら先頭がずれてマージされないので、作業グループに「再 push した」と 1 行書いてください。</p>
+<p>PR を出すと、拓也の claude.ai の自動レビューが所見のコメントを 1 件付けます。承認ではないので、気になる所見だけ直せば十分です。</p>
+<p>枝が main から遅れて衝突したら、rebase は三田さんの Claude が自分の <code>kodai/…</code> の枝の上でやってください。</p>
+</section>
+
+<section id="first" data-band="3. 最初の 1 本（殻の確認 PR）">
+<h2>3. 最初の 1 本（殻の確認 PR）</h2>
+<p>最初の PR は、ドライバーに見えない「殻の確認」です。<strong>殻</strong>は claude.ai/code で line-bot を開いたときのセッションの環境のことで、三田さんの殻でも line-bot の仕組み（起動の案内と、間違えやすい操作を止める<strong>番人</strong>＝5 章）が働くかを測ります。この PR は拓也が読んで閉じます（マージしません）。</p>
+<ol class="steps">
+  <li><strong>招待を受けて line-bot を開く</strong>GitHub の招待を受けたら、claude.ai/code で <code>mushataku/line-bot</code> を開きます。repo の一覧に出てこなければ、作業グループに書いてください（拓也側の設定で直します）。</li>
+  <li><strong>環境変数を足す <span class="tag">任意</span></strong>claude.ai の環境設定に <code>LINEBOT_GUEST=1</code> を足すと、起動時の待ち 20 秒が消えます。起動時に「拓也の殻か三田さんの殻か」を見分けるため最長 20 秒待っていて、足すと三田さんの殻だとすぐ決まります。足しても害はなく、足さなくても約 41 秒で動きます。</li>
+  <li><strong>Claude に頼む</strong>「<code>docs/CONTRIBUTING.md</code> の §2 にある殻の確認の 6 項を測って、<code>kodai/0-shell-check</code> から PR を出して」と頼みます。Claude は最初に切られた <code>claude/…</code> の枝から <code>git switch -c kodai/0-shell-check</code> で切り直します。止まるはずの操作は全部 <code>--dry-run</code> か取り消せる形で撃ち、本物の main への push はしません。止まらなかった操作で変わったものは push せずに捨てます（捨て方は <code>docs/CONTRIBUTING.md</code> §2 の項目 3）。PR は Create PR ボタンで出します（claude.ai/code の GitHub の通り道が <code>gh pr create</code> の GraphQL を通さないことがあります）。ボタンが出ない・<code>claude/…</code> の枝から出そうになるときは、Claude に REST（<code>POST …/pulls</code>）で <code>kodai/0-shell-check</code> から出させます。</li>
+  <li><strong>PR に表を貼る</strong>差分は結果の表を書いた 1 ファイル（<code>docs/shell-check/kodai.md</code>）だけです。PR 本文にも同じ表（項目・期待・実測・コマンドと出力の要点）を貼り、PR テンプレートの残りの欄も埋め、テストの欄には撃った pytest の出力を貼ります（本文は Claude に REST の <code>PATCH …/pulls/&lt;番号&gt;</code> で書かせても、Web 画面の PR 本文の編集で直してもかまいません。本文の編集は main を変えません）。止まった操作は止まった文言を、止まらなかった操作はそのまま書けば正解です。</li>
+  <li><strong>作業グループに URL を 1 行</strong>いつも拓也と依頼をやり取りしている LINE の作業グループに PR の URL を貼って、拓也が閉じるのを待ちます。</li>
+  <li><strong>次の 1 本</strong>拓也が殻の確認 PR を閉じたら、Issue #6 に進みます。LINE の送信や AI の月の上限に当たったとき、いまは黙って失敗しているので、それを知らせる仕組みとドライバーへの一言を足す仕事です（札 <code>実装OK</code>）。</li>
+</ol>
+<div class="tbl" tabindex="0" role="region" aria-labelledby="h-six">
+<table>
+  <caption id="h-six" style="text-align:left;font-weight:700;padding:.45rem .6rem">殻の確認の 6 項</caption>
+  <thead><tr><th scope="col">項目</th><th scope="col">期待</th></tr></thead>
+  <tbody>
+    <tr><td>1. 素性</td><td><code>CLAUDE_CODE_REMOTE</code>・<code>CLAUDE_PROJECT_DIR</code>・<code>LINEBOT_GUEST</code> の値と <code>python3</code> の版が出る</td></tr>
+    <tr><td>2. 自分の枝への push</td><td><code>kodai/0-shell-check</code> への push が通る</td></tr>
+    <tr><td>3. 番人が止める</td><td><code>git push --dry-run origin HEAD:main</code>・<code>claude/</code> の枝への <code>push --dry-run</code>・<code>[skip ci]</code> つきの commit・<code>cloudbuild.yaml</code> の編集が止まる</td></tr>
+    <tr><td>4. 起動の案内</td><td><code>[guest_guard] …</code> の案内が文脈に入り、起動時に Python の依存（<code>requirements.txt</code>）の導入が終わっている</td></tr>
+    <tr><td>5. 起動の秒数</td><td>起動にかかった秒数（<code>LINEBOT_GUEST=1</code> の有無も）</td></tr>
+    <tr><td>6. コネクタの道具</td><td>GitHub コネクタの道具の一覧（マージ系が在っても使わない）</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section id="branch" data-band="4. 枝（branch）と Issue の札（label）">
+<h2>4. 枝（branch）と Issue の札（label）</h2>
+<div class="fig" role="figure" aria-labelledby="cap-branch">
+  <div class="two">
+    <div class="box ok"><h3>使う枝</h3><ul><li><code>kodai/&lt;番号&gt;-&lt;話題&gt;</code></li><li>例: <code>kodai/6-limit-alert</code>（番号は Issue の番号。Issue が無い小さな修正は <code>0</code>）</li></ul></div>
+    <div class="box stop"><h3>使わない枝</h3><ul><li><code>main</code></li><li><code>claude/…</code>（誰が作ったものでも拓也の機械が毎時片付ける。claude.ai/code が最初に切る枝もこれなので切り直す）</li></ul></div>
+  </div>
+  <p class="fig-cap" id="cap-branch">図3: 三田さんの枝は <code>kodai/</code> で始まるものだけ</p>
+</div>
+<p>Issue の札は 2 つです。<code>設計判断待ち</code> は拓也の答え待ちで、まだ実装しません。<code>実装OK</code> が付いたら実装してよい合図です。</p>
+<p>ドライバーの操作が変わる・新しい外部サービスやお金が要る・優先順位が絡む、のどれかに触れるなら Issue で拓也に聞いてください。触れない小さな修正は Issue なしで PR から直接で構いません。</p>
+</section>
+
+<section id="guard" data-band="5. 番人が止める操作">
+<h2>5. 番人が止める操作</h2>
+<div class="fig" role="figure" aria-labelledby="cap-guard">
+  <div class="two">
+    <div class="box stop"><h3>番人が止める（Claude の操作）</h3><ul>
+      <li>main への push・Claude からのマージ</li>
+      <li><code>kodai/</code> 以外の枝への push と削除</li>
+      <li><code>[skip ci]</code> などの印つきの commit</li>
+      <li>コネクタのマージ・自動マージ・Approve</li>
+      <li>基盤のファイルの編集（<code>.claude/</code>・<code>.github/</code>・<code>cloudbuild.yaml</code>・<code>Dockerfile</code>・<code>CLAUDE.md</code>・<code>docs/instructions/</code>・<code>docs/TODO.md</code>・門の script など）</li>
+    </ul></div>
+    <div class="box ok"><h3>通る</h3><ul>
+      <li>読むことは全部</li>
+      <li><code>kodai/…</code> への push と削除</li>
+      <li>PR の作成（Create PR ボタン）とコメント</li>
+      <li>アプリのコードとテスト（基盤を除く）</li>
+      <li><code>docs/SPEC.md</code>・<code>docs/KNOWLEDGE.md</code>・<code>requirements.txt</code></li>
+    </ul></div>
+  </div>
+  <p class="fig-cap" id="cap-guard">図4: 三田さんの殻の番人（<code>guest_guard</code>）の線。GitHub の Web 画面の操作は番人の外</p>
+</div>
+<p>三田さんの殻には、間違えやすい操作を止める<strong>番人</strong>（起動時に読み込まれる hook）が入っています。止めたときは理由と、<code>docs/CONTRIBUTING.md</code> のどの節を見ればよいかを出します。</p>
+<p>番人は Claude の操作の字面を読む補助です。GitHub の Web 画面での直接の編集やマージボタンは番人の外なので、使わないでください。使うと 1 章の門が止め、拓也のデプロイも一緒に止まります。</p>
+</section>
+
+<section id="tests" data-band="6. PR のテストと赤い CI">
+<h2>6. PR のテストと赤い CI</h2>
+<p>PR のテストの証拠は、三田さんの殻で撃った <code>python -m pytest -q -m "not integration"</code> の出力です。PR 本文にそのまま貼ってください。PR の前に、文脈を持たないサブエージェントに diff だけを渡した自己レビューの所見も貼ります（PR テンプレートに欄があります）。</p>
+<div class="note"><p>CI の <code>pr-tests</code> は、2026 年 12 月 1 日（火）9:00（日本時間）まで数秒で赤になります。拓也のアカウントの Actions の月の枠が切れているためで、コードの赤ではありません。三田さんの Claude はこの赤の通知で起こされることがありますが、直そうとしなくて大丈夫です。</p></div>
+<p>本番に出る前には、Cloud Build のテストの段が同じ pytest を必ず撃ちます。赤ならデプロイされません。</p>
+</section>
+
+<section id="broken" data-band="7. 壊れたときに見る所">
+<h2>7. 壊れたときに見る所</h2>
+<div class="tbl" tabindex="0" role="region" aria-labelledby="h-broken">
+<table>
+  <caption id="h-broken" style="text-align:left;font-weight:700;padding:.45rem .6rem">見る所</caption>
+  <thead><tr><th scope="col">知りたいこと</th><th scope="col">見る所</th></tr></thead>
+  <tbody>
+    <tr><td>デプロイが止まった・失敗した</td><td>Issue の札 <code>deploy-failed</code>・<code>main-push-by-other</code>（拓也の PC の見張りが立てる。repo を watch していれば GitHub から届く）</td></tr>
+    <tr><td>マージした PR が本番に載ったか</td><td>本番の <code>/version</code> の <code>sha</code>（URL は <code>docs/CONTRIBUTING.md</code> §8）</td></tr>
+    <tr><td>本番のログ</td><td>読み口が付与されたら、その URL が <code>docs/CONTRIBUTING.md</code> §8 に載る（いまは無い）</td></tr>
+    <tr><td>迷った・押してしまった</td><td>Issue か、拓也と三田さんの LINE の作業グループ</td></tr>
+  </tbody>
+</table>
+</div>
+<p>決まりの全文は <a href="https://github.com/mushataku/line-bot/blob/main/docs/CONTRIBUTING.md">docs/CONTRIBUTING.md</a> です（招待を受けてから開けます）。</p>
+</section>
+</main>
+<footer data-chrome>line-bot（<code>mushataku/line-bot</code>）の共同開発の始め方</footer>
+
+<script>
+(function(){
+  var now=document.getElementById('band-now');
+  var secs=[].slice.call(document.querySelectorAll('main section[data-band]'));
+  if(!now||!secs.length) return;
+  function pick(){
+    var bandH=document.querySelector('.band').getBoundingClientRect().height;
+    var cur=secs[0];
+    for(var i=0;i<secs.length;i++){
+      if(secs[i].getBoundingClientRect().top - bandH <= 8) cur=secs[i];
+    }
+    if((window.innerHeight+window.scrollY)>=document.documentElement.scrollHeight-2) cur=secs[secs.length-1];
+    var t=cur.getAttribute('data-band');
+    if(now.textContent!==t) now.textContent=t;
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(pick,{rootMargin:'-60px 0px -60% 0px',threshold:[0,1]});
+    secs.forEach(function(s){io.observe(s)});
+  }
+  window.addEventListener('scroll',pick,{passive:true});
+  window.addEventListener('resize',pick);
+  window.addEventListener('hashchange',function(){setTimeout(pick,50)});
+  pick();
+})();
+</script>
+</body>
+</html>
