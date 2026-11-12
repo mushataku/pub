@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>FDE（フォワードデプロイドエンジニア）とは</title>
+<style>
+:root{
+  --bg:#fbfaf7;--surface:#fff;--ink:#1f2328;--muted:#4a5159;--line:#d9d6cd;--accent:#0b5c8a;--accent-soft:#e3f0f7;--warn:#7a4b00;--warn-soft:#fff3d9;
+  --fs:17px;--lh:1.85;--gap:clamp(20px,4vw,32px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#14171a;--surface:#1c2024;--ink:#e8eaed;--muted:#b4bac1;--line:#3a4047;--accent:#7cc4ec;--accent-soft:#1b2d38;--warn:#f1c77a;--warn-soft:#352a12}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic Medium","Yu Gothic","Noto Sans JP","Meiryo",sans-serif;font-size:var(--fs);line-height:var(--lh);letter-spacing:.01em;overflow-wrap:anywhere}
+.band{position:sticky;top:0;z-index:10;background:var(--surface);border-bottom:1px solid var(--line);padding:8px 16px}
+.band-in{max-width:44em;margin:0 auto;display:flex;flex-direction:column;gap:2px}
+.band-title{font-size:15px;font-weight:700;line-height:1.4}
+.band-now{font-size:15px;color:var(--muted);line-height:1.4}
+.band-now b{color:var(--accent);font-weight:700}
+main{max-width:44em;margin:0 auto;padding:var(--gap) 16px 64px}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere;line-height:1.5;letter-spacing:0}
+h1{font-size:clamp(24px,6vw,32px);margin:.2em 0 .5em}
+h2{font-size:clamp(20px,4.6vw,24px);margin:0 0 .6em;padding-left:.6em;border-left:5px solid var(--accent)}
+@supports (word-break:auto-phrase){main :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
+section{margin:0 0 calc(var(--gap)*1.6)}
+p{margin:0 0 1em;max-width:40em}
+.lead{font-size:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:0 0 1em}
+.note{background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:14px 18px;margin:0 0 1em;max-width:40em}
+.small{font-size:16px;color:var(--muted)}
+.tablewrap{overflow-x:auto;margin:0 0 1em}
+table{border-collapse:collapse;width:100%;min-width:0;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:8px 8px;text-align:left;vertical-align:top;font-size:16px;line-height:1.6}
+th{background:var(--accent-soft)}
+svg{display:block;width:100%;height:auto;margin:0 0 1em}
+svg text{font-family:inherit;fill:var(--ink)}
+.fbox{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+.farrow{stroke:var(--accent);stroke-width:2.5;fill:none}
+.axis{stroke:var(--line);stroke-width:3}
+ul{margin:0 0 1em;padding-left:1.3em}
+li{margin:0 0 .5em;max-width:40em}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 1.6em;padding:0;list-style:none}
+.toc a{display:inline-block;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--accent);text-decoration:none;font-size:16px;background:var(--surface)}
+.toc a:focus-visible,.toc a:hover{outline:2px solid var(--accent)}
+.tag{display:inline-block;font-size:14px;border:1px solid var(--accent);color:var(--accent);border-radius:4px;padding:0 6px;margin-right:6px;line-height:1.6}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="band" data-chrome>
+  <div class="band-in">
+    <div class="band-title">FDE（フォワードデプロイドエンジニア）とは</div>
+    <div class="band-now" aria-live="off">いまの節：<b id="now">はじめに</b></div>
+  </div>
+</div>
+<main>
+<h1>FDE（フォワードデプロイドエンジニア）とは</h1>
+<p class="lead">面談で話に出た FDE を、あとから読み返せるように1枚にまとめました。スマホで2〜3スクロールで読めます。「こういう働き方もある」という紹介で、いまの仕事選びをこれに決める必要はありません。</p>
+<ul class="toc" data-chrome>
+  <li><a href="#s1">1 FDEとは</a></li>
+  <li><a href="#s2">2 ほかとの違い</a></li>
+  <li><a href="#s3">3 いま起きていること</a></li>
+  <li><a href="#s4">4 要る力</a></li>
+  <li><a href="#s5">5 なるまでの道</a></li>
+  <li><a href="#s6">6 よくある誤解</a></li>
+  <li><a href="#s7">7 今日からできること</a></li>
+</ul>
+
+<section id="s1" data-nav="1 FDEとは">
+<h2>1 FDEとは</h2>
+<p><b>お客様の現場に入り込み、課題を見つけるところから、作って変えるところまで、自分で持っていく技術者</b>です。</p>
+<svg viewBox="0 0 640 150" role="img" aria-label="現場に入る、課題を見つける、作る、変わるまで見届ける の4段階の流れ図">
+  <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--accent)"/></marker></defs>
+  <rect class="fbox" x="8" y="30" width="132" height="90" rx="10"/><text x="74" y="70" text-anchor="middle" font-size="18" font-weight="700">現場に入る</text><text x="74" y="96" text-anchor="middle" font-size="14">業務を丸ごと見る</text>
+  <path class="farrow" d="M142,75 L170,75" marker-end="url(#ar)"/>
+  <rect class="fbox" x="172" y="30" width="132" height="90" rx="10"/><text x="238" y="70" text-anchor="middle" font-size="18" font-weight="700">課題を見つける</text><text x="238" y="96" text-anchor="middle" font-size="14">何が詰まるか</text>
+  <path class="farrow" d="M306,75 L334,75" marker-end="url(#ar)"/>
+  <rect class="fbox" x="336" y="30" width="132" height="90" rx="10"/><text x="402" y="70" text-anchor="middle" font-size="18" font-weight="700">作る</text><text x="402" y="96" text-anchor="middle" font-size="14">自分で実装する</text>
+  <path class="farrow" d="M470,75 L498,75" marker-end="url(#ar)"/>
+  <rect class="fbox" x="500" y="30" width="132" height="90" rx="10"/><text x="566" y="70" text-anchor="middle" font-size="18" font-weight="700">変わるまで</text><text x="566" y="96" text-anchor="middle" font-size="14">見届ける</text>
+</svg>
+<p>ポイントは、4つ全部を同じ人が持つことです。</p>
+</section>
+
+<section id="s2" data-nav="2 ほかとの違い">
+<h2>2 ふつうのエンジニア・コンサルとの違い</h2>
+<div class="tablewrap" role="region" aria-labelledby="s2" tabindex="0">
+<table>
+<thead><tr><th></th><th>エンジニア</th><th>コンサル</th><th>FDE</th></tr></thead>
+<tbody>
+<tr><th>いる場所</th><td>自社の開発の席</td><td>お客様のところ</td><td>お客様の現場の中</td></tr>
+<tr><th>主に話す相手</th><td>社内のチーム</td><td>経営層・担当部署</td><td>現場と決める人の両方</td></tr>
+<tr><th>作るところ</th><td>作る</td><td>作らない（提案まで）</td><td>自分で作る</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small">表は一般的な傾向をまとめたもので、会社や案件で幅があります。</p>
+</section>
+
+<section id="s3" data-nav="3 いま起きていること">
+<h2>3 どこから来た言葉か、いま何が起きているか</h2>
+<p>この職種を広めた会社として知られているのが、アメリカのデータ分析企業 Palantir です。お客様の現場に技術者を送り込み、現場で課題を見つけて作る、というやり方でした。</p>
+<p>最近は生成AIの会社が同じ形を取り入れています。AI を導入しても、使える形で業務に入らなければ成果にならないためです。報道によると、OpenAI は2024年初めに FDE のチームを作って人を増やしていて、Anthropic も応用側のチームを大きく増やす計画です。大手求人検索サイトの統計では、FDE の求人が2025年1〜9月で8倍以上になったとされています。</p>
+<p class="small">もとの数が小さいので、倍率は勢いの目安として見てください。日本でも募集は出始めています。公開されている国内の募集の一例では、年収は800〜1,200万円で、必要な経験に Python と生成AIの API を使った開発の実務が入っていました。年収は案件で幅が大きく、数字は目安です。（出典は内部メモに保管）</p>
+</section>
+
+<section id="s4" data-nav="4 要る力">
+<h2>4 どんな力が要るか</h2>
+<div class="card"><p><span class="tag">技術</span><b>コードで作り切る力</b>。設計して、動くものを自分で仕上げます。</p>
+<p><span class="tag">業務</span><b>お客様の仕事の流れを読む力</b>。どこで人が困り、何がボトルネックかを見つけます。</p>
+<p><span class="tag">対話</span><b>現場と決める人の両方と話す力</b>。聞き出し、分かる言葉に直して、合意を取ります。</p></div>
+<p>3つのうち、技術だけでも、対話だけでも足りません。掛け算になる職種です。</p>
+</section>
+
+<section id="s5" data-nav="5 なるまでの道">
+<h2>5 なるまでの道筋（5〜10年の見立て）</h2>
+<svg viewBox="0 0 640 170" role="img" aria-label="0から3〜5年は土台、3〜5年から10年は上流・お客様と話す仕事、その先がFDEの道筋">
+  <line class="axis" x1="20" y1="110" x2="620" y2="110"/>
+  <rect class="fbox" x="20" y="40" width="190" height="56" rx="8"/><text x="115" y="64" text-anchor="middle" font-size="16" font-weight="700">土台（3〜5年）</text><text x="115" y="84" text-anchor="middle" font-size="13">インフラ・開発・機電</text>
+  <rect class="fbox" x="225" y="40" width="190" height="56" rx="8"/><text x="320" y="64" text-anchor="middle" font-size="16" font-weight="700">上流・お客様と話す</text><text x="320" y="84" text-anchor="middle" font-size="13">要件を決める側へ</text>
+  <rect class="fbox" x="430" y="40" width="190" height="56" rx="8"/><text x="525" y="64" text-anchor="middle" font-size="16" font-weight="700">FDE（10年前後）</text><text x="525" y="84" text-anchor="middle" font-size="13">チームを率いる立場も</text>
+  <text x="20" y="140" font-size="14">いま</text><text x="320" y="140" text-anchor="middle" font-size="14">5年</text><text x="620" y="140" text-anchor="end" font-size="14">10年</text>
+</svg>
+<div class="note"><b>正直に書くと</b>、いまの求人のなかに、FDE そのものはほとんどありません。1社目の仕事として目指す職種ではなく、5〜10年先の姿の一つです。この道筋は武者野の見立てで、決まった制度ではありません。</div>
+<ul>
+<li>土台は1つに決まっていません。インフラ・開発・機電のどれからでも入れます。</li>
+<li>いまの会社に残って、インフラから上流を目指す道も、同じ方向です。</li>
+<li>逆算すると、多くの人に足りないのは「コードで作り切った経験」です。お客様の業務の理解と話す力は、いまの仕事でも積めます。</li>
+</ul>
+</section>
+
+<section id="s6" data-nav="6 よくある誤解">
+<h2>6 よくある誤解</h2>
+<div class="card">
+<p><b>誤解：</b>会社の問題点を見つけて、キーパーソンに話を持ちかけ、仕組みを変える人。</p>
+<p><b>抜けているところ：</b>FDE は<b>作るところまで自分で持ちます</b>。見つけて提案して終わりなら、コンサルの仕事です。</p>
+</div>
+<p>面接で説明するときも、この一点を落とさないでください。</p>
+</section>
+
+<section id="s7" data-nav="7 今日からできること">
+<h2>7 今日からできること</h2>
+<ul>
+<li><b>小さく1本作ってみる。</b>身の回りの手作業を1つ選び、Python などで自動にしてみる。</li>
+<li><b>いまの仕事の流れを書き出す。</b>誰が何を渡していて、どこで止まるかを紙に描く。</li>
+<li><b>人に説明してみる。</b>作ったものを、使う人に分かる言葉で話してみる。</li>
+</ul>
+<p class="small">この資料についての質問は、担当の武者野までLINEで気軽にどうぞ。</p>
+</section>
+</main>
+<footer data-chrome style="max-width:42rem;margin:0 auto;padding:0 16px 3rem;font-size:14px">武者野 拓也　作成</footer>
+<script>
+(function(){
+  try{
+    var now=document.getElementById('now');
+    var secs=[].slice.call(document.querySelectorAll('section[data-nav]'));
+    if(!now||!secs.length||!('IntersectionObserver' in window))return;
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){now.textContent=e.target.getAttribute('data-nav');}});
+    },{rootMargin:'-80px 0px -65% 0px'});
+    secs.forEach(function(s){io.observe(s);});
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
