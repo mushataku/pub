@@ -118,7 +118,7 @@ h2,h3,section{scroll-margin-top:calc(var(--band-h) + .5rem)}
 <section id="rule" data-band="最初の約束">
 <div class="rule" role="note">
   <p class="big">自分の PR は、三田さん自身でマージしてよい（マージ＝本番に出る）。触らないのは拓也の基盤だけ。</p>
-  <p>拓也の確認は要りません。触らない拓也の基盤は、<code>.claude/</code>・<code>.github/</code>・<code>docs/instructions/</code>・どの階層でも <code>CLAUDE.md</code>・<code>cloudbuild.yaml</code>・<code>Dockerfile</code>・<code>docs/TODO.md</code>・門と見張りの script 4 本（5 章に全部あります）です。</p>
+  <p>拓也の確認は要りません。触らない拓也の基盤は、<code>.claude/</code>・<code>.github/</code>・<code>docs/instructions/</code>・どの階層でも <code>CLAUDE.md</code>・<code>cloudbuild.yaml</code>・<code>docs/TODO.md</code>・門と見張りの script 4 本（5 章に全部あります）です。</p>
   <p>基盤に触れる変更が要るときは、自分でマージせず PR を出して、LINE の作業グループで拓也に頼んでください（拓也がマージし、門の解除も拓也がします）。触れたままマージすると、本番の入口の門が止まり、拓也と三田さんのデプロイが両方止まります（1 章）。</p>
   <p>main への直接の push と、GitHub の Web 画面での main のファイルの直接編集はしません（PR が記録になります）。Approve も使いません。</p>
 </div>
@@ -149,7 +149,7 @@ h2,h3,section{scroll-margin-top:calc(var(--band-h) + .5rem)}
   <p class="fig-cap" id="cap-why">図1: 基盤に触れたままマージしたときに起きること（赤＝止まる）</p>
 </div>
 <p>line-bot は main が更新されると、そのまま本番の LINE Bot にデプロイされます。ドライバーが配送中に使っているので、デプロイの最初の段にある<strong>門</strong>で検査しています。</p>
-<p>基盤は、拓也の Claude が動くための仕組み（<code>.claude/</code> や <code>CLAUDE.md</code>）と、デプロイそのものを決めるファイル（<code>cloudbuild.yaml</code>・<code>Dockerfile</code>・門と見張りの script）です。ここが三田さんの更新で変わると、門は本番に出しません。止まったデプロイは拓也が解除するまで止まり続けるので、拓也の修正も出せなくなります。</p>
+<p>基盤は、拓也の Claude が動くための仕組み（<code>.claude/</code> や <code>CLAUDE.md</code>）と、デプロイそのものを決めるファイル（<code>cloudbuild.yaml</code>・門と見張りの script）です。ここが三田さんの更新で変わると、門は本番に出しません。止まったデプロイは拓也が解除するまで止まり続けるので、拓也の修正も出せなくなります。</p>
 <p>基盤の外（アプリのコード・テスト・<code>docs/SPEC.md</code>・<code>docs/KNOWLEDGE.md</code>・<code>requirements.txt</code>）は、三田さんが自分でマージして本番に出して大丈夫です。</p>
 </section>
 
@@ -234,7 +234,7 @@ h2,h3,section{scroll-margin-top:calc(var(--band-h) + .5rem)}
       <li><code>[skip ci]</code> などの印つきの commit</li>
       <li>Approve（自分の PR には要らない）</li>
       <li>PR を経ないマージや ref の更新（API で直接）</li>
-      <li>基盤のファイルの編集（<code>.claude/</code>・<code>.github/</code>・<code>cloudbuild.yaml</code>・<code>Dockerfile</code>・どの階層でも <code>CLAUDE.md</code>・<code>docs/instructions/</code>・<code>docs/TODO.md</code>・<code>scripts/deploy_gate.py</code>・<code>scripts/dev_safety_notify.py</code>・<code>tests/test_deploy_gate.py</code>・<code>tests/test_dev_safety_notify.py</code>）</li>
+      <li>基盤のファイルの編集（<code>.claude/</code>・<code>.github/</code>・<code>cloudbuild.yaml</code>・どの階層でも <code>CLAUDE.md</code>・<code>docs/instructions/</code>・<code>docs/TODO.md</code>・<code>scripts/deploy_gate.py</code>・<code>scripts/dev_safety_notify.py</code>・<code>tests/test_deploy_gate.py</code>・<code>tests/test_dev_safety_notify.py</code>）</li>
     </ul></div>
     <div class="box ok"><h3>通る</h3><ul>
       <li>読むことは全部</li>
