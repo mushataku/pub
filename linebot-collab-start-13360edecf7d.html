@@ -113,19 +113,20 @@ h2,h3,section{scroll-margin-top:calc(var(--band-h) + .5rem)}
 
 <main>
 <h1>三田さんへ: line-bot の<wbr>始め方</h1>
-<p class="lead">三田さんが line-bot に最初の PR を出すまでの 1 枚です。細かい決まりは repo の <code>docs/CONTRIBUTING.md</code> にあります（repo は private なので、招待を受けてから開けます）。</p>
+<p class="lead">三田さんが line-bot に最初の PR を出すまでの 1 枚です。言葉の意味: <strong>殻</strong>＝claude.ai/code で line-bot を開いたときのセッションの環境、<strong>基盤</strong>＝拓也の Claude が使う仕組みとデプロイを決めるファイル、<strong>門</strong>＝本番に出る前の最初の検査、<strong>番人</strong>＝殻で間違えやすい操作を止める仕組み、<strong>札</strong>＝Issue のラベル、<strong>コネクタ</strong>＝claude.ai と GitHub をつなぐ接続。細かい決まりは repo の <code>docs/CONTRIBUTING.md</code> にあります（repo は private なので、招待を受けてから開けます）。</p>
 
 <section id="rule" data-band="最初の約束">
 <div class="rule" role="note">
-  <p class="big">line-bot では、マージボタンを押さないでください。</p>
-  <p>押すと本番の入口で止まり、拓也のデプロイも一緒に止まります（理由は 1 章）。GitHub コネクタのマージ・自動マージも同じです。Approve は拓也がマージの合図に使うので、これも押さないでください。GitHub の Web 画面でファイルを編集して commit するのも、main の更新になるのでやめてください。</p>
-  <p>もし押してしまったら、自分で戻さず（revert も main の更新になります）、すぐ LINE の作業グループに書いてください。拓也が解除します。</p>
+  <p class="big">自分の PR は、三田さん自身でマージしてよい（マージ＝本番に出る）。触らないのは拓也の基盤だけ。</p>
+  <p>拓也の確認は要りません。触らない拓也の基盤は、<code>.claude/</code>・<code>.github/</code>・<code>docs/instructions/</code>・どの階層でも <code>CLAUDE.md</code>・<code>cloudbuild.yaml</code>・<code>Dockerfile</code>・<code>docs/TODO.md</code>・門と見張りの script 4 本（5 章に全部あります）です。</p>
+  <p>基盤に触れる変更が要るときは、自分でマージせず PR を出して、LINE の作業グループで拓也に頼んでください（拓也がマージし、門の解除も拓也がします）。触れたままマージすると、本番の入口の門が止まり、拓也と三田さんのデプロイが両方止まります（1 章）。</p>
+  <p>main への直接の push と、GitHub の Web 画面での main のファイルの直接編集はしません（PR が記録になります）。Approve も使いません。</p>
 </div>
 </section>
 
 <nav class="toc" aria-label="目次">
 <ol>
-  <li><a href="#why">なぜ押さないのか</a></li>
+  <li><a href="#why">なぜ基盤だけは触らないのか</a></li>
   <li><a href="#flow">全体の流れ</a></li>
   <li><a href="#first">最初の 1 本（殻の確認 PR）</a></li>
   <li><a href="#branch">枝（branch）と Issue の札（label）</a></li>
@@ -135,21 +136,21 @@ h2,h3,section{scroll-margin-top:calc(var(--band-h) + .5rem)}
 </ol>
 </nav>
 
-<section id="why" data-band="1. なぜ押さないのか">
-<h2>1. なぜ押さないのか</h2>
+<section id="why" data-band="1. なぜ基盤だけは触らないのか">
+<h2>1. なぜ基盤だけは触らないのか</h2>
 <div class="fig" role="figure" aria-labelledby="cap-why">
   <ol class="flow">
-    <li class="me"><span class="who">三田さんの操作</span><strong>マージボタンを押す</strong>main が三田さんの名前で更新される</li>
+    <li class="me"><span class="who">三田さんの操作</span><strong>基盤に触れた変更をマージ</strong>PR のマージで main が更新される</li>
     <li class="arrow" aria-hidden="true">→</li>
-    <li class="stop"><span class="who">本番の入口（Cloud Build の最初の段＝門）</span><strong>門が止める</strong>main を更新したのが拓也でなければ本番に出さない</li>
+    <li class="stop"><span class="who">本番の入口（Cloud Build の最初の段＝門）</span><strong>門が止める</strong>基盤に触れた更新は本番に出さない</li>
     <li class="arrow" aria-hidden="true">→</li>
-    <li class="stop"><span class="who">その結果</span><strong>拓也のデプロイも止まる</strong>拓也が解除するまで、次のデプロイも同じ門で止まる</li>
+    <li class="stop"><span class="who">その結果</span><strong>拓也と三田さんのデプロイが両方止まる</strong>拓也が解除するまで、次のデプロイも同じ門で止まる</li>
   </ol>
-  <p class="fig-cap" id="cap-why">図1: 三田さんが main を更新したときに起きること（赤＝止まる）</p>
+  <p class="fig-cap" id="cap-why">図1: 基盤に触れたままマージしたときに起きること（赤＝止まる）</p>
 </div>
-<p>line-bot は main が更新されると、そのまま本番の LINE Bot にデプロイされます。ドライバーが配送中に使っているので、拓也が見ていない更新は本番の入口にある<strong>門</strong>（デプロイの最初の段の検査）で止めています。</p>
-<p>門が見るのは「誰が main を更新したか」です。三田さんの PR を拓也がマージするのは拓也の更新なので通ります。三田さんがマージボタンを押すと三田さんの更新になります。門はそれが本番に出るまでの範囲に残る限り止め続けるので、拓也が解除するまで拓也の修正も出せません。</p>
-<p>もう 1 つ、三田さんが作者のコミットが基盤のファイル（<code>.claude/</code>・<code>.github/</code>・<code>cloudbuild.yaml</code>・<code>Dockerfile</code>・<code>CLAUDE.md</code> など・5 章）に触れていると、拓也がマージしても門が止めます（<code>docs/TODO.md</code> と門の試験 2 本だけは門でなく番人が止めます）。基盤を触らない理由はこれです。</p>
+<p>line-bot は main が更新されると、そのまま本番の LINE Bot にデプロイされます。ドライバーが配送中に使っているので、デプロイの最初の段にある<strong>門</strong>で検査しています。</p>
+<p>基盤は、拓也の Claude が動くための仕組み（<code>.claude/</code> や <code>CLAUDE.md</code>）と、デプロイそのものを決めるファイル（<code>cloudbuild.yaml</code>・<code>Dockerfile</code>・門と見張りの script）です。ここが三田さんの更新で変わると、門は本番に出しません。止まったデプロイは拓也が解除するまで止まり続けるので、拓也の修正も出せなくなります。</p>
+<p>基盤の外（アプリのコード・テスト・<code>docs/SPEC.md</code>・<code>docs/KNOWLEDGE.md</code>・<code>requirements.txt</code>）は、三田さんが自分でマージして本番に出して大丈夫です。</p>
 </section>
 
 <section id="flow" data-band="2. 全体の流れ">
@@ -160,29 +161,38 @@ h2,h3,section{scroll-margin-top:calc(var(--band-h) + .5rem)}
     <li class="arrow" aria-hidden="true">→</li>
     <li class="me"><span class="who">三田さんの Claude</span><strong>枝で実装・テスト</strong><code>kodai/…</code></li>
     <li class="arrow" aria-hidden="true">→</li>
-    <li class="me"><span class="who">三田さん</span><strong>PR を出す</strong>URL を作業グループに 1 行</li>
+    <li class="me"><span class="who">PR の前</span><strong>自己レビュー</strong>diff だけをサブエージェントに見せる（6 章）</li>
     <li class="arrow" aria-hidden="true">→</li>
-    <li class="takuya"><span class="who">拓也</span><strong>Approve</strong>GitHub で</li>
+    <li class="me"><span class="who">三田さん</span><strong>PR を出す</strong>本文に pytest の出力と所見。URL を作業グループに 1 行</li>
     <li class="arrow" aria-hidden="true">→</li>
-    <li class="takuya"><span class="who">拓也の Claude</span><strong>マージと見届け</strong>門・テスト・本番に載ったかを確かめる</li>
+    <li class="me"><span class="who">三田さん</span><strong>自動レビューを読む</strong>拓也の routine が付ける所見のコメント</li>
+    <li class="arrow" aria-hidden="true">→</li>
+    <li class="me"><span class="who">マージの直前</span><strong>main を取り込み、pytest で緑を確認</strong>rebase か Update branch</li>
+    <li class="arrow" aria-hidden="true">→</li>
+    <li class="me"><span class="who">三田さん</span><strong>自分でマージ</strong>この時点で本番に向かう</li>
+    <li class="arrow" aria-hidden="true">→</li>
+    <li class="takuya"><span class="who">Cloud Build</span><strong>テスト</strong>赤なら本番に出ない</li>
+    <li class="arrow" aria-hidden="true">→</li>
+    <li class="takuya"><span class="who">本番</span><strong><code>/version</code> の <code>sha</code> を見る</strong>マージのコミットになれば完了</li>
   </ol>
-  <p class="fig-cap" id="cap-flow">図2: 青が三田さんの番、緑が拓也の番。三田さんは PR を出したら止まる</p>
+  <p class="fig-cap" id="cap-flow">図2: 青が三田さんの番、緑が自動の段。最後まで三田さんが見届ける</p>
 </div>
-<p>三田さんがやるのは PR を出すところまでです。拓也が Approve すると、拓也の Claude が Approve したコミットと PR の先頭が同じかを確かめてマージし、Cloud Build（門・テスト・デプロイ）と本番の <code>/version</code> で載ったことを見届けます。Approve の後に直して push したら先頭がずれてマージされないので、作業グループに「再 push した」と 1 行書いてください。</p>
-<p>PR を出すと、拓也の claude.ai の自動レビューが所見のコメントを 1 件付けます。承認ではないので、気になる所見だけ直せば十分です。</p>
-<p>枝が main から遅れて衝突したら、rebase は三田さんの Claude が自分の <code>kodai/…</code> の枝の上でやってください。</p>
+<p>PR を出すと、拓也の claude.ai の自動レビューが所見のコメントを 1 件付けます。承認ではないので、気になる所見だけ直せば十分です。自己レビューの所見と合わせて読んでから、マージします。Approve は自分の PR には要らないので使いません。</p>
+<p>マージの直前に main を取り込む理由は、PR の試験（Actions）が 2026 年 12 月 1 日まで止まっていて、機械が最初にテストするのはマージの後の Cloud Build だからです。取り込みは、三田さんの Claude が自分の枝の上で <code>git fetch origin &amp;&amp; git rebase origin/main</code> の後に <code>git push --force-with-lease origin kodai/…</code> でやるか、GitHub の <strong>Update branch</strong> ボタンでもかまいません。そのうえで <code>python -m pytest -q -m "not integration"</code> を撃ち、緑を確かめてからマージします。</p>
+<p>マージのしかたは、マージボタン・<code>gh pr merge</code>・GitHub コネクタのどれでもかまいません。マージ後は Cloud Build のテストが走り、赤ならデプロイされません。しばらくしても本番の <code>/version</code> の <code>sha</code> がマージのコミットにならないときは、デプロイが止まっています（<code>deploy-failed</code> の Issue が立つこともあります）。直す PR か revert の PR を出してください（URL は <code>docs/CONTRIBUTING.md</code> §8）。docs だけの変更は本番のビルドが起きないので、<code>/version</code> は変わりません（それで正常です）。</p>
+<p>main に赤のコミットが残ると、拓也のデプロイも止まります。直す PR か revert の PR（7 章）を出して、自分でマージしてください。</p>
 </section>
 
 <section id="first" data-band="3. 最初の 1 本（殻の確認 PR）">
 <h2>3. 最初の 1 本（殻の確認 PR）</h2>
-<p>最初の PR は、ドライバーに見えない「殻の確認」です。<strong>殻</strong>は claude.ai/code で line-bot を開いたときのセッションの環境のことで、三田さんの殻でも line-bot の仕組み（起動の案内と、間違えやすい操作を止める<strong>番人</strong>＝5 章）が働くかを測ります。この PR は拓也が読んで閉じます（マージしません）。</p>
+<p>最初の PR は、ドライバーに見えない「殻の確認」です。<strong>殻</strong>は claude.ai/code で line-bot を開いたときのセッションの環境のことで、三田さんの殻でも line-bot の仕組み（起動の案内と、間違えやすい操作を止める<strong>番人</strong>＝5 章）が働くかを測ります。この PR は docs だけの変更なので、本番のビルドは起きません。三田さんが自分でマージします。</p>
 <ol class="steps">
   <li><strong>招待を受けて line-bot を開く</strong>GitHub の招待を受けたら、claude.ai/code で <code>mushataku/line-bot</code> を開きます。repo の一覧に出てこなければ、作業グループに書いてください（拓也側の設定で直します）。</li>
   <li><strong>環境変数を足す <span class="tag">任意</span></strong>claude.ai の環境設定に <code>LINEBOT_GUEST=1</code> を足すと、起動時の待ち 20 秒が消えます。起動時に「拓也の殻か三田さんの殻か」を見分けるため最長 20 秒待っていて、足すと三田さんの殻だとすぐ決まります。足しても害はなく、足さなくても約 41 秒で動きます。</li>
   <li><strong>Claude に頼む</strong>「<code>docs/CONTRIBUTING.md</code> の §2 にある殻の確認の 6 項を測って、<code>kodai/0-shell-check</code> から PR を出して」と頼みます。Claude は最初に切られた <code>claude/…</code> の枝から <code>git switch -c kodai/0-shell-check</code> で切り直します。止まるはずの操作は全部 <code>--dry-run</code> か取り消せる形で撃ち、本物の main への push はしません。止まらなかった操作で変わったものは push せずに捨てます（捨て方は <code>docs/CONTRIBUTING.md</code> §2 の項目 3）。PR は Create PR ボタンで出します（claude.ai/code の GitHub の通り道が <code>gh pr create</code> の GraphQL を通さないことがあります）。ボタンが出ない・<code>claude/…</code> の枝から出そうになるときは、Claude に REST（<code>POST …/pulls</code>）で <code>kodai/0-shell-check</code> から出させます。</li>
   <li><strong>PR に表を貼る</strong>差分は結果の表を書いた 1 ファイル（<code>docs/shell-check/kodai.md</code>）だけです。PR 本文にも同じ表（項目・期待・実測・コマンドと出力の要点）を貼り、PR テンプレートの残りの欄も埋め、テストの欄には撃った pytest の出力を貼ります（本文は Claude に REST の <code>PATCH …/pulls/&lt;番号&gt;</code> で書かせても、Web 画面の PR 本文の編集で直してもかまいません。本文の編集は main を変えません）。止まった操作は止まった文言を、止まらなかった操作はそのまま書けば正解です。</li>
-  <li><strong>作業グループに URL を 1 行</strong>いつも拓也と依頼をやり取りしている LINE の作業グループに PR の URL を貼って、拓也が閉じるのを待ちます。</li>
-  <li><strong>次の 1 本</strong>拓也が殻の確認 PR を閉じたら、Issue #6 に進みます。LINE の送信や AI の月の上限に当たったとき、いまは黙って失敗しているので、それを知らせる仕組みとドライバーへの一言を足す仕事です（札 <code>実装OK</code>）。</li>
+  <li><strong>作業グループに URL を 1 行、そして自分でマージ</strong>いつも拓也と依頼をやり取りしている LINE の作業グループに PR の URL を貼ります。自動レビューの所見のコメントを読み、2 章の手順（main を取り込んで pytest）の後で、三田さんが自分でマージします。</li>
+  <li><strong>次の 1 本</strong>殻の確認 PR をマージしたら、Issue #6 に進みます。LINE の送信や AI の月の上限に当たったとき、いまは黙って失敗しているので、それを知らせる仕組みとドライバーへの一言を足す仕事です（札 <code>実装OK</code>）。</li>
 </ol>
 <div class="tbl" tabindex="0" role="region" aria-labelledby="h-six">
 <table>
@@ -194,7 +204,7 @@ h2,h3,section{scroll-margin-top:calc(var(--band-h) + .5rem)}
     <tr><td>3. 番人が止める</td><td><code>git push --dry-run origin HEAD:main</code>・<code>claude/</code> の枝への <code>push --dry-run</code>・<code>[skip ci]</code> つきの commit・<code>cloudbuild.yaml</code> の編集が止まる</td></tr>
     <tr><td>4. 起動の案内</td><td><code>[guest_guard] …</code> の案内が文脈に入り、起動時に Python の依存（<code>requirements.txt</code>）の導入が終わっている</td></tr>
     <tr><td>5. 起動の秒数</td><td>起動にかかった秒数（<code>LINEBOT_GUEST=1</code> の有無も）</td></tr>
-    <tr><td>6. コネクタの道具</td><td>GitHub コネクタの道具の一覧（マージ系が在っても使わない）</td></tr>
+    <tr><td>6. コネクタの道具</td><td>GitHub コネクタの道具の一覧（<code>merge_pull_request</code> などが在るか）</td></tr>
   </tbody>
 </table>
 </div>
@@ -209,6 +219,7 @@ h2,h3,section{scroll-margin-top:calc(var(--band-h) + .5rem)}
   </div>
   <p class="fig-cap" id="cap-branch">図3: 三田さんの枝は <code>kodai/</code> で始まるものだけ</p>
 </div>
+<p>GitHub の Revert ボタンが作る <code>revert-…</code> の枝だけは例外で、ロールバック（7 章）に使ってかまいません。消さずに置いておいてください。</p>
 <p>Issue の札は 2 つです。<code>設計判断待ち</code> は拓也の答え待ちで、まだ実装しません。<code>実装OK</code> が付いたら実装してよい合図です。</p>
 <p>ドライバーの操作が変わる・新しい外部サービスやお金が要る・優先順位が絡む、のどれかに触れるなら Issue で拓也に聞いてください。触れない小さな修正は Issue なしで PR から直接で構いません。</p>
 </section>
@@ -218,14 +229,16 @@ h2,h3,section{scroll-margin-top:calc(var(--band-h) + .5rem)}
 <div class="fig" role="figure" aria-labelledby="cap-guard">
   <div class="two">
     <div class="box stop"><h3>番人が止める（Claude の操作）</h3><ul>
-      <li>main への push・Claude からのマージ</li>
-      <li><code>kodai/</code> 以外の枝への push と削除</li>
+      <li>main への直接の push</li>
+      <li><code>kodai/</code> 以外の枝への push と、<code>kodai/</code> 以外の枝の削除</li>
       <li><code>[skip ci]</code> などの印つきの commit</li>
-      <li>コネクタのマージ・自動マージ・Approve</li>
-      <li>基盤のファイルの編集（<code>.claude/</code>・<code>.github/</code>・<code>cloudbuild.yaml</code>・<code>Dockerfile</code>・<code>CLAUDE.md</code>・<code>docs/instructions/</code>・<code>docs/TODO.md</code>・門の script など）</li>
+      <li>Approve（自分の PR には要らない）</li>
+      <li>PR を経ないマージや ref の更新（API で直接）</li>
+      <li>基盤のファイルの編集（<code>.claude/</code>・<code>.github/</code>・<code>cloudbuild.yaml</code>・<code>Dockerfile</code>・どの階層でも <code>CLAUDE.md</code>・<code>docs/instructions/</code>・<code>docs/TODO.md</code>・<code>scripts/deploy_gate.py</code>・<code>scripts/dev_safety_notify.py</code>・<code>tests/test_deploy_gate.py</code>・<code>tests/test_dev_safety_notify.py</code>）</li>
     </ul></div>
     <div class="box ok"><h3>通る</h3><ul>
       <li>読むことは全部</li>
+      <li><strong>PR のマージ</strong>（マージボタン・<code>gh pr merge</code>・コネクタのマージ。自動マージも通りますが、直前の取り込みと pytest が飛ぶので使いません）</li>
       <li><code>kodai/…</code> への push と削除</li>
       <li>PR の作成（Create PR ボタン）とコメント</li>
       <li>アプリのコードとテスト（基盤を除く）</li>
@@ -235,7 +248,7 @@ h2,h3,section{scroll-margin-top:calc(var(--band-h) + .5rem)}
   <p class="fig-cap" id="cap-guard">図4: 三田さんの殻の番人（<code>guest_guard</code>）の線。GitHub の Web 画面の操作は番人の外</p>
 </div>
 <p>三田さんの殻には、間違えやすい操作を止める<strong>番人</strong>（起動時に読み込まれる hook）が入っています。止めたときは理由と、<code>docs/CONTRIBUTING.md</code> のどの節を見ればよいかを出します。</p>
-<p>番人は Claude の操作の字面を読む補助です。GitHub の Web 画面での直接の編集やマージボタンは番人の外なので、使わないでください。使うと 1 章の門が止め、拓也のデプロイも一緒に止まります。</p>
+<p>番人は Claude の操作の字面を読む補助です。GitHub の Web 画面で main のファイルを直接編集するのは番人の外ですが、PR が記録にならないので使わないでください。基盤に触れた更新が main に入ると、その後のデプロイを 1 章の門が止め、拓也の見張りにも届きます。</p>
 </section>
 
 <section id="tests" data-band="6. PR のテストと赤い CI">
@@ -254,8 +267,10 @@ h2,h3,section{scroll-margin-top:calc(var(--band-h) + .5rem)}
   <tbody>
     <tr><td>デプロイが止まった・失敗した</td><td>Issue の札 <code>deploy-failed</code>・<code>main-push-by-other</code>（拓也の PC の見張りが立てる。repo を watch していれば GitHub から届く）</td></tr>
     <tr><td>マージした PR が本番に載ったか</td><td>本番の <code>/version</code> の <code>sha</code>（URL は <code>docs/CONTRIBUTING.md</code> §8）</td></tr>
-    <tr><td>本番のログ</td><td>読み口が付与されたら、その URL が <code>docs/CONTRIBUTING.md</code> §8 に載る（いまは無い）</td></tr>
-    <tr><td>迷った・押してしまった</td><td>Issue か、拓也と三田さんの LINE の作業グループ</td></tr>
+    <tr><td>本番のログ</td><td><code>docs/CONTRIBUTING.md</code> §8（読み口が付与されたら、その URL が載る。いまは無い）</td></tr>
+    <tr><td>マージした変更で本番が壊れた・テストが赤で main が止まった（ロールバック）</td><td>その PR の画面の <strong>Revert</strong> ボタンで revert の PR を作り、自分でマージします（main への直接の push はしません）。<code>/version</code> の <code>sha</code> が revert のコミットになれば戻っています</td></tr>
+    <tr><td>門がデプロイを止めた（基盤に触れた・門が判定できない）</td><td>LINE の作業グループに 1 行で拓也へ。解除は拓也がします</td></tr>
+    <tr><td>迷った</td><td>Issue か、拓也と三田さんの LINE の作業グループ</td></tr>
   </tbody>
 </table>
 </div>
