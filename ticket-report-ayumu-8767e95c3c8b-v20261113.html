@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>月次実績とM氏との関係</title>
+<style>
+:root{
+  --bg:#eef0f3;--paper:#fff;--ink:#1d2330;--sub:#5b6474;--line:#d9dde4;
+  --accent:#1f5fbf;--accent-soft:#e7effb;--warn:#b5462f;--warn-soft:#fbece8;--ok:#2f7a4f;--ok-soft:#e6f3eb;--head:#1f3a5f;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12151b;--paper:#1b1f27;--ink:#e8ebf0;--sub:#a3abb8;--line:#333a46;
+  --accent:#6ea2ff;--accent-soft:#1d2a40;--warn:#ff8a70;--warn-soft:#3a2420;--ok:#6fcf97;--ok-soft:#1c3326;--head:#2b4a75;
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI","Meiryo",sans-serif;line-height:1.6}
+main{max-width:1100px;margin:0 auto;padding:24px 16px 64px;display:flex;flex-direction:column;gap:24px}
+.slide{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  aspect-ratio:16/9;padding:44px 56px 36px;display:flex;flex-direction:column;overflow:hidden;
+  word-break:auto-phrase;text-wrap:pretty}
+.slide h1,.slide h2{text-wrap:balance;margin:0}
+.hd{position:absolute;top:14px;left:56px;right:24px;display:flex;justify-content:space-between;font-size:13px;color:var(--sub)}
+.pg{font-variant-numeric:tabular-nums;white-space:nowrap}
+h2{font-size:clamp(22px,2.9vw,32px);line-height:1.35;margin-top:14px!important}
+.body{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;margin-top:20px}
+.ref{margin-top:14px;font-size:14px;color:var(--sub)}
+
+.cover{justify-content:center;background:linear-gradient(135deg,var(--accent-soft),var(--paper) 60%)}
+.cover h1{font-size:clamp(28px,4.4vw,48px);line-height:1.25}
+.cover .to{font-size:20px;font-weight:700;margin-bottom:14px;color:var(--accent)}
+.cover .by{margin-top:18px;color:var(--sub);font-size:16px}
+
+.claim{font-size:clamp(22px,3.1vw,34px);font-weight:700;line-height:1.4}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.stat{background:var(--accent-soft);border-radius:10px;padding:16px 18px;container-type:inline-size;min-width:0}
+.stat.warn{background:var(--warn-soft)}
+.stat.ok{background:var(--ok-soft)}
+.stat .big{font-size:min(2.3em,15cqi);font-weight:800;white-space:nowrap;line-height:1.2}
+.stat.warn .big{color:var(--warn)}
+.stat.ok .big{color:var(--ok)}
+.stat .lb{font-size:14px;color:var(--sub);margin-top:4px}
+
+.toc-list{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.toc-list li{display:flex;gap:18px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:10px}
+.toc-list .n{font-weight:800;color:var(--accent);font-size:22px;min-width:2.2em}
+.toc-list .t{font-weight:700;font-size:20px;min-width:8em}
+.toc-list .q{color:var(--sub);font-size:16px}
+.lead{color:var(--sub);font-size:15px;margin:10px 0 0}
+
+/* 滝（売上→粗利→営業利益） */
+.fall{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:end;height:min(46vh,260px)}
+.bar{display:flex;flex-direction:column;justify-content:flex-end;height:100%;min-width:0}
+.bar .fill{background:var(--accent);border-radius:8px 8px 0 0}
+.bar .fill.ok{background:var(--ok)}
+.bar .v{font-weight:800;font-size:clamp(18px,2.6vw,28px);white-space:nowrap;margin-bottom:6px}
+.bar .k{font-size:14px;color:var(--sub);margin-top:6px}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{border-radius:12px;padding:20px 22px;background:var(--accent-soft);container-type:inline-size;min-width:0}
+.card.alt{background:var(--warn-soft)}
+.card.ok{background:var(--ok-soft)}
+.card .tag{font-size:13px;color:var(--sub)}
+.card .big{font-size:min(2.4em,14cqi);font-weight:800;white-space:nowrap;margin:6px 0}
+.card .d{font-size:16px}
+
+.hero{display:flex;flex-direction:column;align-items:center;text-align:center}
+.hero .big{font-size:clamp(48px,9vw,104px);font-weight:800;color:var(--warn);line-height:1.1;white-space:nowrap}
+.hero .d{font-size:18px;color:var(--sub);margin-top:10px}
+.chain{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:22px;font-weight:700}
+.chain span{background:var(--warn-soft);border-radius:8px;padding:6px 12px}
+.chain i{font-style:normal;color:var(--sub)}
+
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.step{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--paper)}
+.step .k{font-size:13px;color:var(--sub)}
+.step .v{font-weight:700;font-size:18px;margin-top:4px;line-height:1.4}
+.step.good{border-color:var(--ok);background:var(--ok-soft)}
+
+/* 補足 */
+.dense{aspect-ratio:auto;font-size:14px}
+.dense .body{justify-content:flex-start}
+.tablewrap{overflow-x:auto;max-width:100%}
+.dense table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+.dense th,.dense td{border-bottom:1px solid var(--line);padding:4px 8px}
+.dense td{text-align:right;white-space:nowrap}
+.dense td.l{text-align:left;white-space:normal}
+.dense thead th{background:var(--head);color:#fff;font-weight:600;text-align:right;white-space:nowrap}
+.dense thead th:first-child,.dense thead th.l{text-align:left}
+.dense tbody th{text-align:left;font-weight:400}
+.dense tr.sec th{background:var(--accent-soft);font-weight:700}
+.dense tr.ind th{padding-left:20px}
+.dense tr.sub th,.dense tr.sub td{font-weight:600}
+.dense tr.key th,.dense tr.key td{font-weight:700;border-top:2px solid var(--head)}
+.dense tr.rate th,.dense tr.rate td{color:var(--sub)}
+.dense .note{color:var(--sub)}
+.neg{color:var(--warn)}
+.dense ul,.dense ol{margin:6px 0;padding-left:1.3em}
+.dense p{margin:6px 0}
+.bk-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.bk-list li{font-size:18px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.bk-list b{color:var(--accent);margin-right:12px}
+
+@media (max-width:720px){
+  .slide{aspect-ratio:auto;padding:40px 18px 24px}
+  .hd{left:18px;right:14px;gap:8px}
+  .hd .ch{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .stats,.two,.flow{grid-template-columns:1fr}
+  .toc-list li{flex-wrap:wrap;gap:4px 12px}
+  .toc-list .q{flex-basis:100%}
+  .fall{height:220px}
+}
+@media print{body{background:#fff}main{padding:0;gap:0}.slide{break-after:page;border:none;border-radius:0}}
+
+h1,h2,h3{word-break:auto-phrase}
+</style>
+</head>
+<body data-skeleton="talk">
+<main>
+
+<section class="slide cover" data-role="cover">
+  <div class="to">あゆむさんへ</div>
+  <h1>チケット抽選代行事業<br>月次実績とM氏との関係</h1>
+  <div class="by">2026年9月〜11月　／　2026年11月13日（金）　ゆうと・拓也</div>
+</section>
+
+<section class="slide" data-role="summary">
+  <div class="hd"><span class="ch">まとめ</span><span class="pg">02/17</span></div>
+  <div class="body">
+    <div class="claim">3か月で黒字。次は、利益の半分と<br>入金の遅れを減らす</div>
+    <div class="stats">
+      <div class="stat ok"><div class="big">52.2万円</div><div class="lb">営業利益（3か月）</div></div>
+      <div class="stat warn"><div class="big">89.6万円</div><div class="lb">M氏への分配（3か月）</div></div>
+      <div class="stat warn"><div class="big">約1か月</div><div class="lb">入金の遅れ</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-role="toc">
+  <div class="hd"><span class="ch">索引</span><span class="pg">03/17</span></div>
+  <h2>何を順に話すか</h2>
+  <p class="lead">数字の実績から、その数字を左右している相手、打ち手の順</p>
+  <div class="body">
+    <ul class="toc-list">
+      <li data-ch="1"><span class="n">1</span><span class="t">実績</span><span class="q">3か月でいくら売り、いくら残ったか</span></li>
+      <li data-ch="2"><span class="n">2</span><span class="t">M氏との関係</span><span class="q">利益とお金の流れを誰が左右しているか</span></li>
+      <li data-ch="3"><span class="n">3</span><span class="t">打ち手</span><span class="q">何をすれば手元に残る額が増えるか</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" data-sec="1-1">
+  <div class="hd"><span class="ch">第1章 実績</span><span class="pg">1-1｜04/17</span></div>
+  <h2>3か月で売上203万円、営業利益52万円</h2>
+  <div class="body">
+    <div class="fall">
+      <div class="bar"><div class="v">202.8万</div><div class="fill" style="height:100%"></div><div class="k">売上高</div></div>
+      <div class="bar"><div class="v">75.0万</div><div class="fill" style="height:37%"></div><div class="k">売上総利益（37.0%）</div></div>
+      <div class="bar"><div class="v">52.2万</div><div class="fill ok" style="height:25.8%"></div><div class="k">営業利益（25.8%）</div></div>
+    </div>
+    <div class="ref">→ B1-1</div>
+  </div>
+</section>
+
+<section class="slide" data-sec="1-2">
+  <div class="hd"><span class="ch">第1章 実績</span><span class="pg">1-2｜05/17</span></div>
+  <h2>利益の大半は9月の1案件。10月は応募を7倍に</h2>
+  <div class="body">
+    <div class="two">
+      <div class="card"><div class="tag">9月 テニスの来日公演</div><div class="big">96%</div><div class="d">3か月の売上総利益に占める割合</div></div>
+      <div class="card ok"><div class="tag">応募数 9月→10月</div><div class="big">161→1,116件</div><div class="d">応募の自動化と外部協力者</div></div>
+    </div>
+    <div class="ref">→ B1-2</div>
+  </div>
+</section>
+
+<section class="slide" data-sec="1-3">
+  <div class="hd"><span class="ch">第1章 実績</span><span class="pg">1-3｜06/17</span></div>
+  <h2>手元資金は10月に一度マイナス、2月に85万円の見込み</h2>
+  <div class="body">
+    <div class="flow">
+      <div class="step"><div class="k">2026年10月 累計</div><div class="v"><span class="neg">△7.1万円</span></div></div>
+      <div class="step"><div class="k">2026年11月 累計</div><div class="v">0.4万円</div></div>
+      <div class="step good"><div class="k">2027年2月 累計（予定）</div><div class="v">84.9万円</div></div>
+    </div>
+    <div class="ref">入金は予定・公演日に入る前提 → B1-3</div>
+  </div>
+</section>
+
+<section class="slide" data-sec="2-1">
+  <div class="hd"><span class="ch">第2章 M氏との関係</span><span class="pg">2-1｜07/17</span></div>
+  <h2>案件情報・資金・販売をM氏に頼り、利益の半分を渡している</h2>
+  <div class="body">
+    <div class="two">
+      <div class="card"><div class="tag">当社</div><div class="big">応募と当選</div><div class="d">自動化と回線で当てる</div></div>
+      <div class="card alt"><div class="tag">M氏（転売の先輩）</div><div class="big">情報・資金・販売</div><div class="d">案件を教え、資金を出し、売る</div></div>
+    </div>
+    <div class="ref">分配は3か月で89.6万円・見込み分でさらに32.6万円 → B2-1</div>
+  </div>
+</section>
+
+<section class="slide" data-sec="2-2">
+  <div class="hd"><span class="ch">第2章 M氏との関係</span><span class="pg">2-2｜08/17</span></div>
+  <h2>M氏からの入金が遅れ、お金の流れが止まる</h2>
+  <div class="body hero">
+    <div class="big">約1か月</div>
+    <div class="d">M氏が言った入金日からの遅れ</div>
+    <div class="chain"><span>入金が遅れる</span><i>→</i><span>次の仕入れに回せない</span><i>→</i><span>応募を増やせない</span></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="3-1">
+  <div class="hd"><span class="ch">第3章 打ち手</span><span class="pg">3-1｜09/17</span></div>
+  <h2>精算の決まりを作り、頼り先を分ける</h2>
+  <div class="body">
+    <div class="flow">
+      <div class="step good"><div class="k">① いちばん急ぐ</div><div class="v">精算日と相殺の<br>決まりを文章で</div></div>
+      <div class="step"><div class="k">② 取りこぼし減</div><div class="v">案件検知botで<br>新しい案件を拾う</div></div>
+      <div class="step"><div class="k">③ 頼り先を分ける</div><div class="v">M氏と同じ役割の<br>人を増やす</div></div>
+    </div>
+    <div class="ref">→ B2-2</div>
+  </div>
+</section>
+
+<section class="slide" data-role="conclusion">
+  <div class="hd"><span class="ch">結論</span><span class="pg">10/17</span></div>
+  <div class="body">
+    <div class="claim">黒字は出せた。<br>次は利益の半分と入金の遅れを減らす</div>
+    <div class="stats">
+      <div class="stat ok"><div class="big">52.2万円</div><div class="lb">営業利益（3か月）</div></div>
+      <div class="stat warn"><div class="big">89.6万円</div><div class="lb">M氏への分配（3か月）</div></div>
+      <div class="stat"><div class="big">84.9万円</div><div class="lb">2027年2月の累計収支（予定）</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-role="backup">
+  <div class="hd"><span class="ch">補足の索引</span><span class="pg">11/17</span></div>
+  <h2>想定される問い</h2>
+  <div class="body">
+    <ul class="bk-list">
+      <li data-ch="B1"><b>B1</b>実績の明細：損益計算書・案件別・キャッシュフロー・見込みの元の表は</li>
+      <li data-ch="B2"><b>B2</b>M氏との関係：出会いから今の約束まで、何が未確定か</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide dense" data-sec="B1-1">
+  <div class="hd"><span class="ch">補足B1 実績の明細</span><span class="pg">B1-1｜12/17</span></div>
+  <h2>損益計算書（実績・発生ベース）</h2>
+  <div class="body">
+    <p class="note">管理会計ベース・未監査／2026年11月12日作成／単位: 円（税込）</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>勘定科目</th><th>2026年9月</th><th>2026年10月</th><th>2026年11月</th><th>3か月計</th></tr></thead>
+      <tbody>
+        <tr class="sec"><th colspan="5">売上高</th></tr>
+        <tr class="ind"><th>チケット販売（販売総額）</th><td>1,442,742</td><td>403,000</td><td>0</td><td>1,845,742</td></tr>
+        <tr class="ind"><th>回線手続きの代行ほか</th><td>0</td><td>37,000</td><td>145,000</td><td>182,000</td></tr>
+        <tr class="sub"><th>売上高 計</th><td>1,442,742</td><td>440,000</td><td>145,000</td><td>2,027,742</td></tr>
+        <tr class="sec"><th colspan="5">売上原価</th></tr>
+        <tr class="ind"><th>チケット仕入</th><td>0</td><td>113,100</td><td>0</td><td>113,100</td></tr>
+        <tr class="ind"><th>販売パートナーへの分配</th><td>721,371</td><td>175,000</td><td>0</td><td>896,371</td></tr>
+        <tr class="ind"><th>応募作業の外注費</th><td>0</td><td>37,400</td><td>0</td><td>37,400</td></tr>
+        <tr class="ind"><th>回線費用（チケット応募用）</th><td>111,982</td><td>47,051</td><td>500</td><td>159,533</td></tr>
+        <tr class="ind"><th>回線費用（代行案件）</th><td>0</td><td>34,938</td><td>36,381</td><td>71,319</td></tr>
+        <tr class="sub"><th>売上原価 計</th><td>833,353</td><td>407,489</td><td>36,881</td><td>1,277,723</td></tr>
+        <tr class="key"><th>売上総利益</th><td>609,389</td><td>32,511</td><td>108,119</td><td>750,019</td></tr>
+        <tr class="rate"><th>売上総利益率</th><td>42.2%</td><td>7.4%</td><td>74.6%</td><td>37.0%</td></tr>
+        <tr class="sec"><th colspan="5">販売費及び一般管理費</th></tr>
+        <tr class="ind"><th>開発・クラウド（AI・サーバ・通信）</th><td>45,650</td><td>98,856</td><td>33,000</td><td>177,506</td></tr>
+        <tr class="ind"><th>端末</th><td>0</td><td>41,600</td><td>0</td><td>41,600</td></tr>
+        <tr class="ind"><th>その他（交通・会場ほか）</th><td>0</td><td>8,492</td><td>0</td><td>8,492</td></tr>
+        <tr class="sub"><th>販管費 計</th><td>45,650</td><td>148,948</td><td>33,000</td><td>227,598</td></tr>
+        <tr class="key"><th>営業利益</th><td>563,739</td><td><span class="neg">△116,436</span></td><td>75,119</td><td>522,421</td></tr>
+        <tr class="rate"><th>営業利益率</th><td>39.1%</td><td>-26.5%</td><td>51.8%</td><td>25.8%</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section class="slide dense" data-sec="B1-2">
+  <div class="hd"><span class="ch">補足B1 実績の明細</span><span class="pg">B1-2｜13/17</span></div>
+  <h2>チケット案件別の実績</h2>
+  <div class="body">
+    <p class="note">応募 1,277件・当選 86件（応募数の記録がある案件の当選率 6.7%）。計上月は当選し販売パートナーへ引き渡した月。</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>案件</th><th class="l">販売窓口</th><th>計上月</th><th>応募</th><th>当選</th><th>当選率</th><th>販売総額</th><th>仕入</th><th>パートナー分配</th><th>粗利</th><th class="l">備考</th></tr></thead>
+      <tbody>
+        <tr><th>テニス エキシビション（海外選手来日公演）</th><td class="l">公式先行</td><td>9月</td><td>—</td><td>78</td><td>—</td><td>1,442,742</td><td>0</td><td>721,371</td><td>721,371</td><td class="l note">応募数の記録なし</td></tr>
+        <tr><th>ロックバンド公演</th><td class="l">ぴあ</td><td>9月</td><td>32</td><td>0</td><td>0.0%</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="l note"></td></tr>
+        <tr><th>映画 舞台挨拶ツアー</th><td class="l">公式</td><td>9月</td><td>41</td><td>0</td><td>0.0%</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="l note"></td></tr>
+        <tr><th>2.5次元ミュージカル（1次）</th><td class="l">公式サイト</td><td>10月</td><td>88</td><td>5</td><td>5.7%</td><td>352,000</td><td>40,000</td><td>160,000</td><td>152,000</td><td class="l note"></td></tr>
+        <tr><th>2.5次元ミュージカル（2次）</th><td class="l">ローチケ</td><td>10月</td><td>65</td><td>1</td><td>1.5%</td><td>51,000</td><td>21,000</td><td>15,000</td><td>15,000</td><td class="l note"></td></tr>
+        <tr><th>アイドル ショーケース（1次）</th><td class="l">ローチケ</td><td>10月</td><td>40</td><td>0</td><td>0.0%</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="l note"></td></tr>
+        <tr><th>アイドル ショーケース（2次）</th><td class="l">ローチケ</td><td>10月</td><td>2</td><td>0</td><td>0.0%</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="l note"></td></tr>
+        <tr><th>トークショー</th><td class="l">e+</td><td>10月</td><td>111</td><td>0</td><td>0.0%</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="l note"></td></tr>
+        <tr><th>ミュージカル（1次）</th><td class="l">ローチケ</td><td>10月</td><td>378</td><td>0</td><td>0.0%</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="l note"></td></tr>
+        <tr><th>ミュージカル（2次）</th><td class="l">ローチケ</td><td>10月</td><td>156</td><td>0</td><td>0.0%</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="l note"></td></tr>
+        <tr><th>プロ野球 日本シリーズ</th><td class="l">ぴあ</td><td>10月</td><td>5</td><td>1</td><td>20.0%</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="l note">公演中止・購入代金は返金</td></tr>
+        <tr><th>舞台公演</th><td class="l">e+</td><td>10月</td><td>103</td><td>5</td><td>4.9%</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="l note">電子チケットで引渡しができず購入見送り</td></tr>
+        <tr><th>アニメ舞台</th><td class="l">e+</td><td>10月</td><td>104</td><td>0</td><td>0.0%</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="l note"></td></tr>
+        <tr><th>人気漫画の舞台（前編）</th><td class="l">ローチケ</td><td>10月</td><td>17</td><td>0</td><td>0.0%</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="l note"></td></tr>
+        <tr><th>アイドル系イベント（自動応募）</th><td class="l">公式</td><td>10月</td><td>52</td><td>8</td><td>15.4%</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="l note">見込み（B1-4）</td></tr>
+        <tr><th>アイドル舞台</th><td class="l">ローチケ</td><td>10月</td><td>83</td><td>66</td><td>79.5%</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="l note">見込み（B1-4）・引渡し21枚</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section class="slide dense" data-sec="B1-3">
+  <div class="hd"><span class="ch">補足B1 実績の明細</span><span class="pg">B1-3｜14/17</span></div>
+  <h2>キャッシュフロー（入金ベース）</h2>
+  <div class="body">
+    <p class="note">チケットの販売代金は公演日に入金する前提（当社取り分＝仕入＋当社粗利。パートナー分は含まない）。仕入は当選した月に支払い。12月以降は入金予定の分だけで、費用（回線・開発など）は含めていない。12月・2月の入金は見込み（B1-4）。★実際のM氏からの入金は、言われた日から約1か月遅れることがある（→ 2-2）。</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>項目</th><th>2026年9月 実績</th><th>2026年10月 実績</th><th>2026年11月 実績</th><th>2026年12月 予定</th><th>2027年1月 予定</th><th>2027年2月 予定</th></tr></thead>
+      <tbody>
+        <tr class="sec"><th colspan="7">入金</th></tr>
+        <tr class="ind"><th>チケット販売代金（当社取り分）</th><td>721,371</td><td>0</td><td>0</td><td>170,000</td><td>228,000</td><td>446,250</td></tr>
+        <tr class="ind"><th>回線手続きの代行ほか</th><td>0</td><td>37,000</td><td>145,000</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr class="sec"><th colspan="7">出金</th></tr>
+        <tr class="ind"><th>チケット仕入</th><td>0</td><td>403,100</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr class="ind"><th>応募作業の外注費</th><td>0</td><td>37,400</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr class="ind"><th>回線費用（チケット応募用）</th><td>111,982</td><td>47,051</td><td>500</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr class="ind"><th>回線費用（代行案件）</th><td>0</td><td>34,938</td><td>36,381</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr class="ind"><th>開発・クラウド</th><td>45,650</td><td>98,856</td><td>33,000</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr class="ind"><th>端末</th><td>0</td><td>41,600</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr class="ind"><th>その他</th><td>0</td><td>8,492</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr class="key"><th>月次収支</th><td>563,739</td><td><span class="neg">△634,436</span></td><td>75,119</td><td>170,000</td><td>228,000</td><td>446,250</td></tr>
+        <tr class="sub"><th>累計</th><td>563,739</td><td><span class="neg">△70,698</span></td><td>4,421</td><td>174,421</td><td>402,421</td><td>848,671</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section class="slide dense" data-sec="B1-4">
+  <div class="hd"><span class="ch">補足B1 実績の明細</span><span class="pg">B1-4｜15/17</span></div>
+  <h2>見込み（実績には含めていない）と注記</h2>
+  <div class="body">
+    <p class="note">当選・引渡し済みで、販売額が確定していない案件。1枚あたり仕入1万円・販売3.25万円の推定で、利益の半分を販売パートナーへ分配する条件（分配は全案件で利益の折半）。</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>案件</th><th>枚数</th><th>販売総額（推定）</th><th>仕入</th><th>パートナー分配</th><th>当社粗利（推定）</th><th class="l">入金予定</th></tr></thead>
+      <tbody>
+        <tr><th>アイドル系イベント（自動応募）</th><td>8</td><td>260,000</td><td>80,000</td><td>90,000</td><td>90,000</td><td class="l">2026年12月</td></tr>
+        <tr><th>アイドル舞台</th><td>21</td><td>682,500</td><td>210,000</td><td>236,250</td><td>236,250</td><td class="l">2027年2月</td></tr>
+        <tr class="key"><th>計</th><td>29</td><td>942,500</td><td>290,000</td><td>326,250</td><td>326,250</td><td></td></tr>
+      </tbody>
+    </table></div>
+    <ul>
+      <li><b>計上基準</b>：チケットは当選し販売パートナーへ引き渡した月に、販売総額を売上・パートナーへの分配を原価として計上（発生ベース）。回線費用・販管費は支払った月。代行案件の売上は入金した月（返金は控除）。</li>
+      <li><b>案件の集中</b>：9月のテニス エキシビション1件で当社粗利721,371円（3か月の売上総利益の96%）。10月は応募数を9月の161件から1,116件に増やした（応募の自動化と外部協力者による）。</li>
+      <li><b>販売できなかった仕入</b>：映画の座席（10月・52,100円）は販売できず、仕入のまま損失として計上。</li>
+      <li><b>応募作業の外注費</b>：外部協力者への応募作業の委託（1件100円・10月374件）。<b>回線費用</b>：抽選応募に使う通信回線の費用。チケット用と代行案件用は契約口座ごとに振り分けた。</li>
+      <li><b>数字の出どころ</b>：案件管理表と経費台帳（2026年11月11日時点）。USD建ての費用は1ドル＝150円で換算。未監査。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide dense" data-sec="B2-1">
+  <div class="hd"><span class="ch">補足B2 M氏との関係</span><span class="pg">B2-1｜16/17</span></div>
+  <h2>M氏との経緯と、いまの約束</h2>
+  <div class="body">
+    <div class="tablewrap"><table>
+      <thead><tr><th>時期・項目</th><th class="l">中身</th></tr></thead>
+      <tbody>
+        <tr><th>出会い</th><td class="l">ゆうとがよく行く友人のシーシャ屋で、常連どうしとして知り合った。MNPの話から、近い領域の仕事をしていると分かって仲良くなった</td></tr>
+        <tr><th>① コンサルの申込</th><td class="l">M氏がチケット転売をしていると聞き、ゆうとからコンサルを申し込んだ。こちらが出した条件は着手金100万円（利益が出てから後払い）。案件情報（狙うアーティスト名）もM氏から教わっている</td></tr>
+        <tr><th>認識のずれ</th><td class="l">M氏側は「着手金100万円＋M氏が教えた案件の純利益の50%」と考えていたと、後から分かった</td></tr>
+        <tr><th>話し合いの合意</th><td class="l">話し合いより前に当選・入金が済んでいた分は、純利益の50%をM氏へ渡す。以後の①の利益は100%当社</td></tr>
+        <tr><th>代わりに当社が渡すもの</th><td class="l">アカウント自動作成botを無料で提供／回線を手数料なしの最安値で作り続ける／当社のbot・人脈・MNO事業で動いてくれる人を使えるようにする／M氏が当社のbotで得た利益は全額M氏のもの</td></tr>
+        <tr><th>② 資金と販売（いま）</th><td class="l">当社の手元資金が足りないため、M氏が仕入れの資金を出してチケットを売る。代わりに純利益の50%を渡す。損益計算書の「販売パートナーへの分配」はこの約束の分</td></tr>
+        <tr><th>関係の強さ</th><td class="l">M氏は当社のbotに強く期待していて、離れにくい関係になっている。ゆうととは私生活でも仲が良い。一方で、②の入金は言った日より<span style="white-space:nowrap">約1か月</span>遅れることがあり、こちらが軽く見られている面もあると感じている</td></tr>
+        <tr><th>損益計算書に入っていないもの</th><td class="l"><b>着手金100万円（①・後払い・未払い）</b>。「利益が出てから」で、いつ・どの利益から払うかは未確定</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section class="slide dense" data-sec="B2-2">
+  <div class="hd"><span class="ch">補足B2 M氏との関係</span><span class="pg">B2-2｜17/17</span></div>
+  <h2>打ち手の中身</h2>
+  <div class="body">
+    <p><b>① 精算の決まり（いちばん急ぐ）</b></p>
+    <ul>
+      <li>取引ごとの表をM氏と共有する（公演／枚数／①②のどちらか／仕入れ額／売れた額／売れた日／純利益／M氏の取り分／入金予定日／入金日）</li>
+      <li>精算日を「売れてから◯日以内」か「毎週◯曜」に決め、文章で残す</li>
+      <li>遅れたら次の取引の資金と相殺する決まりを先に決めておく。②の残高と①の着手金をいつ払うかも一緒に整理する</li>
+    </ul>
+    <p><b>② 案件検知bot</b>：教わったアーティスト名を登録し、新しい案件を自動で見つける。見逃しと出遅れを減らし、当社がM氏に出せる価値も上がる（M氏がbotに期待していることが、関係をつなぎ止める一番の材料）</p>
+    <p><b>③ 頼り先を分ける</b>：M氏はチケット業者や、買い取ってすぐ現金をくれるオタク・資金を持つ業者とのつながりを多く持っている。当社もXなどを通じて直接つながれば、②と同じことを純利益100%のまま頼める。すぐつながれる見込みで、積極的に進める。M氏との関係を切るためではなく、精算の決まりを守ってもらいやすくするため</p>
+    <p><b>数字で詰めるために、まだ埋まっていないこと</b>：①着手金100万円をいつ・どの利益から払うか ②②の約束でM氏からまだ受け取っていない額 ③「<span class="num" style="white-space:nowrap">約1か月</span>の遅れ」の具体例（日付と金額）</p>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
