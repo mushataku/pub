@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>求人の条件データ v3 設計</title>
+<style>
+:root{
+  --bg:#fafaf8;--surface:#ffffff;--on:#1f1f1f;--sub:#4a4a4a;--line:#c9c9c4;--accent:#1d4f91;--accent-bg:#e8eff9;
+  --ok:#17602f;--ok-bg:#e6f3ea;--ask:#7a4a00;--ask-bg:#fbf0dc;--ng:#8a1f1f;--ng-bg:#f9e5e5;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#151515;--surface:#1e1e1e;--on:#e6e6e6;--sub:#c4c4c4;--line:#444;--accent:#8fb8ee;--accent-bg:#1c2a3d;
+  --ok:#86d29c;--ok-bg:#16301f;--ask:#f0c277;--ask-bg:#33270f;--ng:#f0a0a0;--ng-bg:#3a1c1c;}
+}
+:root[data-theme="dark"]{--bg:#151515;--surface:#1e1e1e;--on:#e6e6e6;--sub:#c4c4c4;--line:#444;--accent:#8fb8ee;--accent-bg:#1c2a3d;
+  --ok:#86d29c;--ok-bg:#16301f;--ask:#f0c277;--ask-bg:#33270f;--ng:#f0a0a0;--ng-bg:#3a1c1c;}
+*{box-sizing:border-box}
+html{color-scheme:light dark;scroll-behavior:smooth;scroll-padding-top:96px}
+body{margin:0;background:var(--bg);color:var(--on);
+  font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Meiryo","Noto Sans JP",sans-serif;
+  font-size:16px;line-height:1.85;letter-spacing:.01em;overflow-wrap:anywhere}
+.band{position:sticky;top:0;z-index:10;background:var(--surface);border-bottom:1px solid var(--line);padding:8px 16px}
+.band .t{font-size:14px;color:var(--sub);line-height:1.4}
+.band .c{font-size:16px;font-weight:700;line-height:1.4;margin-top:2px}
+.band .bar{height:3px;background:var(--line);margin:6px -16px -8px}
+.band .bar i{display:block;height:3px;width:0;background:var(--accent)}
+main{max-width:40em;margin:0 auto;padding:16px 16px 96px}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere;line-height:1.5}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
+h1{font-size:26px;margin:24px 0 8px}
+h2{font-size:21px;margin:56px 0 12px;padding-top:24px;border-top:1px solid var(--line)}
+h3{font-size:17px;margin:28px 0 8px}
+p,li{font-size:16px}
+p{margin:0 0 1.1em}
+ul,ol{padding-left:1.4em;margin:0 0 1.1em}
+li{margin-bottom:.4em}
+a{color:var(--accent);text-decoration:underline}
+.lead{background:var(--accent-bg);border-left:4px solid var(--accent);padding:12px 16px;margin:16px 0}
+.lead p:last-child,.lead ul{margin-bottom:0}
+.toc{background:var(--surface);border:1px solid var(--line);padding:12px 16px;margin:16px 0}
+.toc ol{margin:0}
+.note{font-size:14px;color:var(--sub);line-height:1.7}
+.term{background:var(--surface);border:1px solid var(--line);padding:10px 14px;margin:0 0 10px}
+.term b{display:block;margin-bottom:2px}
+.term span{display:block;font-size:15px;color:var(--sub)}
+.stat{margin:0 0 10px;padding:8px 14px;background:var(--surface);border:1px solid var(--line)}
+.stat b{font-size:20px}
+.card{border:2px solid var(--line);background:var(--surface);padding:12px 14px;margin:0 0 14px;max-width:26em}
+.card .h{display:flex;gap:10px;align-items:baseline;font-weight:700;line-height:1.5}
+.badge{display:inline-block;min-width:2.6em;text-align:center;padding:0 8px;font-weight:700;border-radius:4px}
+.ok{border-color:var(--ok)}.ok .badge{background:var(--ok-bg);color:var(--ok)}
+.ask{border-color:var(--ask)}.ask .badge{background:var(--ask-bg);color:var(--ask)}
+.ng .badge{background:var(--ng-bg);color:var(--ng)}
+.card .r{font-size:15px;margin:2px 0;line-height:1.7}
+.card .more{font-size:14px;color:var(--accent);margin-top:6px}
+.card button{font:inherit;font-size:14px;margin-top:6px;padding:8px 12px;min-height:44px;border:1px solid var(--accent);background:transparent;color:var(--accent);border-radius:4px}
+pre{background:var(--surface);border:1px solid var(--line);padding:12px;font-size:14px;line-height:1.6;overflow-x:auto;white-space:pre}
+.rec{border-left:4px solid var(--ok);background:var(--ok-bg);padding:8px 14px;margin:8px 0}
+.dec{background:var(--surface);border:1px solid var(--line);padding:4px 16px 4px;margin:0 0 20px}
+.tag{font-size:14px;color:var(--sub)}
+.stepno{display:inline-block;background:var(--accent);color:var(--bg);font-weight:700;padding:0 10px;border-radius:4px;margin-right:6px}
+.top{position:fixed;right:12px;bottom:12px;background:var(--surface);border:1px solid var(--line);padding:10px 14px;min-height:44px;font-size:14px;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="band" data-chrome id="band" aria-live="off">
+  <div class="t">求人の条件データ v3 設計</div>
+  <div class="c" id="bandNow">はじめに</div>
+  <div class="bar"><i id="bandBar"></i></div>
+</div>
+<main>
+<h1 id="top">求人の条件データ v3 設計</h1>
+<p class="note">拓也の依頼（11-13 17:48）「Feeに限らず、広く一般的にどうすればこの複雑怪奇な条件データを構造的に保持して、CAにとって分かりやすい形で表示できるのか、根本から考え直して」への答え。司令塔の草案を critic が3往復で詰めた採用版です。</p>
+
+<div class="lead" id="s0">
+<p><b>先に結論（3行）</b></p>
+<ul>
+<li>1列に複数の求人や地域別の表が入っているのに、いまの型は「1列＝1契約」で持っている。壊れの根はここ。</li>
+<li>直し方の芯は、取り込みの最初に「割り表」を作ること。原文のかたまりごとに、どの求人枠の話か・どの範囲（地域など）の話かを、文の中身でなく置き場所から決めて書く。</li>
+<li>条件（Fee・適格・募集状況・返金）は、枠ごとの「条件つきの事実」1種類の行で持つ。全面の作り直しの前に、事務の18列で前後の数を測る。</li>
+</ul>
+</div>
+
+<nav class="toc" aria-label="目次">
+<p><b>読む順番</b></p>
+<ol>
+<li><a href="#s1">世の中の語彙</a></li>
+<li><a href="#s2">いまの型の根と実測</a></li>
+<li><a href="#s3">新しい型</a></li>
+<li><a href="#s4">評価（求職者×枠 → 答え）</a></li>
+<li><a href="#s5">取り込み</a></li>
+<li><a href="#s6">CA への見せ方</a></li>
+<li><a href="#s7">AI の使い方と費用</a></li>
+<li><a href="#s8">受け入れの物差し</a></li>
+<li><a href="#s9">移り方</a></li>
+<li><a href="#s10">拓也が決めること（4つ）</a></li>
+</ol>
+</nav>
+
+<h2 id="s1" data-sec="1. 世の中の語彙">1. 世の中の語彙</h2>
+<p>この問題は新しくありません。世の中の呼び名と、ここでの当て先です。</p>
+<div class="term"><b>条件つきの事実（Wikidata の statement）</b><span>値に「どの条件のときか」「出典」を付けて1行で持つ形。Fee・適格の保存形に使う。</span></div>
+<div class="term"><b>決定表と当たり方の決め（DMN の decision table・hit policy）</b><span>条件の列から答えを出す表。複数の行が当たったときの決め方を先に決める。「通常とキャンペーン」「高い方を適用」に使う。</span></div>
+<div class="term"><b>2つの時刻（bitemporal）</b><span>「いつ成り立つか」と「いつ知ったか」を別に持つ。過去の推薦を当時の条件で評価し直すのにも要る。</span></div>
+<div class="term"><b>原則と例外（defeasible logic）</b><span>「ただし〜の場合は」を、例外が原則に勝つ関係として明示する。</span></div>
+<div class="term"><b>3値の評価と「あと何を聞けば決まるか」（residual）</b><span>求職者の情報が欠けていても止まらず、聞くことを返す。</span></div>
+<div class="term"><b>理由の説明（why／why-not）</b><span>規則の表を見せず「この人ならこう・理由・原文」を見せる。</span></div>
+<div class="term"><b>証拠つきの抽出と「分からない」（evidence・abstain）</b><span>値には原文の逐語を必須にし、取れなければ分からないと言う。</span></div>
+<div class="term"><b>文書の構造からの継承（layout-aware extraction）</b><span>表の行・見出しの下にある文は、その行・見出しの範囲を引き継ぐ。今回の実測で一番足りなかった部分。</span></div>
+<p>標準の形から外している点: 規則エンジンは入れません（条件の数が少なく、評価は数十行の関数で足りる）。検索＋生成（RAG）だけにもしません（Fee と適格は「黙って間違えない」が要件で、毎回 AI に答えさせると確かめようがない）。</p>
+
+<h2 id="s2" data-sec="2. いまの型の根と実測">2. いまの型（v2）の根と実測</h2>
+<h3>源の規模（堀口の控え・全35シート）</h3>
+<div class="stat"><b>236列・2,031セル・31.7万字</b><br>1列あたり最大 2,050字</div>
+<ul>
+<li>Fee の形: 理論年収の% 174／固定額 155／返金の段 153／入社人数で変動 28／通常とキャンペーン併記 21。</li>
+<li>条件が依存する属性: 年齢 281・学歴 139・資格 137・性別 85・新卒既卒 76・経験年数 74・勤務地別 57。</li>
+<li>v2 の契約ファイルは72本（事務が中心）。残りの列はまだ契約が無い。</li>
+</ul>
+<h3>根の3つ</h3>
+<ol>
+<li><b>契約と源が 1:1 でない。</b>1列に多職種・多地域の値が入り、1つの欄に混ざって食い違い（conflict）になる。</li>
+<li><b>「1文＝1条項」が合わない。</b>見出し・表・併記・例外が、文単位では読めない。</li>
+<li><b>型に無い形が出るたびに、申告→票→型を足す、の往復になる。</b></li>
+</ol>
+<h3>critic の実測（v2 の71本と控えを読み取りだけ）</h3>
+<ul>
+<li>壊れは裾に集中している。conflict が 0 の契約が56本。上位5本が16〜23件を持つ。</li>
+<li>Fee の規則は大半が単純。条件つきの規則が 0本の契約39・1本26・2本以上は6（8%）。</li>
+<li>Fee と年齢のセルは短い。中央値118字・9割が292字以下・最大2,268字。</li>
+<li>範囲は文の中に書かれていない。最悪の1本の基本給94値のうち、77値はリンク先の求人票1本から来ている。文に県名があるのは27値だけ。範囲は「その文が表のどの行・どの見出しの下にあるか」にある。</li>
+<li>枠で割るだけでは94値は残る。差は求人票の中の行（地域・拠点）の違い。</li>
+<li>勤務地が値で取れている契約は19本（27%）。未読44・食い違い8。</li>
+</ul>
+<p class="note">丸数字は ①〜⑩ だけを数えた（「求人①」「【対象職種】」は含めていない）。</p>
+
+<h2 id="s3" data-sec="3. 新しい型">3. 新しい型</h2>
+<h3>3-1. 割り表（取り込みの最初の成果物）</h3>
+<p>源の1単位（シートの1列）につき1つ。行は2種類です。</p>
+<ul>
+<li><b>枠（frames）</b>: 求人の一覧。内容の hash の id・CA に見せる名前・枠にした理由・原文の引用。</li>
+<li><b>かたまり（blocks）</b>: 原文のかたまり → 枠＋範囲。かたまりの場所（源＋見出しの道＋表の行と列）・属する枠（または列の既定の「全部」）・引き継ぐ範囲・範囲の出どころ（見出し／表の行／表の列／源の文書）・役割（条件／求人の事実／手順／飾り）。</li>
+</ul>
+<div class="lead"><p><b>枠か範囲かの決め方</b>（観測できる3問・上から当てて1つでも真なら枠）</p>
+<ol>
+<li>源が、別の応募先・求人番号・求人票を持っているか。</li>
+<li>推薦のとき、先方に「どれに出すか」を名指しするか。</li>
+<li>既出し・推薦停止が、その単位で掛かるか。</li>
+</ol>
+<p>全部が偽なら範囲。例: 推薦先が1つで、居住地によって Fee だけが変わる地域ブロックは範囲。ブロックごとに窓口や締切が違えば枠。</p></div>
+<p><b>範囲の付け方</b>: 文の中身から推さない。置き場所（源の文書・見出しの道・表の行と列）から引き継ぐ。どこから来たかを必ず書く。</p>
+<p><b>lint（3つ）</b>: 全部のかたまりがちょうど1回出る／枠の参照先が存在する／枠にした理由が空の枠が無い。</p>
+
+<h3>3-2. 条件つきの事実（statement）</h3>
+<ul>
+<li><b>主語は枠</b>。v2 の「別職種の文の置き場」は要らなくなる。</li>
+<li><b>種類</b>は Fee・適格・募集状況・返金・求人の事実の5つ。</li>
+<li><b>when（条件）は閉じた語彙</b>。求職者の属性と、時刻の軸3つ（応募日・推薦日・入社日）。知らない軸は lint が拒む。</li>
+<li>「同じ月の入社人数で変わる」は when に入れず、幅と注記で出す。</li>
+<li>求人の事実は正規化できるものだけ（数値の幅＋単位か、閉じた選択肢）。「月給制」「クラス給は面接時に」のような文は、枠ごとの原文かたまりに残す。</li>
+<li>推薦の手順・連絡先・注記は statement にしない。原文＋AI。</li>
+<li>各 statement は、例外の関係・いつ知ったか・原文の逐語・誰が読んだか・仮確定か確定かを持つ。</li>
+</ul>
+
+<h3>3-3. 勝ち方の家は1つずつ</h3>
+<ul>
+<li>時間の置き換え（訂正・更新）→「いつ知ったか」の欄だけ。</li>
+<li>例外が原則に勝つ → 例外の欄だけ。</li>
+<li>同格で並ぶもの → 種類ごとの既定の合わせ方だけ（Fee は例外を当てた後に最大、適格は全部 AND）。</li>
+</ul>
+<p>草案の優先順位の欄は置きません。「いつ知ったか」と同じ事実を2か所に持つことになるためです。</p>
+
+<h3>3-4. 内容 hash の id と、孤児 0 の門</h3>
+<p>statement の id と人の裁定の錨は内容の hash にします（通し番号にしない）。作り直しても中身が同じなら同じ id。着地の門: 作り直しの前後で、行き先を失った裁定と例外の数が 0。源が変わって行き先が消えたものは「再裁定の列」に積みます（黙って捨てない）。</p>
+
+<h2 id="s4" data-sec="4. 評価">4. 評価（求職者×枠 → 答え）</h2>
+<h3>入力</h3>
+<ul>
+<li>求職者の属性（欠けてよい）。</li>
+<li>日付（今日・推薦の予定日・入社の予定日）。</li>
+<li>推薦の履歴（どの枠に既に出したか。求人コンソールの「既出し」の札と同じ源）。</li>
+<li>勤務地の正規化と通勤（着地済みの commute-judge）。</li>
+</ul>
+<h3>出し方</h3>
+<ol>
+<li>枠ごとに、when を3値（成り立つ・成り立たない・分からない）で評価する。</li>
+<li>適格: 成り立つ must が1つでも外れれば ×。分からない when や partial が判定を変えうるなら ？。</li>
+<li>既出しの枠は、条件に関係なく「既出し」と出す。</li>
+<li>Fee: 成り立つ statement に例外と合わせ方を当てて額を出す。理論年収が分からなければ率のまま。</li>
+</ol>
+<h3>？の理由は「誰が決めるか」の3つ</h3>
+<ul>
+<li><b>本人に聞く</b>: 求職者の属性が欠けている。</li>
+<li><b>先方に聞く</b>: 源そのものが食い違っている・原文が「要相談」。</li>
+<li><b>機械</b>: 未読・partial・AI の読みが割れた。</li>
+</ul>
+<h3>食い違いの扱いと裾</h3>
+<ul>
+<li>両方の値で評価し、この求職者で答えが割れるときだけ ？ にする（25歳なら上限が32でも34でも ◯）。食い違いそのものは隠さず、社単位の「先方に聞く」列に溜める。</li>
+<li>入社人数で変わる Fee などは評価せず、「44〜88万（月3名〜）」のように幅と注記で出す。該当は28セル、Fee の問いは287件中1件。</li>
+</ul>
+
+<h2 id="s5" data-sec="5. 取り込み">5. 取り込み</h2>
+<ol>
+<li>かたまりに割る（決定論）。見出しの木・①②・【】・表の行と列・箇条。</li>
+<li>割り表を作る。AI の読み手2本が枠と範囲を出し、lint 3つを通す。割れた列は人の裁定（十数列の見込み）。</li>
+<li>決定論のパーサと辞書が先（既存の翻訳メモリ 5,976文）。</li>
+<li>残りを AI の読み手へ（API の Batch）。引用は原文と逐語で照合し、合わなければ捨てる。</li>
+<li>Fee と適格は読み手2本＋裁定。求人の事実は1本。</li>
+<li>被覆の帳簿。どの文も「証拠に入った」「飾り」「partial」「値でない文として原文に残した」のどれか。黙って落とさない。</li>
+<li>置き場: statement の集まりは GCS に版つき。AI の読みは入力の hash で GCS に控える。git には版の manifest・人の裁定・割り表の裁定・語彙。</li>
+<li>差分: シートが変わったら、変わったかたまりだけ読み直す。</li>
+</ol>
+<p>求職者の属性は、取り込みのどこにも入りません。</p>
+
+<h2 id="s6" data-sec="6. CA への見せ方">6. CA への見せ方（縦長）</h2>
+<p>求職者を選ぶと、枠ごとの札が縦に並びます。帯は ◯・？・×。札は縦に4行まで。下は見本です（A社〜D社は架空）。</p>
+<div class="card ok"><div class="h"><span class="badge">◯</span><span>A社｜事務（首都圏）</span></div>
+<div class="r">Fee 66万（〜12/31 入社）・通常 44万</div>
+<div class="r">決め手: 29歳・東京在住・転居なしで可</div>
+<div class="more">▸ 理由と原文</div></div>
+<div class="card ask"><div class="h"><span class="badge">？</span><span>B社｜施工管理（関西ブロック）</span></div>
+<div class="r">Fee 44〜88万（月3名〜で上がる）</div>
+<div class="r">聞くこと: 転居できますか（本人）</div>
+<div class="more">▸ 理由と原文</div></div>
+<p>仮確定と機械の未読があるとき:</p>
+<div class="card ok"><div class="h"><span class="badge">◯仮</span><span>C社｜機電エンジニア</span></div>
+<div class="r">Fee 理論年収の 35%</div>
+<div class="r">決め手: 経験2年で可</div>
+<div class="r">仮: AI 2本が一致・今夜の確認待ち</div>
+<div class="more">▸ 理由と原文</div></div>
+<div class="card ask"><div class="h"><span class="badge">？</span><span>D社｜法人営業</span></div>
+<div class="r">Fee 未読</div>
+<div class="r">機械がまだ読めていない文 4つ</div>
+<button type="button">原文を AI に読ませる</button></div>
+<h3>決めたこと</h3>
+<ul>
+<li>未読が must の適格に掛かる枠は ◯ にしない。札に未読の文の数を出す。</li>
+<li>既出しの枠は帯の下に回し、「既出し」と出す。</li>
+<li>「先方に聞く」と「機械がまだ読めていない」は別の言葉で出す（いまは同じ帯で区別が付かない）。</li>
+</ul>
+<h3>会社から見る（従）</h3>
+<p>条件カードを、出せる人／Fee／募集状況／返金／推薦の手順／注記 の順に縦に並べる。求職者を選んでいれば、その人に当たる枠と範囲だけ開き、他は畳む。</p>
+<h3>溜まる列（CA の帯とは別の画面）</h3>
+<ul>
+<li><b>先方に聞く列</b>: 社ごとに、源の食い違いを1件1行で。「上限 32歳（求人票）と 34歳（シート）」のように両方の原文を並べる。</li>
+<li><b>機械の裁定の列</b>: AI の読みが割れたもの・割り表が割れた列・行き先を失った裁定。見るのは司令塔で、CA には出さない。</li>
+</ul>
+
+<h2 id="s7" data-sec="7. AI の使い方と費用">7. AI の使い方と費用</h2>
+<p class="note">単価は草案の値（2026-11-03 時点・100万トークンあたり）: Opus 5.5 入力 $4／出力 $20／キャッシュ読み $0.20、Batch は半額。以下は見積もりで実測ではありません。</p>
+<h3>1押し＝その未読かたまりの取り込みを優先で撃つ</h3>
+<ul>
+<li>CA が札の「原文を AI に読ませる」を押すと、その枠の未読かたまりを読み手2本で今すぐ読む。</li>
+<li>求職者の属性は API に渡さない。渡すのは会社の原文と割り表だけ。◯×を出すのは手元の評価器。</li>
+<li>2本が一致し、引用が両方とも照合できたら「仮確定」。帯に出し、札に印を付ける。</li>
+<li>夜の一括で受け入れの物差しと孤児の門を通ったら「確定」に上げる。</li>
+<li>2本が割れたら「機械の裁定の列」に積む。</li>
+</ul>
+<h3>費用の見積もり</h3>
+<div class="stat"><b>初回の取り込み 約 $50〜70</b><br>全経路の原文 約500万トークン。読み手1本なら約 $20、割り表＋Fee・適格の2本＋裁定で上の額。</div>
+<div class="stat"><b>差分 月 数ドル</b></div>
+<div class="stat"><b>1押し 約 $0.11〜0.18</b><br>草案は「1問ごとに払う」（月 約 $90）、新しい形は「1かたまりにつき1回だけ」。未読の約165列を全部1押しで読んでも約 $30 の1回きり。</div>
+<div class="stat"><b>月の見込み: 初回の月 $70〜100・以後 $5〜20</b></div>
+<h3>予算の柵</h3>
+<p>月の使用額を数え、80% で知らせ、100% で AI の口を止めます（札は「原文を見る」に戻る）。</p>
+
+<h2 id="s8" data-sec="8. 受け入れの物差し">8. 受け入れ（物差しは3つ・互いに独立）</h2>
+<ol>
+<li><b>境界の格子。</b>statement の境界値から架空の求職者を作り、契約を見ない読み手が原文から出した答えと、評価器の答えを比べる。決まった答え（◯・×・Fee）の誤りは 0。限界: 読み手は取り込みと同じ系統の AI なので、同じ読み違いをする。これ1つでは足りない。</li>
+<li><b>実際の推薦の結果。</b>既出しの札が持つ「出した」と、書類選考の通過・見送りとその理由を使う。評価器が ◯ なのに条件を理由に見送られた／× なのに通過した、を見つける。限界: 出さなかった枠は結果が無い・理由が条件でない見送りは数えない・推薦した日の時点の条件で評価する。第1段で「取れるか・何件あるか・理由つきは何件か」を確かめる。</li>
+<li><b>notes の実判断（取れれば）。</b>元の中間ファイルが残っていれば使う。無ければ物差しは1と2の2つ。</li>
+</ol>
+<p>物差し2と3のデータは、取り込みの読み手に見せません（隔離）。AI の口は、引用の照合 100%、仮確定→確定の昇格率と昇格で落ちた件数を毎晩数えます。</p>
+
+<h2 id="s9" data-sec="9. 移り方">9. 移り方（一斉に切り替えない）</h2>
+<p><span class="stepno">1</span><b>事務の18列で測る</b>（ここで型の当否を決める）</p>
+<ul>
+<li>18列の割り表と、v2→statement（枠ごと）の変換器を作る。</li>
+<li>並走中の子が足した欄の範囲が、文から推したものか、置き場所から引き継いだものかを確かめる。</li>
+<li>推薦の結果（物差し2）が取れるかを確かめる。</li>
+<li>測る数（前後）: conflict の欄の数／上位5型の問いで「決まる」割合（いま全体28.8%・事務の q001 は65%）／継承で付いた範囲の数／値でない文として外した数。</li>
+<li>進む目安（提案）: conflict が半分以下になり、その減りの過半が継承で付いた範囲によること。満たさなければ型を見直す。</li>
+</ul>
+<p><span class="stepno">2</span><b>評価器 v3 を影で回す</b> 入力の層をつなぎ、v2 の評価器と決まった答えが一致することを格子で確かめる。画面は変えない。</p>
+<p><span class="stepno">3</span><b>残りの列を読む</b> 事務以外の約165列を、かたまり→割り表→AI の読み手で。施工管理の地域ブロックは、窓口・締切がブロックごとに違うかを原文で確かめてから枠か範囲かを決める。</p>
+<p><span class="stepno">4</span><b>画面</b> 札を第6章の形に。仮確定の印・未読の数・1押し・予算の柵・溜まる列2つ。実ブラウザで押して確かめる。</p>
+<p><span class="stepno">5</span><b>他の経路</b> circus・昼ドリ・ZT・MK を同じ型へ（v1 を卒業）。</p>
+<h3>戻し方</h3>
+<p>第3段までは v2 の契約と画面をそのまま残す。第4段の切り替えは画面の表示の切り替え1つで戻せる。statement は GCS の版つきなので、前の版を指し直せば戻る。</p>
+
+<h2 id="s10" data-sec="10. 拓也が決めること">10. 拓也が決めること（4つ）</h2>
+<div class="dec" id="d1">
+<h3>1. 仮確定の答えを、帯の ◯× に出してよいか <span class="tag">設計判断(a)</span></h3>
+<div class="rec"><b>推奨: 出す。</b>札に「仮」の印を付け、その夜の確認で確定に上げる。</div>
+<p>出さない場合: 押しても翌朝まで ？ のままになり、「押すと決まる」が成り立たない。出す場合の害: 仮の ◯ を見て推薦した後、夜の確認で覆ることがありうる。覆った件数は毎晩数えて知らせる。</p>
+</div>
+<div class="dec" id="d2">
+<h3>2. 機械の未読がある枠を ◯ にせず、札に未読の数を出してよいか <span class="tag">設計判断(a)</span></h3>
+<div class="rec"><b>推奨: 出す。</b>いまより ？ が一時的に増えるが、読めていないことを CA が見落とさない。第3段で読み終われば減る。</div>
+</div>
+<div class="dec" id="d3">
+<h3>3. 取り込みを、サブエージェント（月額枠）から API（従量）に移してよいか <span class="tag">設計判断(b)</span></h3>
+<div class="rec"><b>推奨: 移す。</b>初回の月 $70〜100・以後 $5〜20 の見積もりで、承認済みの月 170$ の内。差分の読み直しは定期ジョブの中で走るので月額枠が使えない。</div>
+<p>柵: 80% で知らせ、100% で止める。</p>
+</div>
+<div class="dec" id="d4">
+<h3>4. 第1段の後、どちらを先に広げるか <span class="tag">設計判断(c)</span></h3>
+<p>案A: 堀口の残り約165列（第3段）を先に。案B: 他の経路（ZT 174本・MK 36本・circus 17本）を先に同じ型へ。</p>
+<div class="rec"><b>推奨: 案A。</b>v2 の器と控えが既にあり、新しい型で読むだけで済む。ただし、推薦と承諾が多い経路が ZT や MK なら案B が利益に近い。経路別の推薦数は未集計なので、第1段の中で数えて添える。</div>
+</div>
+<p>決めなくてよいこと（こちらで決めて進める）: 割り表と statement の欄の名前・id の作り方・置き場（GCS と git の分け方）・受け入れの物差しの組み方・第1段の測り方。</p>
+<p class="note">設計書の全文は repo の <code>docs/offer_terms/condition_model_v3.md</code>。</p>
+</main>
+<a class="top" data-chrome href="#top">▲ 先頭へ</a>
+<script>
+(function(){
+  var hs=[].slice.call(document.querySelectorAll('main h2[data-sec]'));
+  var now=document.getElementById('bandNow'),bar=document.getElementById('bandBar');
+  function upd(){
+    var y=window.scrollY+110,cur='はじめに';
+    for(var i=0;i<hs.length;i++){ if(hs[i].getBoundingClientRect().top+window.scrollY<=y){cur=hs[i].getAttribute('data-sec');} }
+    if(now.textContent!==cur)now.textContent=cur;
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?Math.min(100,window.scrollY/h*100):0)+'%';
+  }
+  window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
+})();
+</script>
+</body>
+</html>
