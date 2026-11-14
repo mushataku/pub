@@ -280,7 +280,7 @@ figcaption{margin-top:var(--sp-2);font-size:.875rem;color:var(--text-sub)}
 
   <section aria-labelledby="s3">
     <h2 id="s3"><span class="no">3</span><span>1人あたりの流れと分担</span></h2>
-    <p class="msg">あびのさんは名簿に書くまで、ご本人は SMS のコードを渡すのと来店、それ以外の申込の作業はこちらです。</p>
+    <p class="msg">あびのさんは名簿・携帯番号とメールの用意・SMS の転送まで、ご本人は来店、それ以外の申込の作業はこちらです。</p>
 
     <ol class="flow" aria-label="1人あたりの流れ">
       <li class="flow-head c1" aria-hidden="true">あびのさん</li>
@@ -288,12 +288,12 @@ figcaption{margin-top:var(--sp-2);font-size:.875rem;color:var(--text-sub)}
       <li class="flow-head c3" aria-hidden="true">こちら</li>
 
       <li style="grid-row:2" class="st cl c1"><span class="who">あびのさん</span><span class="who-sr">あびのさん: </span>ご本人の同意を取る</li>
-      <li style="grid-row:3" class="st cl c1"><span class="who">あびのさん</span><span class="who-sr">あびのさん: </span>名簿（共有シート）にご本人の情報を書く<p class="small">1行＝1人×1店</p></li>
+      <li style="grid-row:3" class="st cl c1"><span class="who">あびのさん</span><span class="who-sr">あびのさん: </span>名簿（共有シート）にご本人の情報と、用意した携帯番号・メールアドレスを書く<p class="small">1行＝1人×1店</p></li>
       <li style="grid-row:4" class="st us c3"><span class="who">こちら</span><span class="who-sr">こちら: </span>各店の受付開始時刻をページから自動で読み、開始直後に申込を始める</li>
       <li style="grid-row:5" class="st us c3"><span class="who">こちら</span><span class="who-sr">こちら: </span>入力・日時の選択・確認画面の照合（仕組みで自動）</li>
       <li style="grid-row:6" class="st us c3"><span class="who">こちら</span><span class="who-sr">こちら: </span>「私はロボットではありません」の確認を担当者が押す</li>
-      <li style="grid-row:7" class="st pe c2 key"><span class="who">ご本人</span><span class="who-sr">ご本人: </span>携帯に届いた SMS の認証コードを、数分以内にこちらへ渡す</li>
-      <li style="grid-row:8" class="st us c3"><span class="who">こちら</span><span class="who-sr">こちら: </span>コードを入れて申込を完了する</li>
+      <li style="grid-row:7" class="st cl c1 key"><span class="who">あびのさん</span><span class="who-sr">あびのさん: </span>用意した携帯に届いた SMS を、こちらの番号 080-1755-2964 へ転送する</li>
+      <li style="grid-row:8" class="st us c3"><span class="who">こちら</span><span class="who-sr">こちら: </span>転送された SMS からコードを読み、入れて申込を完了する</li>
       <li style="grid-row:9" class="st sh span"><span class="who">店</span><span class="who-sr">店: </span>リクエストを受け付ける（確約ではない）</li>
       <li style="grid-row:10" class="st pe c2"><span class="who">ご本人</span><span class="who-sr">ご本人: </span>来店日に店へ行く<p class="small">購入できるかは店の判断です</p></li>
     </ol>
@@ -302,24 +302,21 @@ figcaption{margin-top:var(--sp-2);font-size:.875rem;color:var(--text-sub)}
 
   <section aria-labelledby="s4">
     <h2 id="s4"><span class="no">4</span><span>あびのさんにお願いしたいこと</span></h2>
-    <p class="msg">1人あたりの情報、SMS のコードをすぐ渡してもらう経路、来店はご本人、の3つです。</p>
+    <p class="msg">1人あたりの情報、携帯番号とメールの用意、SMS の転送、来店はご本人、の4つです。</p>
 
     <div class="ask">
       <div class="card">
         <h3>1人あたりの情報</h3>
         <ul class="items">
-          <li>姓</li><li>名</li><li>セイ（カナ）</li><li>メイ（カナ）</li><li>生年月日</li><li>携帯電話番号</li><li>メールアドレス</li><li>希望来店日時</li>
+          <li>姓</li><li>名</li><li>セイ（カナ）</li><li>メイ（カナ）</li><li>生年月日</li><li>携帯電話番号（あびのさんが用意）</li><li>メールアドレス（あびのさんが用意）</li><li>希望来店日時</li>
         </ul>
         <p class="small">希望来店日時は、日時の指定でも「おまかせ」でも申し込めます。</p>
       </div>
       <div class="card">
-        <h3>SMS の認証コードの受け渡し</h3>
-        <p>申込の途中で、ご本人の携帯に認証コードが届きます。入れないと申込は完了せず、数分以内に入れる必要があります。</p>
-        <p>そのため、ご本人がコードを受け取ったらすぐこちらへ渡せる経路が要ります。</p>
-        <ul>
-          <li>共有シートの欄に入れてもらう</li>
-          <li>メッセージで送ってもらう</li>
-        </ul>
+        <h3>SMS の転送先</h3>
+        <p>申込の途中で、名簿の携帯番号に認証コードの SMS が届きます。入れないと申込は完了せず、数分以内に入れる必要があります。</p>
+        <p>届いた SMS は、こちらの番号へそのまま転送してください。コードはこちらで読んで入れます。</p>
+        <p class="tel">転送先: <strong>080-1755-2964</strong></p>
       </div>
       <div class="card">
         <h3>来店はご本人</h3>
@@ -328,7 +325,7 @@ figcaption{margin-top:var(--sp-2);font-size:.875rem;color:var(--text-sub)}
       </div>
       <div class="card">
         <h3>ご本人の同意</h3>
-        <p>代わりに申し込むこと、SMS のコードを渡してもらうことについて、ご本人の了解が要ります。取り方は今夜決めたいです（Q2）。</p>
+        <p>代わりに申し込むこと、あびのさんが用意した番号とメールで申し込むことについて、ご本人の了解が要ります。取り方は今夜決めたいです（Q2）。</p>
       </div>
     </div>
   </section>
@@ -355,12 +352,12 @@ figcaption{margin-top:var(--sp-2);font-size:.875rem;color:var(--text-sub)}
       </li>
       <li class="q">
         <h3 id="q2">ご本人の同意の取り方</h3>
-        <p>代わりに申し込むこと、SMS のコードを渡すことの了解を、誰がどう取りますか。</p>
+        <p>代わりに申し込むこと、用意した番号とメールで申し込むことの了解を、誰がどう取りますか。</p>
         <label for="a2">答え</label><textarea id="a2" rows="2"></textarea>
       </li>
       <li class="q">
-        <h3 id="q3">SMS コードの受け渡し方法</h3>
-        <p>共有シートの欄に入れてもらう／メッセージで送ってもらう、のどちらにしますか。</p>
+        <h3 id="q3">SMS の転送の形</h3>
+        <p>転送は自動ですか、手でですか。転送元の番号（こちらに届くときの差出人）を教えてください。こちらで受け取った SMS を見分けるのに使います。</p>
         <label for="a3">答え</label><textarea id="a3" rows="2"></textarea>
       </li>
       <li class="q">
