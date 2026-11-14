@@ -18,6 +18,7 @@
   --accent-soft:#dcefe8;
   --visit:#765912;
   --visit-soft:#f4ecd8;
+  --visit-hatch:#e8d9b4;
   --today:#a3261f;
   --band-bg:rgba(247,247,245,.94);
   --sp-1:4px;--sp-2:8px;--sp-3:16px;--sp-4:24px;--sp-5:48px;
@@ -27,14 +28,14 @@
   :root:not([data-theme="light"]){
     color-scheme:dark;
     --bg:#141414;--surface:#1d1d1d;--on-surface:#e6e6e6;--text-sub:#bdbdbd;--border:#3a3a3a;
-    --accent:#72d2b5;--accent-soft:#183a31;--visit:#e2c27a;--visit-soft:#3a3020;--today:#ff8a80;
+    --accent:#72d2b5;--accent-soft:#183a31;--visit:#e2c27a;--visit-soft:#3a3020;--visit-hatch:#4d3f27;--today:#ff8a80;
     --band-bg:rgba(20,20,20,.94);
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
   --bg:#141414;--surface:#1d1d1d;--on-surface:#e6e6e6;--text-sub:#bdbdbd;--border:#3a3a3a;
-  --accent:#72d2b5;--accent-soft:#183a31;--visit:#e2c27a;--visit-soft:#3a3020;--today:#ff8a80;
+  --accent:#72d2b5;--accent-soft:#183a31;--visit:#e2c27a;--visit-soft:#3a3020;--visit-hatch:#4d3f27;--today:#ff8a80;
   --band-bg:rgba(20,20,20,.94);
 }
 *{box-sizing:border-box}
@@ -87,31 +88,21 @@ thead th{background:var(--bg);font-weight:700}
 tbody th{font-weight:700;min-width:9em}
 table{min-width:40rem}
 
-/* 時間軸 */
+/* 日程のカレンダー（共有部品 webparts calendar v0.1.0 の写しを下に流し込み・色はこのページのトークンで上書き） */
 figure{margin:var(--sp-4) 0 0;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:var(--sp-3)}
 figcaption{margin-top:var(--sp-2);font-size:.875rem;color:var(--text-sub)}
-.legend{display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-4);font-size:.875rem;margin:0 0 var(--sp-3);padding:0;list-style:none}
-.legend li{display:flex;align-items:center;gap:var(--sp-2)}
-.sw{display:inline-block;width:28px;height:12px;border-radius:3px;flex:none}
-.sw.req{background:var(--accent)}
-.sw.vis{background:repeating-linear-gradient(135deg,var(--visit-soft) 0 4px,var(--visit) 4px 6px);border:1px solid var(--visit)}
-.sw.td{width:2px;height:16px;background:var(--today);border-radius:0}
-.tl{position:relative}
-.tl-axis{position:relative;height:22px;font-size:.875rem;color:var(--text-sub);margin-left:0}
-.tl-axis span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap;line-height:22px}
-.tl-axis span.first{transform:none}
-.tl-axis span.last{transform:translateX(-100%)}
-.tl-row{margin-top:var(--sp-3)}
-.tl-name{font-weight:700;font-size:1rem;line-height:1.4}
-.tl-track{position:relative;height:22px;margin-top:var(--sp-1);background:repeating-linear-gradient(90deg,transparent 0 calc(100%/27 - 1px),var(--border) calc(100%/27 - 1px) calc(100%/27));border-radius:3px}
-.bar{position:absolute;top:3px;height:16px;border-radius:3px}
-.bar.req{background:var(--accent)}
-.bar.vis{background:repeating-linear-gradient(135deg,var(--visit-soft) 0 4px,var(--visit) 4px 6px);border:1px solid var(--visit)}
-.tl-txt{position:relative;z-index:1;display:inline-block;background:var(--surface);padding-right:var(--sp-1);font-size:.875rem;color:var(--text-sub);line-height:1.5;margin-top:var(--sp-1)}
-.tl-name{position:relative;z-index:1;display:inline-block;background:var(--surface);padding-right:var(--sp-1)}
-.tl-today{position:absolute;top:22px;bottom:0;width:2px;background:var(--today);pointer-events:none}
-.tl-today-label{position:absolute;top:0;font-size:.875rem;color:var(--today);font-weight:700;white-space:nowrap;line-height:22px;transform:translateX(-50%)}
-.tl-head{position:relative;height:22px}
+#cal .wpc{--wpc-ink:var(--on-surface);--wpc-sub:var(--text-sub);--wpc-bg:var(--surface);--wpc-face:var(--surface);--wpc-line:var(--border);
+  --wpc-accent:var(--accent);--wpc-accent-bg:var(--accent-soft);--wpc-accent-b:var(--accent);--wpc-sel-bg:var(--accent-soft);
+  --wpc-today:var(--today);--wpc-warn:var(--visit-soft);--wpc-warn-b:var(--visit);--wpc-focus:var(--accent);--wpc-focus-in:var(--surface)}
+#cal .wpc-tone-accent{border-width:2px}
+#cal .wpc-tone-warn{background:repeating-linear-gradient(135deg,var(--visit-soft) 0 6px,var(--visit-hatch) 6px 9px);border:2px dashed var(--visit)}
+#cal .wpc-sw{width:22px;height:16px}
+#cal .wpc-sw.wpc-tone-today{background:var(--surface);border:0;box-shadow:inset 0 0 0 2px var(--today)}
+#cal .wpc-cbody .wpc-lab,#cal .wpc-cbody .wpc-state{background:var(--surface)}
+#cal .wpc-day.wpc-sel[class*="wpc-tone-"]{border-style:solid}
+#cal .wpc-day.wpc-today{border:3px solid var(--today);box-shadow:none}
+#cal .wpc-day.wpc-closed,#cal .wpc-closed ~ .wpc-blank{display:none}
+@container wpc (min-width:520px){#cal .wpc-list{display:none}}
 
 /* 流れ */
 .flow{list-style:none;margin:var(--sp-4) 0 0;padding:0;display:grid;gap:var(--sp-2);counter-reset:st}
@@ -176,12 +167,148 @@ figcaption{margin-top:var(--sp-2);font-size:.875rem;color:var(--text-sub)}
   .toc{display:none}
   a{color:#000;text-decoration:none}
   .q textarea{border:1px solid #888;background:#fff;min-height:4em}
-  .bar.req,.sw.req,.bar.vis,.sw.vis,.tl-today,.sw.td,.st{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #cal .wpc-day,#cal .wpc-sw,#cal .wpc-lab,#cal .wpc-state,.st{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #cal .wpc-panel,#cal .wpc-list{display:none}
 }
 .handoff{margin-top:var(--sp-3,1.5rem);padding:1rem 1.25rem;border:2px solid var(--accent,#0b5d4b);border-radius:10px}
 .handoff-h{font-weight:700;margin:0 0 .5rem}
 .handoff ol{margin:0 0 .5rem;padding-left:1.5em}
 .handoff li{margin:.25rem 0}
+</style>
+<style>
+/* 写し: webparts calendar-v0.1.0（vendor_copy.py で取得・manifest 一致を確認・編集しない） */
+/*! webparts calendar v0.1.0 — 見た目。色・余白はトークン（--wpc-*）で上書きできる。字は使う側のページを継ぐ。 */
+.wpc{
+  --wpc-ink:#1f2328; --wpc-sub:#4f5661; --wpc-bg:#ffffff; --wpc-face:#ffffff; --wpc-line:#c3c9d2;
+  --wpc-accent:#123f8a; --wpc-accent-ink:#ffffff; --wpc-sel-bg:#dfe9fb; --wpc-today:#8a4100;
+  --wpc-off-bg:#eef0f3; --wpc-off-ink:#555c66; --wpc-err:#8a1f15; --wpc-err-bg:#fdecea;
+  --wpc-focus:#0b3d91; --wpc-focus-in:#ffffff;
+  --wpc-good:#dcf3e2; --wpc-good-b:#2e7d4f; --wpc-warn:#fff1c2; --wpc-warn-b:#9a6c00;
+  --wpc-muted:#e6e8ec; --wpc-muted-b:#6f7782; --wpc-accent-bg:#e2ebff; --wpc-accent-b:#2f55c4;
+  --wpc-gap:4px; --wpc-r:8px; --wpc-cell-h:52px;
+  container: wpc / inline-size;
+  color:var(--wpc-ink); background:var(--wpc-bg); font:inherit; line-height:1.5;
+  max-width:100%; box-sizing:border-box;
+}
+.wpc *,.wpc *::before,.wpc *::after{box-sizing:border-box}
+.wpc[data-theme="dark"]{
+  --wpc-ink:#e8eaee; --wpc-sub:#bcc2cb; --wpc-bg:#16181c; --wpc-face:#1e2127; --wpc-line:#4a515c;
+  --wpc-accent:#9cc0ff; --wpc-accent-ink:#0d1b33; --wpc-sel-bg:#24395e; --wpc-today:#ffb36b;
+  --wpc-off-bg:#24272d; --wpc-off-ink:#b3b9c2; --wpc-err:#ffb4ab; --wpc-err-bg:#3b1d1a;
+  --wpc-focus:#ffffff; --wpc-focus-in:#0b3d91;
+  --wpc-good:#1d3a28; --wpc-good-b:#5fbf86; --wpc-warn:#3d3214; --wpc-warn-b:#e2b53e;
+  --wpc-muted:#2b2f36; --wpc-muted-b:#8d95a1; --wpc-accent-bg:#1e2c4f; --wpc-accent-b:#8fb0ff;
+}
+.wpc button,.wpc input{font:inherit;color:inherit}
+.wpc :focus-visible{outline:3px solid var(--wpc-focus);outline-offset:1px;box-shadow:0 0 0 1px var(--wpc-focus-in)}
+
+/* 見出しの帯（月送り） */
+.wpc-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 8px}
+.wpc-bar[hidden]{display:none}
+.wpc-title{font-size:17px;font-weight:700;text-align:center;flex:1}
+.wpc-nav{min-width:44px;min-height:44px;border:1px solid var(--wpc-line);border-radius:999px;background:var(--wpc-face);
+  color:var(--wpc-accent);font-size:20px;line-height:1;cursor:pointer}
+.wpc-nav:disabled{opacity:.45;cursor:default}
+
+.wpc-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 8px;font-size:14px}
+.wpc-legend-item{display:inline-flex;align-items:center;gap:6px}
+.wpc-sw{display:inline-block;width:14px;height:14px;border-radius:3px;border:1px solid var(--wpc-line)}
+
+/* 月グリッド7列 */
+.wpc-month+.wpc-month{margin-top:14px}
+.wpc-mtitle{font-size:16px;font-weight:700;margin:0 0 6px}
+.wpc-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:var(--wpc-gap)}
+.wpc-dow{font-size:14px;text-align:center;color:var(--wpc-sub)}
+.wpc-dow.wpc-sun{color:#b3261e}.wpc-dow.wpc-sat{color:#1f4fb5}
+.wpc[data-theme="dark"] .wpc-dow.wpc-sun{color:#ffb4ab}.wpc[data-theme="dark"] .wpc-dow.wpc-sat{color:#a9c4ff}
+.wpc-day{position:relative;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px;
+  min-width:0;min-height:var(--wpc-cell-h);padding:4px 5px;margin:0;text-align:left;
+  background:var(--wpc-face);border:1px solid var(--wpc-line);border-radius:var(--wpc-r);cursor:pointer;
+  overflow-wrap:anywhere;word-break:normal;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.wpc-day:hover{border-color:var(--wpc-accent)}
+.wpc-dhead{display:flex;align-items:center;justify-content:space-between;gap:2px}
+.wpc-d{font-size:14px;font-weight:700}
+.wpc-mark{font-size:14px;line-height:1;color:var(--wpc-accent)}
+.wpc-mark-err{color:var(--wpc-err);font-weight:700}
+.wpc-cbody{display:flex;flex-direction:column;gap:2px;min-width:0}
+.wpc-v{display:flex;align-items:baseline;gap:1px;color:var(--wpc-accent);font-weight:700}
+.wpc-vn{font-size:18px;line-height:1.1}
+.wpc-vu{font-size:14px}
+.wpc-lab,.wpc-state{display:block;font-size:14px;line-height:1.35;padding:1px 4px;border-radius:4px;background:rgba(255,255,255,.7)}
+.wpc[data-theme="dark"] .wpc-lab,.wpc[data-theme="dark"] .wpc-state{background:rgba(0,0,0,.25)}
+.wpc-lab-accent{background:var(--wpc-accent-bg);color:var(--wpc-accent-b);font-weight:700}
+.wpc[data-theme="dark"] .wpc-lab-accent{background:var(--wpc-accent-bg);color:var(--wpc-accent-b)}
+.wpc-state{font-weight:700;color:var(--wpc-sub)}
+
+.wpc-blank{min-height:var(--wpc-cell-h)}
+.wpc-day.wpc-today{box-shadow:inset 0 0 0 2px var(--wpc-today)}
+.wpc-day.wpc-today .wpc-d{color:var(--wpc-today)}
+.wpc-day.wpc-sel{background:var(--wpc-sel-bg);border:2px solid var(--wpc-accent)}
+.wpc-day.wpc-past,.wpc-day.wpc-closed{background:var(--wpc-off-bg);color:var(--wpc-off-ink);border-color:transparent;cursor:not-allowed}
+.wpc[data-mode="count"] .wpc-day.wpc-closed .wpc-d{text-decoration:line-through}
+.wpc[data-mode="view"] .wpc-day.wpc-closed{cursor:default}
+.wpc-day.wpc-readonly{cursor:default}
+.wpc-day.wpc-has-err{border-color:var(--wpc-err)}
+
+.wpc-tone-good{background:var(--wpc-good);border-color:var(--wpc-good-b)}
+.wpc-tone-warn{background:var(--wpc-warn);border-color:var(--wpc-warn-b)}
+.wpc-tone-muted{background:var(--wpc-muted);border-color:var(--wpc-muted-b)}
+.wpc-tone-accent{background:var(--wpc-accent-bg);border-color:var(--wpc-accent-b)}
+.wpc-day.wpc-sel[class*="wpc-tone-"]{border:2px solid var(--wpc-accent);box-shadow:inset 0 0 0 2px var(--wpc-face)}
+
+/* 選んだ日の欄（入れる・見る） */
+.wpc-panel{margin:12px 0 0;padding:12px;border:1px solid var(--wpc-line);border-radius:var(--wpc-r);background:var(--wpc-face)}
+.wpc-ptitle{font-size:17px;font-weight:700;margin:0 0 6px}
+.wpc-pstate{display:inline-block;font-size:14px;font-weight:700;padding:1px 8px;border-radius:999px;border:1px solid var(--wpc-line);margin:0 0 6px}
+.wpc-plabels{margin:0 0 6px;padding-left:1.2em;font-size:16px}
+.wpc-note{margin:0 0 8px;font-size:16px;color:var(--wpc-sub)}
+.wpc-err{margin:8px 0 0;padding:8px 10px;font-size:16px;color:var(--wpc-err);background:var(--wpc-err-bg);border-radius:6px}
+.wpc-hint{margin:0;font-size:16px;color:var(--wpc-sub)}
+.wpc-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.wpc-chip{min-width:56px;min-height:44px;padding:6px 12px;border:1px solid var(--wpc-line);border-radius:999px;
+  background:var(--wpc-face);font-size:16px;cursor:pointer;touch-action:manipulation}
+.wpc-chip[aria-pressed="true"]{background:var(--wpc-accent);color:var(--wpc-accent-ink);border-color:var(--wpc-accent);font-weight:700}
+.wpc-step{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wpc-stepb{min-width:44px;min-height:44px;border:1px solid var(--wpc-line);border-radius:var(--wpc-r);background:var(--wpc-face);
+  font-size:20px;cursor:pointer;touch-action:manipulation}
+.wpc-input{width:5em;min-height:44px;padding:6px 8px;font-size:16px;text-align:center;border:1px solid var(--wpc-line);
+  border-radius:var(--wpc-r);background:var(--wpc-bg)}
+.wpc-unit{font-size:16px}
+.wpc-acts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.wpc-act{min-height:44px;padding:6px 12px;border:1px solid var(--wpc-accent);border-radius:var(--wpc-r);background:var(--wpc-face);
+  color:var(--wpc-accent);font-size:16px;cursor:pointer;text-align:left}
+.wpc-act-clear{border-color:var(--wpc-err);color:var(--wpc-err)}
+.wpc-status{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* 入れた日の一覧／日ごとの予定 */
+.wpc-list{margin:12px 0 0}
+.wpc-ltitle{font-size:16px;font-weight:700;margin:0 0 6px}
+.wpc-lrows{list-style:none;margin:0;padding:0}
+.wpc-lrow{display:flex;align-items:center;flex-wrap:nowrap;gap:6px 10px;padding:6px 0;border-bottom:1px solid var(--wpc-line)}
+.wpc-lrow:last-child{border-bottom:none}
+.wpc-lsel{background:var(--wpc-sel-bg)}
+.wpc-ldate{min-height:44px;padding:4px 6px;border:0;background:none;font-size:16px;font-weight:700;color:var(--wpc-accent);
+  cursor:pointer;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.wpc-lbody{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;flex:1 1 0;min-width:0;font-size:16px}
+.wpc-lbody .wpc-lab,.wpc-lbody .wpc-state{display:inline-block}
+.wpc-lnote{color:var(--wpc-sub);font-size:14px}
+.wpc-lerr{color:var(--wpc-err);font-size:14px;font-weight:700}
+.wpc-lclear{min-height:44px;min-width:56px;padding:4px 10px;border:1px solid var(--wpc-line);border-radius:var(--wpc-r);
+  background:var(--wpc-face);color:var(--wpc-err);font-size:14px;cursor:pointer}
+
+/* 狭い幅: セルは日付と数（か印）だけ。文は下の欄と一覧に出す */
+@container wpc (max-width: 519px){
+  .wpc{--wpc-gap:2px;--wpc-cell-h:48px}
+  .wpc-day{padding:3px 2px;align-items:center;text-align:center}
+  .wpc-dhead{justify-content:center}
+  .wpc-mark{position:absolute;top:2px;right:3px}
+  .wpc-cbody .wpc-lab,.wpc-cbody .wpc-state,.wpc-vu{display:none}
+  .wpc-day.wpc-has-lab .wpc-cbody::after{content:"";display:block;width:6px;height:6px;margin:2px auto 0;border-radius:50%;background:var(--wpc-ink)}
+  .wpc-v{justify-content:center}
+}
+@media (prefers-reduced-motion: no-preference){
+  .wpc-day,.wpc-chip{transition:background-color .12s ease,border-color .12s ease}
+}
 </style>
 </head>
 <body>
@@ -227,47 +354,7 @@ figcaption{margin-top:var(--sp-2);font-size:.875rem;color:var(--text-sub)}
     <p class="msg">5店とも、Web の「来店予約リクエスト」で受け付けています。受付は期間制で、来店日はリクエストの約1〜2週間後です。</p>
 
     <figure aria-labelledby="tl-cap">
-      <ul class="legend" aria-hidden="true">
-        <li><span class="sw req"></span>リクエスト期間</li>
-        <li><span class="sw vis"></span>来店日</li>
-        <li><span class="sw td"></span>今日（11/14）</li>
-      </ul>
-      <div class="tl" id="tl">
-        <div class="tl-head" aria-hidden="true"><span class="tl-today-label" style="left:calc(100%*4.5/27)">今日 11/14</span></div>
-        <div class="tl-axis" aria-hidden="true">
-          <span class="first" style="left:0">11/10</span>
-          <span style="left:calc(100%*6/27)">11/16</span>
-          <span style="left:calc(100%*13/27)">11/23</span>
-          <span style="left:calc(100%*20/27)">11/30</span>
-          <span class="last" style="left:100%">12/6</span>
-        </div>
-        <div class="tl-today" aria-hidden="true" style="left:calc(100%*4.5/27 - 1px)"></div>
-
-        <div class="tl-row">
-          <div class="tl-name">表参道</div>
-          <div class="tl-track" aria-hidden="true">
-            <span class="bar req" style="left:calc(100%*0/27);width:calc(100%*6/27)"></span>
-            <span class="bar vis" style="left:calc(100%*13/27);width:calc(100%*7/27)"></span>
-          </div>
-          <div class="tl-txt">リクエスト <span class="nw">11/10(火)11:00</span>〜<span class="nw">11/15(日)23:59</span> → 来店 <span class="nw">11/23〜11/29</span></div>
-        </div>
-        <div class="tl-row">
-          <div class="tl-name">レキシア 銀座・新宿・名古屋</div>
-          <div class="tl-track" aria-hidden="true">
-            <span class="bar req" style="left:calc(100%*6/27);width:calc(100%*7/27)"></span>
-            <span class="bar vis" style="left:calc(100%*20/27);width:calc(100%*7/27)"></span>
-          </div>
-          <div class="tl-txt">リクエスト <span class="nw">11/16(月)11:00</span>〜<span class="nw">11/22(日)23:59</span> → 来店 <span class="nw">11/30(月)〜12/6(日)</span></div>
-        </div>
-        <div class="tl-row">
-          <div class="tl-name">ヒルトンプラザ大阪</div>
-          <div class="tl-track" aria-hidden="true">
-            <span class="bar req" style="left:calc(100%*8/27);width:calc(100%*5/27)"></span>
-            <span class="bar vis" style="left:calc(100%*20/27);width:calc(100%*7/27)"></span>
-          </div>
-          <div class="tl-txt">リクエスト <span class="nw">11/18(水)10:00</span>〜<span class="nw">11/22(日)23:59</span> → 来店 <span class="nw">11/30〜12/6</span></div>
-        </div>
-      </div>
+      <div id="cal" class="cal-host"></div>
       <figcaption id="tl-cap">今回の受付期間と来店日（2026-11-14 時点・各店ページより）。表参道の今回の期間は 11/15 で締切です。</figcaption>
     </figure>
 
@@ -401,6 +488,605 @@ figcaption{margin-top:var(--sp-2);font-size:.875rem;color:var(--text-sub)}
   </section>
 </main>
 
+<script>
+/*! webparts calendar v0.1.0 — 月の表で見る・日ごとに数を入れる。依存なし・ビルド不要。
+ *  正本: github.com/mushataku/webparts（calendar/）。写しは編集しない（直すなら webparts へ票）。
+ *
+ *  3層（層をまたぐ型を作らない＝層の間を流れるのは "YYYY-MM-DD" の文字列と素のオブジェクトだけ）:
+ *    層1 日付の核   … JST・「M月D日（曜）」・過ぎた日／閉じた日／読み取り専用の日の判定
+ *    層2 並べ方     … v0.1 は月グリッド7列だけ（週×時刻は v0.2）
+ *    層3 セルの触り方 … "view"（ラベルを見る）と "count"（整数を入れる・消す）
+ *  保存は持たない（使う側の仕事）。部品の中に事業の語を入れない＝ラベルと単位は使う側が渡す。
+ */
+(function (global) {
+  "use strict";
+
+  var VERSION = "0.1.0";
+
+  // ───────────────────────── 層1: 日付の核 ─────────────────────────
+  var WD = "日月火水木金土";
+
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+
+  function parse(s) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || "");
+    if (!m) return null;
+    var d = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3]));
+    return d.getUTCMonth() === +m[2] - 1 ? d : null;
+  }
+  function iso(d) { return d.getUTCFullYear() + "-" + pad(d.getUTCMonth() + 1) + "-" + pad(d.getUTCDate()); }
+  function addDays(s, n) { var d = parse(s); d.setUTCDate(d.getUTCDate() + n); return iso(d); }
+  function weekday(s) { return parse(s).getUTCDay(); }
+  function dayLabel(s) {
+    var d = parse(s);
+    return (d.getUTCMonth() + 1) + "月" + d.getUTCDate() + "日（" + WD.charAt(d.getUTCDay()) + "）";
+  }
+  // 日本は夏時間が無い＝UTC+9 固定で足りる（端末の時間帯に左右されない）
+  function todayJST(now) { return iso(new Date((now || new Date()).getTime() + 9 * 3600 * 1000)); }
+  function monthOf(s) { return s.slice(0, 7); }
+  function addMonths(ym, n) {
+    var y = +ym.slice(0, 4), m = +ym.slice(5, 7) - 1 + n;
+    y += Math.floor(m / 12); m = ((m % 12) + 12) % 12;
+    return y + "-" + pad(m + 1);
+  }
+  function daysInMonth(ym) { return new Date(Date.UTC(+ym.slice(0, 4), +ym.slice(5, 7), 0)).getUTCDate(); }
+  function monthLabel(ym) { return +ym.slice(0, 4) + "年" + (+ym.slice(5, 7)) + "月"; }
+
+  /** 日の状態: "past"（過ぎた日）・"closed"（設定で閉じた日・範囲の外）・"readonly"・"open" */
+  function classify(date, ctx) {
+    var info = ctx.days[date] || {};
+    if (ctx.pastClosed && date < ctx.today) return "past";
+    if ((ctx.minDate && date < ctx.minDate) || (ctx.maxDate && date > ctx.maxDate)) return "closed";
+    if (info.closed || ctx.closedSet[date] || (ctx.isClosed && ctx.isClosed(date))) return "closed";
+    if (info.readonly) return "readonly";
+    return "open";
+  }
+
+  // ───────────────────────── 層2: 並べ方（月グリッド7列） ─────────────────────────
+  /** 月の升目: 長さが7の倍数の配列（月の外は null）。weekStart=1 で月曜はじまり。 */
+  function monthCells(ym, weekStart) {
+    var first = ym + "-01", n = daysInMonth(ym), out = [];
+    var off = (weekday(first) - weekStart + 7) % 7;
+    for (var i = 0; i < off; i++) out.push(null);
+    for (var d = 1; d <= n; d++) out.push(ym + "-" + pad(d));
+    while (out.length % 7) out.push(null);
+    return out;
+  }
+  function weekHeads(weekStart) {
+    var out = [];
+    for (var i = 0; i < 7; i++) out.push((weekStart + i) % 7);
+    return out;
+  }
+
+  // ───────────────────────── 層3: セルの触り方 ＋ 組み立て ─────────────────────────
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function copy(o) { var r = {}; for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) r[k] = o[k]; return r; }
+  function sortedKeys(o) { return Object.keys(o).sort(); }
+  function toInt(raw) {
+    var s = String(raw == null ? "" : raw);
+    if (s.normalize) s = s.normalize("NFKC");      // 全角の数字も受ける（IME の切替を強いない）
+    s = s.replace(/\s+/g, "");
+    if (s === "") return { empty: true };
+    if (!/^-?\d+$/.test(s)) return { bad: true };
+    return { n: parseInt(s, 10) };
+  }
+
+  function mount(root, opt) {
+    if (!root) throw new Error("webparts calendar: mount 先の要素がありません");
+    opt = opt || {};
+    var mode = opt.mode === "count" ? "count" : "view";
+    var weekStart = opt.weekStart === 0 ? 0 : 1;
+    var today = opt.today || todayJST();
+    var cnt = opt.count || {};
+    var min = cnt.min != null ? cnt.min : 1;
+    var max = cnt.max != null ? cnt.max : 9;
+    var unit = cnt.unit || "";
+    var copyPrev = cnt.copyPrev !== false;
+    var chipsOn = cnt.chips != null ? !!cnt.chips : (max - min) <= 9;
+    var showMonths = Math.max(1, opt.months || 1);
+    var onChange = typeof opt.onChange === "function" ? opt.onChange : null;
+    var onSelect = typeof opt.onSelect === "function" ? opt.onSelect : null;
+    var text = copy(opt.text || {});
+    var T = function (k, d) { return text[k] != null ? text[k] : d; };
+
+    var ctx = {
+      today: today,
+      pastClosed: opt.pastClosed != null ? !!opt.pastClosed : mode === "count",
+      minDate: opt.minDate || null,
+      maxDate: opt.maxDate || null,
+      closedSet: {},
+      isClosed: typeof opt.isClosed === "function" ? opt.isClosed : null,
+      days: {}
+    };
+    (opt.closed || []).forEach(function (d) { ctx.closedSet[d] = true; });
+
+    var values = {}, errors = {}, selected = null, localMsg = null, focusDate = null;
+
+    function setDaysInternal(days) {
+      ctx.days = copy(days || {});
+      errors = {};
+      for (var d in ctx.days) if (ctx.days[d] && ctx.days[d].error) errors[d] = String(ctx.days[d].error);
+    }
+    setDaysInternal(opt.days);
+
+    function rangeMsg() { return min + "〜" + max + unit + "で入れてください"; }
+    /** 値の検査。通れば null、通らなければ使う人へ出す文。 */
+    function check(date, n) {
+      var st = classify(date, ctx);
+      if (st === "past") return T("past", "過ぎた日は入れられません");
+      if (st === "closed") return T("closed", "この日は入れられません");
+      if (st === "readonly") return T("readonly", "この日は変えられません");
+      if (typeof n !== "number" || !isFinite(n) || Math.floor(n) !== n) return T("notInt", "整数で入れてください");
+      if (n === 0 && min > 0) return T("zero", "0 は入れられません。消すときは「消す」を押してください");
+      if (n < min || n > max) return rangeMsg();
+      return null;
+    }
+    (function seed() {
+      var v = opt.values || {};
+      for (var d in v) if (parse(d) && check(d, v[d]) === null) values[d] = v[d];
+    })();
+
+    var minMonth = opt.minMonth || (opt.minDate ? monthOf(opt.minDate) : (ctx.pastClosed ? monthOf(today) : null));
+    var maxMonth = opt.maxMonth || (opt.maxDate ? monthOf(opt.maxDate) : null);
+    function clampMonth(ym) {
+      if (minMonth && ym < minMonth) ym = minMonth;
+      var last = maxMonth ? addMonths(maxMonth, -(showMonths - 1)) : null;
+      if (last && ym > last) ym = (minMonth && last < minMonth) ? minMonth : last;
+      return ym;
+    }
+    var month = clampMonth(opt.month || monthOf(sortedKeys(values)[0] || today));
+
+    // ── 骨組み ──
+    root.innerHTML = "";
+    var box = el("div", "wpc");
+    box.setAttribute("data-mode", mode);
+    box.setAttribute("data-theme", opt.theme || "light");
+    var bar = el("div", "wpc-bar");
+    var prev = el("button", "wpc-nav", "‹");
+    prev.type = "button"; prev.setAttribute("aria-label", T("prevMonth", "前の月")); prev.setAttribute("data-fk", "prev");
+    var next = el("button", "wpc-nav", "›");
+    next.type = "button"; next.setAttribute("aria-label", T("nextMonth", "次の月")); next.setAttribute("data-fk", "next");
+    var title = el("div", "wpc-title");
+    title.setAttribute("aria-live", "polite");
+    bar.appendChild(prev); bar.appendChild(title); bar.appendChild(next);
+    box.appendChild(bar);
+    if (opt.legend && opt.legend.length) {
+      var lg = el("div", "wpc-legend");
+      opt.legend.forEach(function (x) {
+        var it = el("span", "wpc-legend-item");
+        var sw = el("i", "wpc-sw wpc-tone-" + (x.tone || "none"));
+        sw.setAttribute("aria-hidden", "true");
+        it.appendChild(sw); it.appendChild(document.createTextNode(x.text));
+        lg.appendChild(it);
+      });
+      box.appendChild(lg);
+    }
+    var monthsBox = el("div", "wpc-months");
+    box.appendChild(monthsBox);
+    var panel = el("div", "wpc-panel");
+    box.appendChild(panel);
+    var status = el("div", "wpc-status");
+    status.setAttribute("role", "status");
+    status.setAttribute("aria-live", "polite");
+    box.appendChild(status);
+    var list = el("div", "wpc-list");
+    if (opt.list !== false) box.appendChild(list);
+    var hidden = null;
+    if (opt.inputName) {
+      hidden = el("input");
+      hidden.type = "hidden"; hidden.name = opt.inputName;
+      box.appendChild(hidden);
+    }
+    root.appendChild(box);
+
+    // ── 描き直し（フォーカスは data-fk で戻す） ──
+    function withFocus(fn) {
+      var a = document.activeElement, key = a && box.contains(a) ? a.getAttribute("data-fk") : null;
+      fn();
+      if (key) {
+        var t = box.querySelector('[data-fk="' + key + '"]') || box.querySelector('.wpc-day[tabindex="0"]');
+        if (t) t.focus();
+      }
+    }
+    function visibleMonths() {
+      var out = [];
+      for (var i = 0; i < showMonths; i++) out.push(addMonths(month, i));
+      return out;
+    }
+    function fmtValue(n) { return n + unit; }
+    function prevValue(date) {
+      var ks = sortedKeys(values);
+      for (var i = ks.length - 1; i >= 0; i--) if (ks[i] < date) return { date: ks[i], n: values[ks[i]] };
+      return null;
+    }
+    function tabDate() {
+      var ms = visibleMonths(), lo = ms[0] + "-01", hi = ms[ms.length - 1] + "-31";
+      var cands = [focusDate, selected, today];
+      for (var i = 0; i < cands.length; i++) if (cands[i] && cands[i] >= lo && cands[i] <= hi) return cands[i];
+      return ms[0] + "-01";
+    }
+
+    function cellLabel(date, st) {
+      var info = ctx.days[date] || {}, parts = [dayLabel(date)];
+      if (date === today) parts.push(T("todayWord", "今日"));
+      if (mode === "count" && values[date] != null) parts.push(fmtValue(values[date]));
+      if (info.state) parts.push(info.state);
+      (info.labels || []).forEach(function (x) { parts.push(typeof x === "string" ? x : x.text); });
+      if (st === "past") parts.push(T("pastWord", "過ぎた日"));
+      if (st === "closed") parts.push(T("closedWord", "入れられない日"));
+      if (info.note) parts.push(T("noteWord", "注記") + " " + info.note);
+      if (errors[date]) parts.push(T("errorWord", "誤り") + " " + errors[date]);
+      return parts.join("、");
+    }
+
+    function renderMonths() {
+      monthsBox.innerHTML = "";
+      var ms = visibleMonths(), td = tabDate();
+      title.textContent = ms.length === 1 ? monthLabel(ms[0]) : monthLabel(ms[0]) + "〜" + monthLabel(ms[ms.length - 1]);
+      prev.disabled = !!(minMonth && month <= minMonth);
+      next.disabled = !!(maxMonth && addMonths(month, showMonths - 1) >= maxMonth);
+      bar.hidden = prev.disabled && next.disabled && ms.length > 1;
+      ms.forEach(function (ym) {
+        var sec = el("div", "wpc-month");
+        if (ms.length > 1) sec.appendChild(el("div", "wpc-mtitle", monthLabel(ym)));
+        var grid = el("div", "wpc-grid");
+        grid.setAttribute("role", "group");
+        grid.setAttribute("aria-label", monthLabel(ym));
+        weekHeads(weekStart).forEach(function (w) {
+          var h = el("div", "wpc-dow" + (w === 0 ? " wpc-sun" : w === 6 ? " wpc-sat" : ""), WD.charAt(w));
+          h.setAttribute("aria-hidden", "true");
+          grid.appendChild(h);
+        });
+        monthCells(ym, weekStart).forEach(function (date) {
+          if (!date) { grid.appendChild(el("div", "wpc-blank")); return; }
+          var st = classify(date, ctx), info = ctx.days[date] || {};
+          var b = el("button", "wpc-day wpc-" + st);
+          b.type = "button";
+          b.setAttribute("data-date", date);
+          b.setAttribute("data-fk", "d" + date);
+          b.tabIndex = date === td ? 0 : -1;
+          if (info.tone) b.className += " wpc-tone-" + info.tone;
+          if (date === today) b.className += " wpc-today";
+          if (date === selected) { b.className += " wpc-sel"; b.setAttribute("aria-pressed", "true"); }
+          else b.setAttribute("aria-pressed", "false");
+          if (st === "past" || st === "closed") b.setAttribute("aria-disabled", "true");
+          if (errors[date]) b.className += " wpc-has-err";
+          if ((info.labels && info.labels.length) || info.state) b.className += " wpc-has-lab";
+          b.setAttribute("aria-label", cellLabel(date, st));
+          var head = el("span", "wpc-dhead");
+          head.setAttribute("aria-hidden", "true");
+          head.appendChild(el("span", "wpc-d", String(+date.slice(8))));
+          if (info.note || errors[date]) head.appendChild(el("span", errors[date] ? "wpc-mark wpc-mark-err" : "wpc-mark", errors[date] ? "!" : "•"));
+          b.appendChild(head);
+          var bodyEl = el("span", "wpc-cbody");
+          bodyEl.setAttribute("aria-hidden", "true");
+          if (mode === "count" && values[date] != null) {
+            var v = el("span", "wpc-v");
+            v.appendChild(el("span", "wpc-vn", String(values[date])));
+            if (unit) v.appendChild(el("span", "wpc-vu", unit));
+            bodyEl.appendChild(v);
+          }
+          if (info.state) bodyEl.appendChild(el("span", "wpc-state", info.state));
+          (info.labels || []).forEach(function (x) {
+            var t = typeof x === "string" ? { text: x } : x;
+            bodyEl.appendChild(el("span", "wpc-lab" + (t.tone ? " wpc-lab-" + t.tone : ""), t.text));
+          });
+          b.appendChild(bodyEl);
+          grid.appendChild(b);
+        });
+        sec.appendChild(grid);
+        monthsBox.appendChild(sec);
+      });
+    }
+
+    function btn(cls, label, fk, onClick) {
+      var b = el("button", cls, label);
+      b.type = "button";
+      if (fk) b.setAttribute("data-fk", fk);
+      b.addEventListener("click", onClick);
+      return b;
+    }
+
+    function renderPanel() {
+      panel.innerHTML = "";
+      if (!selected) {
+        panel.appendChild(el("p", "wpc-hint", mode === "count"
+          ? T("hintCount", "日付を押すと、その日の数を入れられます")
+          : T("hintView", "日付を押すと、その日の予定がここに出ます")));
+        return;
+      }
+      var date = selected, st = classify(date, ctx), info = ctx.days[date] || {};
+      panel.appendChild(el("div", "wpc-ptitle", dayLabel(date)));
+      if (info.state) panel.appendChild(el("div", "wpc-pstate", info.state));
+      if (info.labels && info.labels.length) {
+        var ul = el("ul", "wpc-plabels");
+        info.labels.forEach(function (x) { ul.appendChild(el("li", null, typeof x === "string" ? x : x.text)); });
+        panel.appendChild(ul);
+      }
+      if (info.note) panel.appendChild(el("p", "wpc-note", info.note));
+      if (errors[date]) {
+        var e = el("p", "wpc-err", errors[date]);
+        e.setAttribute("role", "alert");
+        panel.appendChild(e);
+      }
+      if (mode !== "count") return;
+      if (st !== "open") {
+        panel.appendChild(el("p", "wpc-hint", st === "past" ? T("past", "過ぎた日は入れられません")
+          : st === "readonly" ? T("readonly", "この日は変えられません") : T("closed", "この日は入れられません")));
+        return;
+      }
+      var cur = values[date];
+      if (chipsOn) {
+        var chips = el("div", "wpc-chips");
+        chips.setAttribute("role", "group");
+        chips.setAttribute("aria-label", T("chipsLabel", "数を選ぶ"));
+        for (var n = min; n <= max; n++) (function (n) {
+          var c = btn("wpc-chip", fmtValue(n), "chip" + n, function () { commit(date, n); });
+          c.setAttribute("aria-pressed", cur === n ? "true" : "false");
+          chips.appendChild(c);
+        })(n);
+        panel.appendChild(chips);
+      }
+      var row = el("div", "wpc-step");
+      row.appendChild(btn("wpc-stepb", "−", "minus", function () {
+        commit(date, cur == null ? min : Math.max(min, cur - 1));
+      }));
+      row.lastChild.setAttribute("aria-label", T("minus", "1つ減らす"));
+      var inp = el("input", "wpc-input");
+      inp.type = "text";
+      inp.setAttribute("inputmode", "numeric");
+      inp.setAttribute("autocomplete", "off");
+      inp.setAttribute("data-fk", "input");
+      inp.setAttribute("aria-label", dayLabel(date) + "の数（" + min + "〜" + max + unit + "）");
+      inp.value = cur == null ? "" : String(cur);
+      function fromInput() {
+        var r = toInt(inp.value);
+        if (r.empty) { if (values[date] != null) clear(date); return; }
+        if (r.bad) { say(T("notInt", "整数で入れてください"), true); inp.value = values[date] == null ? "" : String(values[date]); return; }
+        if (r.n !== values[date]) commit(date, r.n);
+      }
+      inp.addEventListener("keydown", function (ev) { if (ev.key === "Enter") { ev.preventDefault(); fromInput(); } });
+      inp.addEventListener("change", fromInput);
+      row.appendChild(inp);
+      if (unit) row.appendChild(el("span", "wpc-unit", unit));
+      row.appendChild(btn("wpc-stepb", "＋", "plus", function () {
+        commit(date, cur == null ? min : Math.min(max, cur + 1));
+      }));
+      row.lastChild.setAttribute("aria-label", T("plus", "1つ増やす"));
+      panel.appendChild(row);
+      var acts = el("div", "wpc-acts");
+      var pv = copyPrev ? prevValue(date) : null;
+      if (pv && check(date, pv.n) === null) {
+        acts.appendChild(btn("wpc-act", T("copyPrev", "前の日と同じ") + "（" + dayLabel(pv.date) + "・" + fmtValue(pv.n) + "）",
+          "copy", function () { commit(date, pv.n); }));
+      }
+      if (cur != null) acts.appendChild(btn("wpc-act wpc-act-clear", T("clear", "消す"), "clear", function () { clear(date); }));
+      if (acts.childNodes.length) panel.appendChild(acts);
+      if (localMsg) {
+        var m = el("p", "wpc-err wpc-local", localMsg);
+        panel.appendChild(m);
+      }
+    }
+
+    function renderList() {
+      if (opt.list === false) return;
+      list.innerHTML = "";
+      var ks;
+      if (mode === "count") {
+        ks = sortedKeys(values);
+        list.appendChild(el("div", "wpc-ltitle", T("listTitle", "入れた日") + "（" + ks.length + "日）"));
+        if (!ks.length) { list.appendChild(el("p", "wpc-hint", T("listEmpty", "まだ入れた日はありません。カレンダーの日付を押してください"))); return; }
+      } else {
+        var ms = visibleMonths(), lo = ms[0], hi = ms[ms.length - 1];
+        ks = sortedKeys(ctx.days).filter(function (d) {
+          var i = ctx.days[d] || {};
+          return monthOf(d) >= lo && monthOf(d) <= hi && ((i.labels && i.labels.length) || i.note || i.state);
+        });
+        if (!ks.length) return;
+        list.appendChild(el("div", "wpc-ltitle", T("agendaTitle", "日ごとの予定")));
+      }
+      var ul = el("ul", "wpc-lrows");
+      ks.forEach(function (d) {
+        var li = el("li", "wpc-lrow" + (d === selected ? " wpc-lsel" : "")), info = ctx.days[d] || {};
+        li.appendChild(btn("wpc-ldate", dayLabel(d), "l" + d, function () { selectDate(d, true); }));
+        var body = el("span", "wpc-lbody");
+        if (mode === "count") body.appendChild(el("b", "wpc-lval", fmtValue(values[d])));
+        else {
+          if (info.state) body.appendChild(el("span", "wpc-state", info.state));
+          (info.labels || []).forEach(function (x) {
+            var t = typeof x === "string" ? { text: x } : x;
+            body.appendChild(el("span", "wpc-lab" + (t.tone ? " wpc-lab-" + t.tone : ""), t.text));
+          });
+        }
+        if (info.note) body.appendChild(el("span", "wpc-lnote", info.note));
+        if (errors[d]) body.appendChild(el("span", "wpc-lerr", errors[d]));
+        li.appendChild(body);
+        if (mode === "count") {
+          var x = btn("wpc-lclear", T("clear", "消す"), "lc" + d, function () { clear(d); });
+          x.setAttribute("aria-label", dayLabel(d) + "の" + fmtValue(values[d]) + "を" + T("clear", "消す"));
+          li.appendChild(x);
+        }
+        ul.appendChild(li);
+      });
+      list.appendChild(ul);
+    }
+
+    function renderAll() { withFocus(function () { renderMonths(); renderPanel(); renderList(); }); }
+
+    function say(msg, isErr) {
+      status.textContent = "";
+      status.textContent = msg;
+      if (isErr) { localMsg = msg; withFocus(renderPanel); }
+    }
+    function emit(date, value) {
+      var out = {};
+      sortedKeys(values).forEach(function (k) { out[k] = values[k]; });
+      if (hidden) hidden.value = JSON.stringify(out);
+      if (onChange) onChange(out, { date: date, value: value });
+    }
+    function commit(date, n) {
+      var why = check(date, n);
+      if (why) { say(why, true); return false; }
+      localMsg = null;
+      var changed = values[date] !== n;
+      values[date] = n;
+      if (changed) delete errors[date];   // 古い値への断りは消す（使う側が onChange を見て出し直す）
+      renderAll();
+      say(dayLabel(date) + "に" + fmtValue(n) + T("entered", "を入れました"));
+      if (changed) emit(date, n);
+      return true;
+    }
+    function clear(date) {
+      if (values[date] == null) return;
+      localMsg = null;
+      delete values[date];
+      delete errors[date];
+      renderAll();
+      say(dayLabel(date) + T("cleared", "を消しました"));
+      emit(date, null);
+    }
+    function ensureVisible(date) {
+      var ms = visibleMonths(), m = monthOf(date);
+      if (m < ms[0] || m > ms[ms.length - 1]) {
+        var nm = m < ms[0] ? m : addMonths(m, -(showMonths - 1));
+        if (clampMonth(nm) !== nm) return false;
+        month = nm;
+      }
+      return true;
+    }
+    function selectDate(date, fromList) {
+      var st = classify(date, ctx);
+      if (st === "past" || st === "closed") {
+        say(st === "past" ? T("past", "過ぎた日は入れられません") : T("closed", "この日は入れられません"));
+        return;
+      }
+      if (!ensureVisible(date)) return;
+      selected = date; focusDate = date; localMsg = null;
+      renderAll();
+      if (fromList) { var c = box.querySelector('[data-fk="d' + date + '"]'); if (c) c.focus(); }
+      if (onSelect) onSelect(date);
+    }
+    function moveFocus(date) {
+      if (!parse(date) || !ensureVisible(date)) return;
+      focusDate = date;
+      renderMonths();
+      var c = box.querySelector('[data-fk="d' + date + '"]');
+      if (c) c.focus();
+    }
+
+    // ── 押す・鍵盤 ──
+    function goMonth(n) {
+      var nm = clampMonth(addMonths(month, n));
+      if (nm === month) return;
+      month = nm; focusDate = null;
+      renderAll();
+    }
+    prev.addEventListener("click", function () { goMonth(-1); });
+    next.addEventListener("click", function () { goMonth(1); });
+    monthsBox.addEventListener("click", function (ev) {
+      var b = ev.target.closest ? ev.target.closest(".wpc-day") : null;
+      if (!b || !monthsBox.contains(b)) return;
+      selectDate(b.getAttribute("data-date"));
+    });
+    monthsBox.addEventListener("keydown", function (ev) {
+      var b = ev.target.closest ? ev.target.closest(".wpc-day") : null;
+      if (!b) return;
+      var d = b.getAttribute("data-date"), k = ev.key, to = null;
+      if (k === "ArrowLeft") to = addDays(d, -1);
+      else if (k === "ArrowRight") to = addDays(d, 1);
+      else if (k === "ArrowUp") to = addDays(d, -7);
+      else if (k === "ArrowDown") to = addDays(d, 7);
+      else if (k === "Home") to = addDays(d, -((weekday(d) - weekStart + 7) % 7));
+      else if (k === "End") to = addDays(d, 6 - ((weekday(d) - weekStart + 7) % 7));
+      else if (k === "PageUp") to = addMonths(monthOf(d), -1) + "-" + pad(Math.min(+d.slice(8), daysInMonth(addMonths(monthOf(d), -1))));
+      else if (k === "PageDown") to = addMonths(monthOf(d), 1) + "-" + pad(Math.min(+d.slice(8), daysInMonth(addMonths(monthOf(d), 1))));
+      else if (mode === "count" && /^[0-9０-９]$/.test(k)) {
+        ev.preventDefault();
+        if (selected !== d) { selected = d; focusDate = d; localMsg = null; renderAll(); }
+        var r = toInt(k);
+        if (commit(d, r.n)) { var c = box.querySelector('[data-fk="d' + d + '"]'); if (c) c.focus(); }
+        return;
+      } else if (mode === "count" && (k === "Backspace" || k === "Delete")) {
+        ev.preventDefault();
+        clear(d);
+        var c2 = box.querySelector('[data-fk="d' + d + '"]'); if (c2) c2.focus();
+        return;
+      }
+      if (to) { ev.preventDefault(); moveFocus(to); }
+    });
+
+    renderAll();
+    emit(null, null);
+
+    return {
+      version: VERSION,
+      el: box,
+      getValues: function () { var o = {}; sortedKeys(values).forEach(function (k) { o[k] = values[k]; }); return o; },
+      setValues: function (v) {
+        values = {};
+        for (var d in (v || {})) if (parse(d) && check(d, v[d]) === null) values[d] = v[d];
+        renderAll(); emit(null, null);
+      },
+      setDays: function (days) { setDaysInternal(days); renderAll(); },
+      setError: function (date, msg) {
+        if (msg) errors[date] = String(msg); else delete errors[date];
+        renderAll();
+      },
+      setNote: function (date, note) {
+        var info = copy(ctx.days[date] || {});
+        if (note) info.note = String(note); else delete info.note;
+        ctx.days[date] = info;
+        renderAll();
+      },
+      select: function (date) { selectDate(date); },
+      goto: function (ym) { month = clampMonth(ym); renderAll(); },
+      destroy: function () { root.innerHTML = ""; }
+    };
+  }
+
+  global.WebpartsCalendar = {
+    version: VERSION,
+    mount: mount,
+    date: { parse: parse, iso: iso, addDays: addDays, weekday: weekday, label: dayLabel, todayJST: todayJST,
+            monthOf: monthOf, addMonths: addMonths, daysInMonth: daysInMonth, monthLabel: monthLabel, classify: classify },
+    layout: { monthCells: monthCells, weekHeads: weekHeads }
+  };
+})(typeof window !== "undefined" ? window : this);
+</script>
+<script>
+(function(){
+  // 2 節のカレンダー（日付は 2026-11-14 時点・各店ページより）
+  var D=WebpartsCalendar.date, days={};
+  function span(a,b,info){ for(var d=a; d<=b; d=D.addDays(d,1)){ days[d]={tone:info.tone,state:info.state,labels:info.labels.slice()}; } }
+  var REQ={tone:"accent",state:"リクエスト"}, VIS={tone:"warn",state:"来店日"};
+  span("2026-11-10","2026-11-15",{tone:REQ.tone,state:REQ.state,labels:["表参道"]});
+  span("2026-11-16","2026-11-17",{tone:REQ.tone,state:REQ.state,labels:["レキシア3店"]});
+  span("2026-11-18","2026-11-22",{tone:REQ.tone,state:REQ.state,labels:["レキシア3店","大阪"]});
+  span("2026-11-23","2026-11-29",{tone:VIS.tone,state:VIS.state,labels:["表参道"]});
+  span("2026-11-30","2026-12-06",{tone:VIS.tone,state:VIS.state,labels:["レキシア3店","大阪"]});
+  days["2026-11-10"].labels=["表参道 11:00〜"];
+  days["2026-11-15"].labels=["表参道 〜23:59"];
+  days["2026-11-16"].labels=["レキシア3店 11:00〜"];
+  days["2026-11-18"].labels=["レキシア3店","大阪 10:00〜"];
+  days["2026-11-22"].labels=["レキシア3店 〜23:59","大阪 〜23:59"];
+  function theme(){
+    var t=document.documentElement.getAttribute('data-theme');
+    if(t==='dark'||t==='light') return t;
+    return (window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
+  }
+  var cal=WebpartsCalendar.mount(document.getElementById('cal'),{
+    mode:"view", today:"2026-11-14", month:"2026-11", months:2, minMonth:"2026-11", maxDate:"2026-12-06", weekStart:1,
+    days:days, theme:theme(),
+    legend:[{tone:"accent",text:"リクエスト期間"},{tone:"warn",text:"来店日"},{tone:"today",text:"今日（11/14）"}]
+  });
+  if(window.matchMedia){ var mq=matchMedia('(prefers-color-scheme: dark)'); var f=function(){cal.el.setAttribute('data-theme',theme());}; if(mq.addEventListener) mq.addEventListener('change',f); else if(mq.addListener) mq.addListener(f); }
+})();
+</script>
 <script>
 (function(){
   var now=document.getElementById('band-now');
