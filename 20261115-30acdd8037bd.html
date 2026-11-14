@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>内定の比べ方　いーふらん／スタッフサービス・エンジニアリング</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --muted:#48505a; --card:#ffffff; --line:#d3d0c8;
+  --accent:#134a3d; --accent-soft:#e3f1ec; --warn:#6f3410; --warn-soft:#f8ebe0;
+  --blue:#1d3f70; --blue-soft:#e6eef8; --bar-a:#2a7d68; --bar-b:#3d6fb5; --tgt:#efe6c4;
+  --band:rgba(251,250,247,.96);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181b; --fg:#e8e6e1; --muted:#b3b9c1; --card:#1f2226; --line:#3a3f45;
+    --accent:#8fd9c0; --accent-soft:#1d332c; --warn:#f0bd92; --warn-soft:#3a2a1e;
+    --blue:#a6c6f0; --blue-soft:#1f2a38; --bar-a:#5fbf9f; --bar-b:#7fa9e0; --tgt:#3d3820;
+    --band:rgba(22,24,27,.96);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181b; --fg:#e8e6e1; --muted:#b3b9c1; --card:#1f2226; --line:#3a3f45;
+  --accent:#8fd9c0; --accent-soft:#1d332c; --warn:#f0bd92; --warn-soft:#3a2a1e;
+  --blue:#a6c6f0; --blue-soft:#1f2a38; --bar-a:#5fbf9f; --bar-b:#7fa9e0; --tgt:#3d3820;
+  --band:rgba(22,24,27,.96);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI","Meiryo",system-ui,sans-serif;line-height:1.85;font-size:16px;-webkit-text-size-adjust:100%;overflow-wrap:anywhere}
+.band{position:sticky;top:0;z-index:10;background:var(--band);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.band-in{max-width:720px;margin:0 auto;padding:6px 16px;display:flex;align-items:baseline;gap:8px;min-height:44px;font-size:14px;line-height:1.5}
+.band-title{font-weight:700;white-space:nowrap;color:var(--accent)}
+.band-title a{color:inherit;text-decoration:none}
+.band-chap{color:var(--fg);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+main{max-width:720px;margin:0 auto;padding:0 16px 64px}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3),section > :is(h2,h3){word-break:auto-phrase}}
+h1{font-size:24px;line-height:1.45;margin:28px 0 8px}
+h1 small{display:block;font-size:16px;font-weight:600;color:var(--muted);margin-top:4px}
+section{padding-top:36px;scroll-margin-top:60px}
+h2{font-size:21px;line-height:1.5;margin:0 0 12px;padding-left:10px;border-left:4px solid var(--accent)}
+h3{font-size:17px;line-height:1.5;margin:20px 0 6px}
+p{margin:0 0 12px;max-width:40em}
+ul,ol{margin:0 0 12px;padding-left:1.3em;max-width:40em}
+li{margin:3px 0}
+.date{color:var(--muted);margin:0 0 14px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:0 0 14px}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.lead{background:var(--accent-soft);border:2px solid var(--accent);border-radius:10px;padding:12px 16px;margin:0 0 14px}
+.lead p:last-child{margin-bottom:0}
+.note{background:var(--warn-soft);border-left:4px solid var(--warn);border-radius:8px;padding:10px 14px;margin:0 0 14px}
+.note p:last-child{margin-bottom:0}
+.tag{display:inline-block;font-size:14px;font-weight:700;line-height:1.5;border-radius:6px;padding:0 8px;margin-right:6px;border:1px solid var(--accent);color:var(--accent);background:var(--accent-soft);white-space:nowrap}
+.tag.est{border-color:var(--blue);color:var(--blue);background:var(--blue-soft)}
+.tag.kuchi{border-color:var(--muted);color:var(--muted);background:var(--card)}
+.tag.chk{border-color:var(--warn);color:var(--warn);background:var(--warn-soft)}
+nav.toc{margin:16px 0 4px;padding:10px 16px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+nav.toc ol{margin:0;padding-left:1.4em}
+nav.toc a{color:var(--accent)}
+.quote{margin:0 0 12px;padding:8px 14px;border-left:4px solid var(--accent);background:var(--card);border-radius:0 8px 8px 0;max-width:40em}
+.quote span{display:block;font-size:14px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-top:5px solid var(--line);border-radius:10px;padding:10px 14px}
+.card.a{border-top-color:var(--bar-a)} .card.b{border-top-color:var(--bar-b)}
+.card h3{margin:0 0 6px}
+.card.a h3{color:var(--accent)} .card.b h3{color:var(--blue)}
+.card ul{margin:0;padding-left:1.2em}
+.tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 0 14px;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+.tbl:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+table{border-collapse:collapse;width:100%;min-width:500px;font-size:14px;line-height:1.7}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:var(--accent-soft);color:var(--accent);font-weight:700}
+tr:last-child td,tr:last-child th{border-bottom:0}
+tbody th{background:var(--card);color:var(--fg)}
+.cap{font-size:14px;color:var(--muted);margin:-6px 0 14px;max-width:40em}
+.bars{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:0 0 6px}
+.bar-row{margin:0 0 14px}
+.bar-row:last-of-type{margin-bottom:6px}
+.bar-lab{display:flex;justify-content:space-between;gap:8px;font-size:14px;line-height:1.5;margin-bottom:4px}
+.bar-lab b{font-weight:700}
+.track{position:relative;height:16px;background:var(--bg);border-radius:8px;border:1px solid var(--line);overflow:hidden}
+.track .tgt{position:absolute;top:0;bottom:0;left:57.14%;width:28.57%;background:var(--tgt)}
+.track .rng{position:absolute;top:3px;bottom:3px;border-radius:5px;min-width:6px}
+.rng.a{background:var(--bar-a)} .rng.b{background:var(--bar-b)}
+.axis{position:relative;height:20px;font-size:12px;color:var(--muted)}
+.axis span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
+.axis span:first-child{transform:none}
+.legend{font-size:14px;color:var(--muted);margin:0 0 14px}
+.legend i{display:inline-block;width:14px;height:10px;background:var(--tgt);border:1px solid var(--line);vertical-align:-1px;margin-right:4px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:0 0 12px}
+.item h3{margin:0 0 4px}
+.item p{margin:0 0 6px}
+.item p:last-child{margin-bottom:0}
+.src{font-size:14px;color:var(--muted)}
+footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+footer p{margin:0 0 6px}
+footer a{color:var(--accent)}
+a{color:var(--accent)}
+@media (max-width:620px){
+  h1{font-size:22px}
+  h2{font-size:20px}
+  .grid2{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="band" data-chrome><div class="band-in"><span class="band-title"><a href="#top">内定の比べ方</a></span><span class="band-chap" id="bandChap">はじめに</span></div></div>
+<main id="top">
+
+<header>
+  <h1>内定の比べ方<small>いーふらん（おたからや）／ スタッフサービス・エンジニアリング</small></h1>
+  <p class="date">廣森さんへ　2026年11月15日（日）　武者野</p>
+</header>
+
+<div class="lead" data-chap="はじめに">
+  <p>廣森さんが決めるための材料を、1枚に並べました。いーふらんの結果は11/17〜19の見込みで、まだ出ていません。先に用意して、結果が出たときにすぐ並べて見られるようにしています。</p>
+  <p>どちらかを勧める資料ではありません。決めるのは廣森さんです。</p>
+</div>
+
+<div class="box">
+  <p>書いてあることには、4種類の印を付けました。</p>
+  <ul>
+    <li><span class="tag">事実</span>会社の公式発表・求人、廣森さんから伺った話</li>
+    <li><span class="tag est">推定</span>武者野が前提を置いて計算したもの。前提と幅を書いています</li>
+    <li><span class="tag kuchi">口コミ</span>匿名の自己申告。会社の規定ではありません</li>
+    <li><span class="tag chk">確認中</span>会社に聞いている最中で、まだ答えがないもの</li>
+  </ul>
+</div>
+
+<nav class="toc" aria-label="目次">
+  <ol>
+    <li><a href="#s1">廣森さんの物差し</a></li>
+    <li><a href="#s2">お金</a></li>
+    <li><a href="#s3">5年後・10年後の道</a></li>
+    <li><a href="#s4">ITはどちらでも続けられる</a></li>
+    <li><a href="#s5">気になる点も正直に</a></li>
+    <li><a href="#s6">決めるのは廣森さん</a></li>
+  </ol>
+</nav>
+
+<section id="s1" data-chap="1 廣森さんの物差し">
+  <h2>1　廣森さんの物差し</h2>
+  <p>11/14の面談と電話で伺ったことを、そのまま物差しにします。</p>
+  <div class="grid2">
+    <div class="card a">
+      <h3>目標年収</h3>
+      <p>500〜600万円。</p>
+    </div>
+    <div class="card a">
+      <h3>5年後・10年後</h3>
+      <p>この先どうするか。次の段が見えるか。</p>
+    </div>
+    <div class="card a">
+      <h3>ITを活かせるか</h3>
+      <p>前職のSEの経験と、いま取り組んでいるAIの活用。</p>
+    </div>
+    <div class="card a">
+      <h3>市場価値</h3>
+      <p>自分の価値が最大になる場所はどこか。</p>
+    </div>
+  </div>
+  <p>廣森さんご自身の言葉も、並べておきます。</p>
+  <blockquote class="quote">「短期的な部分で言えば、やっぱりいーふらんさんの方が圧倒的」<span>11/14 面接後の電話</span></blockquote>
+  <blockquote class="quote">「未経験で30万近い給料はいいけど、ここから上げていく道のりが長そう」（ITについて）<span>11/14 面接後の電話</span></blockquote>
+  <blockquote class="quote">「次がもう見えるので、やりやすい」（いーふらんについて）<span>11/14 面接後の電話</span></blockquote>
+  <p>高校の友人（SESで6年）から「単価のいい仕事を一生選び続けられるわけではない」と聞いて、ITの先行きが気になっている。広島を出るなら中四国・九州に行くのもこれが最後かと、関東への転居も頭にある。これも伺いました。</p>
+  <p>以下は、この物差しに当てて並べています。どれを重く見るかは、廣森さんの順番で決まります。</p>
+</section>
+
+<section id="s2" data-chap="2 お金">
+  <h2>2　お金</h2>
+  <p>お金は「固定」と「上乗せ」を分けて見ます。固定は毎月ほぼ決まって入る分、上乗せは成果や会社の判断で増減する分です。</p>
+
+  <h3 id="s2a">2-1　固定と上乗せ</h3>
+  <div class="tbl" tabindex="0" role="region" aria-labelledby="s2a">
+    <table>
+      <thead><tr><th></th><th>いーふらん</th><th>スタッフサービス・エンジニアリング</th></tr></thead>
+      <tbody>
+        <tr><th>固定（月）</th><td>35万円と、面接で会社から説明がありました <span class="tag">事実</span><br>内訳は、公式の求人の例で基本給23万＋秘密保持手当4万＋営業（買取業務）手当8万 <span class="tag">事実</span><br>廣森さんの通知書での数字は <span class="tag chk">確認中</span></td><td>月29万円（残業代込み）、賞与なし <span class="tag">事実</span></td></tr>
+        <tr><th>上乗せ</th><td>インセンティブ（買取の粗利に連動、前月分が翌月に上乗せ）<span class="tag">事実</span><br>賞与は年2回と公式にありますが、口コミでは0〜30万円程度の声が多いです <span class="tag kuchi">口コミ</span></td><td>インセンティブあり。率や金額は <span class="tag chk">確認中</span>（廣森さんから先方に聞く）</td></tr>
+        <tr><th>固定から出る分</th><td>秘密保持手当4万円は会社の判断で出ないことがあります <span class="tag chk">確認中</span></td><td>残業代が込みなので、残業が少ない月も額は変わりません <span class="tag">事実</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="cap">比べるときは、残業代が込みの金額同士で見ます。いーふらんの35万円にも、8万円分の固定残業代にあたる部分が含まれる形です（求人票の書き方。通知書でどう書かれるかは確認中）。</p>
+
+  <h3>2-2　年収の目安（推定）</h3>
+  <p>廣森さんの目標（500〜600万）を、黄色の帯で重ねました。</p>
+  <div class="bars" role="group" aria-label="年収の目安の比較。SSEは約350〜380万円。いーふらんは、いちばん悪い場合が約370万円、1年目が約470〜500万円、店長になった場合が約560〜630万円。目標は500〜600万円。">
+    <div class="bar-row">
+      <div class="bar-lab"><span>スタッフサービス・エンジニアリング</span><b>約350〜380万円</b></div>
+      <div class="track"><div class="tgt"></div><div class="rng b" style="left:14.29%;width:8.57%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-lab"><span>いーふらん　いちばん悪い場合</span><b>約370万円</b></div>
+      <div class="track"><div class="tgt"></div><div class="rng a" style="left:18.57%;width:2.86%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-lab"><span>いーふらん　1年目</span><b>約470〜500万円</b></div>
+      <div class="track"><div class="tgt"></div><div class="rng a" style="left:48.57%;width:8.57%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-lab"><span>いーふらん　店長になった場合</span><b>約560〜630万円</b></div>
+      <div class="track"><div class="tgt"></div><div class="rng a" style="left:74.29%;width:20%"></div></div>
+    </div>
+    <div class="axis" aria-hidden="true"><span style="left:0">300万</span><span style="left:28.57%">400</span><span style="left:57.14%">500</span><span style="left:85.71%">600</span></div>
+  </div>
+  <p class="legend"><i></i>黄色の帯が、廣森さんの目標（500〜600万円）です。<span class="tag est">推定</span>すべて推定で、会社が約束した数字ではありません。</p>
+
+  <h3>2-3　推定の前提と幅</h3>
+  <ul>
+    <li><b>いーふらんの1年目（約470〜500万円）</b>：固定35万円×12か月＝420万円に、インセンティブを月4〜5万円（年48〜60万円）、賞与を0〜30万円程度として足しました。インセンティブは、1店の粗利が月300万円強（元フランチャイズオーナーが公開した損益）、スタッフ2〜3人で割ると廣森さんの粗利が月100〜150万円、そこに口コミの「粗利の2〜5%」を掛けて月2〜7万円と見ています。中央値の4〜5万円を使いました。<span class="tag est">推定</span></li>
+    <li><b>いーふらんの店長（約560〜630万円）</b>：面接で「早ければ半年〜1年で店長、月45〜50万円前後」と説明がありました（口頭で、書面は未確認）。×12で540〜600万円、そこにインセンティブの上乗せを見た上の方の線です。口コミの店長の年収は450〜600万円なので、下は450万円までありえます。<span class="tag est">推定</span></li>
+    <li><b>いーふらんのいちばん悪い場合（約370万円）</b>：インセンティブが0で、会社の判断で秘密保持手当4万円が出ない場合です。（35−4）万円×12か月＝約370万円。<span class="tag est">推定</span></li>
+    <li><b>スタッフサービス・エンジニアリング（約350〜380万円）</b>：月29万円×12か月＝348万円に、インセンティブを0〜30万円程度と置きました。<span class="tag est">推定</span></li>
+    <li><b>幅の大きさ</b>：インセンティブの前提（人数・成約数・率）は、口コミとフランチャイズの公開データから借りたもので、月±3万円ほどずれます。いちばん確かめたいのは「中途で入って店長になった人の実績」で、会社に確認中です。<span class="tag chk">確認中</span></li>
+    <li>会社の公式には、年収1,000万円を超える社員の例も出ています。これは会社が選んだ上位の例で、全体の何割かが書かれていません。上の推定には入れていません。</li>
+  </ul>
+  <p>目標の500万円に、1年目で届くかどうかは境目です。店長になれば届く計算ですが、店長になれるかどうかは数字と人手次第、という口コミもあります（次の章）。</p>
+</section>
+
+<section id="s3" data-chap="3 5年後・10年後の道">
+  <h2>3　5年後・10年後の道</h2>
+  <div class="grid2">
+    <div class="card a">
+      <h3>いーふらん</h3>
+      <ul>
+        <li>面接で聞いた道：店長 → エリアマネージャー → 本部（EC・広報）、FC加盟店の指導・コンサル <span class="tag">事実</span></li>
+        <li>公式の例：店舗スタッフ → 店長 → セールスマネージャー → エリアマネージャー（約100名を管轄）→ FC加盟店の経営支援・本部・海外 <span class="tag">事実</span></li>
+        <li>社内公募・立候補の制度があり、広告・EC・店舗開発・海外へ移った例が紹介されています <span class="tag">事実</span></li>
+        <li>廣森さんが面接で話した「1〜2年で店長、その後は海外の販売・買取」に、つながる道です</li>
+      </ul>
+    </div>
+    <div class="card b">
+      <h3>スタッフサービス・エンジニアリング</h3>
+      <ul>
+        <li>広島の工場系のIT。転居なし <span class="tag">事実</span></li>
+        <li>積み上がるもの：仕事としてITを毎日続けた年数と、工場という現場の業務知識 <span class="tag est">推定</span></li>
+        <li>昇給の幅、配属の変わり方、インセンティブの率は、先方に聞かないと分かりません <span class="tag chk">確認中</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 id="s3a">3-1　いーふらんの足元の数字</h3>
+  <div class="tbl" tabindex="0" role="region" aria-labelledby="s3a">
+    <table>
+      <thead><tr><th>項目</th><th>わかっていること</th></tr></thead>
+      <tbody>
+        <tr><th>会社の規模</th><td>従業員 1,328名（2024年3月）→ 2,236名（2026年9月末）。売上は2026年6月期で2,112億円（会社の発表）。非上場 <span class="tag">事実</span></td></tr>
+        <tr><th>店舗</th><td>全国で約2,100店以上。その約76%がフランチャイズ（2025年12月末で1,630店以上のうち1,243店）で、会社が直接運営する店は約400店 <span class="tag">事実</span></td></tr>
+        <tr><th>成長の理由</th><td>会社自身が、店舗の積極出店と「金相場の高騰に合わせた広告戦略の強化」を挙げています。利益額は非開示です <span class="tag">事実</span></td></tr>
+        <tr><th>金相場</th><td>田中貴金属の小売価格は、2025年に年間最高で約22,800円/g。2026年は2月の約28,700円が高値で、8月には約24,000円と、約16%下がっています <span class="tag">事実</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="cap">店が増え、店長のポストも増えているのは追い風です。一方で、1年強で従業員が約1.7倍になった急拡大は、次章の口コミ（人手不足・ワンオペ）とも重なります。金相場が下がる局面で、会社が今の伸びをどう保つかは、公開された情報からは分かりません。</p>
+
+  <h3>3-2　店長の早さについて</h3>
+  <ul>
+    <li>「数字を出せば若くても店長になれる」「中途でも上のポストに就きやすい」という口コミがあります。<span class="tag kuchi">口コミ</span></li>
+    <li>逆に「人が居ないので、やりたくなくても店長が回ってくる」「数字が出ないと3か月で店長を降ろされる」という口コミもあります。<span class="tag kuchi">口コミ</span></li>
+    <li>中途の人が何か月で店長になっているかの統計は、見つけられていません。「半年〜1年で店長」がどのくらい再現できるかは、会社に確認中です。<span class="tag chk">確認中</span></li>
+    <li>店長より先（本部職）への異動は、公式のインタビューで例が1名見つかる一方、口コミでは例が少ないです。<span class="tag kuchi">口コミ</span></li>
+  </ul>
+
+  <h3 id="s3b">3-3　スタッフサービス・エンジニアリング側の統計</h3>
+  <p>同じIT職の長い目の相場を、公的統計とその二次引用から並べます。廣森さんの職場と同じ数字ではなく、全産業の平均です。</p>
+  <div class="tbl" tabindex="0" role="region" aria-labelledby="s3b">
+    <table>
+      <thead><tr><th>見るもの</th><th>数字</th><th>読み方</th></tr></thead>
+      <tbody>
+        <tr><th>ソフトウェア作成者の年収換算（賃金構造基本統計調査・令和7年）</th><td>40〜44歳で約634万円、45〜49歳で約680万円</td><td>役職者を含む平均で、残業代は含みません。原典は二次引用で確認しています</td></tr>
+        <tr><th>同・令和6年</th><td>25〜29歳で約470万円、35〜39歳で約631万円、40〜44歳で約651万円</td><td>出典サイトが不明のため、参考値です。令和7年と数字が少し食い違うので、630〜650万円の幅で見てください</td></tr>
+        <tr><th>技術者派遣大手の平均年間給与（有価証券報告書）</th><td>2019〜2023年3月期で500〜600万円</td><td>平均年齢39.3歳・勤続13.1年。経験者中心の平均なので、入口より高めに出ます</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="cap">月29万円（約350万円）から、これらの数字にどのくらいの年数で近づけるかは、統計からは分かりません。先方に昇給の仕組みを聞くのが、いちばん確かです。</p>
+  <p>廣森さんは新卒でエンジニアの経験があるので、未経験の入口と同じ線では比べられません。この点は、先方に聞いてみる価値があります。<span class="tag est">推定</span></p>
+</section>
+
+<section id="s4" data-chap="4 ITはどちらでも続けられる">
+  <h2>4　ITはどちらでも続けられる</h2>
+  <p>「ITを活かせるか」には、道が2つあります。</p>
+  <div class="grid2">
+    <div class="card b">
+      <h3>スタッフサービス・エンジニアリング</h3>
+      <p>仕事そのものがITです。毎日の仕事として年数が積み上がります。</p>
+    </div>
+    <div class="card a">
+      <h3>いーふらん</h3>
+      <p>店長の仕事の中で、ITとAIを自分で使う道です。仕事の外でも、学びは続けられます。</p>
+    </div>
+  </div>
+  <p>廣森さんは電話で「本業が一本あって、それと並行してITをやる方が自分に合っているのかな」と話していました。いーふらんを選んでも、店の仕事の中でAIを使う練習は、すぐに始められます。</p>
+  <p>店の仕事で使うAIの使い方3回分の資料を、すでに作ってあります。店の仕事向けの例ですが、AIへの頼み方の基本は、どんな仕事でも変わりません。</p>
+  <p><a href="https://mushataku.github.io/pub/20261115-AI-af61f44eee3e.html">AI講習　店の仕事で使う3回</a></p>
+
+  <h3>いーふらんの中のIT</h3>
+  <ul>
+    <li>会社の公式の部署一覧（営業・人事・広告戦略・加盟店サポート・店舗開発・海外・EC）に、IT・システムの専任の部署は見当たりません。ただし「無い」と言い切れる材料はなく、非公開の求人や外注の可能性もあります。<span class="tag chk">確認中</span></li>
+    <li>会社が「独自開発」と書くAIの真贋鑑定システムとEC（メルカリなど）はあります。誰がどう作っているかは、公開されていません。<span class="tag">事実</span></li>
+    <li>広告戦略本部にはデータ分析の仕事があるようです。ここは推測で、確認が取れていません。<span class="tag est">推定</span></li>
+  </ul>
+
+  <h3>同業のIT求人から分かること</h3>
+  <ul>
+    <li>買取・リユースの同業（エコリング、BuySell Technologies）は、社内SE・情シス・エンジニアを募集しています。要件は、IT側の実務経験です。<span class="tag">事実</span></li>
+    <li>店舗経験を歓迎条件に書いている求人は、見た範囲では見つかりませんでした。「店舗とITの掛け合わせが高く評価される」と言える材料は、今は持っていません。</li>
+    <li>廣森さんの前職のSEの経験と、現職でのAI活用の実績（買取表の試算など）は、そのままIT側で評価される部分です。これは、どちらを選んでも残ります。</li>
+  </ul>
+  <p>友人の「単価のいい仕事を一生選び続けられるわけではない」は、SESの働き方についての話です。スタッフサービス・エンジニアリングの先行きについては、この資料では調べ切れていません。気になるなら、先方に「配属が変わるとき、どう決まるのか」を聞くのが確実です。</p>
+</section>
+
+<section id="s5" data-chap="5 気になる点も正直に">
+  <h2>5　気になる点も正直に</h2>
+  <p>いーふらんについて、調べて分かった気になる点です。会社に確認しているものは「確認中」と書いています。</p>
+
+  <div class="item">
+    <h3>① 手当の作り <span class="tag chk">確認中</span></h3>
+    <p>月35万円の中に、買取業務手当（営業手当）8万円と秘密保持手当4万円が入っています。求人票では、8万円は月42時間分の固定残業代と書かれています。ほかの求人には、固定残業代の記載がないものもあります。</p>
+    <p>手当の名前から読むと、買取の仕事を離れる（たとえば本部へ移る）と、買取業務手当は外れる可能性があります。秘密保持手当は会社の判断で出ないことがあります。どちらも、通知書にどう書かれるかを確認しています。</p>
+  </div>
+
+  <div class="item">
+    <h3>② 就業場所の変更範囲 <span class="tag chk">確認中</span></h3>
+    <p>広島で入社して、岡山・福山へ配置が変わり、通えなくなって辞めた、という口コミがあります。<span class="tag kuchi">口コミ</span> 求人によって「転居を伴う転勤なし」と書かれたものと、中国・四国全域から募集するものがあります。</p>
+    <p>廣森さんの通知書で、変更範囲がどう書かれるか、広島の店の配属のまま続けられるかを確認中です。</p>
+  </div>
+
+  <div class="item">
+    <h3>③ インセンティブの率が読めない <span class="tag chk">確認中</span></h3>
+    <p>率は規定として公開されていません。口コミでは「粗利の2〜5%」「店長になると率が上がる」「ミスがあると消える」などがあります。<span class="tag kuchi">口コミ</span> 広島の直営店での計算式と、中途の人の実績を聞いています。</p>
+  </div>
+
+  <div class="item">
+    <h3>④ 急拡大とワンオペ <span class="tag kuchi">口コミ</span></h3>
+    <p>従業員が1年強で約1.7倍になっています。「ワンオペになる」「教育が足りない」「閉店間際の来客で残業になる」「休憩がお客様で中断される」という口コミがあります。求人には「飛び込み・テレアポなし」とありますが、「来店がないときは電話やティッシュ配りがある」という口コミもあります。</p>
+    <p>配属される店が直営かフランチャイズか、在籍人数、1人勤務の有無、来客のない時間の仕事を、確認しています。<span class="tag chk">確認中</span></p>
+  </div>
+
+  <div class="item">
+    <h3>⑤ 金相場の影響 <span class="tag">事実</span></h3>
+    <p>会社自身が、成長の要因に金相場の高騰に合わせた広告の強化を挙げています。相場は2月の高値から約16%下がっています（2026年8月時点）。相場の動きが、買取の件数や店の採算にどう響くかは、公開された情報からは分かりません。</p>
+  </div>
+
+  <div class="item">
+    <h3>⑥ IT職が社内に見当たらない <span class="tag chk">確認中</span></h3>
+    <p>前の章の通りです。「店長の先にIT職がある」とは、今は言えません。</p>
+  </div>
+
+  <div class="item">
+    <h3>⑦ ほかに知っておくこと <span class="tag">事実</span></h3>
+    <ul>
+      <li>最初の3か月は契約社員（有期）の扱いと求人に書かれています。待遇は同じと書かれていますが、通知書で確認します。</li>
+      <li>休みは週2日のシフト制（月8〜10日）で、土日休みとは限りません。</li>
+      <li>リファレンスチェックがあり、現職への在籍確認が入る見込みです。</li>
+      <li>会社が公式に告知した出来事として、外部システムへの不正アクセス（注文情報の流出の可能性）、フランチャイズ店の強盗事件があります。</li>
+    </ul>
+  </div>
+</section>
+
+<section id="s6" data-chap="6 決めるのは廣森さん">
+  <h2>6　決めるのは廣森さん</h2>
+  <h3 id="s6a">これからの日程</h3>
+  <div class="tbl" tabindex="0" role="region" aria-labelledby="s6a">
+    <table>
+      <thead><tr><th>日</th><th>何が起きるか</th></tr></thead>
+      <tbody>
+        <tr><th>11/16（月）</th><td>武者野から連絡します</td></tr>
+        <tr><th>11/17（火）〜19（木）</th><td>いーふらんの結果の見込み。結果が出たあと、外部のバックグラウンドチェックがあり、そのあとに正式な内定と労働条件通知書が出る流れです <span class="tag est">推定</span></td></tr>
+        <tr><th>11/19（木）</th><td>スタッフサービス・エンジニアリングの回答期限。延長を廣森さんからお願いする予定です</td></tr>
+        <tr><th>11/22（日）前後</th><td>いーふらんの正式な内定の見込み。延長は、これより少し先の11/24ごろまでがひとつの目安です <span class="tag est">推定</span></td></tr>
+        <tr><th>1月中旬〜2月</th><td>現職を退職、2月に入社の希望（現職には伝え済み）</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="cap">いーふらんの承諾の期限は、入社日の決め方と連動することがあります。内定が出たときに、一緒に確認します。</p>
+
+  <h3>決める前に、自分に聞いてみる3つ</h3>
+  <ol>
+    <li>目標の500〜600万円に、いつまでに届いていたいか。1年目の約470〜500万円で、いまは足りるか。</li>
+    <li>5年後に、店長・本部の道とITの道の、どちらの肩書きで自分を説明していたいか。</li>
+    <li>「確認中」のうち、これが返ってこないと決められない、というものはどれか。</li>
+  </ol>
+  <p>面接で話した「数、質、単価と関わる人の質」の流れの、次の段として考えやすいのはいーふらんです。ITを店長の武器にする、という考え方も廣森さんの言葉でした。一方で、ITの仕事を毎日続けて年数を積み上げられるのは、スタッフサービス・エンジニアリングにしかない道です。どちらも本当にある道で、どちらを重く見るかが決めどころです。</p>
+  <p>どちらを選んでも、決めた理由を言葉にできていれば、あとで揺れたときに戻れます。会社に聞きたいことが増えたら、LINEで送ってください。確認して、この資料に書き足します。</p>
+</section>
+
+<footer>
+  <p>出所：会社の公式サイト・求人・報道発表（2026年11月時点）、口コミサイト（エン カイシャの評判・OpenWork・キャリコネ）、公的統計の二次引用、11/14の面談と電話の記録</p>
+  <p>主な出典：<a href="https://otakaraya.jp/company/">いーふらん会社概要</a>／<a href="https://en-ambi.com/job/j-12892686/">公式求人（Ambi）</a>／<a href="https://prtimes.jp/main/html/rd/p/000000302.000080252.html">会社の発表（PR TIMES 2026/7/31）</a>／<a href="https://gold.tanaka.co.jp/commodity/souba/y-gold.php">田中貴金属 小売価格</a>／<a href="https://en-hyouban.com/company/10004945476/">エン カイシャの評判</a>／<a href="https://tech-scout.jp/value/salary-40s/">賃金構造基本統計調査の二次引用</a></p>
+  <p>作成：2026年11月15日（日）　武者野</p>
+</footer>
+
+</main>
+<script>
+(function(){
+  var chap=document.getElementById('bandChap');
+  var chaps=[].slice.call(document.querySelectorAll('[data-chap]'));
+  function update(){
+    var cur=chaps[0];
+    for(var i=0;i<chaps.length;i++){if(chaps[i].getBoundingClientRect().top<=90)cur=chaps[i];}
+    chap.textContent=cur.getAttribute('data-chap');
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  window.addEventListener('resize',update);
+  update();
+})();
+</script>
+</body>
+</html>
