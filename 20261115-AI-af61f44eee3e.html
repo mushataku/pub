@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>AI講習　店の仕事で使う3回</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --muted:#555d67; --card:#ffffff; --line:#d9d6cf;
+  --accent:#175a4a; --accent-soft:#e3f1ec; --warn:#8a4513; --warn-soft:#f8ebe0; --blue:#264f86; --blue-soft:#e6eef8;
+  --band:rgba(251,250,247,.96);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181b; --fg:#e8e6e1; --muted:#a8aeb6; --card:#1f2226; --line:#3a3f45;
+    --accent:#6cc4a8; --accent-soft:#1d332c; --warn:#e2a06e; --warn-soft:#3a2a1e; --blue:#8db4e8; --blue-soft:#1f2a38;
+    --band:rgba(22,24,27,.96);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181b; --fg:#e8e6e1; --muted:#a8aeb6; --card:#1f2226; --line:#3a3f45;
+  --accent:#6cc4a8; --accent-soft:#1d332c; --warn:#e2a06e; --warn-soft:#3a2a1e; --blue:#8db4e8; --blue-soft:#1f2a38;
+  --band:rgba(22,24,27,.96);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI","Meiryo",system-ui,sans-serif;line-height:1.85;font-size:16px;-webkit-text-size-adjust:100%}
+.band{position:sticky;top:0;z-index:10;background:var(--band);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.band-in{max-width:720px;margin:0 auto;padding:6px 16px;display:flex;align-items:baseline;gap:8px;min-height:44px;font-size:14px;line-height:1.5}
+.band-title{font-weight:700;white-space:nowrap;color:var(--accent)}
+.band-title a{color:inherit;text-decoration:none}
+.band-chap{white-space:nowrap;color:var(--fg);font-weight:700}
+.band-step{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+.band-step:empty{display:none}
+main{max-width:720px;margin:0 auto;padding:0 16px 64px}
+header.top{padding:28px 0 8px}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3),section > :is(h2,h3){word-break:auto-phrase}}
+h1{font-size:24px;line-height:1.45;margin:0 0 10px}
+nav.toc{margin:20px 0 8px;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+section,.step{scroll-margin-top:60px}
+section{padding-top:36px}
+h2{font-size:21px;line-height:1.5;margin:0 0 12px;padding-left:10px;border-left:4px solid var(--accent)}
+h3{font-size:17px;line-height:1.5;margin:0 0 8px}
+h3 .no{display:inline-block;background:var(--accent);color:var(--bg);border-radius:6px;padding:1px 10px;margin-right:8px;font-size:16px}
+p{margin:0 0 12px}
+.step{margin:26px 0 8px;padding-top:8px;border-top:1px solid var(--line)}
+.fig{margin:12px 0 14px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+.fig svg{display:block;width:100%;max-width:520px;height:auto;margin:0 auto}
+.fig figcaption{font-size:14px;color:var(--muted);margin-top:6px;text-align:center}
+.key{font-weight:700;background:linear-gradient(transparent 62%,var(--accent-soft) 62%)}
+.prompt{position:relative;margin:10px 0 14px;border:2px solid var(--accent);border-radius:10px;background:var(--card)}
+.prompt pre{margin:0;padding:12px 14px 8px;white-space:pre-wrap;word-break:break-word;font-family:inherit;font-size:16px;line-height:1.75}
+.prompt .bar{display:flex;justify-content:flex-end;padding:0 10px 10px}
+.copy{appearance:none;border:0;border-radius:8px;background:var(--accent);color:var(--bg);font:inherit;font-size:15px;font-weight:700;padding:8px 16px;cursor:pointer;min-height:44px}
+.copy.done{background:var(--muted)}
+.stuck{margin:12px 0 14px;padding:10px 14px;border-radius:10px;background:var(--warn-soft);border-left:4px solid var(--warn)}
+.stuck b{color:var(--warn)}
+.stuck p{margin:0 0 4px}
+.goal{margin:14px 0;padding:10px 14px;border-radius:10px;background:var(--accent-soft);font-weight:700}
+.check{margin:6px 0 12px;padding-left:1.3em}
+.check li{margin:4px 0}
+.try{margin:10px 0 12px;padding-left:1.3em}
+.try li{margin:8px 0}
+.mini{font-size:14px;color:var(--muted)}
+.can{font-weight:700}
+.meta{font-size:14px;color:var(--muted);margin:0 0 8px}
+.solo{margin:12px 0 14px;padding:10px 14px;border-radius:10px;border:2px solid var(--blue);background:var(--blue-soft);font-weight:700}
+.hero-help{margin:14px 0;padding:12px 14px;border-radius:10px;border:2px solid var(--blue);background:var(--blue-soft)}
+.hero-help p{margin:0}
+.next{margin:16px 0;padding:12px 14px;border:2px solid var(--blue);border-radius:10px;background:var(--blue-soft)}
+.next a{color:var(--fg);font-weight:700;word-break:break-all}
+a{color:var(--blue)}
+.start{display:block;margin:18px 0 6px;padding:16px;border-radius:12px;background:var(--accent);color:var(--bg)!important;font-size:18px;font-weight:700;text-align:center;text-decoration:none;min-height:56px}
+.eplist{list-style:none;margin:6px 0 14px;padding:0}
+.eplist li{margin:8px 0}
+.eplist a{display:block;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--fg);text-decoration:none}
+.eplist .t{display:block;font-weight:700}
+.eplist .c{display:block;font-size:15px;color:var(--fg)}
+.eplist .m{display:block;font-size:14px;color:var(--muted)}
+.epbar{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin:0 0 6px;font-size:14px;color:var(--muted)}
+.epbar .epno{font-weight:700;color:var(--accent);font-size:15px}
+.epbar .dev{font-weight:700;color:var(--fg)}
+.pager{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;margin:20px 0 8px}
+.pager a,.pager span{display:flex;align-items:center;justify-content:center;min-height:48px;padding:8px 10px;border-radius:10px;font-weight:700;text-align:center;text-decoration:none;line-height:1.4}
+.pager a{border:2px solid var(--blue);background:var(--card);color:var(--fg)}
+.pager a.nx{background:var(--blue-soft)}
+.pager a.toc-l{border-color:var(--line)}
+details.raw{margin:8px 0 14px}
+details.raw summary{cursor:pointer;font-weight:700;color:var(--blue);padding:8px 0;min-height:44px}
+details.raw pre{font-size:14px;white-space:pre-wrap;margin:0}
+.dtable{overflow-x:auto;margin:8px 0 12px}
+.dtable table{border-collapse:collapse;font-size:14px;min-width:420px}
+.dtable th,.dtable td{border:1px solid var(--line);padding:4px 8px;text-align:left}
+.dtable td.n{text-align:right}
+footer{margin-top:36px;font-size:14px;color:var(--muted)}
+svg text{font-family:inherit}
+.s-fg{fill:var(--fg)} .s-mu{fill:var(--muted)} .s-ac{fill:var(--accent)} .s-acs{fill:var(--accent-soft)}
+.s-wa{fill:var(--warn)} .s-was{fill:var(--warn-soft)} .s-bl{fill:var(--blue)} .s-bls{fill:var(--blue-soft)} .s-card{fill:var(--card)} .s-bg{fill:var(--bg)}
+.k-ln{stroke:var(--line)} .k-mu{stroke:var(--muted)} .k-ac{stroke:var(--accent)} .k-wa{stroke:var(--warn)} .k-bl{stroke:var(--blue)}
+@media (min-width:1000px){
+  main{max-width:980px}
+  .band-in{max-width:980px}
+  body{font-size:17px;line-height:1.7}
+  h3{font-size:20px}
+  .prompt pre{font-size:17px}
+}
+</style>
+</head>
+<body>
+<div class="band"><div class="band-in"><span class="band-title"><a href="#toc">AI講習</a></span><span class="band-chap" id="bandChap">はじめに</span><span class="band-step" id="bandStep"></span></div></div>
+<main>
+<header class="top" id="toc" data-chap="はじめに">
+  <h1>AI講習　店の仕事で使う3回</h1>
+  <p>廣森さん、お疲れさまです。武者野です。電話でお話ししたAI講習のページです。</p>
+  <p>モニターとして、無料でお渡しします。3回とも、店の仕事で明日から使える形に組み直しました。スマホだけで進みます。PCがあれば、PCのブラウザでも同じ手順で進みます。</p>
+  <p>使うのは、Googleの <b>Gemini（無料）</b>です。いつものGoogleのアカウントでそのまま使えます。IT の基本はご存じのはずなので、易しすぎる所は読み飛ばしてください。</p>
+  <p><span class="key">この3回の芯は、「AIは間違える。だから、人が確かめる所を先に決めて使う」です。</span>面談で伺った、買取表をAIで作る話。画像と型番の食い違いが心配で見送りになったのは、まっとうな判断だと思います。ここでは、間違いを前提にして、確かめる所を決めたうえで使う練習をします。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 360 120" role="img" aria-label="AIが下書きを作る、人が確かめる所を決めて確かめる、出す、の3段">
+      <rect x="6" y="20" width="100" height="56" rx="10" class="s-acs k-ac" stroke-width="2"/>
+      <text x="56" y="44" text-anchor="middle" font-size="13" font-weight="700" class="s-fg">AIが</text>
+      <text x="56" y="62" text-anchor="middle" font-size="13" font-weight="700" class="s-fg">下書きを作る</text>
+      <rect x="130" y="20" width="100" height="56" rx="10" class="s-was k-wa" stroke-width="2.5"/>
+      <text x="180" y="44" text-anchor="middle" font-size="13" font-weight="700" class="s-fg">人が確かめる</text>
+      <text x="180" y="62" text-anchor="middle" font-size="12.5" class="s-fg">所を1つ決める</text>
+      <rect x="254" y="20" width="100" height="56" rx="10" class="s-bls k-bl" stroke-width="2"/>
+      <text x="304" y="53" text-anchor="middle" font-size="13" font-weight="700" class="s-fg">店で使う</text>
+      <path d="M110 48 L126 48 M120 42 L126 48 L120 54 M234 48 L250 48 M244 42 L250 48 L244 54" class="k-mu" stroke-width="2" fill="none"/>
+      <text x="180" y="104" text-anchor="middle" font-size="12.5" class="s-mu">3回とも、この順で進めます</text>
+    </svg>
+    <figcaption>図0　3回に共通する型</figcaption>
+  </figure>
+  <div class="hero-help"><p><b>詰まったら、その画面を送ってください。</b>送る先は、このページのリンクが届いたLINEのトークです。返事は武者野が返します。</p></div>
+  <nav class="toc" aria-label="目次">
+    <a class="start" href="#s1">第1回から始める →</a>
+    <ol class="eplist">
+      <li><a href="#s1"><span class="t">第1回　ばらばらの買取メモを、AIに表にさせる</span><span class="c">掛け率から販売価格まで出させ、AIの間違いを1つ確かめる</span><span class="m">目安 30分・画面共有で一緒に</span></a></li>
+      <li><a href="#s2"><span class="t">第2回　売上の数字から、理由の仮説と報告書の下書きを作る</span><span class="c">AIの断定を聞き返して、報告書の形に整える</span><span class="m">目安 30分・ひとりで</span></a></li>
+      <li><a href="#s3"><span class="t">第3回　店の仕事の手間を1つ消す</span><span class="c">毎日5分以上かかる作業を1つ選んで、短くする</span><span class="m">目安 30分・ひとりで</span></a></li>
+      <li><a href="#s4"><span class="t">この先と、感想のお願い</span><span class="c">15回の講座のこと・LINEで一言ください</span></a></li>
+    </ol>
+  </nav>
+</header>
+
+<section id="s1" data-chap="第1回 / 全3回">
+  <p class="epbar"><span class="epno">第1回 / 全3回</span><span>画面共有で一緒に</span><span class="dev">スマホだけでできる</span></p>
+  <h2>第1回：ばらばらの買取メモを、AIに表にさせる</h2>
+  <p class="can">できるようになること：書き方がそろっていないメモを表にして、販売価格まで出させ、間違いを1つ確かめる</p>
+  <p class="meta">かかる時間：30分以内</p>
+  <p class="solo">画面共有でこのページを一緒に見ながら進めます。あとでひとりで開いたときも、同じ手順のまま進められます。</p>
+  <p>例の数字は、全部<b>練習用の架空のもの</b>です。実際の店の価格とは関係ありません。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 360 120" role="img" aria-label="第1回の流れ。手順1から3で約10分、表と販売価格ができる。手順4で確かめる。手順5から6で自分の店の商材に入れ替え、画面をLINEで送る">
+      <rect x="6" y="30" width="110" height="34" rx="8" class="s-ac"/>
+      <text x="61" y="52" text-anchor="middle" font-size="13" font-weight="700" class="s-bg">手順 1〜3</text>
+      <rect x="120" y="30" width="60" height="34" rx="8" class="s-was k-wa" stroke-width="2"/>
+      <text x="150" y="52" text-anchor="middle" font-size="13" font-weight="700" class="s-fg">手順 4</text>
+      <rect x="184" y="30" width="170" height="34" rx="8" class="s-acs k-ac" stroke-width="1.5"/>
+      <text x="269" y="52" text-anchor="middle" font-size="13" font-weight="700" class="s-fg">手順 5〜6</text>
+      <text x="61" y="20" text-anchor="middle" font-size="12.5" class="s-mu">約10分</text>
+      <text x="150" y="20" text-anchor="middle" font-size="12.5" class="s-mu">約5分</text>
+      <text x="269" y="20" text-anchor="middle" font-size="12.5" class="s-mu">約15分</text>
+      <text x="61" y="88" text-anchor="middle" font-size="12" class="s-fg">表と販売価格が</text><text x="61" y="104" text-anchor="middle" font-size="12" class="s-fg">できる</text>
+      <text x="150" y="88" text-anchor="middle" font-size="12" font-weight="700" class="s-wa">人が確かめる</text>
+      <text x="269" y="88" text-anchor="middle" font-size="12" class="s-fg">自分の店の商材に入れ替えて、</text><text x="269" y="104" text-anchor="middle" font-size="12" class="s-fg">画面をLINEで送る</text>
+    </svg>
+    <figcaption>図1　第1回の流れ（合わせて30分以内）</figcaption>
+  </figure>
+
+  <div class="step" id="st1" data-step="手順1 Geminiを開く">
+    <h3><span class="no">手順1</span>Geminiを開いて、このページに戻ってくる</h3>
+    <p>まず、このページを自分のスマホでも開きます。LINEで届いたリンクを押せば開きます。画面共有で見ているときも、「コピーする」は自分の画面のほうで押します。このページは閉じずに置いておきます。</p>
+    <p>ホーム画面から<b>Geminiのアプリ</b>を開きます。アプリが無ければ、<b>Safari</b>（iPhone）か<b>Chrome</b>（Android）で gemini.google.com を開きます。PCなら、ブラウザでそのアドレスを開くだけです。</p>
+    <p class="mini">「有料プランを試す」のような案内が出ても、押さずに閉じてください。この講習は無料の範囲だけで進めます。</p>
+    <p>Geminiの画面の下に、文字を入れる欄があればOKです。確かめたら、<b>このページに戻ってきてください。</b>この先は、「コピーする」→Geminiに切り替えて貼る、を繰り返します。</p>
+    <div class="stuck"><p><b>ここで止まったら</b>　Geminiが開けない・ログインの画面から先に進めないときは、その画面のスクショを、このページのリンクが届いたLINEのトークに送ってください。次に押す所を返します。</p></div>
+  </div>
+
+  <div class="step" id="st2" data-step="手順2 買取メモを貼って送る">
+    <h3><span class="no">手順2</span>下の文を、そのまま貼って送る</h3>
+    <p>下の「コピーする」を押す → Geminiに切り替える → 文字を入れる欄を長押しして「ペースト」（貼り付け）→ 送信ボタンを押す、の順です。</p>
+    <p>メモの書き方は、わざとそろえていません。現場のメモはこんなものだと思って、直さずに送ってください。</p>
+    <div class="prompt">
+<pre id="p1">次の買取価格のメモを、表にしてください。
+列は「商品名」「容量・型番など」「状態」「買取価格（円）」の4つにしてください。書き方がばらばらなので、数字は半角にそろえてください。
+そのうえで、買取価格に掛け率1.35をかけて販売価格を出し、100円未満は切り上げて「販売価格（円）」の列を足してください。
+最後に、買取価格の合計と、販売価格の合計も出してください。
+
+・スイッチ本体 中古 美品 買取18000
+・iPhone12 64GB ブルー 画面に傷あり 買取価格 ¥24,500
+・タブレット 第9世代 wifi 64 キズなし 買取は2万1千円
+・PS5 ディスク版 箱なし 32,000円で買取
+・Pixel7 128GB 黒 バッテリー劣化 買取:19800
+・ワイヤレスイヤホン ノイキャン付き 付属品なし 買取9500</pre>
+      <div class="bar"><button class="copy" type="button" data-target="p1">コピーする</button></div>
+    </div>
+    <div class="stuck"><p><b>ここで止まったら</b>　貼っても何も出ないときは、もう一度このページで「コピーする」を押してから貼り直してください。ボタンで写せないときは、枠の中の文を長押しして「すべて選択」→「コピー」でも写せます。それでも貼れなければ、その画面を送ってください。</p></div>
+  </div>
+
+  <div class="step" id="st3" data-step="手順3 返ってきた表を見る">
+    <h3><span class="no">手順3</span>返ってきた表を見る</h3>
+    <p>数秒から数十秒で、6行の表と、販売価格の列、2つの合計が返ってきます。列の名前や並びが少し違っても、4つの列と販売価格が入っていれば大丈夫です。</p>
+    <p class="mini">表にならず文章で返ってきたときは、続けて「表にしてください」とだけ送ってください。</p>
+    <p><span class="key">ここまで、文を1回送っただけです。</span>ただし、この表はまだ「下書き」です。次の手順で、人が確かめます。</p>
+  </div>
+
+  <div class="step" id="st4" data-step="手順4 AIの間違いを1つ確かめる">
+    <h3><span class="no">手順4</span>AIが間違えやすい所を、自分で1つ確かめる</h3>
+    <p>AIの表で間違いが出やすいのは、次の3か所です。<b>この中から1つ選んで、元のメモと見比べてください。</b>全部やらなくて大丈夫です。</p>
+    <ul class="check">
+      <li><b>型番・容量</b>：「64GB」「128GB」「第9世代」が、元のメモのまま入っているか</li>
+      <li><b>数字の読み替え</b>：「2万1千円」が 21,000 になっているか</li>
+      <li><b>計算</b>：好きな1行を選び、買取価格×1.35を電卓で計算して、100円未満の切り上げまで合っているか</li>
+    </ul>
+    <p>見つけたら、Geminiに「○行目の○○が元のメモと違います。直してください」と送ります。間違いが無かったときは、「無かった」のが分かれば十分です。<span class="key">確かめる所を決めて見ると、見る時間は1分で済みます。</span></p>
+    <details class="raw"><summary>答え合わせ用：6行ぶんの正しい数字（見るのは確かめたあと）</summary>
+      <div class="dtable"><table>
+        <thead><tr><th>商品</th><th>買取</th><th>販売（×1.35・100円未満切り上げ）</th></tr></thead>
+        <tbody>
+          <tr><td>スイッチ本体</td><td class="n">18,000</td><td class="n">24,300</td></tr>
+          <tr><td>iPhone12 64GB</td><td class="n">24,500</td><td class="n">33,100</td></tr>
+          <tr><td>タブレット 第9世代 64</td><td class="n">21,000</td><td class="n">28,400</td></tr>
+          <tr><td>PS5 ディスク版</td><td class="n">32,000</td><td class="n">43,200</td></tr>
+          <tr><td>Pixel7 128GB</td><td class="n">19,800</td><td class="n">26,800</td></tr>
+          <tr><td>ワイヤレスイヤホン</td><td class="n">9,500</td><td class="n">12,900</td></tr>
+          <tr><th>合計</th><td class="n">124,800</td><td class="n">168,700</td></tr>
+        </tbody></table></div>
+    </details>
+    <div class="stuck"><p><b>ここで止まったら</b>　合計が合わない・どこが違うか分からないときは、その画面を送ってください。どこで食い違ったかは、画面を見れば分かります。</p></div>
+    <div class="goal">ここまで来たら、第1回の山は越えました。</div>
+  </div>
+
+  <div class="step" id="st5" data-step="手順5 自分の店の商材に入れ替える">
+    <h3><span class="no">手順5</span>例の6行を、自分の店の商材に入れ替える</h3>
+    <p class="mini">実際の価格を書きたくなければ、金額は「だいたいの数字」でも、桁だけ合わせた別の数字でもかまいません。AIに見せるのは、メモの書き方の癖です。金額を見せなくてよい、ということです。</p>
+    <p>Geminiの同じ画面のまま、続けて送ります。まず下の1行を「コピーする」で貼り、<b>その下に、自分の店のメモを1行に1つずつ打ち足して</b>から送ってください。</p>
+    <div class="prompt">
+<pre id="p2">同じ形の表と販売価格を、私の店のメモで作り直してください。掛け率は1.35、100円未満切り上げのままです。</pre>
+      <div class="bar"><button class="copy" type="button" data-target="p2">コピーする</button></div>
+    </div>
+    <ul class="check">
+      <li>5行あれば十分です。いつも手元にあるメモの書き方のまま打ってください</li>
+      <li>掛け率が商材ごとに違うなら、「ゲーム機は1.25」のように1行足してください</li>
+      <li>お客様の名前や連絡先は、メモに入れないでください</li>
+    </ul>
+    <p>AIが「状態の基準を教えてください」のように聞き返してきたら、そのまま答えてください。</p>
+    <p>できた表でも、<b>手順4と同じやり方で、確かめる所を1つ決めて</b>見比べてください。</p>
+    <div class="stuck"><p><b>ここで止まったら</b>　思ったような表にならなかったときは、直そうとしなくて大丈夫です。その画面を送ってください。</p></div>
+  </div>
+
+  <div class="step" id="st6" data-step="手順6 画面をLINEで送る">
+    <h3><span class="no">手順6</span>確かめた画面を、LINEで送る</h3>
+    <p>手順4で間違いを見つけた画面か、手順5の表の画面をスクショして、<b>このページのリンクが届いたLINEのトーク</b>に送ってください。1枚で十分です。金額を見せたくなければ、手順3（例の表）の画面でかまいません。</p>
+    <p><span class="key">途中で止まったら、止まった画面を送ってください。</span>どこで止まったかが分かれば、次に何をすればいいかを返せます。</p>
+    <div class="goal">第1回はここまでです。返事を待たずに、そのまま第2回に進んでかまいません。</div>
+  </div>
+  <nav class="pager" aria-label="前後の回"><a class="pv" href="#toc">← 目次</a><span></span><a class="nx" href="#s2">第2回 →</a></nav>
+</section>
+
+<section id="s2" data-chap="第2回 / 全3回">
+  <p class="epbar"><span class="epno">第2回 / 全3回</span><span>ひとりで</span><span class="dev">スマホだけでできる</span></p>
+  <h2>第2回：売上の数字から、理由の仮説と報告書の下書きを作る</h2>
+  <p class="can">できるようになること：数字から理由の仮説を出させ、断定を聞き返して、報告書の形にする</p>
+  <p class="meta">かかる時間：30分以内</p>
+  <p class="solo">この回は、ひとりで進めます。詰まったら、その画面を送れば返事が来ます。</p>
+  <p>売上の「なぜ売れたか」を再現できる形で説明するのは、いちばん難しい仕事の1つだと思います。AIは、その手がかりを出すのが得意です。ただし、もっともらしく言い切る癖があります。そこを聞き返す練習です。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 360 130" role="img" aria-label="第2回は4段。仮説を3つ出させる、断定を聞き返す、事情を足して見立てを直す、報告書の形に整える">
+      <g font-size="12.5" font-weight="700">
+        <rect x="6" y="14" width="80" height="60" rx="8" class="s-acs k-ac" stroke-width="1.5"/>
+        <text x="46" y="40" text-anchor="middle" class="s-fg">① 仮説を</text><text x="46" y="58" text-anchor="middle" class="s-fg">3つ出す</text>
+        <rect x="94" y="14" width="80" height="60" rx="8" class="s-was k-wa" stroke-width="2.5"/>
+        <text x="134" y="40" text-anchor="middle" class="s-fg">② 断定を</text><text x="134" y="58" text-anchor="middle" class="s-fg">聞き返す</text>
+        <rect x="182" y="14" width="80" height="60" rx="8" class="s-acs k-ac" stroke-width="1.5"/>
+        <text x="222" y="40" text-anchor="middle" class="s-fg">③ 事情を</text><text x="222" y="58" text-anchor="middle" class="s-fg">足す</text>
+        <rect x="270" y="14" width="84" height="60" rx="8" class="s-bls k-bl" stroke-width="1.5"/>
+        <text x="312" y="40" text-anchor="middle" class="s-fg">④ 報告書の</text><text x="312" y="58" text-anchor="middle" class="s-fg">形にする</text>
+      </g>
+      <text x="180" y="108" text-anchor="middle" font-size="12.5" class="s-mu">②で「数字から言えること」と「推測」を分けさせるのが要</text>
+    </svg>
+    <figcaption>図2　第2回は4段で進む</figcaption>
+  </figure>
+
+  <div class="step" id="st7" data-step="手順1 数字を貼って仮説を3つ出させる">
+    <h3><span class="no">手順1</span>数字を貼って、理由の候補を3つ出させる</h3>
+    <p>Geminiで<b>新しい会話</b>を始めます（左上の三本線 →「新しいチャット」）。下の文を送ります。数字は全部<b>練習用の架空のもの</b>です。</p>
+    <div class="prompt">
+<pre id="q1">下に、ある店の4週間の売上（万円）を貼ります。
+市内店と郊外店で売れ方が違うこと、郊外店のゲーム機が3週目だけ大きく伸びていることについて、理由の候補を3つ出してください。
+それぞれ、その理由が合っているかを確かめるために、次に見る数字（売上以外でもよい）も1つずつ書いてください。
+
+【市内店】
+1週目 スマホ42 ゲーム機28 家電15
+2週目 スマホ45 ゲーム機30 家電14
+3週目 スマホ40 ゲーム機31 家電16
+4週目 スマホ47 ゲーム機29 家電15
+【郊外店】
+1週目 スマホ22 ゲーム機18 家電26
+2週目 スマホ20 ゲーム機17 家電27
+3週目 スマホ21 ゲーム機52 家電25
+4週目 スマホ23 ゲーム機16 家電28</pre>
+      <div class="bar"><button class="copy" type="button" data-target="q1">コピーする</button></div>
+    </div>
+    <p>返ってきた3つの候補と、「次に見る数字」を読んでください。自分の店でも見られる数字が入っているかが目安です。</p>
+    <div class="stuck"><p><b>ここで止まったら</b>　答えが長すぎて読めないときは、「3つとも2行で」と送ってください。それでも分からなければ、その画面を送ってください。</p></div>
+  </div>
+
+  <div class="step" id="st8" data-step="手順2 断定を聞き返す">
+    <h3><span class="no">手順2</span>「それは数字だけで言えますか」と聞き返す</h3>
+    <p>AIの理由は、それらしく聞こえます。<b>同じ画面で続けて</b>、次を送ってください。</p>
+    <div class="prompt">
+<pre id="q2">いまの3つの理由は、この数字だけで言えることですか。
+「数字から言えること」と「推測にすぎないこと」の2つに分けて、書き直してください。</pre>
+      <div class="bar"><button class="copy" type="button" data-target="q2">コピーする</button></div>
+    </div>
+    <p>最初の答えより、言い切りが弱くなっていれば成功です。<span class="key">この聞き返しが、報告書に推測を事実として書かないための確かめ方です。</span></p>
+  </div>
+
+  <div class="step" id="st9" data-step="手順3 事情を足して見立てを直す">
+    <h3><span class="no">手順3</span>現場の事情を足して、見立てを直させる</h3>
+    <p>AIは、貼られた数字の外にある事情を知りません。現場の人が持っている事情を足すと、見立てが変わります。</p>
+    <div class="prompt">
+<pre id="q3">追加の事情です。3週目の郊外店のゲーム機は、1人のお客さんの大量買いが大半でした。
+その分を除くと、郊外店の売れ方の見立ては変わりますか。変わる所と、変わらない所を分けてください。</pre>
+      <div class="bar"><button class="copy" type="button" data-target="q3">コピーする</button></div>
+    </div>
+    <p class="mini">自分の店なら、ここに「この週は店頭で買取キャンペーンをしていた」のような事情を入れます。</p>
+  </div>
+
+  <div class="step" id="st10" data-step="手順4 報告書の形に整えて確かめる">
+    <h3><span class="no">手順4</span>報告書の形に整えさせて、数字を1か所確かめる</h3>
+    <div class="prompt">
+<pre id="q4">ここまでのやりとりをもとに、店長への報告書の下書きを書いてください。
+形は「結論」「根拠」「次の一手」の3つです。
+根拠には、数字から言えることだけを使ってください。推測は「推測」と書いてください。
+全体で300字以内にしてください。</pre>
+      <div class="bar"><button class="copy" type="button" data-target="q4">コピーする</button></div>
+    </div>
+    <p>返ってきた報告書で、<b>根拠に書かれた数字を1か所選び、手順1の元の数字と見比べてください。</b>AIは、数字を丸めたり、足し算を間違えたりすることがあります。</p>
+    <p>見比べたやりとりの画面をスクショして、LINEで送ってください。</p>
+    <div class="stuck"><p><b>ここで止まったら</b>　報告書が長すぎる・形が違うときは、「300字以内で、結論・根拠・次の一手の順に」と送り直してください。それでも違えば、その画面を送ってください。</p></div>
+  </div>
+  <nav class="pager" aria-label="前後の回"><a class="pv" href="#s1">← 第1回</a><a class="toc-l" href="#toc">目次</a><a class="nx" href="#s3">第3回 →</a></nav>
+</section>
+
+<section id="s3" data-chap="第3回 / 全3回">
+  <p class="epbar"><span class="epno">第3回 / 全3回</span><span>ひとりで</span><span class="dev">スマホだけでできる</span></p>
+  <h2>第3回：店の仕事の手間を1つ消す</h2>
+  <p class="can">できるようになること：毎日5分以上かかる作業を1つ選び、AIで短くする</p>
+  <p class="meta">かかる時間：30分以内</p>
+  <p class="solo">この回も、ひとりで進めます。詰まったら、その画面を送れば返事が来ます。</p>
+  <p>第1回で「頼み方」を、第2回で「聞き返し方」を使いました。第3回は、その2つを店の毎日の仕事に使います。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 360 200" role="img" aria-label="毎日やるか、5分以上かかるか、の2つで選ぶ。両方に当てはまる右上の箱から1つ選ぶ">
+      <rect x="60" y="10" width="144" height="80" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+      <rect x="208" y="10" width="146" height="80" rx="8" class="s-was k-wa" stroke-width="2.5"/>
+      <rect x="60" y="94" width="144" height="80" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+      <rect x="208" y="94" width="146" height="80" rx="8" class="s-card k-ln" stroke-width="1.5"/>
+      <text x="281" y="38" text-anchor="middle" font-size="13" font-weight="700" class="s-wa">ここから1つ</text>
+      <text x="281" y="58" text-anchor="middle" font-size="12" class="s-fg">毎日・5分以上</text>
+      <text x="281" y="78" text-anchor="middle" font-size="12" class="s-mu">例：入荷の告知文</text>
+      <text x="132" y="56" text-anchor="middle" font-size="12" class="s-mu">毎日・5分未満</text>
+      <text x="132" y="140" text-anchor="middle" font-size="12" class="s-mu">たまに・5分未満</text>
+      <text x="281" y="140" text-anchor="middle" font-size="12" class="s-mu">たまに・5分以上</text>
+      <text x="30" y="54" text-anchor="middle" font-size="12" font-weight="700" class="s-fg">毎日</text>
+      <text x="30" y="138" text-anchor="middle" font-size="12" font-weight="700" class="s-fg">たまに</text>
+      <text x="132" y="192" text-anchor="middle" font-size="12" font-weight="700" class="s-fg">5分未満</text>
+      <text x="281" y="192" text-anchor="middle" font-size="12" font-weight="700" class="s-fg">5分以上</text>
+    </svg>
+    <figcaption>図3　選ぶのは右上の箱から1つ</figcaption>
+  </figure>
+
+  <div class="step" id="st11" data-step="手順1 手間を1つ選ぶ">
+    <h3><span class="no">手順1</span>消したい手間を1つ選ぶ</h3>
+    <p>選び方は2つだけです。<b>毎日やっていること</b>で、<b>5分以上かかること</b>。店の仕事なら、たとえばこういうものです。</p>
+    <ul class="check">
+      <li>SNSの入荷告知文を書く</li>
+      <li>アルバイトへの引き継ぎメモを書く</li>
+      <li>シフトの連絡の文を考える</li>
+      <li>接客マニュアルの更新や、新人向けの説明を作る</li>
+    </ul>
+    <p>思いつかなければ、昨日の1日を開店前から順に思い出してください。</p>
+    <div class="stuck"><p><b>ここで止まったら</b>　決められないときは、「毎日やっていることを順に書くので、AIで短くできそうなものを選んでください」と送って、AIに選ばせてください。</p></div>
+  </div>
+
+  <div class="step" id="st12" data-step="手順2 やり方を3つ出させる">
+    <h3><span class="no">手順2</span>やり方を3つ出させる</h3>
+    <p>下の文を貼り、<b>その下に、選んだ手間と、いつもどうやっているかを打ち足して</b>から送ります。<a href="#st5">第1回の手順5</a>と同じやり方です。</p>
+    <div class="prompt">
+<pre id="r1">店の仕事で、毎日やっていて5分以上かかっている面倒なことを、この下に書きます。いつものやり方も書きます。
+これをAIで短くする方法を3つ、すぐ試せる順に教えてください。</pre>
+      <div class="bar"><button class="copy" type="button" data-target="r1">コピーする</button></div>
+    </div>
+    <p class="mini">打ち足すのは2行で十分です。例：「入荷した商品のSNS告知文を書くのに、毎日10分かかる。」「商品の写真を見ながら、前日の投稿をまねて打っている。」</p>
+    <p class="mini">お客様の名前・連絡先・実際の仕入れ値は、貼らないでください。</p>
+  </div>
+
+  <div class="step" id="st13" data-step="手順3 1つ目をその場で試す">
+    <h3><span class="no">手順3</span>1つ目を、その場で試す</h3>
+    <p>返ってきた3つのうち、1つ目をその場で試します。同じ画面で、続けてこれを送ってください。</p>
+    <div class="prompt">
+<pre id="r2">1つ目のやり方を、いまここで一緒にやってください。私がやることを1つずつ教えてください。</pre>
+      <div class="bar"><button class="copy" type="button" data-target="r2">コピーする</button></div>
+    </div>
+    <p>AIが言うとおりに1つずつ進めます。別のアプリを使う方法しか出てこなかったら、「Geminiだけでできるやり方にしてください」と送ってください。</p>
+  </div>
+
+  <div class="step" id="st14" data-step="手順4 出す前に見る所を決める">
+    <h3><span class="no">手順4</span>店に出す前に、見る所を1つ決める</h3>
+    <p>AIの文は、そのまま店に出しません。<span class="key">出す前に自分が見る所を、1つだけ決めておきます。</span>告知文なら価格と商品名、引き継ぎメモなら日付と数量、シフトの連絡なら日付と時間、といった具合です。</p>
+    <p>決めた所を、AIの文と元の情報で見比べて、直す所があれば直してから使ってください。</p>
+    <p>最後の画面を、LINEで送ってください。「見る所」に何を決めたかも、一言添えてもらえると助かります。うまくいかなかった画面でもかまいません。</p>
+    <div class="stuck"><p><b>ここで止まったら</b>　その画面を送ってください。止まった所が分かれば、次に何をすればいいかを返せます。</p></div>
+  </div>
+  <nav class="pager" aria-label="前後の回"><a class="pv" href="#s2">← 第2回</a><a class="toc-l" href="#toc">目次</a><a class="nx" href="#s4">この先 →</a></nav>
+</section>
+
+<section id="s4" data-chap="この先と、感想のお願い">
+  <h2>この先と、感想のお願い</h2>
+  <p>3回、お疲れさまでした。使ったのは、買取メモの表、売上の仮説と報告書、店の手間を1つ消す、の3つです。どれも、<b>AIが下書きを作り、人が確かめる所を決めて確かめる</b>形でした。</p>
+  <p>この3回のあとは、ひとり仕事のAI実践（全15回）へ進めます。IT を本業とは別に並行して持っておきたい、という使い方にも合う講座です。</p>
+  <div class="next">
+    <p style="margin:0 0 4px">3回のあとに進む講座</p>
+    <a href="https://mushataku.github.io/pub/ai-practice-5d6c06e1f893/">ひとり仕事のAI実践（全15回）</a>
+  </div>
+  <p>講座の第1回は、Claude という別のAIに登録するところから始まります。登録は無料で、スマホだけでできます。登録で止まったら、その画面も送ってください。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 360 150" role="img" aria-label="LINEで画面と感想を送ると、武者野が返事をする">
+      <rect x="10" y="12" width="100" height="40" rx="10" class="s-acs k-ac" stroke-width="1.5"/>
+      <text x="60" y="37" text-anchor="middle" font-size="13" font-weight="700" class="s-fg">廣森さん</text>
+      <rect x="250" y="12" width="100" height="40" rx="10" class="s-card k-bl" stroke-width="1.5"/>
+      <text x="300" y="37" text-anchor="middle" font-size="13" font-weight="700" class="s-fg">武者野</text>
+      <path d="M114 26 L244 26 M234 18 L244 26 L234 34" class="k-ac" stroke-width="2" fill="none"/>
+      <text x="180" y="18" text-anchor="middle" font-size="12" class="s-ac">画面と感想を送る</text>
+      <path d="M246 42 L116 42 M126 34 L116 42 L126 50" class="k-bl" stroke-width="2" fill="none"/>
+      <text x="180" y="62" text-anchor="middle" font-size="12" class="s-bl">返事を返す</text>
+      <rect x="40" y="92" width="280" height="40" rx="10" class="s-was k-wa" stroke-width="1.5"/>
+      <text x="180" y="117" text-anchor="middle" font-size="12.5" font-weight="700" class="s-fg">止まった画面が、いちばんありがたい</text>
+    </svg>
+    <figcaption>図4　LINEで送れば、返事が返ってくる</figcaption>
+  </figure>
+  <div class="goal">お願い：モニターとしてお渡ししているので、感想を1行でもLINEで送ってください。分かりにくかった所、止まった所が、いちばんありがたいです。</div>
+  <p>送る先は、このページのリンクが届いたLINEのトークです。できた画面でも、動かなかった画面でも、何回送っても大丈夫です。この講習も質問への返事も、お金はかかりません。</p>
+  <nav class="pager" aria-label="前後の回"><a class="pv" href="#s3">← 第3回</a><a class="toc-l" href="#toc">目次</a><span></span></nav>
+</section>
+<footer>AI講習　店の仕事で使う3回</footer>
+</main>
+<script>
+(function(){
+  var chap=document.getElementById('bandChap'), step=document.getElementById('bandStep');
+  var chaps=[].slice.call(document.querySelectorAll('[data-chap]'));
+  var steps=[].slice.call(document.querySelectorAll('[data-step]'));
+  function last(list,limit){var cur=null;for(var i=0;i<list.length;i++){if(list[i].getBoundingClientRect().top<=limit)cur=list[i];}return cur;}
+  function update(){
+    var c=last(chaps,90)||chaps[0];
+    chap.textContent=c.getAttribute('data-chap');
+    var s=last(steps,130);
+    step.textContent=(s&&c.contains(s))?s.getAttribute('data-step'):'';
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  window.addEventListener('resize',update);
+  update();
+
+  function fallbackCopy(t,pre){
+    return new Promise(function(ok,ng){
+      var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');
+      ta.style.position='fixed';ta.style.top='-1000px';document.body.appendChild(ta);ta.select();
+      var r=false;try{r=document.execCommand('copy');}catch(e){}
+      document.body.removeChild(ta);
+      if(r){ok();}else{
+        try{var rg=document.createRange();rg.selectNodeContents(pre);var sel=window.getSelection();sel.removeAllRanges();sel.addRange(rg);}catch(e){}
+        ng();
+      }
+    });
+  }
+  function copyText(t,pre){
+    if(navigator.clipboard&&window.isSecureContext){
+      return navigator.clipboard.writeText(t).catch(function(){return fallbackCopy(t,pre);});
+    }
+    return fallbackCopy(t,pre);
+  }
+  [].slice.call(document.querySelectorAll('.copy')).forEach(function(b){
+    b.addEventListener('click',function(){
+      var pre=document.getElementById(b.getAttribute('data-target'));
+      copyText(pre.textContent,pre).then(function(){
+        b.textContent='コピーしました';b.classList.add('done');
+        setTimeout(function(){b.textContent='コピーする';b.classList.remove('done');},2500);
+      },function(){
+        b.textContent='コピーできません。枠の文を長押しで選んでください';
+        setTimeout(function(){b.textContent='コピーする';},3000);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
