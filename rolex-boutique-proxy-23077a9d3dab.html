@@ -178,6 +178,10 @@ figcaption{margin-top:var(--sp-2);font-size:.875rem;color:var(--text-sub)}
   .q textarea{border:1px solid #888;background:#fff;min-height:4em}
   .bar.req,.sw.req,.bar.vis,.sw.vis,.tl-today,.sw.td,.st{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+.handoff{margin-top:var(--sp-3,1.5rem);padding:1rem 1.25rem;border:2px solid var(--accent,#0b5d4b);border-radius:10px}
+.handoff-h{font-weight:700;margin:0 0 .5rem}
+.handoff ol{margin:0 0 .5rem;padding-left:1.5em}
+.handoff li{margin:.25rem 0}
 </style>
 </head>
 <body>
@@ -208,6 +212,14 @@ figcaption{margin-top:var(--sp-2);font-size:.875rem;color:var(--text-sub)}
     <h2 id="s1"><span class="no">1</span><span>何ができるか</span></h2>
     <p class="one">あびのさんのリストの方を、5店の来店予約リクエストに、毎回・全店へ代わりに申し込みます。
       <span>1人につき1店1期間1回までなので、1人を5店に1回ずつ出せます。1期間で1人最大5口です。</span></p>
+    <div class="handoff">
+      <p class="handoff-h">あびのさんの作業は、最初の2つだけです</p>
+      <ol>
+        <li><strong>共有のスプレッドシートに、必要な情報を書く</strong></li>
+        <li><strong>用意した携帯の SMS を、こちらの番号へ自動転送する設定をする</strong></li>
+      </ol>
+      <p>このあとは<strong>完全に手を離していただけます</strong>。受付開始の時刻を読んで申し込むのも、SMS のコードを入れるのも、毎週・全店ぶん、こちらで続けます。</p>
+    </div>
   </section>
 
   <section aria-labelledby="s2">
@@ -280,7 +292,7 @@ figcaption{margin-top:var(--sp-2);font-size:.875rem;color:var(--text-sub)}
 
   <section aria-labelledby="s3">
     <h2 id="s3"><span class="no">3</span><span>1人あたりの流れと分担</span></h2>
-    <p class="msg">あびのさんは名簿・携帯番号とメールの用意・SMS の転送まで、ご本人は来店、それ以外の申込の作業はこちらです。</p>
+    <p class="msg">あびのさんは最初に名簿を書き、自動転送を設定するだけ。ご本人は来店だけ。それ以外の申込の作業は、毎回こちらです。</p>
 
     <ol class="flow" aria-label="1人あたりの流れ">
       <li class="flow-head c1" aria-hidden="true">あびのさん</li>
@@ -292,7 +304,7 @@ figcaption{margin-top:var(--sp-2);font-size:.875rem;color:var(--text-sub)}
       <li style="grid-row:4" class="st us c3"><span class="who">こちら</span><span class="who-sr">こちら: </span>各店の受付開始時刻をページから自動で読み、開始直後に申込を始める</li>
       <li style="grid-row:5" class="st us c3"><span class="who">こちら</span><span class="who-sr">こちら: </span>入力・日時の選択・確認画面の照合（仕組みで自動）</li>
       <li style="grid-row:6" class="st us c3"><span class="who">こちら</span><span class="who-sr">こちら: </span>「私はロボットではありません」の確認を担当者が押す</li>
-      <li style="grid-row:7" class="st cl c1 key"><span class="who">あびのさん</span><span class="who-sr">あびのさん: </span>用意した携帯に届いた SMS を、こちらの番号 080-1755-2964 へ転送する</li>
+      <li style="grid-row:7" class="st sh span"><span class="who">自動</span><span class="who-sr">自動: </span>用意した携帯に届いた SMS が、自動転送でこちらの番号 080-1755-2964 に届く（手は要りません）</li>
       <li style="grid-row:8" class="st us c3"><span class="who">こちら</span><span class="who-sr">こちら: </span>転送された SMS からコードを読み、入れて申込を完了する</li>
       <li style="grid-row:9" class="st sh span"><span class="who">店</span><span class="who-sr">店: </span>リクエストを受け付ける（確約ではない）</li>
       <li style="grid-row:10" class="st pe c2"><span class="who">ご本人</span><span class="who-sr">ご本人: </span>来店日に店へ行く<p class="small">購入できるかは店の判断です</p></li>
@@ -348,7 +360,7 @@ figcaption{margin-top:var(--sp-2);font-size:.875rem;color:var(--text-sub)}
 
   <section aria-labelledby="s6">
     <h2 id="s6"><span class="no">6</span><span>今夜決めたいこと</span></h2>
-    <p class="msg">始めるのに必要なのは、次の7つです。</p>
+    <p class="msg">始めるのに必要なのは、次の6つです。</p>
     <ol class="qs">
       <li class="q">
         <h3 id="q1">リストの人数</h3>
@@ -359,11 +371,6 @@ figcaption{margin-top:var(--sp-2);font-size:.875rem;color:var(--text-sub)}
         <h3 id="q2">ご本人の同意の取り方</h3>
         <p>代わりに申し込むこと、用意した番号とメールで申し込むことの了解を、誰がどう取りますか。</p>
         <label for="a2">答え</label><textarea id="a2" rows="2"></textarea>
-      </li>
-      <li class="q">
-        <h3 id="q3">SMS の転送元の番号</h3>
-        <p>転送は自動で設定していただけると伺いました。転送元の番号（こちらに届くときの差出人）を教えてください。こちらで受け取った SMS を見分けるのに使います。</p>
-        <label for="a3">答え</label><textarea id="a3" rows="2"></textarea>
       </li>
       <li class="q">
         <h3 id="q4">来店の段取り</h3>
