@@ -1,116 +1,225 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><!--gp-portal:s--><meta name="x-build" content="5ea25136b6"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e-->
+<head><!--gp-portal:s--><meta name="x-build" content="421f93451a"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e-->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>面接対策のふりかえり</title>
+<title>プラウドデータ面接の準備</title>
 <style>
 :root{
-  --bg:#fdfcfa; --fg:#241f1a; --muted:#7b7168; --line:#e6e0d6;
-  --card:#ffffff; --accent:#c2622f; --accentbg:#fdf3ec; --good:#2f6b45; --goodbg:#eef6f0;
+  --bg:#fdfcfa; --fg:#241f1a; --muted:#6f655c; --line:#e6e0d6;
+  --card:#ffffff; --accent:#b4572a; --accentbg:#fdf3ec; --good:#2f6b45; --goodbg:#eef6f0;
+  --warn:#8a5a00; --warnbg:#fff7e3;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#191714; --fg:#f0ebe3; --muted:#a89e93; --line:#37322b;
     --card:#221f1b; --accent:#e79b63; --accentbg:#2b201a; --good:#8fd0a6; --goodbg:#1a2620;
+    --warn:#f0c46a; --warnbg:#2a2415;
   }
 }
 :root[data-theme="dark"]{
   --bg:#191714; --fg:#f0ebe3; --muted:#a89e93; --line:#37322b;
   --card:#221f1b; --accent:#e79b63; --accentbg:#2b201a; --good:#8fd0a6; --goodbg:#1a2620;
+  --warn:#f0c46a; --warnbg:#2a2415;
 }
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);margin:0;padding:34px 26px 40px;
-  font-family:-apple-system,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic UI",sans-serif;line-height:1.75}
-.wrap{max-width:860px;margin:0 auto}
-h1{font-size:1.6rem;margin:0 0 6px}
-.lead{color:var(--muted);margin:0 0 24px}
-h2{font-size:1.12rem;color:var(--accent);margin:34px 0 10px}
-.box{padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin:10px 0}
+html{scroll-padding-top:64px}
+body{background:var(--bg);color:var(--fg);margin:0;
+  font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;line-height:1.8}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 16px}
+.top .in{max-width:860px;margin:0 auto;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.top b{font-size:.92rem}
+.top span{font-size:.82rem;color:var(--muted)}
+.wrap{max-width:860px;margin:0 auto;padding:26px 16px 40px}
+h1{font-size:1.5rem;margin:0 0 6px;line-height:1.5}
+.lead{color:var(--muted);margin:0 0 20px}
+h2{font-size:1.1rem;color:var(--accent);margin:34px 0 10px;line-height:1.5}
+h3{font-size:1rem;margin:22px 0 6px}
+.box{padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin:10px 0}
 .good{background:var(--goodbg)}
 .good b{color:var(--good)}
-.say{background:var(--accentbg);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:13px 16px;margin:10px 0}
-ul{margin:6px 0 0;padding-left:1.3em}
+.warn{background:var(--warnbg);border-color:transparent}
+.say{background:var(--accentbg);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:12px 15px;margin:8px 0}
+.no{color:var(--muted);font-size:.93rem;margin:6px 0 0}
+ul,ol{margin:6px 0 0;padding-left:1.3em}
 li{margin:4px 0}
-.k{font-size:.8rem;font-weight:700;letter-spacing:.12em;color:var(--muted);display:block;margin-bottom:4px}
-.bar{display:flex;height:26px;border-radius:6px;overflow:hidden;margin:8px 0 4px;font-size:.8rem;color:#fff;font-weight:700}
-.bar span{display:flex;align-items:center;justify-content:center}
+.k{font-size:.78rem;font-weight:700;letter-spacing:.1em;color:var(--muted);display:block;margin-bottom:2px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+td{border-top:1px solid var(--line);padding:7px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;color:var(--muted);width:6.5em}
+a{color:var(--accent);word-break:break-all}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 0;padding:0;list-style:none}
+.toc a{display:inline-block;font-size:.85rem;padding:3px 10px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--fg);background:var(--card)}
+.fill{border:1px dashed var(--line);border-radius:10px;padding:10px 14px;margin:8px 0;color:var(--muted)}
 .foot{margin:34px 0 0;color:var(--muted);font-size:.9rem}
-@media(max-width:720px){h1{font-size:1.3rem}body{padding:24px 16px 32px}}
+@media(max-width:720px){h1{font-size:1.25rem}}
 
 h1,h2,h3{word-break:auto-phrase}
 </style>
 </head>
-<body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=5ea25136b6">ホーム</a></li><li class="gp-cur"><a href="./t79f00554.html?v=5ea25136b6" aria-current="page">面接対策</a></li><li><a href="./t37793c33.html?v=5ea25136b6">書類のフィードバック</a></li><li><a href="./t988b1977.html?v=5ea25136b6">10秒面接ドリル</a></li><li><a href="./t6168f1fc.html?v=5ea25136b6">ご紹介したお仕事</a></li></ul></nav><!--gp-portal:e-->
+<body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=421f93451a">ホーム</a></li><li class="gp-cur"><a href="./t79f00554.html?v=421f93451a" aria-current="page">面接対策</a></li><li><a href="./t37793c33.html?v=421f93451a">書類のフィードバック</a></li><li><a href="./t988b1977.html?v=421f93451a">10秒面接ドリル</a></li><li><a href="./t6168f1fc.html?v=421f93451a">ご紹介したお仕事</a></li></ul></nav><!--gp-portal:e-->
+<div class="top"><div class="in"><b>プラウドデータ面接の準備</b><span id="cur">11月16日（月）17:00〜</span></div></div>
 <div class="wrap">
 
-<h1>面接対策のふりかえり</h1>
-<p class="lead">根本さん、11月11日（水）の面接対策と、面接のあとのお話をまとめました。次の面接（11月16日（月）17:00〜）の前に、ここだけ見返してもらえれば大丈夫です。</p>
+<h1>根本さん、明日のプラウドデータ面接の準備</h1>
+<p class="lead">11月16日（月）17:00からの面接に向けて、聞かれそうなことと答えの軸をまとめました。全部覚えなくて大丈夫です。<b>1・2・4だけ</b>読んでおいてもらえれば十分です。</p>
 
+<ul class="toc">
+<li><a href="#s1">1. 面接の情報</a></li>
+<li><a href="#s2">2. 今回いちばん大事なこと</a></li>
+<li><a href="#s3">3. どんな会社か</a></li>
+<li><a href="#s4">4. 聞かれそうなこと</a></li>
+<li><a href="#s5">5. 3つの一文</a></li>
+<li><a href="#s6">6. 最後の質問</a></li>
+<li><a href="#s7">7. 当日の準備</a></li>
+</ul>
+
+<h2 id="s1">1. 面接の情報</h2>
+<div class="box">
+<table>
+<tr><td>日時</td><td>11月16日（月）17:00〜18:00</td></tr>
+<tr><td>方法</td><td>Web面接（Google Meet）</td></tr>
+<tr><td>URL</td><td><a href="https://meet.google.com/azn-srrg-ekc">https://meet.google.com/azn-srrg-ekc</a></td></tr>
+<tr><td>入る時間</td><td>16:50には入れる状態に（カメラ・マイクの確認も）</td></tr>
+<tr><td>職種</td><td>インフラエンジニア（サーバー・ネットワーク）</td></tr>
+</table>
+</div>
+
+<h2 id="s2">2. 今回いちばん大事なこと</h2>
 <div class="box good">
-<b>できていたこと</b>
+<b>プラウドデータさんは、根本さんの書類を見て「経験者として会いたい」と言ってくれた会社です。</b>
 <ul>
-<li>聞かれたことに<b>まず一言で答えて、そのあと補足する</b>順番になっていて、とても聞きやすかったです。</li>
-<li>練習で用意していなかった質問にも、根本さんのこれまでの経験から答えられていました。</li>
-<li>短い準備期間でも、想定質問をしっかり読み込んできてくれました。ご自身の採点は「70点くらい」。十分合格ラインです。</li>
+<li>評価されたのは、<b>2年間の運用・監視の経験</b>です。専門的なことを全部答えられなくても大丈夫。<b>実際にやってきたことを、自分の言葉で</b>話せば十分です。</li>
+<li>分からないことを聞かれたら、知ったかぶりをせず「その部分は分かりませんが、入社したらすぐ覚えたいです」と言えばOKです。この会社は<b>自分で学び続ける人</b>を求めているので、その姿勢の方が伝わります。</li>
 </ul>
 </div>
-
-<h2>1. 「なぜ事務？」は、根本さんの言葉で</h2>
-<p>書いてある文章を覚えて話すより、根本さんがしっくりくる言葉で話す方が伝わります。練習でたどり着いた言い方はこちらです。</p>
-<div class="say"><span class="k">一言で</span>パソコンで仕事をするうえで、どうしたら効率よくできるかを工夫するのが好きで、それを仕事にしたいと思ったからです。</div>
-<div class="say"><span class="k">「どんなときにそう思った？」と聞かれたら</span>飲食店で店長が不在のとき、スタッフ20人ほどの損益のシートや給料計算を、何もない状態からスプレッドシートで一から作りました。1つできると次の課題が2つ3つ見つかって、それが面白いと感じたのがきっかけです。</div>
-
-<h2>2. 詰まったときのひと言を持っておく</h2>
-<p>緊張はしますし、用意した答えが飛ぶこともあります。それで大丈夫です。そのときはこう言えば、印象はむしろ良くなります。</p>
-<div class="say">「すみません、緊張して何を話しているか分からなくなってしまったので、もう一度質問を確認してもいいですか？」</div>
-<p>確認したら、<b>結論から一言</b>で答え直せば十分です。手元のメモを読みながら話すより、少し詰まっても自分の言葉で話す方がずっと好印象です。</p>
-
-<h2>3. 見た目と声で、印象の半分以上が決まる</h2>
-<p>人の印象は、見た目が約55%、声のトーンや話し方が約38%、話の中身が約7%で決まると言われます（メラビアンの法則）。面接官は中身も聞いてくれますが、それでも見た目と声の影響は大きいです。</p>
-<div class="bar"><span style="width:55%;background:#c2622f">見た目 55%</span><span style="width:38%;background:#7b7168">声 38%</span><span style="width:7%;background:#2f6b45">7</span></div>
+<div class="box warn">
+<b>11月11日の面接（事務の会社）とは、軸を切り替えます</b>
 <ul>
-<li><b>笑顔で、はきはき、大きめの声</b>。これだけ意識すれば大丈夫です。</li>
-<li>面接は「普段の自分」より少しだけ明るい自分を出す場。最初のあいさつで第一印象をつかみましょう。</li>
+<li>「事務を中心に考えています」「事務8割・IT2割」は、<b>今回は言いません</b>。</li>
+<li>今回の軸は、11月11日の資料にも書いた<b>「ITの会社なら」</b>の一言です。</li>
 </ul>
+<div class="say"><span class="k">今回の軸</span>パソコンに向かって工夫する仕事がしたいです。2年間の運用・監視の経験を活かして、ITで腰を据えてスキルを身につけたいと考えています。</div>
+</div>
 
-<h2>4. オンライン面接の準備（当日の30分前までに）</h2>
+<h2 id="s3">3. どんな会社か（30秒で）</h2>
 <ul>
-<li><b>背景</b>：白い壁など、物が映らない無地の場所で。</li>
-<li><b>明るさ</b>：窓を背にしない（逆光にしない）。顔の正面から光が当たるように。</li>
-<li><b>通信</b>：電波が不安なときはネットカフェなどを使い、30分前に入って接続を確かめておく。</li>
+<li>東京・麹町に本社がある、ITエンジニアの会社です。エンジニアの多くは<b>お客さんの会社に常駐</b>して働きます（SES）。根本さんが以前いた働き方と同じです。</li>
+<li>入社後は研修・社内の課題（Linux・ネットワーク・サーバー構築など）で学んでから、現場に出る流れと会社は説明しています。</li>
+<li>土日祝休み・年間休日125日と会社は書いています。</li>
+<li>求人には「<b>育てるけれど、甘やかしすぎない</b>」とあり、<b>自分から学ぶ人</b>を求めています。</li>
+</ul>
+<div class="box">
+<span class="k">求人票に書いてある「通りやすい人」</span>
+<ol>
+<li>ITの仕事をしたい理由がはっきりしている</li>
+<li>自分でITを勉強している・興味が見える</li>
+<li>人と接する仕事をしてきた（接客など）</li>
+<li>お客さんの会社に常駐する働き方を分かっていて、前向きに受け止められる</li>
+</ol>
+<p class="no">根本さんは、2・3・4にすでに当てはまる経験があります。下の4で、それぞれ何を話せばいいかを書きました。</p>
+</div>
+
+<h2 id="s4">4. 聞かれそうなこと と 答えの軸</h2>
+<p>どれも<b>まず一言で答えて、そのあと補足</b>。11月11日にできていた形のままで大丈夫です。</p>
+
+<h3>① 自己紹介をお願いします（1分くらい）</h3>
+<div class="say">根本航汰です。福島で介護の仕事を3年半したあと上京し、お客さんの会社に常駐して、システムの運用・監視を2年間担当しました。その後は飲食店で、店長が不在の時期にスタッフ20人ほどのシフトや給料計算を、スプレッドシートで一から作って回していました。パソコンで工夫する仕事がやっぱり好きだと感じ、もう一度ITで経験を積みたいと思い応募しました。本日はよろしくお願いいたします。</div>
+
+<h3>② 運用・監視では、どんなことをしていましたか（★いちばん聞かれやすい）</h3>
+<div class="say"><span class="k">一言で</span>システムが正しく動いているかを見て、決められた手順で作業する仕事をしていました。</div>
+<div class="say"><span class="k">補足（覚えている範囲で）</span>
+<ul>
+<li>1つ目の現場：官公庁の税務関係のシステムの監視</li>
+<li>2つ目の現場：大手生命保険会社のシステムの運用保守。オンラインの開局・閉局（システムの開け閉め）や、データの更新を担当</li>
+<li>夜勤を含むシフト勤務</li>
+</ul></div>
+<p class="no">お客さんの会社名（生命保険会社の名前など）は出さず、「大手生命保険会社」と言えばOKです。</p>
+<div class="box">
+<span class="k">細かいこと（使っていたツールの名前・仕組み）を聞かれたら</span>
+正直に答えて大丈夫です。
+<div class="say">5年ほど前のことなので、ツールの名前までは覚えていないです。当時は手順書どおりに作業していて、仕組みまでは理解しきれていませんでした。だからこそ今回は、仕組みから学んで、自分で判断できるエンジニアになりたいと思っています。</div>
+<p class="no">やっていないこと（エラーの原因を調べる・設定を変える など）を、やったとは言わないでください。経験者枠は、話を盛るとすぐ分かります。</p>
+</div>
+
+<h3>③ なぜ一度ITを離れたのですか</h3>
+<div class="say">もともと好きだったお店（シーシャ）の仕事に興味があって、一度挑戦してみたいと思ったからです。お店では裏方として、シフトや給料計算のシートを一から作り、その中で「パソコンで仕組みを作って仕事を楽にする」のが自分は好きだと分かりました。</div>
+<p class="no">前の職場の人間関係の話はしません。</p>
+
+<h3>④ なぜ今、ITに戻りたいのですか（志望理由）</h3>
+<div class="say"><span class="k">一言で</span>パソコンに向かって工夫する仕事を、ちゃんと腰を据えてスキルにしたいからです。</div>
+<div class="say"><span class="k">補足</span>運用・監視では手順どおりの作業が中心でしたが、飲食店でシートを一から作ったとき、1つできると次の課題が2つ3つ見つかるのが面白いと感じました。今度は仕組みから理解して、サーバーやネットワークの仕事を長く続けたいと思っています。</div>
+
+<h3>⑤ なぜプラウドデータなのですか</h3>
+<div class="say">未経験から研修や社内の課題で学べる環境があり、土日祝休みで落ち着いて勉強も続けられると思ったからです。書類を見て経験者として声をかけていただいたので、その期待に応えたいと思っています。</div>
+
+<h3>⑥ お客さんの会社に常駐する働き方（SES）は大丈夫ですか</h3>
+<div class="say">はい、前職で2年間、お客さんの会社に常駐して働いていたので、働き方は分かっています。現場が変わると覚えることも多いですが、その分いろいろなシステムに触れられるのは良いところだと思っています。</div>
+
+<h3>⑦ ITの勉強は何かしていますか</h3>
+<p>ここは<b>実際にしていることだけ</b>答えてください。</p>
+<ul>
+<li>分からないことはChatGPTで調べて整理している（根本さんが普段やっていること）</li>
+<li>飲食店で、スプレッドシートの関数を自分で調べてシートを作った</li>
+</ul>
+<div class="box">
+<span class="k">もし今夜・明日の朝に時間があれば</span>
+「Linux 基本コマンド」で検索して、<b>ls・cd・pwd</b> の3つがどういう意味か、10分だけ見ておくと、「最近Linuxの基本コマンドを調べ始めました」と<b>本当のこととして</b>言えます。無理にやらなくても大丈夫です。
+</div>
+
+<h3>⑧ 他の会社の選考状況は</h3>
+<div class="say">事務の会社から1社内定をいただいています。ただ、ITで経験を積みたい気持ちが強いので、御社の結果を見て決めたいと考えています。</div>
+<p class="no">「事務8割・IT2割」「事務中心で探しています」は言いません。内定の会社名は聞かれたら答えて大丈夫です。</p>
+
+<h3>⑨ 前もって考えておいてほしいこと（聞かれるかもしれない）</h3>
+<div class="box">
+<ul>
+<li><b>夜勤のある現場</b>だったらどうしますか？（前職では夜勤ありのシフトでした）</li>
+<li><b>通勤</b>：現場は品川・川崎・横浜あたりが多いそうです。小岩からどのくらいまでなら通えますか？</li>
+<li><b>いつから働けますか？</b> →「すぐに働けます」でOKです。</li>
+</ul>
+<p class="no">夜勤と通勤は、根本さんの本当の気持ちで答えてください。迷ったら「できれば〇〇を希望しますが、相談させてください」で大丈夫です。</p>
+</div>
+
+<h2 id="s5">5. 面接前に、この3つを自分の口で言ってみる</h2>
+<p>こちらの文を覚える必要はありません。<b>声に出して、それぞれ1文で言えるか</b>だけ確かめてください。言えなかったら、自分の言葉で言い直してみてください。</p>
+<div class="fill">なぜIT（インフラ）の仕事？　→ ＿＿＿＿＿＿＿＿＿＿＿＿</div>
+<div class="fill">なぜプラウドデータ？　→ ＿＿＿＿＿＿＿＿＿＿＿＿</div>
+<div class="fill">入社したら、まず何を身につけたい？　→ ＿＿＿＿＿＿＿＿＿＿＿＿</div>
+
+<h2 id="s6">6. 最後に「何か質問はありますか？」と聞かれたら</h2>
+<p>1〜2個聞ければ十分です。</p>
+<ul>
+<li>入社してから現場に出るまで、どんな課題や勉強を進めることが多いですか？</li>
+<li>私のような運用・監視の経験がある人は、最初はどんな現場からスタートすることが多いですか？</li>
+<li>活躍している方に共通していることがあれば教えてください。</li>
+</ul>
+<p class="no">お給料や休みの細かい条件は、内定が出たあと武者野から会社に確認します。面接ではこちらの質問を優先してください。</p>
+
+<h2 id="s7">7. 当日の準備（11月11日と同じでOK）</h2>
+<ul>
+<li><b>笑顔で、はきはき、大きめの声</b>。最初のあいさつがいちばん大事です。</li>
+<li><b>背景</b>：物が映らない無地の場所。<b>明るさ</b>：窓を背にしない。</li>
 <li><b>服装</b>：スーツ（上だけでOK）。</li>
-<li><b>アプリ</b>：Teamsなど指定のアプリは、前もってテストで入れるか確かめておく。</li>
+<li><b>Google Meet</b>：上のURLを16:50までに開いて、カメラとマイクが使えるか確かめる。</li>
+<li>詰まったら：「すみません、もう一度質問を確認してもいいですか？」で大丈夫です。</li>
 </ul>
 
-<h2>5. 面接で実際に聞かれたこと（11月11日）</h2>
-<ul>
-<li>中学のときに何をしていたか（部活など）</li>
-<li>それぞれの会社を辞めた理由（ほぼ全部の職歴で）</li>
-<li>仕事で気をつけていたこと</li>
-<li>どういう仕事を探しているか／ITと事務を何割ずつで考えているか</li>
-</ul>
-<div class="box">
-<span class="k">「ITと事務は何割ずつ？」への答え方</span>
-面接のあとのお話では、<b>働き方（土日祝休みなど）の面では事務寄り、仕事の中身はパソコンを使って工夫できるならどちらも魅力</b>、というのが根本さんの気持ちでした。割合の数字にこだわる必要はありません。<b>受ける会社に合わせて、軸を一言で</b>伝えましょう。
-<ul>
-<li><b>事務の会社なら</b>：「パソコン作業を工夫して効率よくするのが好きなので、事務を中心に考えています」</li>
-<li><b>ITの会社なら</b>：「パソコンに向かって工夫する仕事がしたいです。2年間の運用・監視の経験を活かせるなら、ITで挑戦したいと考えています」</li>
-</ul>
-</div>
-
-<h2>6. 次の面接：11月16日（月）17:00〜</h2>
-<div class="box">
-インフラのエンジニアとして、<b>これまでの経験を見てぜひ会いたい</b>と言ってもらえた会社です。専門的なことを全部答えられなくても大丈夫。<b>運用・監視で実際にやってきたこと</b>（システムの監視、オンラインの開け閉め、データ更新など）を、自分の言葉で話せば十分です。
-<ul>
-<li><b>「なぜITを？」と聞かれたら</b>：上の5の「ITの会社なら」の一言が軸です。「なぜ事務？」の答え（1）は、この面接では使いません。</li>
-<li>2〜4（詰まったときのひと言・笑顔と声・オンラインの準備）は、そのまま使えます。</li>
-</ul>
-</div>
-
-<p class="foot">分からないことや不安なことがあれば、いつでもLINEで聞いてください。　武者野</p>
+<p class="foot">分からないことや不安なことがあれば、いつでもLINEで聞いてください。面接が終わったら、ひと言だけでも感触を教えてもらえると嬉しいです。　武者野</p>
 
 </div>
-<!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=5ea25136b6">ホーム</a></li><li class="gp-cur"><a href="./t79f00554.html?v=5ea25136b6" aria-current="page">面接対策</a></li><li><a href="./t37793c33.html?v=5ea25136b6">書類のフィードバック</a></li><li><a href="./t988b1977.html?v=5ea25136b6">10秒面接ドリル</a></li><li><a href="./t6168f1fc.html?v=5ea25136b6">ご紹介したお仕事</a></li></ul></nav><!--gp-portal:e--></body>
+<script>
+(function(){
+  var cur=document.getElementById('cur');
+  var hs=[].slice.call(document.querySelectorAll('h2[id]'));
+  function upd(){
+    var t='11月16日（月）17:00〜';
+    for(var i=0;i<hs.length;i++){ if(hs[i].getBoundingClientRect().top<90){ t=hs[i].textContent; } }
+    cur.textContent=t;
+  }
+  window.addEventListener('scroll',upd,{passive:true}); upd();
+})();
+</script>
+<!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=421f93451a">ホーム</a></li><li class="gp-cur"><a href="./t79f00554.html?v=421f93451a" aria-current="page">面接対策</a></li><li><a href="./t37793c33.html?v=421f93451a">書類のフィードバック</a></li><li><a href="./t988b1977.html?v=421f93451a">10秒面接ドリル</a></li><li><a href="./t6168f1fc.html?v=421f93451a">ご紹介したお仕事</a></li></ul></nav><!--gp-portal:e--></body>
 </html>
