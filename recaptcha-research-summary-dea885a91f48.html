@@ -541,7 +541,7 @@ summary{cursor:pointer;font-size:15px;min-height:44px;display:flex;align-items:c
 <li><strong>3 つ以外の跡</strong>: 今回消したのは webdriver・UA・画面だけ。マウスの動き、Client Hints、CDP の副作用などを reCAPTCHA が見ているかは測っていない（今回の bot はマウスを動かしていないのに、C は通った）。</li>
 <li><strong>headless は本当に AND か</strong>: 画面だけ・UA だけの組を、両方の組と同じ時間帯に並べて確かめる（票 recaptcha-hs-hu-same-day・11-16 予定）。</li>
 <li><strong>評判の中身</strong>: 回線の疲れが IP だけで決まるのか、何回・何時間で落ちて何時間で戻るのか。2 時間で戻らない日があった。</li>
-<li><strong>パイプの 0 は webdriver だけか</strong>: 2016 年には webdriver で判定が変わらなかった。今回は Ppw で戻ったので webdriver が引き金なのは確かだが、Google がいつから見ているのかは分からない。</li>
+<li><strong>パイプの 0 は webdriver だけか</strong>: 2016 年には webdriver で判定が変わらなかった。今回は Ppw で戻ったので webdriver が引き金なのは確かだが、Google がいつから見ているのかは分からない。<br><span class="note">11-16 に起動の旗を 1 本ずつ足し引きして、webdriver が立つ分岐を絞った（偽の reCAPTCHA で <code>navigator.webdriver</code> だけを読み、Google には撃っていない）。<code>--remote-debugging-pipe</code> だけで true（<code>--enable-automation</code> は無し）、<code>--enable-automation</code> だけでも true（パイプ無し）。どちらも <code>--disable-blink-features=AutomationControlled</code> を足すと false。つまり webdriver を立てているのは、パイプでも <code>--enable-automation</code> でもなく、どちらからも立つ Blink の AutomationControlled の方だった。本番で C と並べた 16 回は、即時通過が C 6/16・Ppw 7/15（p=0.72）で、最終的に取れた数は 16/16 と 15/15。差は出なかった。</span></li>
 <li><strong>日々の変化</strong>: OS のカーソルで押す組（real_os）と、cookie を寝かせる日次の測定は 11-16 以降に結果が出る。</li>
 </ul>
 </section>
