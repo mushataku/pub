@@ -161,6 +161,65 @@ h1,h2,h3{word-break:auto-phrase}
 <tr><td>20261115_personal_b3</td><td>0/8</td><td>0/7</td><td>0/8</td><td>0/7</td><td>0/8</td><td>0/8</td></tr>
 </tbody></table></div>
 <p class=cap>2026-11-15・2026-11-15 14:01 JST 時点・Fisher の正確検定（両側）。<b>仮の値</b>＝使い捨てのスクリプトで撃った値。はしごの表・2×2 の表には入れていない。</p>
+<h3 id=headless-combo>headless の画面＋UA を両方戻す・パイプの webdriver を消す（Hsu・Ppw）</h3>
+<p>上の小節で headless は画面（Hs）・UA（Hu）を1つずつ C に寄せても 0、パイプで起きただけ（Ppp）も 0 で、Ppp の見え方の違いは <code>navigator.webdriver</code> が true になることだけだった。Hsu は画面と UA を両方 C に寄せる。Ppw は Ppp に <code>--disable-blink-features=AutomationControlled</code> を足して webdriver を false に戻す（偽撃ちで false を確かめた）。回線を 2 時間休ませた後、C だけの束で回復を確かめてから、C を毎回に入れて鍵 2本で並列に撃った。</p>
+<p><b>Hsu は C の側に戻る＝headless の 0 は画面と UA の組み合わせで説明できる</b>。</p>
+<p><b>Ppw は C 並みに戻る＝パイプの 0 は webdriver で説明できる</b>。</p>
+<svg viewBox="0 0 760 380" role="img" aria-label="headless の画面＋UA を両方戻したマスと、パイプの webdriver を消したマスの率" style="width:100%;height:auto;max-width:760px"><line x1="60" x2="740" y1="310.0" y2="310.0" stroke="#ddd"/><text x="52" y="314.0" text-anchor="end" font-size="12">0.00</text><line x1="60" x2="740" y1="237.5" y2="237.5" stroke="#ddd"/><text x="52" y="241.5" text-anchor="end" font-size="12">0.25</text><line x1="60" x2="740" y1="165.0" y2="165.0" stroke="#ddd"/><text x="52" y="169.0" text-anchor="end" font-size="12">0.50</text><line x1="60" x2="740" y1="92.5" y2="92.5" stroke="#ddd"/><text x="52" y="96.5" text-anchor="end" font-size="12">0.75</text><line x1="60" x2="740" y1="20.0" y2="20.0" stroke="#ddd"/><text x="52" y="24.0" text-anchor="end" font-size="12">1.00</text><text x="14" y="165.0" font-size="12" transform="rotate(-90 14 165.0)" text-anchor="middle">率（有効試行あたり）</text><line x1="60" x2="740" y1="187.7" y2="187.7" stroke="#888" stroke-dasharray="6 4"/><text x="740" y="183.7" text-anchor="end" font-size="11" fill="#666">base（C すぐ通過）</text><text x="173.3" y="328" text-anchor="middle" font-size="13">C</text><text x="173.3" y="344" text-anchor="middle" font-size="11" fill="#666">n=64</text><line x1="164.3" x2="164.3" y1="169.8" y2="205.6" stroke="#1f6fd1" stroke-width="2"/><circle cx="164.3" cy="187.7" r="5" fill="#1f6fd1"/><line x1="182.3" x2="182.3" y1="20.0" y2="20.0" stroke="#e07b00" stroke-width="2"/><circle cx="182.3" cy="20.0" r="5" fill="#e07b00"/><text x="400.0" y="328" text-anchor="middle" font-size="13">Hsu</text><text x="400.0" y="344" text-anchor="middle" font-size="11" fill="#666">n=64</text><line x1="391.0" x2="391.0" y1="169.8" y2="205.6" stroke="#1f6fd1" stroke-width="2"/><circle cx="391.0" cy="187.7" r="5" fill="#1f6fd1"/><line x1="409.0" x2="409.0" y1="20.0" y2="20.0" stroke="#e07b00" stroke-width="2"/><circle cx="409.0" cy="20.0" r="5" fill="#e07b00"/><text x="626.7" y="328" text-anchor="middle" font-size="13">Ppw</text><text x="626.7" y="344" text-anchor="middle" font-size="11" fill="#666">n=64</text><line x1="617.7" x2="617.7" y1="151.4" y2="187.6" stroke="#1f6fd1" stroke-width="2"/><circle cx="617.7" cy="169.5" r="5" fill="#1f6fd1"/><line x1="635.7" x2="635.7" y1="20.0" y2="29.0" stroke="#e07b00" stroke-width="2"/><circle cx="635.7" cy="24.5" r="5" fill="#e07b00"/><circle cx="66" cy="366" r="5" fill="#1f6fd1"/><text x="76" y="370" font-size="12">すぐ通過（点＝率・棒＝±SE）</text><circle cx="286" cy="366" r="5" fill="#e07b00"/><text x="296" y="370" font-size="12">最終的に取れた（点＝率・棒＝±SE）</text></svg>
+<p class=cap>2026-11-15 18:09〜18:48 JST・2026-11-16 00:08 JST 時点・自前ミラー・実 Google サイトキー 2本（鍵の末尾 1wYph / CtYwR・鍵ごとに別ポートのミラーを並列）・家の回線・ブランド版 Chrome 156・素の click・周回なし・音声の解き手あり。8 回ごとに新しい cohort の束（20261115_fresh2_main1, 20261115_fresh2_main2, 20261115_fresh2_main3, 20261115_fresh2_main4, 20261115_personal_main1, 20261115_personal_main2, 20261115_personal_main3, 20261115_personal_main4）・3 マスを回ごとに順番を入れ替えて交互に。率 ± 二項の標準誤差。</p>
+<div class=scroll><table><thead><tr><th>マス</th><th>起こし方</th><th>有効試行 n</th><th>すぐ通過<br><small>/n ±SE</small></th><th>最終的に取れた<br><small>/n ±SE</small></th><th>p（すぐ・対 C）</th><th>p（最終・対 C）</th></tr></thead><tbody>
+<tr><td>C</td><td>素の起動（own_chrome・WMI で切り離した chrome.exe・headful）＋TCP の口に connect_over_cdp（基準）</td><td>64</td><td>27/64<br>0.42 ± 0.06</td><td>64/64<br>1.00 ± 0.00</td><td>—</td><td>—</td></tr>
+<tr><td>Hsu</td><td>Hc＋画面を C と同じに（<code>--window-size=1052,796</code>・<code>--screen-info={1920x1080 devicePixelRatio=1.25}</code>）＋UA を C と同じ通常の Chrome の UA に（<code>--user-agent=…Chrome/156.0.0.0…</code>）</td><td>64</td><td>27/64<br>0.42 ± 0.06</td><td>64/64<br>1.00 ± 0.00</td><td>1.000</td><td>1.000</td></tr>
+<tr><td>Ppw</td><td>Ppp（直の子に <code>--remote-debugging-pipe</code> と <code>--remote-debugging-port</code>・命令は TCP の口から）＋<code>--disable-blink-features=AutomationControlled</code></td><td>64</td><td>31/64<br>0.48 ± 0.06</td><td>63/64<br>0.98 ± 0.02</td><td>0.594</td><td>1.000</td></tr>
+</tbody></table></div>
+<h4>ページの中から見えた値（偽の reCAPTCHA・Google に行かない）</h4><div class=scroll><table><thead><tr><th>マス</th><th>screen・内寸・拡大率</th><th>UA の名乗り</th><th>navigator.webdriver</th><th>userAgentData の brand</th><th>plugins</th></tr></thead><tbody>
+<tr><td>C</td><td>1536×864・内 1036×703・1.25</td><td>Chrome/156</td><td>false</td><td>Google Chrome/156</td><td>5</td></tr>
+<tr><td>Hsu</td><td>1536×864・内 1036×<b>702</b>・1.25</td><td>Chrome/156</td><td>false</td><td>Google Chrome/156</td><td>5</td></tr>
+<tr><td>Ppw</td><td>1536×864・内 1036×703・1.25</td><td>Chrome/156</td><td>false</td><td>Google Chrome/156</td><td>5</td></tr>
+<tr><td>（前例）Ppp</td><td>1536×864・内 1036×703・1.25</td><td>Chrome/156</td><td><b>true</b></td><td>Google Chrome/156</td><td>5</td></tr>
+<tr><td>（前例）Hs</td><td>1536×864・内 1036×<b>702</b>・1.25</td><td><b>HeadlessChrome/156</b></td><td>false</td><td>Google Chrome/156</td><td>5</td></tr>
+</tbody></table></div><p class=cap>太字＝C と違う値。</p>
+<h4>回線の回復の確かめ（C だけの束・すぐ通過 / n）</h4><div class=scroll><table><thead><tr><th>束</th><th>始め</th><th>C</th></tr></thead><tbody>
+<tr><td>20261115_fresh2_rec1</td><td>16:01</td><td>2/8</td></tr>
+<tr><td>20261115_fresh2_rec2</td><td>18:06</td><td>5/8</td></tr>
+<tr><td>20261115_fresh2_rec3</td><td>20:51</td><td>3/8</td></tr>
+<tr><td>20261115_fresh2_rec4</td><td>23:40</td><td>2/8</td></tr>
+<tr><td>20261115_personal_rec1</td><td>16:01</td><td>0/8</td></tr>
+<tr><td>20261115_personal_rec2</td><td>18:06</td><td>6/8</td></tr>
+<tr><td>20261115_personal_rec3</td><td>20:50</td><td>3/8</td></tr>
+<tr><td>20261115_personal_rec4</td><td>23:40</td><td>3/8</td></tr>
+</tbody></table></div>
+<h4>鍵別（すぐ通過 / n）</h4><div class=scroll><table><thead><tr><th>鍵（site_key_tail）</th><th>C</th><th>Hsu</th><th>Ppw</th></tr></thead><tbody>
+<tr><td>1wYph</td><td>13/32</td><td>15/32</td><td>15/32</td></tr>
+<tr><td>CtYwR</td><td>14/32</td><td>12/32</td><td>16/32</td></tr>
+</tbody></table></div>
+<h4>束別（すぐ通過 / n）</h4><div class=scroll><table><thead><tr><th>束</th><th>終わり</th><th>C</th><th>Hsu</th><th>Ppw</th></tr></thead><tbody>
+<tr><td>20261115_fresh2_main1</td><td>18:17</td><td>5/8</td><td>5/8</td><td>4/8</td></tr>
+<tr><td>20261115_fresh2_main2</td><td>18:25</td><td>5/8</td><td>5/8</td><td>5/8</td></tr>
+<tr><td>20261115_fresh2_main3</td><td>18:35</td><td>2/8</td><td>4/8</td><td>5/8</td></tr>
+<tr><td>20261115_fresh2_main4</td><td>18:48</td><td>1/8</td><td>1/8</td><td>1/8</td></tr>
+<tr><td>20261115_personal_main1</td><td>18:17</td><td>5/8</td><td>4/8</td><td>5/8</td></tr>
+<tr><td>20261115_personal_main2</td><td>18:26</td><td>5/8</td><td>4/8</td><td>5/8</td></tr>
+<tr><td>20261115_personal_main3</td><td>18:37</td><td>1/8</td><td>1/8</td><td>5/8</td></tr>
+<tr><td>20261115_personal_main4</td><td>18:48</td><td>3/8</td><td>3/8</td><td>1/8</td></tr>
+</tbody></table></div>
+<h4 id=headless-combo-ctl>対照の束（同じ回に Hc・Ppp を並べる）</h4><p>Hsu・Ppw が C 並みに通ったのが「回線が休んで何でも通る時間帯だった」せいでないかを、前例で 0 だった Hc・Ppp を同じ回に入れて確かめた（23:47〜00:08 JST・回線を 2 時間休ませてから・束 20261115_fresh2_ctlb1, 20261115_personal_ctlb1）。</p><div class=scroll><table><thead><tr><th>マス</th><th>n</th><th>すぐ通過<br><small>/n ±SE</small></th><th>最終的に取れた<br><small>/n ±SE</small></th><th>p（すぐ・対 C）</th><th>p（最終・対 C）</th></tr></thead><tbody>
+<tr><td>C</td><td>16</td><td>7/16<br>0.44 ± 0.12</td><td>16/16<br>1.00 ± 0.00</td><td>—</td><td>—</td></tr>
+<tr><td>Hc</td><td>16</td><td>0/16<br>0.00 ± 0.00</td><td>14/16<br>0.88 ± 0.08</td><td>0.007</td><td>0.484</td></tr>
+<tr><td>Ppp</td><td>16</td><td>0/16<br>0.00 ± 0.00</td><td>14/16<br>0.88 ± 0.08</td><td>0.007</td><td>0.484</td></tr>
+<tr><td>Hsu</td><td>16</td><td>4/16<br>0.25 ± 0.11</td><td>16/16<br>1.00 ± 0.00</td><td>0.458</td><td>1.000</td></tr>
+<tr><td>Ppw</td><td>16</td><td>4/16<br>0.25 ± 0.11</td><td>16/16<br>1.00 ± 0.00</td><td>0.458</td><td>1.000</td></tr>
+</tbody></table></div><div class=scroll><table><thead><tr><th>束</th><th>C</th><th>Hc</th><th>Ppp</th><th>Hsu</th><th>Ppw</th></tr></thead><tbody>
+<tr><td>20261115_fresh2_ctlb1</td><td>3/8</td><td>0/8</td><td>0/8</td><td>3/8</td><td>3/8</td></tr>
+<tr><td>20261115_personal_ctlb1</td><td>4/8</td><td>0/8</td><td>0/8</td><td>1/8</td><td>1/8</td></tr>
+</tbody></table></div>
+<h4>疲れた時間帯の対照（読まない側・記録として）</h4><p>20:54 からの対照の束は C 自体が 1/16 で、回線が疲れていて 5 マスを見分けられなかった。途中で止め、回線を休ませてから撃ち直した（上の表）。</p><div class=scroll><table><thead><tr><th>束</th><th>C</th><th>Hc</th><th>Ppp</th><th>Hsu</th><th>Ppw</th></tr></thead><tbody>
+<tr><td>20261115_fresh2_ctl1</td><td>1/8</td><td>0/8</td><td>0/8</td><td>1/8</td><td>0/8</td></tr>
+<tr><td>20261115_fresh2_ctl2</td><td>0/3</td><td>0/3</td><td>0/3</td><td>0/4</td><td>0/4</td></tr>
+<tr><td>20261115_personal_ctl1</td><td>0/8</td><td>0/8</td><td>0/8</td><td>2/8</td><td>1/8</td></tr>
+<tr><td>20261115_personal_ctl2</td><td>0/3</td><td>0/3</td><td>0/3</td><td>0/4</td><td>0/4</td></tr>
+</tbody></table></div>
+<p class=cap>2026-11-15・2026-11-16 00:08 JST 時点・Fisher の正確検定（両側）。<b>仮の値</b>＝使い捨てのスクリプトで撃った値。はしごの表・2×2 の表には入れていない。</p>
 <h2 id=def>定義と範囲</h2><ul><li>すぐ通過＝チェックボックスを押してすぐトークンが出た試行 / 有効試行</li>
 <li>最終的に取れた＝（すぐ通過＋音声チャレンジを解いてトークン）/ 有効試行</li>
 <li>有効試行＝すぐ通過・音声の後に取れた・チャレンジのまま・blocked の和（測れず＝枠が出ない・押せない・例外は分母の外）</li>
