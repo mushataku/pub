@@ -100,7 +100,7 @@ summary{cursor:pointer;font-size:15px;min-height:44px;display:flex;align-items:c
 <div class="lead"><ol>
 <li>Playwright で普通に起こした Chrome は、チェックボックスを押しても<strong>即時には一度も通らない</strong>。原因は 2 つで、Playwright が<strong>画面の大きさを上書きすること</strong>と、Chrome を<strong>パイプで起こすこと</strong>。</li>
 <li>パイプで起こすと <code>navigator.webdriver</code> が true になる。この旗 1 つを消すと、パイプのままでも普通の Chrome と同じ率で通る（Ppw 31/64・同じ回の C 27/64）。</li>
-<li>headless は<strong>画面と UA の両方</strong>に跡が残る。片方だけ直しても 0 のまま、両方直すと普通の Chrome と同じ率（Hsu 27/64・C 27/64）。</li>
+<li>headless は<strong>画面と UA の両方</strong>に跡が残る。片方だけ直しても 0 のまま、両方直すと普通の Chrome と同じ率（Hsu 27/64・C 27/64）。11-16 に 4 つの組を同じ回に並べても同じだった（画面だけ 0/16・UA だけ 0/16・両方 10/16・C 13/16）。</li>
 <li>普通の Chrome（C）でも、同じ回線から撃ち続けると即時の通過が 0 近くまで落ち、何時間か休むと戻る（はしご⑤ 13/15 → 翌朝 0/15、C 0/16 → 休んで 15/16）。即時に通らなくても、音声の問題を解けば最後はほぼ取れる（C は 48/48）。</li>
 </ol></div>
 <figure class="chart" id="fig-0"><figcaption><span class="fig-no">図 0</span>跡を残した組と消した組の、即時の通過の率（同じ回の C と並べる）</figcaption>
@@ -313,7 +313,18 @@ summary{cursor:pointer;font-size:15px;min-height:44px;display:flex;align-items:c
 </div>
 <p class="cap">同じ回に並べ直しても、Hc だけが 0。</p>
 </figure>
-<p>注意: 画面だけ・UA だけの組（Hs・Hu）を撃った日（11-15 昼・C 11/48）と、両方の組（Hsu）を撃った日（11-15 夕・C 27/64）は時間帯が違う。「片方だけでは足りない」を同じ時間帯で確かめる票は別にある（7 章）。</p>
+<p>図 3b と図 3c は撃った時間帯が違う（11-15 昼の C は 11/48、夕の C は 27/64）。そこで 11-16 の昼に、C・Hsu・Hs・Hu の 4 つの組を同じ回に順番を入れ替えて並べた（図 3e）。回線を 5 時間以上休ませた後で、直前の確かめでは C が 16/16 通った。</p>
+<figure class="chart" id="fig-3e">
+<figcaption><span class="fig-no">図 3e</span>11-16 12:56〜13:12　4 つの組を同じ回に並べる</figcaption>
+<div class="bars" role="img" aria-label="同じ回に並べても、画面だけ（Hs）・UA だけ（Hu）は 0、両方（Hsu）は C に近い率。">
+<div class="row c"><div class="lab"><b>C</b> 普通に起こした Chrome（対照）</div><div class="track"><span class="bar" style="width:81.3%"></span><span class="err" style="left:71.5%;width:19.5%"></span><span class="cline" style="left:81.3%"></span></div><div class="val">13/16<small>対照</small></div></div>
+<div class="row"><div class="lab"><b>Hsu</b> Hc ＋ 画面と UA の両方を C と同じに</div><div class="track"><span class="bar" style="width:62.5%"></span><span class="err" style="left:50.4%;width:24.2%"></span><span class="cline" style="left:81.3%"></span></div><div class="val">10/16<small>p 0.433</small></div></div>
+<div class="row zero"><div class="lab"><b>Hs</b> Hc ＋ 画面を C と同じにする</div><div class="track"><span class="bar" style="width:0.0%"></span><span class="err" style="left:0.0%;width:0.0%"></span><span class="cline" style="left:81.3%"></span></div><div class="val">0/16<small>p &lt;0.001</small></div></div>
+<div class="row zero"><div class="lab"><b>Hu</b> Hc ＋ UA を C と同じにする</div><div class="track"><span class="bar" style="width:0.0%"></span><span class="err" style="left:0.0%;width:0.0%"></span><span class="cline" style="left:81.3%"></span></div><div class="val">0/16<small>p &lt;0.001</small></div></div>
+</div>
+<p class="cap">同じ回に並べても、画面だけ（Hs）・UA だけ（Hu）は 0、両方（Hsu）は C に近い率。</p>
+</figure>
+<p>同じ回の中で C と比べると、C が通って Hs が通らなかった回は 16 回中 13 回、その逆は 0 回だった（Hu も同じ 13 対 0・McNemar p&lt;0.001）。Hsu は 4 対 1（p=0.375）。鍵 2 本とも同じ向きだった（CtYwR: C 8/8・Hsu 5/8・Hs 0/8・Hu 0/8、1wYph: C 5/8・Hsu 5/8・Hs 0/8・Hu 0/8）。1 つの組あたり 16 回で決着したので、それ以上は撃っていない。headless の 0 を消すには、画面と UA の両方を直す必要がある。</p>
 
 <h3 id="s4-4">4.4 回線の疲れ: 同じ回線から撃ち続けると C も落ち、休むと戻る</h3>
 <p>C の即時の通過を、撃った時刻の順に並べた。束ごとの点で、上下の線は ±1 標準誤差。</p>
@@ -476,6 +487,10 @@ summary{cursor:pointer;font-size:15px;min-height:44px;display:flex;align-items:c
 <tr><td>3c</td><td>C　普通に起こした Chrome（対照）</td><td>27/64</td><td>64/64</td></tr>
 <tr><td>3c</td><td>Hsu　Hc ＋ 画面と UA の両方を C と同じに</td><td>27/64</td><td>64/64</td></tr>
 <tr><td>2c</td><td>Ppw　Ppp ＋ webdriver の旗を消す</td><td>31/64</td><td>63/64</td></tr>
+<tr><td>3e</td><td>C　普通に起こした Chrome（対照）</td><td>13/16</td><td>16/16</td></tr>
+<tr><td>3e</td><td>Hsu　Hc ＋ 画面と UA の両方を C と同じに</td><td>10/16</td><td>16/16</td></tr>
+<tr><td>3e</td><td>Hs　Hc ＋ 画面を C と同じにする</td><td>0/16</td><td>13/16</td></tr>
+<tr><td>3e</td><td>Hu　Hc ＋ UA を C と同じにする</td><td>0/16</td><td>14/16</td></tr>
 </tbody></table></div>
 </section>
 
@@ -539,7 +554,7 @@ summary{cursor:pointer;font-size:15px;min-height:44px;display:flex;align-items:c
 <h2 id="s7">7. まだ分かっていないこと</h2>
 <ul>
 <li><strong>3 つ以外の跡</strong>: 今回消したのは webdriver・UA・画面だけ。マウスの動き、Client Hints、CDP の副作用などを reCAPTCHA が見ているかは測っていない（今回の bot はマウスを動かしていないのに、C は通った）。</li>
-<li><strong>headless は本当に AND か</strong>: 画面だけ・UA だけの組を、両方の組と同じ時間帯に並べて確かめる（票 recaptcha-hs-hu-same-day・11-16 予定）。</li>
+<li><strong>headless は本当に AND か</strong>: 11-16 に同じ回に並べて確かめた（図 3e）。画面だけ・UA だけでは 0/16 のままで、両方を直す必要がある。残っているのは、Hsu（10/16）が C（13/16）より少し低い差が本物かどうか（p=0.433・16 回では分けられない）。</li>
 <li><strong>評判の中身</strong>: 回線の疲れが IP だけで決まるのか、何回・何時間で落ちて何時間で戻るのか。2 時間で戻らない日があった。</li>
 <li><strong>パイプの 0 は webdriver だけか</strong>: 2016 年には webdriver で判定が変わらなかった。今回は Ppw で戻ったので webdriver が引き金なのは確かだが、Google がいつから見ているのかは分からない。<br><span class="note">11-16 に起動の旗を 1 本ずつ足し引きして、webdriver が立つ分岐を絞った（偽の reCAPTCHA で <code>navigator.webdriver</code> だけを読み、Google には撃っていない）。<code>--remote-debugging-pipe</code> だけで true（<code>--enable-automation</code> は無し）、<code>--enable-automation</code> だけでも true（パイプ無し）。どちらも <code>--disable-blink-features=AutomationControlled</code> を足すと false。つまり webdriver を立てているのは、パイプでも <code>--enable-automation</code> でもなく、どちらからも立つ Blink の AutomationControlled の方だった。本番で C と並べた 16 回は、即時通過が C 6/16・Ppw 7/15（p=0.72）で、最終的に取れた数は 16/16 と 15/15。差は出なかった。</span></li>
 <li><strong>日々の変化</strong>: OS のカーソルで押す組（real_os）と、cookie を寝かせる日次の測定は 11-16 以降に結果が出る。</li>
@@ -548,7 +563,7 @@ summary{cursor:pointer;font-size:15px;min-height:44px;display:flex;align-items:c
 
 <section>
 <h2 id="s8">8. 付録: 数字の出どころ</h2>
-<p>図の数字は、撃ったときの記録（<code>_local/recaptcha_*_20261114〜15*.jsonl</code>）から数え直したもので、各回の報告書（bot-lab の <code>reports/2026-11/</code>）の表と一致する。主な報告書: launch-x-driver-2x2・launch-bundle-split・launch-pipe-vs-init・launch-init-split・launch-parent-vs-pipe・pipe-alone・pipe-and-headless-split・headless-combo-and-ppp-webdriver・fresh-sitekey-2・ablation-ladder。</p>
+<p>図の数字は、撃ったときの記録（<code>_local/recaptcha_*_20261114〜16*.jsonl</code>）から数え直したもので、各回の報告書（bot-lab の <code>reports/2026-11/</code>）の表と一致する。主な報告書: launch-x-driver-2x2・launch-bundle-split・launch-pipe-vs-init・launch-init-split・launch-parent-vs-pipe・pipe-alone・pipe-and-headless-split・headless-combo-and-ppp-webdriver・hs-hu-same-day・fresh-sitekey-2・ablation-ladder。</p>
 <p>途中の経過の図と表は <a href="https://mushataku.github.io/pub/recaptcha-ladder/">はしごのページ</a> にある。</p>
 </section>
 </main>
