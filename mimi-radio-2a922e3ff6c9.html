@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>橘内さんの耳だけキッチンラジオ</title>
+<style>
+:root{--bg:#f6f1e7;--card:#fffdf8;--ink:#2b2622;--sub:#6f655c;--line:#e2d9c8;--acc:#c8553d;--accink:#fff;--warn:#fff3c4}
+@media (prefers-color-scheme:dark){:root{--bg:#1f1c19;--card:#2a2622;--ink:#f1ebe2;--sub:#b3a89b;--line:#433c35;--acc:#e8785f;--accink:#1f1c19;--warn:#4a3f15}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;line-height:1.8;-webkit-text-size-adjust:100%}
+main{max-width:640px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.45rem;line-height:1.4;margin:8px 0 4px}
+.lead{color:var(--sub);font-size:.92rem;margin:0 0 6px}
+.badge{display:inline-block;background:var(--warn);border-radius:99px;padding:2px 12px;font-size:.78rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:16px}
+h2{font-size:1rem;margin:0 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:10px 16px;font-size:1rem;font-family:inherit;min-height:48px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--accink);font-weight:700}
+#stage{min-height:190px;display:flex;flex-direction:column;justify-content:center;text-align:center}
+#kind{color:var(--acc);font-weight:700;font-size:.9rem;min-height:1.6em}
+#text{font-size:1.3rem;line-height:1.7;font-weight:700;margin:6px 0;word-break:auto-phrase;text-wrap:pretty}
+#sub{color:var(--sub);font-size:1rem;min-height:1.8em;white-space:pre-line}
+#count{font-size:2.2rem;font-weight:800;color:var(--acc);min-height:1.5em;font-variant-numeric:tabular-nums}
+.big{display:block;width:100%;border:0;border-radius:18px;background:var(--acc);color:var(--accink);font-size:1.5rem;font-weight:800;font-family:inherit;padding:22px;min-height:84px;cursor:pointer;margin-top:14px}
+.row{display:flex;gap:10px;margin-top:10px}
+.row button{flex:1;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;font-size:1.05rem;font-family:inherit;padding:14px 6px;min-height:60px;cursor:pointer}
+#tstate{margin:10px 0 0;font-weight:700;min-height:1.8em;font-variant-numeric:tabular-nums}
+.note{color:var(--sub);font-size:.82rem;margin-top:18px}
+button:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<span class="badge">見本で動く体験版</span>
+<h1>橘内さんの耳だけキッチンラジオ</h1>
+<p class="lead">料理中の「耳がひま」な時間に。スタートを1回押せば、あとは手を使わずに聞くだけです。</p>
+
+<section class="card" id="stage" aria-live="polite">
+  <div id="kind">　</div>
+  <div id="text">▶ スタートを押してください</div>
+  <div id="count"></div>
+  <div id="sub"></div>
+</section>
+
+<button class="big" id="play">▶ スタート</button>
+<div class="row">
+  <button id="again">↺ もう一回</button>
+  <button id="skip">次へ ⏭</button>
+</div>
+
+<section class="card">
+  <h2>何を流す？</h2>
+  <div class="chips" id="modes"></div>
+</section>
+
+<section class="card">
+  <h2>考える時間</h2>
+  <div class="chips" id="thinks"></div>
+  <h2 style="margin-top:16px">話す速さ</h2>
+  <div class="chips" id="rates"></div>
+</section>
+
+<section class="card">
+  <h2>声でお知らせタイマー</h2>
+  <div class="chips" id="timers"></div>
+  <p id="tstate"></p>
+</section>
+
+<p class="note">※ 音が出ないときは、スマホの消音（マナー）モードと音量を確認してください。クイズの内容は見本です。</p>
+</main>
+<script>
+"use strict";
+const QUIZ=[
+{q:"新鮮な卵を水に入れると、どうなるでしょう？",c:["底に沈む","水面に浮く","くるくる回る"],a:0,e:"古くなると中の空気の部屋が大きくなって、浮きやすくなります。"},
+{q:"料理の、さしすせそ。「せ」は何のことでしょう？",c:["しょうゆ","せんべい","セロリ"],a:0,e:"昔は「せうゆ」と書いたからです。ちなみに「そ」は、みそです。"},
+{q:"大さじ1杯は、小さじ何杯ぶんでしょう？",c:["2杯","3杯","5杯"],a:1,e:"大さじは15ミリリットル、小さじは5ミリリットルです。"},
+{q:"じゃがいもの芽に含まれる、体に良くない成分は？",c:["ソラニン","リコピン","カテキン"],a:0,e:"芽と、緑色になった皮の部分は、しっかり取りのぞきましょう。"},
+{q:"トマトの赤い色のもとになっている成分は？",c:["カロテン","リコピン","アントシアニン"],a:1,e:"リコピンは、油と一緒にとると吸収されやすいと言われています。"},
+{q:"お米1合は、炊く前でだいたい何グラムでしょう？",c:["約100グラム","約150グラム","約300グラム"],a:1,e:"炊きあがると水を吸って、2倍ちょっとの重さになります。"},
+{q:"煮物で、砂糖と塩。先に入れるといいのはどっち？",c:["砂糖","塩","同時"],a:0,e:"砂糖のほうが粒が大きく、しみこみにくいので、先に入れます。"},
+{q:"昆布のうま味のもとになっている成分は？",c:["イノシン酸","グルタミン酸","クエン酸"],a:1,e:"かつお節のイノシン酸と合わせると、うま味がぐっと強くなります。"},
+{q:"牛乳を温めると表面に膜ができる。この現象の名前は？",c:["ラムスデン現象","メイラード反応","ドップラー効果"],a:0,e:"かき混ぜながら温めると、膜ができにくくなります。"},
+{q:"豆腐を固めるのに使われるものは？",c:["にがり","かたくり粉","ゼラチン"],a:0,e:"にがりは、海水から塩をつくるときに残る液体です。"},
+{q:"生卵とゆで卵。テーブルで回すと、よく回るのはどっち？",c:["生卵","ゆで卵","どちらも同じ"],a:1,e:"生卵は中身が液体でゆれるので、うまく回りません。"},
+{q:"はちみつを食べさせてはいけないのは、何歳未満の赤ちゃんでしょう？",c:["1歳未満","3歳未満","6歳未満"],a:0,e:"乳児ボツリヌス症を防ぐためです。"},
+{q:"カレーの黄色い色のもとになっているスパイスは？",c:["クミン","ターメリック","コリアンダー"],a:1,e:"日本語では、うこん、と呼ばれます。"},
+{q:"一汁三菜。おかず3つの基本の内訳は？",c:["主菜1つと副菜2つ","主菜2つと副菜1つ","主菜3つ"],a:0,e:"ごはん、汁もの、主菜、副菜2つ、がそろった形です。"},
+{q:"世界三大珍味。キャビア、フォアグラ、あと1つは？",c:["トリュフ","からすみ","ウニ"],a:0,e:"トリュフは、土の中で育つキノコの仲間です。"},
+{q:"「森のバター」と呼ばれる食べ物は？",c:["アボカド","くるみ","バナナ"],a:0,e:"脂質がたっぷりで、なめらかな口あたりだからです。"},
+{q:"ピーマンは、何の仲間でしょう？",c:["ナス科","ウリ科","アブラナ科"],a:0,e:"トマトやじゃがいもも、同じナス科の仲間です。"},
+{q:"パスタをゆでるとき、水1リットルに入れる塩の目安は？",c:["約1グラム","約10グラム","約50グラム"],a:1,e:"小さじ2杯くらい。お湯をなめて、ほんのりしょっぱい程度です。"},
+{q:"干ししいたけのうま味のもとになっている成分は？",c:["グアニル酸","乳酸","タンニン"],a:0,e:"冷たい水でゆっくり戻すと、うま味がよく出ます。"},
+{q:"バナナを冷蔵庫に入れると、皮はどうなるでしょう？",c:["黒くなる","黄色が濃くなる","緑に戻る"],a:0,e:"寒さに弱いからです。中身はすぐには傷みません。"}
+];
+const RIDDLE=[
+{q:"パンはパンでも、食べられないパンは、なーんだ？",a:"フライパン"},
+{q:"冷蔵庫の中にかくれている動物は、なーんだ？",a:"ゾウ。れい、ぞう、こ"},
+{q:"上から読んでも、下から読んでも、同じ名前の野菜は、なーんだ？",a:"トマト"},
+{q:"食べると、ほっと安心するケーキは、なーんだ？",a:"ホットケーキ"},
+{q:"イスはイスでも、冷たくて甘いイスは、なーんだ？",a:"アイス"},
+{q:"お茶はお茶でも、子どもが遊ぶお茶は、なーんだ？",a:"おもちゃ"},
+{q:"10匹のアリが言うお礼の言葉は、なーんだ？",a:"ありがとう"},
+{q:"世界のまんなかにいる虫は、なーんだ？",a:"蚊。せ、か、い"}
+];
+const TWIST=["生麦、生米、生卵","隣の客は、よく柿食う客だ","赤パプリカ、青パプリカ、黄パプリカ","この竹垣に、竹立てかけたのは、竹立てかけたかったから","しょうゆ、しおこうじ、しょうがじょうゆ"];
+const MODES=[["mix","おまかせ"],["quiz","食の3択クイズ"],["riddle","なぞなぞ"],["fact","豆知識（聞くだけ）"],["twist","早口ことば"]];
+const NUM=["1番","2番","3番"];
+
+const $=id=>document.getElementById(id);
+const st={mode:"mix",think:5,rate:1,gen:0,playing:false,cur:null,bags:{},n:0,lock:null,timer:null,tick:null};
+const synth=window.speechSynthesis;
+
+function chips(el,list,get,set){
+  list.forEach(([v,label])=>{
+    const b=document.createElement("button");b.className="chip";b.textContent=label;b.type="button";
+    b.setAttribute("aria-pressed",String(get()===v));
+    b.onclick=()=>{set(v);[...el.children].forEach(x=>x.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");};
+    el.appendChild(b);
+  });
+}
+chips($("modes"),MODES,()=>st.mode,v=>{st.mode=v;if(st.playing)start();});
+chips($("thinks"),[[3,"3秒"],[5,"5秒"],[8,"8秒"]],()=>st.think,v=>st.think=v);
+chips($("rates"),[[0.85,"ゆっくり"],[1,"ふつう"],[1.25,"はやめ"]],()=>st.rate,v=>st.rate=v);
+
+function pickVoice(){
+  if(!synth)return null;
+  const vs=synth.getVoices().filter(v=>/^ja/i.test(v.lang));
+  return vs.find(v=>/Kyoko|Google|Nanami|Haruka/i.test(v.name))||vs[0]||null;
+}
+function say(text){
+  return new Promise(res=>{
+    if(!synth){res();return;}
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang="ja-JP";u.rate=st.rate;const v=pickVoice();if(v)u.voice=v;
+    let done=false;const fin=()=>{if(!done){done=true;res();}};
+    u.onend=fin;u.onerror=fin;
+    setTimeout(fin,Math.max(8000,text.length*450));
+    synth.speak(u);
+  });
+}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+function show(kind,text,sub){$("kind").textContent=kind||"　";$("text").textContent=text||"";$("sub").textContent=sub||"";$("count").textContent="";}
+async function think(my){
+  for(let s=st.think;s>0;s--){if(my!==st.gen)return;$("count").textContent=s;await wait(1000);}
+  $("count").textContent="";
+}
+function draw(key,len){
+  let bag=st.bags[key];
+  if(!bag||!bag.length){bag=[...Array(len).keys()];for(let i=bag.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[bag[i],bag[j]]=[bag[j],bag[i]];}st.bags[key]=bag;}
+  return bag.pop();
+}
+function nextItem(){
+  let m=st.mode;
+  if(m==="mix"){const r=Math.random();m=r<0.5?"quiz":r<0.75?"riddle":r<0.9?"fact":"twist";}
+  if(m==="quiz")return{m,d:QUIZ[draw("quiz",QUIZ.length)]};
+  if(m==="fact")return{m,d:QUIZ[draw("fact",QUIZ.length)]};
+  if(m==="riddle")return{m,d:RIDDLE[draw("riddle",RIDDLE.length)]};
+  return{m:"twist",d:TWIST[draw("twist",TWIST.length)]};
+}
+async function playItem(it,my){
+  const ok=()=>my===st.gen, d=it.d;
+  if(it.m==="quiz"){
+    const list=d.c.map((c,i)=>NUM[i]+"　"+c).join("\n");
+    show("食の3択クイズ",d.q,list);
+    await say("クイズです。"+d.q);if(!ok())return;
+    for(let i=0;i<3;i++){await say(NUM[i]+"、"+d.c[i]+"。");if(!ok())return;}
+    await think(my);if(!ok())return;
+    show("こたえ",NUM[d.a]+"　"+d.c[d.a],d.e);
+    await say("正解は、"+NUM[d.a]+"、"+d.c[d.a]+"、でした。"+d.e);
+  }else if(it.m==="fact"){
+    show("豆知識",d.c[d.a],d.q+"\n"+d.e);
+    await say("豆知識です。"+d.q+"　答えは、"+d.c[d.a]+"。"+d.e);
+  }else if(it.m==="riddle"){
+    show("なぞなぞ",d.q,"");
+    await say("なぞなぞです。"+d.q);if(!ok())return;
+    await think(my);if(!ok())return;
+    show("こたえ",d.a.split("。")[0],"");
+    await say("答えは、"+d.a+"、でした。");
+  }else{
+    show("早口ことば",d,"3回、続けて言えますか？");
+    await say("早口ことばです。"+d+"。");if(!ok())return;
+    await say("3回続けて、どうぞ。");if(!ok())return;
+    await think(my);if(!ok())return;
+    await say("言えましたか？");
+  }
+}
+async function loop(my,first){
+  if(first){show("","キッチンラジオ、はじまります","");await say("キッチンラジオ、はじまります。");}
+  while(my===st.gen){
+    if(!st.again||!st.cur){st.cur=nextItem();st.n++;}
+    st.again=false;
+    await playItem(st.cur,my);
+    if(my!==st.gen)return;
+    await wait(1200);
+  }
+}
+async function keepAwake(on){
+  try{
+    if(on&&navigator.wakeLock&&!st.lock){st.lock=await navigator.wakeLock.request("screen");st.lock.addEventListener("release",()=>{st.lock=null;});}
+    if(!on&&st.lock){await st.lock.release();st.lock=null;}
+  }catch(e){}
+}
+function start(first){
+  if(!synth){show("","この端末では読み上げが使えません","別のブラウザでお試しください");return;}
+  const my=++st.gen;synth.cancel();st.playing=true;
+  $("play").textContent="⏸ ストップ";keepAwake(true);
+  loop(my,!!first);
+}
+function stop(){
+  st.gen++;if(synth)synth.cancel();st.playing=false;
+  $("play").textContent="▶ スタート";$("count").textContent="";keepAwake(false);
+}
+$("play").onclick=()=>{st.playing?stop():start(st.n===0);};
+$("skip").onclick=()=>{st.again=false;start(false);};
+$("again").onclick=()=>{if(st.cur){st.again=true;start(false);}};
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&st.playing)keepAwake(true);});
+
+/* 声でお知らせタイマー */
+function beep(){
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext;st.ac=st.ac||new AC();
+    [0,0.25,0.5].forEach(t=>{const o=st.ac.createOscillator(),g=st.ac.createGain();o.frequency.value=880;g.gain.value=0.2;o.connect(g);g.connect(st.ac.destination);o.start(st.ac.currentTime+t);o.stop(st.ac.currentTime+t+0.15);});
+  }catch(e){}
+}
+function fmt(s){return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");}
+function clearTimer(){clearInterval(st.tick);st.tick=null;st.timer=null;$("tstate").textContent="";}
+async function ring(min){
+  clearTimer();
+  const was=st.playing;st.gen++;if(synth)synth.cancel();
+  beep();show("タイマー",min+"分たちました！","");
+  await wait(800);
+  await say("タイマーです。"+min+"分、たちました。");
+  await say("もう一度。"+min+"分、たちました。");
+  if(was)start(false);
+}
+function setTimer(min){
+  clearTimer();
+  try{const AC=window.AudioContext||window.webkitAudioContext;st.ac=st.ac||new AC();st.ac.resume();}catch(e){}
+  const end=Date.now()+min*60000;st.timer=min;
+  const upd=()=>{const left=Math.max(0,Math.round((end-Date.now())/1000));$("tstate").textContent="⏱ "+min+"分タイマー　残り "+fmt(left);if(left<=0)ring(min);};
+  upd();st.tick=setInterval(upd,500);
+}
+[[1,"1分"],[3,"3分"],[5,"5分"],[10,"10分"],[0,"やめる"]].forEach(([m,l])=>{
+  const b=document.createElement("button");b.className="chip";b.type="button";b.textContent=l;
+  b.onclick=()=>{m?setTimer(m):clearTimer();};$("timers").appendChild(b);
+});
+if(synth){synth.getVoices();synth.onvoiceschanged=()=>synth.getVoices();}
+</script>
+</body>
+</html>
