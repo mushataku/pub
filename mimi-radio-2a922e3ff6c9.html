@@ -57,6 +57,13 @@ button:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 </section>
 
 <section class="card">
+  <h2>🎤 声で答える</h2>
+  <div class="chips" id="voices"></div>
+  <p class="lead" id="vhelp" style="margin-top:10px">オンにすると「ピッ」のあとに声で答えられます。「1番」「フライパン」のほか、「次」「もう一回」「わからない」「ストップ」も通じます。</p>
+  <p id="score" style="font-weight:700;margin:6px 0 0"></p>
+</section>
+
+<section class="card">
   <h2>考える時間</h2>
   <div class="chips" id="thinks"></div>
   <h2 style="margin-top:16px">話す速さ</h2>
@@ -96,14 +103,14 @@ const QUIZ=[
 {q:"バナナを冷蔵庫に入れると、皮はどうなるでしょう？",c:["黒くなる","黄色が濃くなる","緑に戻る"],a:0,e:"寒さに弱いからです。中身はすぐには傷みません。"}
 ];
 const RIDDLE=[
-{q:"パンはパンでも、食べられないパンは、なーんだ？",a:"フライパン"},
-{q:"冷蔵庫の中にかくれている動物は、なーんだ？",a:"ゾウ。れい、ぞう、こ"},
-{q:"上から読んでも、下から読んでも、同じ名前の野菜は、なーんだ？",a:"トマト"},
-{q:"食べると、ほっと安心するケーキは、なーんだ？",a:"ホットケーキ"},
-{q:"イスはイスでも、冷たくて甘いイスは、なーんだ？",a:"アイス"},
-{q:"お茶はお茶でも、子どもが遊ぶお茶は、なーんだ？",a:"おもちゃ"},
-{q:"10匹のアリが言うお礼の言葉は、なーんだ？",a:"ありがとう"},
-{q:"世界のまんなかにいる虫は、なーんだ？",a:"蚊。せ、か、い"}
+{q:"パンはパンでも、食べられないパンは、なーんだ？",a:"フライパン",k:["フライパン","ふらいぱん"]},
+{q:"冷蔵庫の中にかくれている動物は、なーんだ？",a:"ゾウ。れい、ぞう、こ",k:["ゾウ","象","ぞう"]},
+{q:"上から読んでも、下から読んでも、同じ名前の野菜は、なーんだ？",a:"トマト",k:["トマト","とまと"]},
+{q:"食べると、ほっと安心するケーキは、なーんだ？",a:"ホットケーキ",k:["ホットケーキ","ほっとけーき"]},
+{q:"イスはイスでも、冷たくて甘いイスは、なーんだ？",a:"アイス",k:["アイス","あいす"]},
+{q:"お茶はお茶でも、子どもが遊ぶお茶は、なーんだ？",a:"おもちゃ",k:["おもちゃ","オモチャ","玩具"]},
+{q:"10匹のアリが言うお礼の言葉は、なーんだ？",a:"ありがとう",k:["ありがとう","有難う","有り難う"]},
+{q:"世界のまんなかにいる虫は、なーんだ？",a:"蚊。せ、か、い",k:["蚊"]}
 ];
 const TWIST=["生麦、生米、生卵","隣の客は、よく柿食う客だ","赤パプリカ、青パプリカ、黄パプリカ","この竹垣に、竹立てかけたのは、竹立てかけたかったから","しょうゆ、しおこうじ、しょうがじょうゆ"];
 const MODES=[["mix","おまかせ"],["quiz","食の3択クイズ"],["riddle","なぞなぞ"],["fact","豆知識（聞くだけ）"],["twist","早口ことば"]];
@@ -122,6 +129,13 @@ function chips(el,list,get,set){
   });
 }
 chips($("modes"),MODES,()=>st.mode,v=>{st.mode=v;if(st.playing)start();});
+st.voice=false;st.ok=0;st.total=0;
+if(SR){
+  chips($("voices"),[[false,"オフ（聞くだけ）"],[true,"オン（声で答える）"]],()=>st.voice,v=>{
+    st.voice=v;
+    if(v){try{const r=new SR();r.lang="ja-JP";r.onstart=()=>{try{r.abort();}catch(e){}};r.onerror=e=>{if(e.error==="not-allowed"||e.error==="service-not-allowed")$("vhelp").textContent="マイクが許可されていません。ブラウザの設定でマイクを許可してください。";};r.start();}catch(e){}}
+  });
+}else{$("vhelp").textContent="この端末・ブラウザは声の入力に対応していません（聞くだけで楽しめます）。";}
 chips($("thinks"),[[3,"3秒"],[5,"5秒"],[8,"8秒"]],()=>st.think,v=>st.think=v);
 chips($("rates"),[[0.85,"ゆっくり"],[1,"ふつう"],[1.25,"はやめ"]],()=>st.rate,v=>st.rate=v);
 
@@ -142,6 +156,59 @@ function say(text){
   });
 }
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
+/* 声で答える */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+const norm=t=>String(t||"").replace(/[\s　、。約]/g,"");
+function parseCmd(t){
+  t=norm(t);
+  if(/ストップ|止めて|とめて|おわり|終わり/.test(t))return"stop";
+  if(/もう一回|もういっかい|もう一度|もういちど|もう1回/.test(t))return"again";
+  if(/次|つぎ|スキップ/.test(t))return"skip";
+  if(/わからない|分からない|わからん|パス|降参|こうさん/.test(t))return"pass";
+  return null;
+}
+function parseChoice(t,choices){
+  t=norm(t);if(!t)return null;
+  for(let i=0;i<choices.length;i++){if(t.includes(norm(choices[i])))return i;}
+  const pats=[/[1１一]|いち/,/[2２二]|にばん/,/[3３三]|さん/];
+  let best=null,pos=1e9;
+  pats.forEach((p,i)=>{const m=t.search(p);if(m>=0&&m<pos){pos=m;best=i;}});
+  return best;
+}
+function cue(){
+  try{const o=st.ac.createOscillator(),g=st.ac.createGain();o.frequency.value=1200;g.gain.value=0.15;o.connect(g);g.connect(st.ac.destination);o.start();o.stop(st.ac.currentTime+0.12);}catch(e){}
+}
+function listen(ms,isDone){
+  return new Promise(res=>{
+    let out="",done=false,r;
+    try{r=new SR();}catch(e){res("");return;}
+    r.lang="ja-JP";r.interimResults=true;r.continuous=false;r.maxAlternatives=3;
+    const fin=()=>{if(done)return;done=true;try{r.abort();}catch(e){}st.rec=null;res(out);};
+    r.onresult=e=>{
+      let t="";for(let i=0;i<e.results.length;i++){for(let k=0;k<e.results[i].length;k++)t+=e.results[i][k].transcript+" ";}
+      out=t;$("sub").textContent="🎤 "+e.results[0][0].transcript;
+      if(isDone(out)||e.results[e.results.length-1].isFinal)fin();
+    };
+    r.onerror=fin;r.onend=fin;st.rec=r;
+    try{r.start();}catch(e){fin();}
+    setTimeout(fin,ms);
+  });
+}
+/* 声を聞く。戻り値: {cmd} | {pick} | {hit} | {} */
+async function hear(my,judge){
+  cue();$("count").textContent="🎤";
+  const t=await listen(st.think*1000+3000,x=>parseCmd(x)!==null||judge(x)!==null);
+  $("count").textContent="";
+  if(my!==st.gen)return{dead:true};
+  const cmd=parseCmd(t);
+  if(cmd==="stop"){stop();return{dead:true};}
+  if(cmd==="again"){st.again=true;start(false);return{dead:true};}
+  if(cmd==="skip"){start(false);return{dead:true};}
+  if(cmd==="pass")return{};
+  const v=judge(t);
+  return v===null?{}:{v};
+}
+function addScore(ok){st.total++;if(ok)st.ok++;$("score").textContent="正解 "+st.ok+" / "+st.total+" 問";}
 function show(kind,text,sub){$("kind").textContent=kind||"　";$("text").textContent=text||"";$("sub").textContent=sub||"";$("count").textContent="";}
 async function think(my){
   for(let s=st.think;s>0;s--){if(my!==st.gen)return;$("count").textContent=s;await wait(1000);}
@@ -167,18 +234,27 @@ async function playItem(it,my){
     show("食の3択クイズ",d.q,list);
     await say("クイズです。"+d.q);if(!ok())return;
     for(let i=0;i<3;i++){await say(NUM[i]+"、"+d.c[i]+"。");if(!ok())return;}
-    await think(my);if(!ok())return;
+    let pre="正解は、";
+    if(st.voice){
+      await say("何番でしょう？");if(!ok())return;
+      const h=await hear(my,x=>parseChoice(x,d.c));if(h.dead||!ok())return;
+      if(h.v!==undefined){const good=h.v===d.a;addScore(good);pre=good?"正解！　":"ざんねん。正解は、";}
+    }else{await think(my);if(!ok())return;}
     show("こたえ",NUM[d.a]+"　"+d.c[d.a],d.e);
-    await say("正解は、"+NUM[d.a]+"、"+d.c[d.a]+"、でした。"+d.e);
+    await say(pre+NUM[d.a]+"、"+d.c[d.a]+"、でした。"+d.e);
   }else if(it.m==="fact"){
     show("豆知識",d.c[d.a],d.q+"\n"+d.e);
     await say("豆知識です。"+d.q+"　答えは、"+d.c[d.a]+"。"+d.e);
   }else if(it.m==="riddle"){
     show("なぞなぞ",d.q,"");
     await say("なぞなぞです。"+d.q);if(!ok())return;
-    await think(my);if(!ok())return;
+    let pre="答えは、";
+    if(st.voice){
+      const h=await hear(my,x=>d.k.some(k=>norm(x).includes(k))?true:null);if(h.dead||!ok())return;
+      if(h.v){addScore(true);pre="正解！　答えは、";}
+    }else{await think(my);if(!ok())return;}
     show("こたえ",d.a.split("。")[0],"");
-    await say("答えは、"+d.a+"、でした。");
+    await say(pre+d.a+"、でした。");
   }else{
     show("早口ことば",d,"3回、続けて言えますか？");
     await say("早口ことばです。"+d+"。");if(!ok())return;
@@ -205,12 +281,13 @@ async function keepAwake(on){
 }
 function start(first){
   if(!synth){show("","この端末では読み上げが使えません","別のブラウザでお試しください");return;}
-  const my=++st.gen;synth.cancel();st.playing=true;
+  const my=++st.gen;synth.cancel();if(st.rec){try{st.rec.abort();}catch(e){}}st.playing=true;
+  try{const AC=window.AudioContext||window.webkitAudioContext;st.ac=st.ac||new AC();st.ac.resume();}catch(e){}
   $("play").textContent="⏸ ストップ";keepAwake(true);
   loop(my,!!first);
 }
 function stop(){
-  st.gen++;if(synth)synth.cancel();st.playing=false;
+  st.gen++;if(synth)synth.cancel();if(st.rec){try{st.rec.abort();}catch(e){}}st.playing=false;
   $("play").textContent="▶ スタート";$("count").textContent="";keepAwake(false);
 }
 $("play").onclick=()=>{st.playing?stop():start(st.n===0);};
@@ -229,7 +306,7 @@ function fmt(s){return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");}
 function clearTimer(){clearInterval(st.tick);st.tick=null;st.timer=null;$("tstate").textContent="";}
 async function ring(min){
   clearTimer();
-  const was=st.playing;st.gen++;if(synth)synth.cancel();
+  const was=st.playing;st.gen++;if(synth)synth.cancel();if(st.rec){try{st.rec.abort();}catch(e){}}
   beep();show("タイマー",min+"分たちました！","");
   await wait(800);
   await say("タイマーです。"+min+"分、たちました。");
