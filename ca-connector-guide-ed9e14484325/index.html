@@ -8,8 +8,8 @@
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 system-ui,"Hiragino Sans","Yu Gothic",sans-serif}
 header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 16px;z-index:5}
 header b{font-size:15px}#now{color:var(--mut);font-size:13px;margin-left:8px}
-main{max-width:720px;margin:0 auto;padding:16px}
-section{scroll-margin-top:56px;margin:24px 0}
+main{max-width:720px;margin:0 auto;padding:16px 16px 50vh}
+section{scroll-margin-top:88px;margin:24px 0}
 h2{font-size:18px;margin:0 0 8px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
 svg{width:100%;height:auto;max-width:560px;display:block;margin:8px auto}
@@ -24,11 +24,11 @@ h1,h2,h3{word-break:auto-phrase}
 <div class="card">紹介先企業の資料（勤務地・待遇・研修など）を、Claude のチャットから聞くだけで引けるようにする設定です。<b>設定は最初の1回だけ・2手</b>です。</div></section>
 
 <section id="s1"><h2>全体の流れ（2手）</h2>
-<svg viewBox="0 0 560 90" role="img" aria-label="接続して、権限を常に許可にする">
+<svg viewBox="0 0 560 90" role="img" aria-label="接続して、権限モードを自動にする">
 <rect class="b" x="10" y="20" width="230" height="50" rx="10"/><text x="30" y="50">① 接続（Google ログイン）</text>
 <path class="a" d="M240 45H300"/><path class="a" d="M292 38l10 7-10 7"/>
-<rect class="b" x="310" y="20" width="240" height="50" rx="10"/><text x="326" y="50">② ツールを「常に許可」</text></svg>
-<p class="mut">この2手のあとは、新しいチャットでもそのまま聞けます。</p></section>
+<rect class="b" x="310" y="20" width="240" height="50" rx="10"/><text x="326" y="50">② 権限モードを「自動」</text></svg>
+<p class="mut">この2手のあとは、新しいチャットでもそのまま聞けます（選んだモードは次のチャットにも引き継がれます）。</p></section>
 
 <section id="s2"><h2>手1: コネクタに接続する</h2>
 <div class="card"><p>コネクタは Gooner の組織に登録済みです。自分で追加や URL の入力をする必要はありません。</p><ol>
@@ -37,21 +37,33 @@ h1,h2,h3{word-break:auto-phrase}
 <li>Google のログインで<b>Gooner の業務アドレス</b>を選ぶ（1タップ）</li>
 <li>「このコネクタを使える人の一覧に入っていない」と出たら、拓也に連絡（アドレスの登録漏れ）</li></ol></div></section>
 
-<section id="s3"><h2>手2: 権限を「常に許可」にする</h2>
+<section id="s3"><h2>手2: 権限モードを「自動」にする</h2>
 <div class="card"><ol>
-<li>最初に質問したとき「承認が必要」と出る（初期値）</li>
-<li><b>常に許可</b>を選ぶ（3つのツールをまとめて切り替わる・1回だけ）</li></ol>
-<p class="mut">3つとも読むだけのツールです。資料は書き換わりません。</p></div></section>
+<li>新しいチャットを開き、入力欄の中の<b>「権限モード：手動」</b>のボタン（モデル名のボタンの隣）を押す</li>
+<li>出てきた「権限モード」の2つから<b>「自動」</b>（Claude は自律的に動作し、安全でないと思われる場合は一時停止して確認します。）を選ぶ</li>
+<li>ボタンが<b>「権限モード：自動」</b>になれば完了。次の新しいチャットも自動のまま始まります</li></ol>
+<p class="mut">自動にすると、ツールを使うたびの「承認が必要」の確認が出なくなります（会社資料のツールも、求職者のツールも同じ）。</p>
+<p class="mut"><b>外へ送る操作（LINE・メール・Slack などで1回送る）は、自動でも毎回「拒否する／1回だけ許可する」の確認が出ます。</b>宛先と本文を見てから押してください。</p>
+<p class="mut">すでに「権限モード：自動」になっている人は何もしなくて大丈夫です。</p>
+<p class="mut">手動のまま使うときは、「承認が必要」と出たら<b>常に許可する</b>を選ぶ（ツールごとに1回）。</p></div></section>
 
 <section id="s4"><h2>使い方</h2>
 <div class="card">普通にチャットで聞きます。例:「入社時に契約社員から始まる紹介先は？」「HIT は既往歴があっても選考できる？」<br>
-答えに<b>資料の名前（どの文書か）</b>が出ます。出なかったら「どの文書に書いてある？」と聞き返してください。</div></section>
+答えに<b>資料の名前（どの文書か）</b>が出ます。出なかったら「どの文書に書いてある？」と聞き返してください。</div>
+<div class="card" style="margin-top:12px"><b>会社単位で聞くとき</b>（会社のツール2つが動きます）
+<ul>
+<li><b>会社の一覧</b>（list_companies）: 「IT の紹介先を全部」「施工管理の会社は何社？」のように、会社の一覧が要る質問。会社ごとに職種カテゴリ・カードが調べ済みか・出所が変わったかも出ます</li>
+<li><b>会社1社の全体</b>（get_company）: 「アーキ・ジャパンの不利な事実は？」「ABC の会社カードを全部見せて」のように、1社に絞った質問。会社カード（不利な事実・条件を含む）と、その社の資料の本文がまとめて出ます</li>
+<li>カードに <b>[未取得]</b> とあるのは「まだ調べていない」で、「無い」ではありません</li>
+<li>「出所が変わった」と出た会社は、カードの記述が古いかもしれません。元の資料（canon）を開いて確かめてください</li></ul></div></section>
 
 <section id="s5"><h2>困ったとき</h2>
 <div class="card"><ul>
 <li>一覧に「会社資料」が無い → 個人用の組織を開いている可能性があります。Gooner の組織に切り替える</li>
 <li>「カスタムコネクタを追加」が押せない → 正常です。追加は不要なので、一覧の「会社資料」から接続する</li>
 <li>呼び出されない → チャット下の「＋」→ コネクタで「会社資料」が入っているか見る</li>
+<li>「権限モード」のボタンが見当たらない → Gooner の組織で新しいチャットを開き直す。それでも無ければ拓也に連絡</li>
+<li>自動にしたのに毎回確認が出る → 外へ送るツールなら正常（毎回確認が出る決まり）。それ以外なら、ボタンが「権限モード：自動」のままか見る</li>
 <li>資料に無いこと → 「載っていない」と返るのが正しい動き。推測で答えさせない</li></ul></div></section>
 </main>
 <script>
