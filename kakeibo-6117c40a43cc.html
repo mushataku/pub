@@ -31,6 +31,12 @@ input,select{width:100%;padding:10px;border:1px solid var(--line);border-radius:
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chips button{border:1px solid var(--line);background:var(--chip);color:var(--fg);border-radius:999px;padding:6px 12px;font-size:.9rem;cursor:pointer}
 .chips button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.chips button.plus{background:none;border-style:dashed;color:var(--acc)}
+.chips .x{margin-left:6px;opacity:.7}
+.newcat{display:grid;grid-template-columns:64px 1fr auto;gap:6px;margin-top:8px}
+.newcat[hidden]{display:none}
+.newcat select{padding:8px 4px;font-size:1.1rem}
+.newcat button{border:0;border-radius:10px;background:var(--acc);color:#fff;padding:0 14px;font-size:.95rem;cursor:pointer}
 .add{width:100%;margin-top:12px;padding:12px;border:0;border-radius:12px;background:var(--acc);color:#fff;font-size:1rem;font-weight:700;cursor:pointer}
 h2{font-size:1rem;margin:0 0 10px}
 .bar{margin-bottom:8px}
@@ -77,6 +83,11 @@ h1,h2,h3{word-break:auto-phrase}
     </div>
     <label>カテゴリ</label>
     <div class="chips" id="cats"></div>
+    <div id="newCat" class="newcat" hidden>
+      <select id="ncIcon" aria-label="アイコン"></select>
+      <input id="ncName" maxlength="12" placeholder="新しいカテゴリ名（例: ペット）">
+      <button id="ncAdd" type="button">追加</button>
+    </div>
     <div class="row">
       <div><label for="amt">金額（円）</label><input id="amt" type="number" inputmode="numeric" min="0" placeholder="例: 1200"></div>
       <div><label for="date">日付</label><input id="date" type="date"></div>
@@ -129,18 +140,39 @@ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}};
 let type="out",cat=CATS.out[0][0],view=new Date(today.getFullYear(),today.getMonth(),1);
 const $=id=>document.getElementById(id);
 const yen=n=>"¥"+Math.round(n).toLocaleString("ja-JP");
-const icon=(t,c)=>(CATS[t].find(x=>x[0]===c)||["","📦"])[1];
+let custom={out:[],in:[]};
+try{custom=JSON.parse(localStorage.getItem(KEY+"-cats")||"null")||custom}catch(e){}
+const saveCats=()=>{try{localStorage.setItem(KEY+"-cats",JSON.stringify(custom))}catch(e){}};
+const allCats=t=>CATS[t].concat(custom[t]||[]);
+const icon=(t,c)=>(allCats(t).find(x=>x[0]===c)||["","📦"])[1];
 $("date").value=ymd(today);
+["🏷️","🐶","👶","📚","💄","👕","🎮","☕","🍺","🏋️","✈️","🚗","🎁","💳","🏥","🌱"].forEach(e=>{const o=document.createElement("option");o.textContent=e;$("ncIcon").appendChild(o)});
 
 function drawCats(){
   $("cats").innerHTML="";
-  CATS[type].forEach(([n,i])=>{
+  allCats(type).forEach(([n,i])=>{
     const b=document.createElement("button");
     b.textContent=i+" "+n; if(n===cat)b.className="on";
     b.onclick=()=>{cat=n;drawCats()};
+    if((custom[type]||[]).some(x=>x[0]===n)){
+      const x=document.createElement("span");x.className="x";x.textContent="✕";x.title="このカテゴリを消す";
+      x.onclick=e=>{e.stopPropagation();custom[type]=custom[type].filter(y=>y[0]!==n);saveCats();if(cat===n)cat=CATS[type][0][0];drawCats()};
+      b.appendChild(x);
+    }
     $("cats").appendChild(b);
   });
+  const p=document.createElement("button");p.className="plus";p.textContent="＋ カテゴリを追加";
+  p.onclick=()=>{$("newCat").hidden=!$("newCat").hidden;if(!$("newCat").hidden)$("ncName").focus()};
+  $("cats").appendChild(p);
 }
+function addCat(){
+  const n=$("ncName").value.trim();
+  if(!n){$("ncName").focus();return}
+  if(!allCats(type).some(x=>x[0]===n)){(custom[type]=custom[type]||[]).push([n,$("ncIcon").value]);saveCats()}
+  cat=n;$("ncName").value="";$("newCat").hidden=true;drawCats();
+}
+$("ncAdd").onclick=addCat;
+$("ncName").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();addCat()}});
 function setType(t){type=t;cat=CATS[t][0][0];$("tOut").className=t==="out"?"on":"";$("tIn").className=t==="in"?"on":"";drawCats()}
 $("tOut").onclick=()=>setType("out");
 $("tIn").onclick=()=>setType("in");
