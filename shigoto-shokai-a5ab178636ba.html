@@ -404,7 +404,7 @@ h1,h2,h3{word-break:auto-phrase}
     document.addEventListener("DOMContentLoaded", spy);
     return;
   }
-  var MAP = [["top", "intro", "ごあいさつ"], ["heard", "intro", "伺ったこと"], ["compare", "compare", "選んだ会社の比較"], ["companies", "detail", "ご紹介した会社"], ["industry", "docs", "業界の説明資料"], ["flow", "next", "これからの進め方"]];
+  var MAP = [["top", "intro", "ごあいさつ"], ["heard", "intro", "伺ったこと"], ["compare", "compare", "選んだ会社の比較"], ["companies", "detail", "ご紹介した会社"], ["chosen", "detail", "応募する会社"], ["industry", "docs", "業界の説明資料"], ["flow", "next", "これからの進め方"]];
   var band = document.getElementById("band");
   if (!band || !("IntersectionObserver" in window)) return;
   var now = band.querySelector(".band-now");
@@ -439,16 +439,17 @@ h1,h2,h3{word-break:auto-phrase}
   <p class="date">2026年11月18日（水）</p>
 </header>
 
-<nav class="page-nav" aria-label="ページ内リンク"><ul><li><a href="#companies">ご紹介した会社</a></li><li><a href="#industry">業界の説明資料</a></li></ul></nav>
+<nav class="page-nav" aria-label="ページ内リンク"><ul><li><a href="#companies">ご紹介した会社</a></li><li><a href="#chosen">応募する会社</a></li><li><a href="#industry">業界の説明資料</a></li></ul></nav>
 <div class="live-flow" data-layer="live">
 <section class="thanks" data-no-figure="あいさつの数文">
 <p><b>先日はお時間をいただきありがとうございました。</b></p>
-  <p>伺ったご希望から、未経験から事務・IT事務を始められて、パソコンを一から覚えられる会社をご紹介します。</p>
+  <p>面談でお話しした「研修を受けながら事務の仕事を始められる」無期雇用派遣の会社に絞ってご紹介します。</p>
 </section>
 <section id="heard" data-section="heard" data-no-figure="伺った条件の短い札">
 <div class="axis">
   <span class="label">伺ったこと</span>
   <span class="chip">一般事務に未経験から挑戦したい</span>
+  <span class="chip">研修を受けながら、いろいろな職場を経験したい</span>
   <span class="chip">安定して長く働きたい</span>
   <span class="chip">パソコンを使えるようになりたい</span>
   <span class="chip">京浜東北線沿いで通いたい（最寄りは西川口）</span>
@@ -460,27 +461,18 @@ h1,h2,h3{word-break:auto-phrase}
 </section>
 <section id="compare" data-section="compare" data-chapter="compare">
 <h2>選んだ会社の比較</h2>
-<div class="cmp-top"><figure class="fig" data-figure="compare"><svg class="fig-cmp" viewBox="0 0 560 272" role="img" aria-labelledby="fig-cmp-t fig-cmp-d" preserveAspectRatio="xMidYMid meet"><title id="fig-cmp-t">選んだ6社の比較（2026年11月18日（水）時点の求人票・会社資料より）</title><desc id="fig-cmp-d">1 コクー: 月給のまん中 28万円・年間休日 124日／3 BREXA Communications: 月給のまん中 23.5万円・年間休日 124日／4 リクルートスタッフィング キャリアウィンク事業部: 月給のまん中 19.75万円・年間休日 125日／5 エイトビット: 月給のまん中 23万円・年間休日 123日</desc><defs><marker id="cmp-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="grid" x1="72.0" y1="14" x2="72.0" y2="212"/><text class="tick" x="72.0" y="237" text-anchor="middle">16</text><line class="grid" x1="137.4" y1="14" x2="137.4" y2="212"/><text class="tick" x="137.4" y="237" text-anchor="middle">18</text><line class="grid" x1="202.9" y1="14" x2="202.9" y2="212"/><text class="tick" x="202.9" y="237" text-anchor="middle">20</text><line class="grid" x1="268.3" y1="14" x2="268.3" y2="212"/><text class="tick" x="268.3" y="237" text-anchor="middle">22</text><line class="grid" x1="333.7" y1="14" x2="333.7" y2="212"/><text class="tick" x="333.7" y="237" text-anchor="middle">24</text><line class="grid" x1="399.1" y1="14" x2="399.1" y2="212"/><text class="tick" x="399.1" y="237" text-anchor="middle">26</text><line class="grid" x1="464.6" y1="14" x2="464.6" y2="212"/><text class="tick" x="464.6" y="237" text-anchor="middle">28</text><line class="grid" x1="530.0" y1="14" x2="530.0" y2="212"/><text class="tick" x="530.0" y="237" text-anchor="middle">30</text><line class="grid" x1="72" y1="212.0" x2="530" y2="212.0"/><text class="tick" x="60" y="217.0" text-anchor="end">110</text><line class="grid" x1="72" y1="172.4" x2="530" y2="172.4"/><text class="tick" x="60" y="177.4" text-anchor="end">115</text><line class="grid" x1="72" y1="132.8" x2="530" y2="132.8"/><text class="tick" x="60" y="137.8" text-anchor="end">120</text><line class="grid" x1="72" y1="93.2" x2="530" y2="93.2"/><text class="tick" x="60" y="98.2" text-anchor="end">125</text><line class="grid" x1="72" y1="53.6" x2="530" y2="53.6"/><text class="tick" x="60" y="58.6" text-anchor="end">130</text><line class="grid" x1="72" y1="14.0" x2="530" y2="14.0"/><text class="tick" x="60" y="19.0" text-anchor="end">135</text><line class="axis" x1="72" y1="212" x2="530" y2="212"/><line class="axis" x1="72" y1="14" x2="72" y2="212"/><text class="ax-l" x="301.0" y="264" text-anchor="middle">月給の目安（万円）→</text><text class="ax-l" x="20" y="113.0" text-anchor="middle" transform="rotate(-90 20 113.0)">年間休日（日）→</text><a class="pt" href="#card-cocoo" aria-label="1. コクー（カードへ）" data-key="cocoo"><title>1. コクー（カードへ）</title><rect class="mk cat-1" x="451.6" y="88.1" width="26.0" height="26.0"/><text class="pt-n" x="464.6" y="106.6">1</text></a><a class="pt" href="#card-brexa_communications" aria-label="3. BREXA Communications（カードへ）" data-key="brexa_communications"><title>3. BREXA Communications（カードへ）</title><rect class="mk cat-1" x="304.4" y="88.1" width="26.0" height="26.0"/><text class="pt-n" x="317.4" y="106.6">3</text></a><a class="pt" href="#card-recruit_careerwink" aria-label="4. リクルートスタッフィング キャリアウィンク事業部（カードへ）" data-key="recruit_careerwink"><title>4. リクルートスタッフィング キャリアウィンク事業部（カードへ）</title><rect class="mk cat-1" x="181.7" y="80.2" width="26.0" height="26.0"/><text class="pt-n" x="194.7" y="98.7">4</text></a><line class="lead" x1="301.0" y1="109.0" x2="373.0" y2="109.0"/><circle class="true-pos" cx="301.0" cy="109.0" r="3"/><a class="pt" href="#card-eightbit" aria-label="5. エイトビット（カードへ）" data-key="eightbit"><title>5. エイトビット（カードへ）</title><rect class="mk cat-1" x="360.0" y="96.0" width="26.0" height="26.0"/><text class="pt-n" x="373.0" y="114.5">5</text></a></svg></figure><div class="cmp-side"><p class="lead">面談の希望から6社を選びました。右ほど月給が高く、上ほど年間休日が多い会社です。番号や社名を押すと詳しい説明に移ります。気になる会社は番号か社名でLINEへ（例「2が気になります」）。</p><ul class="legend" aria-label="図の見方"><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><rect class="mk cat-1" x="6.0" y="6.0" width="18.0" height="18.0"/></svg>事務</li></ul><p class="fig-note">図に載せていない: 2 スタッフサービス ミラエール推進部（年収で書かれていて月給が分からない）、6 綜合キャリアオプション（月給が数字で書かれていない）</p><details class="fig-how"><summary>図の見方</summary><p class="fig-note">年間休日の差は最大2日です。月給は書かれた幅のまん中に置いています。</p></details></div></div>
+<div class="cmp-top"><figure class="fig" data-figure="compare"><svg class="fig-cmp" viewBox="0 0 560 108" role="img" aria-labelledby="fig-cmp-t fig-cmp-d" preserveAspectRatio="xMidYMid meet"><title id="fig-cmp-t">選んだ3社の比較（2026年11月18日（水）時点の求人票・会社資料より）</title><desc id="fig-cmp-d">3 リクルートスタッフィング キャリアウィンク事業部: 月給 17.1万円〜22.4万円</desc><line class="grid" x1="44.0" y1="12" x2="44.0" y2="56"/><text class="tick" x="44.0" y="78" text-anchor="middle">16</text><line class="grid" x1="114.3" y1="12" x2="114.3" y2="56"/><text class="tick" x="114.3" y="78" text-anchor="middle">17</text><line class="grid" x1="184.6" y1="12" x2="184.6" y2="56"/><text class="tick" x="184.6" y="78" text-anchor="middle">18</text><line class="grid" x1="254.9" y1="12" x2="254.9" y2="56"/><text class="tick" x="254.9" y="78" text-anchor="middle">19</text><line class="grid" x1="325.1" y1="12" x2="325.1" y2="56"/><text class="tick" x="325.1" y="78" text-anchor="middle">20</text><line class="grid" x1="395.4" y1="12" x2="395.4" y2="56"/><text class="tick" x="395.4" y="78" text-anchor="middle">21</text><line class="grid" x1="465.7" y1="12" x2="465.7" y2="56"/><text class="tick" x="465.7" y="78" text-anchor="middle">22</text><line class="grid" x1="536.0" y1="12" x2="536.0" y2="56"/><text class="tick" x="536.0" y="78" text-anchor="middle">23</text><text class="ax-l" x="290.0" y="100" text-anchor="middle">月給（万円・下限〜上限）→ 右ほど高い</text><line class="bar cat-1" x1="121.3" y1="34.0" x2="493.8" y2="34.0"/><a class="pt" href="#card-recruit_careerwink" aria-label="3. リクルートスタッフィング キャリアウィンク事業部（カードへ）" data-key="recruit_careerwink"><title>3. リクルートスタッフィング キャリアウィンク事業部（カードへ）</title><rect class="mk cat-1" x="108.3" y="21.0" width="26.0" height="26.0"/><text class="pt-n" x="121.3" y="39.5">3</text></a></svg></figure><div class="cmp-side"><p class="lead">面談の希望から3社を選びました。棒が右にあるほど月給が高い会社です（年間休日が数字で比べられないため、月給だけを並べました）。番号や社名を押すと詳しい説明に移ります。気になる会社は番号か社名でLINEへ（例「2が気になります」）。</p><ul class="legend" aria-label="図の見方"><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><rect class="mk cat-1" x="6.0" y="6.0" width="18.0" height="18.0"/></svg>事務</li></ul><p class="fig-note">図に載せていない: 1 スタッフサービス ミラエール推進部（年収で書かれていて月給が分からない）、2 マイナビワークス（年収で書かれていて月給が分からない）</p></div></div>
 <table class="cmp">
-  <caption>選んだ6社の比較（2026年11月18日（水）時点の求人票・会社資料より）</caption>
+  <caption>選んだ3社の比較（2026年11月18日（水）時点の求人票・会社資料より）</caption>
   <thead><tr><th>会社</th><th>仕事の種類</th><th>勤務地</th><th>月給（月額）</th><th>休日（年間）</th></tr></thead>
   <tbody>
-    <tr data-key="cocoo"><td class="c-co" data-h="会社"><span class="no">1</span><a class="to-card" href="#card-cocoo">コクー</a><span class="links"><a class="deck-mini" href="https://cocoo.co.jp/corporate/" target="_blank" rel="noopener" aria-label="コクーのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1tCYi0UNVlTHRr4ySzXC0ENQnmnS_f2fC/view" target="_blank" rel="noopener" aria-label="コクーの資料（EXCEL女子の紹介（会社作成・画像1枚・小さい字に崩れあり））">EXCEL女子の紹介（会社作成・画像1枚・小さい字に崩れあり） →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1L9dp3hvYCocRwZSJQ5GZAC0UMuk3-Z-m/view" target="_blank" rel="noopener" aria-label="コクーの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="main">東京23区内・富山県・静岡県浜松市・大阪府・福岡県</span><span class="clamp sub">（福岡市/北九州市）の本社・各拠点（客先常駐・自社内勤務の両方あり）</span></td><td data-h="月給（月額）"><span class="main">月給24万〜32万円ほど</span><span class="clamp sub">（想定年収288万〜400万円・業績賞与＋昇給年2回）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日124日</span></td></tr>
-<tr data-key="staffservice_mirai"><td class="c-co" data-h="会社"><span class="no">2</span><a class="to-card" href="#card-staffservice_mirai">スタッフサービス ミラエール推進部</a><span class="links"><a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a>
+    <tr data-key="staffservice_mirai"><td class="c-co" data-h="会社"><span class="no">1</span><a class="to-card" href="#card-staffservice_mirai">スタッフサービス ミラエール推進部</a><span class="cmp-chosen">応募する会社</span><span class="links"><a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1XAZ921B0iEPCuQjJaIICeD2HsYOzrqCk/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料（求人票（ミラエール・No55199））">求人票（ミラエール・No55199） →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1o31QH1qaAuheG_WwoFBcrVvgKVDLC1iP/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料（会社の資料）">会社の資料 →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="main">転勤なし・自宅から90分以内の配属先</span><span class="clamp sub">（東京・神奈川・埼玉・千葉・大阪・京都・滋賀・広島・愛知・兵庫）</span></td><td data-h="月給（月額）"><span class="main">270万〜330万円ほど</span><span class="clamp sub">（地域別の月給・エリアにより異なる）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
-<tr data-key="brexa_communications"><td class="c-co" data-h="会社"><span class="no">3</span><a class="to-card" href="#card-brexa_communications">BREXA Communications</a><span class="links"><a class="deck-mini" href="https://communications.brexa.com/" target="_blank" rel="noopener" aria-label="BREXA Communicationsのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1enC8GuJqNI5dTR0d9e_EUQIdOFDnFCTZ/view" target="_blank" rel="noopener" aria-label="BREXA Communicationsの資料（会社概要・採用情報）">会社概要・採用情報 →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1qAC1gce92uipaXEOPcfoAJH69GSXooe3/view" target="_blank" rel="noopener" aria-label="BREXA Communicationsの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="main">東京・神奈川・埼玉・千葉</span><span class="clamp sub">（客先常駐・転勤なし・勤務エリアの選択は不可）</span></td><td data-h="月給（月額）"><span class="main">月給22万〜25万円ほど</span><span class="clamp sub">（想定年収320万〜350万円・賞与年2回）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日124日</span></td></tr>
-<tr data-key="recruit_careerwink"><td class="c-co" data-h="会社"><span class="no">4</span><a class="to-card" href="#card-recruit_careerwink">リクルートスタッフィング キャリアウィンク事業部</a><span class="links"><a class="deck-mini" href="https://www.r-staffing.co.jp/corporate/" target="_blank" rel="noopener" aria-label="リクルートスタッフィング キャリアウィンク事業部のホームページ">会社のHP →</a>
+<tr data-key="mynavi_works"><td class="c-co" data-h="会社"><span class="no">2</span><a class="to-card" href="#card-mynavi_works">マイナビワークス</a><span class="links"><a class="deck-mini" href="https://mynavi-works.jp/" target="_blank" rel="noopener" aria-label="マイナビワークスのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1DmRsn1AS97z-unW-yhqi1s35NRK0tlLX/view" target="_blank" rel="noopener" aria-label="マイナビワークスの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="main">首都圏・関西・東海・福岡・北海道</span><span class="clamp sub">（求人により異なる）</span><span class="clamp sub">34歳まで・学歴不問・未経験歓迎（求人票の記載。現行の掲載中の票は未確認）</span></td><td data-h="月給（月額）"><span class="main">初年度年収290万〜320万円</span><span class="clamp sub">（職種・勤務地により250万〜350万円）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
+<tr data-key="recruit_careerwink"><td class="c-co" data-h="会社"><span class="no">3</span><a class="to-card" href="#card-recruit_careerwink">リクルートスタッフィング キャリアウィンク事業部</a><span class="links"><a class="deck-mini" href="https://www.r-staffing.co.jp/corporate/" target="_blank" rel="noopener" aria-label="リクルートスタッフィング キャリアウィンク事業部のホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1r52qPWiomxDgI7kh5Yunv-6WW_1NyzsL/view" target="_blank" rel="noopener" aria-label="リクルートスタッフィング キャリアウィンク事業部の資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="main">東京・神奈川・千葉・埼玉・愛知・大阪・兵庫・京都・北海道・宮城</span><span class="clamp sub">（仙台近郊の在住者のみ・下記条件）・福岡の有名企業・グループ企業（駅近オフィス中心・転勤なし・本拠地から片道120分以内の配属先）</span><span class="clamp sub">最終学歴は高卒以上が必須。</span></td><td data-h="月給（月額）"><span class="main">月給17.1万〜22.4万円ほど</span><span class="clamp sub">（勤務地により異なる・東京都は20.1万〜22.5万円・想定年収241万〜310万円・賞与年2回）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
-<tr data-key="eightbit"><td class="c-co" data-h="会社"><span class="no">5</span><a class="to-card" href="#card-eightbit">エイトビット</a><span class="links"><a class="deck-mini" href="https://eightbit.co.jp/" target="_blank" rel="noopener" aria-label="エイトビットのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1tdCLghTqSENmdXpA9gukw9K-Nps3vuay/view" target="_blank" rel="noopener" aria-label="エイトビットの資料（事務職の採用案内）">事務職の採用案内 →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1-CiOdmAgsmO7eIbywruhuvKUzNvhWY1p/view" target="_blank" rel="noopener" aria-label="エイトビットの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="main">東京23区内・埼玉・千葉・神奈川</span><span class="clamp sub">（客先常駐・配属先のプロジェクトによって変わる・転居を伴う転勤なし・勤務地は希望を考慮）。本社は東京都豊島区東池袋</span><span class="clamp sub">最終学歴は高卒以上。就業経験6か月以上（アルバイト可）。半年以上のブランクはNGだが、アルバイトや職業訓練校など何かしら活動をしていればOK。</span></td><td data-h="月給（月額）"><span class="main">月給21万〜25万円ほど</span><span class="clamp sub">（想定年収267万〜350万円・賞与年2回・昇給年1回）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日123日</span></td></tr>
-<tr data-key="name_2e626b"><td class="c-co" data-h="会社"><span class="no">6</span><a class="to-card" href="#card-name_2e626b">綜合キャリアオプション</a><span class="links"><a class="deck-mini" href="https://sougo-career.co.jp/recruit/anews_recruit/" target="_blank" rel="noopener" aria-label="綜合キャリアオプションのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1iOk70-bTMAoqoxh8zZpOg7WRKZJU0gMm/view" target="_blank" rel="noopener" aria-label="綜合キャリアオプションの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="main">一都三県</span><span class="clamp sub">（東京・神奈川・埼玉・千葉）の取引先オフィスまたは自社BPOセンター。自宅から通える職場を会社が選定・転居を伴う転勤なし</span><span class="clamp sub">応募資格: 19歳（今年度）〜39歳・学歴不問・既往歴/賞罰なし・両手でPC操作ができること・週5フルタイム。</span></td><td data-h="月給（月額）"><span class="main">首都圏の月給205,000円</span><span class="clamp sub">（基本給＋職務手当）・時間外手当・交通費・賞与・昇給・退職金あり。モデル年収は1年目271万円・2年目（リーダー）360万円・3〜5年目500万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
   </tbody>
 </table>
 <p class="cmp-key">続きは各社の説明に。</p>
@@ -488,24 +480,11 @@ h1,h2,h3{word-break:auto-phrase}
 <section id="companies" data-section="companies" data-no-figure="各社カードと表＝詳しい層（図はトップの比較）">
 <h2>ご紹介した会社</h2>
 <h2>ご紹介する会社</h2>
-<p class="lead">未経験から事務・IT事務を始められて、研修のある会社を選びました。上から順におすすめです。</p>
+<p class="lead">どの会社も、正社員（無期雇用）として雇われ、研修を受けてから事務のお仕事に就く働き方です。</p>
 
 <div class="cards live" data-live="picks">
-  <article class="card" id="card-cocoo">
-    <h3>コクー</h3>
-    <p class="what">IT事務職（SES事業部のバックオフィス。データ入力・見積書/納品書などの資料作成・売上データ集計・電話対応・BI更新作業など）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給24万〜32万円ほど</span><span class="aside">（想定年収288万〜400万円・業績賞与＋昇給年2回）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日祝休み・完全週休2日制・年間休日124日・残業月平均20時間以下</dd></div></dl>
-    <dl class="place">
-      <dt>勤務地</dt><dd>東京23区内・富山県・静岡県浜松市・大阪府・福岡県（福岡市/北九州市）の本社・各拠点（客先常駐・自社内勤務の両方あり）</dd>
-    </dl>
-    <p class="point"><b>ここが合う</b>　社員の8割以上が女性で未経験スタートが多数。案件が無くても給与が出る「コクーの正社員」で、資格取得率100%の研修があります。</p>
-    
-    <div class="links"><a class="deck-mini" href="https://cocoo.co.jp/corporate/" target="_blank" rel="noopener" aria-label="コクーのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1tCYi0UNVlTHRr4ySzXC0ENQnmnS_f2fC/view" target="_blank" rel="noopener" aria-label="コクーの資料（EXCEL女子の紹介（会社作成・画像1枚・小さい字に崩れあり））">EXCEL女子の紹介（会社作成・画像1枚・小さい字に崩れあり） →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1L9dp3hvYCocRwZSJQ5GZAC0UMuk3-Z-m/view" target="_blank" rel="noopener" aria-label="コクーの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
   <article class="card" id="card-staffservice_mirai">
-    <h3>スタッフサービス ミラエール推進部</h3>
+    <h3>スタッフサービス ミラエール推進部<span class="chosen">応募する会社</span></h3>
     <p class="what">一般事務（人事・総務・経理・貿易・金融・英文事務・受付・データ入力など、案件により内容が変わる）</p>
     <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">270万〜330万円ほど</span><span class="aside">（地域別の月給・エリアにより異なる）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">土日祝・完全週休2日・</span><span class="main">年間休日125日</span><span class="aside">（祝日は配属先により異なる）・残業月10時間以下</span></dd></div></dl>
     <dl class="place">
@@ -517,18 +496,17 @@ h1,h2,h3{word-break:auto-phrase}
     <a class="deck-mini" href="https://drive.google.com/file/d/1XAZ921B0iEPCuQjJaIICeD2HsYOzrqCk/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料（求人票（ミラエール・No55199））">求人票（ミラエール・No55199） →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1o31QH1qaAuheG_WwoFBcrVvgKVDLC1iP/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料（会社の資料）">会社の資料 →</a></div>
   </article>
-  <article class="card" id="card-brexa_communications">
-    <h3>BREXA Communications</h3>
-    <p class="what">通信インフラの事務サポート（携帯キャリア向け専用システムへのデータ入力・法人顧客からの電話/メール問い合わせ対応・スマホ/タブレットの発注手配や在庫管理・基地局工事の日程調整・申請書類作成・法人営業担当のサポートなど）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給22万〜25万円ほど</span><span class="aside">（想定年収320万〜350万円・賞与年2回）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日祝休み・年間休日124日・月平均残業10時間以下</dd></div></dl>
+  <article class="card" id="card-mynavi_works">
+    <h3>マイナビワークス</h3>
+    <p class="what">一般事務・総務事務・データ入力事務など（オフィスワーク。電話・来客対応、PCデータ入力、書類整理、備品管理など）</p>
+    <dl class="nums"><div class="stat s-salary is-yearly"><dt>月給</dt><dd><span class="main">初年度年収290万〜320万円</span><span class="aside">（職種・勤務地により250万〜350万円）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">完全週休2日</span><span class="aside">（土日祝）・年間休日125日以上</span></dd></div></dl>
     <dl class="place">
-      <dt>勤務地</dt><dd>東京・神奈川・埼玉・千葉（客先常駐・転勤なし・勤務エリアの選択は不可）</dd>
+      <dt>勤務地</dt><dd>首都圏・関西・東海・福岡・北海道（求人により異なる）</dd><dt>条件</dt><dd>34歳まで・学歴不問・未経験歓迎（求人票の記載。現行の掲載中の票は未確認）</dd>
     </dl>
-    <p class="point"><b>ここが合う</b>　選考はWEB面接1回のみ。移動体通信の技術者派遣・請負を続けてきた会社で、事務スキルとIT知識を同時に身につけながら国家資格の取得も支援してもらえます。</p>
+    <p class="point"><b>ここが合う</b>　未経験からオフィスワークを始めたい人に向いています。土日祝休みで年間休日は125日以上、入社後はWord・Excelやビジネスマナーの研修を受けて配属されます。</p>
     
-    <div class="links"><a class="deck-mini" href="https://communications.brexa.com/" target="_blank" rel="noopener" aria-label="BREXA Communicationsのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1enC8GuJqNI5dTR0d9e_EUQIdOFDnFCTZ/view" target="_blank" rel="noopener" aria-label="BREXA Communicationsの資料（会社概要・採用情報）">会社概要・採用情報 →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1qAC1gce92uipaXEOPcfoAJH69GSXooe3/view" target="_blank" rel="noopener" aria-label="BREXA Communicationsの資料（会社説明スライド）">会社説明スライド →</a></div>
+    <div class="links"><a class="deck-mini" href="https://mynavi-works.jp/" target="_blank" rel="noopener" aria-label="マイナビワークスのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1DmRsn1AS97z-unW-yhqi1s35NRK0tlLX/view" target="_blank" rel="noopener" aria-label="マイナビワークスの資料（会社説明スライド）">会社説明スライド →</a></div>
   </article>
   <article class="card" id="card-recruit_careerwink">
     <h3>リクルートスタッフィング キャリアウィンク事業部</h3>
@@ -542,91 +520,29 @@ h1,h2,h3{word-break:auto-phrase}
     <div class="links"><a class="deck-mini" href="https://www.r-staffing.co.jp/corporate/" target="_blank" rel="noopener" aria-label="リクルートスタッフィング キャリアウィンク事業部のホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1r52qPWiomxDgI7kh5Yunv-6WW_1NyzsL/view" target="_blank" rel="noopener" aria-label="リクルートスタッフィング キャリアウィンク事業部の資料（会社説明スライド）">会社説明スライド →</a></div>
   </article>
-  <article class="card" id="card-eightbit">
-    <h3>エイトビット</h3>
-    <p class="what">一般事務・営業事務・採用アシスタント・総務事務・経理アシスタント・IT事務（ヘルプデスク含む）のいずれか（配属先と仕事内容は希望と適性をもとに決定。データ入力・電話や来客対応・書類作成・見積書や請求書の作成・アカウント発行やPC管理など）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給21万〜25万円ほど</span><span class="aside">（想定年収267万〜350万円・賞与年2回・昇給年1回）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日祝休み・年間休日123日・勤務は9:00〜18:00・月平均残業20時間以下</dd></div></dl>
-    <dl class="place">
-      <dt>勤務地</dt><dd>東京23区内・埼玉・千葉・神奈川（客先常駐・配属先のプロジェクトによって変わる・転居を伴う転勤なし・勤務地は希望を考慮）。本社は東京都豊島区東池袋</dd><dt>条件</dt><dd>最終学歴は高卒以上。就業経験6か月以上（アルバイト可）。半年以上のブランクはNGだが、アルバイトや職業訓練校など何かしら活動をしていればOK。</dd><dt>条件</dt><dd>主要都市（新宿・渋谷・大崎・東京・品川）へ70分以内で通えること。</dd><dt>条件</dt><dd>選考は書類選考→オンライン面接（1〜2回）→内定。</dd>
-    </dl>
-    <p class="point"><b>ここが合う</b>　未経験から正社員として研修スタートでき、土日祝休みで残業も少なめです。事務からIT事務へ、資格手当を受けながらキャリアを広げていけます。</p>
-    
-    <div class="links"><a class="deck-mini" href="https://eightbit.co.jp/" target="_blank" rel="noopener" aria-label="エイトビットのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1tdCLghTqSENmdXpA9gukw9K-Nps3vuay/view" target="_blank" rel="noopener" aria-label="エイトビットの資料（事務職の採用案内）">事務職の採用案内 →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1-CiOdmAgsmO7eIbywruhuvKUzNvhWY1p/view" target="_blank" rel="noopener" aria-label="エイトビットの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-name_2e626b">
-    <h3>綜合キャリアオプション</h3>
-    <p class="what">人材会社の正社員として入り、取引先のオフィスや自社BPOセンターで事務の受託業務（データ入力・問い合わせ対応・書類チェックなど）を担う仕事（AnewSオフィスBPO）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="lead">首都圏の月給</span><span class="main">205,000円</span><span class="aside">（基本給＋職務手当）・時間外手当・交通費・賞与・昇給・退職金あり。モデル年収は1年目271万円・2年目（リーダー）360万円・3〜5年目500万円</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">年間休日125日</span><span class="aside">（配属先のカレンダーに準ずる）</span></dd></div></dl>
-    <dl class="place">
-      <dt>勤務地</dt><dd>一都三県（東京・神奈川・埼玉・千葉）の取引先オフィスまたは自社BPOセンター。自宅から通える職場を会社が選定・転居を伴う転勤なし</dd><dt>条件</dt><dd>応募資格: 19歳（今年度）〜39歳・学歴不問・既往歴/賞罰なし・両手でPC操作ができること・週5フルタイム。</dd><dt>条件</dt><dd>勤務地は一都三県で、自宅から60〜90分の範囲で選定。</dd><dt>条件</dt><dd>選考は書類不要（簡単なシートのみ）。</dd>
-    </dl>
-    <p class="point"><b>ここが合う</b>　人材会社の正社員として入り、2週間の研修を受けてから、取引先のオフィスで事務の仕事を担当します。学歴不問・未経験から始められ、転居を伴う転勤はありません。</p>
-    
-    <div class="links"><a class="deck-mini" href="https://sougo-career.co.jp/recruit/anews_recruit/" target="_blank" rel="noopener" aria-label="綜合キャリアオプションのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1iOk70-bTMAoqoxh8zZpOg7WRKZJU0gMm/view" target="_blank" rel="noopener" aria-label="綜合キャリアオプションの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-rkd">
-    <h3>株式会社RKDホールディングス</h3>
-    <p class="what">光回線・新電力・ウォーターサーバーなどを電話でご案内・販売するコールセンター（架電中心・未経験歓迎）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="lead">基本給 月給</span><span class="main">23万円</span><span class="aside">（22日勤務）。出勤日数・手当・インセンティブで上がる（25日勤務で26.36万円・美容手当 月1万円・土日手当 1日500円・目標達成やランキングの賞金あり）。賞与 年2回（7月・12月）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">シフト制・週休2日制</span><span class="aside">（曜日選択可能）・年間休日105日以上・年末年始休暇・有給休暇。勤務 11:30〜20:30（実働8時間・休憩1時間）</span></dd></div></dl>
-    <dl class="place">
-      <dt>勤務地</dt><dd>東京都千代田区神田佐久間町（秋葉原駅 徒歩5分・AKIHABARA CENTRAL SQUARE 4階）</dd><dt>条件</dt><dd>正社員（未経験歓迎）とアルバイトの募集がある。アルバイトから正社員への登用が多いと会社は書いている（期間は決まっていない）</dd><dt>条件</dt><dd>学歴不問・資格不要</dd>
-    </dl>
-    <p class="point"><b>ここが合う</b>　身だしなみの自由と収入の伸びしろを両方とりたい方に向いています。髪色・服装は自由で美容手当が月1万円あり、未経験から始めて、出勤日数と成果で月収を上げていける仕組みです。</p>
-    
-    <div class="links"><a class="deck-mini" href="https://rkd-inc.jp" target="_blank" rel="noopener" aria-label="株式会社RKDホールディングスのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1VyHhKq27MIouLjEX7Se-VrYwTogHqoLu/view" target="_blank" rel="noopener" aria-label="株式会社RKDホールディングスの資料（求人票（RKD・2026年8月27日出力））">求人票（RKD・2026年8月27日出力） →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1VlkErv8yMN1pAzBmlNHK0bLl5uraVeOw/view" target="_blank" rel="noopener" aria-label="株式会社RKDホールディングスの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-seven_reasons">
-    <h3>7Reasons</h3>
-    <p class="what">採用アシスタント。自動車業界の会社の採用を代わりに回す仕事の中で、応募者へのメール・LINE の連絡、面接日程の調整、応募書類の管理、スプレッドシートへのデータ入力、求職者へのリマインド連絡を受け持つ</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月20万〜40万円</span><span class="aside">（業務委託の報酬）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">年間120日以上・原則土日祝休み・9:00〜18:00 がベース</span><span class="aside">（相談可）</span></dd></div></dl>
-    <dl class="place">
-      <dt>勤務地</dt><dd>東京都渋谷区・恵比寿駅から徒歩6分（リモート併用可・業務に慣れれば在宅勤務も可）</dd><dt>条件</dt><dd>業務に慣れれば在宅勤務も可（リモート併用）</dd><dt>条件</dt><dd>募集は1〜2名</dd>
-    </dl>
-    <p class="point"><b>ここが合う</b>　未経験から採用の仕事に入りたい方に向いています。応募者への連絡や面接日程の調整といった採用の現場の事務を受け持ち、基本的なタイピングができれば応募でき、土日祝休みで、慣れれば在宅でも働けます。</p>
-    
-    <div class="links"><a class="deck-mini" href="https://7reasons.co.jp/" target="_blank" rel="noopener" aria-label="7Reasonsのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1VY1yZfzaWokANkLYPthA-EXpO0sajyPe/view" target="_blank" rel="noopener" aria-label="7Reasonsの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-name_6ed06d">
-    <h3>クロード</h3>
-    <p class="what">携帯電話・インターネットなどのお問い合わせを電話で受けるコールセンターの受電スタッフ（池袋または新御徒町・商材の営業はしない）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給24万円〜</span><span class="aside">（固定残業代10時間分15,080円と手当15,000円を含む・超過分は別途支給）。会社資料の例では1年目24万円→2年目24.5万円→3年目25万円（毎年5,000円の昇給）。賞与は年2回（6月・12月）、インセンティブ・役職手当あり</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd><span class="lead">求人票の例では</span><span class="main">1年目の年収308万円</span><span class="aside">（月給24万円＋賞与年2回）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">完全週休2日制</span><span class="aside">（シフト制・9:30〜20:00の間で実働8時間）。求人票では年間休日114日。有給休暇取得率87%（会社発表）</span></dd></div></dl>
-    <dl class="place">
-      <dt>勤務地</dt><dd>東京都内のコールセンター（池袋または新御徒町）。本社は渋谷区東1-26-20</dd><dt>条件</dt><dd>勤務地は池袋または新御徒町のコールセンター（配属で決まる）。池袋は大手通信キャリアのネット総合窓口の受電で9:45〜20:00の間で実働8時間・1日20〜30件・残業は月2時間程度・駅から徒歩10分。新御徒町はデータ移行のサポートで10:00〜19:00の間で実働7時間（7時間勤務の1年目は月給22.5万円）（会社資料 2025年5月版）。</dd><dt>条件</dt><dd>髪型・服装・ネイルは自由（会社資料 2025年5月版）。</dd><dt>条件</dt><dd>携帯ショップの接客販売スタッフの求人もある（一都三県・自宅から1時間圏内の店舗・転勤なし・固定残業代30時間分を含む月給24万円〜）。</dd><dt>条件</dt><dd>本社（渋谷）の営業事務の求人は土日祝休み・年間休日124日・月給25〜30万円（求人票）。</dd><dt>条件</dt><dd>雇用形態は正社員（期間の定めなし）。学歴・職歴不問・未経験の入社が95%以上（会社発表）。</dd>
-    </dl>
-    <p class="point"><b>ここが合う</b>　パソコンを使う事務の仕事に興味はあるけれど自信がない人に合う仕事です。お問い合わせを電話で受けるのが仕事で、商材の営業や個人の数字を追う仕事ではありません。研修のあと独り立ちするまで先輩が付き、完全週休2日で働けます。</p>
-    
-    <div class="links"><a class="deck-mini" href="https://croad.jp/" target="_blank" rel="noopener" aria-label="クロードのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1dS6oEG0HWTEHD5f-yI3wiikGa1Hm_9CU/view" target="_blank" rel="noopener" aria-label="クロードの資料（会社資料（2025年5月版））">会社資料（2025年5月版） →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1oW19R-25TgWhNwALaR3alB-1iNuftm5G/view" target="_blank" rel="noopener" aria-label="クロードの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
 </div>
 
 <h2>あわせて検討できる会社</h2>
-<p class="lead">上の6社のほかに、選択肢として見ておける会社です。</p>
+<p class="lead">面談でご紹介した、無期雇用派遣ではない会社です。</p>
 
 <div class="table-wrap">
 <table>
   <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
   <tbody>
-    <tr><td class="co">マイナビワークス<a class="deck-mini" href="https://mynavi-works.jp/" target="_blank" rel="noopener" aria-label="マイナビワークスのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1DmRsn1AS97z-unW-yhqi1s35NRK0tlLX/view" target="_blank" rel="noopener" aria-label="マイナビワークスの資料（会社説明スライド）">会社説明スライド →</a></td><td>一般事務・総務事務・データ入力事務など（オフィスワーク。電話・来客対応、PCデータ入力、書類整理、備品管理など）<small>Word・Excel・ビジネスマナーなどの研修。職場を再現したシミュレーション研修あり</small></td><td class="num">首都圏・関西・東海・福岡・北海道（求人により異なる）<small>34歳まで・学歴不問・未経験歓迎（求人票の記載。現行の掲載中の票は未確認）</small></td><td class="num">初年度年収290万〜320万円（職種・勤務地により250万〜350万円）</td><td class="num">完全週休2日（土日祝）・年間休日125日以上</td></tr>
-<tr><td class="co">DYMキャリア<a class="deck-mini" href="https://dymcareer.jp/" target="_blank" rel="noopener" aria-label="DYMキャリアのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1__iQf-UT0FoNY6RHu5CMwd2qKcZvn52x/view" target="_blank" rel="noopener" aria-label="DYMキャリアの資料（会社説明スライド）">会社説明スライド →</a></td><td>事務職（配属先に応じて一般事務・営業事務・貿易事務・経理事務・人事総務・医療事務のいずれか）<small>入社前にPCの基本操作から、入社後3日間の対面研修（Word・Excel・資料作成・AI活用研修）＋約200種類のeラーニング。</small></td><td class="num">東京・神奈川・千葉・埼玉・大阪・愛知（本社＝品川区大崎・客先常駐/自社内勤務・勤務地は入社前に住まいに応じて決定・転居を伴う異動なし）<small>最終学歴は高卒以上が必須。</small></td><td class="num">月給21万円（東京勤務・基本給15万円＋地域手当6万円。神奈川20万円・大阪20万〜20.2万円・愛知19.5万〜19.6万円）・固定残業なし・賞与年1回165,000円〜（入社1年後支給）・想定年収252万〜270万円</td><td class="num">土日祝休み（一部シフト制あり）・完全週休2日制・年間休日120日以上（派遣先により異なる）・残業は少なめ（Green掲載の平均5.91時間）</td></tr>
+    <tr><td class="co">クロード<a class="deck-mini" href="https://croad.jp/" target="_blank" rel="noopener" aria-label="クロードのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1dS6oEG0HWTEHD5f-yI3wiikGa1Hm_9CU/view" target="_blank" rel="noopener" aria-label="クロードの資料（会社資料（2025年5月版））">会社資料（2025年5月版） →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1oW19R-25TgWhNwALaR3alB-1iNuftm5G/view" target="_blank" rel="noopener" aria-label="クロードの資料（会社説明スライド）">会社説明スライド →</a></td><td>携帯電話・インターネットなどのお問い合わせを電話で受けるコールセンターの受電スタッフ（池袋または新御徒町・商材の営業はしない）<small>最初の2か月が研修。座学とロープレ・コンプラ研修のあと、8名ほどのチームでお客様対応の流れを覚えてから独り立ちする（会社発表）</small></td><td class="num">東京都内のコールセンター（池袋または新御徒町）。本社は渋谷区東1-26-20<small>勤務地は池袋または新御徒町のコールセンター（配属で決まる）。池袋は大手通信キャリアのネット総合窓口の受電で9:45〜20:00の間で実働8時間・1日20〜30件・残業は月2時間程度・駅から徒歩10分。新御徒町はデータ移行のサポートで10:00〜19:00の間で実働7時間（7時間勤務の1年目は月給22.5万円）（会社資料 2025年5月版）。</small><small>髪型・服装・ネイルは自由（会社資料 2025年5月版）。</small><small>携帯ショップの接客販売スタッフの求人もある（一都三県・自宅から1時間圏内の店舗・転勤なし・固定残業代30時間分を含む月給24万円〜）。</small><small>本社（渋谷）の営業事務の求人は土日祝休み・年間休日124日・月給25〜30万円（求人票）。</small><small>雇用形態は正社員（期間の定めなし）。学歴・職歴不問・未経験の入社が95%以上（会社発表）。</small></td><td class="num">月給24万円〜（固定残業代10時間分15,080円と手当15,000円を含む・超過分は別途支給）。会社資料の例では1年目24万円→2年目24.5万円→3年目25万円（毎年5,000円の昇給）。賞与は年2回（6月・12月）、インセンティブ・役職手当あり<small>年収 求人票の例では1年目の年収308万円（月給24万円＋賞与年2回）</small></td><td class="num">完全週休2日制（シフト制・9:30〜20:00の間で実働8時間）。求人票では年間休日114日。有給休暇取得率87%（会社発表）</td></tr>
+<tr><td class="co">株式会社RKDホールディングス<a class="deck-mini" href="https://rkd-inc.jp" target="_blank" rel="noopener" aria-label="株式会社RKDホールディングスのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1VyHhKq27MIouLjEX7Se-VrYwTogHqoLu/view" target="_blank" rel="noopener" aria-label="株式会社RKDホールディングスの資料（求人票（RKD・2026年8月27日出力））">求人票（RKD・2026年8月27日出力） →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1VlkErv8yMN1pAzBmlNHK0bLl5uraVeOw/view" target="_blank" rel="noopener" aria-label="株式会社RKDホールディングスの資料（会社説明スライド）">会社説明スライド →</a></td><td>光回線・新電力・ウォーターサーバーなどを電話でご案内・販売するコールセンター（架電中心・未経験歓迎）<small>研修とロールプレイング（商品知識・トーク・傾聴・コンプライアンス）。先輩がフォローしながら覚える</small></td><td class="num">東京都千代田区神田佐久間町（秋葉原駅 徒歩5分・AKIHABARA CENTRAL SQUARE 4階）<small>正社員（未経験歓迎）とアルバイトの募集がある。アルバイトから正社員への登用が多いと会社は書いている（期間は決まっていない）</small><small>学歴不問・資格不要</small></td><td class="num">基本給 月給23万円（22日勤務）。出勤日数・手当・インセンティブで上がる（25日勤務で26.36万円・美容手当 月1万円・土日手当 1日500円・目標達成やランキングの賞金あり）。賞与 年2回（7月・12月）</td><td class="num">シフト制・週休2日制（曜日選択可能）・年間休日105日以上・年末年始休暇・有給休暇。勤務 11:30〜20:30（実働8時間・休憩1時間）</td></tr>
+<tr><td class="co">7Reasons<a class="deck-mini" href="https://7reasons.co.jp/" target="_blank" rel="noopener" aria-label="7Reasonsのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1VY1yZfzaWokANkLYPthA-EXpO0sajyPe/view" target="_blank" rel="noopener" aria-label="7Reasonsの資料（会社説明スライド）">会社説明スライド →</a></td><td>採用アシスタント。自動車業界の会社の採用を代わりに回す仕事の中で、応募者へのメール・LINE の連絡、面接日程の調整、応募書類の管理、スプレッドシートへのデータ入力、求職者へのリマインド連絡を受け持つ</td><td class="num">東京都渋谷区・恵比寿駅から徒歩6分（リモート併用可・業務に慣れれば在宅勤務も可）<small>業務に慣れれば在宅勤務も可（リモート併用）</small><small>募集は1〜2名</small></td><td class="num">月20万〜40万円（業務委託の報酬）</td><td class="num">年間120日以上・原則土日祝休み・9:00〜18:00 がベース（相談可）</td></tr>
   </tbody>
 </table>
 </div>
 
 <h2>参考動画</h2>
 <ul class="videos">
-  <li><a href="https://drive.google.com/file/d/10okLIxTaAFpWF5kxgs7_5q2EnjcFFMl_/view" target="_blank" rel="noopener">会社説明動画（コクー 人財開発本部・会社作成）</a>
-    <span class="meta">コクーの会社の動画</span>
-    <span class="why"></span></li>
   <li><a href="https://convert.jobtv.mynavi.jp/rlink?uc=27s207261vod07" target="_blank" rel="noopener">配属先はどんなところ？（ミラエール・約3分）</a>
     <span class="meta">スタッフサービス ミラエール推進部の会社の動画</span>
     <span class="why"></span></li>
@@ -635,6 +551,24 @@ h1,h2,h3{word-break:auto-phrase}
     <span class="why"></span></li>
 </ul>
 
+</section>
+<section id="chosen" data-section="chosen" data-no-figure="応募先のカードそのものが一覧（比較の図はトップ）">
+<h2>応募する会社</h2>
+<div class="cards">
+  <article class="card">
+    <h3>スタッフサービス ミラエール推進部<span class="chosen">応募する会社</span></h3>
+    <p class="what">一般事務（人事・総務・経理・貿易・金融・英文事務・受付・データ入力など、案件により内容が変わる）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">270万〜330万円ほど</span><span class="aside">（地域別の月給・エリアにより異なる）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">土日祝・完全週休2日・</span><span class="main">年間休日125日</span><span class="aside">（祝日は配属先により異なる）・残業月10時間以下</span></dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>転勤なし・自宅から90分以内の配属先（東京・神奈川・埼玉・千葉・大阪・京都・滋賀・広島・愛知・兵庫）</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　休日を大事にしたい方に向いています。扱うお仕事の9割以上が土日休みで（休日は配属先で決まる）、職種未経験でも学生時代のアルバイト経験があれば応募でき、事務を中心に配属されます。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1XAZ921B0iEPCuQjJaIICeD2HsYOzrqCk/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料（求人票（ミラエール・No55199））">求人票（ミラエール・No55199） →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1o31QH1qaAuheG_WwoFBcrVvgKVDLC1iP/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料（会社の資料）">会社の資料 →</a></div>
+  </article>
+</div>
 </section>
 <section id="industry" data-section="industry" data-no-figure="資料へのリンクの一覧">
 <h2>業界の説明資料</h2>
@@ -649,7 +583,7 @@ h1,h2,h3{word-break:auto-phrase}
 </section>
 <section id="flow" data-section="flow" data-chapter="next">
 <h2>これからの進め方</h2>
-<figure class="fig fig-flow-w" data-figure="flow"><svg class="fig-flow" viewBox="0 0 400 136" role="img" aria-labelledby="fig-flow-t fig-flow-d" preserveAspectRatio="xMidYMid meet"><title id="fig-flow-t">これからの進め方</title><desc id="fig-flow-d">1. このページの会社と資料を見て、気になった会社をLINEで教えてください／2. 受ける会社を決めたら、書類を整えて応募します。面接の前には一緒に練習します</desc><defs><marker id="fl-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="fl-l" x1="20" y1="38" x2="20" y2="76" marker-end="url(#fl-ar)"/><circle class="fl-c" cx="20" cy="20" r="16"/><text class="fl-n" x="20" y="26" text-anchor="middle">1</text><text class="fl-t" x="46" y="26">このページの会社と資料を見て、気になっ</text><text class="fl-t" x="46" y="50">た会社をLINEで教えてください</text><circle class="fl-c" cx="20" cy="96" r="16"/><text class="fl-n" x="20" y="102" text-anchor="middle">2</text><text class="fl-t" x="46" y="102">受ける会社を決めたら、書類を整えて応募</text><text class="fl-t" x="46" y="126">します。面接の前には一緒に練習します</text></svg></figure>
+<figure class="fig fig-flow-w" data-figure="flow"><svg class="fig-flow" viewBox="0 0 400 160" role="img" aria-labelledby="fig-flow-t fig-flow-d" preserveAspectRatio="xMidYMid meet"><title id="fig-flow-t">これからの進め方</title><desc id="fig-flow-d">1. ミラエールにはすでに応募を進めています。結果が届いたらLINEでお知らせします／2. このページのほかの会社も、気になったところをLINEで教えてください。あわせて応募を進めます</desc><defs><marker id="fl-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="fl-l" x1="20" y1="38" x2="20" y2="76" marker-end="url(#fl-ar)"/><circle class="fl-c" cx="20" cy="20" r="16"/><text class="fl-n" x="20" y="26" text-anchor="middle">1</text><text class="fl-t" x="46" y="26">ミラエールにはすでに応募を進めています。</text><text class="fl-t" x="46" y="50">結果が届いたらLINEでお知らせします</text><circle class="fl-c" cx="20" cy="96" r="16"/><text class="fl-n" x="20" y="102" text-anchor="middle">2</text><text class="fl-t" x="46" y="102">このページのほかの会社も、気になったと</text><text class="fl-t" x="46" y="126">ころをLINEで教えてください。あわせて</text><text class="fl-t" x="46" y="150">応募を進めます</text></svg></figure>
 </section>
 </div>
 <footer>※条件は各社の求人票・会社資料（2026年11月18日（水）時点）に書かれている内容です。月給の幅は、これまでの経験と選考での評価で決まります。<br>※「会社のHP →」は各社の公式ホームページに、「会社の資料 →」は会社説明の資料（PDF・画像）につながります。</footer>
@@ -661,7 +595,7 @@ h1,h2,h3{word-break:auto-phrase}
   var cards = Array.prototype.slice.call(document.querySelectorAll(".cards.live > .card"));
   if (!cards.length) return;
   var pos = document.querySelector(".band-pos");
-  var NAMES = ["コクー", "スタッフサービス ミラエール推進部", "BREXA Communications", "リクルートスタッフィング キャリアウィンク事業部", "エイトビット", "綜合キャリアオプション", "株式会社RKDホールディングス", "7Reasons", "クロード"];
+  var NAMES = ["スタッフサービス ミラエール推進部", "マイナビワークス", "リクルートスタッフィング キャリアウィンク事業部"];
   function off() {
     var v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--band-offset"));
     return isNaN(v) ? 56 : v;
