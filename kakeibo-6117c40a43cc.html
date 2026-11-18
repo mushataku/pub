@@ -103,10 +103,10 @@ h1,h2,h3{word-break:auto-phrase}
 </div>
 <script>
 const CATS={
-  out:[["食費","🍙"],["日用品","🧻"],["交通","🚃"],["住まい","🏠"],["水道光熱","💡"],["通信","📱"],["趣味・交際","🎉"],["医療","💊"],["その他","📦"]],
+  out:[["食費","🍙"],["日用品","🧻"],["交通","🚃"],["タクシー経費","🚕"],["住まい","🏠"],["水道光熱","💡"],["通信","📱"],["趣味・交際","🎉"],["医療","💊"],["その他","📦"]],
   in:[["給料","💼"],["副業","🧑‍💻"],["お小遣い","🎁"],["その他","📦"]]
 };
-const KEY="kakeibo-demo-v1";
+const KEY="kakeibo-demo-v2";
 let data=[];
 try{data=JSON.parse(localStorage.getItem(KEY)||"null")||null}catch(e){data=null}
 const today=new Date();
@@ -121,7 +121,8 @@ if(!data){ // 見本データ
     {t:"out",c:"通信",a:4980,d:`${y}-${m}-05`,m:"スマホ代"},
     {t:"out",c:"趣味・交際",a:6000,d:`${y}-${m}-08`,m:"友だちとごはん"},
     {t:"out",c:"交通",a:1500,d:`${y}-${m}-10`,m:"ICカードチャージ"},
-    {t:"out",c:"食費",a:980,d:`${y}-${m}-12`,m:"コンビニ"}
+    {t:"out",c:"食費",a:980,d:`${y}-${m}-12`,m:"コンビニ"},
+    {t:"out",c:"タクシー経費",a:2340,d:`${y}-${m}-14`,m:"駅→取引先"}
   ].map((x,i)=>({...x,id:Date.now()+i}));
 }
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}};
