@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>reCAPTCHA の箱: Linux の名乗りの残る違いを揃えた（前・本物の Ubuntu・後）</title>
+<style>
+body{font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;margin:0;color:#222;line-height:1.7;font-size:16px}
+header{position:sticky;top:0;background:#fff;border-bottom:1px solid #ccc;padding:6px 16px;z-index:5}
+header .t{font-weight:bold;font-size:15px}
+header .s{font-size:13px;color:#555}
+main{max-width:1080px;margin:0 auto;padding:8px 16px 48px}
+h2{border-left:5px solid #2a6;padding-left:8px;margin-top:32px}
+.tw{overflow-x:auto;max-width:100%}
+code{word-break:break-all}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{border:1px solid #ccc;padding:4px 6px;vertical-align:top}
+th{background:#f3f3f3}
+td.ok{background:#eef8ee}
+td.ng{background:#fdeaea}
+td.same{background:#fff7e0}
+.note{font-size:14px;color:#444}
+.cap{font-size:13px;color:#555;margin-top:4px}
+@media (max-width:640px){table{font-size:12px}th,td{padding:2px 3px}}
+
+h1,h2,h3{word-break:auto-phrase}
+</style>
+</head>
+<body>
+<header>
+<div class="t">reCAPTCHA の箱: Linux の名乗りの残る違いを揃えた（2026-11-18 23:35〜11-19 00:01 JST に実験用の Job で測定）</div>
+<div class="s" id="cur">いまの節: 結論</div>
+</header>
+<main>
+
+<h2 id="s1" data-n="結論">結論</h2>
+<p>クラウドの箱の Chrome を「普通の日本語の Linux の PC」に見せる共通の口（<code>own_chrome.launch(persona="linux_cloud")</code>）に、窓の管理役・パネル・音の装置（出口と入口）・コア数の絞りを入れました。揃えた後に残る印は「Windows のフォントが無い（MS PGothic が在ると出る）」の1つだけです。<b>これは本物の日本語の Ubuntu でも同じに出る</b>ので、本物との違いはこの表の範囲で無くなりました。</p>
+<p class="note">本番の Job（<code>bot-lab-recaptcha-cloud</code>）にはまだ載せていません。10:00 の撃ちが今の image で走るため、着地と本番での確かめ・日次の線は 11-19 12:00 の予約に回しました。</p>
+
+<h2 id="s2" data-n="図">図: 食い違いの印の数（headed+linux の腕・本物の列は日本語の Ubuntu 24.04）</h2>
+<svg viewBox="0 0 640 230" width="100%" style="max-width:640px" role="img" aria-label="印の数の棒グラフ">
+<line x1="60" y1="190" x2="620" y2="190" stroke="#333"/>
+<line x1="60" y1="20" x2="60" y2="190" stroke="#333"/>
+<text x="10" y="110" font-size="12" transform="rotate(-90 20 110)">印の数（行）</text>
+<g font-size="12">
+<text x="52" y="194" text-anchor="end">0</text><text x="52" y="152" text-anchor="end">1</text><text x="52" y="110" text-anchor="end">2</text><text x="52" y="68" text-anchor="end">3</text><text x="52" y="26" text-anchor="end">4</text>
+</g>
+<rect x="100" y="22" width="110" height="168" fill="#d55"/><text x="155" y="16" text-anchor="middle" font-size="13">4</text>
+<text x="155" y="208" text-anchor="middle" font-size="13">揃える前</text><text x="155" y="224" text-anchor="middle" font-size="11">実行 cwh4n</text>
+<rect x="265" y="106" width="110" height="84" fill="#e9b949"/><text x="320" y="100" text-anchor="middle" font-size="13">2</text>
+<text x="320" y="208" text-anchor="middle" font-size="13">本物の Ubuntu</text><text x="320" y="224" text-anchor="middle" font-size="11">実行 2xdts</text>
+<rect x="430" y="148" width="110" height="42" fill="#5a5"/><text x="485" y="142" text-anchor="middle" font-size="13">1</text>
+<text x="485" y="208" text-anchor="middle" font-size="13">揃えた後</text><text x="485" y="224" text-anchor="middle" font-size="11">実行 tjq5h</text>
+</svg>
+<p class="cap">縦軸＝名乗りの表で「普通の日本語の Linux の PC と違う」印が付いた行の数（全25行のうち）。n＝各1回の読み（値は決定的＝同じ箱なら毎回同じ）。本物の列の2は「MS PGothic が在ると出る」と「装置が出口1だけ」（この回は口の音の入口の設定が読めなかった＝後の列で直した）で、前者は後の列の1と同じ行です。本物の列は、デスクトップの行（作業領域・装置・コア数）は名乗りの口が起こしたものを読んでいるので、本物の観測として使えるのはフォントの行だけです（表の注）。</p>
+
+<h2 id="s3" data-n="表">表: 名乗りの表（headed+linux の腕・前・本物・後）</h2>
+<p class="note">測定: 2026-11-18 23:35〜11-19 00:01 JST・Cloud Run Job（2 vCPU・4GiB・asia-northeast1）・的は自陣の公開ミラー（鍵 fresh2）。行は <code>measure/recaptcha_persona_probe.py</code>。緑＝普通の PC の値・赤＝違う・黄＝違う印だが本物でも同じ。</p>
+<div class="tw"><table>
+<tr><th>行</th><th>揃える前（今の本番の image）</th><th>本物の日本語の Ubuntu</th><th>揃えた後</th></tr>
+<tr><td>言語・時刻帯・Intl</td><td class="ok">ja-JP・Asia/Tokyo</td><td class="ok">ja-JP・Asia/Tokyo</td><td class="ok">ja-JP・Asia/Tokyo</td></tr>
+<tr><td>デスクトップのフォントの組</td><td class="ok">Noto CJK JP・DejaVu・Liberation ほか9</td><td class="ok">同じ9</td><td class="ok">同じ9</td></tr>
+<tr><td>Windows のフォントが無い</td><td class="same">MS PGothic が在る</td><td class="same">MS PGothic が在る（素の Ubuntu も）</td><td class="same">MS PGothic が在る</td></tr>
+<tr><td>作業領域（パネルの分 avail が画面より小さい）</td><td class="ng">1920×1080＝画面と同じ</td><td class="ok">1920×1050</td><td class="ok">1920×1050</td></tr>
+<tr><td>窓の枠（外寸が作業領域に収まる）</td><td class="ok">外 1919×1079・中 1919×991</td><td class="ok">外 1920×1050・中 1920×962</td><td class="ok">外 1920×1050・中 1920×962</td></tr>
+<tr><td>音と映像の装置（enumerateDevices）</td><td class="ng">何も無い</td><td class="ng">出口1だけ（入口の module が読めなかった回）</td><td class="ok">入口1・出口1</td></tr>
+<tr><td>コア数（hardwareConcurrency）</td><td class="ng">5</td><td class="ok">4</td><td class="ok">4</td></tr>
+<tr><td>deviceMemory</td><td class="ok">4</td><td class="ok">4</td><td class="ok">4</td></tr>
+<tr><td>色深度・音の出口（AudioContext）</td><td class="ok">24・2ch 44100Hz</td><td class="ok">同じ</td><td class="ok">同じ</td></tr>
+<tr><td>PDF・通知・許可の問い合わせ</td><td class="ok">true・default・prompt</td><td class="ok">同じ</td><td class="ok">同じ</td></tr>
+<tr><td>読み上げの声の数（参考）</td><td>19</td><td>19</td><td>19</td></tr>
+<tr><td>UA・platform・WebGL（偽らない）</td><td class="ok">Linux・SwiftShader</td><td class="ok">同じ</td><td class="ok">同じ</td></tr>
+</table></div>
+<p class="cap">注: 「本物の Ubuntu」は Ubuntu 24.04 に日本語のデスクトップの組（fonts-noto-cjk・fonts-dejavu・fonts-liberation・fonts-noto-color-emoji・fonts-ubuntu・language-pack-ja）だけを入れ、/etc/fonts/conf.d を既定のままにした箱です。名乗りの口を通さない headed の腕でも MS PGothic は在ると出ました（Noto CJK の別名の設定がこの名前を引き受けるため）。</p>
+
+<h2 id="s4" data-n="口の中身">口の中身（呼び手は名前だけを渡す）</h2>
+<div class="tw"><table>
+<tr><th>揃えるもの</th><th>口の中でやること</th><th>止め方</th></tr>
+<tr><td>窓の管理役・パネル</td><td>openbox と tint2 を起こし、Chrome を最大化で出す</td><td>最後の Chrome が止まるときに口が止める</td></tr>
+<tr><td>音の出口と入口</td><td>pulseaudio の null sink と null source・Chrome に PULSE_SERVER を渡す</td><td>同上</td></tr>
+<tr><td>コア数</td><td>見えるコア 5 を普通の数 4 へ絞る（Chrome だけ・Job の大きさは今と同じ）</td><td>Chrome が終われば消える</td></tr>
+<tr><td>フォント</td><td>今までどおり（本物の Ubuntu と同じ組）</td><td>—</td></tr>
+<tr><td>Job の CPU・メモリ</td><td>名乗りの定義の1か所が持ち、create_job.sh が読む</td><td>—</td></tr>
+</table></div>
+<p class="note">名指ししない launch（チケット・LinksMate・今までの腕）は何も起こさず今までどおりです（試験で確認）。</p>
+
+<h2 id="s5" data-n="次">次（予約済み）</h2>
+<p>11-19 12:00 の予約が、10:00 の回の報告書の着地を確かめてから、着地・本番の Job での同じ表の読み・育てたプロファイルの日次の線（1日1回 8回・JST の時の列つき・PC が寝ていた日は「撃たなかった」の行）を回します。</p>
+</main>
+<script>
+(function(){var hs=[].slice.call(document.querySelectorAll('h2[data-n]')),cur=document.getElementById('cur');
+function upd(){var n=hs[0].dataset.n;for(var i=0;i<hs.length;i++){if(hs[i].getBoundingClientRect().top<80)n=hs[i].dataset.n;}cur.textContent='いまの節: '+n;}
+window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();})();
+</script>
+</body>
+</html>
