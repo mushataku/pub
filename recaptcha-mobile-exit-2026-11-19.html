@@ -1,0 +1,49 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>reCAPTCHA GCP→携帯の出口</title>
+<style>:root{--bg:#fff;--fg:#111827;--mute:#4b5563;--line:#d1d5db;--bar:#2563eb;--hi:#dc2626}@media (prefers-color-scheme:dark){:root{--bg:#111827;--fg:#f3f4f6;--mute:#9ca3af;--line:#374151;--bar:#60a5fa;--hi:#f87171}}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Yu Gothic","Noto Sans CJK JP",sans-serif;line-height:1.75;font-feature-settings:"palt"}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 16px;font-size:.85rem;z-index:2}header a{margin-right:12px;color:var(--fg)}
+main{max-width:900px;margin:0 auto;padding:20px 16px 48px}h1{font-size:1.4rem}h2{font-size:1.1rem;margin-top:1.8em;scroll-margin-top:48px}
+table{border-collapse:collapse;width:100%;font-size:.88rem}th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}.mute{color:var(--mute);font-size:.85rem}.scroll{overflow-x:auto}code{font-size:.85em}
+h1,h2,h3{word-break:auto-phrase}
+</style></head><body>
+<header><b>reCAPTCHA GCP→携帯</b>　<a href="#r">要点</a><a href="#t">表</a><a href="#f">図</a><a href="#d">差</a><a href="#c">通信量・戻し</a></header><main>
+<h1>reCAPTCHA の即時通過: クラウドの Job の出口を黒7a の携帯回線にした（n=16）</h1>
+<p class="mute">撃った時刻: 11-19 15:08 JST 開始（run_id <code>20261119-150859-d24127</code>・Job 実行 <code>bot-lab-recaptcha-cloud-zl27t</code>）。的＝自陣の公開ミラー・鍵＝捨て垢 fresh2・腕 headed+linux・n=16 を撃つ前に固定（撃ち足しなし・blocked と error は失敗に数えた＝今回は両方 0）。</p>
+<h2 id="r">要点</h2>
+<p>GCP→携帯（PLAIO・AS4686）の即時通過は <b>7/16 = 0.44（95% 区間 0.23〜0.67）</b>、音声の後まで含めたトークンは 14/16 = 0.88（0.64〜0.97）。GCP 直（0/16）より +0.44（+0.15〜+0.67）上がるが、家の回線を出口にした 13/16 には −0.38（−0.61〜−0.04）届かない。「出口を自前の携帯回線にすれば上がる」は半分当たり: 上がるが、家の回線ほどではない。</p>
+<h2 id="t">表 出口ごとの即時通過とトークン（Wilson 95%）</h2>
+<div class="scroll"><table><thead><tr><th>出口（的＝公開）</th><th>即時通過</th><th>トークン（音声込み）</th><th>出どころ</th></tr></thead><tbody>
+<tr><td>PC 家回線（素）</td><td>15/16 = 0.94（0.72〜0.99）</td><td>16/16（0.81〜1.00）</td><td>11-19 08:10 の PC×素</td></tr>
+<tr><td>GCP 直</td><td>0/16 = 0.00（0.00〜0.19）</td><td>15/16（0.72〜0.99）</td><td>11-18 前段</td></tr>
+<tr><td>GCP→住宅IP 固定</td><td>0/21 = 0.00（0.00〜0.15）</td><td>21/21（0.85〜1.00）</td><td>11-19 07:06</td></tr>
+<tr><td>GCP→家（PC の exit node）</td><td>13/16 = 0.81（0.57〜0.93）</td><td>16/16（0.81〜1.00）</td><td>11-18 段A</td></tr>
+<tr><td><b>GCP→携帯（今回）</b></td><td><b>7/16 = 0.44（0.23〜0.67）</b></td><td>14/16 = 0.88（0.64〜0.97）</td><td>11-19 15:08</td></tr></tbody></table></div>
+<p class="mute">住宅IP の替え（3/16・1/16）の行は別の票の集計で、出口を毎回替えた回＝固定の出口とは別の問い。ここでは並べていない。携帯の2件の落ちは audio_unavailable 1・verify_failed 1。</p>
+<h2 id="f">図 即時通過率（点＝率・線＝Wilson 95%）</h2>
+<svg viewBox="0 0 640 230" role="img" aria-label="出口ごとの即時通過率" style="width:100%;height:auto;font-size:12px">
+<g fill="currentColor"><text x="150" y="214" text-anchor="end">0</text><text x="355" y="214" text-anchor="middle">0.5</text><text x="560" y="214" text-anchor="middle">1.0</text></g>
+<line x1="160" x2="560" y1="196" y2="196" stroke="#9ca3af"/><line x1="360" x2="360" y1="12" y2="196" stroke="#9ca3af" stroke-dasharray="3"/>
+
+<g font-size="12" fill="currentColor">
+<text x="8" y="34">GCP 直 0/16</text><text x="8" y="74">GCP→住宅IP 0/21</text><text x="8" y="114" fill="var(--hi)">GCP→携帯 7/16</text><text x="8" y="154">GCP→家 13/16</text><text x="8" y="188">PC 家回線 15/16</text></g>
+<!-- x = 160 + 400*v -->
+<g stroke-width="4">
+<line x1="160" x2="236" y1="30" y2="30" stroke="var(--bar)"/><circle cx="160" cy="30" r="5" fill="var(--bar)"/>
+<line x1="160" x2="220" y1="70" y2="70" stroke="var(--bar)"/><circle cx="160" cy="70" r="5" fill="var(--bar)"/>
+<line x1="252" x2="428" y1="110" y2="110" stroke="var(--hi)"/><circle cx="335" cy="110" r="6" fill="var(--hi)"/>
+<line x1="388" x2="532" y1="150" y2="150" stroke="var(--bar)"/><circle cx="484" cy="150" r="5" fill="var(--bar)"/>
+<line x1="448" x2="556" y1="184" y2="184" stroke="var(--bar)"/><circle cx="535" cy="184" r="5" fill="var(--bar)"/></g></svg>
+<p class="mute">GCP 直と住宅IP 固定は 0 のまま、携帯で半分近くまで上がり、家の回線で 0.8〜0.9。区間は携帯と家で一部重なる（差は −0.04 まで）が、点の並びは携帯 &lt; 家 &lt; PC。</p>
+<h2 id="d">差（Newcombe 95%）と検出できる最小の差</h2>
+<div class="scroll"><table><thead><tr><th>比較（即時通過）</th><th>差（95% 区間）</th></tr></thead><tbody>
+<tr><td>GCP→携帯 − GCP 直</td><td>+0.44（+0.15〜+0.67）</td></tr>
+<tr><td>GCP→携帯 − GCP→家</td><td>−0.38（−0.61〜−0.04）</td></tr>
+<tr><td>GCP→携帯 − PC 家回線</td><td>−0.50（−0.71〜−0.18）</td></tr>
+<tr><td>トークン GCP→携帯 − GCP 直</td><td>−0.06（−0.30〜+0.18）</td></tr></tbody></table></div>
+<p class="mute">検出力 0.8 で 1 マス 16 本が見分けられる最小の差は約 ±0.50。結論は区間で読む。</p>
+<h2 id="c">通信量・撃つ前の門・戻した確認</h2>
+<ul><li>撃つ前の門: ok（端末で Wi-Fi を切って読んだ IP の sha256 先頭8桁 <code>c93208a8</code> と Job が exit node 越しに読んだ IP が一致・出口の ASN は AS4686 BEKKOAME INTERNET）。IP の全桁は残していない。WebRTC の漏れなし（候補は mDNS の host 2 つ）。</li>
+<li>黒7a の通信量（モバイル rmnet1・撃つ前→後）: 受信 1,093,909,634→1,129,732,409（+35.8MB）・送信 128,619,382→164,263,236（+35.6MB）＝1 試行あたり約 2.2MB ずつ。Job が数えた総量は 55.9MB。電池 100%（給電中）・温度 29.6→29.2℃。</li>
+<li>戻した: routes の承認を空に（advertisedRoutes は端末のアプリ側の設定で元から入っていた）・Wi-Fi を戻した（wifi_on=1・192.168.30.x）・Job の env は <code>RECAPTCHA_MIRROR_KEY</code>・<code>RECAPTCHA_MIRROR_SITE_KEY</code> の2つだけ・端末の鍵（device_mutex）を放した。</li></ul>
+</main></body></html>
