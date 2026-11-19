@@ -1,0 +1,11 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>h1,h2,h3,p,td,th{word-break:auto-phrase;line-break:strict}</style><title>reCAPTCHA PC×住宅IP 2×2（2026-11-19）</title></head>
+<body style="font-family:sans-serif;max-width:760px;margin:2em auto"><h1>reCAPTCHA: ブラウザの環境 × IP の 2×2（2026-11-19）</h1>
+<p>結論: 即通過を決めているのは <b>IP</b>。PC(Windows)でも住宅IPに出すと即通過は 0/16、素の家回線なら 15/16。クラウド(Linux)の 0/22 はブラウザ環境の差ではなく IP の差と読める。</p>
+<h2>即通過（チャレンジなしでトークン）</h2><div style="margin:6px 0">クラウド(Linux) × 素のGCP<div style="background:#ddd;width:400px"><div style="background:#2a7;width:0px;height:18px"></div></div>0/22</div><div style="margin:6px 0">クラウド(Linux) × 住宅IP J:COM系 @resi<div style="background:#ddd;width:400px"><div style="background:#2a7;width:0px;height:18px"></div></div>0/22</div><div style="margin:6px 0">PC(Windows) × 素の家回線<div style="background:#ddd;width:400px"><div style="background:#2a7;width:375px;height:18px"></div></div>15/16</div><div style="margin:6px 0">PC(Windows) × 住宅IP @resi<div style="background:#ddd;width:400px"><div style="background:#2a7;width:0px;height:18px"></div></div>0/16</div>
+<table border=1 cellpadding=6 style="border-collapse:collapse"><tr><th>ブラウザ</th><th>IP</th><th>即通過</th><th>率（Wilson95%）</th><th>最終トークン</th></tr><tr><td>クラウド(Linux)</td><td>素のGCP</td><td>0/22</td><td>0% (0–15%)</td><td>21/22</td></tr>
+<tr><td>クラウド(Linux)</td><td>住宅IP J:COM系 @resi</td><td>0/22</td><td>0% (0–15%)</td><td>21/22</td></tr>
+<tr><td>PC(Windows)</td><td>素の家回線</td><td>15/16</td><td>94% (72–99%)</td><td>16/16</td></tr>
+<tr><td>PC(Windows)</td><td>住宅IP @resi</td><td>0/16</td><td>0% (0–19%)</td><td>15/16</td></tr>
+</table>
+<p>図の読み方: 横棒＝即通過の割合（右ほどチャレンジなし）。的＝自陣の公開ミラー・鍵 fresh2・n=16/22・同じ日の 07:05（クラウド）と 08:13（PC）。PC の住宅IPは NTT DOCOMO BUSINESS（AS4713・国 JP）、素の家回線は AS2514。</p>
+<p>注意: クラウドと PC は別の時刻の走り（約1時間差）。住宅IPの業者出口は走りごとに別の IP（クラウド側は J:COM 系・PC 側は DOCOMO 系）で、「住宅IP」1種類の結論ではない。</p></body></html>
