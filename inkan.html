@@ -56,61 +56,72 @@ button:focus-visible,.btn:focus-within,label.btn:focus-within{outline:3px solid 
 #result{margin-top:14px;border-top:2px solid #0066cc;padding-top:12px}
 #resultCanvas{display:block;max-width:100%;border:1px solid #d1d5db;border-radius:8px;background:#fff}
 .hint{font-size:14px;color:#4b5563}
+#lineManual{margin-top:6px;color:#7c2d12}
+#docView canvas{display:block;width:100%;height:auto;border:1px solid #d1d5db;border-radius:8px;background:#fff;margin-top:8px}
+#docView .pageCap{font-size:14px;color:#4b5563;margin-top:10px}
 </style>
 </head>
 <body>
 <div class="wrap">
-<h1>重要事項説明書に<br>署名と印鑑を入れます</h1>
-<p class="lead">お名前（指で手書き）と電子印鑑を、お手元のPDFに入れて、できあがったPDFをLINEで送れます。</p>
+<h1>重要事項説明書に<br>お名前と印鑑を入れます</h1>
+<p class="lead" id="lead">お手元の重要事項説明書のPDFに、お名前（姓と名を入力すると明朝体で印字されます）と電子印鑑を入れて、できあがったPDFをLINEで送れます。</p>
 <p class="privacy" id="privacy">🔒 ファイルはこの端末の中だけで処理され、どこにも送られません。</p>
 <div id="lineBanner" class="banner" hidden>
   <strong>LINEの中で開いています。</strong>PDFの保存や共有がうまくいかないことがあります。
   下のボタンから「ブラウザ（Safari・Chrome）」で開き直してください。<br>
   <a id="lineOpenLink" href="#" target="_blank" rel="noopener">ブラウザで開き直す</a>
+  <div class="hint" id="lineManual">開き直せないとき：iPhoneは右下のメニュー →「Safariで開く」、Androidは右上の︙ →「他のアプリで開く」を押してください。</div>
 </div>
 <div id="fatal" class="banner err" role="alert" hidden></div>
 <noscript><div class="banner err">このページはJavaScriptを使います。ブラウザの設定でJavaScriptを有効にしてください。</div></noscript>
 
 <section class="card" id="s1">
-  <h2><span class="n">1</span>姓を入れる</h2>
-  <label for="surname">印鑑に入れる姓（1〜4文字・空白なし）</label>
+  <h2><span class="n">1</span>書面の中身を確かめる</h2>
+  <div id="pdfPick">
+    <p style="margin:0 0 10px">お手元の「重要事項説明書」のPDFを、先に端末へ保存してから選んでください。</p>
+    <label class="btn" for="pdfFile" id="pdfBtn">PDFを選ぶ</label>
+    <input id="pdfFile" class="sr" type="file" accept="application/pdf,.pdf">
+  </div>
+  <p id="prefilledNote" style="margin:0 0 10px" hidden>担当者が、あなたの重要事項説明書をここに入れてあります。下で中身を確かめてください。</p>
+  <div id="pdfMsg" class="msg" aria-live="polite"></div>
+  <div id="docView" hidden></div>
+</section>
+
+<section class="card" id="s2">
+  <h2><span class="n">2</span>お名前（姓と名）を入れる</h2>
+  <label for="surname">姓（印鑑にも使います・1〜4文字・空白なし）</label>
   <input id="surname" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="例：山田" aria-describedby="nameMsg">
+  <label for="givenName" style="margin-top:10px" id="givenLabel">名（空白なし）</label>
+  <input id="givenName" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="例：太郎" aria-describedby="givenMsg">
+  <div id="givenMsg" class="msg" aria-live="polite"></div>
   <div class="sealRow">
     <canvas id="sealPreview" width="600" height="600" aria-label="印鑑のプレビュー" role="img"></canvas>
     <div id="nameMsg" class="msg" aria-live="polite">姓を入れると、ここに印鑑が出ます。</div>
   </div>
-</section>
-
-<section class="card" id="s2">
-  <h2><span class="n">2</span>PDFを選ぶ</h2>
-  <p style="margin:0 0 10px">お手元の「重要事項説明書」のPDFを、先に端末へ保存してから選んでください。</p>
-  <label class="btn" for="pdfFile" id="pdfBtn">PDFを選ぶ</label>
-  <input id="pdfFile" class="sr" type="file" accept="application/pdf,.pdf">
-  <div id="pdfMsg" class="msg" aria-live="polite"></div>
-</section>
-
-<section class="card" id="s3">
-  <h2><span class="n">3</span>お名前を指で書く</h2>
-  <label class="chk" for="skipSig"><input type="checkbox" id="skipSig">署名はもう入っている（印鑑だけ押す）</label>
-  <div id="sigBox">
-    <canvas id="sigPad" aria-label="お名前を書く枠"></canvas>
+  <label class="chk" for="skipSig" style="margin-top:12px"><input type="checkbox" id="skipSig">お名前はもう入っている（印鑑だけ押す）</label>
+  <div class="row" id="sigModeRow">
+    <button id="sigModeHand" type="button" class="btn2" aria-pressed="false">手書きにしたい人はこちら</button>
+  </div>
+  <div id="sigBox" hidden>
+    <p class="hint" style="margin:8px 0">枠の中に、指でフルネーム（姓と名）を書いてください。</p>
+    <canvas id="sigPad" aria-label="フルネームを手書きする枠"></canvas>
     <div class="row">
       <button id="sigUndo" type="button" class="btn2">ひとつ戻す</button>
       <button id="sigClear" type="button" class="btn2">書き直す</button>
     </div>
-    <div id="sigMsg" class="msg" aria-live="polite">枠の中に、指でお名前を書いてください。</div>
   </div>
+  <div id="sigMsg" class="msg" aria-live="polite"></div>
 </section>
 
-<section class="card" id="s4">
-  <h2><span class="n">4</span>位置を確かめる</h2>
-  <div id="placeHint" class="msg" aria-live="polite">PDFを選ぶと、ここに署名と印鑑の位置が出ます。</div>
+<section class="card" id="s3">
+  <h2><span class="n">3</span>お名前と印鑑の位置を確かめる</h2>
+  <div id="placeHint" class="msg" aria-live="polite">PDFを読み込むと、ここにお名前と印鑑の位置が出ます。</div>
   <div id="previewBox" hidden>
     <div class="seg" role="group" aria-label="動かすもの">
       <button id="targetSeal" type="button" aria-pressed="true">印鑑を動かす</button>
-      <button id="targetSig" type="button" aria-pressed="false">署名を動かす</button>
+      <button id="targetSig" type="button" aria-pressed="false">お名前を動かす</button>
     </div>
-    <div id="previewWrap"><canvas id="preview" tabindex="0" aria-label="署名と印鑑の位置の確認"></canvas></div>
+    <div id="previewWrap"><canvas id="preview" tabindex="0" aria-label="お名前と印鑑の位置の確認"></canvas></div>
     <div class="hint">指でなぞると位置がずれます。タップした場所にも置けます。</div>
     <div class="nudge" role="group" aria-label="少しずつ動かす">
       <button id="nudgeL" type="button" aria-label="左へ">◀</button>
@@ -131,13 +142,13 @@ button:focus-visible,.btn:focus-within,label.btn:focus-within{outline:3px solid 
   </div>
 </section>
 
-<section class="card" id="s5">
-  <h2><span class="n">5</span>PDFを作って送る</h2>
+<section class="card" id="s4">
+  <h2><span class="n">4</span>PDFを作ってLINEで送る</h2>
   <div id="buildHint" class="msg" aria-live="polite"></div>
   <button id="buildBtn" class="primary" type="button" disabled>この内容で作る</button>
   <div id="buildMsg" class="msg" aria-live="polite"></div>
   <div id="result" hidden>
-    <p style="margin:0 0 8px;font-weight:700">PDFができました。印鑑と署名の位置を確かめてください。</p>
+    <p style="margin:0 0 8px;font-weight:700">PDFができました。印鑑とお名前の位置を確かめてください。</p>
     <canvas id="resultCanvas" aria-label="できあがりの確認"></canvas>
     <div class="row">
       <button id="shareBtn" type="button" class="primary">LINEなどで送る（共有）</button>
@@ -151,6 +162,9 @@ button:focus-visible,.btn:focus-within,label.btn:focus-within{outline:3px solid 
 </section>
 </div>
 
+<!-- 読み込み済みの書面の口: scripts/inkan_prefilled_tab.py が、本人専用ページのタブを作るときだけ中身（PDF の base64）を入れる。
+     pub の単独ページ（このファイルそのまま）は空＝本人が「PDFを選ぶ」から選ぶ。type が JS でないので実行されない（読むのは下の JS だけ）。 -->
+<script type="application/octet-stream" id="prefilledPdf"></script>
 <script src="inkan-vendor/pdf-lib-1.17.1.min.js" integrity="sha512-z8IYLHO8bTgFqj+yrPyIJnzBDf7DDhWwiEsk4sY+Oe6J2M+WQequeGS7qioI5vT6rXgVRb4K1UVQC5ER7MKzKQ=="></script>
 <script src="inkan-vendor/pdf-3.11.174.min.js" integrity="sha512-q+4liFwdPC/bNdhUpZx6aXDx/h77yEQtn4I1slHydcbZK34nLaR3cAeYSJshoxIOq3mjEf7xJE8YWIUHMn+oCQ=="></script>
 <script>
@@ -163,6 +177,11 @@ var OUT_NAME = '重要事項説明書_署名押印済み.pdf';
 var SEAL_FONT = '"UD Digi Kyokasho N-B","UDデジタル教科書体 NK-B","Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif CJK JP","Noto Serif JP","MS Mincho",serif';
 var PEN = 0.012;            // 署名の線の太さ（パッドの幅に対する比）
 var SIG_W = 1200;           // 署名を書き出すときの基準幅(px)
+var NAME_FONT = '"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif CJK JP","Noto Serif JP","IPAexMincho","MS Mincho",serif';   // 記名（打ち込んだお名前の印字）は明朝体
+var NAME_PX = 160;          // 記名を描く字の大きさ(px)。切り出してから置くので、PDF 上の大きさとは別
+var PREFILLED_NAME = '重要事項説明書';   // 読み込み済みの書面の表示名（元のファイル名は持たない＝本人の名前が入りうる）
+// 読み込み済みの書面（本人専用ページのタブ）。中身があればこの画面は「選ぶ」を出さない
+var PRE_B64 = (function () { var el = document.getElementById('prefilledPdf'); return el ? (el.textContent || '').replace(/\s+/g, '') : ''; })();
 
 function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
 function setMsg(el, text, kind) { el.textContent = text || ''; el.className = 'msg' + (kind ? ' ' + kind : ''); }
@@ -175,7 +194,10 @@ window.addEventListener('unhandledrejection', function (e) { fatal('予期しな
 // gen は openDoc を呼んだときの S.loadToken。古い書面の遅れた失敗は、いま選んでいる書面の画面に出さない。
 // res は「できあがりの確認画面の描き直し」から呼ばれたときだけ入る（そのときの S.result）。読み込みと出し先が違う（下の resultCmapFailed）。
 // 次の手は3か所（#fatal・作成ボタン上の案内・位置の案内）で同じ文にする（食い違わせない）。
-var CMAP_NEXT = 'もう一度PDFを選んでください。直らないときは、ページを開き直してください。それでも直らないときは、印刷して押印してください。';
+var CMAP_NEXT = PRE_B64 ? 'ページを開き直してください。直らないときは、担当者に連絡するか、印刷して押印してください。'
+  : 'もう一度PDFを選んでください。直らないときは、ページを開き直してください。それでも直らないときは、印刷して押印してください。';
+// 書面を開けなかったときの次の手（読み込み済みのタブには選ぶボタンが無い＝担当者へ）
+var PICK_NEXT = PRE_B64 ? '担当者に連絡するか、印刷して押印してください。' : '別のPDFを選ぶか、印刷して押印してください。';
 function cmapFailed(gen, name, why, res) {
   if (gen !== S.loadToken) return;
   if (res) { resultCmapFailed(res, name, why); return; }
@@ -268,11 +290,11 @@ if (/\bLine\//i.test(navigator.userAgent)) {
 
 // ---- 状態 ----
 var S = {
-  name: null, sealCanvas: null,
+  name: null, sealCanvas: null, given: null, sigMode: 'typed', prefilled: !!PRE_B64,
   pdfBytes: null, pdfDoc: null, fileName: '', numPages: 0, loadToken: 0, pageToken: 0, cmapFail: null,
   pageIndex: 0, vp: null, pageW: 0, pageH: 0, rotate: 0,
   base: null, baseSX: 1, baseSY: 1, fields: null, mode: 'none',
-  strokes: [], sig: { has: false, canvas: null, png: null, w: 0, h: 0 },
+  strokes: [], sig: { has: false, canvas: null, png: null, w: 0, h: 0, typed: false, text: '' },
   skipSig: false, place: { sig: null, seal: null }, target: 'seal',
   building: false, result: null, ver: 0, composing: false, sigToken: 0
 };
@@ -297,6 +319,50 @@ function validateSurname(raw) {
   if (Array.from(s).length > 4) return { ok: false, msg: '印鑑に入るのは4文字までです。姓だけを入れてください（例：山田）。' };
   return { ok: true, name: s };
 }
+
+// 名（記名押印の「名」。姓は上の欄＝印鑑と共通で1回だけ入れる）
+function validateGiven(raw) {
+  var s = raw.replace(/^[\s　]+|[\s　]+$/g, '');
+  if (!s) return { ok: false, empty: true, msg: '' };
+  if (/[\s　]/.test(s)) return { ok: false, msg: '空白は入れず、名だけを入れてください（例：太郎）。' };
+  if (Array.from(s).length > 10) return { ok: false, msg: '名は10文字までです。名だけを入れてください（例：太郎）。' };
+  return { ok: true, name: s };
+}
+function fullName() { return S.name && S.given ? S.name + '　' + S.given : ''; }
+// 打ち込んだお名前を明朝体で描き、インクの範囲だけを切り出した透明背景の画像にする（手書きの署名と同じ形＝同じ配置・同じ出力の道を通る）
+function drawTypedName(text) {
+  var g0 = document.createElement('canvas').getContext('2d');
+  g0.font = NAME_PX + 'px ' + NAME_FONT;
+  var m = g0.measureText(text), padPx = 8;
+  var l = Math.ceil(m.actualBoundingBoxLeft || 0), r = Math.ceil(m.actualBoundingBoxRight || m.width);
+  var a = Math.ceil(m.actualBoundingBoxAscent || NAME_PX * 0.88), d = Math.ceil(m.actualBoundingBoxDescent || NAME_PX * 0.12);
+  var cv = document.createElement('canvas');
+  cv.width = Math.max(1, l + r + 2 * padPx); cv.height = Math.max(1, a + d + 2 * padPx);
+  var g = cv.getContext('2d');
+  g.font = NAME_PX + 'px ' + NAME_FONT; g.fillStyle = '#111'; g.textBaseline = 'alphabetic'; g.textAlign = 'left';
+  g.fillText(text, padPx + l, padPx + a);
+  return cv;
+}
+function updateTypedSig() {
+  if (S.sigMode !== 'typed') return;
+  var text = fullName();
+  if (!text) S.sig = { has: false, canvas: null, png: null, w: 0, h: 0, typed: true, text: '' };
+  else if (!(S.sig.has && S.sig.typed && S.sig.text === text)) {
+    var cv = drawTypedName(text);
+    S.sig = { has: true, canvas: cv, png: dataUrlToBytes(cv.toDataURL('image/png')), w: cv.width, h: cv.height, typed: true, text: text };
+  }
+  sigAfterChange();
+}
+function onGivenChange() {
+  var v = validateGiven($('givenName').value);
+  S.given = v.ok ? v.name : null;
+  setMsg($('givenMsg'), S.givenComposing ? '' : v.msg, v.ok || v.empty || S.givenComposing ? '' : 'err');
+  updateTypedSig();
+  touch();
+}
+$('givenName').addEventListener('input', onGivenChange);
+$('givenName').addEventListener('compositionstart', function () { S.givenComposing = true; });
+$('givenName').addEventListener('compositionend', function () { S.givenComposing = false; onGivenChange(); });
 
 function drawSeal(cv, name) {
   var C = 600, RING = 22, INNER = 60, RED = '#CC0000';
@@ -344,6 +410,7 @@ function onSurnameChange() {
     // 変換中（IME）は途中の文字で叱らない
     setMsg($('nameMsg'), S.composing && !v.empty ? '' : v.msg, v.empty || S.composing ? '' : 'err');
   }
+  updateTypedSig();
   touch();
 }
 $('surname').addEventListener('input', onSurnameChange);
@@ -365,6 +432,7 @@ function resetPdfState() {
   S.pdfBytes = null; S.pdfDoc = null; S.fileName = ''; S.numPages = 0;
   S.base = null; S.vp = null; S.fields = null; S.mode = 'none';
   S.place = { sig: null, seal: null }; S.target = 'seal'; S.pageIndex = 0;
+  var dv = $('docView'); dv.textContent = ''; dv.hidden = true; delete dv.dataset.pages;
 }
 
 async function renderBase(doc, idx) {
@@ -448,6 +516,15 @@ async function onPdfChosen(file) {
   try { bytes = await readFile(file); }
   catch (e) { if (token === S.loadToken) { setMsg($('pdfMsg'), 'ファイルを読めませんでした。もう一度選んでください。', 'err'); } return; }
   if (token !== S.loadToken) return;
+  return loadPdfBytes(bytes, file.name || '', token);
+}
+// 書面のバイト列を開いて、検出・配置まで進める（本人が選んだPDFも、読み込み済みの書面も、この1本を通る）
+async function loadPdfBytes(bytes, fileName, token) {
+  if (token === undefined) {
+    token = ++S.loadToken;
+    dropResult(); setMsg($('buildMsg'), ''); clearCmapFail(); resetPdfState(); S.ver++; refreshUI();
+    setMsg($('pdfMsg'), '読み込み中…');
+  }
   var doc;
   try {
     doc = await openDoc(bytes);
@@ -455,14 +532,25 @@ async function onPdfChosen(file) {
     if (token !== S.loadToken) return;
     var nm = e && e.name;
     var text = nm === 'WorkerUnavailable' ? 'PDFを読む部品が使えません。ページを開き直してください。'
-      : nm === 'PasswordException' ? 'パスワードが付いたPDFは扱えません。パスワードを外したPDFを選ぶか、印刷して押印してください。'
-      : nm === 'InvalidPDFException' ? 'PDFとして読めませんでした。重要事項説明書のPDFを選んでください。'
-      : 'PDFを読めませんでした（' + (nm || 'エラー') + '）。別のPDFを選ぶか、印刷して押印してください。';
+      : nm === 'PasswordException' ? 'パスワード（閲覧ロック）が付いたPDFは扱えません。' + (PRE_B64 ? PICK_NEXT : 'ロックを外したPDFを選ぶか、印刷して押印してください。')
+      : nm === 'InvalidPDFException' ? 'PDFとして読めませんでした。' + (PRE_B64 ? PICK_NEXT : '重要事項説明書のPDFを選んでください。')
+      : 'PDFを読めませんでした（' + (nm || 'エラー') + '）。' + PICK_NEXT;
     setMsg($('pdfMsg'), text, 'err');
     return;
   }
   if (token !== S.loadToken) { try { doc.destroy(); } catch (e) { /* noop */ } return; }
-  S.pdfBytes = bytes; S.pdfDoc = doc; S.numPages = doc.numPages; S.fileName = file.name || '';
+  // 保護（暗号化）付きのPDFは、読み込んだこの時点で判定する（「作る」で初めて断らない）。判定は「作る」と同じ pdf-lib の読み込み（ignoreEncryption は付けない）
+  try { await PDFLib.PDFDocument.load(bytes.slice(), { updateMetadata: false }); }
+  catch (e) {
+    try { doc.destroy(); } catch (e2) { /* noop */ }
+    if (token !== S.loadToken) return;
+    setMsg($('pdfMsg'), /encrypt/i.test(String(e && e.message))
+      ? 'このPDFは保護（閲覧ロック・編集ロック）が付いていて、お名前と印鑑を入れられません。' + (PRE_B64 ? PICK_NEXT : 'ロックの無いPDFをもらうか、印刷して押印してください。')
+      : 'このPDFには書き込めません（' + ((e && e.message) || e) + '）。' + PICK_NEXT, 'err');
+    return;
+  }
+  if (token !== S.loadToken) { try { doc.destroy(); } catch (e) { /* noop */ } return; }
+  S.pdfBytes = bytes; S.pdfDoc = doc; S.numPages = doc.numPages; S.fileName = fileName;
   var fields = null;
   try { fields = await detectFields(doc); } catch (e) { fields = null; }
   if (token !== S.loadToken) return;
@@ -473,13 +561,40 @@ async function onPdfChosen(file) {
     var ok = await showPage();
     if (!ok || token !== S.loadToken) return;
   } catch (e) {
-    setMsg($('pdfMsg'), 'PDFの画面を作れませんでした（' + (e && e.name || 'エラー') + '）。別のPDFを選ぶか、印刷して押印してください。', 'err');
+    setMsg($('pdfMsg'), 'PDFの画面を作れませんでした（' + (e && e.name || 'エラー') + '）。' + PICK_NEXT, 'err');
     resetPdfState(); touch();
     return;
   }
   showLoadedMsg();
   if (S.mode === 'auto') { autoPlaceSeal(); placeSigAuto(); S.target = 'seal'; }
   touch();
+  renderDocView(doc, token);
+}
+// 中身の確認: 全ページを画面の幅で並べる（読むだけ・位置の指定は 3 の画面）。失敗しても他の工程は止めない
+var DOC_VIEW_MAX = 6;
+async function renderDocView(doc, token) {
+  var box = $('docView');
+  box.textContent = ''; box.hidden = false;
+  var n = Math.min(doc.numPages, DOC_VIEW_MAX);
+  for (var i = 0; i < n; i++) {
+    try {
+      var page = await doc.getPage(i + 1);
+      if (token !== S.loadToken) return;
+      var vp1 = page.getViewport({ scale: 1 });
+      var cssW = Math.max(160, Math.floor(box.clientWidth || 300)), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var vp = page.getViewport({ scale: clamp(cssW * dpr / vp1.width, 0.5, 3) });
+      var cv = document.createElement('canvas');
+      cv.width = Math.ceil(vp.width); cv.height = Math.ceil(vp.height);
+      var g = cv.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, cv.width, cv.height);
+      await page.render({ canvasContext: g, viewport: vp }).promise;
+      if (token !== S.loadToken) return;
+      var cap = document.createElement('div'); cap.className = 'pageCap'; cap.textContent = (i + 1) + ' / ' + doc.numPages + ' ページ';
+      cv.setAttribute('role', 'img'); cv.setAttribute('aria-label', '書面の' + (i + 1) + 'ページ目');
+      box.appendChild(cap); box.appendChild(cv);
+    } catch (e) { if (token !== S.loadToken) return; }
+  }
+  if (doc.numPages > n) { var more = document.createElement('div'); more.className = 'pageCap'; more.textContent = '（' + (n + 1) + 'ページ目以降は省いています）'; box.appendChild(more); }
+  box.dataset.pages = String(box.querySelectorAll('canvas').length);
 }
 $('pdfFile').addEventListener('change', function () {
   var f = this.files && this.files[0];
@@ -554,9 +669,10 @@ pad.addEventListener('touchstart', function (e) { e.preventDefault(); }, { passi
 
 // 書いたものを「インクの範囲だけ」に切り出して、透明背景のPNGにする
 function updateSig() {
+  if (S.sigMode !== 'hand') return;
   var token = ++S.sigToken;
   if (!S.strokes.length) {
-    S.sig = { has: false, canvas: null, png: null, w: 0, h: 0 };
+    S.sig = { has: false, canvas: null, png: null, w: 0, h: 0, typed: false, text: '' };
     sigAfterChange(); return;
   }
   var lw = PEN * SIG_W, minX = 1e9, minY = 1e9, maxX = -1e9, maxY = -1e9;
@@ -573,7 +689,7 @@ function updateSig() {
   cv.width = Math.max(1, x1 - x0); cv.height = Math.max(1, y1 - y0);
   renderStrokes(cv.getContext('2d'), S.strokes, SIG_W, x0, y0);
   if (token !== S.sigToken) return;
-  S.sig = { has: true, canvas: cv, png: dataUrlToBytes(cv.toDataURL('image/png')), w: cv.width, h: cv.height };
+  S.sig = { has: true, canvas: cv, png: dataUrlToBytes(cv.toDataURL('image/png')), w: cv.width, h: cv.height, typed: false, text: '' };
   sigAfterChange();
 }
 function dataUrlToBytes(url) {
@@ -591,6 +707,19 @@ function sigAfterChange() {
 }
 $('sigClear').addEventListener('click', function () { S.strokes = []; redrawPad(); updateSig(); });
 $('sigUndo').addEventListener('click', function () { S.strokes.pop(); redrawPad(); updateSig(); });
+// 記名（打ち込み・既定）と手書きの切り替え。切り替えたら、置いてあったお名前の位置は自動の位置に戻す（形が大きく変わるため）
+function setSigMode(mode) {
+  if (S.sigMode === mode) return;
+  S.sigMode = mode;
+  if (S.place.sig) S.place.sig = null;
+  $('sigBox').hidden = mode !== 'hand';
+  $('sigModeHand').setAttribute('aria-pressed', String(mode === 'hand'));
+  $('sigModeHand').textContent = mode === 'hand' ? '入力したお名前の印字に戻す' : '手書きにしたい人はこちら';
+  $('givenLabel').textContent = mode === 'hand' ? '名（手書きのときは入れなくてもかまいません）' : '名（空白なし）';
+  if (mode === 'hand') { sizePad(); updateSig(); } else { S.sig = { has: false, canvas: null, png: null, w: 0, h: 0, typed: true, text: '' }; updateTypedSig(); }
+  touch();
+}
+$('sigModeHand').addEventListener('click', function () { setSigMode(S.sigMode === 'hand' ? 'typed' : 'hand'); });
 $('skipSig').addEventListener('change', function () {
   S.skipSig = this.checked;
   if (S.skipSig && S.target === 'sig') S.target = 'seal';
@@ -609,7 +738,7 @@ function placeSigAuto() {
   if (!S.fields || !S.sig.has) return;
   var f = S.fields;
   var x0 = f.name.x1 + 2, x1 = f.seal.x0 - 4;
-  var maxH = f.fs * 2.6, maxW = Math.max(20, x1 - x0 - 6);
+  var maxH = f.fs * (S.sig.typed ? 1.25 : 2.6), maxW = Math.max(20, x1 - x0 - 6);
   var sc = Math.min(maxH / S.sig.h, maxW / S.sig.w);
   var w = S.sig.w * sc, h = S.sig.h * sc;
   S.place.sig = { cx: x0 + 6 + w / 2, cy: f.name.cy, w: w, h: h, moved: false };
@@ -642,7 +771,7 @@ function placeAt(x, y) {                                              // タッ�
   if (S.target === 'seal') {
     S.place.seal = S.place.seal ? Object.assign({}, S.place.seal, { cx: x, cy: y }) : { cx: x, cy: y, size: 24 };
   } else {
-    if (!S.sig.has) { setMsg($('placeHint'), '先に、上の枠で署名を書いてください。', 'warn'); return false; }
+    if (!S.sig.has) { setMsg($('placeHint'), S.sigMode === 'typed' ? '先に、上でお名前（姓と名）を入れてください。' : '先に、上の枠でお名前を書いてください。', 'warn'); return false; }
     if (S.place.sig) { S.place.sig.cx = x; S.place.sig.cy = y; S.place.sig.moved = true; }
     else {
       var h = 24, w = h * S.sig.w / S.sig.h;
@@ -750,9 +879,9 @@ function missing() {
   var m = [];
   if (!S.name) m.push('姓');
   if (!S.pdfDoc) m.push('PDF');
-  if (!S.skipSig && !S.sig.has) m.push('署名');
+  if (!S.skipSig && !S.sig.has) { if (S.sigMode !== 'typed') m.push('手書きのお名前'); else if (!S.given) m.push('名'); }
   if (S.pdfDoc && !S.place.seal) m.push('印鑑の位置');
-  if (S.pdfDoc && !S.skipSig && S.sig.has && !S.place.sig) m.push('署名の位置');
+  if (S.pdfDoc && !S.skipSig && S.sig.has && !S.place.sig) m.push('お名前の位置');
   return m;
 }
 function sealPngBytes() {
@@ -771,7 +900,7 @@ async function build() {
   var ver = S.ver;
   var snap = { bytes: S.pdfBytes, page: S.pageIndex, rot: S.rotate, vp: S.vp, skipSig: S.skipSig,
                seal: Object.assign({}, S.place.seal), sig: S.place.sig && Object.assign({}, S.place.sig),
-               sealPng: sealPngBytes(), sigPng: S.sig.png, mode: S.mode, crop: getCrop() };
+               sealPng: sealPngBytes(), sigPng: S.sig.png, sigText: S.sig.typed ? S.sig.text : '', mode: S.mode, crop: getCrop() };
   try {
     var PDFDocument = PDFLib.PDFDocument, degrees = PDFLib.degrees;
     var pdf = await PDFDocument.load(snap.bytes.slice(), { updateMetadata: false });
@@ -781,7 +910,10 @@ async function build() {
       var c = snap.vp.convertToPdfPoint(o.cx, o.cy);
       page.drawImage(img, { x: c[0] - (w / 2) * cs + (h / 2) * sn, y: c[1] - (w / 2) * sn - (h / 2) * cs, width: w, height: h, rotate: degrees(snap.rot) });
     }
-    if (!snap.skipSig && snap.sig) put(await pdf.embedPng(snap.sigPng), snap.sig, snap.sig.w, snap.sig.h);
+    if (!snap.skipSig && snap.sig) {
+      put(await pdf.embedPng(snap.sigPng), snap.sig, snap.sig.w, snap.sig.h);
+      if (snap.sigText) putHiddenText(pdf, page, snap.sigText, snap.sig, snap.rot, snap.vp);
+    }
     put(await pdf.embedPng(snap.sealPng), snap.seal, snap.seal.size, snap.seal.size);
     var out = await pdf.save();
     if (ver !== S.ver) { setMsg($('buildMsg'), '作っている間に内容が変わったので、もう一度「この内容で作る」を押してください。', 'warn'); return; }
@@ -790,7 +922,7 @@ async function build() {
     await showResult();
     if (ver === S.ver && S.result) setMsg($('buildMsg'), 'PDFができました。', 'ok');   // 確認画面を描く間に内容が変わったら、touch() の「もう一度」の案内を消さない
   } catch (e) {
-    var text = /encrypt/i.test(String(e && e.message)) ? 'このPDFは保護されていて加工できませんでした。印刷して押印してください。'
+    var text = /encrypt/i.test(String(e && e.message)) ? 'このPDFは保護されていて加工できませんでした。印刷して押印してください。'   // 読み込み時に判定済み＝ここに来るのは想定外の経路だけ
       : 'PDFを作れませんでした（' + ((e && e.message) || e) + '）。別のPDFで試すか、印刷して押印してください。';
     setMsg($('buildMsg'), text, 'err');
   } finally {
@@ -800,6 +932,25 @@ async function build() {
 }
 $('buildBtn').addEventListener('click', build);
 
+// 記名の文字を、画像と同じ箱に「見えない文字」（描画モード3）で重ねる。フォントは埋め込まない和文（Adobe-Japan1・UniJIS-UTF16-H）＝
+// 字形を持たないので大きさは増えず、どの閲覧ソフトでも見た目は上の画像のまま。PDF から文字として読める（検索・書き写し）。
+function putHiddenText(pdf, page, text, o, rot, vp) {
+  var L = PDFLib, ctx = pdf.context;
+  var fd = ctx.register(ctx.obj({ Type: 'FontDescriptor', FontName: 'Ryumin-Light', Flags: 6, FontBBox: [0, -141, 1000, 859],
+    ItalicAngle: 0, Ascent: 859, Descent: -141, CapHeight: 709, StemV: 69 }));
+  var cid = ctx.register(ctx.obj({ Type: 'Font', Subtype: 'CIDFontType0', BaseFont: 'Ryumin-Light', FontDescriptor: fd, DW: 1000,
+    CIDSystemInfo: ctx.obj({ Registry: L.PDFString.of('Adobe'), Ordering: L.PDFString.of('Japan1'), Supplement: 2 }) }));
+  var font = ctx.register(ctx.obj({ Type: 'Font', Subtype: 'Type0', BaseFont: 'Ryumin-Light-UniJIS-UTF16-H', Encoding: 'UniJIS-UTF16-H', DescendantFonts: [cid] }));
+  var key = page.node.newFontDictionary('InkanName', font);
+  var hex = '';
+  for (var i = 0; i < text.length; i++) hex += ('0000' + text.charCodeAt(i).toString(16)).slice(-4);
+  var n = Array.from(text).length, size = o.h, th = rot * Math.PI / 180, cs = Math.cos(th), sn = Math.sin(th);
+  var c = vp.convertToPdfPoint(o.cx, o.cy);
+  var llx = c[0] - (o.w / 2) * cs + (o.h / 2) * sn, lly = c[1] - (o.w / 2) * sn - (o.h / 2) * cs;   // 画像の左下（drawImage と同じ）
+  var bx = llx - 0.12 * size * sn, by = lly + 0.12 * size * cs;                                   // ベースラインは箱の下から 12%
+  page.pushOperators(L.pushGraphicsState(), L.beginText(), L.setFontAndSize(key, size), L.setTextRenderingMode(L.TextRenderingMode.Invisible),
+    L.setCharacterSqueeze(100 * o.w / (n * size)), L.setTextMatrix(cs, sn, -sn, cs, bx, by), L.showText(L.PDFHexString.of(hex)), L.endText(), L.popGraphicsState());
+}
 function canShareFile(file) {
   try { return !!(navigator.share && navigator.canShare && navigator.canShare({ files: [file] })); } catch (e) { return false; }
 }
@@ -850,7 +1001,7 @@ $('downloadBtn').addEventListener('click', function () {
 });
 $('backBtn').addEventListener('click', function () {
   dropResult(); setMsg($('buildMsg'), '');
-  $('s4').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  $('s3').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
 // ================= 画面の更新 =================
@@ -861,11 +1012,14 @@ function refreshUI() {
   else setMsg($('buildHint'), miss.length ? 'あと必要なもの：' + miss.join('・') : '準備ができました。「この内容で作る」を押してください。', miss.length ? '' : 'ok');
   // 署名欄
   $('sigBox').style.opacity = S.skipSig ? '.4' : '1';
+  $('sigModeRow').style.opacity = S.skipSig ? '.4' : '1';
+  $('sigModeHand').disabled = S.skipSig;
   $('sigClear').disabled = S.skipSig || !S.strokes.length;
   $('sigUndo').disabled = S.skipSig || !S.strokes.length;
   pad.style.pointerEvents = S.skipSig ? 'none' : '';
-  if (S.skipSig) setMsg($('sigMsg'), '署名は入れません（印鑑だけ押します）。');
-  else setMsg($('sigMsg'), S.sig.has ? '書けました。違うときは「書き直す」か「ひとつ戻す」。' : '枠の中に、指でお名前を書いてください。', S.sig.has ? 'ok' : '');
+  if (S.skipSig) setMsg($('sigMsg'), 'お名前は入れません（印鑑だけ押します）。');
+  else if (S.sigMode === 'typed') setMsg($('sigMsg'), S.sig.has ? '「' + S.sig.text + '」を、（氏名）の欄に明朝体で印字します。' : (S.name ? '名を入れると、（氏名）の欄に印字するお名前ができます。' : '姓と名を入れると、（氏名）の欄に印字するお名前ができます。'), S.sig.has ? 'ok' : '');
+  else setMsg($('sigMsg'), S.sig.has ? '書けました。違うときは「書き直す」か「ひとつ戻す」。' : '枠の中に、指でフルネーム（姓と名）を書いてください。', S.sig.has ? 'ok' : '');
   // 位置
   var auto = S.mode === 'auto', manual = S.mode === 'manual';
   $('targetSeal').setAttribute('aria-pressed', S.target === 'seal');
@@ -879,11 +1033,11 @@ function refreshUI() {
   $('pagePrev').disabled = S.pageIndex <= 0;
   $('pageNext').disabled = S.pageIndex >= S.numPages - 1;
   var hint = $('placeHint');
-  if (!S.pdfDoc) setMsg(hint, 'PDFを選ぶと、ここに署名と印鑑の位置が出ます。');
-  else if (auto) setMsg(hint, '2ページ目の「（氏名）」と「㊞」の場所を見つけて、署名と印鑑を置きました。ずれていたら指でずらせます。', 'ok');
+  if (!S.pdfDoc) setMsg(hint, S.prefilled ? '書面を読み込むと、ここにお名前と印鑑の位置が出ます。' : 'PDFを選ぶと、ここにお名前と印鑑の位置が出ます。');
+  else if (auto) setMsg(hint, '2ページ目の「（氏名）」と「㊞」の場所を見つけて、お名前と印鑑を置きました。ずれていたら指でずらせます。', 'ok');
   else if (blocked) setMsg(hint, '書面の文字が表示できていないため、ここでは位置を決められません。' + CMAP_NEXT, 'warn');
   else if (!S.place.seal) setMsg(hint, '欄を自動では見つけられませんでした。印鑑を置きたい場所を、下の画面でタップしてください。', 'warn');
-  else if (!S.skipSig && !S.place.sig) setMsg(hint, S.sig.has ? '次に、署名を置きたい場所をタップしてください。' : '署名を書いてから、署名を置きたい場所をタップしてください。', 'warn');
+  else if (!S.skipSig && !S.place.sig) setMsg(hint, S.sig.has ? '次に、お名前を置きたい場所をタップしてください。' : 'お名前を入れてから、お名前を置きたい場所をタップしてください。', 'warn');
   else setMsg(hint, '位置を確かめてください。違うときはタップするか、指でずらしてください。', 'ok');
   drawPreview();
 }
@@ -891,6 +1045,13 @@ function refreshUI() {
 // 初期化
 sizePad();
 refreshUI();
+if (S.prefilled) {
+  $('pdfPick').hidden = true; $('pdfFile').disabled = true; $('prefilledNote').hidden = false;
+  var preBytes = null;
+  try { preBytes = dataUrlToBytes('data:application/pdf;base64,' + PRE_B64); }
+  catch (e) { fatal('書面を読み込めませんでした（中身が壊れています）。担当者に連絡してください。'); }
+  if (preBytes) loadPdfBytes(preBytes, PREFILLED_NAME).catch(function (e) { fatal('書面の読み込みで予期しないエラー: ' + (e && e.message || e)); });
+}
 })();
 </script>
 </body>
