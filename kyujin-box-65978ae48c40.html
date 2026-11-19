@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>求人の箱の形・図解</title>
+<style>
+@font-face{font-family:"YuGothicM";src:local("Yu Gothic Medium"),local("YuGothic-Medium");font-weight:400}
+:root{
+  color-scheme:light;
+  --bg:#f6f5f2;--surface:#ffffff;--ink:#1b1b1a;--sub:#46453f;--line:#d3d0c8;--line-strong:#8a877f;
+  --accent:#1b549b;--accent-bg:#e7eef8;
+  --ok:#1c6532;--ok-bg:#e2f0e5;--warn:#6f4b00;--warn-bg:#fbefd2;--bad:#9b1f19;--bad-bg:#fbe4e1;
+  --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s0:#9d9a92;
+  --band-h:64px;
+  --sp1:4px;--sp2:8px;--sp3:16px;--sp4:24px;--sp5:40px;
+  --font:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","YuGothicM","Yu Gothic","YuGothic",Meiryo,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#141414;--surface:#1d1d1c;--ink:#e7e6e3;--sub:#c4c2ba;--line:#3d3c39;--line-strong:#7a776f;
+    --accent:#93bff4;--accent-bg:#1c2939;
+    --ok:#8ad49d;--ok-bg:#1e3426;--warn:#e9c76c;--warn-bg:#383019;--bad:#f4958d;--bad-bg:#42221e;
+    --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s0:#6f6d67;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#141414;--surface:#1d1d1c;--ink:#e7e6e3;--sub:#c4c2ba;--line:#3d3c39;--line-strong:#7a776f;
+  --accent:#93bff4;--accent-bg:#1c2939;
+  --ok:#8ad49d;--ok-bg:#1e3426;--warn:#e9c76c;--warn-bg:#383019;--bad:#f4958d;--bad-bg:#42221e;
+  --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s0:#6f6d67;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:1rem;line-height:1.8;letter-spacing:0}
+/* 帯 */
+.band{position:sticky;top:0;z-index:10;background:var(--surface);border-bottom:1px solid var(--line);
+  padding:6px max(16px, env(safe-area-inset-right)) 6px max(16px, env(safe-area-inset-left));min-height:var(--band-h)}
+.band .row1{display:flex;flex-wrap:wrap;gap:0 10px;font-size:14px;line-height:1.5;color:var(--sub)}
+.band .b-title{font-weight:700;color:var(--ink)}
+.band .b-sec{display:block;font-size:15px;line-height:1.5;font-weight:700;color:var(--accent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* 本文 */
+main{max-width:46em;margin:0 auto;padding:var(--sp4) max(16px, env(safe-area-inset-right)) 64px max(16px, env(safe-area-inset-left))}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere;font-weight:700;letter-spacing:0}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3), main section > :is(h2,h3), main article > h3{word-break:auto-phrase;text-wrap:balance}}
+h1{font-size:1.6rem;line-height:1.4;margin:var(--sp2) 0 var(--sp3)}
+h2{font-size:1.35rem;line-height:1.4;margin:56px 0 var(--sp3);scroll-margin-top:calc(var(--band-h) + 12px)}
+h3{font-size:1.12rem;line-height:1.45;margin:var(--sp5) 0 var(--sp2);scroll-margin-top:calc(var(--band-h) + 12px)}
+p{margin:0 0 1em;max-width:40em;text-wrap:pretty;overflow-wrap:anywhere}
+.lead{color:var(--sub)}
+.chapter-head{margin:72px 0 0;padding-top:var(--sp3);border-top:2px solid var(--ink);font-size:15px;line-height:1.5;color:var(--sub);font-weight:700}
+.nb{white-space:nowrap}
+a{color:var(--accent);text-underline-offset:3px}
+/* 目次 */
+nav.toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:var(--sp3) var(--sp3) var(--sp2)}
+nav.toc .toc-title{font-weight:700;margin:0 0 var(--sp2)}
+nav.toc ol{margin:0;padding:0;list-style:none}
+nav.toc li{margin:0 0 6px;line-height:1.5}
+nav.toc .grp{font-size:14px;color:var(--sub);margin-top:var(--sp2)}
+/* 図 */
+figure{margin:var(--sp4) 0;padding:var(--sp3) var(--sp2) var(--sp2);background:var(--surface);border:1px solid var(--line);border-radius:10px}
+figure svg{display:block;width:auto;max-width:420px;height:auto;margin:0 auto}
+figure.wide svg{max-width:480px}
+@media (max-width:420px){figure{padding:12px 0 8px}figcaption{margin-inline:8px}}
+figcaption{font-size:14px;line-height:1.6;color:var(--sub);margin:var(--sp2) var(--sp1) 0}
+svg text{font-family:var(--font)}
+.t{fill:var(--ink);font-size:15.6px}
+.ts{fill:var(--sub);font-size:15px}
+.tb{font-weight:700}
+.ta{fill:var(--accent)}
+.tok{fill:var(--ok)}.twarn{fill:var(--warn)}.tbad{fill:var(--bad)}
+.box{fill:var(--surface);stroke:var(--line-strong);stroke-width:1.2}
+.boxa{fill:var(--accent-bg);stroke:var(--accent);stroke-width:1.5}
+.part{fill:var(--bg);stroke:var(--line-strong);stroke-width:1}
+.empty{fill:none;stroke:var(--line-strong);stroke-width:1.2;stroke-dasharray:4 3}
+.okb{fill:var(--ok-bg);stroke:var(--ok);stroke-width:1.2}
+.warnb{fill:var(--warn-bg);stroke:var(--warn);stroke-width:1.2}
+.badb{fill:var(--bad-bg);stroke:var(--bad);stroke-width:1.2}
+.ln{stroke:var(--line-strong);stroke-width:1.5;fill:none}
+.lna{stroke:var(--accent);stroke-width:2;fill:none}
+.lnbad{stroke:var(--bad);stroke-width:2;fill:none}
+.ghost{stroke:var(--bad);stroke-width:1.5;fill:none;stroke-dasharray:5 4}
+.grid{stroke:var(--line);stroke-width:1}
+.shade{fill:var(--bg)}
+.hl{fill:var(--warn-bg);stroke:var(--warn);stroke-width:1.5}
+.s1{fill:var(--s1)}.s2{fill:var(--s2)}.s3{fill:var(--s3)}.s0{fill:var(--s0)}
+.arrowhead{fill:var(--line-strong)}
+.arrowa{fill:var(--accent)}
+/* 表 */
+details{margin:var(--sp2) 0 var(--sp3);background:var(--surface);border:1px solid var(--line);border-radius:10px}
+details summary{cursor:pointer;padding:10px var(--sp3);font-size:15px;font-weight:700}
+details .inner{padding:0 var(--sp3) var(--sp3)}
+.tbl{overflow-x:auto}
+.tbl table{border-collapse:collapse;min-width:280px}
+.tbl th,.tbl td{padding:6px 10px;border-bottom:1px solid var(--line);font-size:14px;line-height:1.5;text-align:left;vertical-align:top;overflow-wrap:normal}
+.tbl th{color:var(--sub);white-space:nowrap}
+.tbl td.n{text-align:right;font-variant-numeric:tabular-nums}
+/* 決めること */
+.dec{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:var(--sp3);margin:var(--sp3) 0}
+.dec h3{margin:0 0 var(--sp2)}
+.dec .tag{display:inline-block;font-size:14px;line-height:1.5;color:var(--sub);border:1px solid var(--line);border-radius:6px;padding:0 8px;margin:0 0 var(--sp2)}
+.dec .mat{font-size:15px;color:var(--sub);margin:0 0 var(--sp2)}
+.opt{border-left:3px solid var(--line-strong);padding:2px 0 2px 12px;margin:0 0 12px}
+.opt .on{font-weight:700;margin:0}
+.opt p{margin:0}
+.opt .pl::before{content:"得　";font-weight:700;color:var(--ok)}
+.opt .mi::before{content:"損　";font-weight:700;color:var(--bad)}
+.rec{background:var(--accent-bg);border-radius:8px;padding:8px 12px;margin:var(--sp2) 0}
+.rec b{color:var(--accent)}
+.nod{margin:0;color:var(--sub)}
+.nod b{color:var(--ink)}
+/* 木（tree-map 雛形の CSS を和文の床に合わせて写したもの） */
+.tm{overflow-x:auto;margin:0}
+.tm .tree,.tm .tree ul{list-style:none;margin:0;padding:0}
+.tm .tree ul{padding-left:14px}
+.tm .tree li{position:relative;padding:5px 0 5px 20px}
+.tm .tree li::before{content:"";position:absolute;left:0;top:-8px;height:30px;width:14px;border-left:2px solid var(--line-strong);border-bottom:2px solid var(--line-strong);border-bottom-left-radius:10px}
+.tm .tree li::after{content:"";position:absolute;left:0;top:22px;bottom:-8px;border-left:2px solid var(--line-strong)}
+.tm .tree li:last-child::after{display:none}
+.tm .tree > li{padding-left:0}
+.tm .tree > li::before,.tm .tree > li::after{display:none}
+.tm .node{display:inline-block;background:var(--surface);border:1px solid var(--line-strong);border-radius:9px;padding:5px 10px;line-height:1.55}
+.tm .node .row{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px}
+.tm .node b{font-size:15px}
+.tm .node .note{display:block;font-size:14px;color:var(--sub);margin-top:1px}
+.tm .rootnode > .node{border-width:2px;border-color:var(--ink);padding:8px 12px;background:var(--bg)}
+.tm .dirnode > .node{background:var(--bg);border-width:1.5px}
+.tm .leafnode .node{border-style:dashed;background:transparent;font-size:14px;padding:3px 9px}
+.tm .badge{display:inline-block;font-size:14px;padding:0 7px;border-radius:8px;line-height:1.6;font-weight:700;white-space:nowrap}
+.tm .b-warn{background:var(--warn-bg);color:var(--warn)}
+.tm .b-ok{background:var(--ok-bg);color:var(--ok)}
+.tm .layer{display:inline-block;font-size:14px;border:1px solid var(--line-strong);border-radius:4px;padding:0 6px;color:var(--sub);line-height:1.5;white-space:nowrap}
+.tm .axis{display:none}
+@media (min-width:560px){
+  .tm .tree ul{padding-left:22px}
+  .tm .tree li{padding-left:24px}
+  .tm .tree li::before{width:17px}
+}
+.legend{font-size:14px;line-height:1.6;color:var(--sub);margin:var(--sp2) var(--sp1) 0}
+.pts{margin:.4em 0 .6em;padding-left:1.4em}.pts li{margin:.2em 0}
+</style>
+</head>
+<body>
+<header class="band" data-chrome aria-label="いま読んでいる所">
+  <div class="row1"><span class="b-title">求人の箱の形</span><span class="b-ch" id="bandCh">はじめに</span></div>
+  <span class="b-sec" id="bandSec">まえがき</span>
+</header>
+<main>
+<h1>求人の箱の形 ― 提案の図解</h1>
+<p class="lead">武者野さんへ。CA が求人を引くときに読みに行く1か所（ここでは「箱」と呼びます）の形を、critic（批評役）との 15 往復のあとで固めました。この1枚で、どこまで決まったか、武者野さんに何を決めていただきたいかが分かるようにしています。（2026-11-20 時点・設計の第7版）</p>
+
+<nav class="toc" aria-label="目次">
+<p class="toc-title">目次</p>
+<ol>
+<li class="grp">一　いまどこにいるか</li>
+<li><a href="#s0">0　ひとことで</a></li>
+<li><a href="#s1">1　いまの詰まり</a></li>
+<li><a href="#s2">2　CA の問い</a></li>
+<li class="grp">二　箱の形</li>
+<li><a href="#s3">3　世の中の定石</a></li>
+<li><a href="#s4">4　提案の箱の全体図</a></li>
+<li><a href="#s5">5　確からしさと印は別</a></li>
+<li><a href="#s6">6　読み方</a></li>
+<li><a href="#s7">7　実例を入れてみる</a></li>
+<li class="grp">三　どう決めてきて、どう移るか</li>
+<li><a href="#s8">8　critic との議論</a></li>
+<li><a href="#s9">9　移り方</a></li>
+<li><a href="#s10">10　武者野さんが決めること</a></li>
+</ol>
+</nav>
+
+<!-- ============ 一 ============ -->
+<section class="chapter" data-chapter="一　いまどこにいるか">
+<p class="chapter-head">一　いまどこにいるか</p>
+
+<h2 id="s0">0　ひとことで</h2>
+<figure>
+<svg viewBox="0 0 300 236" role="img" aria-labelledby="f0t">
+<title id="f0t">左は箱の形（骨組み）で決着、右は中身で、型つきで入っていない欄が並ぶ。答えが増えるのは右側</title>
+<rect x="4" y="4" width="140" height="176" rx="8" class="box"/>
+<text x="14" y="28" class="t tb">箱の形（骨組み）</text>
+<rect x="14" y="42" width="120" height="26" rx="4" class="part"/><text x="24" y="60" class="t">会社</text>
+<rect x="26" y="74" width="108" height="26" rx="4" class="part"/><text x="34" y="92" class="t">枠・求人票</text>
+<rect x="26" y="106" width="108" height="26" rx="4" class="part"/><text x="34" y="124" class="t">判定・印の表</text>
+<rect x="14" y="142" width="96" height="28" rx="14" class="okb"/><text x="26" y="161" class="t tb tok">✓ 決着</text>
+<rect x="156" y="4" width="140" height="176" rx="8" class="boxa"/>
+<text x="166" y="28" class="t tb">中身</text>
+<rect x="166" y="40" width="120" height="22" rx="4" class="empty"/><text x="174" y="56" class="ts">通勤の分　　？</text>
+<rect x="166" y="66" width="120" height="22" rx="4" class="empty"/><text x="174" y="82" class="ts">職種　　　　？</text>
+<rect x="166" y="92" width="120" height="22" rx="4" class="empty"/><text x="174" y="108" class="ts">給与　　　　？</text>
+<rect x="166" y="118" width="120" height="22" rx="4" class="empty"/><text x="174" y="134" class="ts">新卒の枠　　？</text>
+<rect x="166" y="144" width="120" height="22" rx="4" class="empty"/><text x="174" y="160" class="ts">シフト　　　？</text>
+<path d="M226 186 L226 204" class="lna"/><path d="M220 200 L226 210 L232 200 Z" class="arrowa"/>
+<text x="150" y="230" class="t tb ta" text-anchor="middle">答えが増えるのはこちら（本丸）</text>
+</svg>
+<figcaption>点線の欄は、求人票の文には書いてあっても、機械が読める決まった形（型つき）で入っていない所。</figcaption>
+</figure>
+<p>箱の形の骨組みは決着しました。設計を読まずに骨組みだけを攻めた critic も、「骨組みは持つ。直しは細部の3つ」と判定しています。</p>
+<p>この設計で決まったのは次の5点です。</p>
+<ul class="pts">
+<li>会社の下に、紹介会社ごとの契約の単位の「枠」と、求人票を並べ、枠と求人票は「結び」（どの求人票がどの枠のものかの対応）でつなぐ。</li>
+<li>どの画面・道具から読んでも、同じ読み方を通す。</li>
+<li>年の書いていない期間（「7〜9月は増額」など）は、機械が当てはめず、先方に確かめる。</li>
+<li>在庫表の値は Fee などの額の根拠には使わず、先方の原本とずれていないかを知らせる見張りにだけ使う（年齢などの ✕ の決まりに在庫表を使うかどうかは、決めること 2）。</li>
+<li>武者野さんの裁定で閉じた枠は、期限が来ても印（この人にこの求人を出せるかの記号）を動かさない。</li>
+</ul>
+<p>決めていただくことは全部で 10 件です。いま急ぐのは 1 だけで、ほかは「おすすめで」の一言で足ります。9 だけはおすすめが無いので、選んでいただきます。そのうえで、特に気にしていただきたい点が1つあります。応募済みかどうかが未確認の人は、いまの設計では ？ にせず ⭕ のまま通し、答えの先頭（最初に出る要約の行）に「未確認です」と1回だけ出します。「決めること 4」の丙がこの扱いで、甲か乙を選ぶと、確かめる門が足されます。ほかにも異論があれば、番号を問わず一言ください。</p>
+<p>ただ、箱を仕上げても、CA への答えはあまり増えません。答えが止まっている問いの大半は、欄は在るのに、中身（通勤・職種・給与など）が型つき（通勤 45 分なら、文でなく「45」という数で入っている形）で入っていないためです。</p>
+<p>答えを増やす本丸は、箱の形ではなく、中身の型つき取り込みです。どちらを先に進めるかは、最後の節の「決めること 1」で武者野さんに選んでいただきます。</p>
+
+<h2 id="s1">1　いまの詰まり</h2>
+<figure>
+<svg viewBox="0 0 300 150" role="img" aria-labelledby="f1t">
+<title id="f1t">問い×求人票の組 100 あたり、確定 28.8、読めていない 55.5、道具が無い 10.1、そのほか 5.6</title>
+<text x="10" y="34" class="ts">確定</text>
+<text x="10" y="54" class="t tb">28.8</text>
+<text x="93" y="34" class="ts">読めていない</text>
+<text x="93" y="54" class="t tb">55.5</text>
+<rect x="10" y="64" width="80.6" height="28" class="s3"/>
+<rect x="92.6" y="64" width="153.4" height="28" class="s1"/>
+<rect x="248" y="64" width="26.3" height="28" class="s0"/>
+<rect x="276.3" y="64" width="13.7" height="28" class="s0" opacity="0.55"/>
+<path d="M261 96 L261 106" class="ln"/>
+<text x="268" y="122" class="ts" text-anchor="end">道具が無い 10.1</text>
+<path d="M283 96 L283 128" class="ln"/>
+<text x="290" y="144" class="ts" text-anchor="end">そのほか 5.6</text>
+</svg>
+<figcaption>2026-11-19 の実測。CA の問い 66 型 × 求人票 1,134 本の組を 100 としたとき、機械がどう答えたか。</figcaption>
+</figure>
+<p>11-19 に、CA の問い 66 型を求人票 1,134 本に当てて測りました。機械が「確定」で答えられたのは、100 のうち 28.8 です。</p>
+<p>いちばん大きいのは「読めていない」の 55.5 です。求人票のどこかに答えはあっても、機械が読める形になっていません。「道具が無い」の 10.1 は、答えを出す仕組みそのものがまだ無い分です。</p>
+<p>つまり詰まりの多くは、箱の形よりも中身の入れ方の側にあります。</p>
+
+<h2 id="s2">2　CA の問い</h2>
+<figure>
+<svg viewBox="0 0 300 418" role="img" aria-labelledby="f2t">
+<title id="f2t">問い 66 型の頻度。上位8型と残り58型。色は箱がいま答えられるかの見込み</title>
+<g>
+<rect x="10" y="6" width="12" height="12" rx="2" class="s3"/><text x="28" y="18" class="ts">確定で答えられる</text>
+<rect x="150" y="6" width="12" height="12" rx="2" class="s2"/><text x="168" y="18" class="ts">人に聞けば出る</text>
+<rect x="10" y="28" width="12" height="12" rx="2" class="s1"/><text x="28" y="40" class="ts">読めていない</text>
+<rect x="150" y="28" width="12" height="12" rx="2" class="s0"/><text x="168" y="40" class="ts">欄が無い ほか</text>
+</g>
+<line x1="10" y1="54" x2="10" y2="368" class="grid"/>
+<g>
+<text x="10" y="74" class="t">県×転居で出せるか</text>
+<rect x="10" y="80" width="225" height="12" rx="0" class="s3"><title>県×転居で出せるか 73 件（確定）</title></rect>
+<text x="241" y="91" class="t tb">73</text>
+
+<text x="10" y="112" class="t">もう応募していないか</text>
+<rect x="10" y="118" width="160.3" height="12" class="s2"><title>応募済みか 52 件（本人に聞けば出る）</title></rect>
+<text x="176" y="129" class="t tb">52</text>
+
+<text x="10" y="150" class="t">通勤○分の圏で出せるか</text>
+<rect x="10" y="156" width="154.1" height="12" class="s1"><title>通勤の分 50 件（読めていない）</title></rect>
+<text x="170" y="167" class="t tb">50</text>
+
+<text x="10" y="188" class="t">県・年齢・未経験で候補を</text>
+<rect x="10" y="194" width="61.6" height="12" class="s2"><title>候補を挙げて 20 件（先方に聞けば出る）</title></rect>
+<text x="78" y="205" class="t tb">20</text>
+
+<text x="10" y="226" class="t">その社の条件で出せるか</text>
+<rect x="10" y="232" width="49.3" height="12" class="s2"><title>社の条件 16 件（先方に聞けば出る）</title></rect>
+<text x="66" y="243" class="t tb">16</text>
+
+<text x="10" y="264" class="t">希望年収に届くか</text>
+<rect x="10" y="270" width="15.4" height="12" class="s1"><title>希望年収 5 件（読めていない）</title></rect>
+<text x="32" y="281" class="t tb">5</text>
+
+<text x="10" y="302" class="t">新卒枠・夜勤と日勤</text>
+<rect x="10" y="308" width="12.3" height="12" class="s1"><title>新卒枠 4 件（読めていない）</title></rect>
+<rect x="24.3" y="308" width="12.3" height="12" class="s1"><title>夜勤と日勤 4 件（読めていない）</title></rect>
+<text x="43" y="319" class="t tb">4＋4</text>
+
+<text x="10" y="340" class="t">残り 58 型（各1〜2件）</text>
+<rect x="10" y="346" width="15.4" height="12" class="s3"><title>残り58型のうち確定 5 件</title></rect>
+<rect x="27.4" y="346" width="33.9" height="12" class="s2"><title>残り58型のうち人に聞けば出る 11 件</title></rect>
+<rect x="63.3" y="346" width="117.1" height="12" class="s1"><title>残り58型のうち読めていない 38 件</title></rect>
+<rect x="182.4" y="346" width="27.7" height="12" class="s0"><title>残り58型のうち欄が無い・記載なし 9 件</title></rect>
+<text x="216" y="357" class="t tb">63</text>
+<text x="63" y="384" class="ts">うち読めていない 38</text>
+<path d="M120 362 L120 372" class="ln"/>
+</g>
+<text x="10" y="410" class="ts">延べ 287 件・66 型。数は件数</text>
+</svg>
+<figcaption>色は、いまの設計の箱がその問いにどこまで答えられるかの机上の見込み（実測ではない）。</figcaption>
+</figure>
+<p>CA が実際に聞いた問いを 287 件集め、66 の型に分けました。上の3型（県と転居・応募済みか・通勤の分）で延べの6割を占め、残りの多くは1件ずつの問いです。</p>
+<p>色は、この箱でどこまで答えられるかの机上の見込みです（前の節の 55.5 は組全体の実測、こちらは問いの延べ件数の見込みで、数え方が別です）。一番多いのは「読めていない」の延べ 101 件で、先頭は通勤○分圏の 50 件です。</p>
+<p>箱に欄そのものが無い型は、延べ 7 件だけでした。これが「骨組みは決着、本丸は中身」と言える根拠です。</p>
+<details><summary>表で見る（分類ごとの延べ件数）</summary><div class="inner">
+<div class="tbl" tabindex="0" role="region" aria-label="分類ごとの延べ件数"><table>
+<tr><th>見込み</th><th>型の数</th><th>延べ件数</th></tr>
+<tr><td>確定で答えられる</td><td class="n">6</td><td class="n">78</td></tr>
+<tr><td>本人に聞けば出る</td><td class="n">2</td><td class="n">53</td></tr>
+<tr><td>先方に聞けば出る</td><td class="n">10</td><td class="n">46</td></tr>
+<tr><td>読めていない（欄は在る）</td><td class="n">40</td><td class="n">101</td></tr>
+<tr><td>箱に欄が無い</td><td class="n">7</td><td class="n">7</td></tr>
+<tr><td>記載なし（源が書かない）</td><td class="n">1</td><td class="n">2</td></tr>
+<tr><td>計</td><td class="n">66</td><td class="n">287</td></tr>
+</table></div></div></details>
+</section>
+
+<!-- ============ 二 ============ -->
+<section class="chapter" data-chapter="二　箱の形">
+<p class="chapter-head">二　箱の形</p>
+
+<h2 id="s3">3　世の中の定石</h2>
+<figure class="wide">
+<svg viewBox="0 0 300 420" role="img" aria-labelledby="f3t">
+<title id="f3t">世の中の定石4つと、うちの箱で当たる部品の対応。外した所が1つ</title>
+<text x="4" y="16" class="ts tb">世の中の定石</text>
+<text x="160" y="16" class="ts tb">うちの箱で当たる所</text>
+<!-- 1 -->
+<rect x="4" y="26" width="132" height="64" rx="8" class="box"/>
+<text x="14" y="52" class="t tb">商品と出品</text>
+<text x="14" y="74" class="ts">売り手ごとに出す</text>
+<path d="M138 58 L152 58" class="ln"/><path d="M150 53 L158 58 L150 63 Z" class="arrowhead"/>
+<rect x="160" y="26" width="136" height="64" rx="8" class="boxa"/>
+<text x="170" y="52" class="t tb">会社の仕事と枠</text>
+<text x="170" y="74" class="ts">Fee も条件も別</text>
+<!-- 2 -->
+<rect x="4" y="102" width="132" height="64" rx="8" class="box"/>
+<text x="14" y="128" class="t tb">属性の継承</text>
+<text x="14" y="150" class="ts">親の条件を子へ</text>
+<path d="M138 134 L152 134" class="ln"/><path d="M150 129 L158 134 L150 139 Z" class="arrowhead"/>
+<rect x="160" y="102" width="136" height="64" rx="8" class="boxa"/>
+<text x="170" y="128" class="t tb">会社の判定を枠へ</text>
+<text x="170" y="150" class="ts">行き先が1つなら</text>
+<!-- 3 -->
+<rect x="4" y="178" width="132" height="76" rx="8" class="box"/>
+<text x="14" y="202" class="t tb">事実に出典と</text>
+<text x="14" y="222" class="t tb">確からしさ</text>
+<text x="14" y="244" class="ts">1つの事実ごと</text>
+<path d="M138 216 L152 216" class="ln"/><path d="M150 211 L158 216 L150 221 Z" class="arrowhead"/>
+<rect x="160" y="178" width="136" height="76" rx="8" class="boxa"/>
+<text x="170" y="202" class="t tb">判定に誰が・</text>
+<text x="170" y="222" class="t tb">いつ・どの道で</text>
+<text x="170" y="244" class="ts">＋確からしさの欄</text>
+<!-- 4 -->
+<rect x="4" y="266" width="132" height="76" rx="8" class="box"/>
+<text x="14" y="290" class="t tb">源ごとの値の</text>
+<text x="14" y="310" class="t tb">採り方</text>
+<text x="14" y="332" class="ts">複数の出どころ</text>
+<path d="M138 304 L152 304" class="ln"/><path d="M150 299 L158 304 L150 309 Z" class="arrowhead"/>
+<rect x="160" y="266" width="136" height="76" rx="8" class="boxa"/>
+<text x="170" y="290" class="t tb">Fee は先方の源</text>
+<text x="170" y="310" class="t tb">どうしで比べる</text>
+<text x="170" y="332" class="ts">写しは見張りへ</text>
+<!-- 外した所 -->
+<rect x="4" y="356" width="292" height="58" rx="8" class="warnb"/>
+<text x="14" y="380" class="t tb twarn">外した所</text>
+<text x="14" y="402" class="t">枠と求人票は親子にせず、結びでつなぐ</text>
+</svg>
+<figcaption>左が世の中で何度も解かれてきた形、右がうちの箱でそれに当たる部品。</figcaption>
+</figure>
+<p>求人の箱は、世の中で何度も解かれてきた問題の組み合わせです。新しい仕組みを発明したのではなく、4つの定石を当てはめました。</p>
+<p>1つ目は商品と出品（同じ商品を、売り手ごとに値段や条件を変えて出す形。通販の商品ページと出品者ごとの値段）です。同じ会社の仕事でも、紹介会社が違えば Fee も条件も違うので、仕事と「枠」を分けて持ちます（うちでは、商品に当たるのが会社の仕事、出品に当たるのが枠です）。2つ目の属性の継承（親に書いた条件を子が受け継ぐ形）は、会社全体に書いた判定を、行き先の枠が1つのときだけ枠へ継ぐ所に当たります。</p>
+<p>3つ目は、事実ごとに「誰がどこで言ったか」と確からしさを付ける形で、判定の持ち方そのものです。4つ目は、複数の出どころの値を取り込むときに1つへ絞らず全部残し、読むときに、値の候補になる先方の出どころの中から選ぶ形で、Fee の見せ方に当たります。CA に全部見せるためです。</p>
+<p>外した所が1つあります。通販なら出品は1つの商品にぶら下がりますが、うちには1本の求人票が4つの枠に当たる会社も、1つの枠に別々の求人票が10本ある会社もあります。どちらが親とも決められないので、親子にせず「結び」でつなぎます。</p>
+
+<h2 id="s4">4　提案の箱の全体図</h2>
+<figure>
+<div class="tm" tabindex="0" role="region" aria-label="箱の部品の構造図"><ul class="tree" id="tree"></ul></div>
+<p class="legend">点線＝葉（それ以上は割らない部品）　黄の札＝箱の外</p>
+</figure>
+<p>箱の中は、会社の下に「枠」と「求人票」が並ぶ形です。枠は契約の単位（どの紹介会社の、どの区分〔トラック・職種〕か）で、求人票が届いていなくても在ります。</p>
+<p>枠と求人票は親子にせず、結びでつなぎます。機械で一通りに出せる結びは毎回出し直し、人が決めた結びだけを台帳に残します。運用の知識（判定）は、掛かる範囲ごとに、枠・求人票・会社・紹介会社全体のどれか1か所に置きます。</p>
+<p>求職者との関係（応募済み・在籍・選考の履歴）は箱に入れず、読む瞬間に掛け合わせます。求人の事実と人の事実を混ぜないためです。</p>
+
+<h2 id="s5">5　確からしさと印は別</h2>
+<figure>
+<svg viewBox="0 0 300 372" role="img" aria-labelledby="f5t">
+<title id="f5t">同じ年齢の判定でも、人によって印が違う。確からしさは判定に付き、印は人と求人の組に付く</title>
+<rect x="30" y="6" width="240" height="88" rx="8" class="box"/>
+<text x="44" y="32" class="t tb">判定：年齢は 35 歳まで</text>
+<text x="44" y="56" class="t">確からしさ：参考</text>
+<text x="44" y="80" class="ts">在庫表の写し・証言者不明</text>
+<path d="M150 96 L150 112" class="ln"/><path d="M144 108 L150 118 L156 108 Z" class="arrowhead"/>
+<rect x="30" y="120" width="240" height="44" rx="8" class="boxa"/>
+<text x="44" y="148" class="t tb">印の表（年齢の見方）</text>
+<path d="M150 166 L150 180 M60 180 L240 180 M60 180 L60 194 M150 180 L150 194 M240 180 L240 194" class="ln"/>
+<!-- 3 結果 -->
+<rect x="4" y="196" width="292" height="44" rx="8" class="okb"/>
+<text x="16" y="224" class="t">25 歳の人</text><text x="200" y="225" class="t tb tok">⭕ 出せる</text>
+<rect x="4" y="248" width="292" height="70" rx="8" class="badb"/>
+<text x="16" y="274" class="t">40 歳の人</text><text x="200" y="275" class="t tb tbad">✕ 出せない</text>
+<text x="16" y="304" class="ts">札：在庫表の写し・証言者不明</text>
+<rect x="4" y="326" width="292" height="44" rx="8" class="warnb"/>
+<text x="16" y="354" class="t">年齢を聞いていない</text><text x="200" y="355" class="t tb twarn">？本人</text>
+</svg>
+<figcaption>印の例は、決めること 2 の甲（いまのまま）の場合です。印は6つ（⭕ 出せる・△ 差あり〔出せるが条件に差がある〕・？本人・？先方・？機械〔機械が確かめる〕・✕ 出せない）。？ と ✕ は「誰に・なぜ」を持つ。</figcaption>
+</figure>
+<p>ここでの「判定」は、運用の決まり（例: 年齢は 35 歳まで）のことで、結論のほうは「印」と呼びます。確からしさは「この判定をどこまで信じてよいか」で、判定1本ごとに付きます。CA には「確定」「参考」「先方に聞く」の3つで見えます。</p>
+<p>印は「この人にこの求人を出せるか」で、求人1件と求職者1人の組ごとに付きます。決めるのは確からしさではなく、1枚の「印の表」です。同じ年齢の判定でも、25 歳の人には ⭕、40 歳の人には ✕、年齢を聞いていない人には ？本人 が付きます。</p>
+<p>確からしさの低い判定から ✕ が出るときは、「在庫表の写し」「証言者不明」の札を必ず並べ、CA が割り引いて読めるようにします。「✕ は物理的に無理なものだけ、迷うものは ？ で出す」という武者野さんの決まりは変えません。写しの ✕ を残すか ？先方 に下げるかは、「決めること 2」です。</p>
+
+<h2 id="s6">6　読み方</h2>
+<figure>
+<svg viewBox="0 0 300 410" role="img" aria-labelledby="f6t">
+<title id="f6t">どの口も同じ1つの手順を通る。その下に Fee の手順2つと、答えの2段</title>
+<rect x="4" y="6" width="92" height="40" rx="20" class="box"/><text x="50" y="31" class="t" text-anchor="middle">CA の道具</text>
+<rect x="104" y="6" width="92" height="40" rx="20" class="box"/><text x="150" y="31" class="t" text-anchor="middle">社内の道具</text>
+<rect x="204" y="6" width="92" height="40" rx="20" class="box"/><text x="250" y="31" class="t" text-anchor="middle">書類の道具</text>
+<path d="M50 48 L140 70 M150 48 L150 70 M250 48 L160 70" class="ln"/>
+<path d="M144 68 L150 78 L156 68 Z" class="arrowhead"/>
+<rect x="4" y="80" width="292" height="112" rx="8" class="boxa"/>
+<text x="16" y="106" class="t tb">共通の読み方（1つの手順）</text>
+<text x="16" y="132" class="t">入る：行・結び・Fee の並び</text>
+<text x="16" y="156" class="t">出る：見せる値・印・出典</text>
+<text x="16" y="180" class="ts">ほかの行は読まない</text>
+<path d="M76 194 L76 214 M224 194 L224 214" class="ln"/>
+<path d="M70 210 L76 220 L82 210 Z M218 210 L224 220 L230 210 Z" class="arrowhead"/>
+<rect x="4" y="222" width="140" height="184" rx="8" class="box"/>
+<text x="14" y="248" class="t tb">Fee の手順</text>
+<text x="14" y="276" class="t">①この人なら</text>
+<text x="14" y="296" class="t">　いくら</text>
+<text x="14" y="318" class="ts">県・新卒か・入社</text>
+<text x="14" y="338" class="ts">時期・推薦日など</text>
+<text x="14" y="372" class="t">②並べ替えの</text>
+<text x="14" y="392" class="t">　目安</text>
+<rect x="156" y="222" width="140" height="184" rx="8" class="box"/>
+<text x="166" y="248" class="t tb">答えの2段</text>
+<text x="166" y="276" class="t">1回目</text>
+<text x="166" y="296" class="ts">求職者で引く</text>
+<text x="166" y="316" class="ts">→会社の束が並ぶ</text>
+<text x="166" y="350" class="t">2回目</text>
+<text x="166" y="370" class="ts">会社を指定する</text>
+<text x="166" y="390" class="ts">→その社の全部</text>
+</svg>
+<figcaption>「共通の読み方」は、1つの行をどう見せるかを決める手順。どの口からでも同じ手順を通る。</figcaption>
+</figure>
+<p>どの口（画面や道具）から読んでも、見せ方は「共通の読み方」という1つの手順が決めます。口ごとに別の読み方をしていたことが、いまの食い違いの元でした。行（求職者と求人の1組）の中身だけを見て、ほかの行は読みません。同じ行なら、いつ誰が読んでも同じ答えになります。</p>
+<p>Fee は手順を2つに分けます。「この人ならいくら」は、県・新卒か・入社時期・推薦日などの条件ごとの額から、その人に当たる1本を選びます。もう1つは並べ替えの目安です。率で決まる Fee で年収が分からないときは、額を作らず「率 × 年収の目安（額は ？）」と出します。</p>
+<p>答えは2段です。1回目は求職者で引いて、会社ごとの答えのまとまり（束）が並び、先頭に「出どころごとに何件読めたか・読めなかった出どころと理由」が出ます。CA が「全部の在庫が見えている」を確かめられるのはこの1行です。2回目に会社を指定すると、その会社の枠・求人票・判定が全部出ます。</p>
+
+<h2 id="s7">7　実例を入れてみる</h2>
+<p>実物から3件を入れてみました。社名は伏せ、額も「額A」「額B」と書きます。</p>
+
+<h3 id="s7-1" data-short="7-1　A社の Fee（地域と期間）">7-1　A社の Fee：地域と期間で増える</h3>
+<figure>
+<svg viewBox="0 0 300 352" role="img" aria-labelledby="f71t">
+<title id="f71t">A社の Fee は条件つきの額2本。年の無い条件は原文のまま。この人ならいくらの3例</title>
+<text x="4" y="18" class="ts tb">A社 × 紹介会社甲 の Fee</text>
+<rect x="4" y="28" width="292" height="48" rx="8" class="box"/>
+<text x="16" y="58" class="t">条件1　全員</text><text x="284" y="58" class="t tb" text-anchor="end">額A</text>
+<rect x="4" y="84" width="292" height="78" rx="8" class="empty"/>
+<text x="16" y="110" class="t">条件2　関東 かつ</text>
+<text x="16" y="132" class="t">　　 7〜9月に入社</text><text x="284" y="132" class="t tb" text-anchor="end">額B</text>
+<text x="16" y="154" class="ts twarn">原文だけ（何年かが書かれていない）</text>
+<text x="4" y="196" class="ts tb">この人ならいくら</text>
+<rect x="4" y="206" width="292" height="44" rx="8" class="warnb"/>
+<text x="16" y="234" class="t">関東・8月入社</text><text x="284" y="234" class="t tb" text-anchor="end">額B？</text>
+<rect x="4" y="256" width="292" height="44" rx="8" class="box"/>
+<text x="16" y="284" class="t">大阪・8月入社</text><text x="284" y="284" class="t tb" text-anchor="end">額A</text>
+<rect x="4" y="306" width="292" height="44" rx="8" class="box"/>
+<text x="16" y="334" class="t">関東・11月入社</text><text x="284" y="334" class="t tb" text-anchor="end">額A</text>
+</svg>
+<figcaption>点線の条件は、年を先方に確かめるまで機械が当てはめない。「額B？」は原文を並べて見せる。</figcaption>
+</figure>
+<p>A社は、通常は額A、関東で7〜9月に入社する人だけ額B、という Fee です。箱ではこれを「条件つきの額」2本として持ちます。</p>
+<p>「この人ならいくら」は、県と入社の月から条件を1本選びます。大阪の人や 11 月入社の人には額A を返します。</p>
+<p>ただ、先方の資料には何年の7〜9月かが書かれていません。年の無い期間は機械が当てはめず、原文のまま並べ、年を先方に確かめてから条件として使います。去年の増額をいまの人に当ててしまう誤りを防ぐためです。</p>
+
+<h3 id="s7-2" data-short="7-2　増額が逆のトラックに">7-2　先方の原本と在庫表で、増額が逆のトラックに入っていた</h3>
+<figure class="wide">
+<svg viewBox="0 0 300 404" role="img" aria-labelledby="f72t">
+<title id="f72t">先方の原本ではコアに、社内の在庫表では直契約に増額が書かれていた。箱は先方の側を出し、写しのずれは見張りへ</title>
+<text x="80" y="18" class="ts tb">先方の原本</text>
+<text x="80" y="36" class="ts">（上流）</text>
+<text x="194" y="18" class="ts tb">社内の在庫表</text>
+<text x="194" y="36" class="ts">（写し）</text>
+<text x="4" y="78" class="t tb">コア</text>
+<rect x="74" y="46" width="108" height="80" rx="6" class="hl"/>
+<text x="82" y="70" class="t">額A</text>
+<text x="82" y="94" class="t">7〜9月入社・</text>
+<text x="82" y="114" class="t">関東は額B</text>
+<rect x="188" y="46" width="108" height="80" rx="6" class="box"/>
+<text x="196" y="70" class="t">額A</text>
+<text x="4" y="168" class="t tb">直契約</text>
+<rect x="74" y="136" width="108" height="80" rx="6" class="box"/>
+<text x="82" y="160" class="t">一律 額A</text>
+<rect x="188" y="136" width="108" height="80" rx="6" class="hl"/>
+<text x="196" y="160" class="t">額A</text>
+<text x="196" y="184" class="t">7〜9月入社は</text>
+<text x="196" y="204" class="t">額B</text>
+<path d="M170 122 L200 140" class="lnbad"/>
+<text x="150" y="234" class="ts tbad" text-anchor="middle">増額の書かれた場所が逆</text>
+<rect x="4" y="248" width="292" height="150" rx="8" class="boxa"/>
+<text x="16" y="274" class="t tb">箱の見せ方</text>
+<text x="16" y="300" class="t">・値は先方の原本の側を出す</text>
+<text x="16" y="324" class="t">・在庫表との差は見張りへ</text>
+<text x="16" y="348" class="t">・束の頭に札「別のトラッ</text>
+<text x="16" y="368" class="t">　クに条件つきの額あり」</text>
+<text x="16" y="390" class="t">・どちらか先方に聞く束へ</text>
+</svg>
+<figcaption>トラック＝同じ紹介会社の中の出し口の種類（ここではコアと直契約）。</figcaption>
+</figure>
+<p>A社には、同じ紹介会社の中に2つのトラック（コアと直契約）があります。先方の原本では増額がコアに、社内の在庫表では直契約に書かれていました。</p>
+<p>前の版は額の集まりだけを比べていたので、これを「一致」と数えていました。往復14 の critic が、条件ごとに比べ直して見つけた食い違いです。</p>
+<p>箱では、値の候補になるのは先方の側（上流）だけです。在庫表は自分たちの写しなので値には使わず、「写しのずれ」の見張り（ずれを見つけて知らせる仕組み）に回します。先方の原本が正しいと決めつけず、念のため先方にも確かめるためです。CA には会社の束の頭に札が出て、増額がどちらのトラックの話かは、先方に聞く束に積まれます。</p>
+
+<h3 id="s7-3" data-short="7-3　裁定の閉は黙って下がらない">7-3　武者野さんの裁定で閉じた枠は、期限で黙って下がらない</h3>
+<figure class="wide">
+<svg viewBox="0 0 300 330" role="img" aria-labelledby="f73t">
+<title id="f73t">B社は裁定で閉じ、期限の後も ✕ のまま再確認の束へ。C社は証言者不明の閉で、期限で ？先方 に下がる日を前もって表に載せる</title>
+<text x="4" y="20" class="t tb">B社　武者野さんの裁定で閉じた</text>
+<path d="M10 64 L290 64" class="grid"/>
+<rect x="10" y="44" width="150" height="20" class="badb"/>
+<text x="16" y="59" class="t tb tbad">✕</text>
+<rect x="160" y="44" width="130" height="20" class="badb"/>
+<text x="166" y="59" class="t tb tbad">✕ のまま</text>
+<path d="M160 36 L160 80" class="ln"/>
+<text x="10" y="88" class="ts">11-07</text>
+<text x="160" y="88" class="ts">12-07 再確認の期限</text>
+<text x="10" y="114" class="t">札「再確認の期限切れ」を付け、</text>
+<text x="10" y="136" class="t">再確認の束へ積む</text>
+<path d="M164 152 L288 152" class="ghost"/>
+<text x="96" y="172" class="ts tbad">前の版：ここで ？先方 へ</text>
+<text x="96" y="192" class="ts tbad">黙って下がっていた</text>
+<path d="M4 210 L296 210" class="grid"/>
+<text x="4" y="238" class="t tb">C社　誰が言ったか分からない閉</text>
+<rect x="10" y="256" width="160" height="20" class="badb"/>
+<text x="16" y="271" class="t tb tbad">✕</text>
+<rect x="170" y="256" width="120" height="20" class="warnb"/>
+<text x="176" y="271" class="t tb twarn">？先方</text>
+<path d="M170 248 L170 292" class="ln"/>
+<text x="10" y="300" class="ts">11-10</text>
+<text x="170" y="300" class="ts">12-10 期限</text>
+<text x="10" y="324" class="ts">下がる日を前もって表に載せておく</text>
+</svg>
+<figcaption>閉＝その枠の募集が止まっていること。</figcaption>
+</figure>
+<p>B社の枠は、11-07 に武者野さんの裁定で閉じました。再確認の期限は 12-07 です。</p>
+<p>前の版の決まりのままだと、12-07 を過ぎた瞬間に、誰も何も言っていないのに ✕ が ？先方 に下がるところでした。往復15 の critic が実例で見つけた穴です。いまの版では、裁定で閉じた枠は期限が来ても ✕ のままで、札を付けて再確認の束に積みます。下げられるのは、名のある新しい証言か、次の裁定だけです。</p>
+<p>一方、誰が言ったか分からない閉（C社）は、期限で ？先方 に下がります。下がる日を前もって表に載せ、黙っては動かしません。同じ調べで、閉じた枠の Fee が人の手なしに「確かめ済み」として延びていたことも見つかり、止めました。</p>
+</section>
+
+<!-- ============ 三 ============ -->
+<section class="chapter" data-chapter="三　どう決めてきて、どう移るか">
+<p class="chapter-head">三　どう決めてきて、どう移るか</p>
+
+<h2 id="s8">8　critic との議論</h2>
+<figure>
+<svg viewBox="0 0 300 300" role="img" aria-labelledby="f8t">
+<title id="f8t">往復9 から15 までの、形について合意できていない点の数。データの型・使う側・実例と移り方の3人の合計。往復12 以降は細部の指摘</title>
+<rect x="10" y="6" width="12" height="12" rx="2" class="s1"/><text x="28" y="18" class="ts">データの型</text>
+<rect x="108" y="6" width="12" height="12" rx="2" class="s2"/><text x="126" y="18" class="ts">使う側</text>
+<rect x="180" y="6" width="12" height="12" rx="2" class="s3"/><text x="198" y="18" class="ts">実例と移り方</text>
+<rect x="141" y="36" width="155" height="214" class="shade"/>
+<text x="150" y="54" class="ts">ここから細部の指摘</text>
+<line x1="28" y1="250" x2="296" y2="250" class="grid"/>
+<line x1="28" y1="192.3" x2="296" y2="192.3" class="grid"/>
+<line x1="28" y1="134.6" x2="296" y2="134.6" class="grid"/>
+<line x1="28" y1="76.9" x2="296" y2="76.9" class="grid"/>
+<text x="22" y="255" class="ts" text-anchor="end">0</text>
+<text x="22" y="197" class="ts" text-anchor="end">4</text>
+<text x="22" y="140" class="ts" text-anchor="end">8</text>
+<text x="22" y="82" class="ts" text-anchor="end">12</text>
+<!-- 1単位=14.42 高さ。列幅22・間隔38。x 開始 36 -->
+<g>
+<!-- 9: 4,2,3 =9 -->
+<rect x="36" y="192.3" width="22" height="57.7" class="s1"><title>往復9 データの型 4</title></rect>
+<rect x="36" y="161.5" width="22" height="28.8" class="s2"><title>往復9 使う側 2</title></rect>
+<rect x="36" y="116.2" width="22" height="43.3" class="s3"><title>往復9 実例と移り方 3</title></rect>
+<text x="47" y="108" class="t tb" text-anchor="middle">9</text>
+<!-- 10: 4,4,2 =10 -->
+<rect x="74" y="192.3" width="22" height="57.7" class="s1"><title>往復10 データの型 4</title></rect>
+<rect x="74" y="132.7" width="22" height="57.6" class="s2"><title>往復10 使う側 4</title></rect>
+<rect x="74" y="103.8" width="22" height="26.9" class="s3"><title>往復10 実例と移り方 2</title></rect>
+<text x="85" y="96" class="t tb" text-anchor="middle">10</text>
+<!-- 11: 4,4,3 =11 -->
+<rect x="112" y="192.3" width="22" height="57.7" class="s1"><title>往復11 データの型 4</title></rect>
+<rect x="112" y="132.7" width="22" height="57.6" class="s2"><title>往復11 使う側 4</title></rect>
+<rect x="112" y="89.4" width="22" height="41.3" class="s3"><title>往復11 実例と移り方 3</title></rect>
+<text x="123" y="81" class="t tb" text-anchor="middle">11</text>
+<!-- 12: 4,3,4 =11 -->
+<rect x="150" y="192.3" width="22" height="57.7" class="s1"><title>往復12 データの型 4</title></rect>
+<rect x="150" y="147.0" width="22" height="43.3" class="s2"><title>往復12 使う側 3</title></rect>
+<rect x="150" y="89.4" width="22" height="55.6" class="s3"><title>往復12 実例と移り方 4</title></rect>
+<text x="161" y="81" class="t tb" text-anchor="middle">11</text>
+<!-- 13: 5,3,4 =12 -->
+<rect x="188" y="177.9" width="22" height="72.1" class="s1"><title>往復13 データの型 5</title></rect>
+<rect x="188" y="132.6" width="22" height="43.3" class="s2"><title>往復13 使う側 3</title></rect>
+<rect x="188" y="75.0" width="22" height="55.6" class="s3"><title>往復13 実例と移り方 4</title></rect>
+<text x="199" y="67" class="t tb" text-anchor="middle">12</text>
+<!-- 14: 6,4,3 =13 -->
+<rect x="226" y="163.5" width="22" height="86.5" class="s1"><title>往復14 データの型 6</title></rect>
+<rect x="226" y="105.8" width="22" height="55.7" class="s2"><title>往復14 使う側 4</title></rect>
+<rect x="226" y="62.5" width="22" height="41.3" class="s3"><title>往復14 実例と移り方 3</title></rect>
+<text x="237" y="55" class="t tb" text-anchor="middle">13</text>
+<!-- 15: 5,1,1 =7 -->
+<rect x="264" y="177.9" width="22" height="72.1" class="s1"><title>往復15 データの型 5</title></rect>
+<rect x="264" y="163.5" width="22" height="12.4" class="s2"><title>往復15 使う側 1</title></rect>
+<rect x="264" y="149.1" width="22" height="12.4" class="s3"><title>往復15 実例と移り方 1</title></rect>
+<text x="275" y="141" class="t tb" text-anchor="middle">7</text>
+</g>
+<text x="47" y="272" class="ts" text-anchor="middle">9</text>
+<text x="85" y="272" class="ts" text-anchor="middle">10</text>
+<text x="123" y="272" class="ts" text-anchor="middle">11</text>
+<text x="161" y="272" class="ts" text-anchor="middle">12</text>
+<text x="199" y="272" class="ts" text-anchor="middle">13</text>
+<text x="237" y="272" class="ts" text-anchor="middle">14</text>
+<text x="275" y="272" class="ts" text-anchor="middle">15</text>
+<text x="161" y="294" class="ts" text-anchor="middle">往復</text>
+</svg>
+<figcaption>縦は critic が挙げた「まだ合意できていない点」の数（3人の合計）。往復12 以降の分は、骨組みでなく細部の点。</figcaption>
+</figure>
+<p>設計は、見る目の違う3人の critic（データの型・使う側・実例と移り方）と 15 往復しました。図は往復9 からの「形について合意できていない点」の数です。数は往復14 まで減りませんでしたが、往復12 からの指摘は骨組みではなく、実装の細部（鍵の書き方・数え方・移る順）でした。往復15 で残る 7 点も、どれも細部の直しです。書き手が直す点で、武者野さんに決めていただく件には入っていません。</p>
+<p>書き手が自分では出せなかった直しが、往復ごとに出ています。逆のトラックに入った増額（7-2）、期限で黙って下がる閉（7-3）、枠の定義が在庫表に寄りかかっていた循環、紹介会社全体や全社に掛かる決まりの置き場、などです。最後に、設計を読まずに骨組みだけを見る critic を1人足し、骨組みが持つことを確かめました。</p>
+<p>反省が1つあります。CA の問い 66 型に箱を当てる試験（使う側からの試験）を最後に回したのは、順番の誤りでした。往復1 でデータの型の critic が「この形では 28.8 はほぼ動かない。先に中身を埋める順に」と言っていたのに、確かめたのは最後でした。最初に当てていれば、本丸が中身だと早く分かり、往復の多くを細部に使わずに済みました。</p>
+<details><summary>表で見る（往復ごとの数）</summary><div class="inner">
+<div class="tbl" tabindex="0" role="region" aria-label="往復ごとの合意できていない点の数"><table>
+<tr><th>往復</th><th>データの型</th><th>使う側</th><th>実例と移り方</th><th>計</th></tr>
+<tr><td>9</td><td class="n">4</td><td class="n">2</td><td class="n">3</td><td class="n">9</td></tr>
+<tr><td>10</td><td class="n">4</td><td class="n">4</td><td class="n">2</td><td class="n">10</td></tr>
+<tr><td>11</td><td class="n">4</td><td class="n">4</td><td class="n">3</td><td class="n">11</td></tr>
+<tr><td>12</td><td class="n">4</td><td class="n">3</td><td class="n">4</td><td class="n">11</td></tr>
+<tr><td>13</td><td class="n">5</td><td class="n">3</td><td class="n">4</td><td class="n">12</td></tr>
+<tr><td>14</td><td class="n">6</td><td class="n">4</td><td class="n">3</td><td class="n">13</td></tr>
+<tr><td>15</td><td class="n">5</td><td class="n">1</td><td class="n">1</td><td class="n">7</td></tr>
+</table></div></div></details>
+
+<h2 id="s9">9　移り方</h2>
+<figure>
+<svg viewBox="0 0 300 470" role="img" aria-labelledby="f9t">
+<title id="f9t">前に判定の型つけ、段a 影で並べる、段b 1回で切り替え、段c 紹介会社乙の結び、段d 古い読み道を消す</title>
+<rect x="4" y="4" width="292" height="60" rx="8" class="warnb"/>
+<text x="16" y="28" class="t tb">段b の前に要る：判定の型つけ</text>
+<text x="16" y="52" class="ts">いま型つきの判定は 355 本中 0 本</text>
+<path d="M30 66 L30 82" class="ln"/><path d="M24 78 L30 88 L36 78 Z" class="arrowhead"/>
+<circle cx="30" cy="114" r="20" class="boxa"/><text x="30" y="120" class="t tb ta" text-anchor="middle">a</text>
+<text x="60" y="108" class="t tb">影で並べる</text>
+<text x="60" y="130" class="ts">本番に出さず計算し突き合わせ</text>
+<text x="60" y="150" class="ts">CA からは見えない</text>
+<path d="M30 136 L30 172" class="ln"/><path d="M24 168 L30 178 L36 168 Z" class="arrowhead"/>
+<circle cx="30" cy="200" r="20" class="boxa"/><text x="30" y="206" class="t tb ta" text-anchor="middle">b</text>
+<text x="60" y="194" class="t tb">1回で切り替える</text>
+<text x="60" y="216" class="ts">答えが2段になる</text>
+<text x="60" y="236" class="ts">印が動く所は全部、遷移表に</text>
+<path d="M30 222 L30 262" class="ln"/><path d="M24 258 L30 268 L36 258 Z" class="arrowhead"/>
+<circle cx="30" cy="290" r="20" class="boxa"/><text x="30" y="296" class="t tb ta" text-anchor="middle">c</text>
+<text x="60" y="284" class="t tb">紹介会社乙の結び</text>
+<text x="60" y="306" class="ts">裁定で閉じた 47 件を先に、</text>
+<text x="60" y="326" class="ts">次に別の求人 9・求人票なし 25</text>
+<path d="M30 312 L30 352" class="ln"/><path d="M24 348 L30 358 L36 348 Z" class="arrowhead"/>
+<circle cx="30" cy="380" r="20" class="boxa"/><text x="30" y="386" class="t tb ta" text-anchor="middle">d</text>
+<text x="60" y="374" class="t tb">古い読み道を消す</text>
+<text x="60" y="396" class="ts">読む所を 0 にしてから消す</text>
+<text x="60" y="416" class="ts">読む所が残れば自動で止まる</text>
+<rect x="4" y="432" width="292" height="34" rx="8" class="box"/>
+<text x="16" y="455" class="ts">どの段も、表に無い動きは止まる</text>
+</svg>
+<figcaption>遷移表＝切り替えで、どの行の印がどう変わるかを前もって並べた一覧。</figcaption>
+</figure>
+<p>移るのは4段です。段a では、新しい読み方を本番に出さずに並べて計算し、いまの印と1行ずつ突き合わせます。CA からは何も変わって見えません。</p>
+<p>段b で一度に切り替えます。何回にも分けると、古い読み方と新しい読み方が同じ画面に混ざるからです。切り替えで印が動く所は全部、遷移表に前もって載せ、表に無い動きが出たら自動で止まります。</p>
+<p>段c で紹介会社乙の枠と求人票を結び、段d で古い読み道を 0 にしてから消します。段b に入るには、判定を型つきに直す作業が先に要ります。いま型つきの判定は 355 本中 0 本です。</p>
+
+<h2 id="s10" data-short="10　武者野さんが決めること">10　武者野さんが決めること</h2>
+<figure>
+<svg viewBox="0 0 300 386" role="img" aria-labelledby="f10t">
+<title id="f10t">決めること10件を、急ぎ度で3つに分けた図</title>
+<rect x="4" y="4" width="292" height="64" rx="8" class="boxa"/>
+<text x="16" y="28" class="t tb ta">いま（進める順番そのもの）</text>
+<text x="16" y="54" class="t">1　箱が先か、中身が先か</text>
+<rect x="4" y="78" width="292" height="164" rx="8" class="box"/>
+<text x="16" y="102" class="t tb">段b の前に（印と答えの形）</text>
+<text x="16" y="128" class="t">2　写しの ✕ を残すか下げるか</text>
+<text x="16" y="152" class="t">3　ほかの紹介会社の応募済み</text>
+<text x="16" y="176" class="t">4　推薦の直前の門</text>
+<text x="16" y="200" class="t">5　面談の場か、準備か</text>
+<text x="16" y="224" class="t">6　並びの既定</text>
+<rect x="4" y="252" width="292" height="130" rx="8" class="box"/>
+<text x="16" y="276" class="t tb">急がない（いまのままで待てる）</text>
+<text x="16" y="302" class="t">7　国籍が空欄の人</text>
+<text x="16" y="326" class="t">8　永住者・定住者</text>
+<text x="16" y="350" class="t">9　経験の物差し</text>
+<text x="16" y="374" class="t">10　CA の道具から判定を足す</text>
+</svg>
+<figcaption>急ぎ度は書き手の読み。</figcaption>
+</figure>
+<p>決めていただきたいことは 10 件です。決めないあいだにどう動くかは、各件の「決めないと」に書きました。急に何かが壊れるものはありません。ただし 4 は、決めないと二重推薦を確かめる場面がいまより減るので、段b の前に見てください。番号と案の記号で返してください（例: 1丙・2丁）。おすすめのとおりなら「おすすめで」の一言で足ります（2 と 4 は数を測り、結果を添えてもう一度お返しします。9 だけはおすすめが無いので、甲か乙を選んでください）。</p>
+<p>各件に、案ごとの得と損、書き手のおすすめ（あれば）、決めないとどうなるかを並べました。番号の横の札は、設計書の番号と、判断の種類（(a) CA が体感する使い勝手／(c) 事業の優先順位）です。</p>
+
+<article class="dec">
+<h3 id="d1">1　箱の移し替えと、中身の取り込みのどちらを先に進めるか</h3>
+<span class="tag">設計書 9-11・(c)</span>
+<p class="mat">注意: 通勤の分は本人の住まいから計る値なので、地図の経路計算が要るかもしれません。要るなら、新しい外部サービスの費用の判断が別に出ます。</p>
+<p class="mat">材料: 中身が型つきで入っていない「読めていない」は 40 型・延べ 101 件で、先頭は通勤○分圏の 50 件。この数は机上の見込み。</p>
+<div class="opt"><p class="on">甲　箱が先</p><p class="pl">「求人を読む場所は1か所」の原則（11-19）に早く届き、社内の在庫表の写しの値が、先方に確かめないまま「確定」と表示されることを先に止められる（何件起きているかは未測定）。</p><p class="mi">CA への答えはしばらく増えない。</p></div>
+<div class="opt"><p class="on">乙　中身が先</p><p class="pl">CA への答えが増えるのはこちら。</p><p class="mi">古い読み道が残ったまま中身を足すので、足した中身を後で移し直す手間が出る。</p></div>
+<div class="opt"><p class="on">丙　まず箱で誤表示を止め、あとは通勤の取り込みを並べて進める</p><p class="pl">「写しの値の誤表示」を止める所と、運用の決まりを型つきに直す所（355 本）までは箱を先に進め、そのあとは一番大きい問いの山（通勤）の取り込みを、箱の移し替えと並べて走らせる。</p><p class="mi">2本を並べて走らせる分、見張る物が増える。</p></div>
+<p class="rec"><b>おすすめ: 丙。</b>原則と答えの数の両方に早く届く。通勤の取り込みがいつ始まるかは、運用の決まりの型つけ（0 本から 355 本）の進み次第。往復1 の critic の「先に中身を埋める順に」（8 節）も受けた折衷。</p>
+<p class="nod"><b>決めないと:</b> 甲の順（設計書の順）で進み、答えが増えるのは段b の後になる。段b がいつかは、運用の決まりの型つけ（355 本）の進み次第で、まだ見積もっていない。</p>
+</article>
+
+<article class="dec">
+<h3 id="d2">2　在庫表の ✕ の決まりを変えて、先方の確認まで ？先方 に下げるか</h3>
+<span class="tag">設計書 9-9・(a)(c)</span>
+<p class="mat">材料: ✕ を作りうるのは 56 か所（年齢 33・エリア 16・性別 5・既往歴 2）。出どころは全部が社内の在庫表で、言った人の名があるのは決まり 111 本のうち 19 本（言った人が分からないのは 92 本）。どの案でも、武者野さんの裁定で閉じた枠は ✕ のまま。</p>
+<div class="opt"><p class="on">甲　変えない（いまと同じ）</p><p class="pl">挙動が動かない。</p><p class="mi">誰が言ったか分からない写しから ✕ が出続ける。</p></div>
+<div class="opt"><p class="on">乙　写しの ✕ を全部 ？先方 に下げる</p><p class="pl">「✕ は物理的に無理なものだけ」に一番近い。</p><p class="mi">56 か所が ？ に動き、先方に聞く件数が増える。</p></div>
+<div class="opt"><p class="on">丙　年齢・性別だけ ✕ を残す</p><p class="pl">はっきり書かれやすい2つは残る（残る ✕ は 38）。</p><p class="mi">エリアと既往歴の ✕ が ？ になる。</p></div>
+<div class="opt"><p class="on">丁　写しで、言った人が分からない ✕ だけ下げる</p><p class="pl">出どころの弱い ✕ だけを下げられる。設計を読まない critic の推し。</p><p class="mi">どの ✕ が動くかの数はまだ測っていない。</p></div>
+<p class="rec"><b>おすすめ: 丁。</b>ただし動く数を測ってから確定する。</p>
+<p class="nod"><b>決めないと:</b> 甲のまま進む。</p>
+</article>
+
+<article class="dec">
+<h3 id="d3">3　ほかの 2 つの紹介会社経由の応募済み 31 行を、先方の答えの前に ✕ から ？先方 に下げるか</h3>
+<span class="tag">設計書 9-10・(a)</span>
+<p class="mat">材料: 31 行・13 人。同じ人の同じ応募済みが、ある紹介会社では ？先方、ほかの紹介会社では ✕ と割れているのがいまの姿。</p>
+<div class="opt"><p class="on">甲　先方の答えまで ✕ のまま（いまの挙動）</p><p class="pl">二重応募の事故が起きない。</p><p class="mi">紹介会社によって扱いが割れたまま。</p></div>
+<div class="opt"><p class="on">乙　先に ？先方 へ下げる</p><p class="pl">どの紹介会社でも同じ扱いにそろい、「✕ は物理的に無理なものだけ」の側に寄る。</p><p class="mi">✕ を外すと全部が「要確認」に集まり、どの ？ に写すかの表を先に作る手間が要る。</p></div>
+<p class="rec"><b>おすすめ: 甲。</b>先方への問いはもう束に入っていて、13 人なら答えを待つ損が小さい。</p>
+<p class="nod"><b>決めないと:</b> 甲のまま。</p>
+</article>
+
+<article class="dec">
+<h3 id="d4">4　推薦の直前に、応募済みと在籍を確かめる門を足すか</h3>
+<span class="tag">設計書 9-3・(a)</span>
+<p class="mat">材料: 288 人のうち、応募済みが未確認 226 人・機械の記録だけ 38 人（推薦の記録から機械が埋めただけで、本人に聞いていない）、在籍が未確認 232 人。共有面談まで進んだ 54 人では、応募済みが未確認 27 人・機械の記録だけ 6 人。新しい箱では、未確認は ⭕ のまま通し、頭に1回だけ出す。</p>
+<div class="opt"><p class="on">甲　応募済みだけ確かめる</p><p class="pl">二重推薦で失格になる事故を、推薦の前で止められる。</p><p class="mi">推薦のたびに1手増える。</p></div>
+<div class="opt"><p class="on">乙　応募済みと在籍の両方</p><p class="pl">在籍中の会社に出す事故も止められる。</p><p class="mi">手が2つ増え、在籍が未確認の人に毎回聞くことになる。</p></div>
+<div class="opt"><p class="on">丙　足さない（頭の表示だけ）</p><p class="pl">手は増えない。</p><p class="mi">未確認のまま推薦が出うる。</p></div>
+<p class="rec"><b>おすすめ: 甲。</b>未確認が掛かる行の数を段a で測ってから確定する。</p>
+<p class="nod"><b>決めないと:</b> 丙のまま。新しい箱では未確認が ⭕ で通るので、確かめる場面はいまより減る。</p>
+</article>
+
+<article class="dec">
+<h3 id="d5">5　CA は箱を面談の場で引くのか、準備で引くのか</h3>
+<span class="tag">設計書 9-1・(a)</span>
+<p class="mat">材料: 1人あたりの束は 402 社。⭕ のある会社は、真ん中の人で 17.5 社。</p>
+<div class="opt"><p class="on">甲　面談の場（頭は ⭕・△・？本人 のある束だけ）</p><p class="pl">面談中に読める量に収まる。</p><p class="mi">？先方 と ✕ の束が頭に出ない。</p></div>
+<div class="opt"><p class="on">乙　準備（頭に全部の束）</p><p class="pl">全部の在庫が見える。</p><p class="mi">402 社は面談中に読むには長い。</p></div>
+<div class="opt"><p class="on">丙　口ごとに変える</p><p class="pl">面談の口は絞り、準備の口は全部見せられる。</p><p class="mi">口ごとに頭が違うので、CA が「どちらで見たか」を意識する必要がある。</p></div>
+<p class="rec"><b>おすすめ: 丙。</b>面談中は読める量に絞り、準備では全部の在庫を見られるため。</p>
+<p class="nod"><b>決めないと:</b> 答えの頭は乙（全部）の形で作る。</p>
+</article>
+
+<article class="dec">
+<h3 id="d6">6　並びの既定</h3>
+<span class="tag">設計書 9-2・(a)(c)</span>
+<div class="opt"><p class="on">甲　本人の希望の軸の順</p><p class="pl">本人の話に沿って見せやすい。</p><p class="mi">Fee や決まりやすさが後ろに回る。</p></div>
+<div class="opt"><p class="on">乙　決まりやすさの順</p><p class="pl">承諾まで行きやすい会社が上に来る。</p><p class="mi">決まりやすさを測る材料（選考の履歴）がまだ少ない。</p></div>
+<div class="opt"><p class="on">丙　2段（本人の希望の列と、CA のおすすめの列）</p><p class="pl">本人の話と売上の話を分けて見られる。</p><p class="mi">画面が1段増える。</p></div>
+<div class="opt"><p class="on">丁　Fee の順</p><p class="pl">売上に一番まっすぐ。</p><p class="mi">本人の希望と離れた会社が上に来て、承諾が落ちうる。</p></div>
+<p class="rec"><b>おすすめ: 丙。</b>売上は承諾から来るので、本人の希望を消さずに Fee の高い先を並べられる形がよい。</p>
+<p class="nod"><b>決めないと:</b> 口ごとに並びがばらつく。</p>
+</article>
+
+<article class="dec">
+<h3 id="d7">7　国籍が空欄の人を日本とみなすか、聞くか</h3>
+<span class="tag">設計書 9-5・(a)</span>
+<div class="opt"><p class="on">甲　みなす</p><p class="pl">？ から抜ける行が最大 992。手は増えない。</p><p class="mi">外国籍の人に「外国籍不可」の求人を出す誤りが残る。</p></div>
+<div class="opt"><p class="on">乙　聞く</p><p class="pl">誤りが残らない。</p><p class="mi">最初に必ず聞く質問が2問から3問になる。</p></div>
+<p class="rec"><b>おすすめ: 乙。</b>1問で 992 行が確かな答えになる。</p>
+<p class="nod"><b>決めないと:</b> 最大 992 行（人と求人の組）が ？ のまま。</p>
+</article>
+
+<article class="dec">
+<h3 id="d8">8　永住者・定住者に「外国籍不可」の求人をどう出すか</h3>
+<span class="tag">設計書 9-6・(c)</span>
+<div class="opt"><p class="on">甲　いまのまま ✕</p><p class="pl">先方の「不可」に一番忠実。</p><p class="mi">働く制限の無い人まで外れる。</p></div>
+<div class="opt"><p class="on">乙　？先方 に変える</p><p class="pl">「✕ は物理的に無理なものだけ」に沿い、出せる求人が増える。</p><p class="mi">先方に聞く件数が増え、断られることもある。</p></div>
+<p class="rec"><b>おすすめ: 乙。</b>働く制限の無い人まで外すのは、「✕ は物理的に無理なものだけ」に合わないため。</p>
+<p class="nod"><b>決めないと:</b> ✕ のまま。</p>
+</article>
+
+<article class="dec">
+<h3 id="d9">9　経験の物差し（求人に年数が無いとき・先方の答えが来るまでの既定）</h3>
+<span class="tag">設計書 9-4・(c)</span>
+<p class="mat">会社ごとの数え方は先方に聞き、答えが来た会社はその値を先に使う（どちらの案でも同じ）。</p>
+<p class="mat">材料: 経験者枠と未経験の枠それぞれの件数と Fee は、この1枚には載せていません。段a で測って添えます。</p>
+<div class="opt"><p class="on">甲　実務が1日でもあれば経験者</p><p class="pl">経験者枠に出せる人が増える。</p><p class="mi">未経験専用の枠から外れる人が増える（未経験専用の枠に経験者は ✕）。</p></div>
+<div class="opt"><p class="on">乙　求人の年数、無ければ1年</p><p class="pl">未経験の枠に出せる人が増える。</p><p class="mi">経験の浅い人を経験者枠に出しにくい。</p></div>
+<p class="rec"><b>おすすめ: なし。</b>経験者枠と未経験の枠のどちらに多く出したいかは、Fee と在庫で決まる事業の判断なので、武者野さんの見立てで選んでいただきたい。</p>
+<p class="nod"><b>決めないと:</b> 経験が絡む問いは ？先方 で止まったまま。</p>
+</article>
+
+<article class="dec">
+<h3 id="d10">10　CA の道具から、運用の判定を足せるようにするか</h3>
+<span class="tag">設計書 9-7・(a)</span>
+<div class="opt"><p class="on">甲　足せる</p><p class="pl">CA が先方から聞いた決まりがすぐ箱に入る。</p><p class="mi">確かめていない話が混ざる。</p></div>
+<div class="opt"><p class="on">乙　足せない（いまと同じ）</p><p class="pl">箱の中が荒れない。</p><p class="mi">CA が聞いた話は Slack などに散ったまま。</p></div>
+<div class="opt"><p class="on">丙　足せるが「要確認」で入り、司令塔が確かめて有効にする</p><p class="pl">聞いた話を取りこぼさず、確かめてから印に使える。</p><p class="mi">有効になるまで少し遅れる。</p></div>
+<p class="rec"><b>おすすめ: 丙。</b>聞いた話を取りこぼさず、確かめてから印に使えるため。</p>
+<p class="nod"><b>決めないと:</b> 乙のまま。</p>
+</article>
+
+<p>決めていただいた件から、作業の票の完了条件に書き込み、段a に入ります。</p>
+</section>
+</main>
+
+<script>
+/* ── 箱の部品の構造図（skill tree-map の雛形の DATA と render をそのまま写した） ── */
+const DATA = {
+  cls:'rootnode', label:'求人を読む場所は1か所', note:'CA の道具も社内の道具も、全員がここだけを読む。', axis:'箱の境で分岐',
+  children:[
+    { cls:'dirnode', label:'箱の中', note:'求人の事実と運用の知識を持つ。', axis:'持つ物の役割で分岐',
+      children:[
+        { layer:'もの', label:'会社', note:'別名表の番号で1社に束ねる。', axis:'会社の下に在る物の種類で分岐',
+          children:[
+            { layer:'もの', label:'枠', note:'契約の単位＝紹介会社×区分（トラック・職種）で、求人票が無くても在る。', axis:'枠に付く物で分岐',
+              children:[
+                { cls:'leafnode', text:'判定（この枠だけに掛かる運用の知識）' },
+                { cls:'leafnode', text:'結び → 求人票（人が決めた台帳か、機械が毎回出す）' },
+              ]},
+            { layer:'もの', label:'求人票', note:'1本ごとに持ち、中の区分も持つ。', axis:'中身の出どころで分岐',
+              children:[
+                { cls:'leafnode', text:'事実（求人票の原本に書いてあること）' },
+                { cls:'leafnode', text:'判定（この求人票に掛かる運用の知識）' },
+              ]},
+            { cls:'leafnode', text:'判定（会社全体に掛かる。枠へ継ぐのは行き先が1つのときだけ）' },
+          ]},
+        { layer:'判定', label:'紹介会社全体・全社の決まり', note:'束の頭に文で出し、印は作らない。' },
+        { layer:'出どころ', label:'裏づけ', note:'判定がどこから来たかを持つ。', axis:'役割で分岐',
+          children:[
+            { cls:'leafnode', text:'源の取り込み版（先方のシートを取り込んだもの）' },
+            { cls:'leafnode', text:'源の登録簿（源ごとの全数・最後に読んだ日・読めなかった理由）' },
+            { cls:'leafnode', text:'正本が決まっていない源の一覧（ここに載る源は確定に上がらない）' },
+          ]},
+      ]},
+    { cls:'dirnode', label:'箱の外：関係', badges:[{k:'warn',t:'箱の外'}], note:'求職者と会社の間の事実で、読む瞬間に会社の番号で掛け合わせる。', axis:'事実の種類で分岐',
+      children:[
+        { cls:'leafnode', text:'応募済み（あり／なし／機械の記録だけ／未確認）' },
+        { cls:'leafnode', text:'在籍（あり／なし／未確認）' },
+        { cls:'leafnode', text:'既出し・落選' },
+        { cls:'leafnode', text:'選考の履歴（この版で足す。推薦の台帳とステータスを読むだけ）' },
+      ]},
+  ]
+};
+const _AXIS_EMPTY = s => s==='—' || s==='-' || s==='';
+function render(n){
+  if(n.text!==undefined) return `<li class="${n.cls||'leafnode'}"><div class="node">${n.text}</div></li>`;
+  const kidn = (n.children&&n.children.length) || 0;
+  if(kidn && !n.axis) console.warn('[tree-map] 分岐に axis(切る軸) が未設定:', n.label);
+  if(kidn && _AXIS_EMPTY(n.axis)) console.warn('[tree-map] axis を "—"/空 でごまかすな（軸を書くか子を畳め）:', n.label);
+  if(n.axis && !_AXIS_EMPTY(n.axis) && kidn<2) console.warn('[tree-map] 偽分岐（軸ありだが子<2）＝畳むか2子以上に割れ:', n.label);
+  if(n.note && (String(n.note).match(/。/g)||[]).length>=2) console.warn('[tree-map] note に第2メッセージの疑い（句点2つ以上）＝children へ割れ:', n.label);
+  const showAxis = n.axis && !_AXIS_EMPTY(n.axis);
+  const layer  = n.layer ? `<span class="layer">${n.layer}</span>` : '';
+  const label  = n.label ? `<b>${n.label}</b>` : '';
+  const badges = (n.badges||[]).map(b=>`<span class="badge b-${b.k}">${b.t}</span>`).join('');
+  let note = n.note || '';
+  if(showAxis) note = (note ? note+'　' : '') + `<span class="axis">分けた理由＝${n.axis}</span>`;
+  const noteEl = note ? `<span class="note">${note}</span>` : '';
+  const kids = kidn ? `<ul>${n.children.map(render).join('')}</ul>` : '';
+  return `<li class="${n.cls||''}"><div class="node"><div class="row">${layer}${label}${badges}</div>${noteEl}</div>${kids}</li>`;
+}
+document.getElementById('tree').innerHTML = render(DATA);
+
+/* ── 帯: 最後に通った見出しで章と節を出す ── */
+(function(){
+  const band = document.querySelector('.band');
+  const ch = document.getElementById('bandCh');
+  const sec = document.getElementById('bandSec');
+  const heads = Array.from(document.querySelectorAll('main h2[id], main h3[id]'));
+  let ticking = false; let lastH = 0;
+  function update(){
+    const bh = Math.round(band.getBoundingClientRect().height);
+    if (bh !== lastH) { lastH = bh; document.documentElement.style.setProperty('--band-h', bh + 'px'); }
+    const line = band.getBoundingClientRect().bottom + 24;
+    let curH2 = null, curH3 = null;
+    for(const h of heads){
+      if(h.getBoundingClientRect().top <= line){
+        if(h.tagName === 'H2'){ curH2 = h; curH3 = null; } else { curH3 = h; }
+      } else break;
+    }
+    if(!curH2){ ch.textContent = 'はじめに'; sec.textContent = 'まえがき'; return; }
+    const c = curH2.closest('section.chapter');
+    ch.textContent = c ? c.dataset.chapter : '';
+    let s = curH2.dataset.short || curH2.textContent;
+    if(curH3 && curH2.id === 's7') s = curH3.dataset.short || curH3.textContent;
+    sec.textContent = s;
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ ticking = true; requestAnimationFrame(function(){ update(); ticking = false; }); }
+  }, {passive:true});
+  window.addEventListener('resize', update);
+  update();
+})();
+</script>
+</body>
+</html>
