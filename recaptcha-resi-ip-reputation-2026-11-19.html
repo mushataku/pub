@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>住宅IPの素性と即通過（2026-11-19）</title>
+<style>
+:root { --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6470; --line:#d8d4cb; --acc:#2f6f5e; --bad:#a23b2a; --card:#ffffff; }
+@media (prefers-color-scheme: dark) { :root { --bg:#16181b; --fg:#e8e6e1; --mut:#a3a8b0; --line:#3a3f46; --acc:#6fc4a8; --bad:#e08a78; --card:#1e2125; } }
+html { font-family: "Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif; background:var(--bg); color:var(--fg); line-height:1.8; }
+body { max-width: 46rem; margin: 0 auto; padding: 1.5rem 16px 3rem; }
+h1 { font-size: 1.4rem; line-height:1.4; margin: 0 0 .4rem; }
+h2 { font-size: 1.1rem; margin: 2rem 0 .5rem; border-bottom:1px solid var(--line); padding-bottom:.3rem; }
+p, li { font-size: .98rem; }
+.lead { color: var(--mut); font-size:.9rem; margin:0 0 1.2rem; }
+.answer { background:var(--card); border:1px solid var(--line); border-left:4px solid var(--acc); padding:.8rem 1rem; border-radius:6px; }
+table { width:100%; border-collapse:collapse; font-size:.92rem; margin:.6rem 0; }
+th, td { border-bottom:1px solid var(--line); padding:.45rem .5rem; text-align:right; }
+th:first-child, td:first-child { text-align:left; }
+th { color:var(--mut); font-weight:600; }
+.bar { height:.7rem; background:var(--line); border-radius:3px; position:relative; min-width:6rem; }
+.bar i { position:absolute; left:0; top:0; bottom:0; background:var(--acc); border-radius:3px; }
+.note { color:var(--mut); font-size:.85rem; }
+@media (max-width: 480px) { th, td { padding:.4rem .25rem; font-size:.85rem; } }
+</style>
+</head>
+<body>
+<h1>住宅IPの素性の点数は、reCAPTCHA の即通過を説明しない</h1>
+<p class="lead">2026-11-19 11:47〜12:30 JST／的は自陣の公開ミラー（鍵 fresh2）／Chrome を開いたまま出口 IP だけ替える形（<code>headed+linux@resi-rot</code>）／IP はこの資料に載せない（ASN と判定だけ）</p>
+
+<div class="answer">
+<p><strong>16回・16本の違う IP を引いて、即通過は1回だけ（1/16・Wilson 95% で 1.1〜28.3%）。</strong>無料の素性の口（ip-api.com の proxy・hosting・mobile）は、16本のうち13本を「素性に印なし」と判定した。その13本でも即通過は1/13で、印の付いた3本は0/3。<strong>外の素性の点数で IP を選ぶ門は、この規模では作れない</strong>（印なしと印ありの差が見えない・n が小さく区間が広い）。</p>
+</div>
+
+<h2>1. 素性の判定ごとの即通過</h2>
+<table>
+<tr><th>判定（ip-api.com）</th><th>回数</th><th>即通過</th><th>チャレンジ後通過</th><th>即通過の率（Wilson 95%）</th></tr>
+<tr><td>印なし</td><td>13</td><td>1</td><td>12</td><td>7.7%（1.4〜33.3）</td></tr>
+<tr><td>proxy＋hosting（Datacamp）</td><td>2</td><td>0</td><td>2</td><td>0%（0〜65.8）</td></tr>
+<tr><td>mobile（Rakuten Mobile）</td><td>1</td><td>0</td><td>1</td><td>0%（0〜79.3）</td></tr>
+<tr><td><strong>合計</strong></td><td>16</td><td>1</td><td>15</td><td>6.3%（1.1〜28.3）</td></tr>
+</table>
+<p class="note">判定は撃った後に、行に残した出口 IP を1本ずつ引いて付けた（撃った回の素性の口は応答に proxy の欄が無く空だった＝口を差し替えて後から引いた。同じ IP を撃った時刻と別の時刻に引くので、住宅IPの再割当てで判定が撃った時と違う可能性は残る）。</p>
+
+<h2>2. ASN ごとの成績</h2>
+<table>
+<tr><th>ASN（組織）</th><th>回数</th><th>即通過</th><th>分布</th></tr>
+<tr><td>AS2516 KDDI</td><td>6</td><td>0</td><td><div class="bar"><i style="width:0%"></i></div></td></tr>
+<tr><td>AS2519 ARTERIA</td><td>2</td><td>0</td><td><div class="bar"><i style="width:0%"></i></div></td></tr>
+<tr><td>AS4713 NTT DOCOMO BUSINESS</td><td>2</td><td>0</td><td><div class="bar"><i style="width:0%"></i></div></td></tr>
+<tr><td>AS17676 SoftBank</td><td>2</td><td>1</td><td><div class="bar"><i style="width:50%"></i></div></td></tr>
+<tr><td>AS212238 Datacamp</td><td>2</td><td>0</td><td><div class="bar"><i style="width:0%"></i></div></td></tr>
+<tr><td>AS9617 JCOM</td><td>1</td><td>0</td><td><div class="bar"><i style="width:0%"></i></div></td></tr>
+<tr><td>AS138384 Rakuten Mobile</td><td>1</td><td>0</td><td><div class="bar"><i style="width:0%"></i></div></td></tr>
+</table>
+<p class="note">即通過の1本は SoftBank（印なし）。ASN ごとの回数が1〜6で、当たりの ASN があるとは言えない。</p>
+
+<h2>3. 同じ日の他の回と並べる</h2>
+<table>
+<tr><th>回</th><th>撃った回数</th><th>即通過</th><th>備考</th></tr>
+<tr><td>この回（IP を記録）</td><td>16</td><td>1</td><td>Chrome を開いたまま替える</td></tr>
+<tr><td>10:37 の回（同じ形・IP は記録なし）</td><td>16</td><td>3</td><td>前の image</td></tr>
+<tr><td>2回の合計</td><td>32</td><td>4</td><td>12.5%（Wilson 95%: 5.0〜28.1）</td></tr>
+<tr><td>家の回線（11-19 の対照）</td><td>16</td><td>15</td><td>前の報告書の値</td></tr>
+</table>
+
+<h2>4. 通信量</h2>
+<p>この回の住宅IPの中継が運んだのは約 78 MB（最初の2回は Chrome の初回読み込みで約 54 MB・15 MB、以降は1回あたり約 0.6 MB）。11-19 の合計は約 650 MB（上限 1 GB）。</p>
+
+<h2>5. 読み方とこれから</h2>
+<ul>
+<li>「外の素性の点数と即通過が揃う」は、この回では見えなかった。印なしの IP が大半を占めたまま即通過が 1/13 しか出ないので、Google の判定は外の無料の素性の口が見ている軸とは別のものを見ている。</li>
+<li>無料の口は proxy・hosting・mobile の3つしか返さない。商用の素性データ（Spur 等）なら住宅IPの出口を見分けるかもしれないが、有料の契約は使っていない。</li>
+<li>次に試す価値がある手は、家の回線を出口に使う筋（15/16）と、住宅IPの育て方（プロファイルを寝かせる）の側。</li>
+</ul>
+</body>
+</html>
