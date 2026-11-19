@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>reCAPTCHA 出口×プロファイル（PC）</title><style>
+:root{--bg:#fbfaf7;--fg:#1d1d1f;--sub:#5b5b60;--line:#d8d5cc;--band:#fffdf6;--card:#fff;--main:#2f5d8a}
+@media (prefers-color-scheme:dark){:root{--bg:#17181a;--fg:#ececec;--sub:#a7a7ad;--line:#3a3b3f;--band:#1f2023;--card:#1c1d20;--main:#7fb0e0}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif;line-height:1.75;font-size:16px}
+.band{position:sticky;top:0;z-index:5;background:var(--band);border-bottom:1px solid var(--line);padding:8px 16px;font-size:14px}
+.band b{margin-right:.6em}.band .when{color:var(--sub);margin-right:.6em}
+main{max-width:1000px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;line-height:1.4;margin:.6em 0 .2em}
+h2{font-size:1.2rem;margin:2em 0 .4em;padding-top:.4em;border-top:2px solid var(--line)}
+.meta,.def,small,.na{color:var(--sub)}.def{font-size:.9rem}
+.blk{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px;margin:12px 0}
+.blk .cap{font-size:.85rem;color:var(--sub);margin:0 0 6px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{border:1px solid var(--line);padding:4px 6px;text-align:left;vertical-align:top;overflow-wrap:break-word}
+thead th{background:var(--band)}
+.bar{display:inline-block;height:.7em;background:var(--main);vertical-align:baseline;margin-right:.4em}
+ol.concl li{margin:.5em 0;font-weight:600}
+h1,h2{word-break:auto-phrase}
+</style></head>
+<body><div class="band"><b>reCAPTCHA: 出口とプロファイルの育ちで即時通過はどれだけ動くか（PC・2026-11-19）</b><span class="when">2026-11-19 16:22〜16:30 JST・2026-11-19 16:31 JST 時点</span></div><main>
+<h1>reCAPTCHA: 出口とプロファイルの育ちで即時通過はどれだけ動くか（PC・2026-11-19）</h1>
+<p class="meta">範囲: 腕 headed（ブランド版 Chrome・窓は裏）・道は全部 enterprise・的は 127.0.0.1 の的ミラー・音声は解かない。PC の列は家の回線の素の出口、
+「育てた写し」は日次 cohort の一番古い dir の写し（本体は触らない）。3セル×n=16 を新品／育てた写しで各16回、ラウンドロビン（1周で各セル1回・周の中は混ぜた・
+8周×2回の実行を新品と育てた写しで交互）。VM の列は 11-19 の別の測定（新品・データセンター・同じ道）の数字。期間 2026-11-19 16:22〜16:30 JST。2026-11-19 16:31 JST 時点。</p>
+<h2>結論（3点）</h2>
+<ol class="concl"><li>出口が決める: 家の回線では新品のプロファイルでも checkbox が 15/16 で即時通過した（VM のデータセンターでは 0/16）。差は +94 点（区間は 0 をまたがない）。invisible も 7/16→15/16。</li><li>育ちは測れる差を出さなかった: 育てた写し（日次 cohort の一番古い14日目）は checkbox 15/16・invisible 16/16 で、新品との差は 0 をまたぐ（家の回線では新品の時点でほぼ天井）。</li><li>score は両方の出口で 16/16・0.9・reasons は LOW_CONFIDENCE_SCORE のまま（鍵が新しく判定保留）。いまの的で一番多い checkbox が通るかは出口しだいで、プロファイルの育ちではない。</li></ol>
+<h2>問1: 種類ごとの即時通過率は、出口とプロファイルでどう動いたか</h2>
+<div class="blk"><p class="cap">即時通過率＝画像の課題が出ずにトークンを得た回 ÷ 全試行（error・no_token も分母）。括弧は 点推定・Wilson 95% 区間。</p>
+<div class="tw"><table><thead><tr><th>種類</th><th>VM（データセンター）×新品</th><th>PC（家の回線）×新品</th><th>PC（家の回線）×育てた写し</th></tr></thead><tbody><tr><td><b>checkbox</b><br><small>鍵 ent_checkbox</small></td><td><span class="bar" style="width:0.0px"></span><b>0/16</b>（0%・0%〜19%）</td><td><span class="bar" style="width:55.8px"></span><b>15/16</b>（94%・72%〜99%）</td><td><span class="bar" style="width:55.8px"></span><b>15/16</b>（94%・72%〜99%）</td></tr><tr><td><b>invisible</b><br><small>鍵 v2invisible</small></td><td><span class="bar" style="width:25.8px"></span><b>7/16</b>（44%・23%〜67%）</td><td><span class="bar" style="width:55.8px"></span><b>15/16</b>（94%・72%〜99%）</td><td><span class="bar" style="width:60.0px"></span><b>16/16</b>（100%・81%〜100%）</td></tr><tr><td><b>score</b><br><small>鍵 ent_score</small></td><td><span class="bar" style="width:60.0px"></span><b>16/16</b>（100%・81%〜100%）</td><td><span class="bar" style="width:60.0px"></span><b>16/16</b>（100%・81%〜100%）</td><td><span class="bar" style="width:60.0px"></span><b>16/16</b>（100%・81%〜100%）</td></tr></tbody></table></div></div>
+<h2>問2: その差は出口か、プロファイルか</h2>
+<div class="blk"><p class="cap">差＝左−右（パーセント点・Newcombe 95% 区間）。「出口」＝PC新品−VM新品。「育ち」＝PC育てた−PC新品。</p>
+<div class="tw"><table><thead><tr><th>種類</th><th>出口（PC新品−VM新品）</th><th>育ち（PC育てた−PC新品）</th><th>両方（PC育てた−VM新品）</th></tr></thead><tbody><tr><td><b>checkbox</b></td><td>+93.8 点（+64.4〜+98.9）<small>0 をまたがない</small></td><td>+0.0 点（-22.7〜+22.7）<small>0 をまたぐ＝差とは言えない</small></td><td>+93.8 点（+64.4〜+98.9）<small>0 をまたがない</small></td></tr><tr><td><b>invisible</b></td><td>+50.0 点（+18.1〜+71.3）<small>0 をまたがない</small></td><td>+6.2 点（-13.8〜+28.3）<small>0 をまたぐ＝差とは言えない</small></td><td>+56.2 点（+26.1〜+76.9）<small>0 をまたがない</small></td></tr><tr><td><b>score</b></td><td>+0.0 点（-19.4〜+19.4）<small>0 をまたぐ＝差とは言えない</small></td><td>+0.0 点（-19.4〜+19.4）<small>0 をまたぐ＝差とは言えない</small></td><td>+0.0 点（-19.4〜+19.4）<small>0 をまたぐ＝差とは言えない</small></td></tr></tbody></table></div></div>
+<h2>問3: score と reasons の中身</h2>
+<div class="blk"><p class="cap">トークンを得た回の enterprise の評価。「検証 valid」＝ valid なトークンの数 ÷ トークンを得た回。VM の列は 11-19 の報告書の数。</p>
+<div class="tw"><table><thead><tr><th>種類</th><th>列</th><th>結果の内訳</th><th>score</th><th>reasons</th><th>検証 valid</th></tr></thead><tbody><tr><td>checkbox</td><td>VM（データセンター）×新品</td><td><span class="na">（VM は即時通過のみ記録）</span></td><td><span class="na">なし</span></td><td><span class="na">なし</span></td><td>0/0</td></tr><tr><td>checkbox</td><td>PC（家の回線）×新品</td><td>challenge_shown 1・token_immediate 15</td><td>0.9 15</td><td>LOW_CONFIDENCE_SCORE 15</td><td>15/15</td></tr><tr><td>checkbox</td><td>PC（家の回線）×育てた写し</td><td>click_failed 1・token_immediate 15</td><td>0.9 15</td><td>LOW_CONFIDENCE_SCORE 15</td><td>15/15</td></tr><tr><td>invisible</td><td>VM（データセンター）×新品</td><td><span class="na">（VM は即時通過のみ記録）</span></td><td>0.9 7</td><td>LOW_CONFIDENCE_SCORE 7</td><td>7/7</td></tr><tr><td>invisible</td><td>PC（家の回線）×新品</td><td>challenge_shown 1・token_immediate 15</td><td>0.9 15</td><td>LOW_CONFIDENCE_SCORE 15</td><td>15/15</td></tr><tr><td>invisible</td><td>PC（家の回線）×育てた写し</td><td>token_immediate 16</td><td>0.9 16</td><td>LOW_CONFIDENCE_SCORE 16</td><td>16/16</td></tr><tr><td>score</td><td>VM（データセンター）×新品</td><td><span class="na">（VM は即時通過のみ記録）</span></td><td>0.9 16</td><td>LOW_CONFIDENCE_SCORE 16</td><td>16/16</td></tr><tr><td>score</td><td>PC（家の回線）×新品</td><td>token_immediate 16</td><td>0.9 16</td><td>LOW_CONFIDENCE_SCORE 16</td><td>16/16</td></tr><tr><td>score</td><td>PC（家の回線）×育てた写し</td><td>token_immediate 16</td><td>0.9 16</td><td>LOW_CONFIDENCE_SCORE 16</td><td>16/16</td></tr></tbody></table></div></div>
+<h2>条件・計器</h2>
+<ul><li>計器（今月の検証の累計・上限 3,000）: 撃つ前 2・撃った後 95（増分 93）</li><li>n は 16 で止めた（撃ち足さない）。96 行。</li></ul>
+</main></body></html>
