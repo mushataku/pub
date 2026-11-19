@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chromeを開いたまま住宅IPを替える腕の実測</title>
+<style>
+:root{--bg:#fff;--fg:#1d2330;--mut:#5b6475;--bd:#d8dce5;--a:#2f6fdb;--c:#7a8394}
+@media (prefers-color-scheme:dark){:root{--bg:#161a22;--fg:#e8ebf2;--mut:#a3abbb;--bd:#2c3341;--a:#6b9cf2;--c:#8a93a5}}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Yu Gothic","Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.8;font-size:16px}
+main{max-width:720px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:1.4rem;line-height:1.4}h2{font-size:1.1rem;margin-top:2rem;line-height:1.4}
+table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{border:1px solid var(--bd);padding:6px 8px;text-align:left}
+.m{color:var(--mut);font-size:.88rem}.bar{display:flex;align-items:center;gap:8px;margin:6px 0}
+.bar b{display:block;height:16px;border-radius:3px}.bar span{white-space:nowrap}
+h1,h2,h3{word-break:auto-phrase}
+</style></head><body><main>
+<h1>reCAPTCHA の箱：Chrome を開いたまま住宅IPを替えると、即時通過は出るか</h1>
+<p class="m">2026-11-19 11:46 / 的は自陣の公開ミラー（鍵 fresh2）/ 業者は Rayobyte / 同じ Job の同じ時間帯に2腕を交互に撃った</p>
+<h2>結論</h2>
+<p>毎回違う IP でも即時通過は出ました（<b>3/16</b>）。Rayobyte の網全体が低評価というわけではなく、<b>出口の ASN によって当たりが分かれます</b>。NTT ドコモ系（AS4713）は前回の6回と合わせて 2/4 で即時通過、素の GCP は 0/16 のままです。通信量は最初の2回だけ重く（約 81MB）、3回目以降は 1 回あたり約 0.6MB でした。</p>
+<h2>図1：即時通過の割合</h2>
+<div class="bar"><b style="width:3%;background:var(--c)"></b><span>素の GCP：0/16（0〜19%）</span></div>
+<div class="bar"><b style="width:19%;background:var(--a)"></b><span>住宅IP 1回ごと替え：3/16（19%・Wilson 7〜43%）</span></div>
+<p class="m">棒の長さは即時通過率（100% を全幅とする）。11-19 の前の回では、住宅IP固定（J:COM）が 0/16、PC の Chrome を住宅IP越しにしても 0/16、替える腕の n=6 が 1/6 でした。</p>
+<h2>表1：腕ごとの成績</h2>
+<table><tr><th>腕</th><th>n</th><th>即時通過</th><th>Wilson 95%</th><th>チャレンジ後トークン</th><th>その他</th></tr>
+<tr><td>headed+linux（素の GCP）</td><td>16</td><td>0</td><td>0〜19%</td><td>13</td><td>ブロック 3</td></tr>
+<tr><td>headed+linux@resi-rot（Chrome 開いたまま替え）</td><td>16（有効14）</td><td>3</td><td>7〜43%</td><td>10</td><td>チャレンジ表示止まり1・クリック失敗1・エラー1</td></tr></table>
+<p class="m">有効14（エラーと門の失敗を除く）で数えると 3/14（8〜48%）。表と同じ回の run_id は 20261119-103723-77dfed、Job は bot-lab-recaptcha-cloud-9bmr6、<code>resi_rot_mode=relay_switch</code>。</p>
+<h2>表2：1回ごとの出口（@resi-rot）</h2>
+<table><tr><th>#</th><th>ASN</th><th>結果</th><th>通信量</th></tr>
+<tr><td>1</td><td>AS17676 SoftBank</td><td>チャレンジ表示止まり</td><td>46.1MB</td></tr>
+<tr><td>2</td><td>AS4713 NTT DOCOMO BUSINESS</td><td><b>即時通過</b></td><td>34.8MB</td></tr>
+<tr><td>3</td><td>AS2516 KDDI</td><td>チャレンジ後</td><td>0.72MB</td></tr>
+<tr><td>4</td><td>AS2518 BIGLOBE</td><td>チャレンジ後</td><td>0.69MB</td></tr>
+<tr><td>5</td><td>AS17676 SoftBank</td><td>チャレンジ後</td><td>0.60MB</td></tr>
+<tr><td>6</td><td>AS2516 KDDI</td><td>エラー（門が閉じた）</td><td>0.0003MB</td></tr>
+<tr><td>7</td><td>AS2516 KDDI</td><td>クリック失敗</td><td>0.33MB</td></tr>
+<tr><td>8</td><td>AS2516 KDDI</td><td>チャレンジ後</td><td>0.57MB</td></tr>
+<tr><td>9</td><td>AS4713 NTT DOCOMO BUSINESS</td><td>チャレンジ後</td><td>0.65MB</td></tr>
+<tr><td>10</td><td>AS17698 コミュニティネットワークセンター</td><td>チャレンジ後</td><td>0.65MB</td></tr>
+<tr><td>11</td><td>AS219064 Akenai Products</td><td>チャレンジ後</td><td>0.57MB</td></tr>
+<tr><td>12</td><td>AS17511 OPTAGE</td><td>チャレンジ後</td><td>0.67MB</td></tr>
+<tr><td>13</td><td>AS2527 Sony Network Communications</td><td>チャレンジ後</td><td>0.63MB</td></tr>
+<tr><td>14</td><td>AS10010 TOKAI Communications</td><td><b>即時通過</b></td><td>0.50MB</td></tr>
+<tr><td>15</td><td>AS4685 Asahi Net</td><td>チャレンジ後</td><td>0.70MB</td></tr>
+<tr><td>16</td><td>AS23783 ケーブルネットワーク秋田</td><td><b>即時通過</b></td><td>0.49MB</td></tr></table>
+<p class="m">国はすべて JP。表の通信量は中継が運んだ実バイトの回ごとの内訳（合計 98.96MB）。</p>
+<h2>表3：ASN ごとの即時通過（この回＋前回の6回）</h2>
+<table><tr><th>ASN</th><th>即時通過／回数</th></tr>
+<tr><td>AS4713 NTT DOCOMO BUSINESS</td><td>2/4</td></tr>
+<tr><td>AS10010 TOKAI・AS23783 ケーブルネットワーク秋田</td><td>各 1/1</td></tr>
+<tr><td>AS2516 KDDI・AS17676 SoftBank</td><td>0/4・0/3（エラー等を除く）</td></tr>
+<tr><td>その他（BIGLOBE・OPTAGE・Sony・Asahi Net ほか）</td><td>0/1 ずつ</td></tr></table>
+<p class="m">1出口あたりの回数が少なく、ASN ごとの当たり外れは仮説どまりです。</p>
+<h2>通信量</h2>
+<p>この回の住宅IP の通信量は 98.96MB（上限 300MB）。最初の2回が重いのは、Chrome の初回読み込みとキャッシュ作りのためで、キャッシュが効いた3回目以降は 1 回あたり 0.3〜0.7MB でした。11-19 の合計は 679xw 約83MB＋0805 の回 約330MB＋PC 約60MB＋この回 約99MB＝<b>約572MB／1GB</b>です。</p>
+</main></body></html>
