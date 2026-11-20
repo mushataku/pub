@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><!--gp-portal:s--><meta name="x-build" content="80bb7862b1"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e-->
+<head><!--gp-portal:s--><meta name="x-build" content="eeb7bcbf44"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e-->
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -389,11 +389,81 @@ table.cmp th:nth-child(4) { width: 20%; }
   .cards.live > .card { min-height: calc(100vh - var(--band-offset) - 12px); }
 }
 
-h1,h2,h3{word-break:auto-phrase}
+/* ---- 会社カードの畳み（shigoto_fold_layer）---- */
+.cards.folded { grid-template-columns: 1fr; gap: 10px; }
+.cards.folded > article.card { display: block; padding: 0; min-height: 0; }
+details.fold > summary {
+  list-style: none; cursor: pointer; display: grid; gap: 2px; padding: 14px 44px 14px 16px; position: relative;
+  border-radius: 14px;
+}
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary::after {
+  content: "＋"; position: absolute; right: 16px; top: 14px; color: var(--accent); font-weight: 700;
+}
+details.fold[open] > summary::after { content: "－"; }
+details.fold > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+details.fold > summary:hover .f-name { text-decoration: underline; }
+.f-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+.f-name { font-size: 18px; font-weight: 700; line-height: 1.45; overflow-wrap: anywhere; }
+.f-what { color: var(--ink); font-size: 14.5px; line-height: 1.6; overflow-wrap: anywhere; }
+.f-meta { color: var(--sub); font-size: 13.5px; line-height: 1.6; overflow-wrap: anywhere; }
+.fold-body { padding: 4px 16px 16px; border-top: 1px solid var(--line); }
+.fold-body > h3, .fold-body > .what { display: none; }
+.fold-body > .nums { margin-top: 12px; }
+details.fold.is-dropped > summary { opacity: .55; }
+details.fold.is-dropped[open] > .fold-body { opacity: .7; }
+.cards.folded > article.card > .ans { margin: 0 16px 14px; }
+.st {
+  display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 700;
+  line-height: 1.6; white-space: nowrap; border: 1px solid var(--line);
+}
+.st-mensetsu, .st-shorui, .st-suisen { background: var(--good-soft); color: var(--good); border-color: var(--good); }
+.st-teian { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.st-drop { background: var(--pass-soft); color: var(--sub); }
+.fold-ctl { display: flex; gap: 8px; margin: 0 0 10px; }
+.fold-ctl[hidden] { display: none; }
+.fold-ctl button {
+  font: inherit; font-size: 14px; padding: 6px 14px; min-height: 40px; border: 1px solid var(--accent);
+  border-radius: 999px; background: var(--paper); color: var(--accent); cursor: pointer;
+}
+.fold-ctl button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.more-names { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.more-names li {
+  padding: 10px 14px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+  font-size: 14.5px; overflow-wrap: anywhere;
+}
+.more-names .st { margin-left: 8px; }
+@media print {
+  details.fold::details-content { content-visibility: visible; display: block; }
+  details.fold > summary::after, .fold-ctl { display: none; }
+  details.fold.is-dropped > summary { opacity: 1; }
+}
 </style>
-<style>.st{display:inline-block;margin:2px 0 8px;padding:2px 10px;border-radius:999px;font-size:13px;font-weight:600}.st-ok{background:#e3f1e6;color:#1d5a2c}.st-ng{background:#eee;color:#666}.st-wait{background:#fff3dc;color:#7a4b00}@media (prefers-color-scheme:dark){.st-ok{background:#1f3a26;color:#bfe3c8}.st-ng{background:#333;color:#bbb}.st-wait{background:#3d2f14;color:#f2d49b}}</style>
-</head>
-<body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=80bb7862b1">ホーム</a></li><li class="gp-cur"><a href="./te31e0ea6.html?v=80bb7862b1" aria-current="page">ご紹介したお仕事</a></li><li><a href="./t585095dd.html?v=80bb7862b1">Pythonの練習</a></li><li><a href="./t345a9ee3.html?v=80bb7862b1">GitHubのはじめかた</a></li></ul></nav><!--gp-portal:e-->
+<style data-honnin-answer="css">
+.ans{margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.ans[hidden]{display:none}
+.ans-q{margin:0 0 8px;font-size:.92rem;color:var(--sub)}
+.ans-btns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ans-b{font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;
+  padding:6px 4px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);cursor:pointer;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.ans-b .ans-m{font-size:1.35rem;line-height:1}
+.ans-b .ans-t{font-size:.8rem;color:var(--sub);word-break:keep-all;line-height:1.35;text-align:center}
+.ans-b[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.ans-b[aria-pressed="true"] .ans-t{color:var(--ink);font-weight:600}
+.ans-b:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ans-cl{display:block;margin-top:10px;font-size:.88rem;color:var(--sub)}
+.ans-c{display:block;box-sizing:border-box;width:100%;margin-top:4px;padding:8px 10px;font:inherit;font-size:1rem;line-height:1.6;
+  border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);resize:vertical;min-height:2.8em}
+.ans-st{display:flex;justify-content:space-between;gap:8px;margin:6px 0 0;font-size:.82rem;color:var(--sub);min-height:1.3em}
+.ans-st .ans-msg.ok{color:var(--good)}
+.ans-st .ans-msg.ng{color:var(--note);font-weight:600}
+.ans-fb{margin:6px 0 0;font-size:.82rem;color:var(--note)}
+.ans-fb[hidden]{display:none}
+
+h1,h2,h3{word-break:auto-phrase}
+</style></head>
+<body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=eeb7bcbf44">ホーム</a></li><li class="gp-cur"><a href="./te31e0ea6.html?v=eeb7bcbf44" aria-current="page">ご紹介したお仕事</a></li><li><a href="./t585095dd.html?v=eeb7bcbf44">Pythonの練習</a></li><li><a href="./t345a9ee3.html?v=eeb7bcbf44">GitHubのはじめかた</a></li></ul></nav><!--gp-portal:e-->
 <div class="band" id="band">
 <div class="band-in">
   <a class="band-title" href="#top">高木さんにご紹介したいお仕事</a>
@@ -460,9 +530,9 @@ h1,h2,h3{word-break:auto-phrase}
 </section>
 <section id="compare" data-section="compare" data-chapter="compare">
 <h2>選んだ会社の比較</h2>
-<div class="cmp-side" data-no-figure="月給を数字で比べられる社が無い"><p class="lead">面談の希望から6社を選びました。番号や社名を押すと詳しい説明に移ります。気になる会社は番号か社名でLINEへ（例「2が気になります」）。</p><p class="fig-note">図に載せていない: 1 トーヨーホールディングス（年収で書かれていて月給が分からない）、2 大和財託（年収で書かれていて月給が分からない）、3 オープンハウスグループ（年収で書かれていて月給が分からない）、4 イノベーションホールディングス（年収で書かれていて月給が分からない）、5 アルティウスリンク（年収で書かれていて月給が分からない）、6 MTG（年収で書かれていて月給が分からない）</p></div>
+<div class="cmp-side" data-no-figure="月給を数字で比べられる社が無い"><p class="lead">面談の希望から5社を選びました。番号や社名を押すと詳しい説明に移ります。<span class="ans-line">気になる会社は番号か社名でLINEへ（例「2が気になります」）。</span><span class="ans-on" hidden>各社のカードで ◯（受けてみたい）・▲（迷う・聞きたい）・✖（今回は見送り）を押すと、その場で担当に届きます。ひとことも書けます。</span></p><p class="fig-note">図に載せていない: 1 トーヨーホールディングス（年収で書かれていて月給が分からない）、2 大和財託（年収で書かれていて月給が分からない）、3 オープンハウスグループ（年収で書かれていて月給が分からない）、4 イノベーションホールディングス（年収で書かれていて月給が分からない）、5 MTG（年収で書かれていて月給が分からない）</p></div>
 <table class="cmp">
-  <caption>選んだ6社の比較（2026年11月時点の求人票・会社資料より）</caption>
+  <caption>選んだ5社の比較（2026年11月時点の求人票・会社資料より）</caption>
   <thead><tr><th>会社</th><th>仕事の種類</th><th>勤務地</th><th>月給（月額）</th><th>休日（年間）</th></tr></thead>
   <tbody>
     <tr data-key="toyo_holdings"><td class="c-co" data-h="会社"><span class="no">1</span><a class="to-card" href="#card-toyo_holdings">トーヨーホールディングス</a><span class="links"><a class="deck-mini" href="https://toyo-group.com/" target="_blank" rel="noopener" aria-label="トーヨーホールディングスのホームページ">会社のHP →</a>
@@ -473,9 +543,7 @@ h1,h2,h3{word-break:auto-phrase}
     <a class="deck-mini" href="https://drive.google.com/file/d/1hLx0v9qvzHtucA6D9kdSlmqBteQrmTNY/view" target="_blank" rel="noopener" aria-label="オープンハウスグループの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">IT</td><td data-h="勤務地"><span class="main">東京都千代田区丸の内2-7-2 JPタワー20階</span><span class="clamp sub">（東京駅すぐ）。入社後の変更範囲は当社グループの拠点全般</span><span class="clamp sub">次のいずれか: システム運用・保守、または導入の経験（3年以上・SIer／SES／事業会社の情シスなど業態は問わない）／人事関連業務の経験（3年以上）かつITリテラシーの高い方（求人票）</span></td><td data-h="月給（月額）"><span class="main">想定年収450万〜800万円。月給30万〜45万円</span><span class="clamp sub">（固定残業代 30時間分を含む）＋賞与 年2回（6月・12月）。経験・スキルを考慮して決定。試用期間5か月（条件の変更なし）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
 <tr data-key="innovation_hd"><td class="c-co" data-h="会社"><span class="no">4</span><a class="to-card" href="#card-innovation_hd">イノベーションホールディングス</a><span class="links"><a class="deck-mini" href="https://www.ihd.co.jp/" target="_blank" rel="noopener" aria-label="イノベーションホールディングスのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1YOrucGCrTl8sk0fGEXCC2Lxz1NmaD_VU/view" target="_blank" rel="noopener" aria-label="イノベーションホールディングスの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">IT</td><td data-h="勤務地"><span class="main">東京都新宿区新宿4-1-6 JR新宿ミライナタワー11階</span><span class="clamp sub">（JR新宿駅 ミライナタワー改札直結・新宿三丁目駅 徒歩1分）。転勤なし</span><span class="clamp sub">社会人経験3年以上。加えて次のいずれか: Salesforce・MotionBoard・Tableau など何らかの BI ツールの使用・運用経験／Excel・Googleスプレッドシートの高度な利用スキル（VLOOKUP・INDEX/MATCH・IF関数などでデータの突合や集計ができる）（求人票）</span></td><td data-h="月給（月額）"><span class="main">想定年収380万〜530万円。月給28.5万〜33万円</span><span class="clamp sub">（固定残業代35時間分を含む・超過分は別途支給）。賞与 年4回（業績連動・初年度は入社半年後から年2回）・昨年度実績 2〜4か月分。昇給・昇格 年2回。会社が公表している年収例: 26歳 初年度380万円／29歳 2年目450万円／34歳 リーダー4年目530万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日130日</span></td></tr>
-<tr data-key="altius_link"><td class="c-co" data-h="会社"><span class="no">5</span><a class="to-card" href="#card-altius_link">アルティウスリンク</a><span class="links"><a class="deck-mini" href="https://www.altius-link.com/" target="_blank" rel="noopener" aria-label="アルティウスリンクのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/11a1__QVu8d4__xojhjTk2Hi0CX83wdEe/view" target="_blank" rel="noopener" aria-label="アルティウスリンクの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">IT</td><td data-h="勤務地"><span class="main">東京都</span><span class="clamp sub">（クライアント先で就業）。ポジションにより関西（大阪市・神戸市近郊）も応相談。転勤なし。プロジェクトによりテレワーク相談可。本社は東京都渋谷区代々木2-2-1 小田急サザンタワー</span><span class="clamp sub">必須: システム開発工程またはシステムの運用の経験2年以上（テスト工程のみを除く）。歓迎: 上流工程（プロジェクト管理・要件定義）／クラウド基盤の開発／アジャイル開発／フレームワークを使った開発（求人票）</span></td><td data-h="月給（月額）"><span class="clamp">想定年収490万〜850万円</span></td><td data-h="休日（年間）"><span class="main">年間休日は求人票に記載なし</span><span class="clamp sub">（要確認）。月の残業は約20時間・有給消化率76.8％（求人票）</span></td></tr>
-<tr data-key="mtg"><td class="c-co" data-h="会社"><span class="no">6</span><a class="to-card" href="#card-mtg">MTG</a><span class="links"><a class="deck-mini" href="https://www.mtg.gr.jp/" target="_blank" rel="noopener" aria-label="MTGのホームページ">会社のHP →</a>
+<tr data-key="mtg"><td class="c-co" data-h="会社"><span class="no">5</span><a class="to-card" href="#card-mtg">MTG</a><span class="links"><a class="deck-mini" href="https://www.mtg.gr.jp/" target="_blank" rel="noopener" aria-label="MTGのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1KGEVwc3baN2jgsusO3w4Wcr0GXqt-raQ/view" target="_blank" rel="noopener" aria-label="MTGの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">IT</td><td data-h="勤務地"><span class="main">東京支社</span><span class="clamp sub">（東京都港区港南1-8-15 Wビル20階・品川駅港南口 徒歩約5分）または 名古屋（MTGグループ ブレイズオフィス・地下鉄東山線 亀島駅）。本社は名古屋市。勤務地の変更範囲は会社の定める就業場所</span><span class="clamp sub">次のいずれか: パッケージソフト・クラウドサービスの導入経験／オープン系言語によるシステム開発経験（Java・Python・PHP 等）。歓迎: ERP 導入のプロジェクトメンバー経験・RPA ツール等での改善の経験・Salesforce を用いた開発または運用管理の経験（求人票）</span></td><td data-h="月給（月額）"><span class="main">想定年収530万〜800万円。月給29万〜45万円</span><span class="clamp sub">（残業代は別）。賞与 年2回（6月・12月）・昇給 年2回。エリア手当・家族手当・単身赴任手当（規定による）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日120日</span></td></tr>
   </tbody>
 </table>
@@ -485,11 +553,10 @@ h1,h2,h3{word-break:auto-phrase}
 <h2>ご紹介した会社</h2>
 <h2>ご紹介している会社</h2>
 <p class="lead">伺ったお話から、3つの物差しで選びました。①Salesforce・RPA・VBA の経験が応募の条件に当たること　②年収400万円以上から始められる見込みがあること　③テストの繰り返しではなく、改善を提案して形にできること。上から、高木さんにおすすめしたい順に並べています。</p>
-
-<div class="cards live" data-live="picks">
-  <article class="card" id="card-toyo_holdings">
+<div class="fold-ctl" hidden><button type="button" data-fold-all="open">全部開く</button><button type="button" data-fold-all="close">全部閉じる</button></div>
+<div class="cards live folded" data-live="picks">
+  <article class="card" id="card-toyo_holdings" data-key="toyo_holdings" data-name="トーヨーホールディングス"><details class="fold" data-status="推薦中"><summary><span class="f-head"><span class="f-name">トーヨーホールディングス</span><span class="st st-suisen" data-status="推薦中">応募の手続き中</span></span><span class="f-what">建設・不動産・再生可能エネルギー・アグリの事業会社をもつグループの社内SE／AI・DX推進担当。各事業会社の業務課題を分析して改善を提案し、生成AI（ChatGPT・Copilot）の導入、業務プロセスの可視化・標準化・自動化、基幹システムの企画・改善、ベンダーコントロールまでを担う</span><span class="f-meta">東京都港区新橋4-11-1 A-PLACE新橋3階　年収 500万〜850万円</span></summary><div class="fold-body">
     <h3>トーヨーホールディングス</h3>
-    <p class="st st-ok">推薦の手続き中（11/20 応募を決めました）</p>
     <p class="what">建設・不動産・再生可能エネルギー・アグリの事業会社をもつグループの社内SE／AI・DX推進担当。各事業会社の業務課題を分析して改善を提案し、生成AI（ChatGPT・Copilot）の導入、業務プロセスの可視化・標準化・自動化、基幹システムの企画・改善、ベンダーコントロールまでを担う</p>
     <dl class="nums"><div class="stat s-salary is-yearly"><dt>月給</dt><dd><span class="main">想定年収500万〜850万円</span><span class="aside">（経験に応じて決定）。昇給 年1回（4月）・賞与 年2回（7月・12月）。試用期間3か月（条件の変更なし）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>500万〜850万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">年間休日126日・完全週休2日制</span><span class="aside">（土日祝）。夏季休暇（8月9日〜17日）・年末年始（12月28日〜1月4日）・GW（4月28日〜5月6日）は会社カレンダーによる。勤務 9:00〜18:00（実働8時間）・残業は月10〜20時間（時期により変動）</span></dd></div></dl>
     <dl class="place">
@@ -499,10 +566,9 @@ h1,h2,h3{word-break:auto-phrase}
     
     <div class="links"><a class="deck-mini" href="https://toyo-group.com/" target="_blank" rel="noopener" aria-label="トーヨーホールディングスのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1Rw7m-d58eAQGUEhdsZufmdJXbxuCCptH/view" target="_blank" rel="noopener" aria-label="トーヨーホールディングスの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-name_21f9e4_it">
+  </div></details><div class="ans" data-ans-key="toyo_holdings" data-ans-name="トーヨーホールディングス" hidden><p class="ans-q">トーヨーホールディングスへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="トーヨーホールディングスへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-name_21f9e4_it" data-key="name_21f9e4_it" data-name="大和財託"><details class="fold" data-status="推薦中"><summary><span class="f-head"><span class="f-name">大和財託</span><span class="st st-suisen" data-status="推薦中">応募の手続き中</span></span><span class="f-what">収益不動産の企画・建築から販売・管理までを自社で一貫して行う不動産会社の、業務改善・業務効率化エンジニア。kintone の業務アプリ、Power Automate（Desktop版を含む）での自動化、Excel VBA の開発・保守、Copilot Studio の AI エージェント開発、DX 推進、社内システムの導入・保守、ITヘルプデスクを経験に合わせて任される</span><span class="f-meta">東京本社　年収 550万〜700万円</span></summary><div class="fold-body">
     <h3>大和財託</h3>
-    <p class="st st-ok">推薦の手続き中（11/20 応募を決めました）</p>
     <p class="what">収益不動産の企画・建築から販売・管理までを自社で一貫して行う不動産会社の、業務改善・業務効率化エンジニア。kintone の業務アプリ、Power Automate（Desktop版を含む）での自動化、Excel VBA の開発・保守、Copilot Studio の AI エージェント開発、DX 推進、社内システムの導入・保守、ITヘルプデスクを経験に合わせて任される</p>
     <dl class="nums"><div class="stat s-salary is-yearly"><dt>月給</dt><dd><span class="main">想定年収551万〜653.8万円</span><span class="aside">（標準的な評価を前提とした目安・経験や成果によってはそれ以上）。月給35.2万〜41.4万円（固定残業代45時間分・賞与前払手当・地域手当3万円を含む）。賞与 年2回。通勤手当 実費（月5万円まで）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>550万〜700万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">年間休日120日・完全週休2日制</span><span class="aside">（土日祝・会社カレンダーに基づく）。夏季休暇・年末年始休暇・有給休暇・慶弔休暇・産前産後・育児・介護・特別休暇。勤務 9:00〜18:00（休憩60分）</span></dd></div></dl>
     <dl class="place">
@@ -512,10 +578,9 @@ h1,h2,h3{word-break:auto-phrase}
     
     <div class="links"><a class="deck-mini" href="https://yamatozaitaku.com/" target="_blank" rel="noopener" aria-label="大和財託のホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/14m_35o4ANL4RjU_nvTkbJvsm5KVtelwv/view" target="_blank" rel="noopener" aria-label="大和財託の資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-openhouse_group">
+  </div></details><div class="ans" data-ans-key="name_21f9e4_it" data-ans-name="大和財託" hidden><p class="ans-q">大和財託への気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="大和財託への気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-openhouse_group" data-key="openhouse_group" data-name="オープンハウスグループ"><details class="fold" data-status="推薦中"><summary><span class="f-head"><span class="f-name">オープンハウスグループ</span><span class="st st-suisen" data-status="推薦中">応募の手続き中</span></span><span class="f-what">戸建・マンション・収益不動産などを手がける不動産グループ（東証プライム）の人事部付きの専任システム担当（社内SE）。人事基幹システム（COMPANY）の運用・保守・設定、人事・労務のアナログ業務（Excel集計・紙運用）を RPA やスクリプトで自動化、システム間のデータ連携、人事データの抽出・レポート、社内のユーザーサポートを担う</span><span class="f-meta">東京都千代田区丸の内2-7-2 JPタワー20階　年収 450万〜800万円</span></summary><div class="fold-body">
     <h3>オープンハウスグループ</h3>
-    <p class="st st-ok">推薦の手続き中（11/20 応募を決めました）</p>
     <p class="what">戸建・マンション・収益不動産などを手がける不動産グループ（東証プライム）の人事部付きの専任システム担当（社内SE）。人事基幹システム（COMPANY）の運用・保守・設定、人事・労務のアナログ業務（Excel集計・紙運用）を RPA やスクリプトで自動化、システム間のデータ連携、人事データの抽出・レポート、社内のユーザーサポートを担う</p>
     <dl class="nums"><div class="stat s-salary is-yearly"><dt>月給</dt><dd><span class="main">想定年収450万〜800万円。</span><span class="aside">月給30万〜45万円（固定残業代 30時間分を含む）＋賞与 年2回（6月・12月）。経験・スキルを考慮して決定。試用期間5か月（条件の変更なし）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>450万〜800万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">年間休日125日</span><span class="aside">（計画有給5日を加えて実質130日）・完全週休2日制（土日）。春季（連続4〜6日）・夏季（連続7〜9日）・年末年始（連続8〜10日）の休暇。勤務 9:00〜18:00（休憩60分）</span></dd></div></dl>
     <dl class="place">
@@ -525,10 +590,9 @@ h1,h2,h3{word-break:auto-phrase}
     
     <div class="links"><a class="deck-mini" href="https://openhouse-group.co.jp/" target="_blank" rel="noopener" aria-label="オープンハウスグループのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1hLx0v9qvzHtucA6D9kdSlmqBteQrmTNY/view" target="_blank" rel="noopener" aria-label="オープンハウスグループの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-innovation_hd">
+  </div></details><div class="ans" data-ans-key="openhouse_group" data-ans-name="オープンハウスグループ" hidden><p class="ans-q">オープンハウスグループへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="オープンハウスグループへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-innovation_hd" data-key="innovation_hd" data-name="イノベーションホールディングス"><details class="fold" data-status="推薦中"><summary><span class="f-head"><span class="f-name">イノベーションホールディングス</span><span class="st st-suisen" data-status="推薦中">応募の手続き中</span></span><span class="f-what">飲食店向けの店舗転貸借（テンポイノベーション）・不動産売買・家賃保証の3社をもつ持株会社（東証スタンダード）の、社内カスタマーサクセス・IT推進担当。2023年10月新設の ITソリューション部で、グループ4社の Salesforce の設計・カスタマイズ・権限管理、BIツールでの集計・可視化、スプレッドシートと GAS での業務自動化、現場のヒアリングから改修の要件定義、社内ヘルプデスクとマニュアル作成を担う</span><span class="f-meta">東京都新宿区新宿4-1-6 JR新宿ミライナタワー11階　年収 380万〜530万円</span></summary><div class="fold-body">
     <h3>イノベーションホールディングス</h3>
-    <p class="st st-ok">推薦の手続き中（11/20 応募を決めました）</p>
     <p class="what">飲食店向けの店舗転貸借（テンポイノベーション）・不動産売買・家賃保証の3社をもつ持株会社（東証スタンダード）の、社内カスタマーサクセス・IT推進担当。2023年10月新設の ITソリューション部で、グループ4社の Salesforce の設計・カスタマイズ・権限管理、BIツールでの集計・可視化、スプレッドシートと GAS での業務自動化、現場のヒアリングから改修の要件定義、社内ヘルプデスクとマニュアル作成を担う</p>
     <dl class="nums"><div class="stat s-salary is-yearly"><dt>月給</dt><dd><span class="main">想定年収380万〜530万円。</span><span class="aside">月給28.5万〜33万円（固定残業代35時間分を含む・超過分は別途支給）。賞与 年4回（業績連動・初年度は入社半年後から年2回）・昨年度実績 2〜4か月分。昇給・昇格 年2回。会社が公表している年収例: 26歳 初年度380万円／29歳 2年目450万円／34歳 リーダー4年目530万円</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>380万〜530万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">年間休日130日・完全週休2日制</span><span class="aside">（土日祝）。年末年始・夏季・GW・特別休暇・慶弔休暇・産休育休。勤務 10:00〜18:30（休憩60分）・月平均残業2時間</span></dd></div></dl>
     <dl class="place">
@@ -538,23 +602,9 @@ h1,h2,h3{word-break:auto-phrase}
     
     <div class="links"><a class="deck-mini" href="https://www.ihd.co.jp/" target="_blank" rel="noopener" aria-label="イノベーションホールディングスのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1YOrucGCrTl8sk0fGEXCC2Lxz1NmaD_VU/view" target="_blank" rel="noopener" aria-label="イノベーションホールディングスの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-altius_link">
-    <h3>アルティウスリンク</h3>
-    <p class="st st-ng">今回は見送り</p>
-    <p class="what">KDDI と三井物産が株主のBPO大手（コンタクトセンター・ITアウトソーシング等）で、IT部門の正社員エンジニアとしてクライアント（KDDI 社内の基幹・フロントシステムなど）のシステム開発・運用に加わる。企画・要件定義、設計から運用までのシステム開発、AIアプリによる業務効率化、大規模システムの運用設計・調整、社内システムの運用・保守のうち、経験に合わせたプロジェクトに入る。KDDI・同社メンバーを含む5〜10名のチームで、継続的な開発・保守に1つのシステムの担当者として関わる</p>
-    <dl class="nums"><div class="stat s-salary is-yearly"><dt>月給</dt><dd>想定年収490万〜850万円</dd></div><div class="stat s-annual"><dt>年収</dt><dd>490万〜850万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">年間休日は求人票に記載なし（要確認）。</span><span class="aside">月の残業は約20時間・有給消化率76.8％（求人票）</span></dd></div></dl>
-    <dl class="place">
-      <dt>勤務地</dt><dd>東京都（クライアント先で就業）。ポジションにより関西（大阪市・神戸市近郊）も応相談。転勤なし。プロジェクトによりテレワーク相談可。本社は東京都渋谷区代々木2-2-1 小田急サザンタワー</dd><dt>通勤</dt><dd>プロジェクト先しだい（東京都内のクライアント先・本社は代々木）</dd><dt>条件</dt><dd>必須: システム開発工程またはシステムの運用の経験2年以上（テスト工程のみを除く）。歓迎: 上流工程（プロジェクト管理・要件定義）／クラウド基盤の開発／アジャイル開発／フレームワークを使った開発（求人票）</dd>
-    </dl>
-    <p class="point"><b>ここが合う</b>　KDDI×三井物産グループで、約1,500名の正社員エンジニアが働くIT部門の経験者採用です。KDDI の社内システムの企画・要件定義から、開発、運用・保守、AIアプリによる業務効率化まで、経験に合わせたプロジェクトに入ります。応募の条件は「システム開発工程またはシステム運用の経験2年以上（テスト工程のみを除く）」で、高木さんの Salesforce の開発・保守8年がそのまま当たります。想定年収は490万〜850万円、月の残業は約20時間、転勤なしで、プロジェクトによりテレワークも相談できます。確かめること: クライアント先（KDDI など）での就業になり、ポジションによっては夜勤が出る場合があります。入るプロジェクトで勤務の形が決まるので、希望（改善を提案して形にする仕事）に合う案件かを面接の前に確認します。</p>
-    
-    <div class="links"><a class="deck-mini" href="https://www.altius-link.com/" target="_blank" rel="noopener" aria-label="アルティウスリンクのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/11a1__QVu8d4__xojhjTk2Hi0CX83wdEe/view" target="_blank" rel="noopener" aria-label="アルティウスリンクの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-mtg">
+  </div></details><div class="ans" data-ans-key="innovation_hd" data-ans-name="イノベーションホールディングス" hidden><p class="ans-q">イノベーションホールディングスへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="イノベーションホールディングスへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-mtg" data-key="mtg" data-name="MTG"><details class="fold" data-status="推薦中"><summary><span class="f-head"><span class="f-name">MTG</span><span class="st st-suisen" data-status="推薦中">応募の手続き中</span></span><span class="f-what">ReFa・SIXPAD などの美容・ウェルネスのブランドをもつメーカー（1996年設立）の情報システム本部 システム開発課のシステム担当（社内SE）。各部門との要件定義、社外の開発会社との折衝・進行管理、プログラム言語での開発、RPA ツール等での改善、ERP などの大型プロジェクトへの参画を担う</span><span class="f-meta">東京支社　年収 530万〜800万円</span></summary><div class="fold-body">
     <h3>MTG</h3>
-    <p class="st st-ok">推薦の手続き中（11/20 応募を決めました）</p>
     <p class="what">ReFa・SIXPAD などの美容・ウェルネスのブランドをもつメーカー（1996年設立）の情報システム本部 システム開発課のシステム担当（社内SE）。各部門との要件定義、社外の開発会社との折衝・進行管理、プログラム言語での開発、RPA ツール等での改善、ERP などの大型プロジェクトへの参画を担う</p>
     <dl class="nums"><div class="stat s-salary is-yearly"><dt>月給</dt><dd><span class="main">想定年収530万〜800万円。</span><span class="aside">月給29万〜45万円（残業代は別）。賞与 年2回（6月・12月）・昇給 年2回。エリア手当・家族手当・単身赴任手当（規定による）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>530万〜800万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日120日</dd></div></dl>
     <dl class="place">
@@ -564,10 +614,21 @@ h1,h2,h3{word-break:auto-phrase}
     
     <div class="links"><a class="deck-mini" href="https://www.mtg.gr.jp/" target="_blank" rel="noopener" aria-label="MTGのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1KGEVwc3baN2jgsusO3w4Wcr0GXqt-raQ/view" target="_blank" rel="noopener" aria-label="MTGの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-learningift">
+  </div></details><div class="ans" data-ans-key="mtg" data-ans-name="MTG" hidden><p class="ans-q">MTGへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="MTGへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-altius_link" data-key="altius_link" data-name="アルティウスリンク"><details class="fold is-dropped" data-status="見送り（本人）"><summary><span class="f-head"><span class="f-name">アルティウスリンク</span><span class="st st-drop" data-status="見送り（本人）">今回は見送り</span></span><span class="f-what">KDDI と三井物産が株主のBPO大手（コンタクトセンター・ITアウトソーシング等）で、IT部門の正社員エンジニアとしてクライアント（KDDI 社内の基幹・フロントシステムなど）のシステム開発・運用に加わる。企画・要件定義、設計から運用までのシステム開発、AIアプリによる業務効率化、大規模システムの運用設計・調整、社内システムの運用・保守のうち、経験に合わせたプロジェクトに入る。KDDI・同社メンバーを含む5〜10名のチームで、継続的な開発・保守に1つのシステムの担当者として関わる</span><span class="f-meta">東京都　年収 490万〜850万円</span></summary><div class="fold-body">
+    <h3>アルティウスリンク</h3>
+    <p class="what">KDDI と三井物産が株主のBPO大手（コンタクトセンター・ITアウトソーシング等）で、IT部門の正社員エンジニアとしてクライアント（KDDI 社内の基幹・フロントシステムなど）のシステム開発・運用に加わる。企画・要件定義、設計から運用までのシステム開発、AIアプリによる業務効率化、大規模システムの運用設計・調整、社内システムの運用・保守のうち、経験に合わせたプロジェクトに入る。KDDI・同社メンバーを含む5〜10名のチームで、継続的な開発・保守に1つのシステムの担当者として関わる</p>
+    <dl class="nums"><div class="stat s-salary is-yearly"><dt>月給</dt><dd>想定年収490万〜850万円</dd></div><div class="stat s-annual"><dt>年収</dt><dd>490万〜850万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">年間休日は求人票に記載なし（要確認）。</span><span class="aside">月の残業は約20時間・有給消化率76.8％（求人票）</span></dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京都（クライアント先で就業）。ポジションにより関西（大阪市・神戸市近郊）も応相談。転勤なし。プロジェクトによりテレワーク相談可。本社は東京都渋谷区代々木2-2-1 小田急サザンタワー</dd><dt>通勤</dt><dd>プロジェクト先しだい（東京都内のクライアント先・本社は代々木）</dd><dt>条件</dt><dd>必須: システム開発工程またはシステムの運用の経験2年以上（テスト工程のみを除く）。歓迎: 上流工程（プロジェクト管理・要件定義）／クラウド基盤の開発／アジャイル開発／フレームワークを使った開発（求人票）</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　KDDI×三井物産グループで、約1,500名の正社員エンジニアが働くIT部門の経験者採用です。KDDI の社内システムの企画・要件定義から、開発、運用・保守、AIアプリによる業務効率化まで、経験に合わせたプロジェクトに入ります。応募の条件は「システム開発工程またはシステム運用の経験2年以上（テスト工程のみを除く）」で、高木さんの Salesforce の開発・保守8年がそのまま当たります。想定年収は490万〜850万円、月の残業は約20時間、転勤なしで、プロジェクトによりテレワークも相談できます。確かめること: クライアント先（KDDI など）での就業になり、ポジションによっては夜勤が出る場合があります。入るプロジェクトで勤務の形が決まるので、希望（改善を提案して形にする仕事）に合う案件かを面接の前に確認します。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.altius-link.com/" target="_blank" rel="noopener" aria-label="アルティウスリンクのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/11a1__QVu8d4__xojhjTk2Hi0CX83wdEe/view" target="_blank" rel="noopener" aria-label="アルティウスリンクの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details><div class="ans" data-ans-key="altius_link" data-ans-name="アルティウスリンク" hidden><p class="ans-q">アルティウスリンクへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="アルティウスリンクへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-learningift" data-key="learningift" data-name="ラーニンギフト"><details class="fold is-dropped" data-status="見送り（本人）"><summary><span class="f-head"><span class="f-name">ラーニンギフト</span><span class="st st-drop" data-status="見送り（本人）">今回は見送り</span></span><span class="f-what">Webアプリ・スマホアプリなどの開発・テストエンジニア。本社または全国のプロジェクト先で案件に参画し、未経験はテストや研修から始めてプログラマー・SEへ進む</span><span class="f-meta">本社は東京都新宿区西新宿、大阪市中央区にも拠点　月給 月給23万〜35万円（経験1年未満）、27万〜45万円（1年以上）、30万〜80万円（2年以上）。みなし残業代（月30時間分）を含む。昇給・賞与は年2回。プロジェクト手当は月平均6万円（求人記載）</span></summary><div class="fold-body">
     <h3>ラーニンギフト</h3>
-    <p class="st st-ng">今回は見送り</p>
     <p class="what">Webアプリ・スマホアプリなどの開発・テストエンジニア。本社または全国のプロジェクト先で案件に参画し、未経験はテストや研修から始めてプログラマー・SEへ進む</p>
     <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給23万〜35万円</span><span class="aside">（経験1年未満）、27万〜45万円（1年以上）、30万〜80万円（2年以上）。みなし残業代（月30時間分）を含む。昇給・賞与は年2回。プロジェクト手当は月平均6万円（求人記載）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">年間休日125日、完全週休2日制</span><span class="aside">（土日祝）</span></dd></div></dl>
     <dl class="place">
@@ -577,9 +638,84 @@ h1,h2,h3{word-break:auto-phrase}
     
     <div class="links"><a class="deck-mini" href="https://learningift.com/" target="_blank" rel="noopener" aria-label="ラーニンギフトのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1BHcE6eQ9nJq27O6umD2yQ0CUsA7iXqFG/view" target="_blank" rel="noopener" aria-label="ラーニンギフトの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
+  </div></details><div class="ans" data-ans-key="learningift" data-ans-name="ラーニンギフト" hidden><p class="ans-q">ラーニンギフトへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="ラーニンギフトへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
 </div>
-
+<h2 id="more">ほかにもご紹介できる会社</h2>
+<p class="lead">上の会社のほかにも、ご経験で応募できる会社があります。気になる会社があれば「受けてみたい」「ここはちょっと」を一言ずつ教えてください。</p>
+<div class="cards folded" data-fold="proposals">
+  <article class="card" id="card-sms" data-key="sms" data-name="エス・エム・エス"><details class="fold" data-status="提案"><summary><span class="f-head"><span class="f-name">エス・エム・エス</span><span class="st st-teian" data-status="提案">ご確認ください</span></span><span class="f-what">医療・介護分野の人材紹介営業。求人企業と求職者の双方に関わる両面型</span><span class="f-meta">関東圏</span></summary><div class="fold-body">
+    <h3>エス・エム・エス</h3>
+    <p class="what">医療・介護分野の人材紹介営業。求人企業と求職者の双方に関わる両面型</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd>—</dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">完全週休2日制</span><span class="aside">（土日祝休み）。年間休日121日（計画有給日を含めて124日）。20時30分に全社員が退社</span></dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>関東圏（予定勤務地は埼玉・千葉・東京・神奈川）。本社は東京都港区</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　事務とITの両方を使う仕事</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.bm-sms.co.jp/" target="_blank" rel="noopener" aria-label="エス・エム・エスのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1sW9xlaukK9IgJF-boc2pyTaIG-I2-kKf/view" target="_blank" rel="noopener" aria-label="エス・エム・エスの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details><div class="ans" data-ans-key="sms" data-ans-name="エス・エム・エス" hidden><p class="ans-q">エス・エム・エスへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="エス・エム・エスへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-name_383943" data-key="name_383943" data-name="共立ソリューションズ"><details class="fold" data-status="提案"><summary><span class="f-head"><span class="f-name">共立ソリューションズ</span><span class="st st-teian" data-status="提案">ご確認ください</span></span><span class="f-what"></span><span class="f-meta"></span></summary><div class="fold-body">
+    <h3>共立ソリューションズ</h3>
+    <p class="what">—</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd>—</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>—</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>—</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　千葉で働ける。通勤時間しだい</p>
+    
+    <div class="links"></div>
+  </div></details><div class="ans" data-ans-key="name_383943" data-ans-name="共立ソリューションズ" hidden><p class="ans-q">共立ソリューションズへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="共立ソリューションズへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-leverages" data-key="leverages" data-name="レバレジーズ"><details class="fold" data-status="提案"><summary><span class="f-head"><span class="f-name">レバレジーズ</span><span class="st st-teian" data-status="提案">ご確認ください</span></span><span class="f-what">人材・自社メディア・システムエンジニアリングなど複数事業を持つ会社の営業職（レバテック・レバウェル・ハタラクティブ等）と自社事務</span><span class="f-meta">福岡県福岡市中央区天神　月給 営業（中途・福岡／東京の求人票）: 月給35万円以上（基本給211,715円以上＋月80時間分の固定残業代138,285円以上・超過分は別途支給）・想定年収500万〜750万円・賞与年2回</span></summary><div class="fold-body">
+    <h3>レバレジーズ</h3>
+    <p class="what">人材・自社メディア・システムエンジニアリングなど複数事業を持つ会社の営業職（レバテック・レバウェル・ハタラクティブ等）と自社事務</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="lead">営業（中途・福岡／東京の求人票）: 月給</span><span class="main">35万円以上</span><span class="aside">（基本給211,715円以上＋月80時間分の固定残業代138,285円以上・超過分は別途支給）・想定年収500万〜750万円・賞与年2回</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日祝休み・年間休日120日以上</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>福岡県福岡市中央区天神（アクロス福岡）／東京都渋谷区（渋谷スクランブルスクエア本社）／大阪府大阪市（レバウェルの営業求人）</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　—</p>
+    
+    <div class="links"><a class="deck-mini" href="https://leverages.jp/" target="_blank" rel="noopener" aria-label="レバレジーズのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1rxufY-jA3xkm99JYT1Jt0ULMEQxUBnqg/view" target="_blank" rel="noopener" aria-label="レバレジーズの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details><div class="ans" data-ans-key="leverages" data-ans-name="レバレジーズ" hidden><p class="ans-q">レバレジーズへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="レバレジーズへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-brexa_it" data-key="brexa_it" data-name="BREXA Technology（IT）"><details class="fold" data-status="提案"><summary><span class="f-head"><span class="f-name">BREXA Technology（IT）</span><span class="st st-teian" data-status="提案">ご確認ください</span></span><span class="f-what">サーバー運用・インフラから始めて、開発へ</span><span class="f-meta">東京・神奈川ほか全国　月給 20.5万円〜（想定年収 270万〜400万円）</span></summary><div class="fold-body">
+    <h3>BREXA Technology（IT）</h3>
+    <p class="what">サーバー運用・インフラから始めて、開発へ</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">20.5万円〜</span><span class="aside">（想定年収 270万〜400万円）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日祝休み・年間休日120日以上</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京・神奈川ほか全国</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　これまでの開発を経験年数に数えてもらえる</p>
+    
+    <div class="links"><a class="deck-mini" href="https://technology.brexa.com/" target="_blank" rel="noopener" aria-label="BREXA Technology（IT）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1O7g80XtqFEXxPdnGqwqXdbBR0sXwe7en/view" target="_blank" rel="noopener" aria-label="BREXA Technology（IT）の資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details><div class="ans" data-ans-key="brexa_it" data-ans-name="BREXA Technology（IT）" hidden><p class="ans-q">BREXA Technology（IT）への気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="BREXA Technology（IT）への気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-name_40af81" data-key="name_40af81" data-name="テラスカイ・テクノロジーズ"><details class="fold" data-status="提案"><summary><span class="f-head"><span class="f-name">テラスカイ・テクノロジーズ</span><span class="st st-teian" data-status="提案">ご確認ください</span></span><span class="f-what">お客様先に常駐し、Salesforce を安心して使えるように運用・事務の面から支える仕事（問い合わせの一次対応・アカウント管理・データ整備・マニュアル作成など）。東証プライム上場テラスカイのグループ会社</span><span class="f-meta">東京・神奈川・埼玉・千葉　月給 想定年収336万〜350万円（月給28万〜29.1万円・固定残業20時間分を含む・超過分は別途支給）・昇給年1回</span></summary><div class="fold-body">
+    <h3>テラスカイ・テクノロジーズ</h3>
+    <p class="what">お客様先に常駐し、Salesforce を安心して使えるように運用・事務の面から支える仕事（問い合わせの一次対応・アカウント管理・データ整備・マニュアル作成など）。東証プライム上場テラスカイのグループ会社</p>
+    <dl class="nums"><div class="stat s-salary is-yearly"><dt>月給</dt><dd><span class="main">想定年収336万〜350万円</span><span class="aside">（月給28万〜29.1万円・固定残業20時間分を含む・超過分は別途支給）・昇給年1回</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日祝休み・年間休日125日・有給取得率80%超の記載</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京・神奈川・埼玉・千葉（客先常駐）。研修中は東京都中央区日本橋の本社。転居を伴う転勤なし。大阪勤務は研修オンライン・自宅から1時間半程度の案件</dd><dt>条件</dt><dd>日本での正社員雇用の勤続年数が1年以上</dd><dt>条件</dt><dd>転職回数4回まで（当社で5社目まで）。アルバイトも社数に数える運用（2026-11-20 書類見送りの理由・n=1）</dd><dt>条件</dt><dd>書類選考は職歴と雇用形態を重視。正社員経験が1年以上ないと書類で落ちることがある（昼ドリ担当 2026-11-20 17:02・傾向の説明）</dd><dt>条件</dt><dd>PC を使った業務の経験</dd><dt>条件</dt><dd>外国籍の人は上の要件に加え N1・就労ビザ取得済み（取得予定は不可）</dd><dt>条件</dt><dd>高卒以上・職種未経験OK</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　Salesforce の経験がそのまま活きる</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.terrasky-tech.co.jp/" target="_blank" rel="noopener" aria-label="テラスカイ・テクノロジーズのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1Eqy8dHmTLsvHh7flRSRYTDCUcK1LQRdy/view" target="_blank" rel="noopener" aria-label="テラスカイ・テクノロジーズの資料（テラスカイ・テクノロジーズ 会社資料（採用ガイダンス・12枚））">テラスカイ・テクノロジーズ 会社資料（採用ガイダンス・12枚） →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1AMjrslMm0ncEh7t73rnV0wZL3zdR7G2g/view" target="_blank" rel="noopener" aria-label="テラスカイ・テクノロジーズの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details><div class="ans" data-ans-key="name_40af81" data-ans-name="テラスカイ・テクノロジーズ" hidden><p class="ans-q">テラスカイ・テクノロジーズへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="テラスカイ・テクノロジーズへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-cygnus_trust" data-key="cygnus_trust" data-name="シグナストラスト"><details class="fold" data-status="提案"><summary><span class="f-head"><span class="f-name">シグナストラスト</span><span class="st st-teian" data-status="提案">ご確認ください</span></span><span class="f-what">電力小売・通信・飲食店の集客支援など9つの事業を持つ会社の HR事業部で、事務・受電・応募者への架電・顧客対応・データ処理を受け持つ事務職（自社内勤務）</span><span class="f-meta">東京都目黒区目黒の本社　月給 想定年収330万〜500万円（月給25万〜40万円）・賞与年2回（7月・12月）・事業部インセンティブ年2回・昇給年1回（4月）</span></summary><div class="fold-body">
+    <h3>シグナストラスト</h3>
+    <p class="what">電力小売・通信・飲食店の集客支援など9つの事業を持つ会社の HR事業部で、事務・受電・応募者への架電・顧客対応・データ処理を受け持つ事務職（自社内勤務）</p>
+    <dl class="nums"><div class="stat s-salary is-yearly"><dt>月給</dt><dd><span class="main">想定年収330万〜500万円</span><span class="aside">（月給25万〜40万円）・賞与年2回（7月・12月）・事業部インセンティブ年2回・昇給年1回（4月）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">土日休み・</span><span class="main">年間休日120日・夏季・年末年始・GW・リフレッシュ休暇。</span><span class="aside">勤務は10:00〜20:00 の間でシフト（週単位で提出）・フレックスタイム制・夜間勤務なし</span></dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京都目黒区目黒の本社（目黒駅徒歩2分・自社内勤務）。転勤の可能性なし</dd><dt>条件</dt><dd>経験社数2社以内（当社で3社目まで）</dd><dt>条件</dt><dd>頑張った経験がある方（仕事以外でも可）</dd><dt>条件</dt><dd>大卒以上・職種未経験OK・業種未経験OK</dd>
+    </dl>
+    <p class="point"><b>ここが合う</b>　事務の仕事に寄せたいとき</p>
+    
+    <div class="links"><a class="deck-mini" href="http://cygnus-trust.com/" target="_blank" rel="noopener" aria-label="シグナストラストのホームページ">会社のHP →</a></div>
+  </div></details><div class="ans" data-ans-key="cygnus_trust" data-ans-name="シグナストラスト" hidden><p class="ans-q">シグナストラストへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="シグナストラストへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+</div>
+<p class="lead">このほかに、詳しい資料を準備している会社です。</p><ul class="more-names"><li><b>シナジーマーケティング</b>　社内のIT・業務改善<span class="st st-teian" data-status="提案">ご確認ください</span></li><li><b>ヤマト電機</b>　社内のIT<span class="st st-teian" data-status="提案">ご確認ください</span></li><li><b>アクシスコンサルティング</b><span class="st st-teian" data-status="提案">ご確認ください</span></li><li><b>ITSO</b>　社内のIT・DX<span class="st st-teian" data-status="提案">ご確認ください</span></li><li><b>BCHD</b>　社内のIT・DX<span class="st st-teian" data-status="提案">ご確認ください</span></li><li><b>住友不動産</b>　社内のIT・DX<span class="st st-teian" data-status="提案">ご確認ください</span></li><li><b>野村不動産パートナーズ</b>　社内のIT・DX<span class="st st-teian" data-status="提案">ご確認ください</span></li></ul>
 </section>
 <section id="industry" data-section="industry" data-no-figure="資料へのリンクの一覧">
 <h2>業界の説明資料</h2>
@@ -591,23 +727,6 @@ h1,h2,h3{word-break:auto-phrase}
   <li><a href="https://drive.google.com/file/d/1hH4k9m57BCrY0_OQTSqg1CsMrRuFJVHK/view" target="_blank" rel="noopener">営業の仕事</a>
     <span class="meta">営業の仕事内容と将来性をまとめた資料</span></li>
 </ul>
-</section>
-<section id="more" data-section="more" data-chapter="docs">
-<h2>ほかにもご紹介できる会社</h2>
-<p>上の7社のほかにも、高木さんのご経験で応募できる会社があります。「受けてみたい」「ここはちょっと」を一言ずつ教えてください。</p>
-<table>
-<thead><tr><th>会社</th><th>お仕事</th><th>ひとこと</th><th>いま</th></tr></thead>
-<tbody>
-<tr><td>シナジーマーケティング</td><td>社内のIT・業務改善（年収450〜550万円）</td><td>Salesforce まわりの経験が活きる</td><td><span class="st st-wait">ご確認ください</span></td></tr>
-<tr><td>SMS</td><td>経理まわりの業務改善（年収500〜770万円）</td><td>事務とITの両方を使う仕事</td><td><span class="st st-wait">ご確認ください</span></td></tr>
-<tr><td>BREXA</td><td>IT職（開発経験者）</td><td>これまでの開発を経験年数に数えてもらえる</td><td><span class="st st-wait">ご確認ください</span></td></tr>
-<tr><td>共立</td><td>インフラエンジニア（年収400〜700万円・千葉ニュータウン）</td><td>千葉で働ける。通勤時間しだい</td><td><span class="st st-wait">ご確認ください</span></td></tr>
-<tr><td>ヤマト電機</td><td>社内のIT</td><td>通勤時間しだい</td><td><span class="st st-wait">ご確認ください</span></td></tr>
-<tr><td>テラスカイ・テクノロジーズ</td><td>Salesforce の運用・開発</td><td>お客さま先での勤務。配属後はフルリモートの案件もある</td><td><span class="st st-wait">ご確認ください</span></td></tr>
-<tr><td>シグナストラスト</td><td>自社内の事務</td><td>事務の仕事に寄せたいとき</td><td><span class="st st-wait">ご確認ください</span></td></tr>
-<tr><td>ITSO／BCHD／住友不動産／野村不動産パートナーズ</td><td>社内のIT・DX</td><td>求める経験が少し上。挑戦枠</td><td><span class="st st-wait">ご確認ください</span></td></tr>
-</tbody>
-</table>
 </section>
 <section id="flow" data-section="flow" data-chapter="next">
 <h2>これからの進め方</h2>
@@ -623,7 +742,7 @@ h1,h2,h3{word-break:auto-phrase}
   var cards = Array.prototype.slice.call(document.querySelectorAll(".cards.live > .card"));
   if (!cards.length) return;
   var pos = document.querySelector(".band-pos");
-  var NAMES = ["トーヨーホールディングス", "大和財託", "オープンハウスグループ", "イノベーションホールディングス", "アルティウスリンク", "MTG", "ラーニンギフト"];
+  var NAMES = ["トーヨーホールディングス", "大和財託", "オープンハウスグループ", "イノベーションホールディングス", "MTG", "アルティウスリンク", "ラーニンギフト"];
   function off() {
     var v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--band-offset"));
     return isNaN(v) ? 56 : v;
@@ -676,5 +795,149 @@ h1,h2,h3{word-break:auto-phrase}
   show();
 })();
 </script>
-<!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=80bb7862b1">ホーム</a></li><li class="gp-cur"><a href="./te31e0ea6.html?v=80bb7862b1" aria-current="page">ご紹介したお仕事</a></li><li><a href="./t585095dd.html?v=80bb7862b1">Pythonの練習</a></li><li><a href="./t345a9ee3.html?v=80bb7862b1">GitHubのはじめかた</a></li></ul></nav><!--gp-portal:e--></body>
+<script data-fold="js">
+(function fold() {
+  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", fold); return; }
+  var all = function () { return Array.prototype.slice.call(document.querySelectorAll("details.fold")); };
+  if (!all().length) return;
+  function openFor(hash) {
+    if (!hash || hash.length < 2) return;
+    var id; try { id = decodeURIComponent(hash.slice(1)); } catch (e) { return; }
+    var el = document.getElementById(id);
+    if (!el) return;
+    var d = el.matches("details.fold") ? el : el.querySelector("details.fold");
+    if (d && !d.open) d.open = true;
+  }
+  window.addEventListener("hashchange", function () { openFor(location.hash); });
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#card-"]');
+    if (a) openFor(a.getAttribute("href"));
+  }, true);
+  openFor(location.hash);
+  // 当日の送り（shigoto_live_layer の Space＝次の社）が summary・ボタンの上の Space を奪わないよう、そこで止める
+  // （既定の動き＝開閉・押下は残る。押し試験で Space が開閉しなかった）
+  document.addEventListener("keydown", function (e) {
+    var tag = e.target && e.target.tagName;
+    if (e.key === " " && (tag === "SUMMARY" || tag === "BUTTON")) e.stopPropagation();
+  }, true);
+  Array.prototype.slice.call(document.querySelectorAll(".fold-ctl")).forEach(function (ctl) {
+    ctl.hidden = false;
+    ctl.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-fold-all]");
+      if (!b) return;
+      var open = b.getAttribute("data-fold-all") === "open";
+      all().forEach(function (d) { d.open = open; });
+    });
+  });
+  var saved = null;
+  window.addEventListener("beforeprint", function () {
+    saved = all().map(function (d) { return d.open; });
+    all().forEach(function (d) { d.open = true; });
+  });
+  window.addEventListener("afterprint", function () {
+    if (!saved) return;
+    all().forEach(function (d, i) { d.open = saved[i]; });
+    saved = null;
+  });
+})();
+</script>
+<script type="application/json" id="honnin-answer-cfg" data-honnin-answer="cfg">{"t": "foRpJbZ-U9TpsMVXTYZkYGXfUO4Beogo", "u": "https://gooner-recruit-server-vlu26jpgea-an.a.run.app/honnin/answer", "max": 200}</script><script data-honnin-answer="js">
+(function(){
+  var cfgEl = document.getElementById('honnin-answer-cfg');
+  if (!cfgEl || !window.fetch) return;
+  var cfg; try { cfg = JSON.parse(cfgEl.textContent || '{}'); } catch (e) { return; }
+  if (!cfg.t || !cfg.u) return;
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.ans[data-ans-key]'));
+  if (!boxes.length) return;
+  var MAX = cfg.max || 200, WAIT = 1200;
+  var S = {};
+  function st(k){ return S[k] || (S[k] = {choice:'', comment:'', seq:0, ver:0, sent:0, busy:false, timer:0, name:''}); }
+  function boxesOf(k){ return boxes.filter(function(b){ return b.getAttribute('data-ans-key') === k; }); }
+  function chars(s){ return Array.from ? Array.from(s).length : s.length; }
+  function paint(k){
+    var s = st(k);
+    boxesOf(k).forEach(function(b){
+      b.querySelectorAll('.ans-b').forEach(function(x){ x.setAttribute('aria-pressed', x.getAttribute('data-choice') === s.choice ? 'true' : 'false'); });
+      var ta = b.querySelector('.ans-c');
+      if (ta && document.activeElement !== ta && ta.value !== s.comment) ta.value = s.comment;
+      var left = b.querySelector('.ans-left'); if (left) left.textContent = 'あと' + (MAX - chars(ta ? ta.value : s.comment)) + '字';
+    });
+  }
+  function say(k, text, cls, fallback){
+    boxesOf(k).forEach(function(b){
+      var m = b.querySelector('.ans-msg'); if (m) { m.textContent = text; m.className = 'ans-msg' + (cls ? ' ' + cls : ''); }
+      var fb = b.querySelector('.ans-fb'); if (fb) fb.hidden = !fallback;
+    });
+  }
+  function nextSeq(s){ var n = Date.now(); s.seq = n > s.seq ? n : s.seq + 1; return s.seq; }
+  function send(k, keepalive){
+    var s = st(k);
+    if (s.busy) return;   // 送っている間の変更は、返ってきた後に最後の1つだけ送る
+    if (s.ver === s.sent) return;
+    s.busy = true;
+    var ver = s.ver;
+    var body = JSON.stringify({key:k, choice:s.choice, comment:s.comment, seq:nextSeq(s), name:s.name});
+    say(k, '保存しています…', '', false);
+    fetch(cfg.u, {method:'POST', mode:'cors', credentials:'omit', keepalive:!!keepalive,
+                  headers:{'Content-Type':'application/json', 'X-Honnin-Token':cfg.t}, body:body})
+      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ return {ok:r.ok, j:j}; }); })
+      .then(function(res){
+        if (res.ok && res.j && res.j.ok && res.j.stale) {
+          var a = res.j.answer || {};
+          s.seq = Math.max(s.seq, a.seq || 0);   // 次の送信が同じ理由で捨てられないよう、操作が続いていても上げる
+          if (s.ver === ver) { s.choice = a.choice || ''; s.comment = a.comment || ''; paint(k); }
+          s.sent = ver; s.failed = false;
+          if (s.ver === ver) say(k, 'ほかの画面での新しい選択を表示しています', 'ok', false);
+        } else if (res.ok && res.j && res.j.ok) {
+          s.sent = ver; s.failed = false;
+          if (s.ver === ver) say(k, '保存しました', 'ok', false);
+        } else {
+          s.failed = true;
+          say(k, (res.j && res.j.error) || '保存できませんでした・もう一度押してください', 'ng', true);
+        }
+      })
+      .catch(function(){ s.failed = true; say(k, '保存できませんでした・もう一度押してください', 'ng', true); })
+      .then(function(){ s.busy = false; if (s.ver !== ver) send(k); });
+  }
+  function change(k){ var s = st(k); s.ver += 1; paint(k); }
+  boxes.forEach(function(b){
+    var k = b.getAttribute('data-ans-key'), s = st(k);
+    s.name = b.getAttribute('data-ans-name') || '';
+    b.querySelectorAll('.ans-b').forEach(function(x){
+      x.addEventListener('click', function(){
+        var c = x.getAttribute('data-choice');
+        // 保存に失敗した直後に同じ記号を押したら「もう一度送る」（外さない＝失敗の文言の約束どおり）
+        if (s.failed && s.choice === c && s.ver !== s.sent) { send(k); return; }
+        s.choice = (s.choice === c) ? '' : c;
+        change(k); send(k);
+      });
+    });
+    var ta = b.querySelector('.ans-c');
+    if (!ta) return;
+    ta.addEventListener('input', function(){
+      s.comment = ta.value; change(k);
+      boxesOf(k).forEach(function(o){ var t = o.querySelector('.ans-c'); if (t && t !== ta) t.value = ta.value; });
+      clearTimeout(s.timer); s.timer = setTimeout(function(){ send(k); }, WAIT);
+    });
+    ta.addEventListener('blur', function(){ clearTimeout(s.timer); send(k); });
+  });
+  document.addEventListener('visibilitychange', function(){
+    if (document.visibilityState !== 'hidden') return;
+    Object.keys(S).forEach(function(k){ clearTimeout(S[k].timer); send(k, true); });
+  });
+  fetch(cfg.u, {method:'GET', mode:'cors', credentials:'omit', headers:{'X-Honnin-Token':cfg.t}})
+    .then(function(r){ if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+    .then(function(j){
+      if (!j || !j.ok) throw new Error('ng');
+      if (j.max_comment) MAX = j.max_comment;
+      var a = j.answers || {};
+      Object.keys(a).forEach(function(k){ var s = st(k); s.choice = a[k].choice || ''; s.comment = a[k].comment || ''; s.seq = a[k].seq || 0; });
+      boxes.forEach(function(b){ b.hidden = false; });
+      document.querySelectorAll('.ans-line').forEach(function(x){ x.hidden = true; });
+      document.querySelectorAll('.ans-on').forEach(function(x){ x.hidden = false; });
+      Object.keys(S).forEach(paint);
+    })
+    .catch(function(){ /* 受け口に届かない＝部品を出さず LINE の文言のまま（黙って消さない） */ });
+})();
+</script><!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=eeb7bcbf44">ホーム</a></li><li class="gp-cur"><a href="./te31e0ea6.html?v=eeb7bcbf44" aria-current="page">ご紹介したお仕事</a></li><li><a href="./t585095dd.html?v=eeb7bcbf44">Pythonの練習</a></li><li><a href="./t345a9ee3.html?v=eeb7bcbf44">GitHubのはじめかた</a></li></ul></nav><!--gp-portal:e--></body>
 </html>
