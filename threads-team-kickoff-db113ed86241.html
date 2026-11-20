@@ -118,11 +118,10 @@ th{font-size:13px;color:var(--sub);font-weight:400}
 <p>矢印の数字は「前の段の何％が次へ進むか」（Indeedの応募→面談と同じ読み方）。つまみで率を動かせます。</p>
 <div class="box" id="simbox">
   <div class="pres">
-    <button type="button" class="pre" data-p="naka">中原さんの率</button>
-    <button type="button" class="pre" data-p="yoko">横尾さんの率</button>
-    <button type="button" class="pre" data-p="wb">会議の想定（閲覧1万・反応1%）</button>
+    <button type="button" class="pre" data-p="goal">目標（反応率1%）</button>
+    <button type="button" class="pre" data-p="naka">中原さんの今の率</button>
+    <button type="button" class="pre" data-p="yoko">横尾さんの今の率</button>
   </div>
-  <p class="wbnote" id="wbnote" hidden>この想定だと<span id="wbn"></span>本。実際の求人投稿の閲覧は750前後なので、中原さんの率で見るのが現実的。</p>
   <p class="now" id="now"></p>
   <p class="back">面談1件から逆算すると、必要な投稿は</p>
   <div class="fn" id="fn"></div>
@@ -174,11 +173,11 @@ var V={id:'view',l:'1本あたり閲覧',l2:'求人投稿1本の閲覧',note:'<s
 var R=[C,RE]; // 率の矢印（色で落ち方を示す）
 var A=[C,RE,V,{id:'ratio',l:'7本に1本が求人',fixed:1}]; // 段の間の矢印（面談から下へ）
 var LEV=[RE,V,C];
-var P={naka:{view:750,react:0.15,conv:1},
-       yoko:{view:150,react:1,conv:1},
-       wb:{view:10000,react:1,conv:1}};
-var NAME={naka:'中原さんの率',yoko:'横尾さんの率',wb:'会議の想定'};
-var S={},cur='naka',box=document.getElementById('simbox');
+var P={goal:{view:750,react:1,conv:1},
+       naka:{view:750,react:0.15,conv:1},
+       yoko:{view:150,react:1,conv:1}};
+var NAME={goal:'目標（反応率1%）',naka:'中原さんの今の率',yoko:'横尾さんの今の率'};
+var S={},cur='goal',box=document.getElementById('simbox');
 function fmt(x){if(!isFinite(x))return '—';if(x>=100)return Math.round(x).toLocaleString('ja-JP');if(x>=10||Number.isInteger(x))return String(Math.round(x));return x.toFixed(1)}
 function man(x){return x>=10000?'約'+String(parseFloat((x/1e4).toFixed(1)))+'万':fmt(x)}
 function wk(x){return x<1?fmt(x):String(Math.round(x))}
@@ -190,8 +189,8 @@ function lift(s,k){var t=cp(s);t[k.id]=k.cap;return need(t)}
 // 12月末までの残り週
 var end=new Date(2026,11,31,23,59),left=Math.max(0,(end-new Date())/864e5/7);
 // 目標の直下の1行（計算値）
-(function(){var n=need(P.naka),y=need(P.yoko),nr=lift(P.naka,RE);
- document.getElementById('pace').innerHTML='いまのままだと中原さん約'+wk(n.wk)+'週・横尾さん約'+wk(y.wk)+'週。反応率が上がれば（中原さん）約'+wk(nr.wk)+'週。'})();
+(function(){var g=need(P.goal),n=need(P.naka),y=need(P.yoko);
+ document.getElementById('pace').innerHTML='目標の反応率'+pc(P.goal.react)+'なら約'+wk(g.wk)+'週。いまの率のままだと中原さん約'+wk(n.wk)+'週・横尾さん約'+wk(y.wk)+'週。'})();
 // ファネル（面談→投稿の合計の1本の鎖）
 var fn=document.getElementById('fn');
 STG.forEach(function(g,i){
@@ -208,7 +207,6 @@ function calc(){
  LEV.forEach(function(k){document.getElementById('k_'+k.id).value=S[k.id]});
  [].forEach.call(box.querySelectorAll('.pre'),function(b){b.classList.toggle('on',b.dataset.p===cur)});
  document.getElementById('now').innerHTML='いま表示：<b>'+(cur?NAME[cur]:'自分で変更中')+'</b>';
- var wn=document.getElementById('wbnote');wn.hidden=cur!=='wb';document.getElementById('wbn').textContent=fmt(r.all);
  var lo=R.reduce(function(m,k){return S[k.id]<S[m.id]?k:m},R[0]);
  R.forEach(function(k){var v=S[k.id],a=document.getElementById('ar_'+k.id);
   document.getElementById('p_'+k.id).textContent='÷'+pc(v);
@@ -224,7 +222,8 @@ function calc(){
   .filter(function(x){return x.saved>0}).sort(function(a,b){return b.saved-a.saved});
  var c2=document.getElementById('concl2'),im=document.getElementById('imp');
  var reach=r.wk<=left;
- if(reach){c2.textContent='いまの率のままで12月に届く（'+fmt(r.all)+'本＝約'+wk(r.wk)+'週）。'}
+ if(cur==='goal'){c2.textContent='反応率'+pc(S.react)+'を出せれば約'+fmt(r.all)+'本＝約'+wk(r.wk)+'週で面談1件。いま中原さんは'+pc(P.naka.react)+'なので、反応が付く投稿の型を探すのが来週の仕事。'}
+ else if(reach){c2.textContent='いまの率のままで12月に届く（'+fmt(r.all)+'本＝約'+wk(r.wk)+'週）。'}
  else if(rows.length){var t=rows[0];c2.textContent='いまの率のままでは'+fmt(r.all)+'本＝約'+wk(r.wk)+'週かかり、12月に届かない。'+(t.k.l2||t.k.l)+'が上がれば'+fmt(t.after)+'本＝約'+wk(t.wk)+'週'+(t.wk<=left?'で届く':'')+'。だから来週は'+t.k.act+'。'}
  else{c2.textContent='いまの率のままでは'+fmt(r.all)+'本＝約'+wk(r.wk)+'週かかり、12月に届かない。'}
  if(!rows.length){im.innerHTML='<p class="sm">どの段を上げても、投稿の本数はこれ以上減りません。</p>';return}
@@ -232,7 +231,7 @@ function calc(){
   rows.slice(0,3).map(function(x){return '<p class="row">'+(x.k.l2||x.k.l)+'を上げる → <b>'+fmt(x.after)+'本</b></p>'}).join('');
 }
 [].forEach.call(box.querySelectorAll('.pre'),function(b){b.addEventListener('click',function(){var p=P[b.dataset.p];for(var x in p)S[x]=p[x];cur=b.dataset.p;calc()})});
-var p0=P.naka;for(var x in p0)S[x]=p0[x];calc();
+var p0=P.goal;for(var x in p0)S[x]=p0[x];calc();
 })();
 (function(){var links=[].slice.call(document.querySelectorAll('#nav a'));var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
 function upd(){var y=window.scrollY+80,cur=0;secs.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i});links.forEach(function(a,i){a.classList.toggle('on',i===cur)})}
