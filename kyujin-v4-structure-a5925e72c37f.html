@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>求人データ層 v4 の形</title>
+<style>
+:root{
+  --bg:#fbfaf7; --surface:#ffffff; --surface-2:#f1efe9; --text:#1b1b1b; --muted:#4a4a48;
+  --line:#c9c5bb; --accent:#174d8c; --accent-soft:#e3ecf7; --accent-text:#123f74;
+  --ok:#1d6b3a; --ok-soft:#e2f1e7; --warn:#8a5300; --warn-soft:#f8ecd6; --ng:#9b2226; --ng-soft:#f7e1e1;
+  --ask:#5b3f8c; --ask-soft:#ece6f6; --band:#fbfaf7ee;
+  --font:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI","Yu Gothic","YuGothic",Meiryo,sans-serif;
+  --mono:"BIZ UDGothic",ui-monospace,Consolas,"Hiragino Sans",monospace;
+  --s1:4px; --s2:8px; --s3:16px; --s4:32px; --s5:56px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16171a; --surface:#1f2125; --surface-2:#272a2f; --text:#ececea; --muted:#bdbdb8;
+    --line:#4a4d54; --accent:#8fb8ec; --accent-soft:#1f2c3d; --accent-text:#b9d3f3;
+    --ok:#8fd3a6; --ok-soft:#1c2f23; --warn:#f0c27a; --warn-soft:#352a17; --ng:#f2a3a6; --ng-soft:#3a1f21;
+    --ask:#c9b4f0; --ask-soft:#2b2440; --band:#16171aee;
+  }
+}
+:root[data-theme="dark"]{
+    --bg:#16171a; --surface:#1f2125; --surface-2:#272a2f; --text:#ececea; --muted:#bdbdb8;
+    --line:#4a4d54; --accent:#8fb8ec; --accent-soft:#1f2c3d; --accent-text:#b9d3f3;
+    --ok:#8fd3a6; --ok-soft:#1c2f23; --warn:#f0c27a; --warn-soft:#352a17; --ng:#f2a3a6; --ng-soft:#3a1f21;
+    --ask:#c9b4f0; --ask-soft:#2b2440; --band:#16171aee;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:1rem;line-height:1.8;letter-spacing:0}
+.nw{white-space:nowrap}
+code{font-family:var(--mono);font-size:.9em;background:var(--surface-2);padding:0 .25em;border-radius:3px;overflow-wrap:anywhere}
+/* 帯 */
+.band{position:sticky;top:0;z-index:10;background:var(--band);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.band-in{max-width:52rem;margin:0 auto;padding:6px 16px;display:flex;flex-wrap:wrap;gap:2px 12px;align-items:baseline;line-height:1.4}
+.band-title{font-weight:700;font-size:.875rem;white-space:nowrap}
+.band-now{font-size:.875rem;color:var(--muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.band-now b{color:var(--accent-text);font-weight:700}
+main{max-width:52rem;margin:0 auto;padding:var(--s4) 16px var(--s5)}
+main p, main li{max-width:40em;overflow-wrap:anywhere;text-wrap:pretty}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere;line-height:1.4;font-weight:700;letter-spacing:0}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3), main section > :is(h2,h3){word-break:auto-phrase;text-wrap:balance}}
+h1{font-size:1.75rem;margin:0 0 var(--s2)}
+h2{font-size:1.375rem;margin:var(--s5) 0 var(--s3);padding-top:var(--s2);border-top:2px solid var(--accent);scroll-margin-top:64px}
+h3{font-size:1.125rem;margin:var(--s4) 0 var(--s2);scroll-margin-top:64px}
+p{margin:0 0 1.1em}
+.lead{color:var(--muted)}
+.toc{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:var(--s3) var(--s3) var(--s2);margin:var(--s4) 0}
+.toc ol{margin:0;padding-left:1.4em}
+.toc a{color:var(--accent-text)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:var(--s2);margin:var(--s3) 0 var(--s4);padding:0;list-style:none}
+.kpis li{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;line-height:1.4;max-width:none}
+.kpis .n{display:block;font-size:1.5rem;font-weight:700;font-variant-numeric:tabular-nums}
+.kpis .l{display:block;font-size:.875rem;color:var(--muted)}
+figure{margin:var(--s3) 0 var(--s4);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:var(--s3)}
+figure svg{display:block;width:100%;height:auto;max-width:640px;margin:0 auto}
+figcaption{font-size:.875rem;color:var(--muted);margin-top:var(--s2);line-height:1.6}
+/* SVG の色 */
+.bx{fill:var(--surface);stroke:var(--text);stroke-width:1.4}
+.bx-a{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.6}
+.bx-s{fill:var(--surface-2);stroke:var(--line);stroke-width:1.2}
+.frame{fill:none;stroke:var(--accent);stroke-width:1.4;stroke-dasharray:6 4}
+.ln{stroke:var(--text);stroke-width:1.3;fill:none}
+.ln-d{stroke:var(--muted);stroke-width:1.3;fill:none;stroke-dasharray:4 3}
+.t{fill:var(--text);font-family:var(--font);font-size:15px;font-weight:700}
+.t2{fill:var(--muted);font-family:var(--mono);font-size:12.5px}
+.t3{fill:var(--accent-text);font-family:var(--font);font-size:12px;font-weight:700}
+.ah{fill:var(--text)}
+/* fact カード */
+.fact{display:grid;grid-template-columns:minmax(6.5rem,auto) 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface);margin:var(--s3) 0}
+.fact > div{padding:8px 12px;border-top:1px solid var(--line);line-height:1.6;min-width:0}
+.fact > div:nth-child(-n+2){border-top:none}
+.fact .k{background:var(--surface-2);font-family:var(--mono);font-size:.875rem;font-weight:700;color:var(--accent-text)}
+.fact .v{font-size:.9375rem}
+.fact .v code{background:none;padding:0}
+.fact .v small{display:block;color:var(--muted);font-size:.875rem}
+/* 印 */
+.marks{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:var(--s2);list-style:none;padding:0;margin:var(--s3) 0}
+.marks li{border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:var(--surface);line-height:1.6;max-width:none}
+.chip{display:inline-block;min-width:4.2em;text-align:center;font-weight:700;border-radius:999px;padding:1px 10px;margin-right:6px;font-size:.9375rem}
+.c-ok{background:var(--ok-soft);color:var(--ok)}
+.c-tri{background:var(--warn-soft);color:var(--warn)}
+.c-ask{background:var(--ask-soft);color:var(--ask)}
+.c-ng{background:var(--ng-soft);color:var(--ng)}
+.tiers{display:grid;gap:var(--s2);margin:var(--s3) 0}
+.tier{border-left:6px solid var(--accent);background:var(--surface);border-radius:4px;padding:8px 12px;line-height:1.6}
+.tier b{display:block}
+.tier:nth-child(2){border-left-color:var(--ask)}
+.tier:nth-child(3){border-left-color:var(--line)}
+.ladder{counter-reset:l;list-style:none;padding:0;margin:var(--s3) 0}
+.ladder li{counter-increment:l;position:relative;padding:8px 12px 8px 3rem;background:var(--surface);border:1px solid var(--line);border-radius:8px;margin-bottom:6px;line-height:1.6;max-width:none}
+.ladder li::before{content:counter(l);position:absolute;left:10px;top:8px;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--accent);color:var(--bg);font-weight:700;text-align:center;line-height:1.6rem}
+/* 12 key */
+.keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:var(--s2);list-style:none;padding:0;margin:var(--s3) 0}
+.keys li{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 12px;line-height:1.5;max-width:none}
+.keys .kn{font-family:var(--mono);font-weight:700;color:var(--accent-text)}
+.keys .kj{font-size:.9375rem}
+.keys .kc{display:block;font-size:.875rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{height:8px;background:var(--surface-2);border-radius:4px;margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent)}
+/* 表 */
+.tbl{overflow-x:auto;margin:var(--s3) 0 var(--s4);border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.875rem;line-height:1.5}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;overflow-wrap:normal}
+thead th{background:var(--surface-2)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr:last-child :is(td,th){border-bottom:none}
+.tag{display:inline-block;font-size:.875rem;font-weight:700;color:var(--warn);background:var(--warn-soft);border-radius:4px;padding:0 6px;margin-right:4px;white-space:nowrap}
+.note{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--warn);border-radius:4px;padding:10px 14px;margin:var(--s3) 0}
+.note ul{margin:0;padding-left:1.2em}
+.note li{margin:.3em 0}
+ul,ol{padding-left:1.4em}
+li{margin:.25em 0}
+footer{max-width:52rem;margin:0 auto;padding:0 16px var(--s5);color:var(--muted);font-size:.875rem}
+@media (max-width:480px){
+  h1{font-size:1.5rem} h2{font-size:1.25rem}
+  .fact{grid-template-columns:1fr}
+  .fact > div{border-top:1px solid var(--line)}
+  .fact > div:first-child{border-top:none}
+  .fact .k{padding-bottom:2px}
+  .fact .v{border-top:none}
+  figure{padding:8px}
+}
+</style>
+</head>
+<body>
+<header class="band" data-chrome>
+  <div class="band-in">
+    <span class="band-title">求人データ層 v4 の形</span>
+    <span class="band-now" id="now"><b>はじめに</b></span>
+  </div>
+</header>
+
+<main>
+<h1>求人データ層 v4 の<wbr>いまの形</h1>
+<p class="lead">武者野さんへ。2026-11-21 の朝に GCS の本体 1,127 ファイルと目録（<code>catalog.json</code>・作成 03:58）を全部読んで数えた図解です。設計の正本は <code>design.md</code> v12。設計に書いてあって実データにまだ無いものは <span class="tag">まだ無い</span> の札で示します。会社名・Fee の額・求職者の情報は載せていません。</p>
+
+<nav class="toc" aria-label="目次">
+<ol start="0">
+<li><a href="#s0">ひとことで</a></li>
+<li><a href="#s1">全体の段</a></li>
+<li><a href="#s2">事実（fact）1つの中身</a></li>
+<li><a href="#s3">確からしさと印</a></li>
+<li><a href="#s4">12 の照合キー</a></li>
+<li><a href="#s5">書き込みの口と読み口</a></li>
+<li><a href="#s6">いま入っている数</a></li>
+<li><a href="#s7">まだ言えないこと</a></li>
+</ol>
+</nav>
+
+<section>
+<h2 id="s0">0. ひとことで</h2>
+<p>求人票に書いてある事実は、求人1本ごとに1ファイルの「本体」へ全部まとまりました。1,127 本の求人すべてに本体があり、CA の口・コンソール・評価器は、この本体だけを読む作りになっています。</p>
+<p>求人票に書いていない知識（先方からの連絡、武者野さんの裁定、在庫表の行）は「判定」として別に持ち、宛先で求人や枠に掛けます。事実と判定を混ぜないのが骨格の一番の決まりです。</p>
+<ul class="kpis">
+<li><span class="n">1,127</span><span class="l">求人の単位（unit）</span></li>
+<li><span class="n">71,373</span><span class="l">事実（fact）の行</span></li>
+<li><span class="n">32,679</span><span class="l">うち照合に使う行</span></li>
+<li><span class="n">29,160</span><span class="l">照合の行で型の形あり</span></li>
+<li><span class="n">370</span><span class="l">判定（yaml）</span></li>
+</ul>
+</section>
+
+<section>
+<h2 id="s1">1. 全体の段</h2>
+<p>上から、会社 → 募集の枠と求人の単位 → 出し口（葉）→ 事実、の順に細かくなります。枠と求人は親子ではなく、「結び」で横につなぎます。1つの求人票に枠が2つ当たることも、1つの枠に求人票が10本並ぶこともあるからです。</p>
+<figure>
+<svg viewBox="0 0 360 452" role="img" aria-labelledby="f1t">
+<title id="f1t">会社から事実までの段と、横に並ぶ源の写し・判定・書き出しの図</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs>
+<!-- 会社 -->
+<rect class="bx" x="105" y="6" width="150" height="50" rx="6"/>
+<text class="t" x="180" y="28" text-anchor="middle">会社</text>
+<text class="t2" x="180" y="46" text-anchor="middle">company_id</text>
+<path class="ln" d="M150 56 L83 92"/><path class="ln" d="M210 56 L277 92"/>
+<!-- 枠・unit -->
+<rect class="bx" x="8" y="92" width="150" height="50" rx="6"/>
+<text class="t" x="83" y="114" text-anchor="middle">募集の枠</text>
+<text class="t2" x="83" y="132" text-anchor="middle">slot</text>
+<rect class="bx-a" x="202" y="92" width="150" height="50" rx="6"/>
+<text class="t" x="277" y="114" text-anchor="middle">求人の単位</text>
+<text class="t2" x="277" y="132" text-anchor="middle">unit（short_id）</text>
+<path class="ln-d" d="M158 117 L202 117"/>
+<text class="t3" x="180" y="110" text-anchor="middle">結び</text>
+<!-- 本体の枠 -->
+<path class="ln" d="M277 142 L277 172"/>
+<rect class="frame" x="4" y="172" width="352" height="168" rx="10"/>
+<text class="t3" x="14" y="190">unit の本体　body/&lt;unit&gt;.json</text>
+<rect class="bx-s" x="12" y="200" width="150" height="50" rx="6"/>
+<text class="t" x="87" y="222" text-anchor="middle">源の写し</text>
+<text class="t2" x="87" y="240" text-anchor="middle">materials[]</text>
+<rect class="bx-s" x="198" y="200" width="150" height="50" rx="6"/>
+<text class="t" x="273" y="222" text-anchor="middle">葉（出し口）</text>
+<text class="t2" x="273" y="240" text-anchor="middle">posting.frames[]</text>
+<rect class="bx-a" x="105" y="280" width="150" height="50" rx="6"/>
+<text class="t" x="180" y="302" text-anchor="middle">事実</text>
+<text class="t2" x="180" y="320" text-anchor="middle">facts[]（fid）</text>
+<path class="ln" d="M140 280 L105 252" marker-end="url(#ar)"/>
+<text class="t3" x="78" y="272">evidence</text>
+<path class="ln" d="M220 280 L255 252" marker-end="url(#ar)"/>
+<text class="t3" x="246" y="272">frame_id</text>
+<!-- 判定・書き出し -->
+<rect class="bx" x="8" y="372" width="150" height="66" rx="6"/>
+<text class="t" x="83" y="394" text-anchor="middle">判定</text>
+<text class="t2" x="83" y="412" text-anchor="middle">kyujin_judgments/</text>
+<text class="t2" x="83" y="428" text-anchor="middle">宛先: 枠・unit・会社</text>
+<path class="ln-d" d="M83 372 L83 342" marker-end="url(#ar)"/>
+<text class="t3" x="92" y="362">宛先で掛ける</text>
+<rect class="bx" x="202" y="372" width="150" height="66" rx="6"/>
+<text class="t" x="277" y="394" text-anchor="middle">書き出し</text>
+<text class="t2" x="277" y="412" text-anchor="middle">catalog.json</text>
+<text class="t2" x="277" y="428" text-anchor="middle">fee_facts.json</text>
+<path class="ln" d="M277 340 L277 370" marker-end="url(#ar)"/>
+</svg>
+<figcaption>青い箱が求人の芯。枠と unit の「結び」は、人が結んだ対（結びの台帳）と、url・番号から機械が毎回出す対の2つ。点線の囲みが1ファイルの本体。判定は本体の外に置き、宛先（枠・unit・会社・経路）で掛ける。書き出しは本体の写しで、欄を足しも落としもしない。</figcaption>
+</figure>
+<p>実データの数: 会社の id が付いた unit は 1,028 本（会社 339 社）。付いていない 99 本は理由の記号を持っています（未解決 46・別に置く 31・あいまい 22）。葉を持つ unit は 133 本だけで、残り 994 本は葉が無く「unit そのものが1行」として読まれます。</p>
+<p>枠は在庫表から作った対応表（<code>docs/state/kyujin_slot_unit_map.json</code>）に 350 枠あり、うち 229 枠が unit に結ばれています。<span class="tag">まだ無い</span>設計が鍵の正本にする追記型の登録簿（<code>kyujin_slot_registry.jsonl</code>）と、人が結んだ対だけを持つ「結びの台帳」は、main にまだファイルがありません。</p>
+</section>
+
+<section>
+<h2 id="s2">2. 事実（fact）1つの中身</h2>
+<p>本物の1件をそのまま載せます（unit のハッシュは伏せました）。ある求人票の「年齢40歳までOK」という1行が、こういう形で入っています。この行は「未経験の人には40歳まで」という条件付きの必須条件として読まれます。</p>
+<div class="fact" role="group" aria-label="事実の実例">
+  <div class="k">unit</div><div class="v"><code>mk-hanbai-••••••••</code><small>MK 経路・販売職の求人票</small></div>
+  <div class="k">fid</div><div class="v"><code>147</code><small>取り込みで振る通し番号。値を直しても変わらず、欠番も使い回さない</small></div>
+  <div class="k">key</div><div class="v"><code>age</code><small>何の条件か。照合に使う key は 12（4 節）</small></div>
+  <div class="k">value</div><div class="v"><code>{attr: age, op: le, value: 40}</code><small>読んだ値</small></div>
+  <div class="k">evidence</div><div class="v"><code>material: L1 / block: b4</code><br>「・年齢40歳までOK」<small>どの資料のどの塊の、どの文か。71,373 行すべてが引用を持つ</small></div>
+  <div class="k">frame_id</div><div class="v"><code>all</code><small>どの出し口に当たるか。all＝この求人の全部の葉（設計の名は frames_at）</small></div>
+  <div class="k">applies</div><div class="v"><code>experience = 未経験</code><small>誰に当たる条件か。経験者にはこの上限は掛からない</small></div>
+  <div class="k">strength</div><div class="v"><code>must</code><small>must・target（歓迎）・ask（要相談）・null。✕ を作れるのは must だけ</small></div>
+  <div class="k">as_of</div><div class="v"><code>2026-06-10</code><small>源が言う日</small></div>
+  <div class="k">shape</div><div class="v"><code>{form: range, max: 40}</code><small>読み手が比べられる型の形。書けない行は代わりに unshapable（理由）を持つ</small></div>
+  <div class="k">shape_v / by</div><div class="v"><code>norm-v3 / normalize</code><small>型の版と、誰が書いたか</small></div>
+</div>
+<p>設計どおりに入っているもの: fid（71,373 行すべて）、evidence（すべて）、as_of（70,566 行・残りは日付が無く null）。照合の行は全部、shape か unshapable のどちらかを持っています。</p>
+<p><span class="tag">設計と違う</span>設計の欄名 <code>frames_at</code> は、実データでは <code>frame_id</code> という名で入っています（all が 56,080 行・葉の id が 15,293 行）。設計にある <code>unknown</code>（どの区分か源が言えない）は 0 行です。逆に実データには設計の表に無い <code>scope</code>（posting・frame・contract・company）が全行にあります。</p>
+</section>
+
+<section>
+<h2 id="s3">3. 確からしさと印</h2>
+<h3 id="s3a">確からしさの3段</h3>
+<div class="tiers">
+  <div class="tier"><b>確定</b>求人票の原本から読んだ事実と、条件を6つ全部満たした判定（証言者・日付・期限・届き方・型・宛先・経路が揃ったもの）。</div>
+  <div class="tier"><b>先方に聞く</b>源が割れている、誰が言ったか分からない、期限が切れた、会社宛てでどの出し口の話か決まらないもの。</div>
+  <div class="tier"><b>参考</b>自分たちの写し（在庫表・カードの行）、別の経路の資料、公開サイトを読んだもの。隠さず札を付けて出します。</div>
+</div>
+<h3 id="s3b">印は6つ</h3>
+<ul class="marks">
+  <li><span class="chip c-ok">⭕</span>出せる</li>
+  <li><span class="chip c-tri">△</span>年収・休日・夜勤などに差がある。落とさない</li>
+  <li><span class="chip c-ask">？本人</span>求職者の欄が空。本人に聞けば決まる</li>
+  <li><span class="chip c-ask">？先方</span>先方に聞かないと決まらない</li>
+  <li><span class="chip c-ask">？機械</span>型の形が無い・写せない。機械の側の欠け</li>
+  <li><span class="chip c-ng">✕</span>物理的に無理なものだけ。出典つきの must か、名のある「募集終了」からしか出ない</li>
+</ul>
+<p>経験・免許・勤務地からは ✕ を出しません。証言者の分からない判定も ✕ にはならず、最大で ？先方 です。</p>
+<h3 id="s3c">食い違ったときの優先順</h3>
+<p>同じ出し口・同じ key に矛盾する値が2つ以上あるとき、上から勝ちます。負けた側も消さず、「食い違い」の札を付けて直下に出します。</p>
+<ol class="ladder">
+  <li><b>武者野さんの裁定</b>。宛先が粗くても、期限が切れていても勝つ</li>
+  <li><b>細かい対象</b>が粗い対象に勝つ（葉 ＞ unit 全体 ＞ 枠 ＞ 会社 ＞ 経路 ＞ 全社）。ただし細かい側が具体の値を言うときだけ</li>
+  <li><b>確定した判定</b>（6条件を満たすもの）</li>
+  <li><b>求人票の事実</b>（型の形つき）。同じ順位なら源の日付が新しい方</li>
+</ol>
+<p><span class="tag">まだ無い</span>判定を読む側の優先の順と広い宛先の読みは、読み手の関数がまだ書かれていません。判定 370 本のうち型つきの中身（<code>value.fact</code>）を持つのは 15 本（全部が制約）で、証言者が「不明」の判定が 211 本あります。</p>
+</section>
+
+<section>
+<h2 id="s4">4. 12 の照合キー</h2>
+<p>CA の問い（この人にこの求人を出せるか）と結ぶ欄は、次の 12 だけです。在宅勤務は照合に入れません。棒は、その key の行のうち型の形が付いている割合です。</p>
+<ul class="keys">
+<li><span class="kn">work_location</span> <span class="kj">勤務地</span><span class="kc">18,279 行・形あり 94%</span><div class="bar"><i style="width:94%"></i></div></li>
+<li><span class="kn">experience</span> <span class="kj">経験</span><span class="kc">4,387 行・形あり 85%</span><div class="bar"><i style="width:85%"></i></div></li>
+<li><span class="kn">status</span> <span class="kj">募集の開閉</span><span class="kc">2,349 行・形あり 98%</span><div class="bar"><i style="width:98%"></i></div></li>
+<li><span class="kn">age</span> <span class="kj">年齢</span><span class="kc">1,910 行・形あり 95%</span><div class="bar"><i style="width:95%"></i></div></li>
+<li><span class="kn">education</span> <span class="kj">学歴</span><span class="kc">1,492 行・形あり 95%</span><div class="bar"><i style="width:95%"></i></div></li>
+<li><span class="kn">nationality</span> <span class="kj">国籍</span><span class="kc">1,260 行・形あり 90%</span><div class="bar"><i style="width:90%"></i></div></li>
+<li><span class="kn">ng</span> <span class="kj">NG 条件</span><span class="kc">859 行・形あり 15%</span><div class="bar"><i style="width:15%"></i></div></li>
+<li><span class="kn">residence</span> <span class="kj">住まい</span><span class="kc">724 行・形あり 49%</span><div class="bar"><i style="width:49%"></i></div></li>
+<li><span class="kn">availability</span> <span class="kj">勤務の可否（出張・土日など）</span><span class="kc">508 行・形あり 52%</span><div class="bar"><i style="width:52%"></i></div></li>
+<li><span class="kn">qualification</span> <span class="kj">資格・免許</span><span class="kc">387 行・形あり 74%</span><div class="bar"><i style="width:74%"></i></div></li>
+<li><span class="kn">gender</span> <span class="kj">性別</span><span class="kc">375 行・形あり 93%</span><div class="bar"><i style="width:93%"></i></div></li>
+<li><span class="kn">grad</span> <span class="kj">卒業の区分（新卒など）</span><span class="kc">149 行・形あり 85%</span><div class="bar"><i style="width:85%"></i></div></li>
+</ul>
+<p>形の無い行は「書けない理由」（unshapable）を持っていて、形も理由も無い行は 0 です。ng・residence・availability は、源の書き方が自由文に寄るぶん、理由つきで形を見送った行が多くなっています。</p>
+</section>
+
+<section>
+<h2 id="s5">5. 書き込みの口と読み口</h2>
+<p>本体を書き換える道は1つだけです。どの書き手も同じ口を通り、まず dry-run で「何がどう変わるか」を出し、<code class="nw">--execute</code> を付けたときだけ書きます。引用と値はどの操作でも書き換えられません（門が止めます）。</p>
+<figure>
+<svg viewBox="0 0 360 520" role="img" aria-labelledby="f5t">
+<title id="f5t">段の doc から合流・dry-run・execute を経て本体と書き出しへ至る流れと、読み手が本体だけを読む図</title>
+<defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs>
+<rect class="bx-s" x="30" y="6" width="300" height="50" rx="6"/>
+<text class="t" x="180" y="28" text-anchor="middle">取り込みの段の doc</text>
+<text class="t2" x="180" y="46" text-anchor="middle">firstpass・feecond・wl・extract</text>
+<path class="ln" d="M180 56 L180 80" marker-end="url(#ar2)"/>
+<rect class="bx-a" x="30" y="82" width="300" height="50" rx="6"/>
+<text class="t" x="180" y="104" text-anchor="middle">着地の口（1つだけ）</text>
+<text class="t2" x="180" y="122" text-anchor="middle">kyujin_body.apply / merge</text>
+<path class="ln" d="M180 132 L180 156" marker-end="url(#ar2)"/>
+<rect class="bx" x="30" y="158" width="300" height="42" rx="6"/>
+<text class="t" x="180" y="184" text-anchor="middle">dry-run（変わる所を出すだけ）</text>
+<path class="ln" d="M180 200 L180 224" marker-end="url(#ar2)"/>
+<rect class="frame" x="12" y="226" width="336" height="186" rx="10"/>
+<text class="t3" x="24" y="246">--execute</text>
+<rect class="bx" x="24" y="256" width="312" height="30" rx="4"/>
+<text class="t2" x="34" y="276">① 目録の世代を確かめる（変わっていたら止める）</text>
+<rect class="bx" x="24" y="294" width="312" height="30" rx="4"/>
+<text class="t2" x="34" y="314">② 今の本体を body_prev/&lt;時刻&gt;/ へ退避</text>
+<rect class="bx-a" x="24" y="332" width="312" height="30" rx="4"/>
+<text class="t2" x="34" y="352">③ body/&lt;unit&gt;.json を上書き</text>
+<rect class="bx" x="24" y="370" width="312" height="30" rx="4"/>
+<text class="t2" x="34" y="390">④ body_ops/ に操作を記録・書き出しを作り直す</text>
+<path class="ln" d="M180 412 L180 436" marker-end="url(#ar2)"/>
+<rect class="bx-a" x="30" y="438" width="300" height="76" rx="6"/>
+<text class="t" x="180" y="462" text-anchor="middle">読み手は本体だけを読む</text>
+<text class="t2" x="180" y="482" text-anchor="middle">入口 infra/kyujin_v4_read</text>
+<text class="t2" x="180" y="500" text-anchor="middle">CLI・コネクタ・コンソール・評価器</text>
+</svg>
+<figcaption>①で止まると何も書かず exit 4（同じ目録を読んだ2つの書き手のうち、後の方が止まる）。戻すときは②の退避を body/ へ書き戻す1行。</figcaption>
+</figure>
+<p>本体は上書きで、いまの版だけを持ちます。前の版は退避（<code>body_prev/</code>）と操作の記録（<code>body_ops/</code>・<code>{unit, fid, op, before, after, by, at, 版}</code>）にあり、記録は消しません。いま GCS には操作の記録が 20 本、退避が 19 回分あります。</p>
+<p>型の形を書く手は2つです。求人が届いた瞬間に規則で書ける分を書き、残りは月額枠のセッションがまとめて読んで書きます。目録の <code>owed</code>（形も理由も無い照合の行の数）は、いま全 unit で 0 です。</p>
+</section>
+
+<section>
+<h2 id="s6">6. いま入っている数</h2>
+<h3 id="s6a">経路ごと（2026-11-21 03:58 の目録と本体）</h3>
+<div class="tbl" role="region" aria-labelledby="s6a" tabindex="0">
+<table>
+<thead><tr><th>経路</th><th class="n">unit</th><th class="n">事実</th><th class="n">照合の行</th><th class="n">形あり</th><th class="n">理由つきで形なし</th><th class="n">葉</th><th class="n">資料</th></tr></thead>
+<tbody>
+<tr><td>ZT</td><td class="n">833</td><td class="n">22,232</td><td class="n">9,380</td><td class="n">7,977</td><td class="n">1,403</td><td class="n">48</td><td class="n">2,415</td></tr>
+<tr><td>H 経路</td><td class="n">231</td><td class="n">40,225</td><td class="n">21,630</td><td class="n">19,606</td><td class="n">2,024</td><td class="n">1,042</td><td class="n">957</td></tr>
+<tr><td>MK</td><td class="n">37</td><td class="n">6,231</td><td class="n">1,106</td><td class="n">1,036</td><td class="n">70</td><td class="n">102</td><td class="n">101</td></tr>
+<tr><td>circus</td><td class="n">23</td><td class="n">2,185</td><td class="n">539</td><td class="n">517</td><td class="n">22</td><td class="n">8</td><td class="n">46</td></tr>
+<tr><td>昼ドリ</td><td class="n">3</td><td class="n">500</td><td class="n">24</td><td class="n">24</td><td class="n">0</td><td class="n">0</td><td class="n">6</td></tr>
+<tr><th>計</th><td class="n">1,127</td><td class="n">71,373</td><td class="n">32,679</td><td class="n">29,160</td><td class="n">3,519</td><td class="n">1,200</td><td class="n">3,525</td></tr>
+</tbody>
+</table>
+</div>
+<p>本体のいまの読みの段は extract が 765 本、wl が 256 本、feecond が 106 本。差し替えられた古い段の行は <code>superseded</code> に 2,886 行残してあり、読み手は読みません。Fee の行は 2,369 行、源に Fee が無い unit は 136 本です。</p>
+<p>形の版は norm-v3 が 27,422 行、一つ前の norm-v2 が 1,058 行、版の印が無い行が 680 行（以前から入っている ZT の勤務地）です。</p>
+<h3 id="s6b">まだ入っていない源</h3>
+<ul>
+<li><b>ZT の Drive の求人票</b>: Drive から契約にした 94 本が、本体への合流を待っています（票 <code>zt-drive-kyujin-contract-cont…</code> が進行中）。</li>
+<li><b>MK の共有 Drive</b>（コア企業の求人票フォルダ・PDF 18 本ほか）: どの口も読んでいません。MK の経路の 37 本は全部 Slack の共有から来ています（票 <code>kyujin-used-postings-missing-intake-cont1</code>）。</li>
+<li><b>circus</b>: 求人の URL を集める口に現れない求人があり、源を読む口がまだありません。</li>
+</ul>
+</section>
+
+<section>
+<h2 id="s7">7. まだ言えないこと</h2>
+<ul>
+<li><b>中身が正しいかは、抜き取りでしか確かめていません。</b>形が「付いている」ことは全数で数えましたが、その形が求人票の意味どおりかは、受け入れ試験の求人と監査の抜き取りで見ただけです。</li>
+<li><b>受け入れ試験は 34 本中 20 本が合っています。</b>8 本は既知の外れ（xfail）で、内訳は形の欠けが ZT4 の1本、箱にまだ求人票が無いものが 7 本。残る 6 本は正しい答えが決まらないので保留（skip）にしています。</li>
+<li><b>CA の問いをどれだけ答えられるかは、測り直していません。</b>11-19 に問い 66 型 × 求人票 1,134 本で撃ったときは「決まる」が 28.8% でした。その後に形を全経路へ書いたので数は動いているはずですが、まだ撃っていません。</li>
+<li><b>読み手の関数で、まだ無いもの</b>: 判定の優先の順と広い宛先、通勤（<code>read_commute</code>）、転勤、短期離職、再応募、市区町村。勤務地から ✕ が出ないのはこのためです。</li>
+</ul>
+<div class="note" role="note" aria-label="設計にあって実データに無いもの">
+<b>設計にあって、実データにまだ無いもの</b>
+<ul>
+<li><code>frames_at</code> は実データでは <code>frame_id</code> という名。値 <code>unknown</code> は 0 行</li>
+<li>源の写しの <code>channel</code>（どの経路の資料か）と <code>shareable</code>（本人に渡せるか）は、3,525 件のどれにも無い</li>
+<li>枠の登録簿 <code>kyujin_slot_registry.jsonl</code> と結びの台帳は、まだファイルが無い（在庫表から作った 350 枠の対応表はある）</li>
+<li>判定の型つきの中身 <code>value.fact</code> は 370 本中 15 本だけ</li>
+<li>unit の発行の種別 <code>unread</code>・<code>no_material</code> は、目録の理由の記号に現れない</li>
+</ul>
+</div>
+</section>
+</main>
+
+<footer data-chrome>
+<p>数えた元: GCS <code>kyujin_schema_v4/body/</code>（1,127 ファイル）・<code>catalog.json</code>（2026-11-21 03:58）・repo の <code>docs/kyujin_judgments/</code>（370 本）・<code>docs/state/kyujin_slot_unit_map.json</code>。受け入れ試験の数は 2026-11-21 時点の実行結果。H 経路は経路の記号を伏せたもの。</p>
+</footer>
+
+<script>
+(function(){
+  var now=document.getElementById('now');
+  var hs=[].slice.call(document.querySelectorAll('main h2, main h3'));
+  function upd(){
+    var band=document.querySelector('.band').offsetHeight+72;
+    var h2=null,h3=null;
+    for(var i=0;i<hs.length;i++){
+      if(hs[i].getBoundingClientRect().top<=band){
+        if(hs[i].tagName==='H2'){h2=hs[i];h3=null}else{h3=hs[i]}
+      }else break;
+    }
+    if(!h2){now.innerHTML='<b>はじめに</b>';return}
+    var s='<b>'+h2.textContent+'</b>';
+    if(h3) s+=' ／ '+h3.textContent;
+    now.innerHTML=s;
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd);
+  upd();
+})();
+</script>
+</body>
+</html>
