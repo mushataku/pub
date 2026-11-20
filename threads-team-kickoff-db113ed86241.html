@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>SNS運用チーム 決めたことと数字</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#24221f;--sub:#6b665e;--line:#e2ddd3;--accent:#c2410c;--accent2:#2563eb;--muted:#cfc8bb;--card:#fff;--warn:#fff4e5;--ok:#15803d}
+@media (prefers-color-scheme:dark){:root{--bg:#1a1917;--fg:#ebe8e2;--sub:#a8a296;--line:#3a3732;--accent:#fb923c;--accent2:#60a5fa;--muted:#55504a;--card:#24221f;--warn:#3a2a17;--ok:#4ade80}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI","Meiryo",sans-serif;line-height:1.8;font-size:16px;overflow-wrap:anywhere}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 16px}
+header .t{font-weight:700;font-size:15px}
+header nav{font-size:13px;white-space:nowrap;overflow-x:auto}
+header nav a{color:var(--sub);text-decoration:none;margin-right:12px}
+header nav a.on{color:var(--accent);font-weight:700}
+main{max-width:720px;margin:0 auto;padding:16px 16px 48px}
+h1{font-size:22px;line-height:1.5;margin:8px 0 4px}
+.meta{color:var(--sub);font-size:13px;margin:0 0 16px}
+h2{font-size:18px;margin:36px 0 8px;padding-top:8px;border-top:2px solid var(--line);scroll-margin-top:72px}
+h3{font-size:15px;margin:20px 0 4px}
+.fig{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;margin:10px 0}
+.fig svg{width:100%;height:auto;display:block}
+.cap{font-size:13px;color:var(--sub);margin:6px 2px 0;line-height:1.6}
+.kgi{background:var(--card);border:2px solid var(--accent);border-radius:10px;padding:14px 16px;margin:8px 0;text-align:center}
+.kgi .l{font-size:13px;color:var(--sub)}
+.kgi .v{font-size:22px;font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:8px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.card .h{font-weight:700}
+.card .d{font-size:14px;color:var(--sub)}
+.verdict{display:inline-block;font-size:12px;font-weight:700;border-radius:4px;padding:0 6px;margin-right:4px;color:#fff}
+.v-ok{background:var(--ok)}.v-ng{background:var(--accent)}.v-q{background:var(--sub)}
+ul{padding-left:1.2em;margin:8px 0}
+li{margin:4px 0}
+.warn{background:var(--warn);border-radius:8px;padding:10px 14px;margin:8px 0}
+.note{font-size:13px;color:var(--sub)}
+a{color:var(--accent)}
+svg text{font-family:inherit;fill:var(--fg)}
+svg .sub{fill:var(--sub)}
+svg .a{fill:var(--accent)}
+svg .b{fill:var(--accent2)}
+svg .m{fill:var(--muted)}
+svg .stroke{stroke:var(--line)}
+
+h1,h2,h3{word-break:auto-phrase}
+</style>
+</head>
+<body>
+<header>
+  <div class="t">SNS運用チーム 決めたことと数字</div>
+  <nav id="nav"><a href="#kimeta">決めたこと</a><a href="#data">いまの数字</a><a href="#gap">前提の答え合わせ</a><a href="#next">来週まで</a></nav>
+</header>
+<main>
+<h1>SNS（Threads）運用チーム<br>決めたことと数字</h1>
+<p class="meta">2026年11月20日（金）の会議より／中原さん・横尾さん・武者野／数字は同日20時時点にThreadsのAPIで取得（8月1日以降の投稿）</p>
+
+<h2 id="kimeta">決めたこと</h2>
+<div class="kgi"><div class="l">目標（KGI）</div><div class="v">12月に面談 1人1件</div></div>
+
+<h3>流れ：見てもらう → 反応 → DM → 面談</h3>
+<div class="fig">
+<svg viewBox="0 0 640 250" role="img" aria-label="趣味とCAの投稿で閲覧を集め、求人投稿に反応した人全員にDMで面談を打診する流れ">
+  <rect x="10" y="20" width="140" height="70" rx="10" class="m" opacity=".35"/>
+  <text x="80" y="50" text-anchor="middle" font-size="15" font-weight="700">趣味＋CAの投稿</text>
+  <text x="80" y="72" text-anchor="middle" font-size="12" class="sub">1日2回・週14本</text>
+  <path d="M152 55 L178 55" stroke="currentColor" stroke-width="2" class="stroke" style="stroke:var(--sub)" marker-end="url(#ar)"/>
+  <rect x="180" y="20" width="140" height="70" rx="10" class="m" opacity=".35"/>
+  <text x="250" y="50" text-anchor="middle" font-size="15" font-weight="700">求人の投稿</text>
+  <text x="250" y="72" text-anchor="middle" font-size="12" class="sub">見た人 1万〜10万</text>
+  <path d="M322 55 L348 55" style="stroke:var(--sub)" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="350" y="20" width="130" height="70" rx="10" class="m" opacity=".35"/>
+  <text x="415" y="50" text-anchor="middle" font-size="15" font-weight="700">反応した人</text>
+  <text x="415" y="72" text-anchor="middle" font-size="12" class="sub">100人</text>
+  <path d="M482 55 L508 55" style="stroke:var(--sub)" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="510" y="20" width="120" height="70" rx="10" class="a"/>
+  <text x="570" y="50" text-anchor="middle" font-size="15" font-weight="700" style="fill:#fff">面談</text>
+  <text x="570" y="72" text-anchor="middle" font-size="12" style="fill:#fff">1件</text>
+  <path d="M415 92 L415 130" style="stroke:var(--sub)" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="330" y="132" width="170" height="56" rx="10" fill="none" style="stroke:var(--accent)" stroke-width="2"/>
+  <text x="415" y="156" text-anchor="middle" font-size="14" font-weight="700">全員にDMで面談打診</text>
+  <text x="415" y="176" text-anchor="middle" font-size="12" class="sub">絞らない・文言はAIで</text>
+  <path d="M502 160 L570 160 L570 94" style="stroke:var(--sub)" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+  <text x="80" y="128" text-anchor="middle" font-size="12" class="sub">10本に1本バズる想定</text>
+  <path d="M80 92 L80 112" style="stroke:var(--sub)" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="20" y="226" font-size="12" class="sub">KPI＝面談打診100人（DM）／反応100人／求人投稿の閲覧1万（10万まで？）</text>
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" style="fill:var(--sub)"/></marker></defs>
+</svg>
+</div>
+
+<h3>1日の投稿枠</h3>
+<div class="fig">
+<svg viewBox="0 0 640 110" role="img" aria-label="12時から12時半が1本目、17時から17時半か20時から20時半が2本目">
+  <line x1="20" y1="60" x2="620" y2="60" style="stroke:var(--line)" stroke-width="2"/>
+  <g font-size="12" class="sub">
+    <text x="20" y="90" class="sub">9時</text><text x="170" y="90" class="sub">12時</text><text x="370" y="90" class="sub">17時</text><text x="490" y="90" class="sub">20時</text><text x="595" y="90" class="sub">22時</text>
+  </g>
+  <rect x="170" y="44" width="20" height="32" rx="3" class="a"/>
+  <text x="180" y="34" text-anchor="middle" font-size="13" font-weight="700">1本目</text>
+  <rect x="370" y="44" width="20" height="32" rx="3" class="b"/>
+  <rect x="490" y="44" width="20" height="32" rx="3" class="b"/>
+  <text x="440" y="34" text-anchor="middle" font-size="13" font-weight="700">2本目（どちらか）</text>
+</svg>
+<p class="cap">1本目 12:00〜12:30、2本目 17:00〜17:30 か 20:00〜20:30。週14本・月60本。</p>
+</div>
+
+<h3>3人の役割</h3>
+<div class="cards">
+  <div class="card"><div class="h">中原さん</div><div class="d">趣味＋CA／閲覧を取る力が一番</div></div>
+  <div class="card"><div class="h">横尾さん</div><div class="d">趣味＋CA／反応を取る力が一番</div></div>
+  <div class="card"><div class="h">武者野</div><div class="d">noteと組み合わせた形を試す／投稿を再開</div></div>
+</div>
+
+<h2 id="data">いまの数字</h2>
+<h3>1投稿あたりの閲覧（中央値）</h3>
+<div class="fig">
+<svg viewBox="0 0 640 150" role="img" aria-label="閲覧の中央値は中原さん約290、横尾さん約60、武者野16">
+  <g font-size="14">
+    <text x="0" y="35">中原さん</text><rect x="110" y="18" width="430" height="24" rx="4" class="a"/><text x="548" y="36" font-weight="700">約290</text>
+    <text x="0" y="80">横尾さん</text><rect x="110" y="63" width="89" height="24" rx="4" class="b"/><text x="207" y="81" font-weight="700">約60</text>
+    <text x="0" y="125">武者野</text><rect x="110" y="108" width="24" height="24" rx="4" class="m"/><text x="142" y="126" font-weight="700">16</text>
+  </g>
+</svg>
+<p class="cap">8月1日以降の投稿（中原さん40本・横尾さん19本・武者野6本）。一番伸びた投稿は中原さん52.9万、横尾さん2.3万。</p>
+</div>
+
+<h3>反応率（本人の返信を除く）</h3>
+<div class="fig">
+<svg viewBox="0 0 640 150" role="img" aria-label="反応率は横尾さん約1パーセント、中原さん約0.15パーセント、世の中の中央値1.5パーセント">
+  <g font-size="14">
+    <text x="0" y="35">横尾さん</text><rect x="110" y="18" width="287" height="24" rx="4" class="b"/><text x="405" y="36" font-weight="700">約1%</text>
+    <text x="0" y="80">中原さん</text><rect x="110" y="63" width="43" height="24" rx="4" class="a"/><text x="161" y="81" font-weight="700">約0.15%</text>
+    <text x="0" y="125" class="sub">世の中の中央値</text><rect x="110" y="108" width="430" height="24" rx="4" fill="none" style="stroke:var(--sub)" stroke-dasharray="4 3"/><text x="548" y="126" class="sub">1.5%</text>
+  </g>
+</svg>
+<p class="cap">反応率＝（いいね＋返信＋リポスト＋引用）÷閲覧。世の中の中央値はBufferの調査（運用に慣れた人に偏る・確度は中）。横尾さんの返信の多くは歴史の雑談。</p>
+</div>
+
+<h3>伸びるのは「20〜40字の短い問いかけ」</h3>
+<div class="fig">
+<svg viewBox="0 0 640 150" role="img" aria-label="閲覧の中央値は短い問いかけ1106、解説つき136、持論86">
+  <g font-size="14">
+    <text x="0" y="35">短い問いかけ</text><rect x="130" y="18" width="410" height="24" rx="4" class="a"/><text x="548" y="36" font-weight="700">1,106</text>
+    <text x="0" y="80">解説つき</text><rect x="130" y="63" width="50" height="24" rx="4" class="m"/><text x="188" y="81" font-weight="700">136</text>
+    <text x="0" y="125">持論</text><rect x="130" y="108" width="32" height="24" rx="4" class="m"/><text x="170" y="126" font-weight="700">86</text>
+  </g>
+</svg>
+<p class="cap">中原さんの投稿の閲覧の中央値を形式別に。上位5本の本文は中央21字、下位5本は141字。</p>
+</div>
+
+<h2 id="gap">前提の答え合わせ</h2>
+<div class="cards">
+  <div class="card"><span class="verdict v-ok">合っている</span><div class="h">10投稿に1件バズる</div><div class="d">中原さんは閲覧5,000超が10本に1本</div></div>
+  <div class="card"><span class="verdict v-ng">甘い</span><div class="h">閲覧1万で反応100</div><div class="d">中原さんの率だと閲覧5〜7万が要る。「10万まで？」が近い</div></div>
+  <div class="card"><span class="verdict v-ng">裏付けなし</span><div class="h">バズったら次に求人</div><div class="d">直後の投稿はむしろ下がる（下の図）</div></div>
+  <div class="card"><span class="verdict v-q">まだ測れない</span><div class="h">12時／17時／20時の枠</div><div class="d">17時台の投稿はまだ0本</div></div>
+</div>
+
+<h3>バズの直後の投稿は、普段より見られない</h3>
+<div class="fig">
+<svg viewBox="0 0 640 150" role="img" aria-label="伸びた投稿の直後の投稿の閲覧は、普段を1としたとき中原さん0.83、横尾さん0.56">
+  <g font-size="14">
+    <text x="0" y="35" class="sub">普段</text><rect x="110" y="18" width="400" height="24" rx="4" class="m"/><text x="518" y="36" class="sub">1.0</text>
+    <text x="0" y="80">中原さん</text><rect x="110" y="63" width="332" height="24" rx="4" class="a"/><text x="450" y="81" font-weight="700">0.83倍</text>
+    <text x="0" y="125">横尾さん</text><rect x="110" y="108" width="224" height="24" rx="4" class="b"/><text x="342" y="126" font-weight="700">0.56倍</text>
+  </g>
+</svg>
+<p class="cap">伸びた投稿の直後の投稿の閲覧を、同じ形式の普段の値と比べたもの。</p>
+</div>
+<div class="warn">求人の投稿は「バズの直後」より<b>数字入りの形</b>のほうが筋がよさそう（中原さんの数字入り求人1本は閲覧747＝持論の約9倍）。1本だけなので、数本出して確かめる。</div>
+
+<h3>面談1件に必要な閲覧（各自の反応率で計算）</h3>
+<div class="fig">
+<svg viewBox="0 0 640 150" role="img" aria-label="面談1件に必要な閲覧はホワイトボードの見積もり1万、横尾さんの率で約6千から9千、中原さんの率で約6万から7万">
+  <g font-size="14">
+    <text x="0" y="35" class="sub">ホワイトボード</text><rect x="130" y="18" width="60" height="24" rx="4" class="m"/><text x="198" y="36" class="sub">1万</text>
+    <text x="0" y="80">横尾さんの率</text><rect x="130" y="63" width="52" height="24" rx="4" class="b"/><text x="190" y="81" font-weight="700">約0.6〜0.9万</text>
+    <text x="0" y="125">中原さんの率</text><rect x="130" y="108" width="390" height="24" rx="4" class="a"/><text x="528" y="126" font-weight="700">約6〜7万</text>
+  </g>
+</svg>
+<p class="cap">反応した人の6%がDMに返信し、その20%が面談になると仮置きした計算。DMの返信率はまだ実測が無い（営業DMの相場で代用）。</p>
+</div>
+
+<h2 id="next">来週までにやること</h2>
+<div class="cards">
+  <div class="card"><div class="h">① 短い問いかけで閲覧を取る</div><div class="d">20〜40字。1日2回</div></div>
+  <div class="card"><div class="h">② 求人は数字入りで数本</div><div class="d">月収・休み・未経験OKなど</div></div>
+  <div class="card"><div class="h">③ DMの3つの数を記録</div><div class="d">送った数・返信の数・面談の数</div></div>
+  <div class="card"><div class="h">④ 時間帯を比べる</div><div class="d">12時・17時・20時に同じ型を数本ずつ</div></div>
+  <div class="card"><div class="h">⑤ DMは話が合う人から</div><div class="d">返信で仕事・転職に触れた人を先に</div></div>
+</div>
+<p class="note">詳しい分析（伸びた投稿の本文の比較・時間帯・返信の中身）：<a href="https://mushataku.github.io/pub/threads-team-analysis-ae073e017618.html">分析ページ</a></p>
+</main>
+<script>
+(function(){var links=[].slice.call(document.querySelectorAll('#nav a'));var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+function upd(){var y=window.scrollY+90,cur=0;secs.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i});links.forEach(function(a,i){a.classList.toggle('on',i===cur)})}
+window.addEventListener('scroll',upd,{passive:true});upd();})();
+</script>
+</body>
+</html>
