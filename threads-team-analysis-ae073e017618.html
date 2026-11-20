@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Threads運用の分析</title>
+<style>
+:root{--bg:#f5f6f7;--surface:#ffffff;--text:#1c2126;--muted:#454c54;--line:#c9cfd5;--accent:#08507c;--on-accent:#ffffff;--bar:#808a94;--band:#ffffff;--hit:#08507c;--sp1:4px;--sp2:8px;--sp3:16px;--sp4:24px;--sp5:40px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121518;--surface:#1a1e22;--text:#e4e7ea;--muted:#b4bbc2;--line:#3a4147;--accent:#7bbfe8;--on-accent:#0c1317;--bar:#7d8790;--band:#1a1e22;--hit:#7bbfe8}}
+:root[data-theme="dark"]{--bg:#121518;--surface:#1a1e22;--text:#e4e7ea;--muted:#b4bbc2;--line:#3a4147;--accent:#7bbfe8;--on-accent:#0c1317;--bar:#7d8790;--band:#1a1e22;--hit:#7bbfe8}
+*{box-sizing:border-box}
+html{color-scheme:light dark;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","YuGothic",Meiryo,sans-serif;font-size:16px;line-height:1.8;text-autospace:normal;overflow-wrap:break-word}
+:lang(en){font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.band{position:sticky;top:0;z-index:10;background:var(--band);border-bottom:1px solid var(--line);padding:var(--sp2) max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+.band-in{max-width:44rem;margin:0 auto;display:flex;flex-wrap:wrap;gap:0 var(--sp3);align-items:baseline;line-height:1.5}
+.band b{font-size:14px}
+.band span{font-size:14px;color:var(--muted)}
+.band .sec{color:var(--accent);font-weight:700}
+main{max-width:44rem;margin:0 auto;padding:var(--sp4) max(16px,env(safe-area-inset-left)) var(--sp5);padding-right:max(16px,env(safe-area-inset-right))}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere;line-height:1.4;font-weight:700;letter-spacing:0}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
+h1{font-size:1.65rem;margin:0 0 var(--sp3)}
+h2{font-size:1.35rem;margin:var(--sp5) 0 var(--sp3);padding-top:var(--sp3);border-top:2px solid var(--text);scroll-margin-top:60px}
+h3{font-size:1.1rem;margin:var(--sp4) 0 var(--sp2);scroll-margin-top:60px}
+p{margin:0 0 1em;max-width:40em;text-wrap:pretty}
+.lead{font-size:1.05rem}
+ul,ol{max-width:40em;padding-left:1.4em;margin:0 0 1em}
+li{margin-bottom:.5em}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:var(--sp3);margin:0 0 var(--sp3)}
+.box p:last-child,.box ul:last-child,.box ol:last-child{margin-bottom:0}
+.conc{max-width:40em;padding-left:0;list-style:none;counter-reset:c}
+.conc li{counter-increment:c;padding-left:2.2em;position:relative;margin-bottom:.8em}
+.conc li::before{content:counter(c);position:absolute;left:0;top:.15em;width:1.6em;height:1.6em;line-height:1.6em;text-align:center;border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:14px;font-weight:700}
+.toc{display:flex;flex-wrap:wrap;gap:var(--sp2);list-style:none;padding:0;margin:0 0 var(--sp3);max-width:none}
+.toc li{margin:0}
+.toc a{display:block;padding:var(--sp1) var(--sp2);border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--text);text-decoration:underline;font-size:14px;line-height:1.6;min-height:32px}
+a{color:var(--accent)}
+.cap{font-size:14px;line-height:1.7;color:var(--muted);margin:var(--sp3) 0 var(--sp2);max-width:none}
+.cap b{color:var(--text);font-size:15px}
+.scroll{overflow-x:auto;margin:0 0 var(--sp3);border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.scroll:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.55;font-variant-numeric:tabular-nums;overflow-wrap:normal}
+th,td{padding:var(--sp2);border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+thead th{background:var(--bg);font-weight:700;border-bottom:2px solid var(--line)}
+tbody tr:last-child td{border-bottom:0}
+th.n,td.n{text-align:right}
+td.n{white-space:nowrap}
+.nw{white-space:nowrap}
+.fig{margin:0 0 var(--sp3)}
+.fig figcaption{font-size:14px;line-height:1.7;color:var(--muted);margin-top:var(--sp2)}
+.fig figcaption b{color:var(--text);font-size:15px}
+.chart{display:block;width:100%;height:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.chart .gl{stroke:var(--line);stroke-width:1}
+.chart .ax{fill:var(--muted);font-size:12px;font-family:inherit}
+.chart .bn{fill:var(--bar)}
+.chart .bh{fill:var(--hit)}
+.chart .by{fill:none;stroke:var(--bar);stroke-width:1.2;stroke-dasharray:2 2}
+.chart .md{stroke:var(--text);stroke-width:1;stroke-dasharray:4 3}
+.key{display:flex;flex-wrap:wrap;gap:var(--sp1) var(--sp3);font-size:14px;color:var(--muted);margin:var(--sp2) 0 0;line-height:1.6}
+.key i{display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:6px;border-radius:2px}
+.k-n{background:var(--bar)}.k-h{background:var(--hit)}.k-y{border:1.5px dashed var(--bar)}.k-m{border-top:2px dashed var(--text);height:0!important;vertical-align:4px!important}
+.note{font-size:14px;color:var(--muted);line-height:1.7}
+.acts{counter-reset:a;list-style:none;padding:0;max-width:40em}
+.acts>li{counter-increment:a;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:var(--sp3) var(--sp3) var(--sp3) 3em;position:relative;margin-bottom:var(--sp3)}
+.acts>li::before{content:counter(a);position:absolute;left:var(--sp3);top:var(--sp3);width:1.6em;height:1.6em;line-height:1.6em;text-align:center;border-radius:50%;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:14px}
+.acts b.t{display:block;margin-bottom:var(--sp1)}
+.acts .why{display:block;font-size:15px;color:var(--muted);margin-top:var(--sp1);line-height:1.7}
+footer{font-size:14px;color:var(--muted);margin-top:var(--sp5);max-width:40em}
+@media (min-width:640px){h1{font-size:1.9rem}}
+</style>
+</head>
+<body>
+<header class="band" data-chrome><div class="band-in"><b>Threads運用の分析（2026-11-20）</b><span class="sec" id="bandSec"></span></div></header>
+<main>
+<h1>Threads運用の分析：<wbr>中原さん・横尾さん・武者野の3アカウント</h1>
+<p class="lead">11月20日の発足にあたり、3アカウントのこれまでの投稿を Threads の数字（API）で見直しました。閲覧の取得は2026-11-20 19:58 時点（JST）。数字は全部、この時点の累計です。</p>
+<div class="box">
+<p><b>この資料で使う言葉</b></p>
+<ul>
+<li>閲覧＝その投稿が表示された回数（views）</li>
+<li>反応＝いいね・返信・リポスト・引用の合計。反応率＝反応÷閲覧</li>
+<li>伸びた投稿＝閲覧がそのアカウントの中央値の10倍以上</li>
+<li>「24時間未満」の投稿（横尾さん5本）は閲覧がまだ増える途中のため、1〜3項の傾向の分析からは外し、4〜6項の集計には入れています</li>
+<li>本数が少ないので、どの結論も「傾向」です。返信した人の名前と本文は載せていません（件数と分類だけ）</li>
+</ul>
+</div>
+<ul class="toc">
+<li><a href="#s1">1 バズの共通点</a></li><li><a href="#s2">2 時間帯・曜日</a></li><li><a href="#s3">3 バズの後</a></li><li><a href="#s4">4 返信の中身</a></li><li><a href="#s5">5 フォロワー</a></li><li><a href="#s6">6 3人の比較</a></li><li><a href="#s7">来週からの打ち手</a></li><li><a href="#s8">取れなかったもの</a></li>
+</ul>
+
+<h2 id="s0" data-short="結論（6項目）">結論を先に（6項目）</h2>
+<ol class="conc">
+<li><b>バズった投稿の共通点</b>：上位は全部「20〜40字の短い問いかけ」。中原さんの上位5本は中央21字、下位5本は中央141字。形式別の閲覧は、中原さんは短い問いかけ1,106・解説つきの長め136・持論86。</li><li><b>時間帯と曜日</b>：12時台は高く出るが、短い問いかけだけで比べると12〜13時台1,488・17時以降1,160でほぼ同じ。17:00〜17:30に投稿した人は0人、20:00〜20:30は長文ばかりで、3つの枠は今のデータでは比べられない。</li><li><b>バズの後</b>：直後の投稿の閲覧は、同じ形式の普段の値の0.83倍（中原さん）・0.56倍（横尾さん）。バズの余波で直後の投稿が伸びる動きは見えない。例外は1本だけ（52.9万の翌日に同じ話題の解説版を出した1,300）。</li><li><b>返信の中身</b>：本人の返信を除くと横尾さんの反応率は1.98%→0.96%。返信者のうち仕事・転職の話を書いた人は中原さん28/84人、横尾さん3/94人（横尾さんの返信の84%は趣味・雑談）。</li><li><b>フォロワー</b>：増え方（日別の推移）は API から取れなかった。現在値は中原さん1,376・横尾さん3・武者野3。中原さんのフォロワーは35歳未満が約10%、45歳以上が約66%。</li><li><b>3アカウント比較</b>：閲覧の中央値は中原さん276・横尾さん52・武者野16。どちらも閲覧の約98%を、中央値の10倍以上伸びた数本が占める。</li>
+</ol>
+
+<h3 id="g0">投稿ごとの閲覧の一覧</h3>
+<p>棒1本が投稿1本です。縦軸は対数目盛（1目盛で10倍）。青い棒が「伸びた投稿」です。ほとんどの投稿が100〜1,000前後にとどまり、数本だけ桁が違います。</p>
+<figure class="fig" aria-labelledby="f-n"><svg viewBox="0 0 320 214" role="img" aria-labelledby="ct-nakahara cd-nakahara" class="chart"><title id="ct-nakahara">中原さんの投稿ごとの閲覧数（対数目盛）</title><desc id="cd-nakahara">40本の投稿を古い順に並べた棒グラフ。1万を超える3本が目立ち、最大は52.9万。</desc><line x1="46" x2="314" y1="168.0" y2="168.0" class="gl"/><text x="42" y="172.0" text-anchor="end" class="ax">10</text><line x1="46" x2="314" y1="137.6" y2="137.6" class="gl"/><text x="42" y="141.6" text-anchor="end" class="ax">100</text><line x1="46" x2="314" y1="107.2" y2="107.2" class="gl"/><text x="42" y="111.2" text-anchor="end" class="ax">1千</text><line x1="46" x2="314" y1="76.8" y2="76.8" class="gl"/><text x="42" y="80.8" text-anchor="end" class="ax">1万</text><line x1="46" x2="314" y1="46.4" y2="46.4" class="gl"/><text x="42" y="50.4" text-anchor="end" class="ax">10万</text><line x1="46" x2="314" y1="16.0" y2="16.0" class="gl"/><text x="42" y="20.0" text-anchor="end" class="ax">100万</text><rect x="46.5" y="145.5" width="5.5" height="22.5" class="bn"/><rect x="53.2" y="146.8" width="5.5" height="21.2" class="bn"/><rect x="59.9" y="146.8" width="5.5" height="21.2" class="bn"/><rect x="66.6" y="128.4" width="5.5" height="39.6" class="bn"/><rect x="73.3" y="142.7" width="5.5" height="25.3" class="bn"/><rect x="80.0" y="131.0" width="5.5" height="37.0" class="bn"/><rect x="86.7" y="131.9" width="5.5" height="36.1" class="bn"/><rect x="93.4" y="150.0" width="5.5" height="18.0" class="bn"/><rect x="100.1" y="150.7" width="5.5" height="17.3" class="bn"/><rect x="106.8" y="139.6" width="5.5" height="28.4" class="bn"/><rect x="113.5" y="109.4" width="5.5" height="58.6" class="bn"/><rect x="120.2" y="85.1" width="5.5" height="82.9" class="bh"/><rect x="126.9" y="143.1" width="5.5" height="24.9" class="bn"/><rect x="133.6" y="105.2" width="5.5" height="62.8" class="bn"/><rect x="140.3" y="135.3" width="5.5" height="32.7" class="bn"/><rect x="147.0" y="111.5" width="5.5" height="56.5" class="bn"/><rect x="153.7" y="140.7" width="5.5" height="27.3" class="bn"/><rect x="160.4" y="120.6" width="5.5" height="47.4" class="bn"/><rect x="167.1" y="72.3" width="5.5" height="95.7" class="bh"/><rect x="173.8" y="137.0" width="5.5" height="31.0" class="bn"/><rect x="180.5" y="113.6" width="5.5" height="54.4" class="bn"/><rect x="187.2" y="134.1" width="5.5" height="33.9" class="bn"/><rect x="193.9" y="125.6" width="5.5" height="42.4" class="bn"/><rect x="200.6" y="106.5" width="5.5" height="61.5" class="bn"/><rect x="207.3" y="133.1" width="5.5" height="34.9" class="bn"/><rect x="214.0" y="114.8" width="5.5" height="53.2" class="bn"/><rect x="220.7" y="127.2" width="5.5" height="40.8" class="bn"/><rect x="227.4" y="125.9" width="5.5" height="42.1" class="bn"/><rect x="234.1" y="123.0" width="5.5" height="45.0" class="bn"/><rect x="240.8" y="111.1" width="5.5" height="56.9" class="bn"/><rect x="247.5" y="112.6" width="5.5" height="55.4" class="bn"/><rect x="254.2" y="104.7" width="5.5" height="63.3" class="bn"/><rect x="260.9" y="98.5" width="5.5" height="69.5" class="bn"/><rect x="267.6" y="98.5" width="5.5" height="69.5" class="bn"/><rect x="274.3" y="24.4" width="5.5" height="143.6" class="bh"/><rect x="281.0" y="49.5" width="5.5" height="118.5" class="bh"/><rect x="287.7" y="103.7" width="5.5" height="64.3" class="bn"/><rect x="294.4" y="92.7" width="5.5" height="75.3" class="bh"/><rect x="301.1" y="144.3" width="5.5" height="23.7" class="bn"/><rect x="307.8" y="87.7" width="5.5" height="80.3" class="bh"/><line x1="46" x2="314" y1="124.2" y2="124.2" class="md"/><text x="46" y="186" class="ax">10/01</text><text x="314" y="186" text-anchor="end" class="ax">11/19</text><text x="180.0" y="186" text-anchor="middle" class="ax">古い → 新しい（投稿順）</text></svg><figcaption id="f-n"><b>中原さん：40本の閲覧（古い順）</b><br>期間 2026-10-01〜11-19の投稿｜2026-11-20 19:58 時点（JST）の累計閲覧｜破線＝中央値276｜最大は52.9万（11/16 12:14）</figcaption></figure>
+<figure class="fig" aria-labelledby="f-y"><svg viewBox="0 0 320 214" role="img" aria-labelledby="ct-yokoo cd-yokoo" class="chart"><title id="ct-yokoo">横尾さんの投稿ごとの閲覧数（対数目盛）</title><desc id="cd-yokoo">19本の投稿を古い順に並べた棒グラフ。最大は2.3万、8千と6千の投稿もある。</desc><line x1="46" x2="314" y1="168.0" y2="168.0" class="gl"/><text x="42" y="172.0" text-anchor="end" class="ax">10</text><line x1="46" x2="314" y1="137.6" y2="137.6" class="gl"/><text x="42" y="141.6" text-anchor="end" class="ax">100</text><line x1="46" x2="314" y1="107.2" y2="107.2" class="gl"/><text x="42" y="111.2" text-anchor="end" class="ax">1千</text><line x1="46" x2="314" y1="76.8" y2="76.8" class="gl"/><text x="42" y="80.8" text-anchor="end" class="ax">1万</text><line x1="46" x2="314" y1="46.4" y2="46.4" class="gl"/><text x="42" y="50.4" text-anchor="end" class="ax">10万</text><line x1="46" x2="314" y1="16.0" y2="16.0" class="gl"/><text x="42" y="20.0" text-anchor="end" class="ax">100万</text><rect x="46.5" y="139.6" width="12.9" height="28.4" class="bn"/><rect x="60.6" y="146.2" width="12.9" height="21.8" class="bn"/><rect x="74.7" y="164.5" width="12.9" height="3.5" class="bn"/><rect x="88.8" y="142.5" width="12.9" height="25.5" class="bn"/><rect x="102.9" y="134.4" width="12.9" height="33.6" class="bn"/><rect x="117.0" y="124.5" width="12.9" height="43.5" class="bn"/><rect x="131.1" y="146.5" width="12.9" height="21.5" class="bn"/><rect x="145.2" y="79.6" width="12.9" height="88.4" class="bh"/><rect x="159.3" y="149.7" width="12.9" height="18.3" class="bn"/><rect x="173.4" y="83.7" width="12.9" height="84.3" class="bh"/><rect x="187.6" y="163.6" width="12.9" height="4.4" class="bn"/><rect x="201.7" y="142.9" width="12.9" height="25.1" class="bn"/><rect x="215.8" y="65.9" width="12.9" height="102.1" class="bh"/><rect x="229.9" y="134.8" width="12.9" height="33.2" class="bn"/><rect x="244.0" y="168.0" width="12.9" height="0.0" class="by"/><rect x="258.1" y="146.8" width="12.9" height="21.2" class="by"/><rect x="272.2" y="168.0" width="12.9" height="0.0" class="by"/><rect x="286.3" y="165.6" width="12.9" height="2.4" class="by"/><rect x="300.4" y="168.0" width="12.9" height="0.0" class="by"/><line x1="46" x2="314" y1="146.2" y2="146.2" class="md"/><text x="46" y="186" class="ax">11/13</text><text x="314" y="186" text-anchor="end" class="ax">11/20</text><text x="180.0" y="186" text-anchor="middle" class="ax">古い → 新しい（投稿順）</text></svg><figcaption id="f-y"><b>横尾さん：19本の閲覧（古い順）</b><br>期間 2026-11-13〜11-20の投稿｜2026-11-20 19:58 時点（JST）の累計閲覧｜破線＝中央値52｜点線の枠＝投稿から24時間未満｜最大は2.3万（11/19 18:05）</figcaption></figure>
+<figure class="fig" aria-labelledby="f-m"><svg viewBox="0 0 320 214" role="img" aria-labelledby="ct-mushano cd-mushano" class="chart"><title id="ct-mushano">武者野の投稿ごとの閲覧数（対数目盛）</title><desc id="cd-mushano">6本の投稿を古い順に並べた棒グラフ。最大は393。</desc><line x1="46" x2="314" y1="168.0" y2="168.0" class="gl"/><text x="42" y="172.0" text-anchor="end" class="ax">10</text><line x1="46" x2="314" y1="137.6" y2="137.6" class="gl"/><text x="42" y="141.6" text-anchor="end" class="ax">100</text><line x1="46" x2="314" y1="107.2" y2="107.2" class="gl"/><text x="42" y="111.2" text-anchor="end" class="ax">1千</text><line x1="46" x2="314" y1="76.8" y2="76.8" class="gl"/><text x="42" y="80.8" text-anchor="end" class="ax">1万</text><line x1="46" x2="314" y1="46.4" y2="46.4" class="gl"/><text x="42" y="50.4" text-anchor="end" class="ax">10万</text><line x1="46" x2="314" y1="16.0" y2="16.0" class="gl"/><text x="42" y="20.0" text-anchor="end" class="ax">100万</text><rect x="46.5" y="161.0" width="43.5" height="7.0" class="bn"/><rect x="91.2" y="168.0" width="43.5" height="0.0" class="bn"/><rect x="135.8" y="168.0" width="43.5" height="0.0" class="bn"/><rect x="180.5" y="119.5" width="43.5" height="48.5" class="bh"/><rect x="225.2" y="163.6" width="43.5" height="4.4" class="bn"/><rect x="269.8" y="127.1" width="43.5" height="40.9" class="bh"/><line x1="46" x2="314" y1="162.2" y2="162.2" class="md"/><text x="46" y="186" class="ax">10/28</text><text x="314" y="186" text-anchor="end" class="ax">10/29</text><text x="180.0" y="186" text-anchor="middle" class="ax">古い → 新しい（投稿順）</text></svg><figcaption id="f-m"><b>武者野：6本の閲覧（古い順）</b><br>期間 2026-10-28〜10-29の投稿｜2026-11-20 19:58 時点（JST）の累計閲覧｜破線＝中央値16｜最大は393</figcaption></figure>
+<p class="key"><span><i class="k-n"></i>ふつうの投稿</span><span><i class="k-h"></i>伸びた投稿（中央値の10倍以上）</span><span><i class="k-y"></i>24時間未満</span><span><i class="k-m"></i>中央値</span></p>
+
+<h2 id="s1" data-short="1 バズの共通点">1　バズった投稿の共通点</h2>
+<p><b>結論：上位は全部、短く問いかけて答えを求める形。長い説明や持論の投稿は下位に並ぶ。</b></p>
+<ul>
+<li><b>書き出し</b>：中原さんの上位5本は、1行目がそのまま質問（「冬のボーナス、何ヶ月分ですか？？」のように、末尾が「？？」）。「？？」を使った投稿は24本で閲覧の中央値949、使っていない投稿16本は82。横尾さんの上位3本は、クイズ・質問・「教えてください」の形。</li>
+<li><b>長さ</b>：上位5本の字数の中央値は中原さん21字・横尾さん27字。下位5本は中原さん141字・横尾さん80字。</li>
+<li><b>話題</b>：中原さんはお金（ボーナス・年収・月収）が強く、上位5本のうち3本。横尾さんの上位3本は全部、歴史（新選組・日本史）の話。転職のコツや面談の話を書いた投稿は、上位3本に1本も入っていない。</li>
+<li><b>締め</b>：中原さんの上位5本は全部、質問で終わる短文。下位5本のうち3本は問いかけのない独り言・所感（10/1・10/2・10/25）、2本はA/B/Cの選択肢をつけた長めの質問で、選択肢つきの形は伸びていません（37と39）。</li>
+<li><b>求人</b>：中原さんの求人1本（11/12）は閲覧747。長文の持論や解説つきの投稿より上で、短い問いかけには届かない。</li>
+</ul>
+<p class="cap" id="t1-nakahara"><b>中原さん：閲覧の上位5本と下位5本（本文の冒頭）</b><br>期間 2026-10-01〜11-20 の投稿｜2026-11-20 19:58 時点（JST）の累計閲覧（views）｜範囲＝投稿から24時間以上たった投稿だけ（中原さん 40本）。字数＝投稿本文の文字数</p><div class="scroll" tabindex="0" role="region" aria-labelledby="t1-nakahara"><table class=""><thead><tr><th scope="col" class="nw"></th><th scope="col" class="nw">投稿日時</th><th scope="col" class="n">閲覧</th><th scope="col" class="n">字数</th><th scope="col">冒頭の引用</th></tr></thead><tbody><tr><td class="nw">上位</td><td class="nw">11/16 12:14</td><td class="n">529,566</td><td class="n">16</td><td>冬のボーナス、何ヶ月分ですか？？</td></tr><tr><td class="nw">上位</td><td class="nw">11/17 14:16</td><td class="n">78,924</td><td class="n">17</td><td>理想のボーナス、何ヶ月分ですか？？</td></tr><tr><td class="nw">上位</td><td class="nw">11/03 19:54</td><td class="n">14,107</td><td class="n">34</td><td>有給、今年何日使えました？？　全然使えてない人、どれくらいいます？？</td></tr><tr><td class="nw">上位</td><td class="nw">10/30 19:20</td><td class="n">5,325</td><td class="n">28</td><td>既婚者の方、結婚したタイミングで仕事って変えました？？？</td></tr><tr><td class="nw">上位</td><td class="nw">11/19 12:26</td><td class="n">4,395</td><td class="n">21</td><td>月収、あと何万円あったら楽になりますか？？</td></tr><tr><td class="nw">下位</td><td class="nw">10/01 12:30</td><td class="n">55</td><td class="n">43</td><td>いやーほんとに悔しい！ / 言葉にできないくらい</td></tr><tr><td class="nw">下位</td><td class="nw">10/02 12:18</td><td class="n">50</td><td class="n">30</td><td>今週も終わり。 / 週末はワイン飲んで</td></tr><tr><td class="nw">下位</td><td class="nw">10/25 12:46</td><td class="n">50</td><td class="n">167</td><td>発信を続ける理由は、シンプルです。 / 誰か一人でも、この投稿を見て</td></tr><tr><td class="nw">下位</td><td class="nw">10/28 20:29</td><td class="n">39</td><td class="n">141</td><td>面接でいちばん緊張するの、どの場面ですか？ / A 自己紹介</td></tr><tr><td class="nw">下位</td><td class="nw">10/30 00:43</td><td class="n">37</td><td class="n">157</td><td>AIに1つだけ仕事を任せられるとしたら、どれを任せたいですか？ / A 資料をまとめる</td></tr></tbody></table></div><p class="cap" id="t1-yokoo"><b>横尾さん：閲覧の上位5本と下位5本（本文の冒頭）</b><br>期間 2026-10-01〜11-20 の投稿｜2026-11-20 19:58 時点（JST）の累計閲覧（views）｜範囲＝投稿から24時間以上たった投稿だけ（横尾さん 14本）。字数＝投稿本文の文字数</p><div class="scroll" tabindex="0" role="region" aria-labelledby="t1-yokoo"><table class=""><thead><tr><th scope="col" class="nw"></th><th scope="col" class="nw">投稿日時</th><th scope="col" class="n">閲覧</th><th scope="col" class="n">字数</th><th scope="col">冒頭の引用</th></tr></thead><tbody><tr><td class="nw">上位</td><td class="nw">11/19 18:05</td><td class="n">22,883</td><td class="n">27</td><td>新選組について、みんなが知らなそうな話教えてください！</td></tr><tr><td class="nw">上位</td><td class="nw">11/18 11:04</td><td class="n">8,111</td><td class="n">38</td><td>大久保大和 / 石田散薬</td></tr><tr><td class="nw">上位</td><td class="nw">11/19 10:42</td><td class="n">5,927</td><td class="n">24</td><td>日本史で一番話が尽きない時代って、どこですか？🏯</td></tr><tr><td class="nw">上位</td><td class="nw">11/18 10:28</td><td class="n">270</td><td class="n">34</td><td>みなさんの「ここは絶対行ってほしい」史跡、よかったら教えてください🏯</td></tr><tr><td class="nw">上位</td><td class="nw">11/17 12:56</td><td class="n">127</td><td class="n">24</td><td>転職活動って、始める前が一番モヤモヤしますよね。</td></tr><tr><td class="nw">下位</td><td class="nw">11/16 10:58</td><td class="n">52</td><td class="n">215</td><td>仕事はちゃんとやってる / でも転職したい気持ちが</td></tr><tr><td class="nw">下位</td><td class="nw">11/18 10:33</td><td class="n">51</td><td class="n">80</td><td>「40代で転職なんて、無理ですよね、」 / なんて相談で言われることがあります。</td></tr><tr><td class="nw">下位</td><td class="nw">11/18 17:46</td><td class="n">40</td><td class="n">29</td><td>これだけは譲れない転職の条件を1つ挙げるとしたら何ですか？</td></tr><tr><td class="nw">下位</td><td class="nw">11/19 10:46</td><td class="n">14</td><td class="n">59</td><td>面談で1番よく聞く言葉は「やりたいことが分からない」です。 / でも、やりたいことが決ま</td></tr><tr><td class="nw">下位</td><td class="nw">11/17 10:19</td><td class="n">13</td><td class="n">139</td><td>転職のことを考えると / 頭がいっぱいになる時</td></tr></tbody></table></div><p class="cap" id="t1-mushano"><b>武者野：6本すべて（閲覧の多い順）</b><br>期間 2026-10-01〜11-20 の投稿｜2026-11-20 19:58 時点（JST）の累計閲覧（views）｜範囲＝投稿から24時間以上たった投稿だけ（武者野 6本・すべて24時間以上経過）。字数＝投稿本文の文字数</p><div class="scroll" tabindex="0" role="region" aria-labelledby="t1-mushano"><table class=""><thead><tr><th scope="col"></th><th scope="col" class="nw">投稿日時</th><th scope="col" class="n">閲覧</th><th scope="col" class="n">字数</th><th scope="col">冒頭の引用</th></tr></thead><tbody><tr><td></td><td class="nw">10/29 07:30</td><td class="n">393</td><td class="n">40</td><td>仕事辞めたいって初めて思ったの、何年目だった？ / 入社3日目って人もけっこういそう</td></tr><tr><td></td><td class="nw">10/29 20:01</td><td class="n">221</td><td class="n">56</td><td>地元に帰りたいのに、仕事がなくて帰れない。 / 群馬から出てきた身としては、けっこう気に</td></tr><tr><td></td><td class="nw">10/28 23:00</td><td class="n">17</td><td class="n">103</td><td>はじめまして、むしゃのです。 / ブラックホールの研究で博士課程まで進んで、そこから転職</td></tr><tr><td></td><td class="nw">10/29 12:31</td><td class="n">14</td><td class="n">74</td><td>ブラックホールに落ちていく人を遠くから見てると、いつまでも落ちきらないように見える。 /</td></tr><tr><td></td><td class="nw">10/29 00:06</td><td class="n">6</td><td class="n">35</td><td>しんどかったバイトの話を集めたい。 / ちなみに自分は元バーテンダーです🍸</td></tr><tr><td></td><td class="nw">10/28 23:45</td><td class="n">6</td><td class="n">22</td><td>年収いくらあったら「もう十分」って思えますか</td></tr></tbody></table></div>
+<p class="cap" id="t2"><b>投稿の形式ごとの閲覧（中央値、カッコ内は本数）</b><br>期間 2026-10-01〜11-20｜2026-11-20 19:58 時点（JST）の累計閲覧｜形式の分け方＝本文に「？」「教えて」「ですか」を含み60字以内なら「短い問いかけ」、含み61字以上なら「問い+解説」、含まず61字以上なら「持論・ノウハウ」、含まず60字以内は「短い言い切り」（クイズ形式の1本は問いかけ扱い）｜範囲＝24時間以上たった投稿｜「—」＝その形式の投稿が無い</p><div class="scroll" tabindex="0" role="region" aria-labelledby="t2"><table class=""><thead><tr><th scope="col" class="nw">形式</th><th scope="col" class="n">中原さん</th><th scope="col" class="n">横尾さん</th><th scope="col" class="n">武者野</th></tr></thead><tbody><tr><td class="nw">短い問いかけ</td><td class="n">1,106（16本）</td><td class="n">3,098（6本）</td><td class="n">221（3本）</td></tr><tr><td class="nw">問い+解説(長)</td><td class="n">136（14本）</td><td class="n">32（2本）</td><td class="n">14（1本）</td></tr><tr><td class="nw">持論・ノウハウ(長)</td><td class="n">86（7本）</td><td class="n">67（3本）</td><td class="n">17（1本）</td></tr><tr><td class="nw">短い言い切り</td><td class="n">52（2本）</td><td class="n">124（3本）</td><td class="n">6（1本）</td></tr><tr><td class="nw">求人</td><td class="n">747（1本）</td><td class="n">—</td><td class="n">—</td></tr></tbody></table></div>
+<p class="note">解説つきの投稿は、同じ問いを短く出した直後に、解説を足して出し直したものが中心です（中原さんの11/10・11/12・11/13・11/17・11/18）。短い版の方が上だった組が5組中3組で、解説を足しても閲覧は増えていません。</p>
+<p class="cap" id="t3"><b>「短い問いかけ」だけで話題を比べる（閲覧の中央値、カッコ内は本数）</b><br>期間 2026-10-01〜11-20｜2026-11-20 19:58 時点（JST）の累計閲覧｜形式を「短い問いかけ」にそろえたうえで話題別に集計｜範囲＝24時間以上たった投稿（中原 16本・横尾 6本）｜「—」＝該当なし。横尾さんの転職の問いは1本だけで、傾向とは言えない</p><div class="scroll" tabindex="0" role="region" aria-labelledby="t3"><table class=""><thead><tr><th scope="col">話題</th><th scope="col" class="n">中原さん</th><th scope="col" class="n">横尾さん</th></tr></thead><tbody><tr><td>お金（ボーナス・年収・月収・給料）</td><td class="n">3,692（6本）</td><td class="n">—</td></tr><tr><td>休み・残業・年数など働き方の問い</td><td class="n">721（9本）</td><td class="n">—</td></tr><tr><td>歴史・趣味の問い</td><td class="n">—</td><td class="n">5,927（5本）</td></tr><tr><td>転職の問い（条件・悩みなど）</td><td class="n">1,160（1本）</td><td class="n">40（1本）</td></tr></tbody></table></div>
+<p>中原さんではお金の話題が中央値3,692で、休み・残業などの働き方の問い（721）の約5倍です。ただしお金の6本のうち2本（52.9万と7.9万）が同じボーナスの話題で、この2本が中央値を押し上げています。</p>
+
+<h2 id="s2" data-short="2 時間帯・曜日">2　時間帯・曜日と閲覧</h2>
+<p><b>結論：12時台の閲覧は高く見えるが、投稿の形式をそろえると差が消える。17時枠は0本、20時枠は長文ばかりで、3つの枠は今のデータでは比べられない（傾向のみ・本数が少ない）。</b></p>
+<p class="cap" id="t4"><b>会議で出た3つの枠に入った投稿の閲覧（中央値、カッコ内は本数）</b><br>期間 2026-10-01〜11-20の投稿時刻（JST）｜2026-11-20 19:58 時点（JST）の累計閲覧｜枠＝開始〜30分後の59秒まで｜範囲＝24時間以上たった投稿（中原 40本・横尾 14本・武者野 6本）｜「枠外」＝3つの枠のどれにも入らない投稿｜「0本」＝その枠に投稿が無い</p><div class="scroll" tabindex="0" role="region" aria-labelledby="t4"><table class=""><thead><tr><th scope="col" class="nw">枠（JST）</th><th scope="col" class="n">中原さん</th><th scope="col" class="n">横尾さん</th><th scope="col" class="n">武者野</th></tr></thead><tbody><tr><td class="nw">12:00-12:30</td><td class="n">1,940（7本）</td><td class="n">0本</td><td class="n">0本</td></tr><tr><td class="nw">17:00-17:30</td><td class="n">0本</td><td class="n">0本</td><td class="n">0本</td></tr><tr><td class="nw">20:00-20:30</td><td class="n">107（4本）</td><td class="n">0本</td><td class="n">221（1本）</td></tr><tr><td class="nw">枠外</td><td class="n">249（29本）</td><td class="n">78（14本）</td><td class="n">14（5本）</td></tr></tbody></table></div>
+<p>中原さんの12:00〜12:30は7本で中央値1,940と高く出ています。ただし7本のうち5本は11/15以降の投稿（4本が短い問いかけ）で、残る2本（10/1・10/2、閲覧55と50）は別物です。形式で差が出ているのか、時間帯で出ているのかを、下の表で切り分けます。</p>
+<p class="cap" id="t4b"><b>中原さん：「短い問いかけ」だけを時間帯で比べる（閲覧の中央値、カッコ内は本数）</b><br>期間 2026-10-01〜11-20｜2026-11-20 19:58 時点（JST）の累計閲覧｜形式を「短い問いかけ」にそろえて時刻（JST）で4つに分けた｜範囲＝中原さんの24時間以上たった短い問いかけ16本。14〜16時台は1本だけ（その1本が7.9万の投稿）</p><div class="scroll" tabindex="0" role="region" aria-labelledby="t4b"><table class=""><thead><tr><th scope="col">時間帯</th><th scope="col" class="n">閲覧の中央値</th></tr></thead><tbody><tr><td>午前（〜11時台）</td><td class="n">756（2本）</td></tr><tr><td>12〜13時台</td><td class="n">1,488（8本）</td></tr><tr><td>14〜16時台</td><td class="n">78,924（1本）</td></tr><tr><td>17時以降</td><td class="n">1,160（5本）</td></tr></tbody></table></div>
+<p>短い問いかけだけにすると、12〜13時台（1,488）と17時以降（1,160）は同じ水準で、午前は756（2本）です。時間帯の差は、形式の差と区別がつきません。</p>
+<p>横尾さんは3つの枠のどれにも投稿していません（10時台の8本と17〜19時台の4本が中心）。横尾さんの伸びた3本は10:42・11:04・18:05で、会議の枠とは別の時刻でした。</p>
+<p class="cap" id="t4c"><b>曜日ごとの閲覧の中央値（カッコ内は本数）</b><br>期間 2026-10-01〜11-20の投稿日（JST）｜2026-11-20 19:58 時点（JST）の累計閲覧｜範囲＝24時間以上たった投稿（中原 40本・横尾 14本）｜「—」＝その曜日の投稿なし。月曜の中原さんは2本のうち1本が52.9万で、中央値がその影響を受けている</p><div class="scroll" tabindex="0" role="region" aria-labelledby="t4c"><table class=""><thead><tr><th scope="col"></th><th scope="col" class="n">月</th><th scope="col" class="n">火</th><th scope="col" class="n">水</th><th scope="col" class="n">木</th><th scope="col" class="n">金</th><th scope="col" class="n">土</th><th scope="col" class="n">日</th></tr></thead><tbody><tr><td>中原さん</td><td class="n">264,884（2）</td><td class="n">562（7）</td><td class="n">154（5）</td><td class="n">272（6）</td><td class="n">374（10）</td><td class="n">704（2）</td><td class="n">431（8）</td></tr><tr><td>横尾さん</td><td class="n">52（1）</td><td class="n">69（3）</td><td class="n">160（4）</td><td class="n">124（5）</td><td class="n">86（1）</td><td class="n">—</td><td class="n">—</td></tr></tbody></table></div>
+
+<h2 id="s3" data-short="3 バズの後">3　バズの後に、次の投稿も見られるか</h2>
+<p><b>結論：直後の投稿は、同じ形式の普段の値と同じかそれ以下。「バズの直後に求人を入れる」作戦の前提は、今のデータでは確認できない。</b></p>
+<p class="cap" id="t5-nakahara"><b>中原さん：閲覧が伸びた投稿の直後3本（伸びた投稿どうしは除く）</b><br>期間 2026-10-01〜11-20｜2026-11-20 19:58 時点（JST）の累計閲覧｜「伸びた」＝閲覧がそのアカウントの中央値（276）の10倍以上（2,755以上）＝6本｜右端の比＝直後の投稿の閲覧÷同じ形式の投稿の中央値（アカウント全体、24時間以上たった投稿）｜範囲＝24時間以上たった投稿だけ</p><div class="scroll" tabindex="0" role="region" aria-labelledby="t5-nakahara"><table class=""><thead><tr><th scope="col" class="nw">伸びた投稿（閲覧）</th><th scope="col" class="nw">直後の投稿</th><th scope="col" class="nw">形式</th><th scope="col" class="n">閲覧</th><th scope="col" class="n">同形式の中央値</th><th scope="col" class="n">比</th></tr></thead><tbody><tr><td class="nw">10/30（5,325）</td><td class="nw">10/30 19:58</td><td class="nw">持論・ノウハウ(長)</td><td class="n">66</td><td class="n">86</td><td class="n">0.77倍</td></tr><tr><td class="nw">10/30（5,325）</td><td class="nw">10/31 17:49</td><td class="nw">短い問いかけ</td><td class="n">1,160</td><td class="n">1,106</td><td class="n">1.05倍</td></tr><tr><td class="nw">10/30（5,325）</td><td class="nw">11/01 00:35</td><td class="nw">問い+解説(長)</td><td class="n">119</td><td class="n">136</td><td class="n">0.88倍</td></tr><tr><td class="nw">11/03（14,107）</td><td class="nw">11/05 14:39</td><td class="nw">問い+解説(長)</td><td class="n">105</td><td class="n">136</td><td class="n">0.77倍</td></tr><tr><td class="nw">11/03（14,107）</td><td class="nw">11/06 18:17</td><td class="nw">短い問いかけ</td><td class="n">618</td><td class="n">1,106</td><td class="n">0.56倍</td></tr><tr><td class="nw">11/03（14,107）</td><td class="nw">11/06 18:17</td><td class="nw">問い+解説(長)</td><td class="n">130</td><td class="n">136</td><td class="n">0.96倍</td></tr><tr><td class="nw">11/16（529,566）</td><td class="nw">11/17 20:21</td><td class="nw">問い+解説(長)</td><td class="n">1,300</td><td class="n">136</td><td class="n">9.59倍</td></tr><tr><td class="nw">11/17（78,924）</td><td class="nw">11/18 20:07</td><td class="nw">問い+解説(長)</td><td class="n">60</td><td class="n">136</td><td class="n">0.44倍</td></tr></tbody></table></div><p class="cap" id="t5-yokoo"><b>横尾さん：閲覧が伸びた投稿の直後3本（伸びた投稿どうしは除く）</b><br>期間 2026-10-01〜11-20｜2026-11-20 19:58 時点（JST）の累計閲覧｜「伸びた」＝閲覧がそのアカウントの中央値（52）の10倍以上（520以上）＝3本｜右端の比＝直後の投稿の閲覧÷同じ形式の投稿の中央値（アカウント全体、24時間以上たった投稿）｜範囲＝24時間以上たった投稿だけ</p><div class="scroll" tabindex="0" role="region" aria-labelledby="t5-yokoo"><table class=""><thead><tr><th scope="col" class="nw">伸びた投稿（閲覧）</th><th scope="col" class="nw">直後の投稿</th><th scope="col" class="nw">形式</th><th scope="col" class="n">閲覧</th><th scope="col" class="n">同形式の中央値</th><th scope="col" class="n">比</th></tr></thead><tbody><tr><td class="nw">11/18（8,111）</td><td class="nw">11/18 17:46</td><td class="nw">短い問いかけ</td><td class="n">40</td><td class="n">3,098</td><td class="n">0.01倍</td></tr><tr><td class="nw">11/18（8,111）</td><td class="nw">11/19 10:46</td><td class="nw">短い言い切り</td><td class="n">14</td><td class="n">124</td><td class="n">0.11倍</td></tr><tr><td class="nw">11/19（5,927）</td><td class="nw">11/19 15:11</td><td class="nw">持論・ノウハウ(長)</td><td class="n">67</td><td class="n">67</td><td class="n">1.00倍</td></tr><tr><td class="nw">11/19（22,883）</td><td class="nw">11/19 18:06</td><td class="nw">短い言い切り</td><td class="n">124</td><td class="n">124</td><td class="n">1.00倍</td></tr></tbody></table></div>
+<ul>
+<li>直後の投稿の閲覧÷同じ形式の中央値は、中央値で中原さん0.83倍（8本）、横尾さん0.56倍（4本）。1倍を超えたのは、中原さんの11/17 20:21（1,300＝9.6倍）だけです。これは52.9万の翌日に、同じボーナスの話題を解説つきで出し直した投稿でした。</li>
+<li>中原さんで11/16以降の短い問いかけ3本（7.9万・2,990・4,395）は中央値4,395で、11/16より前の12本（中央値784）の約5.6倍です。3本とも年収・ボーナス・月収の話題で、バズの余波なのか話題の強さなのかは分けられません。同じ時期の解説つき・持論の投稿（1,300と60）は伸びていません。</li>
+<li>伸びた投稿（中央値の10倍以上）は中原さん6本・横尾さん3本で、全閲覧のどちらも約98%（97.6%・97.6%）を占めます。閲覧を作っているのは、数本の当たり投稿です。</li>
+</ul>
+
+<h2 id="s4" data-short="4 返信の中身">4　返信してきた人の中身</h2>
+<p><b>結論：横尾さんの返信の4割弱は本人の返信で、除くと反応率は半分になる。返信者のうち仕事・転職の話を書いた人は、中原さんで約3割、横尾さんで約3%。</b></p>
+<p class="cap" id="t6"><b>返信を「本人以外」に絞って出し直した数字</b><br>期間 2026-10-01〜11-20の投稿｜2026-11-20 19:58 時点（JST）｜反応率＝（いいね＋返信＋リポスト＋引用）÷閲覧、投稿ごとに出して中央値（閲覧0の投稿は除く）｜範囲＝中原 40本・横尾 19本（24時間未満の5本を含む）｜返信の中身はAPIの conversation で取得。API表示の返信数と取得できた件数に少しずれがある（中原 120→112、横尾 268→263）</p><div class="scroll" tabindex="0" role="region" aria-labelledby="t6"><table class=""><thead><tr><th scope="col">項目</th><th scope="col" class="n">中原さん</th><th scope="col" class="n">横尾さん</th></tr></thead><tbody><tr><td>投稿の「返信」数の合計（API）</td><td class="n">120</td><td class="n">268</td></tr><tr><td>うち投稿者本人の返信（取得できた分）</td><td class="n">17</td><td class="n">102</td></tr><tr><td>うち本人以外の返信（取得できた分）</td><td class="n">95</td><td class="n">161</td></tr><tr><td>本人以外の返信をした人（重複なし）</td><td class="n">84</td><td class="n">94</td></tr><tr><td>そのうち2本以上の投稿に返信した人</td><td class="n">2</td><td class="n">7</td></tr><tr><td>反応率の中央値（返信に本人の分を含む）</td><td class="n">0.29%</td><td class="n">1.98%</td></tr><tr><td>反応率の中央値（本人の返信を除く）</td><td class="n">0.29%</td><td class="n">0.96%</td></tr></tbody></table></div>
+<ul>
+<li>横尾さんの返信268件のうち、本人の返信が102件（39%）。コメントに返信を返す運用が数字に入っているためで、悪いことではありませんが、反応率を比べるときは除いた値（0.96%）を使います。</li>
+<li>返信が付いたのは、どちらも「短い問いかけ」だけです（中原さん16本に95件、横尾さん6本に161件）。解説つき・持論・求人の投稿には、本人以外の返信が付いていません。</li>
+</ul>
+<p class="cap" id="t6b"><b>本人以外の返信の中身（ざっくり分類した件数）</b><br>期間 2026-10-01〜11-20の投稿への返信｜2026-11-20 19:58 時点（JST）｜分け方＝返信の文面に語が含まれるかの機械判定（転職・退職・辞め・面接・求職・派遣などなら1行目、年収・給料・仕事・会社・ボーナス・残業などなら2行目、10字以下は3行目、残りは4行目）。人が読んだ判定ではないので確度は低い｜範囲＝本人以外の返信（中原 95件・横尾 161件）。返信者の名前と本文は載せない</p><div class="scroll" tabindex="0" role="region" aria-labelledby="t6b"><table class=""><thead><tr><th scope="col">分類</th><th scope="col" class="n">中原さん</th><th scope="col" class="n">横尾さん</th></tr></thead><tbody><tr><td>転職・退職・求職の話</td><td class="n">7件（7%）</td><td class="n">1件（1%）</td></tr><tr><td>仕事・お金の話</td><td class="n">21件（22%）</td><td class="n">3件（2%）</td></tr><tr><td>一言・数字だけ</td><td class="n">40件（42%）</td><td class="n">21件（13%）</td></tr><tr><td>趣味・雑談・その他</td><td class="n">27件（28%）</td><td class="n">136件（84%）</td></tr><tr><td>本人以外の返信の合計</td><td class="n">95件</td><td class="n">161件</td></tr><tr><td>仕事・転職の話を書いた人（重複なし）</td><td class="n">28人／84人</td><td class="n">3人／94人</td></tr></tbody></table></div>
+<ul>
+<li>中原さんの40件の「一言・数字だけ」は、「1.5」「4日です」のような質問への答えです。中身から転職の意向までは読めません。</li>
+<li>横尾さんの返信者94人のうち、転職の話を書いたのは1人、仕事・お金の話を書いたのは2人です。返信の84%は趣味・雑談（歴史の話）です。</li>
+<li>返信者の人数と、2本以上に返信した人（中原さん2人・横尾さん7人）の数は表のとおりです。</li>
+</ul>
+
+<h2 id="s5" data-short="5 フォロワー">5　フォロワーの増え方</h2>
+<p><b>結論：増え方（日別の推移）は取れなかった。現在値だけ取れて、中原さん1,376・横尾さん3・武者野3。</b></p>
+<p class="cap" id="t7"><b>フォロワー数（API で取れた現在値）</b><br>対象＝3アカウントのフォロワー合計｜2026-11-20 19:58 時点（JST）の1時点だけ（過去の推移は取れない）｜定義＝Threads API の followers_count｜範囲＝各アカウント本人</p><div class="scroll" tabindex="0" role="region" aria-labelledby="t7"><table class=""><thead><tr><th scope="col">アカウント</th><th scope="col" class="n">フォロワー数</th></tr></thead><tbody><tr><td>中原さん（@smile021200）</td><td class="n">1,376</td></tr><tr><td>横尾さん（@tenshoku_ca_m_chan）</td><td class="n">3</td></tr><tr><td>武者野（@mushano_career）</td><td class="n">3</td></tr></tbody></table></div>
+<ul>
+<li><b>取れなかった理由</b>：Threads API の followers_count は、取得した時点の合計しか返しません。日別の増減は返らないので、「バズの後に何人増えたか」は出せません（このリポジトリの記録にも過去のフォロワー数は無く、後からは作れません）。来週から、毎日同じ時刻に合計を記録すれば、増え方が追えます。</li>
+<li>横尾さんは、閲覧37,908・返信者94人に対してフォロワーが3人です。閲覧は、フォロワーの外に出ています。</li>
+<li>中原さんはフォロワーの年齢・性別だけ取れました（100人未満のアカウントは API が返さないため、横尾さん・武者野は取れません）。</li>
+</ul>
+<p class="cap" id="t7b"><b>中原さんのフォロワーの年齢・性別（割合）</b><br>対象＝中原さんのフォロワー1,376人の属性｜2026-11-20 19:58 時点（JST）｜定義＝Threads API の follower_demographics（100人以上のアカウントだけ取れる）｜範囲＝年齢・性別とも不明を除いた分は含まない／性別の「不明」は9.4%</p><div class="scroll" tabindex="0" role="region" aria-labelledby="t7b"><table class=""><thead><tr><th scope="col">年齢</th><th scope="col" class="n">割合</th><th scope="col">性別</th><th scope="col" class="n">割合</th></tr></thead><tbody><tr><td>45〜54歳</td><td class="n">29.3%</td><td>男性</td><td class="n">65.1%</td></tr><tr><td>55〜64歳</td><td class="n">27.0%</td><td>女性</td><td class="n">25.6%</td></tr><tr><td>35〜44歳</td><td class="n">23.8%</td><td>不明</td><td class="n">9.4%</td></tr><tr><td>65歳以上</td><td class="n">9.5%</td><td></td><td class="n"></td></tr><tr><td>25〜34歳</td><td class="n">9.4%</td><td></td><td class="n"></td></tr><tr><td>18〜24歳</td><td class="n">0.8%</td><td></td><td class="n"></td></tr></tbody></table></div>
+<p>中原さんのフォロワーは、35〜64歳が約8割、男性が約65%、25〜34歳は約9%です。求職者として会いたい年齢層が20〜30代なら、中原さんの読み手とは少しずれている可能性があります（求職者の年齢層はこの資料では扱っていません）。</p>
+
+<h2 id="s6" data-short="6 3人の比較">6　3アカウントの比較</h2>
+<p class="cap" id="t8"><b>3アカウントの比較</b><br>期間 2026-10-01〜11-20の投稿（武者野は10/28〜10/29）｜2026-11-20 19:58 時点（JST）の累計｜反応率＝（いいね＋返信＋リポスト＋引用）÷閲覧。「中央値」は投稿ごとの率の中央値、「合計÷合計」は全投稿の反応の合計÷全投稿の閲覧の合計｜範囲＝各アカウントの閲覧が取れた全投稿（横尾さんの24時間未満5本を含む）</p><div class="scroll" tabindex="0" role="region" aria-labelledby="t8"><table class=""><thead><tr><th scope="col">指標</th><th scope="col" class="n">中原さん</th><th scope="col" class="n">横尾さん</th><th scope="col" class="n">武者野</th></tr></thead><tbody><tr><td>投稿数（閲覧が取れた投稿）</td><td class="n">40</td><td class="n">19（うち24時間未満 5）</td><td class="n">6</td></tr><tr><td>投稿した期間</td><td class="n">10/01〜11/19</td><td class="n">11/13〜11/20</td><td class="n">10/28〜10/29</td></tr><tr><td>閲覧の中央値</td><td class="n">276</td><td class="n">52</td><td class="n">16</td></tr><tr><td>閲覧の合計</td><td class="n">651,037</td><td class="n">37,908</td><td class="n">657</td></tr><tr><td>閲覧の最大</td><td class="n">529,566</td><td class="n">22,883</td><td class="n">393</td></tr><tr><td>1万超の投稿</td><td class="n">3本</td><td class="n">1本</td><td class="n">0本</td></tr><tr><td>伸びた投稿（中央値の10倍以上）が閲覧合計に占める割合</td><td class="n">97.6%（6本）</td><td class="n">97.6%（3本）</td><td class="n">—</td></tr><tr><td>「短い問いかけ」の閲覧の中央値（24時間以上）</td><td class="n">1,106</td><td class="n">3,098</td><td class="n">221</td></tr><tr><td>反応率の中央値（返信は全部入り）</td><td class="n">0.29%</td><td class="n">1.98%</td><td class="n">0.13%</td></tr><tr><td>反応率の中央値（本人の返信を除く）</td><td class="n">0.29%</td><td class="n">0.96%</td><td class="n">0.13%</td></tr><tr><td>反応率（合計÷合計、本人の返信を除く）</td><td class="n">0.12%</td><td class="n">0.96%</td><td class="n">0.61%</td></tr><tr><td>本人以外の返信</td><td class="n">95件／84人</td><td class="n">161件／94人</td><td class="n">0件</td></tr><tr><td>仕事・転職の話を書いた返信者</td><td class="n">28人</td><td class="n">3人</td><td class="n">0人</td></tr><tr><td>フォロワー数</td><td class="n">1,376</td><td class="n">3</td><td class="n">3</td></tr><tr><td>最後の投稿</td><td class="n">11/19</td><td class="n">11/20</td><td class="n">10/29</td></tr></tbody></table></div>
+<ul>
+<li>検算用にいただいた数字と、投稿数（中原40・横尾19）、最大、1万超の本数は一致しました。閲覧の中央値は私の取得で中原さん276・横尾さん52と、いただいた302・67とずれています（反応率の中央値は横尾さんが1.98%で2.0%と一致、中原さんは0.29%で0.32%に近い値。返信の合計も横尾さん268で265に近い）。閲覧の取得時点か集計範囲の違いと考えていますが、原因は特定できていません。</li>
+<li>反応率の中央値だけで見ると横尾さんが上ですが、本人の返信を除くと0.96%になり、世の中の中央値1.5%（Buffer）を下回ります。中原さんは0.29%です。</li>
+<li>武者野は6本・フォロワー3人で、10/29以降は投稿していません。表の数字は、他の2人と並べる材料としては本数が足りません。</li>
+</ul>
+
+<h2 id="s7" data-short="来週からの打ち手">来週からの打ち手（5つ）</h2>
+<p>会議で決まった前提（目標は面談1件・趣味で閲覧を稼ぎ、伸びた直後に求人・反応者全員にDMで面談打診・1日2投稿／週14件）に、データを当てた結果です。</p>
+<ol class="acts">
+<li><b class="t">閲覧を取る投稿は「20〜40字の短い問いかけ」に絞る</b><span class="why">根拠：中原さんの短い問いかけ16本の中央値1,106は、それ以外24本の中央値124の約9倍。横尾さんも短い問いかけ3,098に対し、それ以外は60。武者野も3本の問いかけは221、それ以外は14（本数が少ない）。同じ問いに解説をつけて出す形は、解説つきの中央値が136にとどまる。武者野は10/29以降投稿が止まっているので、この形での再開が最初の一歩。</span></li><li><b class="t">中原さんは「お金」の問いを週のメインに、横尾さんは歴史の問いで閲覧を作る</b><span class="why">根拠：中原さんの短い問いかけで、お金の話題は中央値3,692（6本）、休み・残業など働き方は721（9本）。上位5本のうち3本がお金。横尾さんは歴史の問い5,927（5本）に対し、転職の問いは1本で40。1本では判断できないので、転職の問いを短い問いかけの形でもう数本出して比べる。</span></li><li><b class="t">求人投稿は「バズの直後に置く」より、求人そのものを閲覧が取れる形にする</b><span class="why">根拠：バズの直後の投稿は同形式の普段の0.83倍・0.56倍で、直後に置いても乗らない。一方、中原さんの求人1本（月給・賞与・残業時間を数字で並べた形）は閲覧747で、長文の持論の中央値86の約9倍、いいね4・リポスト1。n=1なので、同じ数字入りの型であと数本出して確かめる。</span></li><li><b class="t">時間帯は、同じ形式を3枠に同数ずつ入れて測る</b><span class="why">根拠：いま比べられない理由がデータにある。17:00〜17:30の投稿は0本、20:00〜20:30の4本は長めの投稿が中心、12時台は短い問いかけの連投と重なっている。短い問いかけだけで時間帯を比べると12〜13時台1,489（8本）、17時以降1,160（5本）でほぼ同じ。来週の週14本のうち、短い問いかけを12:00・17:00・20:00の3枠に各4本ずつ（計12本）入れれば、再来週に比べられる。</span></li><li><b class="t">DMの打診は、返信で仕事・転職の話を書いた人から先に回す</b><span class="why">根拠：本人以外の返信をした人のうち、仕事・転職の話を書いた人は中原さん28/84人、横尾さん3/94人。横尾さんの返信の84%は歴史の話で、全員にDMを送ると歴史好きが中心になる。いいねだけした人は API で一覧が取れないため、DMの対象に入れられるかは未確認。</span></li>
+</ol>
+<h3 id="g9">面談1件に必要な閲覧数の見立て（仮置き）</h3>
+<p>会議の前提（世の中の反応率、DM返信率6%・確度低、返信→面談20%・仮置き）に、この資料の反応率を入れた計算です。反応した人の全員にDMを送ると仮定しています。</p>
+<p class="cap" id="t9"><b>面談1件に必要な閲覧数と、週14本で何週かかるかの見立て（仮置き）</b><br>期間 2026-10-01〜11-20の実績から計算｜2026-11-20 19:58 時点（JST）｜計算＝必要な閲覧＝1÷（反応率×DM返信率6%×面談化率20%）。反応率は「合計÷合計」（本人の返信を除く）。DM返信率6%（確度低）・面談化率20%（仮置き）は会議の前提をそのまま使った｜週の閲覧＝週14本×1本あたりの閲覧。「ヒットなし」は閲覧の中央値、「ヒットあり」は最大の1本を除いた平均（それでも伸びた投稿を含む）｜範囲＝反応した人＝全員をDMの対象にした場合</p><div class="scroll" tabindex="0" role="region" aria-labelledby="t9"><table class=""><thead><tr><th scope="col"></th><th scope="col" class="n">反応率</th><th scope="col" class="n">面談1件に必要な閲覧</th><th scope="col" class="n">週14本の閲覧（ヒットなし）</th><th scope="col" class="n">面談まで</th><th scope="col" class="n">週14本の閲覧（ヒットあり）</th><th scope="col" class="n">面談まで</th></tr></thead><tbody><tr><td>中原さん</td><td class="n">0.120%</td><td class="n">69,377</td><td class="n">3,857</td><td class="n">約18週</td><td class="n">43,605</td><td class="n">約1.6週</td></tr><tr><td>横尾さん</td><td class="n">0.963%</td><td class="n">8,655</td><td class="n">728</td><td class="n">約12週</td><td class="n">11,686</td><td class="n">約0.7週</td></tr></tbody></table></div>
+<ul>
+<li>中原さんの必要閲覧は約55,619〜69,377、横尾さんは約5,906〜8,655（小さい方＝最大の1本を除いた反応率、大きい方＝全部入りの反応率）。会議の見積もり（約5〜7万、約5,000）と同じ桁です。</li>
+<li>週14本で、ヒットが出ない週（中央値ベース）は中原さんで約18週に1件、ヒットが出る週（最大1本を除いた平均）は約1.6週に1件です。つまり面談が出るかどうかは、数本のヒット次第です。</li>
+<li>横尾さんは、ヒットなしで約12週・ヒットありで約0.7週。ただし横尾さんの反応者は歴史好きが中心で（仕事・転職の話を書いた返信者は94人中3人）、DM返信6%・面談化20%は当てはまらない可能性が高く、実際はもっと遠くなります。</li>
+</ul>
+
+<h2 id="s8" data-short="取れなかったもの">取れなかったもの・確度の低いところ</h2>
+<ul>
+<li><b>フォロワーの日別の推移</b>：API が返さない（5項）。来週から毎日記録すれば追えます。</li>
+<li><b>いいねした人の一覧</b>：API で取れません。DMの対象は、返信した人しか数えていません。</li>
+<li><b>返信の分類</b>：語の一致による機械判定で、確度は低めです。「一言・数字だけ」は中身が読めません。返信の本文は、第三者の個人情報なので載せていません。</li>
+<li><b>返信の取りこぼし</b>：API表示の返信数と取得できた件数に差があります（中原 120→112、横尾 268→263）。</li>
+<li><b>本数が少ない</b>：横尾さんの24時間以上の投稿は14本、武者野は6本。3つの枠・曜日・話題の比較は、どれも1本の動きで結論が変わる水準です。</li>
+<li><b>24時間未満の5本（横尾さん）</b>：閲覧が増える途中で、1〜3項の分析から外しました（4〜6項の集計には入っています）。</li>
+<li><b>検算用の数字との差</b>：閲覧の中央値が中原さん276（302）・横尾さん52（67）で、原因は未特定です（6項）。</li>
+<li><b>面談の見立て</b>：DM返信率6%と面談化20%は会議の仮置きのままで、この資料のデータでは確かめられません。</li>
+<li><b>確度が比較的高いもの</b>：形式別の閲覧の差（中原さん・横尾さんとも同じ向き）、返信の本人分の除外、伸びた数本が閲覧の約98%を占めること。</li>
+</ul>
+<footer>データ元：Threads API（読み取りのみ・投稿はしていません）／取得 2026-11-20 19:58 時点（JST）／作成：2026-11-20</footer>
+</main>
+<script>
+(function(){
+  var hs=[].slice.call(document.querySelectorAll('main h2[id]'));
+  var el=document.getElementById('bandSec'); if(!el||!hs.length) return;
+  function upd(){
+    var cur='',top=document.querySelector('.band').offsetHeight+12;
+    for(var i=0;i<hs.length;i++){ if(hs[i].getBoundingClientRect().top<=top) cur=hs[i].getAttribute('data-short')||hs[i].textContent; }
+    el.textContent=cur;
+  }
+  window.addEventListener('scroll',upd,{passive:true}); window.addEventListener('resize',upd); upd();
+})();
+</script>
+</body>
+</html>
