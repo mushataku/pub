@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>求人の値の置き場所</title>
+<style>
+:root{
+  --bg:#fbfaf7; --panel:#ffffff; --ink:#1f2328; --sub:#59606a; --line:#d9d6cf;
+  --accent:#1f5fa8; --accent-bg:#e8f0fa; --warn:#9a4a00; --warn-bg:#fdf1e3;
+  --ok:#2f6b3a; --ok-bg:#e9f4ea; --code-bg:#f3f1ec; --mask:#7a4fa0; --band:#fbfaf7e8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181c; --panel:#1e2126; --ink:#e7e9ec; --sub:#a4abb5; --line:#3a3f47;
+    --accent:#8db8ec; --accent-bg:#1f2d40; --warn:#f0b070; --warn-bg:#3a2a18;
+    --ok:#8fd19b; --ok-bg:#1c3022; --code-bg:#23262c; --mask:#c9a6ea; --band:#16181ce8;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181c; --panel:#1e2126; --ink:#e7e9ec; --sub:#a4abb5; --line:#3a3f47;
+  --accent:#8db8ec; --accent-bg:#1f2d40; --warn:#f0b070; --warn-bg:#3a2a18;
+  --ok:#8fd19b; --ok-bg:#1c3022; --code-bg:#23262c; --mask:#c9a6ea; --band:#16181ce8;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI","Yu Gothic","Meiryo",system-ui,sans-serif;
+  font-size:16px;line-height:1.85;font-feature-settings:"palt" 0;overflow-wrap:anywhere}
+code,pre,.mono{font-family:"BIZ UDGothic","Osaka-Mono","MS Gothic",ui-monospace,"Consolas",monospace;font-size:.86em}
+.band{position:sticky;top:0;z-index:5;background:var(--band);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.band-in{max-width:960px;margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:2px 14px;align-items:baseline}
+.band .t{font-weight:700;font-size:.95rem}
+.band .c{color:var(--sub);font-size:.85rem}
+.band .c b{color:var(--accent);font-weight:600}
+main{max-width:960px;margin:0 auto;padding:8px 16px 64px}
+h1{font-size:1.6rem;line-height:1.45;margin:28px 0 8px;word-break:keep-all;overflow-wrap:anywhere}
+h2{font-size:1.25rem;line-height:1.5;margin:48px 0 10px;padding-top:8px;border-top:2px solid var(--line);word-break:keep-all;overflow-wrap:anywhere}
+h3{font-size:1.05rem;margin:24px 0 6px;word-break:keep-all;overflow-wrap:anywhere}
+p{margin:.6em 0}
+.lead{color:var(--sub)}
+.note{font-size:.88rem;color:var(--sub)}
+.m{color:var(--mask);font-weight:600}
+.box{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:12px 14px;margin:10px 0}
+.box .hd{font-weight:700;margin-bottom:4px}
+.box .hd small{font-weight:400;color:var(--sub)}
+.nest{margin-left:14px;border-left:3px solid var(--line);padding-left:12px}
+.route{border-left-color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.chip{border:1px solid var(--line);border-radius:999px;padding:1px 10px;font-size:.85rem;background:var(--code-bg)}
+.chip.hot{border-color:var(--accent);background:var(--accent-bg)}
+.warnbox{border:1px solid var(--warn);background:var(--warn-bg);border-radius:10px;padding:10px 14px;margin:10px 0}
+.okbox{border:1px solid var(--ok);background:var(--ok-bg);border-radius:10px;padding:10px 14px;margin:10px 0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.tree{font-family:"BIZ UDGothic","Osaka-Mono","MS Gothic",ui-monospace,monospace;font-size:.86rem;line-height:1.7;background:var(--code-bg);border-radius:10px;padding:12px 14px;margin:10px 0;white-space:pre-wrap;word-break:break-all}
+.tree .k{color:var(--accent);font-weight:600}
+.tree .v{color:var(--ok)}
+.tree .q{color:var(--sub)}
+pre{background:var(--code-bg);border-radius:10px;padding:12px 14px;margin:8px 0;white-space:pre-wrap;word-break:break-all;line-height:1.6}
+.tw{overflow-x:auto;margin:10px 0}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:520px}
+th,td{border:1px solid var(--line);padding:6px 8px;vertical-align:top;text-align:left}
+th{background:var(--code-bg);font-weight:600}
+.val{display:block;padding:4px 8px;margin:4px 0;border-radius:6px;background:var(--accent-bg);font-size:.92rem}
+.val .src{color:var(--sub);font-size:.85em}
+.toc{columns:2 240px;padding-left:1.2em}
+.toc li{margin:2px 0}
+.link-x{border:2px dashed var(--warn);border-radius:10px;padding:10px 14px;margin:12px 0;background:var(--warn-bg)}
+footer{max-width:960px;margin:0 auto;padding:16px;color:var(--sub);font-size:.85rem;border-top:1px solid var(--line)}
+@media (max-width:480px){
+  h1{font-size:1.35rem} h2{font-size:1.15rem}
+  .nest{margin-left:6px;padding-left:8px}
+  body{font-size:15.5px}
+}
+
+h1,h2,h3{word-break:auto-phrase}
+</style>
+</head>
+<body>
+<div class="band"><div class="band-in">
+  <span class="t">求人の値の置き場所（会社Aの場合）</span>
+  <span class="c" id="now"><b>はじめに</b></span>
+</div></div>
+<main>
+<h1>年収・勤務地・Fee は、どの行にどう入っているか</h1>
+<p class="lead">武者野さんへ。求人のデータ層（v4）を、実在の1社（以下「会社A」）を軸に、値が入っている場所ごとに図にしました。抽象の説明はやめて、本体のファイルから抜いた行をそのまま見せます。社名・提携先の名・unit 名の後ろ・Fee と年収の金額は伏せています（<span class="m">●●</span>・<span class="m">••••</span>）。勤務地は都道府県まで実データのままです。</p>
+<p class="note">読んだもの: 本体の写し <code>body/*.json</code> 1,127 本と目録 <code>catalog.json</code>（2026-11-21 03:58 時点）、<code>origin/main</code> の設計 <code>docs/offer_terms/kyujin_schema/design.md</code>・会社カード・判定、入口 <code>scripts/kyujin_read.py company</code> の実行結果。</p>
+<ol class="toc">
+  <li><a href="#s1">どの会社で見るか</a></li>
+  <li><a href="#s2">会社の下にぶら下がるもの</a></li>
+  <li><a href="#s3">unit の中（mk・東京神奈川）</a></li>
+  <li><a href="#s4">葉で分かれる unit（hcareer・一般事務）</a></li>
+  <li><a href="#s5">Fee の置き場所と取り分</a></li>
+  <li><a href="#s6">会社カードと判定</a></li>
+  <li><a href="#s7">入口で引いたら何が返るか</a></li>
+  <li><a href="#s8">他の会社と、設計との差</a></li>
+</ol>
+
+<section data-ch="第1章 どの会社で見るか" id="s1">
+<h2>1. どの会社で見るか</h2>
+<p>同じ会社に unit が2本以上あり、2つ以上の経路にまたがる会社は 41 社でした。そのうち値の分かれ方が見えやすい3社を並べ、会社Aを選びました。</p>
+<div class="tw"><table>
+<tr><th></th><th>経路 × unit</th><th>葉（frames）</th><th>年収が葉で分かれるか</th><th>Fee の行</th></tr>
+<tr><td><b>会社A（採用）</b><br><span class="note">事務職を育てて派遣する会社</span></td><td>mk 10・hcareer 4</td><td>hcareer 一般事務 15・経理 11・新卒 2・IT 4／mk 東京神奈川 2</td><td>分かれる（地域・勤務時間の葉ごとに月給）</td><td>14 本中 14 本にある</td></tr>
+<tr><td>候補B<br><span class="note">リユースの営業</span></td><td>hcareer 3・zt 2・circus 1</td><td>hcareer 各4（職種）・circus 2</td><td>circus の1行だけ</td><td>hcareer・zt のみ（circus は源に Fee 無し）</td></tr>
+<tr><td>候補C<br><span class="note">半導体・IT の技術者</span></td><td>mk 3・zt 2・hcareer 1</td><td>mk の工場一覧 18・hcareer 30 前後</td><td>分かれない（年収は all だけ）</td><td>mk の表・zt のみ</td></tr>
+</table></div>
+<p>会社Aは、同じ仕事が経路ごとに<strong>まったく違う切り方</strong>で入っていて、年収・勤務地・Fee の3つ全部が勤務地で値を変えます。置き場所の違いがいちばんはっきり出る会社です。</p>
+</section>
+
+<section data-ch="第2章 会社の下にぶら下がるもの" id="s2">
+<h2>2. 会社の下にぶら下がるもの</h2>
+<div class="box">
+  <div class="hd">会社A <small class="mono">company_id: "<span class="m">••••</span>"</small></div>
+  <div class="nest route">
+    <div class="box">
+      <div class="hd">経路 mk <small>unit 10 本＝求人票 PDF 1 枚が1本。地域ごとに別の求人票</small></div>
+      <div class="chips">
+        <span class="chip hot">東京・神奈川（葉2: 実働8時間／7時間半）</span><span class="chip">埼玉・千葉</span><span class="chip">愛知・大阪・三重</span><span class="chip">京都・兵庫・静岡</span><span class="chip">福岡</span><span class="chip">広島</span><span class="chip">中国・四国の8県</span><span class="chip">九州・沖縄の6県</span><span class="chip">東北・北関東・新潟の9県</span><span class="chip">滋賀・奈良・和歌山・岐阜</span>
+      </div>
+      <div class="note">名前: <code>mk-jimu-<span class="m">••••</span></code> × 10</div>
+    </div>
+    <div class="box">
+      <div class="hd">経路 hcareer <small>unit 4 本＝共有シートの列が1本。地域は unit の中の葉で分ける</small></div>
+      <div class="chips">
+        <span class="chip hot">一般事務（葉15: 東北・関東・関西・中部・中国・四国・九州・既卒枠 ほか）</span><span class="chip">経理コース（葉11）</span><span class="chip">27卒新卒（葉2: 東日本／西日本）</span><span class="chip">ITエンジニア（葉4: 夜勤あり／なし）</span>
+      </div>
+      <div class="note">名前: <code>hcareer-jimu-<span class="m">••••</span></code> ほか。本体の中の <code>posting.route</code> は unit 名の頭と違う語になっている</div>
+    </div>
+    <div class="box">
+      <div class="hd">経路 zt <small>v4 の unit は 0 本</small></div>
+      <div class="note">旧源（ZT の在庫）に、mk 東京神奈川と<strong>同じ求人票番号</strong>の行が1つあるだけ。</div>
+    </div>
+  </div>
+</div>
+<div class="link-x">
+  <b>同じ仕事が3か所にある。結ぶ行は無い。</b><br>
+  mk の「東京・神奈川」unit と、hcareer「一般事務」の葉 <code>f2 関東エリア</code> は、東京の月給の値（8時間 <span class="m">●●.●万</span>〜／7時間半 <span class="m">●●.●万</span>〜）が完全に一致します。zt の旧源の行は mk と求人票番号が一致します。それでも本体どうしを結ぶ欄は無く、v4 では「mk の unit 1本」と「hcareer の unit の葉1つ」の別物です。
+</div>
+<p>経路が違うと、同じ会社でも「地域を unit で分ける（mk）」と「地域を葉で分ける（hcareer）」に割れます。枠（在庫表の1行）との対応は導出の表 <code>docs/state/kyujin_slot_unit_map.json</code> にだけあり、mk の枠は mk の10本を束ねますが、hcareer の4本は他社の hcareer の unit と一緒の大きな束に入っています。</p>
+</section>
+
+<section data-ch="第3章 unit の中（mk・東京神奈川）" id="s3">
+<h2>3. unit の中（mk・東京神奈川）</h2>
+<div class="tree"><span class="k">body/mk-jimu-<span class="m">••••</span>.json</span>
+├─ posting
+│   ├─ title  "【事務スタッフ@東京・神奈川】未経験OK…"
+│   └─ frames（葉）
+│        ├─ f1  実働8時間の配属先   <span class="q">unresolved（条件の次元が無い）</span>
+│        └─ f2  実働7時間半の配属先 <span class="q">unresolved</span>
+├─ materials
+│   ├─ L1  job_posting  求人票 PDF（Slack で共有）
+│   ├─ L2  fee_sheet    Fee の表
+│   └─ cells sheet_row  台帳の属性
+└─ facts[]  128 行
+    ├─ fid 18  <span class="k">salary_annual</span>  frame all   <span class="v">年収 下限 <span class="m">●●●万</span>・上限 <span class="m">●●●万</span></span>
+    │          <span class="q">〔原文「想定年収:<span class="m">●●●</span>万円〜<span class="m">●●●</span>万円」 L1〕</span>
+    ├─ fid 22  <span class="k">salary_monthly</span> frame f1  applies 県=東京都  <span class="v">月給 <span class="m">●●.●万</span>〜</span>
+    │          <span class="q">〔原文「東京/<span class="m">●●●,●●●</span>円以上」 L1〕</span>
+    ├─ fid 24  <span class="k">salary_monthly</span> frame f2  applies 県=東京都  <span class="v">月給 <span class="m">●●.●万</span>〜</span>
+    ├─ fid 122 <span class="k">work_location</span>  frame all   <span class="v">東京都</span>  shape {place: [東京都]}
+    │          <span class="q">〔原文「勤務地: 東京、神奈川」 L1〕</span>
+    ├─ fid 118 <span class="k">work_location</span>  frame f1    <span class="v">東京都</span>
+    ├─ fid 164 <span class="k">fee</span>  frame all  applies 県 in [東京都, 神奈川県]  <span class="v">Fee <span class="m">●●万</span>・税抜</span>
+    │          <span class="q">〔原文「東京神奈川<span class="m">●●</span>万」 L2 Fee の表〕</span>
+    ├─ fid 166 <span class="k">fee</span>  applies 県 in [埼玉県, 千葉県]  <span class="v">Fee <span class="m">●●万</span></span>
+    ├─ …（大阪愛知三重・兵庫京都静岡・福岡の3行）
+    └─ fid …   <span class="k">fee</span>  applies 県 <b>not_in</b> [上の11都府県]  <span class="v">Fee <span class="m">●●万</span></span>  <span class="q">〔「他<span class="m">●●</span>万」〕</span></div>
+<h3>年収の行の実物（fid 22）</h3>
+<pre>{ "key": "salary_monthly",
+  "value": { "min": <span class="m">●●●●●●</span>, "unit": "円/月" },
+  "evidence": [{ "material": "L1", "block": "b8",
+                 "quote": "東京/<span class="m">●●●,●●●</span>円以上",
+                 "as_of": "2026-07-10T15:06:02+09:00" }],
+  "frame_id": "f1",
+  "applies": [{ "dim": "pref", "op": "eq", "value": "東京都" }],
+  "scope": "frame", "reader": "reader_v4@…", "fid": 22 }</pre>
+<h3>Fee の行の実物（fid 164）</h3>
+<pre>{ "key": "fee",
+  "value": { "amount": <span class="m">●●●●●●</span>, "tax": "none" },
+  "evidence": [{ "material": "L2", "block": "b64", "quote": "東京神奈川<span class="m">●●</span>万" }],
+  "frame_id": "all",
+  "applies": [{ "dim": "pref", "op": "in", "value": ["東京都", "神奈川県"] }],
+  "strength": "must", "scope": "contract",
+  "fee_class": "conditional", "norm": { "yen": <span class="m">●●●●●●</span> },
+  "as_of": "2026-11-14T15:52:44+00:00", "fid": 164 }</pre>
+<p>年収は <code>value</code> の <code>min</code>・<code>max</code>・<code>unit</code> がそのまま比べる形で、<code>shape</code> 欄はありません。年収（年）の行には <code>applies</code> も <code>strength</code> も無く、月給の行だけが県と葉を持ちます。勤務地だけが別に <code>shape</code>（<code>norm-v3</code> が付けた比べる形）を持ちます。Fee は葉に分けず、<code>frame all</code> に置いて <code>applies</code> の県で割っています。</p>
+</section>
+
+<section data-ch="第4章 葉で分かれる unit（hcareer・一般事務）" id="s4">
+<h2>4. 葉で分かれる unit（hcareer・一般事務）</h2>
+<p>こちらは1本の unit（facts 1,124 行）の中に地域の葉が並び、年収と勤務地が葉ごとに入っています。Fee だけは葉に入らず、unit の <code>all</code> に期間と県の条件つきで並びます。</p>
+<div class="tw"><table>
+<tr><th>葉</th><th>葉の条件（applies）</th><th>年収（月給の行）</th><th>勤務地（shape）</th><th>Fee</th></tr>
+<tr><td>f1 東北エリア</td><td>region = 東北</td><td><span class="val">宮城県・8時間 <span class="m">●●.●万</span>〜</span><span class="val">宮城県・7.5時間 <span class="m">●●.●万</span>〜</span><span class="note">…県×勤務時間で 14 行</span></td><td>宮城・岩手・山形・新潟・青森・秋田・福島</td><td rowspan="5">葉には無い<br>↓ 下の <code>all</code> の行</td></tr>
+<tr><td>f2 関東エリア</td><td>region = 関東</td><td><span class="val">東京都・8時間 <span class="m">●●.●万</span>〜</span><span class="note">mk 東京神奈川と同じ値</span></td><td>東京・神奈川・千葉・埼玉・茨城・群馬・栃木</td></tr>
+<tr><td>f4 中部エリア</td><td>region = 中部</td><td><span class="val">愛知県・8時間 <span class="m">●●.●万</span>〜</span></td><td>愛知・静岡・三重・岐阜・石川・富山・長野</td></tr>
+<tr><td>f5 中国 ／ f6 四国</td><td>region = 中国／四国</td><td><span class="val">広島県・徳島県 ほか</span></td><td>広島・岡山・島根・山口／徳島・香川・愛媛・高知</td></tr>
+<tr><td>f8 26既卒者向け</td><td>grad_status = 既卒・grad_year = 2026</td><td>—</td><td><b>shape は 兵庫県 だけ</b><br><span class="note">原文は7県を列挙</span></td></tr>
+<tr><td><code>all</code></td><td>期間 2026-10-01〜12-31 ＋ 県</td><td colspan="2">—</td><td><span class="val">東京都・東日本 <span class="m">●●万</span>（税込・payee agency）</span><span class="val">西日本 愛知・三重 <span class="m">●●万</span>（mode replace）</span><span class="note">キャンペーンの7行。通常の Fee の行は無い</span></td></tr>
+</table></div>
+<h3>葉ごとの勤務地の行の実物（f1）</h3>
+<pre>{ "key": "work_location",
+  "value": { "pref": "宮城県・岩手県・山形県・新潟県・青森県・秋田県・福島県", "city": "",
+             "spans": ["宮城県・岩手県・山形県・新潟県・青森県・秋田県・福島県"] },
+  "evidence": [{ "material": "L3", "block": "b44", "quote": "宮城県・岩手県…福島県", "heads": ["給与"] }],
+  "frame_id": "f1", "applies": [{ "dim": "region", "op": "eq", "value": "東北" }],
+  "strength": "must", "scope": "frame", "fid": 17,
+  "shape_by": "normalize", "shape_v": "norm-v3",
+  "shape": { "form": "place", "prefs": ["宮城県","岩手県","山形県","新潟県","青森県","秋田県","福島県"] } }</pre>
+<p>月給の行は <code>applies</code> に県・勤務時間（<code>job_type</code> に「8時間勤務」を入れている）・見出しから取った地域（<code>by: header</code>）を重ねて持ちます。葉 <code>f8</code> では、原文が7県を並べているのに <code>value.pref</code> と <code>shape.prefs</code> が「兵庫県」1つに縮んでいて、比べる形が原文より狭くなっています。</p>
+</section>
+
+<section data-ch="第5章 Fee の置き場所と取り分" id="s5">
+<h2>5. Fee の置き場所と取り分</h2>
+<div class="grid2">
+  <div class="box"><div class="hd">① unit の fact（総額）</div>
+    mk 10 本: 各 unit に<strong>同じ6行の表</strong>（L2 Fee の表）を写して持つ。県の <code>applies</code> で割る。<br>
+    hcareer 4 本: 県の条件、期間つきのキャンペーン。IT の1本だけ葉 <code>p1</code> にも Fee がある。</div>
+  <div class="box"><div class="hd">② 判定（kind: fee）</div>
+    宛先は枠（在庫表の行の文字列）。中身は自由文「Fee（在庫表の Fee 列）: 東京神奈川<span class="m">●●</span>万／埼玉千葉<span class="m">●●</span>万／…」。<code>value.fact</code> は無い。</div>
+  <div class="box"><div class="hd">③ 会社カード <code>offers[].fee_raw</code></div>
+    mk の行に同じ表の文字列。設計では「カードは Fee を持たない」だが、実データには残っている。</div>
+  <div class="box okbox" style="margin:0"><div class="hd">取り分（経路ごとの率）は unit の外の1か所</div>
+    正本 <code>domain/company_offers.CHAKKIN_RATES</code>（着金の係数＝1−率）、写し <code>domain/kyujin_box_fee.FEE_ROUTES</code>（試験で一致を止める）。<br>
+    mk・zt・circus ほか: 率 <span class="m">●%</span>／direct: 0。<br>
+    着金 ＝ 総額 × (1 − 率)。求人・枠・判定には写さない。</div>
+</div>
+<div class="warnbox"><b>同じ表の写し10本が、2通りの書き方に割れている。</b> 「他<span class="m">●●</span>万」の行は、ある unit では <code>{"op": "not_in", "value": [11都府県]}</code>、別の unit では <code>value: "上記以外"</code>（文字のまま）。<code>payee: "agency"</code> も付いている写しと付いていない写しがあります。</div>
+<p>設計（§8）は「Fee は求人票の売上＝総額、取り分は経路の率を1か所に持つ」です。会社Aでは総額が unit・判定・カードの3か所に同じ表として入っていて、率だけが設計どおり unit の外にあります。</p>
+</section>
+
+<section data-ch="第6章 会社カードと判定" id="s6">
+<h2>6. 会社カードと判定</h2>
+<div class="tree"><span class="k">docs/companies/</span>
+├─ <span class="m">••••</span>_α/card.yaml   会社A（一般事務のコース）   company: "<span class="m">••••</span>"
+│    ├─ salary:   "東京・神奈川 月給<span class="m">●●.●</span>万〜<span class="m">●●.●</span>万円（想定年収<span class="m">●●●</span>万〜…）／埼玉・千葉 …"  <span class="q">← 自由文</span>
+│    ├─ location: "首都圏ほか44都道府県（自宅から1時間30分以内…転勤なし）"           <span class="q">← 自由文</span>
+│    ├─ unfavorable_facts / conditions / materials（説明資料 PDF 2本）
+│    └─ offers: [{ route: mk, fee: null, fee_raw: "東京神奈川<span class="m">●●</span>万／…" }]
+│         └─ offers/mk-jimu-<span class="m">••••</span>.yaml × 10   <span class="q">← mk の unit と同じ名の契約ファイル</span>
+└─ <span class="m">••••</span>_β/card.yaml   会社A（経理のコース）     company: "<span class="m">••••</span>"
+     └─ offers/hcareer-jimu-<span class="m">••••</span>.yaml × 3
+
+<span class="k">docs/kyujin_judgments/</span>（入口が会社Aに当てたもの 9 本）
+├─ Fee 1 本 ………… 宛先＝枠（在庫表 §4.6 の行の文字列）
+├─ 制約 3 本 ……… 性別・年齢・エリア（同じ在庫表の行から）
+└─ 方針・制約・再確認 5 本 … 宛先＝会社（company_id）
+     <span class="q">うち 1 本は再確認の日（2026-11-10）を過ぎている</span></div>
+<p>会社カードは1社に2枚あり、どちらも <code>company:</code> で同じ company_id を指します。カードの年収・勤務地は自由文で、比べる形は持ちません。判定はどれも unit や葉を宛先にしておらず、会社か枠に付いています。同じ趣旨の判定が「会社未特定」の旧い1本と、会社に付け直した新しい1本の対で残っていて、ほかに<strong>会社Aの通勤条件の話なのに、別の会社の名を宛先にした判定</strong>が1本あります（入口には出ない）。</p>
+</section>
+
+<section data-ch="第7章 入口で引いたら何が返るか" id="s7">
+<h2>7. 入口で引いたら何が返るか</h2>
+<p class="note"><code>python3 scripts/kyujin_read.py company <span class="m">••••</span></code> を実行した出力（約90秒）を伏せ字にしたもの。</p>
+<pre>hcareer-jimu-<span class="m">••••</span> read=v4 会社A 経理事務（経理コース） facts=80 資料: [material] 会社資料 … [job_posting] 求人票 … [sheet_row] 共有シートの列 …
+hcareer-jimu-<span class="m">••••</span> read=v4 会社A 事務（一般事務） facts=80 資料: …
+hcareer-jimu-<span class="m">••••</span> read=v4 会社A 事務（27卒新卒） facts=80 資料: …
+mk-jimu-<span class="m">••••</span> read=v4 会社A 【事務スタッフ@東京・神奈川】… facts=80 資料: [job_posting] 【東京:神奈川】会社A_No<span class="m">••••</span>.pdf …
+…（mk をあと9行）
+card <span class="m">••••</span>_α 会社A（一般事務のコース） &lt;HP&gt; 資料2行（台帳）
+card <span class="m">••••</span>_β 会社A（経理のコース） &lt;HP&gt; 資料3行（台帳）
+canon docs/canons/intro-companies/<span class="m">••••</span>.md
+mk_inventory **会社A（一般事務のコース）** …
+zt [ZT] 会社A【東日本】（No<span class="m">••••</span>）【事務スタッフ＠東京・神奈川】…
+judgment j20260928-<span class="m">••••</span> Fee 有効 — 会社A の Fee（在庫表の Fee 列）: 東京神奈川<span class="m">●●</span>万／埼玉千葉<span class="m">●●</span>万／… 逐語「…」
+judgment …（あと8本）
+単位 13 本（v4 13）・資料リンク 25・名: …
+源: v3=0 v4=13 card=2 canon=2 mk_inventory=1 zt=1 slack=1 hcareer=0 group_line=0 entity=404 judgment=370（会社未特定 5）</pre>
+<div class="tw"><table>
+<tr><th>CA の問い</th><th>何が返るか</th></tr>
+<tr><td>年収いくら？</td><td>1行の出力には値が出ない。<code>--json</code> の <code>facts</code>（先頭 80 行）に年収の行が入る。mk 東京神奈川は年収1行・月給5行、hcareer 一般事務は月給 46 行（葉ごと）。</td></tr>
+<tr><td>勤務地どこ？</td><td>mk の unit は勤務地の行が先頭 80 行の外（fid 118 以降）にあり、<strong>返らない</strong>。題名の「東京・神奈川」の文字だけが手がかり。hcareer 一般事務は葉ごとの4行が返る。</td></tr>
+<tr><td>Fee は？</td><td>どの unit でも Fee の行は 80 行の外で<strong>切り捨て</strong>。返るのは判定1本の自由文（在庫表の Fee 列）だけ。</td></tr>
+</table></div>
+<p><code>facts=80</code> は実数ではなく上限（<code>infra/kyujin_v4_read.FACTS_MAX = 80</code>）で、実際は 128〜1,124 行あります。返る行も <code>{key, value（JSON の文字列）, frame_id}</code> だけに縮められ、<code>evidence</code>・<code>applies</code>・<code>shape</code> が落ちるので、県で割れた Fee や葉の条件は入口からは読めません。また本体では company_id が会社Aの unit が 14 本ありますが、入口に出るのは 13 本で、IT の1本（本体の社名表記が違う）が出ません。理由は未確認です。</p>
+</section>
+
+<section data-ch="第8章 他の会社と、設計との差" id="s8">
+<h2>8. 他の会社と、設計との差</h2>
+<h3>経路ごとの違い（全 1,127 本）</h3>
+<div class="tw"><table>
+<tr><th>経路</th><th>年収の行が葉に入る割合</th><th>Fee の行が葉に入る割合</th><th>Fee の値の形</th><th>地域の分け方</th></tr>
+<tr><td>hcareer</td><td>約 3 割（278／837）</td><td>約 5 割（523／1,078）</td><td>額・税／率・基準</td><td>1本の中の葉</td></tr>
+<tr><td>zt</td><td>約 5%（26／497）</td><td>約 5%（66／1,207）</td><td>額・税・受取先／率・基準・受取先</td><td>ほぼ all</td></tr>
+<tr><td>mk</td><td>約 8%（18／236）</td><td>0（0／80）</td><td>額・税（県の applies で割る）</td><td>求人票ごとに別 unit</td></tr>
+<tr><td>circus</td><td>1 行</td><td>—（Fee の行は3つだけ）</td><td>—</td><td>all</td></tr>
+</table></div>
+<p>会社Aの形（mk は unit で分け、hcareer は葉で分ける）は経路の癖そのもので、他の会社でも同じ傾向です。勤務地の行には正規化（<code>norm-v3</code>）が付けた <code>shape</code> があり、年収は値そのものが比べる形、Fee は <code>fee_class</code> と <code>norm</code> を持ちます。</p>
+<h3>設計にあって、実データにまだ無いもの</h3>
+<div class="tw"><table>
+<tr><th>設計（design.md v12）</th><th>実データ</th></tr>
+<tr><td>枠の登録簿 <code>docs/state/kyujin_slot_registry.jsonl</code>（意味を持たない <code>slot_id</code>）</td><td>無い。導出の <code>kyujin_slot_unit_map.json</code> だけ。判定の宛先の枠は在庫表の行の文字列そのもの</td></tr>
+<tr><td>結びの台帳（枠 ⇔ unit の葉）</td><td>無い。同じ仕事の mk unit と hcareer の葉を結ぶ物が無い</td></tr>
+<tr><td>fact の <code>frames_at</code>（葉の集合）</td><td>0 本。本体は <code>frame_id</code>（葉1つか <code>all</code>）</td></tr>
+<tr><td>判定の <code>value.fact</code>（型つきの中身）</td><td>会社Aの判定には無い。自由文と <code>constraint</code> の文だけ</td></tr>
+<tr><td>materials の <code>channel</code>・<code>shareable</code></td><td>無い（id・kind・title・access・as_of・url・copy）</td></tr>
+<tr><td>カードは Fee を持たない</td><td>カードに <code>offers[].fee_raw</code> が残る</td></tr>
+</table></div>
+</section>
+</main>
+<footer>会社名・提携先名・unit 名の後ろ・Fee と年収の金額・率は伏せ字。値の位置・形・欄の名は実データのままです。</footer>
+<script>
+(function(){
+  var now=document.getElementById('now');
+  var secs=[].slice.call(document.querySelectorAll('section[data-ch]'));
+  function upd(){
+    var cur=null;
+    for(var i=0;i<secs.length;i++){ if(secs[i].getBoundingClientRect().top<120){cur=secs[i];} }
+    var t=cur?cur.getAttribute('data-ch'):'はじめに';
+    var h3=null;
+    if(cur){ var hs=cur.querySelectorAll('h3'); for(var j=0;j<hs.length;j++){ if(hs[j].getBoundingClientRect().top<120){h3=hs[j];} } }
+    now.innerHTML='<b></b>'+(h3?' ／ <span></span>':'');
+    now.querySelector('b').textContent=t;
+    if(h3){ now.querySelector('span').textContent=h3.textContent; }
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+  upd();
+})();
+</script>
+</body>
+</html>
