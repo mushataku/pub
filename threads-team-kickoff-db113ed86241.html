@@ -177,11 +177,11 @@ var A=[
  {id:'x',l:'バズの閲覧のうち、求人投稿の閲覧になる割合',l2:'求人投稿の閲覧になる割合',note:'方法は問わない（バズの直後に求人を出す／伸びた投稿の返信欄に求人をぶら下げる、など）。来週測る。いまのデータの目安：中原さん 平均+2.8%（4回中3回は0%前後以下で、+14.9%の1回は直後もバズだった連鎖）／横尾さん 約0%（3回）',min:0.1,max:50,step:0.1,cap:20,rate:1},
  {id:'bv',l:'バズ1回の閲覧（n万）',l2:'バズ1回の閲覧',note:'<span id="cut"></span>',min:1000,max:100000,step:1000,cap:47000},
  {id:'p',l:'バズが起きる確率（%）',l2:'バズが起きる確率',note:'（実測：中原さん10%＝10本に1回・横尾さん16.7%＝6本に1回）',min:1,max:50,step:0.1,cap:16.7,rate:1},
- {id:'d2',l:'毎日2回',fixed:1}];
+ {id:'d2',l:'1日の投稿数',note:'（自分たちで一番確実に動かせるつまみ）',min:1,max:6,step:1,cap:4}];
 var LEV=A.filter(function(k){return !k.fixed});
-var P={goal:{conv:1,react:1,x:10,bv:20000,p:10},
-       naka:{conv:1,react:0.15,x:10,bv:20000,p:10},
-       yoko:{conv:1,react:1,x:10,bv:20000,p:16.7}};
+var P={goal:{conv:1,react:1,x:10,bv:20000,p:10,d2:2},
+       naka:{conv:1,react:0.15,x:10,bv:20000,p:10,d2:2},
+       yoko:{conv:1,react:1,x:10,bv:20000,p:16.7,d2:2}};
 var NAME={goal:'目標（12月に間に合う置き方）',naka:'中原さんの今の率',yoko:'横尾さんの今の率'};
 var S={},cur='goal',box=document.getElementById('simbox');
 function fmt(x){if(!isFinite(x))return '—';if(x>=100)return Math.round(x).toLocaleString('ja-JP');if(x>=10||Number.isInteger(x))return String(Math.round(x));return x.toFixed(1)}
@@ -189,7 +189,7 @@ function man(x){return x>=10000?'約'+String(parseFloat((x/1e4).toFixed(1)))+'�
 function ex(x){return x>=10000&&x%1000===0?String(x/1e4)+'万':fmt(x)}
 function pc(x){return String(parseFloat(x.toFixed(2)))+'%'}
 function cp(s){var t={};for(var x in s)t[x]=s[x];return t}
-function need(s){var d=1/(s.conv/100),jv=d/(s.react/100),bvt=jv/(s.x/100),q=bvt/s.bv,nb=Math.max(1,Math.ceil(q-1e-9)),posts=Math.ceil(nb/(s.p/100)-1e-9),days=Math.ceil(posts/2);
+function need(s){var d=1/(s.conv/100),jv=d/(s.react/100),bvt=jv/(s.x/100),q=bvt/s.bv,nb=Math.max(1,Math.ceil(q-1e-9)),posts=Math.ceil(nb/(s.p/100)-1e-9),days=Math.ceil(posts/s.d2-1e-9);
  var dt=new Date(START.getTime());dt.setDate(dt.getDate()+days-1);
  return {d:d,q:q,nb:nb,n:[1,d,jv,bvt,nb,posts,days],days:days,dt:dt,ok:dt<=END}}
 function ds(dt){return (dt.getFullYear()!==2026?dt.getFullYear()+'年':'')+(dt.getMonth()+1)+'月'+dt.getDate()+'日（'+WD[dt.getDay()]+'）'}
@@ -217,12 +217,12 @@ function calc(){
  var lo=rates.reduce(function(m,k){return S[k.id]<S[m.id]?k:m},rates[0]);
  A.forEach(function(k){var a=document.getElementById('ar_'+k.id),pe=document.getElementById('p_'+k.id);
   if(k.rate){var v=S[k.id];pe.textContent='÷'+pc(v);a.className='ar '+(v<=10?'hot':v<50?'mid':'low')+(k===lo?' worstrow':'')}
-  else{a.className='ar mul';pe.textContent=k.id==='bv'?'÷'+ex(S.bv):'÷2'}});
+  else{a.className='ar mul';pe.textContent=k.id==='bv'?'÷'+ex(S.bv):'÷'+S.d2}});
  r.n.forEach(function(x,i){document.getElementById('n'+i).textContent=(STG[i].dy?'約'+x:STG[i].man?man(x):Math.round(x).toLocaleString('ja-JP'))+STG[i].u});
  document.getElementById('dt').textContent=ds(r.dt)+'ごろ（11月21日開始）';
  document.getElementById('convn').textContent='（DMした'+fmt(r.d)+'人に1人が面談）';
  var q=Math.round(r.q*1e6)/1e6;document.getElementById('cut').textContent=q<1?'（1回で足りる）':(q.toFixed(1)===String(r.nb)+'.0')?'':'（'+q.toFixed(1)+'回→'+r.nb+'回に切り上げ）';
- document.getElementById('concl2').textContent='毎日2回で約'+r.days+'日＝'+ds(r.dt)+'ごろ面談1件。'+(r.ok?'12月31日に間に合う。':'12月31日に間に合わない。')+'バズの閲覧のうち求人投稿の閲覧になる割合（'+pc(S.x)+'）はまだ測っていないので、来週測る。';
+ document.getElementById('concl2').textContent='毎日'+S.d2+'回で約'+r.days+'日＝'+ds(r.dt)+'ごろ面談1件。'+(r.ok?'12月31日に間に合う。':'12月31日に間に合わない。')+'バズの閲覧のうち求人投稿の閲覧になる割合（'+pc(S.x)+'）はまだ測っていないので、来週測る。';
  var rows=LEV.filter(better).map(function(k){var n=lift(S,k);return {k:k,saved:r.days-n.days,n:n}}).filter(function(x){return x.saved>0}).sort(function(a,b){return b.saved-a.saved});
  var im=document.getElementById('imp');
  if(!rows.length){im.innerHTML='<p class="sm">どの段を上げても、日数はこれ以上減りません。</p>';return}
