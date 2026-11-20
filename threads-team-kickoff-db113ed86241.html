@@ -48,11 +48,11 @@ a{color:var(--hot)}
 .st .n{font-size:15px}
 .st .v{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
 .st .sub{display:block;font-size:13px;color:var(--sub);font-weight:400}
-.st.first{border:2px solid var(--hot-line);background:var(--hot-bg)}
-.st.first .v{color:var(--hot)}
+.st.ans{border:3px solid var(--hot-line);background:var(--hot-bg)}
+.st.ans .v{color:var(--hot);font-size:26px}
 .back{font-size:14px;font-weight:700;margin:0 0 6px}
 .ar.mul .stem{background:var(--low-line);width:6px}
-.st.last{border:2px solid var(--hot-line);background:var(--hot-bg)}
+.st.goal{border:2px solid var(--sub)}
 .ar{display:grid;grid-template-columns:28px 1fr;gap:0 10px;align-items:center;padding:2px 0 2px 14px}
 .ar .stem{grid-row:1/3;justify-self:center;width:4px;height:100%;min-height:64px;background:var(--low-line);position:relative;border-radius:2px}
 .ar .stem::after{content:"";position:absolute;left:50%;bottom:-2px;transform:translateX(-50%);border:8px solid transparent;border-top:10px solid var(--low-line);border-bottom:0}
@@ -124,7 +124,7 @@ th{font-size:13px;color:var(--sub);font-weight:400}
   </div>
   <p class="wbnote" id="wbnote" hidden>この想定だと<span id="wbn"></span>本。実際の求人投稿の閲覧は750前後なので、中原さんの率で見るのが現実的。</p>
   <p class="now" id="now"></p>
-  <p class="back">面談1件から逆算すると（下の面談から上へ計算）</p>
+  <p class="back">面談1件から逆算すると、必要な投稿は</p>
   <div class="fn" id="fn"></div>
   <p class="concl2" id="concl2"></p>
   <div class="imp" id="imp"></div>
@@ -166,15 +166,15 @@ th{font-size:13px;color:var(--sub);font-weight:400}
 <script>
 (function(){
 var GOAL=1,RATIO=7,DM=100;
-var STG=[{l:'投稿の合計',sub:'求人以外も含む',u:' 本'},{l:'求人投稿',u:' 本'},{l:'求人投稿の閲覧',sub:'必要な数',u:' 回'},
- {l:'反応した人',sub:'いいね・返信など',u:' 人'},{l:'DMで打診',u:' 人'},{l:'DMに返信',u:' 人'},{l:'面談',u:' 件'}];
-var V={id:'view',l:'1本あたり閲覧',min:50,max:20000,step:50,cap:1106,act:'閲覧が取れる投稿の型を探す',mul:1};
+var STG=[{l:'面談',sub:'目標',u:' 件'},{l:'DMに返信',u:' 人'},{l:'DMで打診',u:' 人'},{l:'反応した人',sub:'いいね・返信など',u:' 人'},
+ {l:'求人投稿の閲覧',u:' 回'},{l:'求人投稿',u:' 本'},{l:'投稿の合計',sub:'求人以外も含む',u:' 本',wk:1}];
+var V={id:'view',l:'1本あたり閲覧',note:'<span id="cut"></span>',min:50,max:20000,step:50,cap:1106,act:'閲覧が取れる投稿の型を探す',mul:1};
 var R=[ // 矢印（前段比）。dm は固定表示
  {id:'react',l:'反応率',min:0.05,max:5,step:0.05,cap:3.6,act:'反応が付く投稿の型を探す'},
  {id:'dm',l:'全員にDM',fixed:1},
  {id:'reply',l:'返信率',note:'（まだ測っていない・相場）',min:1,max:40,step:1,cap:12,act:'返信が来るDMの文面を探す'},
  {id:'meet',l:'面談になる率',note:'（まだ測っていない・仮）',min:5,max:60,step:1,cap:30,act:'面談につながるやり取りを探す'}];
-var A=[{id:'ratio',l:'が求人',fixed:1,mul:1},V].concat(R); // 段の間の矢印6本
+var A=[R[3],R[2],R[1],R[0],V,{id:'ratio',l:'7本に1本が求人',fixed:1,mul:1}]; // 段の間の矢印6本（面談から下へ）
 var LEV=[R[0],R[2],R[3],V];
 V.l2='求人投稿1本の閲覧';
 var P={naka:{view:750,react:0.15,reply:6,meet:17},
@@ -188,18 +188,18 @@ function pc(x){return String(parseFloat(x.toFixed(2)))+'%'}
 function cp(s){var t={};for(var x in s)t[x]=s[x];return t}
 function need(s){var r=(s.react/100)*(DM/100)*(s.reply/100)*(s.meet/100);var v=GOAL/r;var jp=Math.ceil(v/s.view);
  var a=v*s.react/100,b=a*DM/100,c=b*s.reply/100;
- return {v:v,n:[jp*RATIO,jp,v,a,b,c,GOAL],jp:jp,all:jp*RATIO,wk:jp*RATIO/14}}
+ return {v:v,n:[GOAL,c,b,a,v,jp,jp*RATIO],jp:jp,all:jp*RATIO,wk:jp*RATIO/14}}
 function lift(s,k){var t=cp(s);t[k.id]=k.cap;return need(t)}
 // 12月末までの残り週
 var end=new Date(2026,11,31,23,59),left=Math.max(0,(end-new Date())/864e5/7);
 // 目標の直下の1行（計算値）
 (function(){var n=need(P.naka),y=need(P.yoko),nr=lift(P.naka,R[0]);
  document.getElementById('pace').innerHTML='いまのままだと中原さん約'+wk(n.wk)+'週・横尾さん約'+wk(y.wk)+'週。反応率が上がれば（中原さん）約'+wk(nr.wk)+'週。'})();
-// ファネル（投稿の合計→面談の1本の鎖）
+// ファネル（面談→投稿の合計の1本の鎖）
 var fn=document.getElementById('fn');
 STG.forEach(function(g,i){
- var st=document.createElement('div');st.className='st'+(i===0?' first':i===STG.length-1?' last':'');
- st.innerHTML='<span class="n">'+g.l+(g.sub?'<span class="sub">'+g.sub+(i===0?'</span><span class="sub" id="wk0">':'')+'</span>':'')+'</span><span class="v" id="n'+i+'"></span>';fn.appendChild(st);
+ var st=document.createElement('div');st.className='st'+(i===0?' goal':i===STG.length-1?' ans':'');
+ st.innerHTML='<span class="n">'+g.l+(g.sub?'<span class="sub">'+g.sub+(g.wk?'</span><span class="sub" id="wk0">':'')+'</span>':'')+'</span><span class="v" id="n'+i+'"></span>';fn.appendChild(st);
  if(i<A.length){var k=A[i],a=document.createElement('div');a.className='ar';a.id='ar_'+k.id;
   a.innerHTML='<div class="stem"></div><div class="top"><span class="pct" id="p_'+k.id+'"></span><span class="lb">'+k.l+(k.note?'<span class="nt">'+k.note+'</span>':'')+'</span><span class="worst">ここで一番落ちる</span></div>'+
   (k.fixed?'':'<input type="range" id="k_'+k.id+'" min="'+k.min+'" max="'+k.max+'" step="'+k.step+'" aria-label="'+(k.l2||k.l)+'">');
@@ -215,12 +215,13 @@ function calc(){
  var rates={react:S.react,dm:DM,reply:S.reply,meet:S.meet};
  var lo=R.reduce(function(m,k){return rates[k.id]<rates[m.id]?k:m},R[0]);
  R.forEach(function(k){var v=rates[k.id],a=document.getElementById('ar_'+k.id);
-  document.getElementById('p_'+k.id).textContent=pc(v);
+  document.getElementById('p_'+k.id).textContent='÷'+pc(v);
   a.className='ar '+(v<=10?'hot':v<50?'mid':'low')+(k===lo?' worstrow':'')});
  r.n.forEach(function(x,i){document.getElementById('n'+i).textContent=Math.round(x).toLocaleString('ja-JP')+STG[i].u});
  document.getElementById('wk0').textContent='1日2回で約'+wk(r.wk)+'週';
- document.getElementById('p_ratio').textContent=RATIO+'本に1本';
- document.getElementById('p_view').textContent='×'+fmt(S.view);
+ document.getElementById('p_ratio').textContent='×'+RATIO;
+ document.getElementById('p_view').textContent='÷'+fmt(S.view);
+ var q=r.v/S.view;document.getElementById('cut').textContent=(Math.abs(q-Math.round(q))<1e-9)?'':'（'+(Math.floor(q*10)/10).toFixed(1)+'本→'+r.jp+'本に切り上げ。ここだけ）';
  document.getElementById('ar_ratio').className='ar mul';document.getElementById('ar_view').className='ar mul';
  var rows=LEV.filter(function(k){return S[k.id]<k.cap}).map(function(k){var n=lift(S,k);return {k:k,saved:r.all-n.all,after:n.all,wk:n.wk}})
   .filter(function(x){return x.saved>0}).sort(function(a,b){return b.saved-a.saved});
