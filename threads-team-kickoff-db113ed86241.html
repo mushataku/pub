@@ -169,7 +169,7 @@ var STG=[{l:'面談',sub:'目標',u:' 件'},{l:'反応した人＝全員にDM',s
  {l:'求人投稿の閲覧',u:' 回',man:1},{l:'求人投稿',u:' 本'},{l:'投稿の合計',sub:'求人以外も含む',u:' 本',wk:1}];
 var C={id:'conv',l:'DMから面談になる率',note:'<span id="convn"></span>',min:0.5,max:10,step:0.1,cap:3.6,act:'DMから面談につながる送り方を探す'};
 var RE={id:'react',l:'反応率',min:0.05,max:5,step:0.05,cap:3.6,act:'反応が付く投稿の型を探す'};
-var V={id:'view',l:'1本あたり閲覧',l2:'求人投稿1本の閲覧',note:'<span id="cut"></span>',min:50,max:20000,step:50,cap:1106,act:'閲覧が取れる投稿の型を探す'};
+var V={id:'view',l:'（求人投稿1本が見られる回数。中原さんが数字入りの求人を1本出したときの実績747）',l2:'求人投稿1本の閲覧',note:'実績は1本だけ＝来週の求人投稿で測り直す<span id="cut"></span>',min:50,max:20000,step:50,cap:1106,act:'閲覧が取れる投稿の型を探す'};
 var R=[C,RE]; // 率の矢印（色で落ち方を示す）
 var A=[C,RE,V,{id:'ratio',l:'7本に1本が求人',fixed:1}]; // 段の間の矢印（面談から下へ）
 var LEV=[RE,V,C];
