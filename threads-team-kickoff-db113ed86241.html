@@ -7,15 +7,19 @@
 <title>SNS運用チーム 決めたことと数字</title>
 <style>
 :root{
-  --bg:#fbfaf7;--card:#fff;--fg:#24221f;--sub:#5f5a52;--line:#e2ddd3;
+  --bg:#fbfaf7;--card:#fff;--fg:#24221f;--sub:#57524a;--line:#e2ddd3;
   --hot:#9a3412;--hot-line:#c2410c;--mid-line:#e9a23b;--low-line:#cfc8bb;
-  --hot-bg:#fdf0e8;--bar:#2563eb;--tag:#5f5a52;
-  --s1:4px;--s2:8px;--s3:16px;--s4:28px;
+  --hot-bg:#fdf0e8;--ok:#166534;--ok-bg:#e8f5ec;--ok-line:#16a34a;--bar:#7c7468;
+  --on-hot:#fff;--s1:4px;--s2:8px;--s3:16px;--s4:32px;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#1a1917;--card:#24221f;--fg:#ebe8e2;--sub:#b5aea2;--line:#3a3732;
+  --bg:#1a1917;--card:#24221f;--fg:#ebe8e2;--sub:#bdb6aa;--line:#3a3732;
   --hot:#fdba74;--hot-line:#fb923c;--mid-line:#b7791f;--low-line:#55504a;
-  --hot-bg:#3a2417;--bar:#60a5fa;--tag:#b5aea2}}
+  --hot-bg:#3a2417;--on-hot:#1a1917;--ok:#86efac;--ok-bg:#16301f;--ok-line:#22c55e;--bar:#9c9488}}
+:root[data-theme="dark"]{
+  --bg:#1a1917;--card:#24221f;--fg:#ebe8e2;--sub:#bdb6aa;--line:#3a3732;
+  --hot:#fdba74;--hot-line:#fb923c;--mid-line:#b7791f;--low-line:#55504a;
+  --hot-bg:#3a2417;--on-hot:#1a1917;--ok:#86efac;--ok-bg:#16301f;--ok-line:#22c55e;--bar:#9c9488}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI","Meiryo",sans-serif;font-size:16px;line-height:1.7;overflow-wrap:anywhere}
 header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:6px 16px}
@@ -24,186 +28,368 @@ header nav{font-size:14px;white-space:nowrap;overflow-x:auto}
 header nav a{color:var(--sub);text-decoration:none;margin-right:14px}
 header nav a.on{color:var(--hot);font-weight:700}
 main{max-width:600px;margin:0 auto;padding:var(--s3) 16px 48px}
-h1{font-size:21px;line-height:1.5;margin:var(--s2) 0 var(--s1)}
+h1{font-size:20px;line-height:1.5;margin:var(--s2) 0 var(--s1)}
 h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere}
 @supports (word-break:auto-phrase){main > :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
-.meta{color:var(--sub);font-size:13px;margin:0 0 var(--s3);line-height:1.6}
-h2{font-size:18px;margin:var(--s4) 0 var(--s2);padding-top:var(--s2);border-top:2px solid var(--line);scroll-margin-top:64px}
+.meta{color:var(--sub);font-size:14px;margin:0 0 var(--s3);line-height:1.6}
+h2{font-size:19px;margin:var(--s4) 0 var(--s2);padding-top:var(--s3);border-top:2px solid var(--line);scroll-margin-top:64px}
+h2 .no{display:inline-block;min-width:1.6em;height:1.6em;line-height:1.6em;text-align:center;border-radius:50%;background:var(--hot-line);color:var(--on-hot);font-size:15px;margin-right:8px;vertical-align:2px}
 p{margin:var(--s2) 0}
-ul,ol{padding-left:1.3em;margin:var(--s2) 0}
-li{margin:var(--s1) 0}
 a{color:var(--hot)}
-.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}
-.goal{border:2px solid var(--hot-line);text-align:center;font-size:20px;font-weight:700;padding:10px}
-.goal small{display:block;font-size:13px;font-weight:400;color:var(--sub)}
-.sm{font-size:13px;color:var(--sub);line-height:1.6}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.sm{font-size:14px;color:var(--sub);line-height:1.6}
+.lead{font-size:16px;margin:0 0 10px}
 
-/* プリセット */
-.pres{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
-.pre{font:inherit;font-size:14px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg);cursor:pointer}
+/* 1. 結論 */
+.hero{background:var(--hot-bg);border:3px solid var(--hot-line);border-radius:14px;padding:16px;margin:var(--s3) 0 0;scroll-margin-top:64px}
+.hero .k{display:inline-block;font-size:14px;font-weight:700;color:var(--on-hot);background:var(--hot-line);border-radius:4px;padding:0 8px}
+.hero .main{font-size:24px;font-weight:700;line-height:1.45;margin:8px 0 4px;word-break:keep-all}
+.hero .main b{color:var(--hot)}
+.hero .subl{font-size:17px;font-weight:700;margin:0 0 2px}
+.hero .who{font-size:15px;margin:0 0 6px}
+.hero .who + .span{margin-top:12px}
+.span{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;font-size:14px;margin:0 0 12px}
+.span .d{text-align:center;line-height:1.3}
+.span .d b{display:block;font-size:16px}
+.span .tr{position:relative;height:10px;border-radius:5px;background:var(--hot-line)}
+.span .tr span{position:absolute;left:50%;top:-24px;transform:translateX(-50%);white-space:nowrap;font-weight:700;color:var(--hot)}
+.pills{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.pill{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 4px;text-align:center;font-size:14px;line-height:1.4}
+.pill .ic{display:block;white-space:nowrap;font-size:17px;line-height:1.2;color:var(--hot);font-weight:700}
+
+/* 2. やること */
+.cards{display:grid;gap:12px}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.pc .hd{display:flex;align-items:center;gap:10px;margin:0 0 8px}
+.av{flex:none;width:40px;height:40px;border-radius:50%;background:var(--hot-bg);border:2px solid var(--hot-line);color:var(--hot);font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center}
+.pc .nm{font-weight:700;font-size:17px;line-height:1.3}
+.pc .hn{display:block;font-size:14px;font-weight:400;color:var(--sub)}
+.pc .fq{margin-left:auto;flex:none;font-size:14px;font-weight:700;border:1px solid var(--hot-line);color:var(--hot);border-radius:999px;padding:1px 10px}
+.pc .what{font-size:16px;margin:0 0 6px}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 4px;margin:6px 0 0}
+.flow .c{font-size:14px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);background:var(--bg);white-space:nowrap;line-height:1.5}
+.flow .c.j{border-color:var(--hot-line);color:var(--hot);font-weight:700}
+.flow .c.g{background:var(--hot-line);border-color:var(--hot-line);color:var(--on-hot);font-weight:700}
+.flow .a{color:var(--sub);font-size:14px}
+.flow-cap{font-size:14px;color:var(--sub);margin:6px 0 0}
+.pc.common{border:2px solid var(--hot-line)}
+.pc.common .av{background:var(--hot-line);color:var(--on-hot)}
+.todo{list-style:none;padding:0;margin:4px 0 0}
+.todo li{display:grid;grid-template-columns:28px 1fr;gap:8px;padding:8px 0;border-top:1px solid var(--line)}
+.todo li:first-child{border-top:0}
+.todo .ti{width:28px;height:28px;border-radius:8px;background:var(--hot-bg);color:var(--hot);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.todo b{display:block}
+.todo .sm{display:block}
+.an{display:inline-block;font-size:14px;font-weight:700;border:1px dashed var(--sub);color:var(--sub);border-radius:4px;padding:0 6px;margin-left:4px}
+
+/* 週のカレンダー */
+.cal{margin:10px 0 0;overflow-x:auto}
+.cal table{border-collapse:separate;border-spacing:3px;width:100%;table-layout:fixed}
+.cal th{font-size:14px;font-weight:400;color:var(--sub);text-align:center;padding:0}
+.cal td{height:40px;text-align:center;vertical-align:middle;font-size:14px;border-radius:6px;padding:0;line-height:1.15;font-variant-numeric:tabular-nums}
+.cal td.on{background:var(--bg);border:1px solid var(--line)}
+.cal td.sd,.cal td.mt,.cal td.dl{font-weight:700}
+.cal td.sd{background:var(--card);border:2px solid var(--hot-line);color:var(--hot)}
+.cal td.mt{background:var(--hot-line);color:var(--on-hot)}
+.cal td.dl{background:var(--fg);color:var(--bg)}
+.cal td i{display:block;font-style:normal;font-size:12px;font-weight:700}
+.cal td.mo{color:var(--sub)}
+.cal-lg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:14px;margin:6px 0 0}
+.cal-lg span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.cal-lg .l1::before{border:2px solid var(--hot-line)}
+.cal-lg .l2::before{background:var(--hot-line)}
+.cal-lg .l3::before{background:var(--fg)}
+
+/* 3. 逆算の鎖 */
+.legend{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:14px;color:var(--sub);margin:0 0 10px}
+.legend span::before{content:"";display:inline-block;width:14px;height:6px;border-radius:3px;margin-right:4px;vertical-align:2px}
+.legend .h::before{background:var(--hot-line)}.legend .m::before{background:var(--mid-line)}.legend .x::before{background:var(--low-line)}
+.pres{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.pre{font:inherit;font-size:14px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg);cursor:pointer;min-height:36px}
+.pre .pd{color:var(--sub);font-weight:400;white-space:nowrap}
 .pre.on{border-color:var(--hot-line);background:var(--hot-bg);color:var(--hot);font-weight:700}
-
-/* ファネル */
 .st{display:flex;justify-content:space-between;align-items:baseline;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
 .st .n{font-size:15px}
 .st .v{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
-.st .sub{display:block;font-size:13px;color:var(--sub);font-weight:400}
+.st .sub{display:block;font-size:14px;color:var(--sub);font-weight:400}
 .st.ans{border:3px solid var(--hot-line);background:var(--hot-bg)}
 .st.ans .v{color:var(--hot);font-size:26px}
-.back{font-size:14px;font-weight:700;margin:0 0 6px}
-.base{font-size:14px;border:1px dashed var(--sub);border-radius:8px;padding:8px 10px;margin:12px 0 0}
-#goalnote{margin:-4px 0 8px}
-.ar.mul .stem{background:var(--low-line);width:6px}
 .st.goal{border:2px solid var(--sub)}
+.back{font-size:15px;font-weight:700;margin:0 0 6px}
+.fwd{font-size:15px;background:var(--bg);border-radius:8px;padding:8px 10px;margin:0 0 12px}
+.fwd b{color:var(--hot)}
+.ar .pp{font-size:20px;font-weight:700;color:var(--fg);white-space:nowrap}
+.ar.hot .pp{color:var(--hot)}
+.ar .pq{font-size:15px;font-weight:700;color:var(--sub);white-space:nowrap}
+#presnote{margin:-4px 0 8px;font-size:15px;border-left:4px solid var(--hot-line);padding:4px 10px;background:var(--hot-bg)}
+.now{font-size:14px;margin:0 0 8px;color:var(--sub)}
+.now.chg{font-size:15px;color:var(--fg);background:var(--hot-bg);border:2px solid var(--hot-line);border-radius:8px;padding:6px 10px}.now b{color:var(--fg)}
+#goalnote{margin:-4px 0 8px}
 .ar{display:grid;grid-template-columns:28px 1fr;gap:0 10px;align-items:center;padding:2px 0 2px 14px}
 .ar .stem{grid-row:1/3;justify-self:center;width:4px;height:100%;min-height:64px;background:var(--low-line);position:relative;border-radius:2px}
 .ar .stem::after{content:"";position:absolute;left:50%;bottom:-2px;transform:translateX(-50%);border:8px solid transparent;border-top:10px solid var(--low-line);border-bottom:0}
+.ar.mul .stem{background:var(--low-line);width:6px}
 .ar.mid .stem{background:var(--mid-line);width:6px}.ar.mid .stem::after{border-top-color:var(--mid-line)}
 .ar.hot .stem{background:var(--hot-line);width:8px}.ar.hot .stem::after{border-top-color:var(--hot-line);border-width:0 11px;border-top-width:12px}
-.ar .top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;padding-top:6px}
-.ar .pct{font-size:28px;font-weight:700;line-height:1.2;font-variant-numeric:tabular-nums}
+.ar .top{display:flex;align-items:baseline;gap:4px 8px;flex-wrap:wrap;padding-top:6px}
+.ar .pct{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 8px;font-size:28px;font-weight:700;line-height:1.2;font-variant-numeric:tabular-nums}
 .ar.hot .pct{color:var(--hot)}
 .ar .lb{font-size:14px;color:var(--sub)}
-.ar .nt{display:inline-block;font-size:13px}
-.ar .worst{font-size:13px;font-weight:700;color:var(--hot);border:1px solid var(--hot-line);border-radius:4px;padding:0 6px;display:none}
+.ar .nt{display:block;font-size:14px}
+.ar .worst{font-size:14px;font-weight:700;color:var(--hot);border:1px solid var(--hot-line);border-radius:4px;padding:0 6px;display:none}
 .ar.worstrow .worst{display:inline-block}
-.ar input{width:100%;margin:2px 0 6px;accent-color:var(--hot-line)}
+.ar input{width:100%;margin:2px 0 6px;accent-color:var(--hot-line);min-height:28px}
 
-/* 前提のつまみ */
-
-/* 結果 */
-
-/* どこを上げるか */
+/* 期限との比べ */
+.vd{margin:12px 0 0;border:3px solid var(--hot-line);border-radius:12px;padding:12px;background:var(--card)}
+.vd .nw{white-space:nowrap}
+.vd .line{font-size:17px;font-weight:700;margin:0 0 8px;font-variant-numeric:tabular-nums}
+.bars{display:grid;grid-template-columns:auto 1fr;gap:6px 8px;align-items:center;font-size:14px}
+.bars .tk{position:relative;height:14px;border-radius:7px;background:var(--line);overflow:hidden}
+.bars .tk i{position:absolute;left:0;top:0;bottom:0;border-radius:7px}
+.bars .avl i{background:var(--fg)}
+.bars .nd i{background:var(--hot-line)}
+.vd .res{display:inline-block;margin:10px 0 0;font-size:16px;font-weight:700;border-radius:8px;padding:4px 12px}
+.vd .res.ok{background:var(--ok-bg);color:var(--ok);border:2px solid var(--ok-line)}
+.vd .res.eq{background:var(--hot-bg);color:var(--fg);border:2px solid var(--mid-line)}
+.vd .rst{font:inherit;font-size:14px;margin:10px 0 0 8px;padding:6px 12px;border:1px solid var(--hot-line);border-radius:999px;background:var(--card);color:var(--hot);cursor:pointer;min-height:36px}
+.fwd .flow{margin:4px 0 0}
+.fwd .c.g b{color:var(--on-hot)}
+.vd .res.ng{background:var(--hot-bg);color:var(--hot);border:2px solid var(--hot-line)}
+.vd .sm{margin:8px 0 0}
+.base{font-size:14px;border:1px dashed var(--sub);border-radius:8px;padding:8px 10px;margin:12px 0 0}
 .imp{margin-top:14px}
-.imp .h{font-size:14px;color:var(--sub);margin:0 0 2px}
-.imp .row{font-size:16px;margin:2px 0}
-.now{font-size:14px;margin:0 0 8px;color:var(--sub)}.now b{color:var(--fg)}
-.wbnote{font-size:14px;background:var(--bg);border-left:3px solid var(--hot-line);padding:6px 10px;margin:0 0 10px}
-.concl2{font-size:16px;font-weight:700;margin:10px 0 0;line-height:1.6}
-.pace{font-size:14px;color:var(--sub);margin:6px 0 0;text-align:center}
+.imp .h{font-size:15px;font-weight:700;margin:0 0 4px}
+.imp .row{font-size:16px;margin:4px 0;padding:6px 10px;border-left:4px solid var(--hot-line);background:var(--bg);border-radius:0 6px 6px 0}
+details{margin:10px 0 0;font-size:14px;color:var(--sub)}
+details summary{cursor:pointer;color:var(--fg);font-weight:700;min-height:32px}
 
-/* 表 */
-.tw{overflow-x:auto;margin:var(--s2) 0}
-table{border-collapse:collapse;width:100%;font-size:14px}
-th,td{border-bottom:1px solid var(--line);padding:6px 6px;text-align:right;white-space:nowrap}
-th:first-child,td:first-child{text-align:left}
-th{font-size:13px;color:var(--sub);font-weight:400}
+/* 4. いまの数字 */
+.ch{margin:0 0 14px}
+.ch .ttl{font-size:15px;font-weight:700;margin:0 0 6px}
+.hb{display:grid;grid-template-columns:6.5em 1fr auto;gap:6px 8px;align-items:center;font-size:14px}
+.hb .tk{height:16px;background:var(--line);border-radius:4px;position:relative;overflow:visible}
+.hb .tk i{position:absolute;left:0;top:0;bottom:0;background:var(--bar);border-radius:4px}
+.hb .tk i.top{background:var(--hot-line)}
+.hb .tk .ref{position:absolute;top:-4px;bottom:-4px;width:0;border-left:2px dashed var(--fg)}
+.hb .v{font-weight:700;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.ch .sm{margin:6px 0 0}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 0 8px}
+.mini div{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px;text-align:center;font-size:14px;line-height:1.4}
+.mini b{display:block;font-size:17px;font-variant-numeric:tabular-nums}
 
-/* 答え合わせ */
-.chk{list-style:none;padding:0}
-.chk li{padding:6px 0;border-bottom:1px solid var(--line)}
-.tg{display:inline-block;font-size:13px;font-weight:700;border-radius:4px;padding:0 6px;margin-right:6px;border:1px solid currentColor}
-.tg.ok{color:var(--fg)}.tg.ng{color:var(--hot)}.tg.q{color:var(--tag)}
-.chk .d{display:block;font-size:14px;color:var(--sub)}
+/* 5. 答え合わせ */
+.chk{display:grid;gap:8px}
+.ck{display:grid;grid-template-columns:36px 1fr;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.ck .mk{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;border:2px solid currentColor}
+.ck.ok .mk{color:var(--ok)}.ck.ng .mk{color:var(--hot)}.ck.q .mk{color:var(--sub)}
+.ck .tg{font-size:14px;font-weight:700}
+.ck.ok .tg{color:var(--ok)}.ck.ng .tg{color:var(--hot)}.ck.q .tg{color:var(--sub)}
+.ck .q1{display:block;font-weight:700;font-size:16px;line-height:1.5}
+.ck .d{display:block;font-size:14px;color:var(--sub);line-height:1.6}
+
+.golink{display:block;text-align:center;font-weight:700;border:2px solid var(--hot-line);border-radius:10px;padding:12px;text-decoration:none;background:var(--card)}
 </style>
 </head>
 <body>
 <header data-chrome>
   <div class="t">SNS運用チーム 決めたことと数字</div>
-  <nav id="nav"><a href="#kimeta">決めたこと</a><a href="#budomari">歩留まり</a><a href="#data">いまの数字</a><a href="#gap">答え合わせ</a><a href="#next">来週まで</a></nav>
+  <nav id="nav"><a href="#ketsuron">結論</a><a href="#yarukoto">やること</a><a href="#gyakusan">逆算</a><a href="#data">いまの数字</a><a href="#gap">答え合わせ</a></nav>
 </header>
 <main>
 <h1>SNS（Threads）運用チーム<br>決めたことと数字</h1>
 <p class="meta">11月20日（金）の会議より／中原さん・横尾さん・武者野／数字は同日20時にThreadsのAPIで取得（8月1日以降の投稿）</p>
 
+<section class="hero" id="ketsuron">
+  <span class="k">結論</span>
+  <p class="main"><b>1か月以内</b>（12月15日（火）まで）に<br><b>面談1件</b>。</p>
+  <p class="subl" id="heroSub">毎日2回の投稿でちょうど届く置き方</p>
+  <p class="who">3人それぞれが1件ずつ（下の計算はすべて1人分）。</p>
+  <p class="who">これは目標どおりに進んだ場合の計算。まだ測っていない数字がある（④）ので、毎週金曜の定例で測って詰める。</p>
+  <div class="span" aria-label="11月21日から12月15日まで">
+    <div class="d"><b>11/21（土）</b>開始</div>
+    <div class="tr"><span id="heroDays">25日</span></div>
+    <div class="d"><b>12/15（火）</b>期限</div>
+  </div>
+  <div class="pills">
+    <div class="pill"><span class="ic">毎日2回</span>3人とも</div>
+    <div class="pill"><span class="ic">全員DM</span>反応した人へ</div>
+    <div class="pill"><span class="ic">毎週金</span>定例</div>
+  </div>
+</section>
 
-<h2 id="kimeta">決めたこと</h2>
-<div class="box goal"><small>目標</small>12月に面談 1人1件</div>
-<p class="pace" id="pace"></p>
-<ul>
-  <li>1日2回投稿（12:00〜12:30／17:00か20:00台）。趣味＋CAの通常投稿でバズを狙い、求人投稿はそれとは別に出す</li>
-  <li>求人投稿に反応した人には<b>全員</b>DMで面談を打診（絞らない・文言はAIで）</li>
-  <li>中原さん＝閲覧を取る／横尾さん＝反応を取る／武者野＝noteと組み合わせた形を試す</li>
-</ul>
+<h2 id="yarukoto"><span class="no">1</span>各自がやること</h2>
+<div class="cards">
+  <div class="pc">
+    <div class="hd"><span class="av" aria-hidden="true">中</span><span class="nm">中原さん<span class="hn">@smile021200</span></span><span class="fq">毎日2回</span></div>
+    <p class="what">趣味中心の投稿（毎日2回）＋ときどき求人の投稿（別に出す）</p><p class="sm">投稿の時間：12:00〜12:30／17:00か20:00台</p>
+    <div class="flow" aria-label="中原さんの流れ"><span class="c">趣味の投稿</span><span class="a">→</span><span class="c">バズ</span><span class="a">→</span><span class="c j">求人の投稿も見られる</span><span class="a">→</span><span class="c j">反応</span><span class="a">→</span><span class="c j">DM</span><span class="a">→</span><span class="c g">面談</span></div>
+  </div>
+  <div class="pc">
+    <div class="hd"><span class="av" aria-hidden="true">横</span><span class="nm">横尾さん<span class="hn">@tenshoku_ca_m_chan</span></span><span class="fq">毎日2回</span></div>
+    <p class="what">趣味中心の投稿（毎日2回）＋ときどき求人の投稿（別に出す）</p><p class="sm">投稿の時間：12:00〜12:30／17:00か20:00台</p>
+    <div class="flow" aria-label="横尾さんの流れ"><span class="c">趣味の投稿</span><span class="a">→</span><span class="c">バズ</span><span class="a">→</span><span class="c j">求人の投稿も見られる</span><span class="a">→</span><span class="c j">反応</span><span class="a">→</span><span class="c j">DM</span><span class="a">→</span><span class="c g">面談</span></div>
+  </div>
+  <div class="pc">
+    <div class="hd"><span class="av" aria-hidden="true">武</span><span class="nm">武者野<span class="hn">@mushano_career</span></span><span class="fq">毎日2回</span></div>
+    <p class="what">Threads×CA note（Threadsで見てもらい、CAのnoteへ流す）</p><p class="sm">投稿の時間：12:00〜12:30／17:00か20:00台</p>
+    <div class="flow" aria-label="武者野の流れ"><span class="c">Threads</span><span class="a">→</span><span class="c j">note</span><span class="a">→</span><span class="c j">LINE</span><span class="a">→</span><span class="c g">面談</span></div>
+    <p class="flow-cap">下の逆算の鎖でいうと「求人投稿の閲覧→反応」の段がnoteを通る（noteを読んでLINEに来る＝反応）。</p>
+  </div>
+  <div class="pc common">
+    <div class="hd"><span class="av" aria-hidden="true">全</span><span class="nm">3人共通</span></div>
+    <ul class="todo">
+      <li><span class="ti" aria-hidden="true">1</span><div><b>毎日2回投稿</b><span class="sm">12:00〜12:30／17:00か20:00台。趣味の投稿（バズ狙い）を2回。求人の投稿はそれとは別に、ときどき（頻度はまだ決めていない）</span></div></li>
+      <li><span class="ti" aria-hidden="true">2</span><div><b>求人の投稿に反応した人には全員DMで面談を打診</b><span class="sm">絞らない・文言はAIで</span></div></li>
+      <li><span class="ti" aria-hidden="true">3</span><div><b>毎週金曜の定例で歩留まりを振り返る</b><span class="sm">下の②の図の各段の実績を持ち寄って目標とのずれを見る（ずれが一番大きい段に次の週の手を打つ）。持ち寄る数：投稿数・各投稿の閲覧・求人投稿の閲覧・反応した人・DMの数・面談の数。誰が集計するかはまだ決めていない</span></div></li>
+    </ul>
+    <div class="cal" role="region" aria-label="期限までの週のカレンダー" tabindex="0">
+      <table>
+        <thead><tr><th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th></tr></thead>
+        <tbody id="calb"></tbody>
+      </table>
+      <div class="cal-lg"><span class="l1">開始 11/21（土）</span><span class="l2">定例 11/27・12/4・12/11（金）</span><span class="l3">期限 12/15（火）</span></div>
+    </div>
+  </div>
+</div>
 
-<h2 id="budomari">歩留まり：どの段で何％落ちるか</h2>
-<p>矢印の数字は「前の段の何％が次へ進むか」（Indeedの応募→面談と同じ読み方）。つまみで率を動かせます。</p>
+<h2 id="gyakusan"><span class="no">2</span>面談1件までの逆算の鎖</h2>
+<p class="lead">一番上の「面談1件」を矢印の数字で割っていくと、下の段の数になる。矢印の％は「前の段の何％が次へ進むか」（Indeedの応募→面談と同じ読み方）。つまみで動かせる。</p>
+<div class="legend"><span class="h">大きく落ちる（10%以下）</span><span class="m">中くらい</span><span class="x">回数・閲覧で割る</span></div>
 <div class="box" id="simbox">
   <div class="pres">
-    <button type="button" class="pre" data-p="goal">目標（12月に間に合う置き方）</button>
-    <button type="button" class="pre" data-p="naka">中原さんの今の率</button>
-    <button type="button" class="pre" data-p="yoko">横尾さんの今の率</button>
+    <button type="button" class="pre" data-p="goal">目標の置き方<span class="pd"></span></button>
+    <button type="button" class="pre" data-p="naka">反応率だけ中原さんの実績<span class="pd"></span></button>
+    <button type="button" class="pre" data-p="yoko">バズ確率だけ横尾さんの実績<span class="pd"></span></button>
   </div>
-  <p class="sm" id="goalnote">12月に間に合うように置いた目標値。10%はまだ測っていない。バズ1回2万は中原さんの過去のバズ（1.4万・7.9万・52.9万）より控えめ。</p>
+  <p id="presnote" hidden></p>
+  <p class="sm" id="goalnote">12月15日に間に合うように置いた目標値。10%はまだ測っていない。バズの線引きはまだ決めていない。ここでは「1回2万回見られる投稿」として計算（中原さんの過去のバズ1.4万・7.9万・52.9万の多くより低め）。</p>
   <p class="now" id="now"></p>
-  <p class="back">面談1件から逆算すると、かかる日数は</p>
+  <div class="fwd" id="fwd"></div>
+  <p class="back">面談1件から逆算すると（1人分）</p>
   <div class="fn" id="fn"></div>
-  <p class="base"><b>土台：</b>毎日2回の通常投稿（趣味＋CA）は、求人投稿とは別に必ずやる。バズを起こして、求人投稿まで見に来てもらう役目。</p>
-  <p class="concl2" id="concl2"></p>
+  <div class="vd" id="vd">
+    <p class="line" id="vdLine"></p>
+    <div class="bars">
+      <span>期限まで</span><div class="tk avl"><i id="barAv"></i></div>
+      <span>必要</span><div class="tk nd"><i id="barNd"></i></div>
+    </div>
+    <span class="res" id="vdRes"></span><button type="button" class="rst" id="rst" hidden>目標の置き方に戻す</button>
+    <p class="sm" id="vdNote"></p>
+  </div>
+  <p class="base"><b>土台：</b>毎日2回の通常投稿（趣味中心）は、求人投稿とは別に必ずやる。バズを起こして、求人投稿まで見に来てもらう役目。</p>
   <div class="imp" id="imp"></div>
+  <details><summary>「どこを上げるか」の上げ幅の出どころ</summary>
+    <p>上げる幅は、反応率3.6%（Buffer）、求人投稿の閲覧になる割合20%（仮）、バズ1回の閲覧4.7万（中原さんのバズの中央値）、バズが起きる確率16.7%（横尾さんの実測＝6本に1回）、DMから面談3.6%（返信率12%×面談30%）まで。DMから面談の1%は会議の想定（返信率6%×面談17%でもほぼ1%）。</p>
+    <p>求人投稿の閲覧になる割合の、いまのデータの目安：中原さん 平均+2.8%（4回中3回は0%前後以下で、+14.9%の1回は直後もバズだった連鎖）／横尾さん 約0%（3回）。</p>
+  </details>
 </div>
-<p class="sm">前提：目標は1人で面談1件、11月21日（土）から毎日2回投稿。「どこを上げるか」で上げる幅は、反応率3.6%（Buffer）、求人投稿の閲覧になる割合20%（仮）、バズ1回の閲覧4.7万（中原さんのバズの中央値）、バズが起きる確率16.7%（横尾さんの実測＝6本に1回）、DMから面談3.6%（返信率12%×面談30%）まで。DMから面談の1%は会議の想定（返信率6%×面談17%でもほぼ1%）。</p>
 
-<h2 id="data">いまの数字</h2>
-<div class="tw" role="region" aria-labelledby="data" tabindex="0">
-<table>
-<tr><th></th><th>閲覧</th><th>反応率</th><th>最高</th></tr>
-<tr><td>中原さん</td><td>約290</td><td>約0.15%</td><td>52.9万</td></tr>
-<tr><td>横尾さん</td><td>約60</td><td>約1%</td><td>2.3万</td></tr>
-<tr><td>武者野</td><td>16</td><td>—</td><td>—</td></tr>
-</table>
+<h2 id="data"><span class="no">3</span>いまの数字</h2>
+<div class="ch">
+  <p class="ttl">ふつうの1投稿の閲覧（中央値）</p>
+  <div class="hb" id="hbView"></div>
 </div>
-<p class="sm">閲覧＝1投稿あたりの中央値、最高＝一番伸びた投稿の閲覧。投稿数は中原さん40本・横尾さん19本・武者野6本。反応率＝（いいね＋返信＋リポスト＋引用）÷閲覧、本人の返信は除く。世の中の中央値は1.5%（Buffer）。</p>
-<p><b>伸びるのは20〜40字の短い問いかけ。</b>中原さんの投稿の閲覧の中央値は、短い問いかけ1,106／解説つき136／持論86。</p>
+<div class="ch">
+  <p class="ttl">反応率（点線＝世の中の中央値1.5%）</p>
+  <div class="hb" id="hbReact"></div>
+  <p class="sm">反応率＝（いいね＋返信＋リポスト＋引用）÷閲覧、本人の返信は除く。世の中の中央値はBuffer（SNS運用ツールの会社）の調査。</p>
+</div>
+<div class="ch">
+  <p class="ttl">一番伸びた投稿の閲覧／投稿数</p>
+  <div class="mini">
+    <div>中原さん<b>52.9万</b>40本</div>
+    <div>横尾さん<b>2.3万</b>19本</div>
+    <div>武者野<b>—</b>6本</div>
+  </div>
+</div>
+<div class="ch">
+  <p class="ttl">伸びるのは20〜40字の短い問いかけ</p>
+  <div class="hb" id="hbKind"></div>
+  <p class="sm">中原さんの投稿の閲覧の中央値。</p>
+</div>
 
-<h2 id="gap">前提の答え合わせ</h2>
-<ul class="chk">
-  <li><span class="tg ok">合っている</span>10投稿に1件バズる<span class="d">中原さんは閲覧5,000超が10本に1本</span></li>
-  <li><span class="tg ng">実測ではもっと要る</span>閲覧1万で反応100<span class="d">中原さんの率だと閲覧5〜7万が要る。「10万まで？」が近い</span></li>
-  <li><span class="tg ng">裏付けなし</span>バズったら次に求人<span class="d">直後の投稿は普段より見られない（中原さん0.83倍・横尾さん0.56倍）</span></li>
-  <li><span class="tg q">まだ測れない</span>12時／17時／20時の枠<span class="d">17時台の投稿はまだ0本</span></li>
-</ul>
+<h2 id="gap"><span class="no">4</span>前提の答え合わせ</h2>
+<div class="chk">
+  <div class="ck ok"><span class="mk" aria-hidden="true">○</span><div><span class="tg">合っている</span><span class="q1">10投稿に1件バズる</span><span class="d">中原さんは閲覧5,000超が10本に1本</span></div></div>
+  <div class="ck ng"><span class="mk" aria-hidden="true">×</span><div><span class="tg">実測ではもっと要る</span><span class="q1">閲覧1万で反応100</span><span class="d">中原さんの率だと閲覧5〜7万が要る。「10万まで？」が近い。だから目標として置き、定例で測る</span></div></div>
+  <div class="ck ng"><span class="mk" aria-hidden="true">×</span><div><span class="tg">裏付けなし</span><span class="q1">バズったら次に求人</span><span class="d">直後の投稿は普段より見られない（中原さん0.83倍・横尾さん0.56倍）。だから求人の出し方は問わず、求人投稿の閲覧になる割合を来週測る</span></div></div>
+  <div class="ck q"><span class="mk" aria-hidden="true">？</span><div><span class="tg">まだ測れない</span><span class="q1">12時／17時／20時の枠</span><span class="d">17時台の投稿はまだ0本</span></div></div>
+</div>
 
-<h2 id="next">来週までにやること</h2>
-<p><b>3人とも：</b></p>
-<ol>
-  <li>20〜40字の短い問いかけで閲覧を取る（1日2回）</li>
-  <li>数字入り（月収・休み・未経験OKなど）の求人投稿を週2本。中原さんの数字入り求人1本は閲覧747＝持論の約9倍</li>
-  <li>DMは全員に送る。送る順番は、仕事や転職に触れた人から</li>
-  <li>2回のうち1回を、12時・17時・20時で日替わりにする</li>
-  <li>（案）毎週金曜にLINEグループへ、DMを送った数・返信の数・面談の数の3つを書く</li>
-</ol>
-<p class="sm">詳しい分析：<a href="https://mushataku.github.io/pub/threads-team-analysis-ae073e017618.html">分析ページ</a></p>
+<h2 id="more"><span class="no">5</span>詳しい分析</h2>
+<a class="golink" href="https://mushataku.github.io/pub/threads-team-analysis-ae073e017618.html">詳しい分析ページを開く →</a>
 </main>
 
 <script>
 (function(){
-var START=new Date(2026,10,21),END=new Date(2026,11,31),WD=['日','月','火','水','木','金','土'];
+var START=new Date(2026,10,21),DEADLINE=new Date(2026,11,15),WD=['日','月','火','水','木','金','土'];
+var AVAIL=Math.round((DEADLINE-START)/864e5)+1;
 var STG=[{l:'面談',sub:'目標',u:' 件'},{l:'反応した人＝全員にDM',sub:'求人投稿に返信・いいねした人',u:' 人'},
- {l:'求人投稿の閲覧',u:' 回',man:1},{l:'バズの閲覧 合計',u:' 回',man:1},{l:'バズ',u:' 回'},{l:'通常投稿',sub:'趣味＋CA',u:' 本'},{l:'かかる日数',sub:'<span id="dt"></span>',u:' 日',dy:1}];
+ {l:'求人投稿の閲覧',u:' 回',man:1},{l:'バズの閲覧 合計',u:' 回',man:1},{l:'バズ',u:' 回'},{l:'通常投稿',sub:'趣味中心',u:' 本'},{l:'かかる日数',sub:'<span id="dt"></span>',u:' 日',dy:1}];
 var A=[
- {id:'conv',l:'DMから面談になる率',note:'<span id="convn"></span>',min:0.5,max:10,step:0.1,cap:3.6,rate:1},
- {id:'react',l:'反応率',min:0.05,max:5,step:0.05,cap:3.6,rate:1},
- {id:'x',l:'バズの閲覧のうち、求人投稿の閲覧になる割合',l2:'求人投稿の閲覧になる割合',note:'方法は問わない（バズの直後に求人を出す／伸びた投稿の返信欄に求人をぶら下げる、など）。来週測る。いまのデータの目安：中原さん 平均+2.8%（4回中3回は0%前後以下で、+14.9%の1回は直後もバズだった連鎖）／横尾さん 約0%（3回）',min:0.1,max:50,step:0.1,cap:20,rate:1},
- {id:'bv',l:'バズ1回の閲覧（n万）',l2:'バズ1回の閲覧',note:'<span id="cut"></span>',min:1000,max:100000,step:1000,cap:47000},
- {id:'p',l:'バズが起きる確率（%）',l2:'バズが起きる確率',note:'（実測：中原さん10%＝10本に1回・横尾さん16.7%＝6本に1回）',min:1,max:50,step:0.1,cap:16.7,rate:1},
- {id:'d2',l:'1日の投稿数',note:'（自分たちで一番確実に動かせるつまみ）',min:1,max:6,step:1,cap:4}];
-var LEV=A.filter(function(k){return !k.fixed});
+ {id:'conv',l:'DMから面談になる率',note:'<span id="convn"></span>',min:0.5,max:10,step:0.1,cap:3.6,rate:1,pu:'人に1人'},
+ {id:'react',l:'反応率',min:0.05,max:5,step:0.05,cap:3.6,rate:1,pu:'回見られて1人'},
+ {id:'x',l:'バズの閲覧のうち、求人投稿の閲覧になる割合',l2:'求人投稿の閲覧になる割合',note:'方法は問わない（バズの直後に求人を出す／伸びた投稿の返信欄に求人をぶら下げる、など）。来週測る',min:0.1,max:50,step:0.1,cap:20,rate:1,pu:'回に1回'},
+ {id:'bv',l:'バズ1回の閲覧',note:'<span id="cut"></span>',min:1000,max:100000,step:1000,cap:47000},
+ {id:'p',l:'バズが起きる確率',note:'実測：中原さん10%＝10本に1回・横尾さん16.7%＝6本に1回',min:1,max:50,step:0.1,cap:16.7,rate:1,pu:'本に1回'},
+ {id:'d2',l:'1日の投稿数',note:'自分たちで一番確実に動かせるつまみ',min:1,max:6,step:1,cap:4}];
+var LEV=A;
 var P={goal:{conv:1,react:1,x:10,bv:20000,p:10,d2:2},
        naka:{conv:1,react:0.15,x:10,bv:20000,p:10,d2:2},
        yoko:{conv:1,react:1,x:10,bv:20000,p:16.7,d2:2}};
-var NAME={goal:'目標（12月に間に合う置き方）',naka:'中原さんの今の率',yoko:'横尾さんの今の率'};
+var NAME={goal:'目標の置き方',naka:'反応率だけ中原さんの実績',yoko:'バズ確率だけ横尾さんの実績'};
 var S={},cur='goal',box=document.getElementById('simbox');
 function fmt(x){if(!isFinite(x))return '—';if(x>=100)return Math.round(x).toLocaleString('ja-JP');if(x>=10||Number.isInteger(x))return String(Math.round(x));return x.toFixed(1)}
-function man(x){return x>=10000?'約'+String(parseFloat((x/1e4).toFixed(1)))+'万':fmt(x)}
+function man(x){return x>=1e8?'約'+String(parseFloat((x/1e8).toFixed(1)))+'億':x>=10000?'約'+String(parseFloat((x/1e4).toFixed(1)))+'万':fmt(x)}
 function ex(x){return x>=10000&&x%1000===0?String(x/1e4)+'万':fmt(x)}
 function pc(x){return String(parseFloat(x.toFixed(2)))+'%'}
+function inv(v){var x=100/v,r=Math.round(x);return Math.abs(x-r)<1e-9?r.toLocaleString('ja-JP'):'約'+(x>=10?r.toLocaleString('ja-JP'):String(Math.round(x*10)/10))}
+function kv(k,v){return k.rate?pc(v):k.id==='bv'?ex(v):v+'回'}
 function cp(s){var t={};for(var x in s)t[x]=s[x];return t}
 function need(s){var d=1/(s.conv/100),jv=d/(s.react/100),bvt=jv/(s.x/100),q=bvt/s.bv,nb=Math.max(1,Math.ceil(q-1e-9)),posts=Math.ceil(nb/(s.p/100)-1e-9),days=Math.ceil(posts/s.d2-1e-9);
  var dt=new Date(START.getTime());dt.setDate(dt.getDate()+days-1);
- return {d:d,q:q,nb:nb,n:[1,d,jv,bvt,nb,posts,days],days:days,dt:dt,ok:dt<=END}}
+ return {d:d,q:q,nb:nb,n:[1,d,jv,bvt,nb,posts,days],days:days,dt:dt,ok:days<=AVAIL}}
 function ds(dt){return (dt.getFullYear()!==2026?dt.getFullYear()+'年':'')+(dt.getMonth()+1)+'月'+dt.getDate()+'日（'+WD[dt.getDay()]+'）'}
 function lift(s,k){var t=cp(s);t[k.id]=k.cap;return need(t)}
-function better(k){return S[k.id]<k.cap}
-(function(){var g=need(P.goal),n=need(P.naka),y=need(P.yoko);
- document.getElementById('pace').innerHTML='目標の置き方なら約'+g.days+'日＝'+ds(g.dt)+'ごろ。いまの率のままだと中原さん約'+n.days+'日・横尾さん約'+y.days+'日（求人投稿の閲覧になる割合は10%の仮置き）。'})();
+function verdict(days){var g=AVAIL-days;return g===0?'間に合う（0日余裕＝ぎりぎり）':g>0?'間に合う（'+g.toLocaleString('ja-JP')+'日余裕）':'間に合わない（'+(-g).toLocaleString('ja-JP')+'日足りない）'}
+
+/* 結論（目標の置き方の計算と連動） */
+(function(){var g=need(P.goal),gap=AVAIL-g.days;
+ document.getElementById('heroSub').textContent='毎日'+P.goal.d2+'回の投稿で'+(gap===0?'ちょうど届く置き方':gap>0?gap+'日余裕で届く置き方':'届かない（'+(-gap)+'日足りない）');
+ document.getElementById('heroDays').textContent=AVAIL+'日';
+ [].forEach.call(box.querySelectorAll('.pre'),function(b){b.querySelector('.pd').textContent='・約'+need(P[b.dataset.p]).days+'日'});
+})();
+
+/* 週のカレンダー */
+(function(){var tb=document.getElementById('calb'),d=new Date(START.getTime());d.setDate(d.getDate()-d.getDay());
+ var end=new Date(DEADLINE.getTime());end.setDate(end.getDate()+6-end.getDay());
+ var MT={'10-27':1,'11-4':1,'11-11':1},h='';
+ while(d<=end){if(d.getDay()===0)h+='<tr>';
+  var k=d.getMonth()+'-'+d.getDate(),inr=d>=START&&d<=DEADLINE,cls='',lab='',txt=(d.getDate()===1?(d.getMonth()+1)+'/':'')+d.getDate();
+  if(!inr){cls='';txt=''}
+  else if(d.getTime()===START.getTime()){cls='sd';lab='開始'}
+  else if(d.getTime()===DEADLINE.getTime()){cls='dl';lab='期限'}
+  else if(MT[k]){cls='mt';lab='定例'}
+  else cls='on';
+  h+='<td class="'+cls+'">'+txt+(lab?'<i>'+lab+'</i>':'')+'</td>';
+  if(d.getDay()===6)h+='</tr>';d.setDate(d.getDate()+1)}
+ tb.innerHTML=h})();
+
+/* いまの数字の棒 */
+function hb(id,rows,max,ref){var h='';rows.forEach(function(r){h+='<span>'+r[0]+'</span><div class="tk">'+(r[1]==null?'':'<i class="'+(r[3]?'top':'')+'" style="width:'+Math.max(1,r[1]/max*100)+'%"></i>')+(ref?'<span class="ref" style="left:'+(ref/max*100)+'%"></span>':'')+'</div><span class="v">'+r[2]+'</span>'});document.getElementById(id).innerHTML=h}
+hb('hbView',[['中原さん',290,'約290',1],['横尾さん',60,'約60'],['武者野',16,'16']],290);
+hb('hbReact',[['中原さん',0.15,'約0.15%'],['横尾さん',1,'約1%',1],['武者野',null,'—']],1.6,1.5);
+hb('hbKind',[['短い問いかけ',1106,'1,106',1],['解説つき',136,'136'],['持論',86,'86']],1106);
+
+/* 逆算の鎖 */
 var fn=document.getElementById('fn');
 STG.forEach(function(g,i){
  var st=document.createElement('div');st.className='st'+(i===0?' goal':i===STG.length-1?' ans':'');
  st.innerHTML='<span class="n">'+g.l+(g.sub?'<span class="sub">'+g.sub+'</span>':'')+'</span><span class="v" id="n'+i+'"></span>';fn.appendChild(st);
  if(i<A.length){var k=A[i],a=document.createElement('div');a.className='ar';a.id='ar_'+k.id;
   a.innerHTML='<div class="stem"></div><div class="top"><span class="pct" id="p_'+k.id+'"></span><span class="lb">'+k.l+(k.note?'<span class="nt">'+k.note+'</span>':'')+'</span><span class="worst">ここで一番落ちる</span></div>'+
-  (k.fixed?'':'<input type="range" id="k_'+k.id+'" min="'+k.min+'" max="'+k.max+'" step="'+k.step+'" aria-label="'+(k.l2||k.l)+'">');
+  '<input type="range" id="k_'+k.id+'" min="'+k.min+'" max="'+k.max+'" step="'+k.step+'" aria-label="'+(k.l2||k.l)+'">';
   fn.appendChild(a);}
 });
 LEV.forEach(function(k){document.getElementById('k_'+k.id).addEventListener('input',function(e){S[k.id]=parseFloat(e.target.value);cur=null;calc()})});
@@ -212,24 +398,35 @@ function calc(){
  LEV.forEach(function(k){document.getElementById('k_'+k.id).value=S[k.id]});
  [].forEach.call(box.querySelectorAll('.pre'),function(b){b.classList.toggle('on',b.dataset.p===cur)});
  document.getElementById('goalnote').hidden=cur!=='goal';
- document.getElementById('now').innerHTML='いま表示：<b>'+(cur?NAME[cur]:'自分で変更中')+'</b>';
+ document.getElementById('now').innerHTML='いま表示：<b>'+(cur?NAME[cur]:'自分で変更中')+'</b>'+(cur?'':'（目標から変えています。戻すには「目標の置き方」か下の「目標の置き方に戻す」）');document.getElementById('now').className='now'+(cur?'':' chg');
+ var pn=document.getElementById('presnote');pn.hidden=!(cur==='naka'||cur==='yoko');
+ if(cur==='naka'){var t1=cp(S);t1.react=P.goal.react;pn.textContent='替えたのは反応率だけ（'+pc(P.goal.react)+'→中原さんの実績'+pc(S.react)+'）。ほかは目標値のまま。反応率が'+pc(P.goal.react)+'なら約'+need(t1).days+'日。'}
+ if(cur==='yoko'){pn.textContent='替えたのはバズが起きる確率だけ（'+pc(P.goal.p)+'→横尾さんの実績'+pc(S.p)+'）。ほかは目標値のまま。'}
+ var fw=[['通常投稿',r.n[5].toLocaleString('ja-JP')+'本'],['バズ',r.nb+'回'],['バズの閲覧',man(r.n[3])+'回'],['求人投稿の閲覧',man(r.n[2])+'回'],['反応→全員DM',fmt(r.n[1])+'人'],['面談','1件']];
+ document.getElementById('fwd').innerHTML='<b>前から読むと（1人分）</b><div class="flow">'+fw.map(function(x,i){return '<span class="c'+(i===fw.length-1?' g':i>=3?' j':'')+'">'+x[0]+' <b>'+x[1]+'</b></span>'}).join('<span class="a">→</span>')+'</div>';
  var rates=A.filter(function(k){return k.rate});
  var lo=rates.reduce(function(m,k){return S[k.id]<S[m.id]?k:m},rates[0]);
  A.forEach(function(k){var a=document.getElementById('ar_'+k.id),pe=document.getElementById('p_'+k.id);
-  if(k.rate){var v=S[k.id];pe.textContent='÷'+pc(v);a.className='ar '+(v<=10?'hot':v<50?'mid':'low')+(k===lo?' worstrow':'')}
-  else{a.className='ar mul';pe.textContent=k.id==='bv'?'÷'+ex(S.bv):'÷'+S.d2}});
- r.n.forEach(function(x,i){document.getElementById('n'+i).textContent=(STG[i].dy?'約'+x:STG[i].man?man(x):Math.round(x).toLocaleString('ja-JP'))+STG[i].u});
+  if(k.rate){var v=S[k.id];pe.innerHTML='<span class="pp">'+inv(v)+k.pu+'</span><span class="pq">÷'+pc(v)+'</span>';a.className='ar '+(v<=10?'hot':v<50?'mid':'low')+(k===lo?' worstrow':'')}
+  else{a.className='ar mul';pe.innerHTML=k.id==='bv'?'<span class="pp">バズ1回で'+ex(S.bv)+'回見られる</span><span class="pq">÷'+ex(S.bv)+'</span>':'<span class="pp">1日'+S.d2+'回</span><span class="pq">÷'+S.d2+'</span>'}});
+ r.n.forEach(function(x,i){document.getElementById('n'+i).textContent=(STG[i].dy?'約'+x.toLocaleString('ja-JP'):STG[i].man?man(x):Math.round(x).toLocaleString('ja-JP'))+STG[i].u});
  document.getElementById('dt').textContent=ds(r.dt)+'ごろ（11月21日開始）';
- document.getElementById('convn').textContent='（DMした'+fmt(r.d)+'人に1人が面談）';
- var q=Math.round(r.q*1e6)/1e6;document.getElementById('cut').textContent=q<1?'（1回で足りる）':(q.toFixed(1)===String(r.nb)+'.0')?'':'（'+q.toFixed(1)+'回→'+r.nb+'回に切り上げ）';
- document.getElementById('concl2').textContent='毎日'+S.d2+'回で約'+r.days+'日＝'+ds(r.dt)+'ごろ面談1件。'+(r.ok?'12月31日に間に合う。':'12月31日に間に合わない。')+'バズの閲覧のうち求人投稿の閲覧になる割合（'+pc(S.x)+'）はまだ測っていないので、来週測る。';
- var rows=LEV.filter(better).map(function(k){var n=lift(S,k);return {k:k,saved:r.days-n.days,n:n}}).filter(function(x){return x.saved>0}).sort(function(a,b){return b.saved-a.saved});
+ document.getElementById('convn').textContent='DMした'+fmt(r.d)+'人に1人が面談';
+ var q=Math.round(r.q*1e6)/1e6;document.getElementById('cut').textContent=q<1?'1回で足りる':(q.toFixed(1)===String(r.nb)+'.0')?'':q.toFixed(1)+'回→'+r.nb+'回に切り上げ';
+ document.getElementById('vdLine').innerHTML='<span class="nw">期限12/15まで あと'+AVAIL+'日</span> ／ <span class="nw">必要 約'+r.days.toLocaleString('ja-JP')+'日</span>';
+ var mx=Math.max(AVAIL,r.days);
+ document.getElementById('barAv').style.width=(AVAIL/mx*100)+'%';
+ document.getElementById('barNd').style.width=(r.days/mx*100)+'%';
+ var res=document.getElementById('vdRes');res.textContent=verdict(r.days);res.className='res '+(r.days===AVAIL?'eq':r.ok?'ok':'ng');document.getElementById('rst').hidden=cur==='goal';
+ document.getElementById('vdNote').textContent='毎日'+S.d2+'回で'+ds(r.dt)+'ごろ面談1件（11月21日から数えて）。求人投稿の閲覧になる割合（'+pc(S.x)+'）はまだ測っていないので、来週測る。';
+ var rows=LEV.filter(function(k){return S[k.id]<k.cap}).map(function(k){var n=lift(S,k);return {k:k,saved:r.days-n.days,n:n}}).filter(function(x){return x.saved>0}).sort(function(a,b){return b.saved-a.saved});
  var im=document.getElementById('imp');
  if(!rows.length){im.innerHTML='<p class="sm">どの段を上げても、日数はこれ以上減りません。</p>';return}
- im.innerHTML='<p class="h">どこを上げると日数が減るか（いま約'+r.days+'日）</p>'+
-  rows.slice(0,3).map(function(x){return '<p class="row">'+(x.k.l2||x.k.l)+'を上げる → <b>約'+x.n.days+'日</b>（'+ds(x.n.dt)+'ごろ）</p>'}).join('');
+ im.innerHTML='<p class="h">どこを上げると日数が減るか（いま約'+r.days.toLocaleString('ja-JP')+'日）</p>'+
+  rows.slice(0,3).map(function(x){return '<p class="row">'+(x.k.l2||x.k.l)+'を'+kv(x.k,S[x.k.id])+'→'+kv(x.k,x.k.cap)+'にすると → <b>約'+x.n.days.toLocaleString('ja-JP')+'日</b>・'+verdict(x.n.days)+'</p>'}).join('');
 }
 [].forEach.call(box.querySelectorAll('.pre'),function(b){b.addEventListener('click',function(){var p=P[b.dataset.p];for(var x in p)S[x]=p[x];cur=b.dataset.p;calc()})});
+document.getElementById('rst').addEventListener('click',function(){box.querySelector('.pre[data-p=goal]').click()});
 var p0=P.goal;for(var x in p0)S[x]=p0[x];calc();
 })();
 (function(){var links=[].slice.call(document.querySelectorAll('#nav a'));var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
