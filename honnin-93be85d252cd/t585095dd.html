@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head><!--gp-portal:s--><meta name="x-build" content="c373c4621f"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Python 宿題</title>
+<style>
+:root{
+  --bg:#faf6ee; --surface:#f1eadb; --ink:#2b2620; --muted:#4f473f; --line:#d9cfba;
+  --accent:#17504c; --on-accent:#faf6ee; --code-bg:#efe7d6; --code-ink:#2b2620; --comment:#4f473f;
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px;
+  --font:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic Medium","Yu Gothic","YuGothic",Meiryo,sans-serif;
+  --mono:"Cascadia Mono",Consolas,"SFMono-Regular",Menlo,"Hiragino Sans","Noto Sans JP","Yu Gothic Medium","Yu Gothic",Meiryo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1d1b18; --surface:#27241f; --ink:#ece6da; --muted:#cbc3b3; --line:#4a443b;
+    --accent:#86d4cb; --on-accent:#1d1b18; --code-bg:#2b2823; --code-ink:#ece6da; --comment:#cbc3b3;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:96px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:1rem;line-height:1.8;overflow-wrap:break-word}
+.band{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line);padding:var(--s2) max(16px,env(safe-area-inset-right)) var(--s2) max(16px,env(safe-area-inset-left))}
+.band-in{max-width:40em;margin:0 auto;display:flex;flex-direction:column}
+.band-title{font-size:.875rem;color:var(--muted);line-height:1.5}
+.band-now{font-size:1rem;font-weight:700;line-height:1.5;color:var(--accent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+main{max-width:40em;margin:0 auto;padding:var(--s4) max(16px,env(safe-area-inset-right)) var(--s5) max(16px,env(safe-area-inset-left))}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere;line-height:1.4;font-weight:700;letter-spacing:0}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
+h1{font-size:1.75rem;margin:var(--s4) 0 var(--s3)}
+h2{font-size:1.375rem;margin:var(--s5) 0 var(--s3);padding-top:var(--s3);border-top:1px solid var(--line)}
+h3{font-size:1.125rem;margin:var(--s4) 0 var(--s2)}
+p{margin:0 0 1em;text-wrap:pretty}
+ul,ol{margin:0 0 1em;padding-left:1.5em}
+li{margin:0 0 .4em}
+a{color:var(--accent)}
+.lead{font-size:1.0625rem}
+.meta{font-size:.875rem;color:var(--muted);line-height:1.6}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:var(--s3);margin:0 0 var(--s3)}
+.box > :last-child{margin-bottom:0}
+.box-title{font-weight:700;margin:0 0 var(--s2);color:var(--accent)}
+.toc{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:var(--s3) var(--s3) var(--s3) calc(var(--s3) + 1.5em)}
+.toc ol{margin:0;padding:0}
+.toc li{margin:0 0 .3em}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:8px;margin:0 0 var(--s3);background:var(--bg)}
+.scroll:focus-visible,pre:focus-visible,a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+table{border-collapse:collapse;width:100%;font-size:.9375rem;line-height:1.5}
+th,td{text-align:left;vertical-align:top;padding:var(--s2) var(--s3);border-bottom:1px solid var(--line)}
+th{background:var(--surface);font-weight:700}
+tr:last-child td{border-bottom:0}
+.map td:first-child{min-width:10em}
+.map td:nth-child(2){min-width:13em}
+.map td:nth-child(3){min-width:13em}
+code{font-family:var(--mono);font-size:.9375em;background:var(--code-bg);color:var(--code-ink);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+.codeblock{margin:0 0 var(--s3);border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--code-bg)}
+.codehead{display:flex;align-items:center;justify-content:space-between;gap:var(--s2);padding:var(--s1) var(--s2) var(--s1) var(--s3);background:var(--surface);border-bottom:1px solid var(--line)}
+.codehead span{font-size:.875rem;font-weight:700;line-height:1.4;min-width:0;overflow-wrap:anywhere}
+.codehead button{font:inherit;font-size:.875rem;min-height:44px;min-width:88px;padding:0 var(--s3);border-radius:8px;border:1px solid var(--accent);background:var(--bg);color:var(--accent);cursor:pointer}
+.codehead button[data-done="1"]{background:var(--accent);color:var(--on-accent)}
+pre{margin:0;padding:var(--s3);overflow-x:auto;font-family:var(--mono);font-size:.9375rem;line-height:1.6;color:var(--code-ink);white-space:pre;tab-size:4}
+pre.wrap{white-space:pre-wrap}
+pre code{background:none;padding:0;font-size:inherit;overflow-wrap:normal}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps > li{counter-increment:s;position:relative;padding-left:2.4em;margin-bottom:.8em}
+.steps > li::before{content:counter(s);position:absolute;left:0;top:.2em;width:1.7em;height:1.7em;line-height:1.7em;text-align:center;border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:.875rem;font-weight:700}
+details{background:var(--surface);border:1px solid var(--line);border-radius:8px;margin:0 0 var(--s3)}
+summary{cursor:pointer;font-weight:700;color:var(--accent);padding:var(--s2) var(--s3);min-height:44px;line-height:28px}
+details > :not(summary){margin-left:var(--s3);margin-right:var(--s3)}
+details > :last-child{margin-bottom:var(--s3)}
+.sign{margin-top:var(--s5);padding-top:var(--s3);border-top:1px solid var(--line)}
+@media (max-width:480px){h1{font-size:1.5rem}h2{font-size:1.25rem}}
+</style>
+</head>
+<body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=c373c4621f">ホーム</a></li><li class="gp-cur"><a href="./t585095dd.html?v=c373c4621f" aria-current="page">Pythonの練習</a></li></ul></nav><!--gp-portal:e-->
+<div class="band" data-chrome id="band">
+  <div class="band-in">
+    <div class="band-title">Python 宿題（高木さんへ）</div>
+    <div class="band-now" id="now" aria-live="off">はじめに</div>
+  </div>
+</div>
+<main>
+<h1 id="top">Python 宿題<wbr>：障害報告の一覧を<wbr>Pythonで作ってみる</h1>
+<p class="meta">高木さんへ ／ 武者野より ／ 2026年11月17日</p>
+
+<p class="lead">高木さん、面談でお話しした宿題です。選考とは関係のない、私からのおまけです。</p>
+<p>基本情報がなかなか頭に入らないので Python も考えている、VBA と似ているところから始めたい、とおっしゃっていました。それなら教科書より先に、解く問題を1つ用意しようと思いました。</p>
+<p>題材は、高木さんが電話対応の横で VBA を作って自動化された、障害報告の一覧の毎日の更新です。あれと同じことを Python でやります（課題1では、おまけで件数の集計もします）。データは練習用に作るもので、本物の業務データは使いません。</p>
+<p>コードは全部、コピーして貼るだけで動きます。まず動かしてみて、慣れてきたら1語ずつ書き換えてみてください。スマホでは眺めるだけにして、作業はパソコンでどうぞ。</p>
+
+<div class="box">
+<p class="box-title">時間の目安（全部やって2時間ほど）</p>
+<p>準備だけで止まっても十分です。空いた時間に少しずつで構いません。</p>
+<div class="scroll" role="region" tabindex="0" aria-label="時間の目安">
+<table>
+<thead><tr><th>やること</th><th>目安</th></tr></thead>
+<tbody>
+<tr><td>準備（Python と VS Code を入れて、1行動かす）</td><td>40分</td></tr>
+<tr><td>課題1（種類別・日別に件数を数える）</td><td>30分</td></tr>
+<tr><td>課題2（毎日のファイルを一覧にまとめる）</td><td>30分</td></tr>
+<tr><td>課題3（任意・AI にドリルを作ってもらう）</td><td>好きなだけ</td></tr>
+</tbody>
+</table>
+</div>
+<p>手順は Windows 向けです。Mac でしたら公式LINEで一言ください。</p>
+</div>
+
+<nav class="toc" aria-label="目次">
+<ol>
+<li><a href="#setup">準備：Python と VS Code を入れる</a></li>
+<li><a href="#map">VBA と Python の対応表</a></li>
+<li><a href="#task1">課題1：種類別・日別に件数を数える</a></li>
+<li><a href="#task2">課題2：毎日のファイルを一覧にまとめる</a></li>
+<li><a href="#task3">課題3（任意）：AI にドリルを作ってもらう</a></li>
+<li><a href="#next">11月20日（金）の面談で</a></li>
+</ol>
+</nav>
+
+<h2 id="setup">1. 準備：Python と VS Code を入れる</h2>
+<p>最初のひと山はここです。順番どおりに進めれば40分ほどで終わります。詰まりやすい所は先に書いておきます。</p>
+
+<h3 id="setup-alias">1-1. 先に「アプリ実行エイリアス」をオフにする</h3>
+<p>Windows には、<code>python</code> と打つと Microsoft Store が開いてしまう設定が最初から入っています。先に切っておくと、あとで詰まりません。</p>
+<ol class="steps">
+<li>Windows の「設定」を開き、上の検索欄に「エイリアス」と入れて「アプリ実行エイリアスの管理」を開く</li>
+<li>一覧から「アプリ インストーラー」の <code>python.exe</code> と <code>python3.exe</code> を探す</li>
+<li>その2つだけスイッチを「オフ」にする（名前が「Python」で始まるものがあれば、それはオンのまま）</li>
+</ol>
+
+<h3 id="setup-python">1-2. Python を入れる</h3>
+<ol class="steps">
+<li>ブラウザで <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">python.org/downloads</a> を開く</li>
+<li>黄色い大きなボタンは押さずに、そのすぐ下の「Or get the <strong>standalone installer</strong> for Python 3.x.x」のリンクを押す（インストーラーがダウンロードされます）</li>
+<li>ダウンロードしたファイル（<code>python-3.</code> で始まる名前）を開く</li>
+<li><strong>最初の画面の一番下にある「Add python.exe to PATH」に必ずチェックを入れてから</strong>、「Install Now」を押す（ここが一番大事です）</li>
+<li>「Setup was successful」と出たら「Close」で閉じる</li>
+</ol>
+
+<h3 id="setup-check">1-3. 入ったか確かめる</h3>
+<ol class="steps">
+<li>Windows の検索で「PowerShell」と入れ、「Windows PowerShell」を開く（入れる前から開いていたら、いったん閉じて開き直す）</li>
+<li>次の1行を打って Enter を押す</li>
+</ol>
+<div class="codeblock">
+<div class="codehead"><span>PowerShell に打つ</span><button type="button" data-copy>コピー</button></div>
+<pre tabindex="0" role="region" aria-label="コード：バージョン確認"><code>python --version</code></pre>
+</div>
+<p><code>Python 3.15.2</code> のように数字が出れば成功です。数字は違っていて構いません。Microsoft Store が開いたら、1-1 のスイッチを確かめてください。</p>
+
+<h3 id="setup-lib">1-4. Excel を扱う部品を足す</h3>
+<p>Python で Excel を読み書きするには、部品が2つ要ります。同じ PowerShell で次の1行を打ちます。数十秒かかります。</p>
+<div class="codeblock">
+<div class="codehead"><span>PowerShell に打つ</span><button type="button" data-copy>コピー</button></div>
+<pre tabindex="0" role="region" aria-label="コード：部品のインストール"><code>python -m pip install pandas openpyxl</code></pre>
+</div>
+<p>最後に <code>Successfully installed</code> と出れば完了です。途中に黄色い <code>WARNING</code> が出ても、最後にこの字があれば成功です。<code>pandas</code>（パンダス）は表の集計が得意な部品で、面談で名前が出たのはこれです。<code>openpyxl</code> は Excel ファイルを読み書きする部品です。</p>
+
+<h3 id="setup-vscode">1-5. VS Code を入れる</h3>
+<p>VS Code は、Python のコードを書いて動かすための画面です。VBA でいう VBE（Alt + F11 で開く画面）にあたります。</p>
+<ol class="steps">
+<li><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a> を開き、「Download for Windows」から入れる（途中の選択はそのまま進めて構いません）</li>
+<li>VS Code を開く。右下に「表示言語を日本語に」の案内が出たら、そのボタンを押して再起動する。出なければ、左端の四角が4つ並んだアイコン（拡張機能）で <code>Japanese</code> と検索し、「Japanese Language Pack」を入れて再起動する</li>
+<li>拡張機能の検索欄に <code>Python</code> と入れ、Microsoft の「Python」を入れる</li>
+</ol>
+
+<h3 id="setup-hello">1-6. 最初の1行を動かす</h3>
+<ol class="steps">
+<li>デスクトップに <code>python-practice</code> という空のフォルダを作る。この先の作業はすべてこの中でやります</li>
+<li>VS Code の「ファイル」→「フォルダーを開く」で、そのフォルダを選ぶ（「作成者を信頼しますか」と聞かれたら「はい」）。左上に <code>PYTHON-PRACTICE</code> と出ていれば合っています</li>
+<li>左の一覧の上にある「新しいファイル」のアイコンを押し、<code>hello.py</code> と名前を付ける（最後の <code>.py</code> が目印です）</li>
+<li>次の1行を貼って、Ctrl + S で保存する</li>
+</ol>
+<div class="codeblock">
+<div class="codehead"><span>hello.py</span><button type="button" data-copy>コピー</button></div>
+<pre tabindex="0" role="region" aria-label="コード：hello.py"><code>print("こんにちは、Python")</code></pre>
+</div>
+<p>右上の三角ボタン（Python ファイルの実行）を押すと、下の画面に <code>こんにちは、Python</code> と出ます。ここまでで準備は終わりです。</p>
+
+<details>
+<summary>詰まったときの表</summary>
+<div class="scroll" role="region" tabindex="0" aria-label="詰まったときの表">
+<table>
+<thead><tr><th>こうなった</th><th>直し方</th></tr></thead>
+<tbody>
+<tr><td><code>python</code> と打つと Microsoft Store が開く</td><td>1-1 の2つのスイッチをオフにして、PowerShell を開き直す</td></tr>
+<tr><td><code>python</code> が見つからない、と赤い字が出る</td><td>「Add python.exe to PATH」のチェック忘れです。Windows の「設定」→「アプリ」から Python をアンインストールし、1-2 をやり直す</td></tr>
+<tr><td>VS Code の右上に三角ボタンが出ない</td><td>ファイル名の最後が <code>.py</code> か、1-5 の最後の「Python」拡張が入っているかを確かめる</td></tr>
+<tr><td><code>No module named 'pandas'</code> と出る</td><td>VS Code の下の画面（ターミナル）で 1-4 の1行を打つ。それでも出るなら、右下に出ている Python の版を押し、1-3 で出た版を選び直す</td></tr>
+<tr><td><code>FileNotFoundError</code> か <code>No objects to concatenate</code> と出る</td><td>VS Code で開いているフォルダがずれています。左上が <code>PYTHON-PRACTICE</code> か確かめ、違えば「フォルダーを開く」をやり直す</td></tr>
+<tr><td><code>PermissionError</code> と出る</td><td>書き出し先の Excel を開いたままです。Excel を閉じてからもう一度押す。閉じても出るなら、フォルダをデスクトップから <code>C:\</code> の直下へ移す（OneDrive の同期がファイルをつかんでいることがあります）</td></tr>
+<tr><td>それ以外の赤い字</td><td>画面をスマホで撮って、公式LINEに送ってください。一緒に見ます</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+
+<h2 id="map">2. VBA と Python の対応表</h2>
+<p>課題で出てくる書き方が、VBA では何にあたるかの一覧です。覚えなくていいので、迷ったときに辞書のように見に来てください。</p>
+<div class="scroll" role="region" tabindex="0" aria-labelledby="map">
+<table class="map">
+<thead><tr><th>やりたいこと</th><th>VBA</th><th>Python</th></tr></thead>
+<tbody>
+<tr><td>Excel を開いて読む</td><td><code>Workbooks.Open "受付.xlsx"</code></td><td><code>pd.read_excel("受付.xlsx")</code></td></tr>
+<tr><td>種類ごとに件数を数える</td><td><code>COUNTIF</code>、またはループで数える</td><td><code>df.groupby("種類").size()</code></td></tr>
+<tr><td>日付×種類の件数表</td><td>ピボットテーブル</td><td><code>pd.crosstab(df["受付日"], df["種類"])</code></td></tr>
+<tr><td>フォルダ内のファイルを順に回す</td><td><code>f = Dir("C:\毎日\*.xlsx")</code> と <code>Do While</code></td><td><code>for f in Path("毎日").glob("*.xlsx"):</code></td></tr>
+<tr><td>くり返し</td><td><code>For i = 1 To 10</code> … <code>Next</code></td><td><code>for i in range(1, 11):</code></td></tr>
+<tr><td>条件分岐</td><td><code>If x &gt; 0 Then</code> … <code>End If</code></td><td><code>if x &gt; 0:</code></td></tr>
+<tr><td>変数の宣言</td><td><code>Dim x As Long</code></td><td>要らない。<code>x = 10</code> と書くだけ</td></tr>
+<tr><td>シートに書いて保存</td><td><code>Worksheets.Add</code> と <code>SaveAs</code></td><td><code>df.to_excel(writer, sheet_name="一覧")</code></td></tr>
+<tr><td>画面に出す</td><td><code>Debug.Print</code> ／ <code>MsgBox</code></td><td><code>print(...)</code></td></tr>
+<tr><td>コメント</td><td><code>' メモ</code></td><td><code># メモ</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>VBA との違いで大きいのは2つです。1つ目は、変数の宣言が要らないこと。2つ目は <code>for</code> や <code>if</code> の書き方で、<code>Next</code> や <code>End If</code> の代わりに、行頭の字下げ（空白4つ）で「ここまでが中身」を表します。字下げがずれるとエラーになるので、コピーしたコードの行頭の空白は消さないでください。</p>
+
+<h2 id="task1">3. 課題1：種類別・日別に件数を数える</h2>
+<p>平日5日ぶんの問い合わせの受付記録から、種類ごと・日ごとの件数を数えて、Excel の別シートに書き出します。VBA なら COUNTIF かピボットでやるところです。</p>
+
+<h3 id="task1-a">3-1. 練習用の受付記録を作る</h3>
+<p><code>python-practice</code> フォルダに <code>make_data.py</code> を作り、次のコードを貼って保存し、右上の三角ボタンで動かします。受付日・種類・対応の30件が入った <code>障害受付.xlsx</code> ができます。<code>#</code> で始まる行はメモなので、動きには関係しません。</p>
+<div class="codeblock">
+<div class="codehead"><span>make_data.py</span><button type="button" data-copy>コピー</button></div>
+<pre tabindex="0" role="region" aria-label="コード：make_data.py"><code># 使う道具を呼ぶ（pandas は表を扱う道具。慣習で pd と短く呼ぶ）
+import random
+from datetime import date, timedelta
+import pandas as pd
+
+# 乱数の出方を固定する（誰がやっても同じデータになる）
+random.seed(1)
+
+# 問い合わせの種類と、どう対応したか（VBAの配列にあたる）
+kinds = ["システムのエラー", "リモート接続", "プリンター", "その他"]
+actions = ["案内で解決", "フラグを変更", "開発へ連絡"]
+
+# 30回くり返して、1件ずつ箱に足す（For i = 0 To 29 と同じ）
+rows = []
+for i in range(30):
+    rows.append({
+        "受付日": date(2026, 11, 2) + timedelta(days=random.randint(0, 4)),
+        "種類": random.choice(kinds),
+        "対応": random.choice(actions),
+    })
+
+# 箱を表（DataFrame）に変え、受付日の順に並べる
+df = pd.DataFrame(rows)
+df = df.sort_values("受付日", ignore_index=True)
+
+# Excelに書き出す（index=False は行番号の列を付けない指定）
+df.to_excel("障害受付.xlsx", index=False)
+
+# 中身を画面に出す（Debug.Print のかわり）
+print(df)</code></pre>
+</div>
+<p>下の画面に30行の表が出て、フォルダに <code>障害受付.xlsx</code> が増えます。Excel で開いて中を見てみてください（見たら閉じておきます）。</p>
+
+<h3 id="task1-b">3-2. 件数を数えて、別シートに書き出す</h3>
+<p>次に <code>count.py</code> を作って動かします。</p>
+<div class="codeblock">
+<div class="codehead"><span>count.py</span><button type="button" data-copy>コピー</button></div>
+<pre tabindex="0" role="region" aria-label="コード：count.py"><code>import pandas as pd
+
+# Excelを開いて表として読む（Workbooks.Open のかわり）
+df = pd.read_excel("障害受付.xlsx")
+# 日付だけにする（読み込むと時刻 0:00 が付くため）
+df["受付日"] = df["受付日"].dt.date
+
+# 種類ごとに件数を数え、多い順に並べる（COUNTIF のかわり）
+by_kind = df.groupby("種類").size().reset_index(name="件数")
+by_kind = by_kind.sort_values("件数", ascending=False)
+
+# 日付×種類の件数表（ピボットテーブルのかわり）
+by_day = pd.crosstab(df["受付日"], df["種類"])
+
+# 3つのシートに書き出す（with を抜けると保存される）
+with pd.ExcelWriter("件数まとめ.xlsx") as writer:
+    df.to_excel(writer, sheet_name="明細", index=False)
+    by_kind.to_excel(writer, sheet_name="種類別", index=False)
+    by_day.to_excel(writer, sheet_name="日別")
+
+# 結果を画面に出す
+print(by_kind.to_string(index=False))
+print(by_day)</code></pre>
+</div>
+<p>画面に種類別の件数（システムのエラーが12件で一番多い）と、日付×種類の表が出ます。フォルダにできた <code>件数まとめ.xlsx</code> には「明細」「種類別」「日別」の3シートが入っています。</p>
+
+<div class="box">
+<p class="box-title">できたかの確かめ方</p>
+<ul>
+<li>「種類別」の件数を足すと30になる</li>
+<li>「明細」シートで COUNTIF を1つ打って、どれか1種類の件数が合っている</li>
+</ul>
+</div>
+<p><strong>1語だけ変えてみる：</strong><code>groupby("種類")</code> を <code>groupby("対応")</code> に変えて動かすと、対応ごとの件数になります。</p>
+
+<h2 id="task2">4. 課題2：毎日のファイルを一覧にまとめる</h2>
+<p>毎日の受付がファイルで増えていき、それを障害報告の一覧に足していく作業です。高木さんが VBA で回していたあの更新を、Python で書くとこうなります。三角ボタン1回で、一覧ごと作り直します。</p>
+
+<h3 id="task2-a">4-1. 3日ぶんの受付ファイルを作る</h3>
+<p><code>make_days.py</code> を作って動かします。<code>毎日</code> フォルダができ、11月9日・10日・11日の3ファイルが入ります。</p>
+<div class="codeblock">
+<div class="codehead"><span>make_days.py</span><button type="button" data-copy>コピー</button></div>
+<pre tabindex="0" role="region" aria-label="コード：make_days.py"><code>import random
+from datetime import date
+from pathlib import Path
+import pandas as pd
+
+# 毎回同じデータになるように固定
+random.seed(2)
+kinds = ["システムのエラー", "リモート接続", "プリンター", "その他"]
+actions = ["案内で解決", "フラグを変更", "開発へ連絡"]
+
+# 「毎日」フォルダを作る（すでにあってもエラーにしない）
+Path("毎日").mkdir(exist_ok=True)
+
+# 9日・10日・11日の3回くり返す
+for day in [9, 10, 11]:
+    rows = []
+    # その日の件数は3〜8件のどれか
+    for i in range(random.randint(3, 8)):
+        rows.append({
+            "受付日": date(2026, 11, day),
+            "種類": random.choice(kinds),
+            "対応": random.choice(actions),
+        })
+    # その日のExcelに保存（例：毎日/受付_2026-11-09.xlsx）
+    name = f"毎日/受付_2026-11-{day:02d}.xlsx"
+    pd.DataFrame(rows).to_excel(name, index=False)
+    print(name, "を作りました", len(rows), "件")</code></pre>
+</div>
+
+<h3 id="task2-b">4-2. 全部を一覧にまとめる</h3>
+<p><code>update_list.py</code> を作って動かします。VBA なら <code>Dir</code> でファイルを回して、一覧シートの最終行の下へ貼り付けていく処理です。</p>
+<div class="codeblock">
+<div class="codehead"><span>update_list.py</span><button type="button" data-copy>コピー</button></div>
+<pre tabindex="0" role="region" aria-label="コード：update_list.py"><code>from pathlib import Path
+import pandas as pd
+
+# 「毎日」フォルダの 受付_〜.xlsx を全部集めて並べる（Dir のかわり）
+files = sorted(Path("毎日").glob("受付_*.xlsx"))
+
+# ファイルを1つずつ開いて読み、箱に入れる（For Each のかわり）
+frames = []
+for f in files:
+    frames.append(pd.read_excel(f))
+
+# 箱の中の表を上から順に1つへつなぎ、日付だけにする
+ichiran = pd.concat(frames, ignore_index=True)
+ichiran["受付日"] = ichiran["受付日"].dt.date
+
+# 先頭に通し番号の列を足す
+ichiran.insert(0, "No", range(1, len(ichiran) + 1))
+
+# 種類別の件数（課題1と同じ）
+by_kind = ichiran.groupby("種類").size().reset_index(name="件数")
+
+# 「一覧」と「種類別」の2シートに書き出す
+with pd.ExcelWriter("障害報告一覧.xlsx") as writer:
+    ichiran.to_excel(writer, sheet_name="一覧", index=False)
+    by_kind.to_excel(writer, sheet_name="種類別", index=False)
+
+print(len(files), "日ぶんを一覧にしました:", len(ichiran), "件")</code></pre>
+</div>
+<p>画面に <code>3 日ぶんを一覧にしました: 13 件</code> と出れば成功です。<code>障害報告一覧.xlsx</code> を開くと、通し番号つきの一覧と種類別の件数が入っています。</p>
+
+<details>
+<summary>もう一歩：次の日のぶんを足す</summary>
+<p>開いている Excel を閉じてから、<code>make_days.py</code> の <code>[9, 10, 11]</code> を <code>[9, 10, 11, 12]</code> に変えて動かし、そのあと <code>update_list.py</code> をもう一度動かします。12日のファイルが増え、一覧は4日ぶん17件になります。新しい日が来ても、三角ボタンを押し直すだけで一覧が最新になります。</p>
+</details>
+
+<h2 id="task3">5. 課題3（任意）：AI にドリルを作ってもらう</h2>
+<p>VBA の勉強のときに、AI にテスト用のコードを書いてもらっていたとおっしゃっていたので、同じやり方で ChatGPT などに練習問題を作ってもらいます。下の文をコピーして、【】の中を書き換えて送ってください。</p>
+<div class="codeblock">
+<div class="codehead"><span>AI に送る文の例</span><button type="button" data-copy>コピー</button></div>
+<pre class="wrap" tabindex="0" role="region" aria-label="AI に送る文の例"><code>Python を勉強し始めたところです。VBA で Excel の作業を自動化したことがあります。
+pandas を使って、【テスト端末の貸し借りの台帳から、まだ返ってきていない端末を一覧にする】ような練習問題を3問作ってください。
+練習用のデータを作るコードも付けて、答えは私が頼むまで見せないでください。</code></pre>
+</div>
+<ul>
+<li>【】の中は、ほかに VBA や Excel でやっていた作業に変えて構いません</li>
+<li>前の職場の実データや資料は貼らないでください。データは AI に作ってもらいます</li>
+<li>AI が出したコードは、対応表で「VBA のどこにあたるか」を見比べると読みやすくなります</li>
+</ul>
+
+<h2 id="next">6. 11月20日（金）の面談で</h2>
+<ul>
+<li>どこまで進んだか、触ってみてどうだったかを聞かせてください。準備だけで止まっていても十分です</li>
+<li>途中で詰まったら、面談を待たずに、エラーの画面をスマホで撮って公式LINEに送ってください</li>
+</ul>
+<p>それでは、無理のない範囲で触ってみてください。</p>
+
+<div class="sign">
+<p>武者野<br>2026年11月17日</p>
+</div>
+</main>
+<script>
+(function(){
+  var now=document.getElementById('now');
+  var heads=[].slice.call(document.querySelectorAll('main h2, main h3'));
+  function update(){
+    var cur='はじめに', y=window.scrollY+110;
+    for(var i=0;i<heads.length;i++){
+      if(heads[i].getBoundingClientRect().top+window.scrollY<=y){cur=heads[i].textContent;}
+    }
+    if(heads.length&&window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-2){cur=heads[heads.length-1].textContent;}
+    if(now.textContent!==cur){now.textContent=cur;}
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  window.addEventListener('resize',update);
+  update();
+  [].forEach.call(document.querySelectorAll('[data-copy]'),function(b){
+    b.addEventListener('click',function(){
+      var code=b.closest('.codeblock').querySelector('code').textContent;
+      function ok(){b.textContent='コピーしました';b.setAttribute('data-done','1');setTimeout(function(){b.textContent='コピー';b.removeAttribute('data-done');},2000);}
+      function fallback(){
+        var t=document.createElement('textarea');t.value=code;t.style.position='fixed';t.style.opacity='0';
+        document.body.appendChild(t);t.select();
+        var done=false;try{done=document.execCommand('copy');}catch(e){}
+        document.body.removeChild(t);
+        if(done){ok();}else{b.textContent='長押しでコピー';}
+      }
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(code).then(ok,fallback);}else{fallback();}
+    });
+  });
+})();
+</script>
+<!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=c373c4621f">ホーム</a></li><li class="gp-cur"><a href="./t585095dd.html?v=c373c4621f" aria-current="page">Pythonの練習</a></li></ul></nav><!--gp-portal:e--></body>
+</html>
