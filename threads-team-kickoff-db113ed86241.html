@@ -47,6 +47,11 @@ a{color:var(--hot)}
 .st{display:flex;justify-content:space-between;align-items:baseline;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
 .st .n{font-size:15px}
 .st .v{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st .sub{display:block;font-size:13px;color:var(--sub);font-weight:400}
+.st.first{border:2px solid var(--hot-line);background:var(--hot-bg)}
+.st.first .v{color:var(--hot)}
+.back{font-size:14px;font-weight:700;margin:0 0 6px}
+.ar.mul .stem{background:var(--low-line);width:6px}
 .st.last{border:2px solid var(--hot-line);background:var(--hot-bg)}
 .ar{display:grid;grid-template-columns:28px 1fr;gap:0 10px;align-items:center;padding:2px 0 2px 14px}
 .ar .stem{grid-row:1/3;justify-self:center;width:4px;height:100%;min-height:64px;background:var(--low-line);position:relative;border-radius:2px}
@@ -63,16 +68,8 @@ a{color:var(--hot)}
 .ar input{width:100%;margin:2px 0 6px;accent-color:var(--hot-line)}
 
 /* 前提のつまみ */
-.knobs{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
-.knob{display:grid;grid-template-columns:1fr auto;gap:0 8px;align-items:center;margin:4px 0}
-.knob label{font-size:14px}
-.knob .val{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
-.knob input{grid-column:1/3;width:100%;accent-color:var(--hot-line)}
 
 /* 結果 */
-.res{margin-top:12px;text-align:center;background:var(--hot-bg);border-radius:8px;padding:10px}
-.res .big{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--hot)}
-.res .d{font-size:14px;color:var(--sub)}
 
 /* どこを上げるか */
 .imp{margin-top:14px}
@@ -127,9 +124,8 @@ th{font-size:13px;color:var(--sub);font-weight:400}
   </div>
   <p class="wbnote" id="wbnote" hidden>この想定だと<span id="wbn"></span>本。実際の求人投稿の閲覧は750前後なので、中原さんの率で見るのが現実的。</p>
   <p class="now" id="now"></p>
+  <p class="back">面談1件から逆算すると（下の面談から上へ計算）</p>
   <div class="fn" id="fn"></div>
-  <div class="knobs" id="knobs"></div>
-  <div class="res" id="res"></div>
   <p class="concl2" id="concl2"></p>
   <div class="imp" id="imp"></div>
 </div>
@@ -170,14 +166,17 @@ th{font-size:13px;color:var(--sub);font-weight:400}
 <script>
 (function(){
 var GOAL=1,RATIO=7,DM=100;
-var STG=['求人投稿の閲覧','反応した人（いいね・返信など）','DMで打診','DMに返信','面談'];
+var STG=[{l:'投稿の合計',sub:'求人以外も含む',u:' 本'},{l:'求人投稿',u:' 本'},{l:'求人投稿の閲覧',sub:'必要な数',u:' 回'},
+ {l:'反応した人',sub:'いいね・返信など',u:' 人'},{l:'DMで打診',u:' 人'},{l:'DMに返信',u:' 人'},{l:'面談',u:' 件'}];
+var V={id:'view',l:'1本あたり閲覧',min:50,max:20000,step:50,cap:1106,act:'閲覧が取れる投稿の型を探す',mul:1};
 var R=[ // 矢印（前段比）。dm は固定表示
  {id:'react',l:'反応率',min:0.05,max:5,step:0.05,cap:3.6,act:'反応が付く投稿の型を探す'},
- {id:'dm',l:'DM打診率',fixed:'（全員に送ると決めた）'},
+ {id:'dm',l:'全員にDM',fixed:1},
  {id:'reply',l:'返信率',note:'（まだ測っていない・相場）',min:1,max:40,step:1,cap:12,act:'返信が来るDMの文面を探す'},
  {id:'meet',l:'面談になる率',note:'（まだ測っていない・仮）',min:5,max:60,step:1,cap:30,act:'面談につながるやり取りを探す'}];
-var V={id:'view',l:'求人投稿1本の閲覧',min:50,max:20000,step:50,cap:1106,act:'閲覧が取れる投稿の型を探す'};
+var A=[{id:'ratio',l:'が求人',fixed:1,mul:1},V].concat(R); // 段の間の矢印6本
 var LEV=[R[0],R[2],R[3],V];
+V.l2='求人投稿1本の閲覧';
 var P={naka:{view:750,react:0.15,reply:6,meet:17},
        yoko:{view:150,react:1,reply:6,meet:17},
        wb:{view:10000,react:1,reply:6,meet:17}};
@@ -189,29 +188,27 @@ function pc(x){return String(parseFloat(x.toFixed(2)))+'%'}
 function cp(s){var t={};for(var x in s)t[x]=s[x];return t}
 function need(s){var r=(s.react/100)*(DM/100)*(s.reply/100)*(s.meet/100);var v=GOAL/r;var jp=Math.ceil(v/s.view);
  var a=v*s.react/100,b=a*DM/100,c=b*s.reply/100;
- return {v:v,n:[v,a,b,c,GOAL],jp:jp,all:jp*RATIO,wk:jp*RATIO/14}}
+ return {v:v,n:[jp*RATIO,jp,v,a,b,c,GOAL],jp:jp,all:jp*RATIO,wk:jp*RATIO/14}}
 function lift(s,k){var t=cp(s);t[k.id]=k.cap;return need(t)}
 // 12月末までの残り週
 var end=new Date(2026,11,31,23,59),left=Math.max(0,(end-new Date())/864e5/7);
 // 目標の直下の1行（計算値）
 (function(){var n=need(P.naka),y=need(P.yoko),nr=lift(P.naka,R[0]);
  document.getElementById('pace').innerHTML='いまのままだと中原さん約'+wk(n.wk)+'週・横尾さん約'+wk(y.wk)+'週。反応率が上がれば（中原さん）約'+wk(nr.wk)+'週。'})();
-// ファネル
+// ファネル（投稿の合計→面談の1本の鎖）
 var fn=document.getElementById('fn');
-STG.forEach(function(name,i){
- var st=document.createElement('div');st.className='st'+(i===STG.length-1?' last':'');
- st.innerHTML='<span class="n">'+name+'</span><span class="v" id="n'+i+'"></span>';fn.appendChild(st);
- if(i<R.length){var k=R[i],a=document.createElement('div');a.className='ar';a.id='ar_'+k.id;
-  a.innerHTML='<div class="stem"></div><div class="top"><span class="pct" id="p_'+k.id+'"></span><span class="lb">'+k.l+((k.fixed||k.note)?'<span class="nt">'+(k.fixed||k.note)+'</span>':'')+'</span><span class="worst">ここで一番落ちる</span></div>'+
-  (k.fixed?'':'<input type="range" id="k_'+k.id+'" min="'+k.min+'" max="'+k.max+'" step="'+k.step+'" aria-label="'+k.l+'">');
+STG.forEach(function(g,i){
+ var st=document.createElement('div');st.className='st'+(i===0?' first':i===STG.length-1?' last':'');
+ st.innerHTML='<span class="n">'+g.l+(g.sub?'<span class="sub">'+g.sub+(i===0?'</span><span class="sub" id="wk0">':'')+'</span>':'')+'</span><span class="v" id="n'+i+'"></span>';fn.appendChild(st);
+ if(i<A.length){var k=A[i],a=document.createElement('div');a.className='ar';a.id='ar_'+k.id;
+  a.innerHTML='<div class="stem"></div><div class="top"><span class="pct" id="p_'+k.id+'"></span><span class="lb">'+k.l+(k.note?'<span class="nt">'+k.note+'</span>':'')+'</span><span class="worst">ここで一番落ちる</span></div>'+
+  (k.fixed?'':'<input type="range" id="k_'+k.id+'" min="'+k.min+'" max="'+k.max+'" step="'+k.step+'" aria-label="'+(k.l2||k.l)+'">');
   fn.appendChild(a);}
 });
-document.getElementById('knobs').innerHTML='<div class="knob"><label for="k_view">'+V.l+'</label><span class="val" id="v_view"></span><input type="range" id="k_view" min="'+V.min+'" max="'+V.max+'" step="'+V.step+'"></div>';
 LEV.forEach(function(k){document.getElementById('k_'+k.id).addEventListener('input',function(e){S[k.id]=parseFloat(e.target.value);cur=null;calc()})});
 function calc(){
  var r=need(S);
  LEV.forEach(function(k){document.getElementById('k_'+k.id).value=S[k.id]});
- document.getElementById('v_view').textContent=fmt(S.view);
  [].forEach.call(box.querySelectorAll('.pre'),function(b){b.classList.toggle('on',b.dataset.p===cur)});
  document.getElementById('now').innerHTML='いま表示：<b>'+(cur?NAME[cur]:'自分で変更中')+'</b>';
  var wn=document.getElementById('wbnote');wn.hidden=cur!=='wb';document.getElementById('wbn').textContent=fmt(r.all);
@@ -220,19 +217,21 @@ function calc(){
  R.forEach(function(k){var v=rates[k.id],a=document.getElementById('ar_'+k.id);
   document.getElementById('p_'+k.id).textContent=pc(v);
   a.className='ar '+(v<=10?'hot':v<50?'mid':'low')+(k===lo?' worstrow':'')});
- r.n.forEach(function(x,i){document.getElementById('n'+i).textContent=Math.round(x).toLocaleString('ja-JP')+(i===4?' 件':' 人')});
- document.getElementById('res').innerHTML='<div class="d">面談1件に要る投稿の合計（求人以外も含む）</div><div class="big">'+fmt(r.all)+' 本</div>'+
-  '<div class="d">うち求人投稿 '+fmt(r.jp)+'本／1日2回で約'+wk(r.wk)+'週</div>';
+ r.n.forEach(function(x,i){document.getElementById('n'+i).textContent=Math.round(x).toLocaleString('ja-JP')+STG[i].u});
+ document.getElementById('wk0').textContent='1日2回で約'+wk(r.wk)+'週';
+ document.getElementById('p_ratio').textContent=RATIO+'本に1本';
+ document.getElementById('p_view').textContent='×'+fmt(S.view);
+ document.getElementById('ar_ratio').className='ar mul';document.getElementById('ar_view').className='ar mul';
  var rows=LEV.filter(function(k){return S[k.id]<k.cap}).map(function(k){var n=lift(S,k);return {k:k,saved:r.all-n.all,after:n.all,wk:n.wk}})
   .filter(function(x){return x.saved>0}).sort(function(a,b){return b.saved-a.saved});
  var c2=document.getElementById('concl2'),im=document.getElementById('imp');
  var reach=r.wk<=left;
- if(reach){c2.textContent='いまの率のままで12月に届く（約'+wk(r.wk)+'週）。'}
- else if(rows.length){var t=rows[0];c2.textContent='いまの率のままでは12月に届かない。'+t.k.l+'が上がれば'+fmt(t.after)+'本＝約'+wk(t.wk)+'週'+(t.wk<=left?'で届く':'')+'。だから来週は'+t.k.act+'。'}
- else{c2.textContent='いまの率のままでは12月に届かない。'}
+ if(reach){c2.textContent='いまの率のままで12月に届く（'+fmt(r.all)+'本＝約'+wk(r.wk)+'週）。'}
+ else if(rows.length){var t=rows[0];c2.textContent='いまの率のままでは'+fmt(r.all)+'本＝約'+wk(r.wk)+'週かかり、12月に届かない。'+(t.k.l2||t.k.l)+'が上がれば'+fmt(t.after)+'本＝約'+wk(t.wk)+'週'+(t.wk<=left?'で届く':'')+'。だから来週は'+t.k.act+'。'}
+ else{c2.textContent='いまの率のままでは'+fmt(r.all)+'本＝約'+wk(r.wk)+'週かかり、12月に届かない。'}
  if(!rows.length){im.innerHTML='<p class="sm">どの段を上げても、投稿の本数はこれ以上減りません。</p>';return}
  im.innerHTML='<p class="h">どこを上げると投稿が減るか（いま'+fmt(r.all)+'本）</p>'+
-  rows.slice(0,3).map(function(x){return '<p class="row">'+x.k.l+'を上げる → <b>'+fmt(x.after)+'本</b></p>'}).join('');
+  rows.slice(0,3).map(function(x){return '<p class="row">'+(x.k.l2||x.k.l)+'を上げる → <b>'+fmt(x.after)+'本</b></p>'}).join('');
 }
 [].forEach.call(box.querySelectorAll('.pre'),function(b){b.addEventListener('click',function(){var p=P[b.dataset.p];for(var x in p)S[x]=p[x];cur=b.dataset.p;calc()})});
 var p0=P.naka;for(var x in p0)S[x]=p0[x];calc();
