@@ -97,6 +97,71 @@ h1,h2,h3{word-break:auto-phrase}
 <p class="cap">歩留まり＝前の段の人数に対する割合。Indeedの「応募→有効応募→面談設定→面談実施」と同じ読み方。</p>
 </div>
 
+<h3 id="sim">歩留まりシミュレーター（つまみを動かす）</h3>
+<div class="fig" id="simbox">
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+  <button type="button" class="pre" data-p="wb">ホワイトボード</button>
+  <button type="button" class="pre" data-p="naka">中原さんの率</button>
+  <button type="button" class="pre" data-p="yoko">横尾さんの率</button>
+</div>
+<div class="knobs"></div>
+<div class="out" style="margin-top:10px"></div>
+<h4 style="font-size:14px;margin:14px 0 4px">どの段を上げると投稿数が一番減るか（その段だけ相場の上限まで上げた場合）</h4>
+<div class="imp"></div>
+<p class="cap">求人投稿の本数＝必要な閲覧 ÷ 求人投稿1本の閲覧。全投稿数＝求人投稿 × 「何本に1本が求人か」。週の本数は1人1日2回＝週14本で計算。相場の上限は、閲覧＝短い問いかけの中央値1,106、反応率3.6%（Buffer）、返信率12%（営業DMの上側）、面談化30%（仮置きの上側）。</p>
+</div>
+<style>
+.pre{font:inherit;font-size:13px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg);cursor:pointer}
+.pre.on{border-color:var(--accent);color:var(--accent);font-weight:700}
+.knob{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:center;margin:6px 0}
+.knob label{font-size:14px}
+.knob .val{font-weight:700;font-variant-numeric:tabular-nums;text-align:right;min-width:5em}
+.knob input[type=range]{grid-column:1/3;width:100%;accent-color:var(--accent)}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:6px}
+.res div{background:var(--bg);border-radius:8px;padding:6px 10px}
+.res .k{font-size:12px;color:var(--sub)}
+.res .v{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+.improw{display:grid;grid-template-columns:7.5em 1fr 4.5em;gap:6px;align-items:center;font-size:13px;margin:4px 0}
+.improw .bar{height:14px;border-radius:3px;background:var(--accent2)}
+.improw .n{text-align:right;font-variant-numeric:tabular-nums}
+</style>
+<script>
+(function(){
+var K=[
+ {id:'goal',l:'目標の面談数',min:1,max:10,step:1,u:'件'},
+ {id:'view',l:'求人投稿1本の閲覧',min:50,max:20000,step:50,u:'',cap:1106},
+ {id:'react',l:'反応率（閲覧→反応）',min:0.05,max:5,step:0.05,u:'%',cap:3.6},
+ {id:'dm',l:'DM打診率（反応→打診）',min:10,max:100,step:5,u:'%',cap:100},
+ {id:'reply',l:'返信率（打診→返信）',min:1,max:40,step:1,u:'%',cap:12},
+ {id:'meet',l:'面談化率（返信→面談）',min:5,max:60,step:1,u:'%',cap:30},
+ {id:'ratio',l:'求人投稿は何本に1本',min:1,max:14,step:1,u:'本に1本'}
+];
+var P={wb:{goal:1,view:10000,react:1,dm:100,reply:6,meet:17,ratio:7},
+       naka:{goal:1,view:750,react:0.15,dm:100,reply:6,meet:17,ratio:7},
+       yoko:{goal:1,view:150,react:1,dm:100,reply:6,meet:17,ratio:7}};
+var box=document.getElementById('simbox'),kn=box.querySelector('.knobs'),S={};
+function fmt(x){if(!isFinite(x))return '—';if(Number.isInteger(x)&&x<100)return String(x);if(x>=100)return Math.round(x).toLocaleString('ja-JP');if(x>=10)return x.toFixed(0);return x.toFixed(1)}
+K.forEach(function(k){var d=document.createElement('div');d.className='knob';
+ d.innerHTML='<label for="k_'+k.id+'">'+k.l+'</label><span class="val" id="v_'+k.id+'"></span><input type="range" id="k_'+k.id+'" min="'+k.min+'" max="'+k.max+'" step="'+k.step+'">';
+ kn.appendChild(d);d.querySelector('input').addEventListener('input',function(e){S[k.id]=parseFloat(e.target.value);mark(null);calc()})});
+function need(s){var perMeet=(s.react/100)*(s.dm/100)*(s.reply/100)*(s.meet/100);var views=s.goal/perMeet;var jp=Math.ceil(views/s.view);return {views:views,jp:jp,all:jp*s.ratio,weeks:jp*s.ratio/14,react:views*s.react/100,dm:views*s.react/100*s.dm/100,rep:views*s.react/100*s.dm/100*s.reply/100}}
+function calc(){K.forEach(function(k){document.getElementById('k_'+k.id).value=S[k.id];document.getElementById('v_'+k.id).textContent=(k.id==='react'?S[k.id].toFixed(2):S[k.id])+(k.u==='本に1本'?' 本に1本':k.u)});
+ var r=need(S);
+ box.querySelector('.out').innerHTML='<div class="res">'+
+ '<div><div class="k">必要な閲覧（求人投稿）</div><div class="v">'+fmt(r.views)+'</div></div>'+
+ '<div><div class="k">反応 → 打診 → 返信</div><div class="v" style="font-size:16px">'+fmt(r.react)+' → '+fmt(r.dm)+' → '+fmt(r.rep)+'</div></div>'+
+ '<div><div class="k">必要な求人投稿</div><div class="v">'+fmt(r.jp)+' 本</div></div>'+
+ '<div><div class="k">必要な全投稿</div><div class="v">'+fmt(r.all)+' 本</div></div>'+
+ '<div><div class="k">1日2回で</div><div class="v">約 '+fmt(r.weeks)+' 週</div></div></div>';
+ var rows=K.filter(function(k){return k.cap&&S[k.id]<k.cap}).map(function(k){var t={};for(var x in S)t[x]=S[x];t[k.id]=k.cap;var n=need(t);return {l:k.l.replace(/（.*）/,''),saved:r.all-n.all,after:n.all}}).sort(function(a,b){return b.saved-a.saved});
+ var mx=rows.length?rows[0].saved:1;
+ box.querySelector('.imp').innerHTML=rows.length?rows.map(function(x){return '<div class="improw"><span>'+x.l+'</span><div class="bar" style="width:'+Math.max(2,100*x.saved/mx)+'%"></div><span class="n">'+fmt(x.after)+'本</span></div>'}).join('')+'<p class="cap">右の数＝その段だけ上げたときの必要な全投稿数。棒が長いほど減る本数が大きい。</p>':'<p class="cap">全部の段が相場の上限以上です。</p>'}
+function mark(p){[].forEach.call(box.querySelectorAll('.pre'),function(b){b.classList.toggle('on',b.dataset.p===p)})}
+[].forEach.call(box.querySelectorAll('.pre'),function(b){b.addEventListener('click',function(){var p=P[b.dataset.p];for(var x in p)S[x]=p[x];mark(b.dataset.p);calc()})});
+var p0=P.wb;for(var x in p0)S[x]=p0[x];mark('wb');calc();
+})();
+</script>
+
 <h3>流れ：見てもらう → 反応 → DM → 面談</h3>
 <div class="fig">
 <svg viewBox="0 0 640 250" role="img" aria-label="趣味とCAの投稿で閲覧を集め、求人投稿に反応した人全員にDMで面談を打診する流れ">
