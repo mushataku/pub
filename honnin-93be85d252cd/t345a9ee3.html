@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="ja"><head><!--gp-portal:s--><meta name="x-build" content="8f9423be97"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e--><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="ja"><head><!--gp-portal:s--><meta name="x-build" content="5e534a43a0"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e--><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>GitHubのはじめかた 高木さん</title>
+<title>gitとGitHubのちがい 高木さん</title>
 <style>
 /* ===== 本人ページ共通（ひな形 2026-11-12） ===== */
 :root{color-scheme:light;
@@ -69,34 +69,43 @@ svg .s-acc{stroke:var(--acc);fill:none}
 svg .s-good{stroke:var(--good);fill:none}
 svg .s-fg{stroke:var(--fg);fill:none}
 
-/* コマンド */
-pre{margin:12px 0;padding:12px 14px;border-radius:10px;background:var(--box);border:1px solid var(--line);overflow-x:auto;font-size:15px;line-height:1.7}
 code{font-family:Consolas,"SFMono-Regular",Menlo,monospace;font-size:.92em}
-p code,li code{background:var(--box);border:1px solid var(--line);border-radius:5px;padding:0 .3em}
-pre .c{color:var(--mut)}
-pre code{background:none;border:0;padding:0;white-space:pre-wrap;overflow-wrap:anywhere}
-
-/* 手順 */
-.steps{list-style:none;margin:14px 0;padding:0;counter-reset:s}
-.steps>li{position:relative;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:14px 16px 14px 54px;margin:0 0 12px}
-.steps>li::before{counter-increment:s;content:counter(s);position:absolute;left:14px;top:14px;width:28px;height:28px;border-radius:50%;background:var(--accink);color:var(--bg);font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center}
-.steps>li>b:first-child{display:block;font-size:1.05rem;line-height:1.5;margin-bottom:4px}
-.steps p{margin:.5em 0}
-.steps figure{margin:12px 0 4px;padding:10px}
+p code,li code,td code{background:var(--box);border:1px solid var(--line);border-radius:5px;padding:0 .3em}
 
 .note{border-left:3px solid var(--acc);background:var(--accbg);border-radius:0 10px 10px 0;padding:10px 14px;margin:14px 0;font-size:15px;line-height:1.75}
 .ok{border-left:3px solid var(--good);background:var(--goodbg);border-radius:0 10px 10px 0;padding:10px 14px;margin:14px 0;font-size:15px;line-height:1.75}
+
+/* 段階の札（いまどの段か） */
+.stage{display:inline-block;font-size:13px;line-height:1.5;color:var(--accink);background:var(--accbg);border:1px solid var(--line);border-radius:999px;padding:1px 10px;margin:0 0 4px}
 
 /* 用語の札 */
 .terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:14px 0}
 .terms div{border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--card);font-size:15px;line-height:1.7}
 .terms b{display:block;color:var(--accink);font-size:1.02rem}
 
-/* つまずき */
-.trap{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:12px 16px;margin:0 0 12px}
-.trap .q{font-weight:700;line-height:1.6}
-.trap .a{margin:.4em 0 0;font-size:15px;line-height:1.75}
-.trap .a b{color:var(--goodink)}
+/* 比較表（狭い幅ではカードに組み直す） */
+.cmp{width:100%;border-collapse:separate;border-spacing:0;margin:14px 0;font-size:15px;line-height:1.7;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+.cmp th,.cmp td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.cmp tr:last-child th,.cmp tr:last-child td{border-bottom:0}
+.cmp thead th{background:var(--box);font-size:15px}
+.cmp thead th.g{color:var(--goodink)}
+.cmp thead th.h{color:var(--accink)}
+.cmp tbody th{width:26%;color:var(--mut);font-weight:700;background:var(--box)}
+@media (max-width:560px){
+  .cmp,.cmp tbody,.cmp tr,.cmp th,.cmp td{display:block;width:100%}
+  .cmp thead{display:none}
+  .cmp tbody tr{border-bottom:1px solid var(--line)}
+  .cmp tbody tr:last-child{border-bottom:0}
+  .cmp tbody th{border-bottom:0;padding:8px 12px 2px}
+  .cmp td{border-bottom:0;padding:4px 12px 4px 12px}
+  .cmp td::before{display:block;font-size:13px;font-weight:700}
+  .cmp td.g::before{content:"git";color:var(--goodink)}
+  .cmp td.h::before{content:"GitHub";color:var(--accink)}
+  .cmp td:last-child{padding-bottom:10px}
+}
+
+.next{display:block;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:14px 16px;margin:16px 0;text-decoration:none;color:var(--fg)}
+.next b{display:block;color:var(--accink);font-size:1.05rem}
 
 .sign{margin-top:3em;text-align:right;color:var(--mut);font-size:15px}
 
@@ -105,53 +114,99 @@ pre code{background:none;border:0;padding:0;white-space:pre-wrap;overflow-wrap:a
   .band div{padding:8px 16px}
   h1{font-size:1.4rem}
   figure{padding:8px 6px}
-  .steps>li{padding:12px 12px 12px 48px}
-  .steps>li::before{left:10px}
-  pre{font-size:14px}
 }
-</style></head><body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=8f9423be97">ホーム</a></li><li><a href="./te31e0ea6.html?v=8f9423be97">ご紹介したお仕事</a></li><li><a href="./t585095dd.html?v=8f9423be97">Pythonの練習</a></li><li class="gp-cur"><a href="./t345a9ee3.html?v=8f9423be97" aria-current="page">GitHubのはじめかた</a></li><li><a href="./t7911cd9e.html?v=8f9423be97">GitHubを始めるまで</a></li></ul></nav><!--gp-portal:e-->
-<div class="band" aria-hidden="true"><div><b>GitHubのはじめかた</b><span id="bandsec">はじめに</span></div></div>
+</style></head><body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=5e534a43a0">ホーム</a></li><li><a href="./te31e0ea6.html?v=5e534a43a0">ご紹介したお仕事</a></li><li><a href="./t585095dd.html?v=5e534a43a0">Pythonの練習</a></li><li class="gp-cur"><a href="./t345a9ee3.html?v=5e534a43a0" aria-current="page">gitとGitHubのちがい</a></li><li><a href="./t7911cd9e.html?v=5e534a43a0">GitHubを始めるまで</a></li></ul></nav><!--gp-portal:e-->
+<div class="band" aria-hidden="true"><div><b>gitとGitHubのちがい</b><span id="bandsec">はじめに</span></div></div>
 <main>
-<h1>高木さんへ　GitとGitHubのはじめかた</h1>
+<h1>高木さんへ　gitとGitHubのちがい</h1>
 <p class="meta">11月20日（金）　／　株式会社SeeD 武者野</p>
-<p>Pythonの練習と合わせて、GitとGitHubも触っておくと面接で見せられるものが一気に増えます。図を多めにして、「そもそも何なのか」から「Windowsで入れて、最初のファイルを置く」までをまとめました。上から順に読めば、30分〜1時間ほどで最初の1回までたどり着けます。</p>
+<p>「git」と「GitHub」は名前がそっくりですが、<b class="k">別のもの</b>です。このタブでは、2つがそれぞれ何で、どうつながっているのかを、困りごとから順に4段で説明します。実際に入れて使い始める手順は「GitHubを始めるまで」のタブにまとめました。</p>
+
+<figure>
+<svg viewBox="0 0 480 150" role="img" aria-label="このタブの4段の流れ">
+  <g font-size="15">
+    <rect x="6" y="20" width="104" height="80" rx="10" class="f-box"/>
+    <text x="20" y="48" class="b t-acc">1 困りごと</text><text x="20" y="74" class="t-mut">最終版_v2</text><text x="20" y="92" class="t-mut">が増える</text>
+    <rect x="126" y="20" width="104" height="80" rx="10" class="f-goodbg"/>
+    <text x="140" y="48" class="b t-good">2 git</text><text x="140" y="74" class="t-mut">PCで記録を</text><text x="140" y="92" class="t-mut">取る道具</text>
+    <rect x="246" y="20" width="104" height="80" rx="10" class="f-accbg"/>
+    <text x="260" y="48" class="b t-acc">3 GitHub</text><text x="260" y="74" class="t-mut">記録を置く</text><text x="260" y="92" class="t-mut">ネットの場所</text>
+    <rect x="366" y="20" width="108" height="80" rx="10" class="f-box"/>
+    <text x="380" y="48" class="b">4 つながり</text><text x="380" y="74" class="t-mut">push と</text><text x="380" y="92" class="t-mut">pull</text>
+  </g>
+  <g class="s-mut" stroke-width="2.5"><path d="M112 60 h12"/><path d="M232 60 h12"/><path d="M352 60 h12"/></g>
+  <text x="6" y="134" class="t-mut" font-size="15">1段ずつ、前の段の続きとして読めるようにしています。</text>
+</svg>
+<figcaption>困りごと → それを解く道具（git）→ その記録を置く場所（GitHub）→ 2つのつながり、の順です。</figcaption>
+</figure>
 
 <ol class="toc" aria-label="目次">
-<li><a href="#git"><span class="n">1</span>Gitとは</a></li>
-<li><a href="#github"><span class="n">2</span>GitHubとは</a></li>
-<li><a href="#words"><span class="n">3</span>用語を図で</a></li>
-<li><a href="#setup"><span class="n">4</span>導入の仕方（Windows）</a></li>
-<li><a href="#practice"><span class="n">5</span>最初の練習</a></li>
-<li><a href="#trouble"><span class="n">6</span>つまずきやすい所</a></li>
+<li><a href="#trouble"><span class="n">1</span>困りごと：「最終版_v2」</a></li>
+<li><a href="#git"><span class="n">2</span>git＝PCで記録を取る道具</a></li>
+<li><a href="#github"><span class="n">3</span>GitHub＝記録を置く場所</a></li>
+<li><a href="#link"><span class="n">4</span>2つの関係：push と pull</a></li>
+<li><a href="#diff"><span class="n">5</span>ちがいを表で</a></li>
+<li><a href="#why"><span class="n">6</span>転職でどう役に立つか</a></li>
 </ol>
 
 <!-- ============ 1 ============ -->
-<h2 id="git" data-sec="1. Gitとは">1. Gitとは　ファイルの「セーブポイント」を残す道具</h2>
-<p>VBAのマクロを直すとき、壊すのが怖くて <code>_v2</code> <code>_最終</code> <code>_最終2</code> とファイルをコピーしていった経験はないでしょうか。Gitは、あのコピーを<b class="k">ファイル1つのまま</b>やってくれる道具です。</p>
+<h2 id="trouble" data-sec="1. 困りごと">1. 困りごと　ファイル名に「最終版_v2」が増えていく</h2>
+<p class="stage">段1／4</p>
+<p>VBAのマクロや報告書を直すとき、壊すのが怖くて元のファイルをコピーしてから触った経験はないでしょうか。続けていくと、フォルダの中がこうなります。</p>
 
 <figure>
-<svg viewBox="0 0 480 400" role="img" aria-label="ファイル名で版を管理する方法とGitの比較">
+<svg viewBox="0 0 480 260" role="img" aria-label="コピーが増えていくフォルダ">
+  <path d="M20 30 h120 l20 20 h300 v190 h-440 z" class="f-box"/>
+  <text x="36" y="24" class="b t-mut" font-size="17">報告書のフォルダ</text>
+  <g font-size="16">
+    <rect x="40" y="66" width="220" height="32" rx="5" class="f-card"/><text x="52" y="88">報告.xlsm</text>
+    <rect x="40" y="104" width="220" height="32" rx="5" class="f-card"/><text x="52" y="126">報告_v2.xlsm</text>
+    <rect x="40" y="142" width="220" height="32" rx="5" class="f-card"/><text x="52" y="164">報告_最終版.xlsm</text>
+    <rect x="40" y="180" width="220" height="32" rx="5" class="f-card"/><text x="52" y="202">報告_最終版_v2.xlsm</text>
+  </g>
+  <rect x="280" y="66" width="164" height="146" rx="8" class="f-accbg"/>
+  <g font-size="16" class="t-acc">
+    <text x="294" y="96" class="b">困ること</text>
+    <text x="294" y="124">・どれが最新？</text>
+    <text x="294" y="150">・何を変えた？</text>
+    <text x="294" y="176">・どこで壊れた？</text>
+    <text x="294" y="202">・誰が直した？</text>
+  </g>
+</svg>
+<figcaption>コピーで版を残すと、ファイルが増えるうえに「何を・いつ・なぜ変えたか」はどこにも残りません。</figcaption>
+</figure>
+
+<p>この困りごとを解くのが、次の段の <b class="k">git</b> です。</p>
+
+<!-- ============ 2 ============ -->
+<h2 id="git" data-sec="2. git＝記録を取る道具">2. git＝自分のPCで、変更の記録を取る道具</h2>
+<p class="stage">段2／4</p>
+<p>git（ギット）は、自分のパソコンに入れて使う<b class="k">ソフト</b>です。ファイルはコピーせず1つのまま、「ここまで動いた」という時点ごとに記録を残します。記録の1つ1つを<b class="k">コミット</b>と呼び、それぞれに「何を変えたか」のひとことメモが付きます。</p>
+
+<figure>
+<svg viewBox="0 0 480 400" role="img" aria-label="ファイル名で版を管理する方法とgitの比較">
   <text x="20" y="32" class="b t-mut" font-size="20">これまで：コピーが増えていく</text>
   <g font-size="17">
     <rect x="20" y="48" width="200" height="40" rx="6" class="f-box"/><text x="34" y="74">報告.xlsm</text>
     <rect x="34" y="96" width="200" height="40" rx="6" class="f-box"/><text x="48" y="122">報告_v2.xlsm</text>
-    <rect x="48" y="144" width="200" height="40" rx="6" class="f-box"/><text x="62" y="170">報告_最終.xlsm</text>
-    <rect x="62" y="192" width="200" height="40" rx="6" class="f-accbg"/><text x="76" y="218" class="t-acc">報告_最終2.xlsm</text>
+    <rect x="48" y="144" width="200" height="40" rx="6" class="f-box"/><text x="62" y="170">報告_最終版.xlsm</text>
+    <rect x="62" y="192" width="200" height="40" rx="6" class="f-accbg"/><text x="76" y="218" class="t-acc">報告_最終版_v2…</text>
   </g>
   <text x="282" y="110" class="t-mut" font-size="17">どれが最新？</text>
   <text x="282" y="136" class="t-mut" font-size="17">何を変えた？</text>
   <text x="282" y="162" class="t-mut" font-size="17">が分からない</text>
   <line x1="20" y1="256" x2="460" y2="256" class="s-line" stroke-width="2"/>
-  <text x="20" y="290" class="b t-good" font-size="20">Git：ファイルは1つ、記録が残る</text>
+  <text x="20" y="290" class="b t-good" font-size="20">git：ファイルは1つ、記録が残る</text>
   <rect x="20" y="306" width="120" height="44" rx="6" class="f-goodbg"/><text x="38" y="334" font-size="17">報告.xlsm</text>
   <line x1="160" y1="328" x2="460" y2="328" class="s-good" stroke-width="3"/>
   <g class="f-good"><circle cx="190" cy="328" r="9"/><circle cx="280" cy="328" r="9"/><circle cx="370" cy="328" r="9"/><circle cx="450" cy="328" r="11"/></g>
   <g font-size="17" class="t-mut"><text x="170" y="374">作成</text><text x="250" y="374">集計追加</text><text x="345" y="374">バグ修正</text><text x="428" y="374" class="t-good b">いま</text></g>
 </svg>
-<figcaption>コピーを並べるやり方だと、どれが最新で何を変えたかが分からなくなります。Gitはファイルを1つのまま、変えた時点ごとに記録を残します。</figcaption>
+<figcaption>gitを使うと、フォルダの中のファイルは1つのまま、変えた時点ごとの記録（丸）が積み重なります。</figcaption>
 </figure>
 
-<p>ゲームのセーブポイントと同じで、「ここまでうまく動いた」という時点に名前を付けて記録しておけます。あとで壊しても、記録した時点へいつでも戻れます。記録ごとに「何を変えたか」のひとことメモも付くので、半年後に見返しても経緯が分かります。</p>
+<h3>記録した時点へ、いつでも戻れる</h3>
+<p>ゲームのセーブポイントと同じです。書き換えて壊してしまっても、記録した時点へ戻せます。だから気軽に試せます。</p>
 
 <figure>
 <svg viewBox="0 0 480 230" role="img" aria-label="セーブポイントに戻れる図">
@@ -167,42 +222,228 @@ pre code{background:none;border:0;padding:0;white-space:pre-wrap;overflow-wrap:a
   <path d="M276 124 L284 108 L296 122" class="s-good" stroke-width="3"/>
   <text x="250" y="214" class="t-good b" font-size="18">③の時点へすぐ戻せる</text>
 </svg>
-<figcaption>記録（セーブポイント）さえ残しておけば、壊れたときに動いていた時点へ戻せます。だから気軽に書き換えを試せます。</figcaption>
+<figcaption>記録さえ残しておけば、壊れたときに動いていた時点へ戻せます。</figcaption>
 </figure>
 
-<!-- ============ 2 ============ -->
-<h2 id="github" data-sec="2. GitHubとは">2. GitHubとは　Gitの記録を置くネット上の場所</h2>
-<p>Gitは自分のパソコンの中で動く道具です。<b class="k">GitHub</b>（ギットハブ）は、その記録をネット上に置いておくサービスです。Gitが「セーブ機能」なら、GitHubは「セーブデータを預けるクラウド」にあたります。名前が似ていますが、別のものです。</p>
+<h3>記録はフォルダの中にしまわれる</h3>
+<p>gitで記録を取るフォルダを<b class="k">リポジトリ</b>と呼びます。見た目は普通のフォルダで、中に <code>.git</code> という隠しフォルダができ、記録はそこにたまります。</p>
+
+<figure>
+<svg viewBox="0 0 480 210" role="img" aria-label="リポジトリの中身">
+  <path d="M20 40 h120 l20 20 h300 v130 h-440 z" class="f-goodbg"/>
+  <path d="M20 40 h120 l20 20 h300 v130 h-440 z" class="s-good" stroke-width="2"/>
+  <text x="36" y="34" class="b t-good" font-size="18">python-practice（リポジトリ）</text>
+  <g font-size="16">
+    <rect x="40" y="78" width="180" height="34" rx="5" class="f-card"/><text x="52" y="101">make_data.py</text>
+    <rect x="40" y="120" width="180" height="34" rx="5" class="f-card"/><text x="52" y="143">count.py</text>
+  </g>
+  <rect x="250" y="78" width="190" height="88" rx="6" class="f-box"/>
+  <text x="262" y="102" class="b" font-size="16">.git（隠しフォルダ）</text>
+  <text x="262" y="128" class="t-mut" font-size="16">ここに記録が</text>
+  <text x="262" y="150" class="t-mut" font-size="16">全部しまわれている</text>
+  <text x="40" y="180" class="t-mut" font-size="16">ふだん触るのはこっち</text>
+</svg>
+<figcaption>ふだん触るのは左のファイルだけです。<code>.git</code> の中は手で触りません。</figcaption>
+</figure>
+
+<h3>gitだけでも使える（ネットがなくても動く）</h3>
+<p>ここが大事な点です。gitはパソコンの中だけで完結します。インターネットにつながっていなくても、記録を取る・戻すはできます。gitを作ったのはLinuxの開発者で、無料で誰でも使えます。</p>
+
+<figure>
+<svg viewBox="0 0 480 210" role="img" aria-label="gitはPCの中だけで動く図">
+  <rect x="20" y="30" width="250" height="160" rx="12" class="f-goodbg"/>
+  <rect x="20" y="30" width="250" height="160" rx="12" class="s-good" stroke-width="2"/>
+  <text x="38" y="62" class="b t-good" font-size="18">高木さんのPC</text>
+  <rect x="40" y="80" width="210" height="44" rx="6" class="f-card"/>
+  <text x="54" y="108" font-size="16">git（入れたソフト）</text>
+  <line x1="52" y1="156" x2="240" y2="156" class="s-good" stroke-width="3"/>
+  <g class="f-good"><circle cx="70" cy="156" r="8"/><circle cx="130" cy="156" r="8"/><circle cx="190" cy="156" r="8"/><circle cx="236" cy="156" r="9"/></g>
+  <path d="M310 60 a26 26 0 0 1 8 -50 a34 34 0 0 1 64 4 a24 24 0 0 1 22 46 z" class="f-box"/>
+  <text x="330" y="44" class="t-mut" font-size="15">ネット</text>
+  <path d="M300 90 L420 170 M420 90 L300 170" class="s-mut" stroke-width="3"/>
+  <text x="296" y="200" class="t-mut" font-size="15">つながっていなくても</text>
+</svg>
+<figcaption>gitは自分のPCの中で記録を取ります。ここまでの段では、まだネットは登場しません。</figcaption>
+</figure>
+
+<!-- ============ 3 ============ -->
+<h2 id="github" data-sec="3. GitHub＝記録を置く場所">3. GitHub＝gitの記録を置いて、見せ合うネット上の場所</h2>
+<p class="stage">段3／4</p>
+<p>gitの記録はPCの中にあるので、そのままでは他の人に見せられませんし、PCが壊れれば一緒に消えます。そこで、記録を丸ごとネット上に預けておく場所が <b class="k">GitHub</b>（ギットハブ）です。ソフトではなく、ブラウザで開く<b class="k">Webサービス</b>です（会社としてはマイクロソフトの傘下にあります）。</p>
+
+<figure>
+<svg viewBox="0 0 480 240" role="img" aria-label="gitは道具、GitHubは場所">
+  <rect x="14" y="20" width="214" height="200" rx="12" class="f-goodbg"/>
+  <text x="32" y="54" class="b t-good" font-size="20">git</text>
+  <text x="32" y="80" class="t-mut" font-size="16">＝ 道具（ソフト）</text>
+  <rect x="32" y="98" width="178" height="70" rx="8" class="f-card"/>
+  <text x="48" y="128" font-size="16">記録を取る</text>
+  <text x="48" y="152" font-size="16">記録へ戻す</text>
+  <text x="32" y="200" class="t-mut" font-size="15">置き場所：自分のPC</text>
+  <rect x="252" y="20" width="214" height="200" rx="12" class="f-accbg"/>
+  <text x="270" y="54" class="b t-acc" font-size="20">GitHub</text>
+  <text x="270" y="80" class="t-mut" font-size="16">＝ 場所（Webサービス）</text>
+  <rect x="270" y="98" width="178" height="70" rx="8" class="f-card"/>
+  <text x="286" y="128" font-size="16">記録を預ける</text>
+  <text x="286" y="152" font-size="16">記録を見せる</text>
+  <text x="270" y="200" class="t-mut" font-size="15">置き場所：ネット上</text>
+</svg>
+<figcaption>たとえるなら、gitは「カメラ」、GitHubは「写真を預けて見せられるアルバムのサイト」です。カメラだけでも写真は撮れます。</figcaption>
+</figure>
 
 <figure>
 <svg viewBox="0 0 480 300" role="img" aria-label="手元のパソコンとGitHubの関係">
-  <!-- PC -->
   <rect x="20" y="150" width="170" height="110" rx="10" class="f-box"/>
   <rect x="34" y="164" width="142" height="70" rx="4" class="f-card"/>
   <text x="56" y="196" class="b" font-size="18">手元のPC</text>
-  <text x="56" y="222" class="t-mut" font-size="17">Gitで記録</text>
+  <text x="56" y="222" class="t-mut" font-size="17">gitで記録</text>
   <rect x="80" y="260" width="50" height="10" rx="2" class="f-line"/>
-  <!-- cloud -->
   <path d="M300 112 a40 40 0 0 1 10 -78 a52 52 0 0 1 98 6 a36 36 0 0 1 32 72 z" class="f-accbg"/>
   <path d="M300 112 a40 40 0 0 1 10 -78 a52 52 0 0 1 98 6 a36 36 0 0 1 32 72 z" class="s-acc" stroke-width="2"/>
   <text x="322" y="72" class="b t-acc" font-size="20">GitHub</text>
   <text x="318" y="98" class="t-mut" font-size="17">ネット上の保管所</text>
-  <!-- arrows -->
   <path d="M170 146 L300 96" class="s-acc" stroke-width="3"/>
   <path d="M286 90 L302 95 L292 108" class="s-acc" stroke-width="3"/>
-  <text x="20" y="96" class="b t-acc" font-size="17">プッシュ（上げる）</text>
-  <path d="M340 128 L210 178" class="s-good" stroke-width="3"/>
-  <path d="M224 184 L208 179 L218 166" class="s-good" stroke-width="3"/>
-  <text x="270" y="190" class="b t-good" font-size="17">プル（取ってくる）</text>
-  <!-- others -->
+  <text x="20" y="96" class="b t-acc" font-size="17">預ける</text>
   <text x="300" y="250" class="t-mut" font-size="17">別のPCや</text>
   <text x="300" y="272" class="t-mut" font-size="17">面接官もここを見られる</text>
 </svg>
-<figcaption>作業と記録は手元のPCで行い、できた記録をGitHubへ「プッシュ」で上げます。逆向きにGitHubから取ってくるのが「プル」です。</figcaption>
+<figcaption>記録を作るのは手元のPC（git）、預けて人に見せるのがGitHubです。預け方は次の段で説明します。</figcaption>
 </figure>
 
-<h3>転職でポートフォリオになる理由</h3>
-<p>IT職の面接では「Pythonを勉強しています」と言うより、「これが書いたコードです」とURLを1本見せる方がずっと伝わります。GitHubに置いたコードは、ファイルの中身に加えて<b class="k">いつ・どのくらいの頻度で・何を直してきたか</b>の記録まで見えます。毎週少しずつ記録が積み上がっていれば、それ自体が「続けて勉強している」証拠になります。社内SEやDX推進の求人で「GitHubのURLがあれば記入」という欄があるのも、このためです。</p>
+<p class="cap">GitHubと同じように記録を預けられるサービスは他にもあります（GitLab など）。gitはどのサービスとも組み合わせられます。求人票やIT企業でいちばんよく名前が出るのがGitHubです。</p>
+
+<!-- ============ 4 ============ -->
+<h2 id="link" data-sec="4. 2つの関係">4. 2つの関係　ローカルとリモート、push と pull</h2>
+<p class="stage">段4／4</p>
+<p>gitとGitHubを組み合わせると、同じリポジトリが<b class="k">2か所</b>にできます。手元のPCにあるものを<b class="k">ローカル</b>、GitHubにあるものを<b class="k">リモート</b>（離れた所）と呼びます。</p>
+
+<figure>
+<svg viewBox="0 0 480 280" role="img" aria-label="ローカルとリモートの2つのリポジトリ">
+  <rect x="14" y="150" width="452" height="110" rx="12" class="f-goodbg"/>
+  <text x="30" y="178" class="b t-good" font-size="17">ローカル（高木さんのPC）</text>
+  <line x1="40" y1="220" x2="440" y2="220" class="s-good" stroke-width="3"/>
+  <g class="f-good"><circle cx="70" cy="220" r="9"/><circle cx="160" cy="220" r="9"/><circle cx="250" cy="220" r="9"/><circle cx="380" cy="220" r="11"/></g>
+  <text x="352" y="250" class="t-good b" font-size="15">新しい記録</text>
+  <rect x="14" y="20" width="452" height="100" rx="12" class="f-accbg"/>
+  <text x="30" y="48" class="b t-acc" font-size="17">リモート（GitHub）</text>
+  <line x1="40" y1="84" x2="440" y2="84" class="s-acc" stroke-width="3"/>
+  <g class="f-acc"><circle cx="70" cy="84" r="9"/><circle cx="160" cy="84" r="9"/><circle cx="250" cy="84" r="9"/></g>
+  <circle cx="380" cy="84" r="11" class="s-acc" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <text x="300" y="48" class="t-mut" font-size="15">まだ届いていない</text>
+</svg>
+<figcaption>ローカルで記録を足しても、それだけではリモートには届きません。2つは自動ではそろわず、自分でそろえます。</figcaption>
+</figure>
+
+<p>そろえる操作は2つだけです。</p>
+<div class="terms">
+<div><b>push（プッシュ）</b>ローカルの新しい記録を、リモート（GitHub）へ上げる。</div>
+<div><b>pull（プル）</b>リモートにある新しい記録を、ローカルへ取ってくる。</div>
+</div>
+
+<figure>
+<svg viewBox="0 0 480 360" role="img" aria-label="add、commit、push、pullの流れ">
+  <rect x="20" y="20" width="200" height="60" rx="8" class="f-box"/>
+  <text x="36" y="46" class="b" font-size="17">① ファイルを直す</text>
+  <text x="36" y="68" class="t-mut" font-size="16">いつもどおり編集・保存</text>
+  <path d="M120 82 v30" class="s-mut" stroke-width="3"/><path d="M112 104 l8 10 l8 -10" class="s-mut" stroke-width="3"/>
+  <text x="140" y="104" class="mono t-mut" font-size="17">git add</text>
+  <rect x="20" y="120" width="200" height="60" rx="8" class="f-box"/>
+  <text x="36" y="146" class="b" font-size="17">② 記録に入れる物を選ぶ</text>
+  <text x="36" y="168" class="t-mut" font-size="16">「これを記録する」と指定</text>
+  <path d="M120 182 v30" class="s-mut" stroke-width="3"/><path d="M112 204 l8 10 l8 -10" class="s-mut" stroke-width="3"/>
+  <text x="140" y="204" class="mono t-mut" font-size="17">git commit</text>
+  <rect x="20" y="220" width="200" height="60" rx="8" class="f-goodbg"/>
+  <text x="36" y="246" class="b t-good" font-size="17">③ 記録（コミット）完成</text>
+  <text x="36" y="268" class="t-mut" font-size="16">まだローカルだけ</text>
+  <rect x="290" y="120" width="170" height="160" rx="10" class="f-accbg"/>
+  <rect x="290" y="120" width="170" height="160" rx="10" class="s-acc" stroke-width="2"/>
+  <text x="330" y="190" class="b t-acc" font-size="20">GitHub</text>
+  <text x="314" y="216" class="t-mut" font-size="16">リモート</text>
+  <path d="M222 240 L286 200" class="s-acc" stroke-width="3"/><path d="M272 196 L288 199 L282 214" class="s-acc" stroke-width="3"/>
+  <text x="300" y="304" class="mono b t-acc" font-size="17">git push</text>
+  <text x="300" y="326" class="b t-acc" font-size="16">④上げる</text>
+  <path d="M290 150 C 250 120, 250 60, 226 52" class="s-good" stroke-width="3"/><path d="M238 46 L224 52 L236 62" class="s-good" stroke-width="3"/>
+  <text x="270" y="56" class="mono b t-good" font-size="17">git pull</text>
+  <text x="270" y="78" class="t-good" font-size="16">新しい記録を取ってくる</text>
+  <text x="20" y="314" class="t-mut" font-size="16">①〜③はgitだけの仕事（ローカル）。</text>
+  <text x="20" y="338" class="t-mut" font-size="16">④で初めてGitHubが登場する。</text>
+</svg>
+<figcaption>①〜③は全部gitの仕事で、ネットは要りません。GitHubとやりとりするのは④の push と、逆向きの pull だけです。</figcaption>
+</figure>
+
+<h3>そろえる順番：先に取ってきて、それから上げる</h3>
+<p>GitHubの画面で直接ファイルを直した場合など、リモートの方が新しいときは、先に pull で取ってきてそろえてから push します。</p>
+
+<figure>
+<svg viewBox="0 0 480 210" role="img" aria-label="pullしてからpushする図">
+  <text x="10" y="56" class="t-mut" font-size="17">リモート</text>
+  <line x1="90" y1="50" x2="460" y2="50" class="s-acc" stroke-width="3"/>
+  <g class="f-acc"><circle cx="110" cy="50" r="9"/><circle cx="180" cy="50" r="9"/><circle cx="260" cy="50" r="10"/></g>
+  <text x="260" y="26" class="t-acc b" font-size="17" text-anchor="middle">画面で直した分</text>
+  <text x="10" y="166" class="t-mut" font-size="17">ローカル</text>
+  <line x1="90" y1="160" x2="460" y2="160" class="s-good" stroke-width="3"/>
+  <g class="f-good"><circle cx="110" cy="160" r="9"/><circle cx="180" cy="160" r="9"/><circle cx="260" cy="160" r="9"/><circle cx="420" cy="160" r="11"/></g>
+  <path d="M260 64 L260 144" class="s-good" stroke-width="3"/><path d="M252 134 l8 12 l8 -12" class="s-good" stroke-width="3"/>
+  <text x="274" y="110" class="mono b t-good" font-size="17">① git pull</text>
+  <path d="M420 146 L420 66" class="s-acc" stroke-width="3"/><path d="M412 76 l8 -12 l8 12" class="s-acc" stroke-width="3"/>
+  <text x="420" y="198" class="mono b t-acc" font-size="17" text-anchor="middle">② git push</text>
+</svg>
+<figcaption>まず取ってきてそろえる（①）→ それから上げる（②）。逆の順だとGitHubに断られます。</figcaption>
+</figure>
+
+<h3>ひと言だけ：ブランチ</h3>
+<p>慣れてくると出てくる言葉に<b class="k">ブランチ</b>（枝）があります。これもgitの機能です。最初のうちは本線の <code>main</code> 1本だけで十分なので、名前だけ覚えておけば大丈夫です。</p>
+
+<figure>
+<svg viewBox="0 0 480 230" role="img" aria-label="ブランチの枝分かれ">
+  <line x1="30" y1="150" x2="460" y2="150" class="s-good" stroke-width="4"/>
+  <g class="f-good"><circle cx="60" cy="150" r="11"/><circle cx="150" cy="150" r="11"/><circle cx="330" cy="150" r="11"/><circle cx="430" cy="150" r="13"/></g>
+  <text x="30" y="196" class="b t-good" font-size="17">main（本線・動く版）</text>
+  <path d="M150 150 C 180 70, 200 70, 230 70 L 300 70 C 320 70, 320 120, 330 150" class="s-acc" stroke-width="4"/>
+  <g class="f-acc"><circle cx="230" cy="70" r="10"/><circle cx="290" cy="70" r="10"/></g>
+  <text x="180" y="40" class="b t-acc" font-size="17">試しの枝</text>
+  <text x="300" y="40" class="t-mut" font-size="17">うまくいったら合流</text>
+  <text x="250" y="222" class="t-mut" font-size="17">本線は動いたまま守られる</text>
+</svg>
+<figcaption>新しいことを試すときは本線から枝を出して作業し、うまくいったら本線へ合流させます。</figcaption>
+</figure>
+
+<!-- ============ 5 ============ -->
+<h2 id="diff" data-sec="5. ちがいを表で">5. ちがいを表で</h2>
+<p>ここまでを1枚の表にまとめます。</p>
+
+<table class="cmp">
+<thead><tr><th scope="col"></th><th scope="col" class="g">git</th><th scope="col" class="h">GitHub</th></tr></thead>
+<tbody>
+<tr><th scope="row">何か</th><td class="g">ソフト（道具）</td><td class="h">Webサービス（場所）</td></tr>
+<tr><th scope="row">どこで動くか</th><td class="g">自分のPCの中</td><td class="h">ネット上（ブラウザで開く）</td></tr>
+<tr><th scope="row">何をするか</th><td class="g">変更の記録を取る・前の記録へ戻す</td><td class="h">記録を預ける・人に見せる・共有する</td></tr>
+<tr><th scope="row">相手が無くても使えるか</th><td class="g">使える（GitHubが無くても、ネットが無くても動く）</td><td class="h">gitで作った記録を置く場所なので、gitとセットで使う</td></tr>
+<tr><th scope="row">入れ方</th><td class="g">PCにインストールする</td><td class="h">アカウントを作る（インストールは要らない）</td></tr>
+<tr><th scope="row">お金</th><td class="g">無料</td><td class="h">個人で使う分は無料プランで足りる（有料プランもある）</td></tr>
+<tr><th scope="row">主なコマンド・操作</th><td class="g"><code>add</code>・<code>commit</code></td><td class="h"><code>push</code> で上げる・<code>pull</code> で取ってくる・画面で見る</td></tr>
+</tbody>
+</table>
+
+<figure>
+<svg viewBox="0 0 480 220" role="img" aria-label="gitとGitHubの守備範囲">
+  <rect x="14" y="20" width="270" height="180" rx="14" class="f-goodbg"/>
+  <rect x="196" y="20" width="270" height="180" rx="14" class="f-accbg" opacity=".85"/>
+  <text x="30" y="54" class="b t-good" font-size="18">git の仕事</text>
+  <g font-size="16"><text x="30" y="90">記録を取る</text><text x="30" y="118">前へ戻す</text><text x="30" y="146">枝を出す</text></g>
+  <text x="300" y="54" class="b t-acc" font-size="17">GitHub の仕事</text>
+  <g font-size="16"><text x="330" y="90">預ける</text><text x="330" y="118">見せる</text><text x="330" y="146">共有する</text></g>
+  <text x="212" y="98" class="b" font-size="16">push</text>
+  <text x="212" y="126" class="b" font-size="16">pull</text>
+  <text x="208" y="182" class="t-mut" font-size="14">2つの重なり</text>
+</svg>
+<figcaption>2つが重なるのは push と pull だけです。それ以外はgitだけ、またはGitHubだけの仕事です。</figcaption>
+</figure>
+
+<!-- ============ 6 ============ -->
+<h2 id="why" data-sec="6. 転職でどう役に立つか">6. 転職でどう役に立つか</h2>
+<p>IT職の面接では「Pythonを勉強しています」と言うより、「これが書いたコードです」とURLを1本見せる方がずっと伝わります。GitHubに置いたコードは、中身に加えて<b class="k">いつ・どのくらいの頻度で・何を直してきたか</b>の記録まで見えます。毎週少しずつ記録が積み上がっていれば、それ自体が「続けて勉強している」証拠になります。</p>
 
 <figure>
 <svg viewBox="0 0 480 270" role="img" aria-label="GitHubのページの見え方の簡略図">
@@ -210,7 +451,7 @@ pre code{background:none;border:0;padding:0;white-space:pre-wrap;overflow-wrap:a
   <rect x="10" y="10" width="460" height="36" rx="10" class="f-line"/>
   <circle cx="34" cy="28" r="6" class="f-mut"/><circle cx="54" cy="28" r="6" class="f-mut"/>
   <rect x="78" y="18" width="250" height="20" rx="10" class="f-card"/>
-  <text x="90" y="33" class="t-mut mono" font-size="15">github.com/あなたの名前</text>
+  <text x="90" y="33" class="t-mut mono" font-size="15">github.com/ユーザー名</text>
   <circle cx="60" cy="96" r="30" class="f-accbg"/>
   <text x="49" y="104" class="t-acc b" font-size="22">高</text>
   <text x="104" y="90" class="b" font-size="18">高木さんのページ</text>
@@ -233,297 +474,11 @@ pre code{background:none;border:0;padding:0;white-space:pre-wrap;overflow-wrap:a
 <figcaption>面接官が見るのはこういうページです（画面は簡略化しています）。置いたコードの一覧と、記録を積み上げた日が並びます。</figcaption>
 </figure>
 
-<!-- ============ 3 ============ -->
-<h2 id="words" data-sec="3. 用語を図で">3. 用語を図で</h2>
-<p>最初に覚える言葉は5つだけです。</p>
-<div class="terms">
-<div><b>リポジトリ</b>記録を取る対象のフォルダ。略して「リポ」。</div>
-<div><b>コミット</b>セーブポイントを1つ作ること。メモ付き。</div>
-<div><b>プッシュ</b>手元の記録をGitHubへ上げること。</div>
-<div><b>プル</b>GitHubの新しい記録を手元へ取ってくること。</div>
-<div><b>ブランチ</b>本線から枝分かれして試す道。</div>
-</div>
+<div class="note">面接で聞かれたら、「gitで手元の変更を記録して、GitHubに push して公開しています」と言えれば十分です。gitとGitHubを分けて言えること自体が、分かっている人の言い方になります。</div>
 
-<h3>リポジトリ　＝　記録付きのフォルダ</h3>
-<figure>
-<svg viewBox="0 0 480 210" role="img" aria-label="リポジトリの中身">
-  <path d="M20 40 h120 l20 20 h300 v130 h-440 z" class="f-accbg"/>
-  <path d="M20 40 h120 l20 20 h300 v130 h-440 z" class="s-acc" stroke-width="2"/>
-  <text x="36" y="34" class="b t-acc" font-size="18">python-practice（リポジトリ）</text>
-  <g font-size="16">
-    <rect x="40" y="78" width="180" height="34" rx="5" class="f-card"/><text x="52" y="101">kadai1.py</text>
-    <rect x="40" y="120" width="180" height="34" rx="5" class="f-card"/><text x="52" y="143">kadai2.py</text>
-  </g>
-  <rect x="250" y="78" width="190" height="88" rx="6" class="f-box"/>
-  <text x="262" y="102" class="b" font-size="16">.git（隠しフォルダ）</text>
-  <text x="262" y="128" class="t-mut" font-size="16">ここにセーブポイントが</text>
-  <text x="262" y="150" class="t-mut" font-size="16">全部しまわれている</text>
-  <text x="40" y="180" class="t-mut" font-size="16">ふだん触るのはこっち</text>
-</svg>
-<figcaption>見た目は普通のフォルダです。中に <code>.git</code> という隠しフォルダがあり、記録はそこにたまります。これは手で触りません。</figcaption>
-</figure>
+<a class="next" href="./t7911cd9e.html"><b>次は「GitHubを始めるまで」のタブへ</b>アカウントを作り、Windowsにgitを入れて、最初の記録をGitHubに上げるまでを1ステップずつ書いています。</a>
 
-<h3>コミット → プッシュ → プル</h3>
-<figure>
-<svg viewBox="0 0 480 360" role="img" aria-label="add、commit、push、pullの流れ">
-  <rect x="20" y="20" width="200" height="60" rx="8" class="f-box"/>
-  <text x="36" y="46" class="b" font-size="17">① ファイルを直す</text>
-  <text x="36" y="68" class="t-mut" font-size="16">いつもどおり編集・保存</text>
-  <path d="M120 82 v30" class="s-mut" stroke-width="3"/><path d="M112 104 l8 10 l8 -10" class="s-mut" stroke-width="3"/>
-  <text x="140" y="104" class="mono t-mut" font-size="17">git add</text>
-  <rect x="20" y="120" width="200" height="60" rx="8" class="f-box"/>
-  <text x="36" y="146" class="b" font-size="17">② 記録に入れる物を選ぶ</text>
-  <text x="36" y="168" class="t-mut" font-size="16">「これをセーブする」と指定</text>
-  <path d="M120 182 v30" class="s-mut" stroke-width="3"/><path d="M112 204 l8 10 l8 -10" class="s-mut" stroke-width="3"/>
-  <text x="140" y="204" class="mono t-mut" font-size="17">git commit</text>
-  <rect x="20" y="220" width="200" height="60" rx="8" class="f-goodbg"/>
-  <text x="36" y="246" class="b t-good" font-size="17">③ セーブポイント完成</text>
-  <text x="36" y="268" class="t-mut" font-size="16">まだ手元のPCの中だけ</text>
-  <rect x="290" y="120" width="170" height="160" rx="10" class="f-accbg"/>
-  <rect x="290" y="120" width="170" height="160" rx="10" class="s-acc" stroke-width="2"/>
-  <text x="330" y="190" class="b t-acc" font-size="20">GitHub</text>
-  <text x="314" y="216" class="t-mut" font-size="16">ネット上に保管</text>
-  <path d="M222 240 L286 200" class="s-acc" stroke-width="3"/><path d="M272 196 L288 199 L282 214" class="s-acc" stroke-width="3"/>
-  <text x="300" y="304" class="mono b t-acc" font-size="17">git push</text>
-  <text x="300" y="326" class="b t-acc" font-size="16">④上げる</text>
-  <path d="M290 150 C 250 120, 250 60, 226 52" class="s-good" stroke-width="3"/><path d="M238 46 L224 52 L236 62" class="s-good" stroke-width="3"/>
-  <text x="270" y="56" class="mono b t-good" font-size="17">git pull</text>
-  <text x="270" y="78" class="t-good" font-size="16">新しい記録を取ってくる</text>
-  <text x="20" y="314" class="t-mut" font-size="16">①〜③は手元だけ。</text>
-  <text x="20" y="338" class="t-mut" font-size="16">④で初めてGitHubに載る。</text>
-</svg>
-<figcaption>コミットは「手元で」セーブするだけです。GitHubに載せるにはプッシュまで行います。</figcaption>
-</figure>
-
-<h3>ブランチ　＝　枝分かれして試す</h3>
-<figure>
-<svg viewBox="0 0 480 230" role="img" aria-label="ブランチの枝分かれ">
-  <line x1="30" y1="150" x2="460" y2="150" class="s-good" stroke-width="4"/>
-  <g class="f-good"><circle cx="60" cy="150" r="11"/><circle cx="150" cy="150" r="11"/><circle cx="330" cy="150" r="11"/><circle cx="430" cy="150" r="13"/></g>
-  <text x="30" y="196" class="b t-good" font-size="17">main（本線・動く版）</text>
-  <path d="M150 150 C 180 70, 200 70, 230 70 L 300 70 C 320 70, 320 120, 330 150" class="s-acc" stroke-width="4"/>
-  <g class="f-acc"><circle cx="230" cy="70" r="10"/><circle cx="290" cy="70" r="10"/></g>
-  <text x="180" y="40" class="b t-acc" font-size="17">試しの枝</text>
-  <text x="300" y="40" class="t-mut" font-size="17">うまくいったら合流</text>
-  <text x="250" y="222" class="t-mut" font-size="17">本線は動いたまま守られる</text>
-</svg>
-<figcaption>新しいことを試すときは本線（<code>main</code>）から枝を出して作業し、うまくいったら本線へ合流させます。最初のうちは <code>main</code> 1本だけで大丈夫です。</figcaption>
-</figure>
-
-<!-- ============ 4 ============ -->
-<h2 id="setup" data-sec="4. 導入の仕方">4. 導入の仕方（Windows）</h2>
-<p>全体の流れはこの6段です。最初の1回だけ手間がかかり、2回目からは手順5〜6のくり返しになります。</p>
-
-<figure>
-<svg viewBox="0 0 480 300" role="img" aria-label="導入の6段の流れ">
-  <g font-size="16">
-    <rect x="20" y="20" width="210" height="64" rx="10" class="f-box"/><text x="36" y="48" class="b">1 GitHubに登録</text><text x="36" y="72" class="t-mut" font-size="16">ブラウザで（初回だけ）</text>
-    <rect x="250" y="20" width="210" height="64" rx="10" class="f-box"/><text x="266" y="48" class="b">2 Gitを入れる</text><text x="266" y="72" class="t-mut" font-size="16">PCに（初回だけ）</text>
-    <rect x="20" y="114" width="210" height="64" rx="10" class="f-box"/><text x="36" y="142" class="b">3 名前を登録</text><text x="36" y="166" class="t-mut" font-size="16">PCに（初回だけ）</text>
-    <rect x="250" y="114" width="210" height="64" rx="10" class="f-box"/><text x="266" y="142" class="b">4 リポジトリを作る</text><text x="266" y="166" class="t-mut" font-size="16">GitHubで（作るたび）</text>
-    <rect x="20" y="208" width="210" height="64" rx="10" class="f-goodbg"/><text x="36" y="236" class="b t-good">5 手元に持ってくる</text><text x="36" y="260" class="t-mut" font-size="16">clone（作るたび）</text>
-    <rect x="250" y="208" width="210" height="64" rx="10" class="f-accbg"/><text x="266" y="236" class="b t-acc">6 足して上げる</text><text x="266" y="260" class="t-mut" font-size="16">add・commit・push</text>
-  </g>
-  <g class="s-mut" stroke-width="2.5">
-    <path d="M232 52 h14"/><path d="M355 86 v10 L125 100 v10"/><path d="M232 146 h14"/><path d="M355 180 v10 L125 194 v10"/><path d="M232 240 h14"/>
-  </g>
-</svg>
-<figcaption>1〜3は最初の1回だけ。4〜6は新しく何かを置くたびに行います。</figcaption>
-</figure>
-
-<ol class="steps">
-<li><b>GitHubのアカウントを作る</b>
-<p>ブラウザで <code>github.com</code> を開き、「Sign up」から登録します。メールアドレス・パスワード・ユーザー名を決め、届いた確認コードを入れれば完了です。</p>
-<p><b class="k">ユーザー名はURLになり、面接官の目に入ります。</b><code>github.com/ユーザー名</code> の形で表示されるので、名前をもとにした落ち着いたものにしておくと安心です。</p>
-</li>
-
-<li><b>Git for Windows を入れる</b>
-<p><code>git-scm.com</code> を開き、Windows向けのダウンロードからインストーラーを落として実行します。途中でたくさん選択肢が出ますが、<b class="k">全部そのまま「Next」で大丈夫です</b>。入れ終わると、スタートメニューに「Git Bash」が増えます。</p>
-<figure>
-<svg viewBox="0 0 480 220" role="img" aria-label="インストーラー画面の簡略図">
-  <rect x="20" y="10" width="440" height="200" rx="8" class="f-box"/>
-  <rect x="20" y="10" width="440" height="34" rx="8" class="f-line"/>
-  <text x="36" y="33" font-size="17">Git Setup</text>
-  <text x="40" y="78" class="b" font-size="16">Select Components</text>
-  <rect x="40" y="94" width="16" height="16" rx="3" class="s-mut" stroke-width="2"/><path d="M43 102 l4 4 l7 -8" class="s-good" stroke-width="2.5"/>
-  <text x="66" y="108" class="t-mut" font-size="16">… 初めから付いている印はそのまま</text>
-  <rect x="40" y="122" width="16" height="16" rx="3" class="s-mut" stroke-width="2"/><path d="M43 130 l4 4 l7 -8" class="s-good" stroke-width="2.5"/>
-  <text x="66" y="136" class="t-mut" font-size="16">…</text>
-  <rect x="250" y="162" width="90" height="34" rx="6" class="f-card"/><text x="276" y="185" font-size="17">Back</text>
-  <rect x="352" y="162" width="90" height="34" rx="6" class="f-accink"/><text x="378" y="185" class="t-bg b" font-size="17">Next</text>
-  <circle cx="397" cy="179" r="26" class="s-acc" stroke-width="3"/>
-</svg>
-<figcaption>画面は何枚も続きますが、どれも初めから選ばれている項目のまま「Next」、最後に「Install」を押します。</figcaption>
-</figure>
-<p>入ったか確かめるには、「Git Bash」を開いて次を打ちます。<code>git version 2.…</code> のように版の番号が出れば成功です。</p>
-<pre><code>git --version</code></pre>
-</li>
-
-<li><b>自分の名前とメールアドレスを Git に登録する</b>
-<p>セーブポイントに「誰が記録したか」を残すための設定です。Git Bash で1行ずつ打ちます（<code>" "</code> の中を自分のものに置き換えます）。</p>
-<pre><code>git config --global user.name "Takagi"
-git config --global user.email "GitHubに登録したメールアドレス"</code></pre>
-<p class="cap">ここで入れたメールアドレスは、GitHubに上げた記録の中に残ります。表に出したくなければ、GitHubの「Settings」→「Emails」に表示される公開用の代わりのアドレス（noreply の付いたもの）を使えます。</p>
-</li>
-
-<li><b>GitHub でリポジトリを作る</b>
-<p>GitHubにログインし、右上の「＋」→「New repository」を押します。名前を付け、<b class="k">「Public」</b>（誰でも見られる）を選び、<b class="k">「Add a README file」</b>に印を付けて「Create repository」を押します。</p>
-<figure>
-<svg viewBox="0 0 480 290" role="img" aria-label="New repository画面の簡略図">
-  <rect x="10" y="10" width="460" height="270" rx="8" class="f-box"/>
-  <text x="30" y="44" class="b" font-size="18">Create a new repository</text>
-  <text x="30" y="78" class="t-mut" font-size="16">Repository name</text>
-  <rect x="30" y="86" width="260" height="34" rx="5" class="f-card"/>
-  <text x="42" y="109" class="mono" font-size="17">python-practice</text>
-  <circle cx="44" cy="148" r="8" class="s-acc" stroke-width="2"/><circle cx="44" cy="148" r="4" class="f-acc"/>
-  <text x="60" y="153" class="b" font-size="17">Public</text><text x="120" y="153" class="t-mut" font-size="16">← 面接で見せるのでこちら</text>
-  <circle cx="44" cy="178" r="8" class="s-mut" stroke-width="2"/>
-  <text x="60" y="183" class="t-mut" font-size="17">Private</text>
-  <rect x="36" y="200" width="16" height="16" rx="3" class="s-acc" stroke-width="2"/><path d="M39 208 l4 4 l7 -8" class="s-acc" stroke-width="2.5"/>
-  <text x="60" y="214" class="b" font-size="17">Add a README file</text>
-  <rect x="30" y="234" width="190" height="34" rx="6" class="f-good"/>
-  <text x="46" y="257" class="t-bg b" font-size="17">Create repository</text>
-</svg>
-<figcaption>名前は半角英数字とハイフンで付けます（例 <code>python-practice</code>）。README は、リポジトリの表紙になる説明ファイルです。</figcaption>
-</figure>
-<p class="cap">GitHubで作ったリポジトリの本線は、最初から <code>main</code> という名前になっています。</p>
-</li>
-
-<li><b>手元に持ってくる（clone）</b>
-<p>作ったリポジトリのページで緑の「Code」ボタンを押し、「HTTPS」に出ているURLをコピーします。</p>
-<figure>
-<svg viewBox="0 0 480 200" role="img" aria-label="CodeボタンからURLをコピーする図">
-  <rect x="10" y="10" width="460" height="180" rx="8" class="f-box"/>
-  <rect x="340" y="22" width="110" height="34" rx="6" class="f-good"/>
-  <text x="368" y="45" class="t-bg b" font-size="17">Code ▾</text>
-  <rect x="80" y="66" width="370" height="110" rx="8" class="f-card"/>
-  <text x="96" y="94" class="b" font-size="17">HTTPS</text>
-  <line x1="96" y1="102" x2="150" y2="102" class="s-acc" stroke-width="3"/>
-  <rect x="96" y="114" width="290" height="32" rx="5" class="f-box"/>
-  <text x="106" y="135" class="mono t-mut" font-size="14">https://github.com/ユーザー名/…</text>
-  <rect x="394" y="114" width="40" height="32" rx="5" class="f-accbg"/>
-  <rect x="405" y="121" width="14" height="16" rx="2" class="s-acc" stroke-width="2"/>
-  <rect x="410" y="126" width="14" height="16" rx="2" class="s-acc" stroke-width="2"/>
-  <text x="96" y="166" class="t-acc" font-size="16">右の四角を押すとコピーされる</text>
-</svg>
-<figcaption>「Code」→「HTTPS」→ 右端のコピーのボタン、の順に押します。</figcaption>
-</figure>
-<p>Git Bash を開き、置きたい場所へ移ってから <code>git clone</code> にURLを貼ります（Git Bash では右クリック→「Paste」で貼れます）。</p>
-<pre><code><span class="c"># 例：ドキュメントの中に置く</span>
-cd ~/Documents
-git clone https://github.com/ユーザー名/python-practice.git
-cd python-practice</code></pre>
-<p class="cap">ドキュメントの中に <code>python-practice</code> フォルダができます。これが手元のリポジトリです。</p>
-</li>
-
-<li><b>ファイルを足して、add → commit → push</b>
-<p>エクスプローラーで <code>python-practice</code> フォルダを開き、置きたいファイルをコピーして入れます。そのあと Git Bash で次の3行を打ちます。</p>
-<pre><code>git add .
-git commit -m "Pythonの練習の答えを追加"
-git push</code></pre>
-<p class="cap"><code>git add .</code> の最後の点は「このフォルダの変更を全部」という意味です。<code>-m</code> の後ろの文が、このセーブポイントのメモになります。</p>
-<p>初めて <code>git push</code> したときだけ、ブラウザでGitHubにログインする画面が出ます。Git for Windows に一緒に入っている <b class="k">Git Credential Manager</b> という仕組みが出しているもので、ここでログインを許可すれば以後は聞かれません。</p>
-<figure>
-<svg viewBox="0 0 480 260" role="img" aria-label="初回プッシュ時のブラウザ認証の流れ">
-  <rect x="10" y="20" width="200" height="120" rx="8" class="f-box"/>
-  <text x="24" y="50" class="mono" font-size="17">$ git push</text>
-  <text x="24" y="80" class="t-mut" font-size="16">ログインの窓が開く</text>
-  <rect x="24" y="96" width="172" height="30" rx="5" class="f-card"/>
-  <text x="34" y="117" class="b" font-size="16">Sign in with browser</text>
-  <path d="M212 80 L262 80" class="s-acc" stroke-width="3"/><path d="M252 72 L264 80 L252 88" class="s-acc" stroke-width="3"/>
-  <rect x="268" y="10" width="202" height="150" rx="8" class="f-accbg"/>
-  <rect x="268" y="10" width="202" height="150" rx="8" class="s-acc" stroke-width="2"/>
-  <text x="284" y="40" class="b t-acc" font-size="17">ブラウザ（GitHub）</text>
-  <text x="284" y="70" class="t-mut" font-size="15">Credential Manager</text>
-  <text x="284" y="92" class="t-mut" font-size="15">に許可しますか？</text>
-  <rect x="284" y="108" width="170" height="34" rx="6" class="f-good"/>
-  <text x="314" y="131" class="t-bg b" font-size="16">Authorize（許可）</text>
-  <path d="M370 164 C 370 220, 200 220, 130 196" class="s-good" stroke-width="3"/>
-  <path d="M142 188 L128 196 L142 206" class="s-good" stroke-width="3"/>
-  <text x="20" y="196" class="b t-good" font-size="17">プッシュ完了</text>
-  <text x="20" y="246" class="t-mut" font-size="16">2回目からはこの画面は出ず、そのまま上がります。</text>
-</svg>
-<figcaption>GitHubのパスワードを Git Bash に打ち込むやり方は、いまは使えません。ブラウザでのログインを使います。</figcaption>
-</figure>
-<p>GitHubのリポジトリのページを開き直して、ファイルが増えていれば成功です。</p>
-</li>
-</ol>
-
-<h3>黒い画面が苦手なら　GitHub Desktop</h3>
-<p>コマンドを打たずに、ボタンで同じことができる公式アプリ「GitHub Desktop」もあります（<code>desktop.github.com</code> から入れられます）。GitHubのアカウントでログインし、「Clone a repository」で持ってくる → ファイルを入れる → 左下にメモを書いて「Commit to main」→ 上の「Push origin」の順です。最初はこちらで慣れて、あとからコマンドに移るのでも十分です。面接では「普段はコマンドで操作しています」と言える方が強いので、少しずつ Git Bash も触っておくのがおすすめです。</p>
-
-<!-- ============ 5 ============ -->
-<h2 id="practice" data-sec="5. 最初の練習">5. 最初の練習　Pythonの答えを置いてみる</h2>
-<p>11月17日にお渡しした「Pythonの練習」の答えのファイルを、さっき作った <code>python-practice</code> リポジトリに置いてみましょう。手順4の6段目をそのまま行えば置けます。</p>
-
-<figure>
-<svg viewBox="0 0 480 250" role="img" aria-label="練習の答えをGitHubに置いて面接で見せる流れ">
-  <rect x="10" y="30" width="130" height="110" rx="10" class="f-box"/>
-  <text x="26" y="62" class="b" font-size="16">練習の答え</text>
-  <rect x="26" y="76" width="98" height="26" rx="4" class="f-card"/><text x="34" y="95" class="mono" font-size="15">kadai1.py</text>
-  <rect x="26" y="106" width="98" height="26" rx="4" class="f-card"/><text x="34" y="125" class="mono" font-size="15">kadai2.py</text>
-  <path d="M144 85 h40" class="s-acc" stroke-width="3"/><path d="M174 77 l12 8 l-12 8" class="s-acc" stroke-width="3"/>
-  <text x="146" y="70" class="mono t-acc b" font-size="15">push</text>
-  <rect x="190" y="30" width="130" height="110" rx="10" class="f-accbg"/>
-  <rect x="190" y="30" width="130" height="110" rx="10" class="s-acc" stroke-width="2"/>
-  <text x="220" y="78" class="b t-acc" font-size="17">GitHub</text>
-  <text x="202" y="104" class="t-mut" font-size="15">URLが1本できる</text>
-  <path d="M324 85 h40" class="s-good" stroke-width="3"/><path d="M354 77 l12 8 l-12 8" class="s-good" stroke-width="3"/>
-  <rect x="370" y="30" width="100" height="110" rx="10" class="f-goodbg"/>
-  <text x="392" y="78" class="b t-good" font-size="17">面接で</text>
-  <text x="384" y="104" class="t-good" font-size="17">見せられる</text>
-  <rect x="10" y="168" width="460" height="68" rx="8" class="f-card"/>
-  <text x="26" y="196" class="b" font-size="17">README に書いておくと伝わること</text>
-  <text x="26" y="222" class="t-mut" font-size="16">「前職でVBAでやっていた集計を、Pythonで書き直す練習」</text>
-</svg>
-<figcaption>ファイル名は例です。置いたあとリポジトリのURLを控えておけば、応募書類や面接でそのまま出せます。</figcaption>
-</figure>
-
-<p>置いたら、もう一歩だけ。GitHubの画面で <code>README.md</code> を開き、鉛筆のマークから「何の練習か」を2〜3行で書いて「Commit changes」を押してください。<b class="k">VBAで何をしていたか → それをPythonでどう書き直したか</b>が一言あるだけで、面接官には前職の経験とつながった勉強だと伝わります。</p>
-<div class="ok">GitHubの画面で直した場合は、手元のフォルダに反映するために、次に作業を始めるとき Git Bash で <code>git pull</code> を1回打ちます。</div>
-
-<!-- ============ 6 ============ -->
-<h2 id="trouble" data-sec="6. つまずきやすい所">6. つまずきやすい所</h2>
-
-<div class="trap">
-<div class="q">「Please tell me who you are」と出てコミットできない</div>
-<p class="a">手順3の名前とメールアドレスの登録がまだです。<b>手順3の2行を打ってから、もう一度 <code>git commit</code></b> すれば通ります。</p>
-</div>
-
-<div class="trap">
-<div class="q">push が断られる（ログインに失敗する・403 と出る）</div>
-<p class="a">GitHubのパスワードを直接打っても通りません。<b>ブラウザのログイン画面で許可する</b>のが正しい流れです。別のアカウントで一度ログインしてしまった場合は、Windowsの「資格情報マネージャー」を開き、「Windows資格情報」の中にある <code>git:https://github.com</code> を削除してから、もう一度 <code>git push</code> するとログイン画面が出直します。</p>
-</div>
-
-<div class="trap">
-<div class="q">push が「rejected」で断られる（GitHubの画面で README を直した後など）</div>
-<p class="a">GitHub側に手元にない新しい記録がある、という意味です。<b>先に <code>git pull</code> で取ってきてから <code>git push</code></b> すれば通ります。</p>
-<figure>
-<svg viewBox="0 0 480 210" role="img" aria-label="pullしてからpushする図">
-  <text x="10" y="56" class="t-mut" font-size="17">GitHub</text>
-  <line x1="90" y1="50" x2="460" y2="50" class="s-acc" stroke-width="3"/>
-  <g class="f-acc"><circle cx="110" cy="50" r="9"/><circle cx="180" cy="50" r="9"/><circle cx="260" cy="50" r="10"/></g>
-  <text x="260" y="26" class="t-acc b" font-size="17" text-anchor="middle">画面で直した分</text>
-  <text x="10" y="166" class="t-mut" font-size="17">手元</text>
-  <line x1="90" y1="160" x2="460" y2="160" class="s-good" stroke-width="3"/>
-  <g class="f-good"><circle cx="110" cy="160" r="9"/><circle cx="180" cy="160" r="9"/><circle cx="260" cy="160" r="9"/><circle cx="420" cy="160" r="11"/></g>
-  <path d="M260 64 L260 144" class="s-good" stroke-width="3"/><path d="M252 134 l8 12 l8 -12" class="s-good" stroke-width="3"/>
-  <text x="274" y="110" class="mono b t-good" font-size="17">① git pull</text>
-  <path d="M420 146 L420 66" class="s-acc" stroke-width="3"/><path d="M412 76 l8 -12 l8 12" class="s-acc" stroke-width="3"/>
-  <text x="420" y="198" class="mono b t-acc" font-size="17" text-anchor="middle">② git push</text>
-</svg>
-<figcaption>まず取ってきてそろえる（①）→ それから上げる（②）の順です。</figcaption>
-</figure>
-</div>
-
-<div class="trap">
-<div class="q">「not a git repository」と出る</div>
-<p class="a">いる場所がリポジトリのフォルダの外です。<b><code>cd python-practice</code> でフォルダの中に入ってから</b>打ち直します。いまどこにいるかは <code>pwd</code> で確かめられます。</p>
-</div>
-
-<div class="note">Publicのリポジトリは誰でも見られます。パスワード・社外秘のデータ・前職のファイルそのものは置かないでください。置くのは自分で書いた練習のコードだけにします。</div>
-
-<p>分からないところで止まったら、出ている英語のメッセージをそのままLINEで送ってください。どこで止まっているか一緒に見ます。</p>
+<p>分からないところがあれば、LINEで気軽に聞いてください。</p>
 
 <p class="sign">株式会社SeeD 武者野</p>
 </main>
@@ -535,4 +490,4 @@ git push</code></pre>
   window.addEventListener('scroll',upd,{passive:true});upd();
 })();
 </script>
-<!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=8f9423be97">ホーム</a></li><li><a href="./te31e0ea6.html?v=8f9423be97">ご紹介したお仕事</a></li><li><a href="./t585095dd.html?v=8f9423be97">Pythonの練習</a></li><li class="gp-cur"><a href="./t345a9ee3.html?v=8f9423be97" aria-current="page">GitHubのはじめかた</a></li><li><a href="./t7911cd9e.html?v=8f9423be97">GitHubを始めるまで</a></li></ul></nav><!--gp-portal:e--></body></html>
+<!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=5e534a43a0">ホーム</a></li><li><a href="./te31e0ea6.html?v=5e534a43a0">ご紹介したお仕事</a></li><li><a href="./t585095dd.html?v=5e534a43a0">Pythonの練習</a></li><li class="gp-cur"><a href="./t345a9ee3.html?v=5e534a43a0" aria-current="page">gitとGitHubのちがい</a></li><li><a href="./t7911cd9e.html?v=5e534a43a0">GitHubを始めるまで</a></li></ul></nav><!--gp-portal:e--></body></html>
