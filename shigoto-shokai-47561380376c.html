@@ -203,6 +203,13 @@ tr.verdict-row td { padding-top: 0; }
   margin: 0 0 16px; font-size: 14.5px; line-height: 1.65;
 }
 .card .place dt { color: var(--sub); font-size: 13px; font-weight: 600; padding-top: 1px; }
+.card .detail { margin: 0 0 16px; font-size: 14px; line-height: 1.65; }
+.card .detail:empty { margin: 0; }
+.card .detail .d-row + .d-row { margin-top: 10px; }
+.card .detail dt { color: var(--sub); font-size: 13px; font-weight: 600; letter-spacing: .04em; line-height: 1.4; }
+.card .detail dd + dd { margin-top: 3px; }
+.card .detail .d-head { display: block; color: var(--sub); font-size: 12.5px; line-height: 1.5; }
+.card .detail .d-more { color: var(--sub); font-size: 13px; }
 .card .point {
   margin: 0 0 12px; padding: 2px 0 2px 12px; font-size: 14.5px; line-height: 1.7;
   border-left: 2px solid var(--good); color: var(--ink);
@@ -216,17 +223,19 @@ tr.verdict-row td { padding-top: 0; }
 .card .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
 @supports (grid-template-rows: subgrid) {
   @media (min-width: 861px) {
-    .card { display: grid; grid-template-rows: subgrid; grid-row: span 9; row-gap: 0; align-content: start; }
+    .card { display: grid; grid-template-rows: subgrid; grid-row: span 10; row-gap: 0; align-content: start; }
     .card > h3 { grid-row: 1 / span 1; }
     .card > .what { grid-row: 2 / span 1; }
     .card > .nums { grid-row: 3 / span 3; }
     .card > .place { grid-row: 6 / span 1; }
-    .card > .point { grid-row: 7 / span 1; }
-    .card > .verdict { grid-row: 8 / span 1; }
-    .card > .links { grid-row: 9 / span 1; }
+    .card > .detail { grid-row: 7 / span 1; }
+    .card > .point { grid-row: 8 / span 1; }
+    .card > .verdict { grid-row: 9 / span 1; }
+    .card > .links { grid-row: 10 / span 1; }
     .card > .nums { display: grid; grid-template-rows: subgrid; }
     .card .s-salary { grid-row: 1; } .card .s-annual { grid-row: 2; } .card .s-holidays { grid-row: 3; }
     .card > .place { align-content: start; }
+    .card > .detail { align-self: start; }
     .card > .point, .card > .verdict { align-self: start; }
     .card > .links { align-self: start; margin-top: 0; }
   }
@@ -320,7 +329,6 @@ table.cmp th { color: var(--sub); font-weight: 600; font-size: 13.5px; backgroun
 table.cmp th:nth-child(1) { width: 26%; } table.cmp th:nth-child(2) { width: 14%; } table.cmp th:nth-child(3) { width: 24%; }
 table.cmp th:nth-child(4) { width: 20%; }
 .cmp .clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.cmp .clamp.sub { color: var(--sub); font-size: 13.5px; }
 .cmp .main { display: block; }
 .fig-how { margin-top: 6px; font-size: 14.5px; }
 .fig-how summary { cursor: pointer; color: var(--accent); }
@@ -425,21 +433,11 @@ details.fold.is-dropped[open] > .fold-body { opacity: .7; }
   border-radius: 999px; background: var(--paper); color: var(--accent); cursor: pointer;
 }
 .fold-ctl button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-ul.lines { margin: 0 0 8px; padding: 0; list-style: none; display: grid; gap: 6px; }
-ul.lines > li.line {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; padding: 10px 14px; background: var(--paper);
-  border: 1px solid var(--line); border-radius: 12px; font-size: 14.5px; overflow-wrap: anywhere;
-}
-li.line .l-name { font-weight: 700; }
-li.line .l-job { color: var(--sub); font-size: 13.5px; }
-li.line .verdict { flex-basis: 100%; margin: 4px 0 0; }
-#dropped { opacity: .6; }
-#dropped h2 { font-size: 17px; }
+#dropped h2 { font-size: 17px; color: var(--sub); }
 @media print {
   details.fold::details-content { content-visibility: visible; display: block; }
   details.fold > summary::after, .fold-ctl { display: none; }
   details.fold.is-dropped > summary { opacity: 1; }
-  #dropped { opacity: 1; }
 }
 
 h1,h2,h3{word-break:auto-phrase}
@@ -511,9 +509,37 @@ h1,h2,h3{word-break:auto-phrase}
   
 </div>
 </section>
-<section id="applying" data-section="applying" data-no-figure="応募中の会社の1行の一覧">
+<section id="applying" data-section="applying" data-no-figure="応募中の会社のカード">
 <h2>応募中の会社</h2>
-<ul class="lines"><li class="line" id="card-proud_data" data-key="proud_data" data-status="推薦中"><span class="l-name">プラウドデータ</span><span class="l-job">未経験インフラ</span><span class="st st-suisen" data-status="推薦中">応募の手続き中</span><div class="verdict is-next"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">次点</span></div><p>未経験からインフラに入れる、研修のある会社です。</p></div></li><li class="line" id="card-ksk_techno_support" data-key="ksk_techno_support" data-status="推薦中"><span class="l-name">KSKテクノサポート</span><span class="l-job">ネットワーク中心のインフラ</span><span class="st st-suisen" data-status="推薦中">応募の手続き中</span><div class="verdict is-next"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">次点</span></div><p>ネットワークを中心に技術を積める会社です。</p></div></li></ul>
+<p class="lead">応募の手続きや選考が進んでいる会社です。押すと詳しい説明が開きます。</p>
+<div class="cards folded" data-fold="line">
+  <article class="card decided" id="card-proud_data" data-key="proud_data" data-name="プラウドデータ"><details class="fold" data-status="推薦中"><summary><span class="f-head"><span class="f-name">プラウドデータ</span><span class="st st-suisen" data-status="推薦中">応募の手続き中</span><span class="chosen f-chosen">応募する会社</span></span><span class="f-what">未経験からのインフラエンジニア（サーバー・ネットワーク）。入社後はヒアリングとOJTで方向性を決め、Linux・ネットワーク基礎やAWSの学習を経て、運用・保守・監視・テクニカルサポート・社内SEなどの現場へ（SES＝客先常駐が中心）</span><span class="f-meta">東京、神奈川、千葉、埼玉　年収 500万〜600万円</span></summary><div class="fold-body">
+    <h3>プラウドデータ<span class="chosen">応募する会社</span></h3>
+    <p class="what">未経験からのインフラエンジニア（サーバー・ネットワーク）。入社後はヒアリングとOJTで方向性を決め、Linux・ネットワーク基礎やAWSの学習を経て、運用・保守・監視・テクニカルサポート・社内SEなどの現場へ（SES＝客先常駐が中心）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給21万円〜</span><span class="aside">（基本給＋職務手当＋諸手当＋交通費。配属先の案件と社内評価に応じて上がる。想定年収280万〜1,000万円）。賞与は現在なし</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>500万〜600万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日125日</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京、神奈川、千葉、埼玉</dd><dt>条件</dt><dd>日本国籍の方が対象。</dd><dt>条件</dt><dd>関東圏外にお住まいの場合は引越しが可能なことが選考条件。</dd><dt>条件</dt><dd>選考は書類選考→面接（対面1回。関東圏外はオンライン可）→内定。適性テストなし。</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>転勤なし</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>■ 情報なし</dd><dd>この上流企業で不足している技術者に対して常駐勤務によりフォローする事業形態をSES(System Engineering Service)と呼びます。</dd><dd>開発事業部・NWインフラ事業部・検証事業部</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-appeal"><dt>仕事の魅力</dt><dd>プロジェクトを変える際に単価(＝給与)を・上げることができる・業務内容や新しい技術などにトライして</dd><dd>方向性ごとのキャリアパス・戦略的プロジェクト変更1つの会社にいながら、「プロジェクト変更」とい</dd><dd>③安心して成長できる未来・持続可能なキャリア形成を支援</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-salary_breakdown"><dt>給与の内訳</dt><dd>月末締めの翌月末日で支払います。</dd><dd><span class="d-head">区分: 経験者層／経験: 経験者</span>単価と社内評価基準を考慮して職務手当を設定します。・職務手当は現場PJに稼働中に支給されます。職務手当に応じて基本給額も見直していきます。</dd><dd><span class="d-head">区分: 経験者層／経験: 経験者</span>基本給 +職務手当 +諸手当 +交通費 =</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>プロジェクト異動毎</dd><dd>社内規定による</dd><dd>現在はありません。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-leave"><dt>休暇</dt><dd>半年以上の勤務で10日付与します。</dd><dd>年末年始と夏季休暇があります。</dd></div><div class="d-row d-work_hours"><dt>勤務時間</dt><dd>社内：10:00-19:00（土日祝休み）</dd><dd>社内：10:00-19:00・※現場プロジェクト参画中は現場のカレンダー・に従います。</dd></div><div class="d-row d-remote"><dt>在宅</dt><dd>常駐・テレワーク</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>学歴：高卒</dd><dd>高卒以上</dd><dd>＜開発プログラマの例＞ プログラミング以外に必要なスキル仕様書や設計書を・しっかり読解できること・望ましいコーディングルールに沿って・ソースコードを記述できること・自分で作った範囲のテストを行い・的確に修正できること・報連相など、チームワ…</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>・自走でき、覚悟感のある方</dd><dd>・本気でキャリアを築きたいという思いがあり、きつくても継続できる方</dd><dd>技術以上に必要なスキル Soft Skills &amp; Professional Mindset各方向性ごとの技術課題をクリアしても・社会人としての必須スキル・振る舞い・たしなみ・機密情報、個人情報などの・データや情報の取り扱い・報連相、コミ…</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>完備(健康保険、厚生年金、雇用保険、労災、</dd><dd>入社研修・専任講師(元IT技術者)が対応します・未経験からプロを目指せるカリキュラム Curriculum &amp; Career Path数あるIT業界の職種の中から、「未経験からでもスタートを切れる」職種に絞ってカリキュラムを育ててきました。</dd><dd>入社研修・専任講師(元IT技術者)が対応します・ビジネスマナー・スキルシートの作成・開発基礎 / 行程・ネットワーク基礎・Java課題</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>書類選考➝一時選考（対面）➝結果出し</dd></div><div class="d-row d-hiring"><dt>募集の概要</dt><dd>20人〜</dd></div><div class="d-row d-status"><dt>募集状況</dt><dd>採用中・通常採用</dd></div><div class="d-row d-company"><dt>会社</dt><dd>株式会社プラウドデータ</dd><dd>代表取締役社長 大久保 学</dd><dd>SES支援システム・ビジネスコミュニティ運営・SESコンサルティング・システム開発、インフラ構築等の請負業・SES事業</dd><dd class="d-more">続きは求人票で</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　未経験からITインフラのエンジニアを育てる会社です。研修で基礎を身につけてから現場に入れます。ITパスポートの勉強を続けている冨澤さんの努力が、そのまま強みになります。</p>
+    <div class="verdict is-next"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">次点</span></div><p>未経験からインフラに入れる、研修のある会社です。</p></div>
+    <div class="links"><a class="deck-mini" href="http://www.proud-g.jp/" target="_blank" rel="noopener" aria-label="プラウドデータのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/16J2rgLrphgxT7jwbA7VvSLKzQdreFyKX/view" target="_blank" rel="noopener" aria-label="プラウドデータの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details></article>
+  <article class="card decided" id="card-ksk_techno_support" data-key="ksk_techno_support" data-name="KSKテクノサポート"><details class="fold" data-status="推薦中"><summary><span class="f-head"><span class="f-name">KSKテクノサポート</span><span class="st st-suisen" data-status="推薦中">応募の手続き中</span><span class="chosen f-chosen">応募する会社</span></span><span class="f-what">ネットワークを中心としたインフラエンジニア（ネットワークの管理・運用・構築）</span><span class="f-meta">東京、神奈川、埼玉　年収 322万〜420万円</span></summary><div class="fold-body">
+    <h3>KSKテクノサポート<span class="chosen">応募する会社</span></h3>
+    <p class="what">ネットワークを中心としたインフラエンジニア（ネットワークの管理・運用・構築）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給225,000円〜</span><span class="aside">（公式募集要項）。モデル年収 392万円（22歳・経験1年）／414万円（25歳・経験3年）／505万円（27歳・経験5年・扶養手当を含む）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>322万〜420万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日120日以上・土日祝休み・賞与年2回</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京、神奈川、埼玉</dd><dt>条件</dt><dd>自宅から通勤1.5時間以内か、引越し可能な方</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>転勤なし</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>■大手メーカー、IT企業のネットワークシステムの設計・構築・運用</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>◎賞与2回</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>【未経験歓迎／ネットワークに特化したインフラエンジニア】</dd><dd>最終学歴: 高卒以上・■ 高卒以上</dd><dd>職種経験: 職種未経験OK</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>■社会人未経験者、職種・業種未経験者、第二新卒者、既卒者、歓迎します！</dd><dd>【こんな方は歓迎！】・◎未経験から新しいことを学ぶ意欲のある方</dd><dd>◎やりたい業務・フェーズに挑戦するチャンスを求めている方</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>◎自社ITスクールで30日研修が出来てCCNA取得可能！</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　ネットワークを中心にしたインフラの会社です。パソコンを自分で組み立ててきた冨澤さんの「仕組みを触るのが好き」が活きる仕事です。CCNAの勉強を始めておくと面接で話せることが増えます。</p>
+    <div class="verdict is-next"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">次点</span></div><p>ネットワークを中心に技術を積める会社です。</p></div>
+    <div class="links"><a class="deck-mini" href="https://www.kts.ksk.co.jp/" target="_blank" rel="noopener" aria-label="KSKテクノサポートのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1-s_JttOMEkc_8wXHU6-R9zIrG01TW4hB/view" target="_blank" rel="noopener" aria-label="KSKテクノサポートの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details></article>
+</div>
 </section>
 <section id="companies" data-section="companies" data-no-figure="各社カードと表＝詳しい層（図はトップの比較）">
 <h2>ご紹介した会社</h2>
