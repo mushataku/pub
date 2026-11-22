@@ -42,18 +42,12 @@ body {
 header h1 { font-size: 30px; margin: 0 0 4px; letter-spacing: .02em; }
 header { position: relative; }
 header .date { color: var(--sub); margin: 0 0 20px; }
-td small.pr { color: var(--good); }
 .deck-mini {
   display: inline-block; font-size: 13.5px; font-weight: 600; color: var(--accent);
   text-decoration: none; white-space: nowrap;
 }
 .deck-mini:hover { text-decoration: underline; }
 .deck-mini:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
-.card .deck-mini {
-  align-self: flex-start; margin-top: 12px; padding: 4px 14px;
-  border: 1px solid var(--accent); border-radius: 999px;
-}
-.card .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
 td.co .deck-mini { display: block; margin-top: 4px; }
 .axis {
   display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px;
@@ -66,25 +60,6 @@ td.co .deck-mini { display: block; margin-top: 4px; }
 }
 h2 { font-size: 22px; margin: 36px 0 6px; }
 h2 + .lead { margin: 0 0 14px; color: var(--sub); }
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.card {
-  background: var(--paper); border: 1px solid var(--line); border-radius: 14px;
-  padding: 18px 18px 16px; display: flex; flex-direction: column;
-}
-.card h3 { margin: 0 0 2px; font-size: 20px; }
-.card .what { margin: 0 0 12px; color: var(--sub); font-size: 15px; }
-.card dl { margin: 0 0 12px; display: grid; grid-template-columns: 4.2em 1fr; gap: 4px 8px; font-size: 15.5px; }
-.card dt { color: var(--sub); }
-.card dd { margin: 0; }
-.card .point {
-  margin-top: auto; padding: 10px 12px; border-radius: 10px;
-  background: var(--good-soft); color: var(--ink); font-size: 15px;
-}
-.card .point b { color: var(--good); }
-.card .caution {
-  margin-top: 8px; padding: 8px 12px; border-radius: 10px;
-  background: var(--note-soft); color: var(--ink); font-size: 14px;
-}
 .chosen {
   display: inline-block; margin-left: 8px; padding: 2px 10px; border-radius: 999px;
   background: var(--good-soft); color: var(--good); font-size: 12.5px; font-weight: 700;
@@ -111,12 +86,10 @@ td.num { white-space: normal; }
 .videos .why { display: block; margin-top: 6px; font-size: 15px; }
 footer { margin-top: 32px; color: var(--sub); font-size: 14px; }
 @media (max-width: 860px) {
-  .cards { grid-template-columns: 1fr; }
   header h1 { font-size: 24px; }
 }
 @media (max-width: 760px) {
   table { min-width: 0; }
-  .tech td { width: auto !important; }
   thead { display: none; }
   tr { display: block; padding: 12px 14px; border-bottom: 1px solid var(--line); }
   tr:last-child { border-bottom: none; }
@@ -129,19 +102,14 @@ footer { margin-top: 32px; color: var(--sub); font-size: 14px; }
 }
 @media print {
   body { background: #fff; }
-  .card, .table-wrap, .axis { break-inside: avoid; }
+  .table-wrap, .axis { break-inside: avoid; }
 }
 .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 #documents .deck-mini { padding: 4px 14px; border: 1px solid var(--accent); border-radius: 999px; }
 #documents .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
-.card .links .deck-mini { margin-top: 0; }
 .thanks { margin: 0 0 20px; padding: 16px 18px; border-radius: 14px; background: var(--good-soft); border: 1px solid var(--line); }
 .thanks p { margin: 0 0 6px; }
 .thanks p:last-child { margin: 0; }
-.flow-box { margin: 0 0 24px; padding: 14px 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
-.flow-box h3 { margin: 0 0 6px; font-size: 18px; }
-.flow-box ol { margin: 0; padding-left: 1.4em; }
-.flow-box li { margin: 4px 0; }
 .page-nav { margin: 0 0 24px; }
 .page-nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; }
 .page-nav a {
@@ -151,7 +119,6 @@ footer { margin-top: 32px; color: var(--sub); font-size: 14px; }
 }
 .page-nav a:hover { text-decoration: underline; }
 .page-nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-section[id] { scroll-margin-top: 16px; }
 .decision {
   margin: 0 0 32px; padding: 16px 18px; background: var(--paper);
   border: 1px solid var(--line); border-radius: 14px;
@@ -197,33 +164,541 @@ section[id] { scroll-margin-top: 16px; }
 .verdict p { margin: 0; }
 tr.has-verdict td { border-bottom: none; padding-bottom: 6px; }
 tr.verdict-row td { padding-top: 0; }
-.tech tr.verdict-row td { width: auto; }
 @media (max-width: 760px) {
   tr.has-verdict { border-bottom: none; padding-bottom: 4px; }
   tr.verdict-row { padding-top: 0; }
 }
+
+/* ---- 会社カード（shigoto_card_layer）---- */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 14px;
+  padding: 20px 20px 18px; display: flex; flex-direction: column; min-width: 0;
+  overflow-wrap: anywhere;
+}
+.card h3 { margin: 0 0 4px; font-size: 20px; line-height: 1.4; letter-spacing: .01em; }
+.card .chosen { background: transparent; border: 1px solid var(--good); }
+.card .what { margin: 0 0 12px; color: var(--sub); font-size: 14px; line-height: 1.6; }
+.card dl { margin: 0; }
+.card dd { margin: 0; }
+.card .nums {
+  display: grid; padding: 10px 0; margin: 0 0 12px;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.card .stat { padding-bottom: 10px; }
+.card .stat:last-child { padding-bottom: 0; }
+.card .stat dt { color: var(--sub); font-size: 13px; font-weight: 600; letter-spacing: .04em; line-height: 1.4; }
+.card .s-salary dt::after { content: "（月額）"; font-weight: 400; }
+.card .s-salary.is-yearly dt::after { content: "（年額で記載）"; }
+.card .stat dd { font-size: 17px; font-weight: 700; line-height: 1.45; }
+.card .s-salary dd { font-size: 22px; letter-spacing: .01em; }
+.card .stat dd .main { display: block; }
+.card .stat dd .lead { display: block; color: var(--sub); font-size: 13.5px; font-weight: 600; line-height: 1.5; letter-spacing: 0; }
+.card .stat dd .aside {
+  display: block; margin-top: 3px; color: var(--ink);
+  font-size: 13px; font-weight: 400; line-height: 1.55; letter-spacing: 0;
+}
+.card .place {
+  display: grid; grid-template-columns: 3.6em 1fr; gap: 8px 10px;
+  margin: 0 0 16px; font-size: 14.5px; line-height: 1.65;
+}
+.card .place dt { color: var(--sub); font-size: 13px; font-weight: 600; padding-top: 1px; }
+.card .detail { margin: 0 0 16px; font-size: 14px; line-height: 1.65; }
+.card .detail:empty { margin: 0; }
+.card .detail .d-row + .d-row { margin-top: 10px; }
+.card .detail dt { color: var(--sub); font-size: 13px; font-weight: 600; letter-spacing: .04em; line-height: 1.4; }
+.card .detail dd + dd { margin-top: 3px; }
+.card .detail .d-head { display: block; color: var(--sub); font-size: 12.5px; line-height: 1.5; }
+.card .detail .d-more { color: var(--sub); font-size: 13px; }
+.card .point {
+  margin: 0 0 12px; padding: 2px 0 2px 12px; font-size: 14.5px; line-height: 1.7;
+  border-left: 2px solid var(--good); color: var(--ink);
+}
+.card .point b { color: var(--good); font-size: 13px; letter-spacing: .04em; }
+.card .links { margin-top: auto; padding-top: 12px; }
+.card .deck-mini {
+  align-self: flex-start; padding: 4px 14px; max-width: 100%; white-space: normal;
+  border: 1px solid var(--accent); border-radius: 999px;
+}
+.card .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
+@supports (grid-template-rows: subgrid) {
+  @media (min-width: 861px) {
+    .card { display: grid; grid-template-rows: subgrid; grid-row: span 10; row-gap: 0; align-content: start; }
+    .card > h3 { grid-row: 1 / span 1; }
+    .card > .what { grid-row: 2 / span 1; }
+    .card > .nums { grid-row: 3 / span 3; }
+    .card > .place { grid-row: 6 / span 1; }
+    .card > .detail { grid-row: 7 / span 1; }
+    .card > .point { grid-row: 8 / span 1; }
+    .card > .verdict { grid-row: 9 / span 1; }
+    .card > .links { grid-row: 10 / span 1; }
+    .card > .nums { display: grid; grid-template-rows: subgrid; }
+    .card .s-salary { grid-row: 1; } .card .s-annual { grid-row: 2; } .card .s-holidays { grid-row: 3; }
+    .card > .place { align-content: start; }
+    .card > .detail { align-self: start; }
+    .card > .point, .card > .verdict { align-self: start; }
+    .card > .links { align-self: start; margin-top: 0; }
+  }
+}
+@media (max-width: 860px) {
+  .cards { grid-template-columns: 1fr; }
+}
+@media print {
+  .card { break-inside: avoid; }
+}
+
+:root {
+  --band-offset: 56px;
+  --cat-0: #0b5cad; --cat-1: #b35c00; --cat-2: #08795a; --cat-3: #a3317a; --cat-4: #b8370b; --cat-5: #2b6f97; --cat-6: #5a6478;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --cat-0: #7db4f0; --cat-1: #f0a64d; --cat-2: #49c79f; --cat-3: #e58cc4; --cat-4: #f08a5d; --cat-5: #7cc4ec; --cat-6: #a3adbf;
+  }
+}
+:root[data-theme="dark"] {
+  --cat-0: #7db4f0; --cat-1: #f0a64d; --cat-2: #49c79f; --cat-3: #e58cc4; --cat-4: #f08a5d; --cat-5: #7cc4ec; --cat-6: #a3adbf;
+}
+html { scroll-padding-top: var(--band-offset); }
+.band {
+  position: sticky; top: 0; z-index: 10; background: var(--paper); color: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+.band-in {
+  max-width: 1080px; margin: 0 auto; padding: 0 16px; min-height: 40px;
+  display: flex; align-items: center; gap: 4px 18px; font-size: 14px; line-height: 1.4;
+}
+.band-title {
+  color: var(--ink); font-weight: 700; text-decoration: none; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 0 1 auto;
+}
+.band-ch ol { list-style: none; display: flex; gap: 14px; margin: 0; padding: 0; }
+.band-ch a { color: var(--accent); text-decoration: none; white-space: nowrap; }
+.band-ch a[aria-current] { color: var(--ink); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.band-now { color: var(--sub); margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.band a:focus-visible, .fig a:focus-visible, .cmp a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 760px) {
+  :root { --band-offset: 72px; }
+  .band-in { flex-wrap: wrap; padding: 4px 12px; min-height: 0; font-size: 13.5px; }
+  .band-title { flex: 1 1 100%; }
+  .band-now { flex: 1 1 auto; text-align: right; }
+}
+.band ~ .wrap { padding-top: 18px; }
+.band ~ .wrap header .date { margin-bottom: 12px; }
+svg.lg-ic { width: 18px; height: 18px; flex: none; }
+.cmp-side .lead { margin: 0 0 10px; color: var(--ink); }
+@media (min-width: 900px) {
+  .intro { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; align-items: start; }
+  .intro #flow h2 { margin-top: 0; }
+  .cmp-top { display: grid; grid-template-columns: minmax(0, 560px) minmax(0, 1fr); gap: 0 28px; align-items: start; }
+}
+.fig { margin: 0 0 12px; }
+.fig svg { display: block; width: 100%; height: auto; max-width: 640px; }
+.fig-narrow svg { max-width: 560px; }
+.fig .grid { stroke: var(--line); stroke-width: 1; }
+.fig .axis { stroke: var(--sub); stroke-width: 1.5; }
+.fig .tick { fill: var(--sub); font-size: 16px; }
+.fig .ax-l { fill: var(--ink); font-size: 16px; }
+.fig .mk { fill: var(--paper); stroke-width: 3; }
+.cat-0 { stroke: var(--cat-0); } .cat-1 { stroke: var(--cat-1); } .cat-2 { stroke: var(--cat-2); }
+.cat-3 { stroke: var(--cat-3); } .cat-4 { stroke: var(--cat-4); } .cat-5 { stroke: var(--cat-5); } .cat-6 { stroke: var(--cat-6); }
+.fig .bar { stroke-width: 10; stroke-linecap: round; }
+.fig .ring, .legend .ring { fill: none; stroke: var(--ink); stroke-width: 2; }
+.fig .pt-n { fill: var(--ink); font-size: 16px; font-weight: 700; text-anchor: middle; }
+.fig .lead { stroke: var(--sub); stroke-width: 1; }
+.fig .open-ar { stroke: var(--sub); stroke-width: 2; }
+.fig .true-pos { fill: var(--sub); }
+.fig a.pt:hover .mk, .fig a.pt:focus .mk { stroke-width: 5; }
+.legend .mk { fill: var(--paper); stroke-width: 3; }
+.legend { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 14.5px; color: var(--ink); }
+.legend li { display: inline-flex; align-items: center; gap: 6px; }
+.fig-note { margin: 4px 0 0; font-size: 14.5px; color: var(--ink); }
+.fig .fl-c { fill: var(--paper); stroke: var(--ink); stroke-width: 2; }
+.fig .fl-n { fill: var(--ink); font-size: 16px; font-weight: 700; }
+.fig .fl-t { fill: var(--ink); font-size: 17px; }
+.fig-flow-w svg { max-width: 400px; }
+.fig .fl-l { stroke: var(--sub); stroke-width: 2; }
+.fig .fl-a { fill: var(--sub); }
+.fig .tr-b { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; }
+.fig .tr-t { fill: var(--ink); font-size: 15px; font-weight: 700; }
+.fig .tr-c { fill: var(--sub); font-size: 15px; }
+table.cmp { border-collapse: collapse; width: 100%; font-size: 15px; background: var(--paper); table-layout: fixed; }
+table.cmp caption { text-align: left; font-size: 14px; color: var(--sub); padding: 0 0 6px; }
+table.cmp th, table.cmp td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+table.cmp th { color: var(--sub); font-weight: 600; font-size: 13.5px; background: var(--paper); border-bottom: 1.5px solid var(--sub); }
+table.cmp th:nth-child(1) { width: 26%; } table.cmp th:nth-child(2) { width: 14%; } table.cmp th:nth-child(3) { width: 24%; }
+table.cmp th:nth-child(4) { width: 20%; }
+.cmp .clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.cmp .main { display: block; }
+.fig-how { margin-top: 6px; font-size: 14.5px; }
+.fig-how summary { cursor: pointer; color: var(--accent); }
+.fig-how summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cmp .no { display: inline-block; min-width: 1.6em; font-weight: 700; }
+.cmp .to-card { color: var(--ink); font-weight: 700; }
+.cmp .cmp-chosen { display: block; font-size: 13px; font-weight: 700; color: var(--ink); }
+.cmp .links { display: flex; flex-wrap: wrap; gap: 2px 10px; margin-top: 4px; }
+.cmp .links .deck-mini { font-size: 13px; max-width: 100%; white-space: normal; }
+.cmp .empty { color: var(--sub); }
+.cmp-key { margin: 6px 0 0; font-size: 13.5px; color: var(--sub); }
+@media (max-width: 760px) {
+  table.cmp, table.cmp caption, table.cmp tbody, table.cmp tr, table.cmp td { display: block; width: auto !important; }
+  table.cmp thead { display: none; }
+  table.cmp tr { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  table.cmp td { border: none; padding: 1px 0; }
+  table.cmp td:not(.c-co)::before { content: attr(data-h); display: block; color: var(--sub); font-size: 12.5px; }
+  .fig .tick { font-size: 18px; } .fig .ax-l { font-size: 17px; }
+  .fig .pt-n { font-size: 20px; }
+}
+@media print {
+  .band { position: static; }
+  .cmp .clamp { -webkit-line-clamp: unset; display: block; }
+}
+
+/* ---- 当日の画面共有（shigoto_live_layer）---- */
+.band-pos { color: var(--ink); font-weight: 700; white-space: nowrap; }
+@media (min-width: 861px) { .band-pos { font-size: 18px; } }
+.band-pos:empty { padding: 0; }
+.draft-note { margin: 0 0 16px; padding: 10px 14px; border: 2px dashed var(--note); border-radius: 10px; color: var(--ink); font-weight: 700; }
+.qa { margin: 0; padding: 14px 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+.qa dt { margin: 10px 0 2px; font-weight: 700; }
+.qa dt:first-child { margin-top: 0; }
+.qa dd { margin: 0 0 6px; }
+.qa .qa-m { display: inline-block; margin-right: 8px; padding: 0 8px; border-radius: 6px; font-size: 14px; font-weight: 700; background: var(--accent-soft); color: var(--accent); }
+.qa dd .qa-m { background: var(--good-soft); color: var(--good); }
+@media (min-width: 861px) {
+  .cards.live { grid-template-columns: 1fr; gap: 28px; }
+  .cards.live > .card {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    grid-template-rows: auto auto auto auto auto 1fr; grid-row: auto; column-gap: 28px; row-gap: 0;
+    padding: 16px 24px 18px;
+  }
+  .cards.live > .card > h3 { grid-column: 1 / -1; grid-row: 1; margin: 0 0 2px; font-size: 34px; line-height: 1.3; }
+  .cards.live > .card > .what { grid-column: 1 / -1; grid-row: 2; margin: 0 0 6px; font-size: 18px; line-height: 1.5; }
+  .cards.live > .card > .nums { grid-column: 1; grid-row: 3 / span 2; display: block; margin: 0; padding: 6px 0 4px; align-self: start; }
+  .cards.live > .card > .place { grid-column: 2; grid-row: 3; margin: 0 0 12px; font-size: 20px; line-height: 1.5; align-self: start; }
+  .cards.live > .card > .point { grid-column: 2; grid-row: 4; margin: 0; font-size: 20px; line-height: 1.55; align-self: start; }
+  .cards.live > .card > .verdict { grid-column: 1 / -1; grid-row: 5; margin-top: 12px; font-size: 17px; align-self: start; }
+  .cards.live > .card > .links { grid-column: 1 / -1; grid-row: 6; margin-top: 0; padding-top: 12px; align-self: start; }
+  .cards.live .stat { padding-bottom: 6px; }
+  .cards.live .stat dt { font-size: 16px; }
+  .cards.live .stat dd, .cards.live .s-salary dd { font-size: 32px; line-height: 1.3; }
+  .cards.live .stat dd .lead { font-size: 16px; line-height: 1.45; }
+  .cards.live .stat dd .aside { margin-top: 2px; font-size: 16px; line-height: 1.45; }
+  .cards.live .place { grid-template-columns: 1fr; gap: 0; }
+  .cards.live .place dt { font-size: 16px; padding-top: 0; }
+  .cards.live .place dd { margin-bottom: 8px; }
+  .cards.live .point b { font-size: 16px; }
+  .cards.live .deck-mini { font-size: 16px; }
+}
+@media screen and (min-width: 861px) {
+  /* 1社を話している間、次の社が画面に入らない（読者役 critic: 下に次の社の見出しが見えて目がそちらへ行く） */
+  .cards.live > .card { min-height: calc(100vh - var(--band-offset) - 12px); }
+}
+
+/* ---- 会社カードの畳み（shigoto_fold_layer）---- */
+.cards.folded { grid-template-columns: 1fr; gap: 10px; }
+.cards.folded > article.card { display: block; padding: 0; min-height: 0; }
+details.fold > summary {
+  list-style: none; cursor: pointer; display: grid; gap: 2px; padding: 14px 44px 14px 16px; position: relative;
+  border-radius: 14px;
+}
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary::after {
+  content: "＋"; position: absolute; right: 16px; top: 14px; color: var(--accent); font-weight: 700;
+}
+details.fold[open] > summary::after { content: "－"; }
+details.fold > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+details.fold > summary:hover .f-name { text-decoration: underline; }
+.f-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+.f-name { font-size: 18px; font-weight: 700; line-height: 1.45; overflow-wrap: anywhere; }
+.f-what { color: var(--ink); font-size: 14.5px; line-height: 1.6; overflow-wrap: anywhere; }
+.f-meta { color: var(--sub); font-size: 13.5px; line-height: 1.6; overflow-wrap: anywhere; }
+.fold-body { padding: 4px 16px 16px; border-top: 1px solid var(--line); }
+.fold-body > h3, .fold-body > .what { display: none; }
+.fold-body > .nums { margin-top: 12px; }
+details.fold.is-dropped > summary { opacity: .55; }
+details.fold.is-dropped[open] > .fold-body { opacity: .7; }
+.cards.folded > article.card > .ans { margin: 0 16px 14px; }
+.st {
+  display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 700;
+  line-height: 1.6; white-space: nowrap; border: 1px solid var(--line);
+}
+.st-mensetsu, .st-shorui, .st-suisen { background: var(--good-soft); color: var(--good); border-color: var(--good); }
+.st-teian { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.st-drop { background: var(--pass-soft); color: var(--sub); }
+.fold-ctl { display: flex; gap: 8px; margin: 0 0 10px; }
+.fold-ctl[hidden] { display: none; }
+.fold-ctl button {
+  font: inherit; font-size: 14px; padding: 6px 14px; min-height: 40px; border: 1px solid var(--accent);
+  border-radius: 999px; background: var(--paper); color: var(--accent); cursor: pointer;
+}
+.fold-ctl button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#dropped h2 { font-size: 17px; color: var(--sub); }
+@media print {
+  details.fold::details-content { content-visibility: visible; display: block; }
+  details.fold > summary::after, .fold-ctl { display: none; }
+  details.fold.is-dropped > summary { opacity: 1; }
+}
+
+h1,h2,h3{word-break:auto-phrase}
 </style>
 </head>
 <body>
+<div class="band" id="band">
+<div class="band-in">
+  <a class="band-title" href="#top">池田さんにご紹介したいお仕事</a>
+  <nav class="band-ch" aria-label="章"><ol><li><a href="#top" data-ch="intro">はじめに</a></li><li><a href="#compare" data-ch="compare">比べる</a></li><li><a href="#applying" data-ch="detail">詳しく</a></li><li><a href="#documents" data-ch="docs">資料</a></li><li><a href="#flow" data-ch="next">これから</a></li></ol></nav>
+  <span class="band-now" aria-live="polite"></span><span class="band-pos" aria-live="polite"></span>
+</div>
+</div>
+<script>
+(function spy() {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", spy);
+    return;
+  }
+  var MAP = [["top", "intro", "ごあいさつ"], ["heard", "intro", "伺ったこと"], ["compare", "compare", "ご確認いただきたい会社の比較"], ["applying", "detail", "応募中の会社"], ["companies", "detail", "ご紹介した会社"], ["decision", "detail", "おすすめの順番"], ["documents", "docs", "あなたの書類"], ["industry", "docs", "業界の説明資料"], ["flow", "next", "これからの進め方"]];
+  var band = document.getElementById("band");
+  if (!band || !("IntersectionObserver" in window)) return;
+  var now = band.querySelector(".band-now");
+  var chs = band.querySelectorAll("[data-ch]");
+  var items = MAP.map(function (m) { return [document.getElementById(m[0]), m[1], m[2]]; })
+    .filter(function (m) { return m[0]; });
+  function pick() {
+    var line = window.innerHeight * 0.4, cur = items[0];
+    var atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    items.forEach(function (it) {
+      var top = it[0].getBoundingClientRect().top;
+      if (top <= line || (atEnd && top < window.innerHeight)) cur = it;
+    });
+    if (!cur) return;
+    now.textContent = "いま: " + cur[2];
+    chs.forEach(function (a) {
+      if (a.getAttribute("data-ch") === cur[1]) a.setAttribute("aria-current", "location");
+      else a.removeAttribute("aria-current");
+    });
+  }
+  var io = new IntersectionObserver(pick, { rootMargin: "0px 0px -60% 0px", threshold: [0, 1] });
+  items.forEach(function (it) { io.observe(it[0]); });
+  var foot = document.querySelector("footer");
+  if (foot) new IntersectionObserver(pick).observe(foot);
+  pick();
+})();
+</script>
 <div class="wrap">
 
-<header>
+<header id="top">
   <h1>池田さんにご紹介したいお仕事</h1>
   <p class="date">2026年10月30日（金）</p>
 </header>
 
-<section class="thanks">
+<nav class="page-nav" aria-label="ページ内リンク"><ul><li><a href="#applying">応募中の会社</a></li><li><a href="#companies">ご紹介した会社</a></li><li><a href="#decision">おすすめの順番</a></li><li><a href="#documents">あなたの書類</a></li><li><a href="#industry">業界の説明資料</a></li></ul></nav>
+<div class="live-flow" data-layer="live">
+<section class="thanks" data-no-figure="あいさつの数文">
 <p><b>本日もお時間いただきありがとうございました。</b></p>
   <p>前回ご紹介した会社に、池田さんのご希望（エンジニアを目指す）に沿う会社を足して、<b>どの順番で受けるか</b>を整理しました。</p>
 </section>
-<div class="flow-box">
-  <h3>これからの進め方</h3>
-  <ol><li>12月スタートを目指すので、11月中旬までに受ける会社を決めます</li><li>1社だけでなく複数受けて、内定をもらったところから選びます</li><li>次回は面接の練習をします（面接は練習した人が有利です）</li></ol>
+<section id="heard" data-section="heard" data-no-figure="伺った条件の短い札">
+<div class="axis">
+  <span class="label">伺ったこと</span>
+  <span class="chip">エンジニアになりたい</span>
+  <span class="chip">CCNAにチャレンジしたい</span>
+  <span class="chip">営業からは離れたい</span>
+  <span class="chip">座れる経路なら片道1時間まで</span>
+  
 </div>
-<nav class="page-nav" aria-label="ページ内リンク"><ul><li><a href="#decision">おすすめの順番</a></li><li><a href="#companies">ご紹介した会社</a></li><li><a href="#documents">あなたの書類</a></li><li><a href="#industry">業界の説明資料</a></li></ul></nav>
+</section>
+<section id="compare" data-section="compare" data-chapter="compare">
+<h2>ご確認いただきたい会社の比較</h2>
+<div class="cmp-top"><figure class="fig" data-figure="compare"><svg class="fig-cmp" viewBox="0 0 560 272" role="img" aria-labelledby="fig-cmp-t fig-cmp-d" preserveAspectRatio="xMidYMid meet"><title id="fig-cmp-t">ご確認中の6社の比較（2026年10月時点の求人票・会社資料より）</title><desc id="fig-cmp-d">1 オープンアップITエンジニア: 月給のまん中 22万円・年間休日 122日／3 スタッフサービス・エンジニアリング（IT）: 月給のまん中 23.2万円・年間休日 125日／4 SPIN TECHNOLOGY: 月給のまん中 20.5万円・年間休日 125日／5 コクー: 月給のまん中 28万円・年間休日 124日／6 BREXA Technology（IT）: 月給のまん中 20.5万円・年間休日 120日</desc><defs><marker id="cmp-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="grid" x1="72.0" y1="14" x2="72.0" y2="212"/><text class="tick" x="72.0" y="237" text-anchor="middle">18</text><line class="grid" x1="148.3" y1="14" x2="148.3" y2="212"/><text class="tick" x="148.3" y="237" text-anchor="middle">20</text><line class="grid" x1="224.7" y1="14" x2="224.7" y2="212"/><text class="tick" x="224.7" y="237" text-anchor="middle">22</text><line class="grid" x1="301.0" y1="14" x2="301.0" y2="212"/><text class="tick" x="301.0" y="237" text-anchor="middle">24</text><line class="grid" x1="377.3" y1="14" x2="377.3" y2="212"/><text class="tick" x="377.3" y="237" text-anchor="middle">26</text><line class="grid" x1="453.7" y1="14" x2="453.7" y2="212"/><text class="tick" x="453.7" y="237" text-anchor="middle">28</text><line class="grid" x1="530.0" y1="14" x2="530.0" y2="212"/><text class="tick" x="530.0" y="237" text-anchor="middle">30</text><line class="grid" x1="72" y1="212.0" x2="530" y2="212.0"/><text class="tick" x="60" y="217.0" text-anchor="end">110</text><line class="grid" x1="72" y1="172.4" x2="530" y2="172.4"/><text class="tick" x="60" y="177.4" text-anchor="end">115</text><line class="grid" x1="72" y1="132.8" x2="530" y2="132.8"/><text class="tick" x="60" y="137.8" text-anchor="end">120</text><line class="grid" x1="72" y1="93.2" x2="530" y2="93.2"/><text class="tick" x="60" y="98.2" text-anchor="end">125</text><line class="grid" x1="72" y1="53.6" x2="530" y2="53.6"/><text class="tick" x="60" y="58.6" text-anchor="end">130</text><line class="grid" x1="72" y1="14.0" x2="530" y2="14.0"/><text class="tick" x="60" y="19.0" text-anchor="end">135</text><line class="axis" x1="72" y1="212" x2="530" y2="212"/><line class="axis" x1="72" y1="14" x2="72" y2="212"/><text class="ax-l" x="301.0" y="264" text-anchor="middle">月給の目安（万円）→</text><text class="ax-l" x="20" y="113.0" text-anchor="middle" transform="rotate(-90 20 113.0)">年間休日（日）→</text><line class="open-ar" x1="241.7" y1="117.0" x2="268.7" y2="117.0" marker-end="url(#cmp-ar)"/><a class="pt" href="#card-openup_it" aria-label="1. オープンアップITエンジニア（カードへ）" data-key="openup_it"><title>1. オープンアップITエンジニア（カードへ）</title><polygon class="mk cat-2" points="224.7,100.7 239.6,128.0 209.7,128.0"/><text class="pt-n" x="224.7" y="122.5">1</text></a><a class="pt" href="#card-sse_it" aria-label="3. スタッフサービス・エンジニアリング（IT）（カードへ）" data-key="sse_it"><title>3. スタッフサービス・エンジニアリング（IT）（カードへ）</title><polygon class="mk cat-2" points="272.4,77.0 287.3,104.2 257.4,104.2"/><text class="pt-n" x="272.4" y="98.7">3</text></a><line class="open-ar" x1="184.4" y1="93.2" x2="211.4" y2="93.2" marker-end="url(#cmp-ar)"/><a class="pt" href="#card-spin" aria-label="4. SPIN TECHNOLOGY（カードへ）" data-key="spin"><title>4. SPIN TECHNOLOGY（カードへ）</title><polygon class="mk cat-2" points="167.4,77.0 182.4,104.2 152.5,104.2"/><text class="pt-n" x="167.4" y="98.7">4</text></a><a class="pt" href="#card-cocoo" aria-label="5. コクー（カードへ）" data-key="cocoo"><title>5. コクー（カードへ）</title><rect class="mk cat-1" x="440.7" y="88.1" width="26.0" height="26.0"/><text class="pt-n" x="453.7" y="106.6">5</text></a><line class="open-ar" x1="184.4" y1="132.8" x2="211.4" y2="132.8" marker-end="url(#cmp-ar)"/><a class="pt" href="#card-brexa_it" aria-label="6. BREXA Technology（IT）（カードへ）" data-key="brexa_it"><title>6. BREXA Technology（IT）（カードへ）</title><polygon class="mk cat-2" points="167.4,116.6 182.4,143.9 152.5,143.9"/><text class="pt-n" x="167.4" y="138.3">6</text></a></svg></figure><div class="cmp-side"><p class="lead">面談の希望から6社を選びました。右ほど月給が高く、上ほど年間休日が多い会社です。番号や社名を押すと詳しい説明に移ります。<span class="ans-line">気になる会社は番号か社名でLINEへ（例「2が気になります」）。</span></p><ul class="legend" aria-label="図の見方"><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><rect class="mk cat-1" x="6.0" y="6.0" width="18.0" height="18.0"/></svg>事務</li><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><polygon class="mk cat-2" points="15.0,3.8 25.4,22.6 4.7,22.6"/></svg>IT</li><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><path class="fl-a" d="M4,13 H20 V9 L28,15 L20,21 V17 H4 z"/></svg>月給の上限なし</li></ul><p class="fig-note">図に載せていない: 2 テクノプロ①（月給がまだ確かめられていない）</p><details class="fig-how"><summary>図の見方</summary><p class="fig-note">1、4、6 は月給の上限が書かれていないため、下限の位置に置いて → を付けました。</p><p class="fig-note">年間休日の差は最大5日です。月給は書かれた幅のまん中に置いています。</p></details></div></div>
+<table class="cmp">
+  <caption>ご確認中の6社の比較（2026年10月時点の求人票・会社資料より）</caption>
+  <thead><tr><th>会社</th><th>仕事の種類</th><th>勤務地</th><th>年収（年額）</th><th>月給（月額）</th><th>休日（年間）</th></tr></thead>
+  <tbody>
+    <tr data-key="openup_it"><td class="c-co" data-h="会社"><span class="no">1</span><a class="to-card" href="#card-openup_it">オープンアップITエンジニア</a><span class="links"><a class="deck-mini" href="https://www.openupitengineer.co.jp/" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1X-Vx5IOL5tOttgAh9UkghjaAwBRyZppq/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料（候補者様向け資料）">候補者様向け資料 →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1x8gG4uYKRJOoAtqBFKcwQCnnUVe7zdNb/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料（企業説明）">企業説明 →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1DcTOpcai5RRSLF6zTiNs_1oy70KNn11d/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">IT</td><td data-h="勤務地"><span class="clamp">全国</span></td><td data-h="年収（年額）"><span class="clamp">264万〜420万円</span></td><td data-h="月給（月額）"><span class="clamp">22万円〜</span></td><td data-h="休日（年間）"><span class="clamp">年間休日122日</span></td></tr>
+<tr data-key="xd4d49ded"><td class="c-co" data-h="会社"><span class="no">2</span><a class="to-card" href="#card-xd4d49ded">テクノプロ①</a><span class="links"></span></td><td data-h="仕事の種類"><span class="empty">まだ不明</span></td><td data-h="勤務地"><span class="empty">まだ不明</span></td><td data-h="年収（年額）"><span class="empty">まだ不明</span></td><td data-h="月給（月額）"><span class="empty">まだ不明</span></td><td data-h="休日（年間）"><span class="empty">まだ不明</span></td></tr>
+<tr data-key="sse_it"><td class="c-co" data-h="会社"><span class="no">3</span><a class="to-card" href="#card-sse_it">スタッフサービス・エンジニアリング（IT）</a><span class="links"><a class="deck-mini" href="https://www.staffservice-engineering.jp/" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1mvmhuABSzSJRxpq6TI5Bn3TNaD2u9u0L/view" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）の資料（会社の資料）">会社の資料 →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1gRepWrdClzMNKt8jy-U9eWfjBPWavRuW/view" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）の資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">IT</td><td data-h="勤務地"><span class="clamp">北海道ほか</span></td><td data-h="年収（年額）"><span class="clamp">282万〜400万円</span></td><td data-h="月給（月額）"><span class="clamp">23万〜23.5万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
+<tr data-key="spin"><td class="c-co" data-h="会社"><span class="no">4</span><a class="to-card" href="#card-spin">SPIN TECHNOLOGY</a><span class="links"><a class="deck-mini" href="https://www.spintechnology.jp/" target="_blank" rel="noopener" aria-label="SPIN TECHNOLOGYのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1KwYt8XRTQBc5Jt8XrqUBxHus8N-j-48n/view" target="_blank" rel="noopener" aria-label="SPIN TECHNOLOGYの資料（会社紹介・採用ピッチ）">会社紹介・採用ピッチ →</a></span></td><td data-h="仕事の種類">IT</td><td data-h="勤務地"><span class="clamp">千葉県ほか</span></td><td data-h="年収（年額）"><span class="empty">まだ不明</span></td><td data-h="月給（月額）"><span class="clamp">20.5万円〜</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
+<tr data-key="cocoo"><td class="c-co" data-h="会社"><span class="no">5</span><a class="to-card" href="#card-cocoo">コクー</a><span class="links"><a class="deck-mini" href="https://cocoo.co.jp/corporate/" target="_blank" rel="noopener" aria-label="コクーのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1tCYi0UNVlTHRr4ySzXC0ENQnmnS_f2fC/view" target="_blank" rel="noopener" aria-label="コクーの資料（EXCEL女子の紹介（会社作成・画像1枚・小さい字に崩れあり））">EXCEL女子の紹介（会社作成・画像1枚・小さい字に崩れあり） →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1L9dp3hvYCocRwZSJQ5GZAC0UMuk3-Z-m/view" target="_blank" rel="noopener" aria-label="コクーの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="clamp">東京都</span></td><td data-h="年収（年額）"><span class="empty">まだ不明</span></td><td data-h="月給（月額）"><span class="clamp">24万〜32万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日124日</span></td></tr>
+<tr data-key="brexa_it"><td class="c-co" data-h="会社"><span class="no">6</span><a class="to-card" href="#card-brexa_it">BREXA Technology（IT）</a><span class="links"><a class="deck-mini" href="https://technology.brexa.com/" target="_blank" rel="noopener" aria-label="BREXA Technology（IT）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1O7g80XtqFEXxPdnGqwqXdbBR0sXwe7en/view" target="_blank" rel="noopener" aria-label="BREXA Technology（IT）の資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">IT</td><td data-h="勤務地"><span class="clamp">東京都ほか</span></td><td data-h="年収（年額）"><span class="clamp">270万〜400万円</span></td><td data-h="月給（月額）"><span class="clamp">20.5万円〜</span></td><td data-h="休日（年間）"><span class="clamp">年間休日120日</span></td></tr>
+  </tbody>
+</table>
+<p class="cmp-key">まだ不明＝求人票・資料で確かめられていない。続きは各社の説明に。</p>
+</section>
+<section id="applying" data-section="applying" data-no-figure="応募中の会社のカード">
+<h2>応募中の会社</h2>
+<p class="lead">応募の手続きや選考が進んでいる会社です。押すと詳しい説明が開きます。</p>
+<div class="cards folded" data-fold="line">
+  <article class="card decided" id="card-brexa_communications" data-key="brexa_communications" data-name="BREXA Communications"><details class="fold" data-status="推薦中"><summary><span class="f-head"><span class="f-name">BREXA Communications</span><span class="st st-suisen" data-status="推薦中">応募の手続き中</span></span><span class="f-what">通信インフラの事務サポート（携帯キャリア向け専用システムへのデータ入力・法人顧客からの電話/メール問い合わせ対応・スマホ/タブレットの発注手配や在庫管理・基地局工事の日程調整・申請書類作成・法人営業担当のサポートなど）</span><span class="f-meta">東京、神奈川、埼玉、千葉　年収 320万〜350万円</span></summary><div class="fold-body">
+    <h3>BREXA Communications</h3>
+    <p class="what">通信インフラの事務サポート（携帯キャリア向け専用システムへのデータ入力・法人顧客からの電話/メール問い合わせ対応・スマホ/タブレットの発注手配や在庫管理・基地局工事の日程調整・申請書類作成・法人営業担当のサポートなど）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給22万〜25万円ほど</span><span class="aside">（想定年収320万〜350万円・賞与年2回）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>320万〜350万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日祝休み</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京、神奈川、埼玉、千葉</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>転勤なし</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>工事に関する積算業務（見積依頼・請求書のフォーマット作成・月末月初の請求処理）・Excelや専用システムを用いたデータ集計・レポート作成（VLOOKUP・ピボットなど）・社内外との調整・折衝を通じたプロジェクト進行サポート・業務フローの見…</dd><dd>部署の人数：100・※プロジェクト先によって異なるため上記はあくまでも例となっております</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-salary_breakdown"><dt>給与の内訳</dt><dd>経験・スキルなどを考慮し決定します。・給与形態：月給制・※経験・スキルなどを考慮し、話し合いのうえで決定します。</dd><dd>時間外手当は別途全額支給いたします。</dd><dd>インセンティブ：なし</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>賞与は年2回支給。・賞与回数：2回</dd></div><div class="d-row d-leave"><dt>休暇</dt><dd>年末年始休暇、夏季休暇、慶弔休暇、有給休暇、産・休・育休</dd></div><div class="d-row d-work_hours"><dt>勤務時間</dt><dd>09:30〜18:00・夜間勤務：あり</dd></div><div class="d-row d-overtime"><dt>残業</dt><dd>月間平均残業時間：10時間以下</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>最終学歴: 学歴不問</dd><dd>職種経験: 職種未経験OK</dd><dd>業種経験: 業種未経験OK</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>人物重視の採用です。</dd><dd>変化の多い通信・IT業界の中で、柔軟に対応しながら成長したい方</dd><dd>指示待ちではなく、自ら業務の優先度を考え行動できる方</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>（WEB面接も可）</dd><dd>選考1回のみ</dd></div><div class="d-row d-company"><dt>会社</dt><dd>株式会社BREXA Communications</dd><dd>2001年</dd><dd>1001 ~ 5000名</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　応募されたIT事務にいちばん近い会社です。auショップで扱っていたスマホ・回線の手続きを、今度は裏側の事務として支える仕事で、営業ノルマはありません。選考はWEB面接1回、千葉も勤務エリアに入っています。</p>
+    <div class="verdict is-sent"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">おすすめ</span></div><p>これまでのご経験がそのまま仕事になり、選考も1回なので、最初に書類を出す会社にしました。</p></div>
+    <div class="links"><a class="deck-mini" href="https://communications.brexa.com/" target="_blank" rel="noopener" aria-label="BREXA Communicationsのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1enC8GuJqNI5dTR0d9e_EUQIdOFDnFCTZ/view" target="_blank" rel="noopener" aria-label="BREXA Communicationsの資料（会社概要・採用情報）">会社概要・採用情報 →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1qAC1gce92uipaXEOPcfoAJH69GSXooe3/view" target="_blank" rel="noopener" aria-label="BREXA Communicationsの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details></article>
+</div>
+</section>
+<section id="companies" data-section="companies" data-no-figure="各社カードと表＝詳しい層（図はトップの比較）">
+<h2>ご紹介した会社</h2>
+<h2>僕のおすすめの会社</h2>
+<p class="lead">伺ったお話から、池田さんにとってプラスになると考えた会社です。</p>
+<div class="fold-ctl" hidden><button type="button" data-fold-all="open">全部開く</button><button type="button" data-fold-all="close">全部閉じる</button></div>
+<div class="cards live folded" data-live="picks">
+  <article class="card" id="card-openup_it" data-key="openup_it" data-name="オープンアップITエンジニア"><details class="fold" data-status="提案"><summary><span class="f-head"><span class="f-name">オープンアップITエンジニア</span><span class="st st-teian" data-status="提案">ご確認ください</span></span><span class="f-what">ITエンジニア（未経験から、インフラ・開発など）</span><span class="f-meta">全国　年収 264万〜420万円</span></summary><div class="fold-body">
+    <h3>オープンアップITエンジニア</h3>
+    <p class="what">ITエンジニア（未経験から、インフラ・開発など）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">22万円〜</span><span class="aside">（スタート年収 264万円〜）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>264万〜420万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日122日</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>全国（全国／地域限定／通勤限定から選べる）</dd><dt>条件</dt><dd>勤務地区分（全国転勤／地域限定／通勤限定）は書類選考の通りやすさを変えない。</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>配属先は、本人の目指すキャリア意向のヒアリングを行い、スキル習熟度・人柄も含めて総合的に判断しています。</dd><dd>配属先は全国900社以上の大手・先端企業が中心。</dd><dd>入社後は、システム開発・テスト・ネットワーク構築・システム運用保守・データベース管理・ヘルプデスク対応など、・ITに関する幅広い業務に携わっていただきます。・スキルや希望に応じて、製品評価・データ分析などの技術系業務を中心に担当いただくケ…</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-appeal"><dt>仕事の魅力</dt><dd>ゼロから市場価値の高いITエンジニアへ成長できる環境・月平均残業7時間程度</dd><dd>取引先900社 × 豊富な配属先・大手・有名企業から成長中のベンチャーまで、幅広い現場があり、スキルや適性に合わせた配属が可能です。</dd><dd>完全自社製・オリジナル研修（全9種類）・業界の最新ニーズを反映したカリキュラムを自社で開発。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-salary_breakdown"><dt>給与の内訳</dt><dd>また、当社の給与制度は「スキル・技術を仕事で活かせているか」を正しく評価する仕組みになっています。・努力や成果がしっかり給与に反映されます。</dd><dd>業務に役立つ資格を取得すると手当が付与されるほか、お客様への貢献度や提供するサービス内容に応じて変動する「単価連動給」</dd><dd>※経験・能力・資格を考慮の上、当社規定に基づき決定</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>賞与回数：2回</dd><dd>昇給：年1回（7月）</dd><dd>賞与：年2回（9月、3月）</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-leave"><dt>休暇</dt><dd>休暇制度：年末年始休暇、夏季休暇、慶弔休暇、・介護休暇・祝祭日・夏季休暇・慶弔休暇・年次有給休暇・育児・介護休業・産前産後休暇・⽣理休暇・子の看護等休暇等</dd></div><div class="d-row d-work_hours"><dt>勤務時間</dt><dd>09:00~18:00</dd><dd>勤務時間については、実労働時間8時間。・※ただし、配属先に応じて時間が異なる場合あり</dd><dd>（休憩1時間）</dd></div><div class="d-row d-overtime"><dt>残業</dt><dd>月間平均残業時間：10時間以下</dd><dd>月間平均残業時間：７時間以下</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>最終学歴: 高卒以上・最終学歴: 高卒以上</dd><dd>職種経験: 職種未経験OK・職種経験: 職種未経験OK</dd><dd>業種経験: 業種未経験OK・業種経験: 業種未経験OK</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>ITエンジニアとして成長意欲が高く、やる気のある方</dd><dd>新しい知識を積極的に学べる方</dd><dd>仕事を通じて成長していきたい方</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>「働きながら学ぶ」のではなく、研修に集中して成長できる環境 が整っています。</dd><dd>最先端のカリキュラムを常に更新・専任講師による丁寧な指導・配属後も教育担当・営業担当が継続フォロー</dd><dd>未経験から入社された方には、まず 最大3カ月間のOPE Learning Course（研修） を受講いただきます。・ITの基礎から実務を想定した演習まで段階的に習得できるカリキュラムとなっており、・研修でしっかり土台をつくることで、現場…</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>カジュアル面談の有無 : なし・会社説明会の有無: 状況に応じてある</dd><dd>適性テストの有無: あり</dd><dd>【STEP１】書類選考</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-hiring"><dt>募集の概要</dt><dd>増員募集 / 更なる組織強化</dd><dd>★入社時期など、お気軽にご相談ください。</dd></div><div class="d-row d-company"><dt>会社</dt><dd>株式会社オープンアップITエンジニア</dd><dd>人材派遣、IT×HR（採用・教育・労務・組織管理）、SIer・SES</dd><dd>1998年</dd><dd class="d-more">続きは求人票で</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　入社する方の8割が未経験の会社です。「未経験でも大きい会社なら放置されないのが安心」とおっしゃっていた点がそのまま当てはまります。関東は通勤できる範囲で配属先を限定できるので、本八幡から通える範囲で相談できます。</p>
+    <div class="verdict is-next"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">次点</span></div><p>池田さんがいちばん受けたいとおっしゃった会社です。資格の勉強を少し触ってから受けると、面接で話せることが増えます。</p></div>
+    <div class="links"><a class="deck-mini" href="https://www.openupitengineer.co.jp/" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1X-Vx5IOL5tOttgAh9UkghjaAwBRyZppq/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料（候補者様向け資料）">候補者様向け資料 →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1x8gG4uYKRJOoAtqBFKcwQCnnUVe7zdNb/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料（企業説明）">企業説明 →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1DcTOpcai5RRSLF6zTiNs_1oy70KNn11d/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details></article>
+  <article class="card" id="card-brexa_it" data-key="brexa_it" data-name="BREXA Technology（IT）"><details class="fold"><summary><span class="f-head"><span class="f-name">BREXA Technology（IT）</span></span><span class="f-what">サーバー運用・インフラから始めて、開発へ</span><span class="f-meta">東京、神奈川、千葉、埼玉、愛知、大阪、兵庫、広島、福岡、静岡、京都、香川、　年収 270万〜400万円</span></summary><div class="fold-body">
+    <h3>BREXA Technology（IT）</h3>
+    <p class="what">サーバー運用・インフラから始めて、開発へ</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">20.5万円〜</span><span class="aside">（想定年収 270万〜400万円）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>270万〜400万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日120日</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京、神奈川、千葉、埼玉、愛知、大阪、兵庫、広島、福岡、静岡、京都、香川、</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>Java、AWS、Linux、NW、Python、C#、PHP、AI基礎など、幅広い技術を学べる</dd><dd>本人がどのようなキャリアを描きたいか、次に何を学びたいかを考慮して案件を検討します。</dd><dd>あなたの希望やスキルをもとに複数の職場をご提案いたします</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-appeal"><dt>仕事の魅力</dt><dd>要件定義〜設計〜開発/構築まで幅広いフェーズがあり、経験に応じて上流工程に挑戦できます。・拡大フェーズにつき、若手からリーダーポジションへのチャンスもあります。</dd><dd>自ら学び、資格取得やスキルアップに取り組む方ほど、次の工程・次の案件へ挑戦しやすい環境です。</dd><dd>要件定義〜基本設計など上流工程への挑戦</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-salary_breakdown"><dt>給与の内訳</dt><dd>月給制</dd><dd>残業代1分単位支給</dd><dd>交通費全額支給</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>賞与回数:2回</dd><dd>賞与回数：2回</dd><dd>昨年度賞与実績:2ヶ月分</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-leave"><dt>休暇</dt><dd>年末年始休暇、夏季休暇、有給休暇、産休・育休、慶</dd><dd>年末年始休暇、夏季休暇、有給休暇、産休</dd></div><div class="d-row d-work_hours"><dt>勤務時間</dt><dd>09:00〜18:00</dd><dd>勤務時間は9:00〜18:00を基本としますが、・プロジェクトによって異なるケースがあります。</dd></div><div class="d-row d-overtime"><dt>残業</dt><dd>月間平均残業時間:20時間以下</dd><dd>月間平均残業時間：20時間以下</dd><dd>月平均残業は15時間程度となっており</dd></div><div class="d-row d-remote"><dt>在宅</dt><dd>案件によりリモートワークの可能性があります。</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>最終学歴: 学歴不問・最終学歴: 学歴不問</dd><dd>職種経験: 職種未経験NG・職種経験: 職種未経験NG</dd><dd>業種経験: 業種未経験OK・業種経験: 業種未経験OK</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>チームや顧客との報連相をしながら業務を推進できる方</dd><dd>新しい技術や未経験領域にも前向きにキャッチアップできる方</dd><dd>資格取得、自己学習、個人開発など、技術を磨く行動がある方、またはこれから取り組む意思が明確な方</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>教育事業にも力を入れており</dd><dd>eラーニング、講師付き研修、エンジニアによる定期研修、3ヶ月集中型のリスキリング研修</dd><dd>研修・資格取得支援が充実</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>履歴書の提出: 必須・職務経歴書の提出: 必須</dd><dd>カジュアル面談の有無 : 状況に応じてある・会社説明会の有無: 状況に応じてある</dd><dd>適性テストの有無: なし・適性テストの有無: なし</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-hiring"><dt>募集の概要</dt><dd>増員募集</dd></div><div class="d-row d-company"><dt>会社</dt><dd>「モノ(機械電気)」×「IT」の両方の分野において、高い技術力を持つエンジニアを擁するプロフェショナル集団です。</dd><dd>エンジニアが成長出来るプラットフォームを整えています。</dd><dd>所属エンジニア20000名(2024年12月時点)4年間で1.5倍に増加</dd><dd class="d-more">続きは求人票で</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　上のBREXA Communicationsの兄弟会社で、こちらがエンジニアの本体です。IT事務から入ってこちらへ移る道もありますが、最初からエンジニアを目指すなら直接こちらを受けられます。ヤオコーでの正社員のご経験が応募の条件を満たしています。</p>
+    <div class="verdict is-next"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">次点</span></div><p>応募の条件（正社員のご経験1年以上）を満たしていて、上の会社とつながりがあるので次の候補にしました。</p></div>
+    <div class="links"><a class="deck-mini" href="https://technology.brexa.com/" target="_blank" rel="noopener" aria-label="BREXA Technology（IT）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1O7g80XtqFEXxPdnGqwqXdbBR0sXwe7en/view" target="_blank" rel="noopener" aria-label="BREXA Technology（IT）の資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details></article>
+</div>
+<h2 id="more">ほかにもご紹介できる会社</h2>
+<p class="lead">上の会社のほかにも、ご経験で応募できる会社があります。気になる会社があれば「受けてみたい」「迷う・聞きたい」「今回は見送り」のどれかと、ひとことを教えてください。</p>
+<div class="cards live folded" data-fold="proposals">
+  <article class="card" id="card-xd4d49ded" data-key="xd4d49ded" data-name="テクノプロ①"><details class="fold" data-status="提案"><summary><span class="f-head"><span class="f-name">テクノプロ①</span><span class="st st-teian" data-status="提案">ご確認ください</span></span><span class="f-what">ITエンジニア</span><span class="f-meta">ご確認中　月給 ご確認中</span></summary><div class="fold-body">
+    <h3>テクノプロ①</h3>
+    <p class="what">ITエンジニア</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd>ご確認中</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>ご確認中</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>ご確認中</dd><dt>条件</dt><dd>ご確認中</dd>
+    </dl>
+    <dl class="detail"></dl>
+    <p class="point"><b>ここが合う</b>　将来使えるスキル（L127）・月25万超</p>
+    
+    <div class="links"></div>
+  </div></details></article>
+  <article class="card" id="card-sse_it" data-key="sse_it" data-name="スタッフサービス・エンジニアリング（IT）"><details class="fold" data-status="提案"><summary><span class="f-head"><span class="f-name">スタッフサービス・エンジニアリング（IT）</span><span class="st st-teian" data-status="提案">ご確認ください</span></span><span class="f-what">ITエンジニア（未経験可）。バックエンド／フロントエンド／インフラ（サーバー・ネットワーク）／運用保守・ヘルプデスクなど、案件に応じて配属される。</span><span class="f-meta">北海道、青森、岩手、宮城、秋田、山形、福島、東京、神奈川、埼玉、千葉、茨　年収 282万〜400万円</span></summary><div class="fold-body">
+    <h3>スタッフサービス・エンジニアリング（IT）</h3>
+    <p class="what">ITエンジニア（未経験可）。バックエンド／フロントエンド／インフラ（サーバー・ネットワーク）／運用保守・ヘルプデスクなど、案件に応じて配属される。</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給23万円〜23.5万円ほど</span><span class="aside">（エリアにより異なる・想定年収258万〜480万円）。残業代は全額・1分単位（固定残業の設定なし）。</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>282万〜400万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日125日</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>北海道、青森、岩手、宮城、秋田、山形、福島、東京、神奈川、埼玉、千葉、茨</dd><dt>条件</dt><dd>理系（学部・学科卒／工業・高専含む）は経験不問。文系未経験は転居可能・夜勤対応可であることが実質の条件になるが、総合判断のため必須ではない。</dd><dt>条件</dt><dd>雇用形態 契約社員</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>転勤なし</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-overtime"><dt>残業</dt><dd>残業は1日1時間程度など</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>27卒</dd><dd>理系卒のみ</dd><dd>【未経験でも安心な理由】・経験ゼロから</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>経験豊富な担当カウンセラーによるフォロー、・『700種類以上の講座』・スクール、受講料補助（年間2万円まで）や・資格取得奨励金制度など、強力なバックアップ体制で経験ゼロから</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>④在留カードのご提出 ※外国籍の方の場合のみ・求職者様が外国籍の場合、マイページの在留カード等フォームより同様にご提出をお願いいたします。</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　資格から積む（ITパス研修）</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.staffservice-engineering.jp/" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1mvmhuABSzSJRxpq6TI5Bn3TNaD2u9u0L/view" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）の資料（会社の資料）">会社の資料 →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1gRepWrdClzMNKt8jy-U9eWfjBPWavRuW/view" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）の資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details></article>
+  <article class="card" id="card-spin" data-key="spin" data-name="SPIN TECHNOLOGY"><details class="fold" data-status="提案"><summary><span class="f-head"><span class="f-name">SPIN TECHNOLOGY</span><span class="st st-teian" data-status="提案">ご確認ください</span></span><span class="f-what">ITインフラエンジニア（運用保守・ヘルプデスク・テスト）。IT未経験・第二新卒歓迎で、ユニット（チーム）単位で配属される</span><span class="f-meta">都内近郊　月給 月給20.5万円〜（公式。昇給年1回・賞与年1回〔2年目以降〕・資格手当あり）</span></summary><div class="fold-body">
+    <h3>SPIN TECHNOLOGY</h3>
+    <p class="what">ITインフラエンジニア（運用保守・ヘルプデスク・テスト）。IT未経験・第二新卒歓迎で、ユニット（チーム）単位で配属される</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給20.5万円〜</span><span class="aside">（公式。昇給年1回・賞与年1回〔2年目以降〕・資格手当あり）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">完全週休2日制・</span><span class="main">年間休日125日</span><span class="aside">（公式）。勤務は9:30〜18:30（プロジェクト先により変動）</span></dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>都内近郊（千葉・神奈川・埼玉の常駐先あり。本社は東京）。引っ越しサポート制度あり</dd><dt>条件</dt><dd>年齢は20〜29歳。</dd><dt>条件</dt><dd>最終学歴は高卒以上。</dd><dt>条件</dt><dd>アルバイト等の経験を含め2社以内（当社で3社目まで）。</dd><dt>条件</dt><dd>外国籍の方は不可。</dd>
+    </dl>
+    <dl class="detail"></dl>
+    <p class="point"><b>ここが合う</b>　「作れるように」（L358）</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.spintechnology.jp/" target="_blank" rel="noopener" aria-label="SPIN TECHNOLOGYのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1KwYt8XRTQBc5Jt8XrqUBxHus8N-j-48n/view" target="_blank" rel="noopener" aria-label="SPIN TECHNOLOGYの資料（会社紹介・採用ピッチ）">会社紹介・採用ピッチ →</a></div>
+  </div></details></article>
+  <article class="card" id="card-cocoo" data-key="cocoo" data-name="コクー"><details class="fold" data-status="提案"><summary><span class="f-head"><span class="f-name">コクー</span><span class="st st-teian" data-status="提案">ご確認ください</span></span><span class="f-what">IT事務職（SES事業部のバックオフィス。データ入力・見積書/納品書などの資料作成・売上データ集計・電話対応・BI更新作業など）</span><span class="f-meta">東京都　月給 月給24万〜32万円ほど（想定年収288万〜400万円・業績賞与＋昇給年2回）</span></summary><div class="fold-body">
+    <h3>コクー</h3>
+    <p class="what">IT事務職（SES事業部のバックオフィス。データ入力・見積書/納品書などの資料作成・売上データ集計・電話対応・BI更新作業など）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給24万〜32万円ほど</span><span class="aside">（想定年収288万〜400万円・業績賞与＋昇給年2回）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日祝休み・完全週休2日制・年間休日124日・残業月平均20時間以下</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京都</dd><dt>条件</dt><dd>未経験から可</dd>
+    </dl>
+    <dl class="detail"></dl>
+    <p class="point"><b>ここが合う</b>　営業なしの事務＋VBA・RPA で作る側へ</p>
+    
+    <div class="links"><a class="deck-mini" href="https://cocoo.co.jp/corporate/" target="_blank" rel="noopener" aria-label="コクーのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1tCYi0UNVlTHRr4ySzXC0ENQnmnS_f2fC/view" target="_blank" rel="noopener" aria-label="コクーの資料（EXCEL女子の紹介（会社作成・画像1枚・小さい字に崩れあり））">EXCEL女子の紹介（会社作成・画像1枚・小さい字に崩れあり） →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1L9dp3hvYCocRwZSJQ5GZAC0UMuk3-Z-m/view" target="_blank" rel="noopener" aria-label="コクーの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details></article>
+</div>
 
+<h2>あわせてご紹介する会社</h2>
+<p class="lead">上の会社のほかに、未経験から入れる会社です。</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
+  <tbody>
+    <tr class="has-verdict"><td class="co">テクノプロ（テクノプロ・エンジニアリング社）<a class="deck-mini" href="https://www.technopro.com/eng/" target="_blank" rel="noopener" aria-label="テクノプロ（テクノプロ・エンジニアリング社）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/10pNTo4flfMTOil1gsD4RBAEVUI04BstE/view" target="_blank" rel="noopener" aria-label="テクノプロ（テクノプロ・エンジニアリング社）の資料（採用情報）">採用情報 →</a></td><td>完全未経験から始めるITエンジニア（ヘルプデスク・運用/監視業務からスタートし、経験を積みながらIT分野の仕事へ進む）。株式会社テクノプロの社内カンパニー「テクノプロ・エンジニアリング社」の募集。<small>Winスクール（グループ会社）の教育プログラムを自己負担ゼロで受講できる（Word・Excel・プログラミング・ネットワーク等）。配属後もスタンダード研修・カスタマイズ研修を継続受講。先輩エンジニアがキャリア形成を支えるCDA（キャリアデザインアドバイザー）制度あり。</small></td><td class="num">当社各支店＋全国の顧客企業先（22拠点。熊谷・さいたまを含む。リモートワークを含む）。完全未経験の入社は政令指定都市の中から選択。<small>35歳以下・高卒以上。</small><small>エンジニア経験がない方が対象。ITパスポートなどの独学は問題にならない（プログラミングスクールや職業訓練校に通った方は、別の枠「学習済み未経験」の案内になる）。</small><small>社会人経験1年以上（アルバイトは不可）。</small><small>雇用形態 正社員</small><small>未経験から可</small><small>転勤なし</small></td><td class="num">月給22.5万〜25万円（想定年収360万〜400万円）。賞与は年2回で、実績は4ヶ月（会社の説明）。残業代は全額・1分単位。試用期間は2ヶ月で条件の変更なし。<small>年収 求人票の想定は360万〜400万円（賞与込み）。固定給だけなら年270万円（月給22.5万円×12）＋賞与（年2回・実績は4か月分＝月給下限で約90万円）</small></td><td class="num">年間休日122日・土曜・日曜の出勤あり</td></tr>
+<tr class="verdict-row"><td colspan="5"><div class="verdict is-later"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">その次</span></div><p>勤務地を政令指定都市から選べるので、千葉市の拠点を選べる見込みです。スクールの費用は自己負担ゼロです。</p></div></td></tr>
+<tr class="has-verdict"><td class="co">スタッフサービス・エンジニアリング（IT）<a class="deck-mini" href="https://www.staffservice-engineering.jp/" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1mvmhuABSzSJRxpq6TI5Bn3TNaD2u9u0L/view" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）の資料（会社の資料）">会社の資料 →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1gRepWrdClzMNKt8jy-U9eWfjBPWavRuW/view" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）の資料（会社説明スライド）">会社説明スライド →</a></td><td>ITエンジニア（未経験可）。バックエンド／フロントエンド／インフラ（サーバー・ネットワーク）／運用保守・ヘルプデスクなど、案件に応じて配属される。<small>入社直後の研修（ヒューマンスキル・ITパスポート・信頼性・Excel・ビジネスメール等）。経験の浅い人にはチームのベテランエンジニアがサポートに付く。</small></td><td class="num">北海道、青森、岩手、宮城、秋田、山形、福島、東京、神奈川、埼玉、千葉、茨<small>理系（学部・学科卒／工業・高専含む）は経験不問。文系未経験は転居可能・夜勤対応可であることが実質の条件になるが、総合判断のため必須ではない。</small><small>雇用形態 契約社員</small><small>未経験から可</small><small>転勤なし</small></td><td class="num">月給23万円〜23.5万円ほど（エリアにより異なる・想定年収258万〜480万円）。残業代は全額・1分単位（固定残業の設定なし）。<small>年収 282万〜400万円</small></td><td class="num">年間休日125日</td></tr>
+<tr class="verdict-row"><td colspan="5"><div class="verdict is-later"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">その次</span></div><p>資格の研修から積み上げられる会社です。引っ越しをしなくても応募できます。</p></div></td></tr>
+<tr class="has-verdict"><td class="co">プラウドデータ<a class="deck-mini" href="http://www.proud-g.jp/" target="_blank" rel="noopener" aria-label="プラウドデータのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/16J2rgLrphgxT7jwbA7VvSLKzQdreFyKX/view" target="_blank" rel="noopener" aria-label="プラウドデータの資料（会社説明スライド）">会社説明スライド →</a></td><td>未経験からのインフラエンジニア（サーバー・ネットワーク）。入社後はヒアリングとOJTで方向性を決め、Linux・ネットワーク基礎やAWSの学習を経て、運用・保守・監視・テクニカルサポート・社内SEなどの現場へ（SES＝客先常駐が中心）<small>入社後ヒアリングのうえ、ビジネスマナー・IT業界理解・PC基礎・Office操作を学び、Linux／ネットワーク基礎・Linuxサーバ構築課題・AWS実習環境での実践学習へ進む。管理営業が伴走し、事業部リーダーと1on1あり</small></td><td class="num">東京、神奈川、千葉、埼玉<small>日本国籍の方が対象。</small><small>関東圏外にお住まいの場合は引越しが可能なことが選考条件。</small><small>選考は書類選考→面接（対面1回。関東圏外はオンライン可）→内定。適性テストなし。</small><small>雇用形態 正社員</small><small>未経験から可</small><small>転勤なし</small></td><td class="num">月給21万円〜（基本給＋職務手当＋諸手当＋交通費。配属先の案件と社内評価に応じて上がる。想定年収280万〜1,000万円）。賞与は現在なし<small>年収 500万〜600万円</small></td><td class="num">年間休日125日</td></tr>
+<tr class="verdict-row"><td colspan="5"><div class="verdict is-pass"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">参考</span></div><p>面接1回で結果が出ます。関東の勤務です。</p></div></td></tr>
+<tr class="has-verdict"><td class="co">エイトビット<a class="deck-mini" href="https://eightbit.co.jp/" target="_blank" rel="noopener" aria-label="エイトビットのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1tdCLghTqSENmdXpA9gukw9K-Nps3vuay/view" target="_blank" rel="noopener" aria-label="エイトビットの資料（事務職の採用案内）">事務職の採用案内 →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1-CiOdmAgsmO7eIbywruhuvKUzNvhWY1p/view" target="_blank" rel="noopener" aria-label="エイトビットの資料（会社説明スライド）">会社説明スライド →</a></td><td>一般事務・営業事務・採用アシスタント・総務事務・経理アシスタント・IT事務（ヘルプデスク含む）のいずれか（配属先と仕事内容は希望と適性をもとに決定。データ入力・電話や来客対応・書類作成・見積書や請求書の作成・アカウント発行やPC管理など）<small>未経験の方は正社員として採用し、研修（ビジネスマナー・PCスキルなどの基礎）からスタート。研修後に希望や適性に合わせて配属。資格取得の受験費用は会社負担で、取得後は資格手当あり（例: 基本情報 月1万円・AWSアソシエイト 月1万円）</small></td><td class="num">東京、神奈川、千葉、埼玉<small>最終学歴は高卒以上。就業経験6か月以上（アルバイト可）。半年以上のブランクはNGだが、アルバイトや職業訓練校など何かしら活動をしていればOK。</small><small>主要都市（新宿・渋谷・大崎・東京・品川）へ70分以内で通えること。</small><small>選考は書類選考→オンライン面接（1〜2回）→内定。</small><small>雇用形態 正社員</small><small>未経験から可</small><small>転勤なし</small></td><td class="num">月給21万〜25万円ほど（想定年収267万〜350万円・賞与年2回・昇給年1回）<small>年収 267万〜350万円</small></td><td class="num">年間休日123日・土日祝休み</td></tr>
+<tr class="verdict-row"><td colspan="5"><div class="verdict is-pass"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">参考</span></div><p>事務職で面接1回です。IT事務と並べて受けられます。</p></div></td></tr>
+<tr class="has-verdict"><td class="co">リクルートスタッフィング キャリアウィンク事業部<a class="deck-mini" href="https://www.r-staffing.co.jp/corporate/" target="_blank" rel="noopener" aria-label="リクルートスタッフィング キャリアウィンク事業部のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1l-PXR9eKfSMVtYIneyNCqGHzttwRxKEG/view" target="_blank" rel="noopener" aria-label="リクルートスタッフィング キャリアウィンク事業部の資料（会社説明スライド）">会社説明スライド →</a></td><td>一般事務（データ入力・集計・各種資料作成・電話やメール対応・受発注サポートなど。テレフォンアポインター・コールセンターオペレーター・専門事務業務を含む）<small>入社前3日間のオンライン研修（ビジネスマナー・OAスキル、パソコンが必要）＋eラーニング「ELAN」。就業開始まで最短10日ほど。</small></td><td class="num">東京・神奈川・千葉・埼玉・愛知・大阪・兵庫・京都・北海道・宮城（仙台近郊の在住者のみ・下記条件）・福岡の有名企業・グループ企業（駅近オフィス中心・転勤なし・本拠地から片道120分以内の配属先）<small>最終学歴は高卒以上が必須。</small><small>宮城は在住地で可否が分かれる（求人票の記載）＝仙台市内5区（泉・青葉・太白・若林・宮城野）は基本OK／多賀城市・塩釜市・利府町・名取市・岩沼市は車通勤が可能ならOK／それ以外の地域は基本NG。</small><small>給与は枠が違う可能性: 求人票の枠は東京20.1万〜22.5万円、公式の紹介ページは東京21.3万〜32.8万円。提案前に枠を確認する。</small><small>未経験から可</small><small>転勤なし</small></td><td class="num">月給17.1万〜22.4万円ほど（勤務地により異なる・東京都は20.1万〜22.5万円・想定年収241万〜310万円・賞与年2回）</td><td class="num">年間休日122〜130日・土日祝休み</td></tr>
+<tr class="verdict-row"><td colspan="5"><div class="verdict is-pass"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">参考</span></div><p>事務職で選考1回です。</p></div></td></tr>
+<tr><td class="co">コクー<a class="deck-mini" href="https://cocoo.co.jp/corporate/" target="_blank" rel="noopener" aria-label="コクーのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1tCYi0UNVlTHRr4ySzXC0ENQnmnS_f2fC/view" target="_blank" rel="noopener" aria-label="コクーの資料（EXCEL女子の紹介（会社作成・画像1枚・小さい字に崩れあり））">EXCEL女子の紹介（会社作成・画像1枚・小さい字に崩れあり） →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1L9dp3hvYCocRwZSJQ5GZAC0UMuk3-Z-m/view" target="_blank" rel="noopener" aria-label="コクーの資料（会社説明スライド）">会社説明スライド →</a></td><td>IT事務職（SES事業部のバックオフィス。データ入力・見積書/納品書などの資料作成・売上データ集計・電話対応・BI更新作業など）<small>入社後Excel研修からスタートし、MOS（Excel等）取得率100%。VBA・BI・RPAなど実務直結スキルを段階的に学べる。</small></td><td class="num">東京都<small>未経験から可</small></td><td class="num">月給24万〜32万円ほど（想定年収288万〜400万円・業績賞与＋昇給年2回）</td><td class="num">土日祝休み・完全週休2日制・年間休日124日・残業月平均20時間以下</td></tr>
+<tr><td class="co">GOOYA（ゴーヤ）<a class="deck-mini" href="https://www.gooya.co.jp/" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1Em-Agim5iGO9aESyaZIjBOdvqrwr4VNI/view" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）の資料（会社説明資料（会社作成））">会社説明資料（会社作成） →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1QoKfHcjID15CCLpU_tXLB8mKdkmMySQV/view" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）の資料（入社後研修）">入社後研修 →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/10Xu-Gun-2S91dgfOogI_04X5MbY0ZUHq/view" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）の資料（魅力3選）">魅力3選 →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1B0mnWZjmHvCP5cJGRFSCwXOqZUQT362x/view" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）の資料（会社説明スライド）">会社説明スライド →</a></td><td>未経験から始めるITインフラエンジニア（運用・監視・パソコンの設定・問い合わせ対応などから始める）<small>座学の研修期間はなく、入社してすぐ配属先で働き始め、先輩社員から教わる形（OJT）で学ぶ。入社後3か月は月1回、同期が本社に集まる研修（組織理解・報連相・キャリア）がある。資格支援あり（受験費用全額負担＋月額手当のキャンペーン・一部の資格のみ）。出典: canon intro-companies/gooya.md §7 育成と出口</small></td><td class="num">東京都渋谷区（本社）＋東京・神奈川・千葉・埼玉の客先（転居を伴う転勤なし）<small>東京・神奈川・千葉・埼玉から通える方。</small><small>公開求人の応募資格は高卒以上・32歳以下。</small><small>雇用形態 正社員</small><small>未経験から可</small><small>転勤なし</small></td><td class="num">月給27万〜35万円（15時間分のみなし残業代 月2.8万〜3.6万円を含む・公開求人の例）<small>年収 252万〜276万円</small></td><td class="num">週休2日制・年間休日122日以上</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>参考動画</h2>
+<ul class="videos">
+  <li><a href="https://drive.google.com/file/d/16mW-tQadTQLpFd0mIaw4BNuX5Oqt-Tyz/view" target="_blank" rel="noopener">オープンアップITエンジニア 会社説明の動画</a>
+    <span class="meta"></span>
+    <span class="why">研修や働き方のイメージがつかめます</span></li>
+  <li><a href="https://www.youtube.com/watch?v=RAEhPhi1Rl8" target="_blank" rel="noopener">OPE × esports（候補者様向け資料 p14 の動画）</a>
+    <span class="meta">オープンアップITエンジニアの会社の動画</span>
+    <span class="why"></span></li>
+  <li><a href="https://drive.google.com/file/d/10okLIxTaAFpWF5kxgs7_5q2EnjcFFMl_/view" target="_blank" rel="noopener">会社説明動画（コクー 人財開発本部・会社作成）</a>
+    <span class="meta">コクーの会社の動画</span>
+    <span class="why"></span></li>
+</ul>
+
+</section>
 <section class="decision" id="decision">
-<h2>おすすめの順番</h2>
+<h2>おすすめの順番</h2><figure class="fig fig-narrow" data-figure="tiers"><svg class="fig-tiers" viewBox="0 0 520 68" role="img" aria-labelledby="fig-tiers-t fig-tiers-d" preserveAspectRatio="xMidYMid meet"><title id="fig-tiers-t">書類を出す順番の全体像（左から順に）</title><desc id="fig-tiers-d">おすすめ 1社→次点 2社→その次 2社→参考 3社</desc><rect class="tr-b tr-sent" x="2.0" y="2" width="112.5" height="64" rx="6"/><text class="tr-t" x="58.2" y="28" text-anchor="middle">おすすめ</text><text class="tr-c" x="58.2" y="52" text-anchor="middle">1社</text><path class="fl-a" d="M117.5,28.0 L133.5,34.0 L117.5,40.0 z"/><rect class="tr-b tr-next" x="136.5" y="2" width="112.5" height="64" rx="6"/><text class="tr-t" x="192.8" y="28" text-anchor="middle">次点</text><text class="tr-c" x="192.8" y="52" text-anchor="middle">2社</text><path class="fl-a" d="M252.0,28.0 L268.0,34.0 L252.0,40.0 z"/><rect class="tr-b tr-later" x="271.0" y="2" width="112.5" height="64" rx="6"/><text class="tr-t" x="327.2" y="28" text-anchor="middle">その次</text><text class="tr-c" x="327.2" y="52" text-anchor="middle">2社</text><path class="fl-a" d="M386.5,28.0 L402.5,34.0 L386.5,40.0 z"/><rect class="tr-b tr-pass" x="405.5" y="2" width="112.5" height="64" rx="6"/><text class="tr-t" x="461.8" y="28" text-anchor="middle">参考</text><text class="tr-c" x="461.8" y="52" text-anchor="middle">3社</text></svg></figure>
 <p>ご希望と、受かりやすさ（選考の回数・未経験の受け入れ）の両方を見て、受ける順番の案を作りました。順番は池田さんの気持ち次第で入れ替えられます。</p>
 <h3 class="tier-h t-sent">おすすめの1社</h3>
 <ul class="tier t-sent">
@@ -249,90 +724,7 @@ tr.verdict-row td { padding-top: 0; }
 <li>リクルートスタッフィング キャリアウィンク事業部</li>
 </ul>
 </section>
-<section id="companies" data-section="companies">
-<h2>ご紹介した会社</h2>
-<div class="axis">
-  <span class="label">伺ったこと</span>
-  <span class="chip">エンジニアになりたい</span>
-  <span class="chip">CCNAにチャレンジしたい</span>
-  <span class="chip">営業からは離れたい</span>
-  <span class="chip">座れる経路なら片道1時間まで</span>
-  
-</div>
-
-<h2>僕のおすすめの会社</h2>
-<p class="lead">伺ったお話から、池田さんにとってプラスになると考えた会社です。</p>
-
-<div class="cards">
-  <article class="card">
-    <h3>BREXA Communications</h3>
-    <p class="what">通信インフラの事務サポート（携帯キャリア向け専用システムへのデータ入力・法人顧客からの電話/メール問い合わせ対応・スマホ/タブレットの発注手配や在庫管理・基地局工事の日程調整・申請書類作成・法人営業担当のサポートなど）</p>
-    <dl>
-      <dt>勤務地</dt><dd>東京・神奈川・埼玉・千葉（客先常駐・転勤なし・勤務エリアの選択は不可）</dd><dt>月給</dt><dd>月給22万〜25万円ほど（想定年収320万〜350万円・賞与年2回）</dd><dt>休日</dt><dd>土日祝休み・年間休日124日・月平均残業10時間以下</dd>
-    </dl>
-    <p class="point"><b>ここが合う</b>　応募されたIT事務にいちばん近い会社です。auショップで扱っていたスマホ・回線の手続きを、今度は裏側の事務として支える仕事で、営業ノルマはありません。選考はWEB面接1回、千葉も勤務エリアに入っています。</p>
-    <p class="caution">雇用形態は「正社員」表記だが、会社自身は移動体通信の「技術者派遣・請負企業」と説明しており、勤務は客先常駐が前提。 勤務エリアは東京・神奈川・埼玉・千葉のみで選択はできず、配属先は会社が決める。</p>
-    <div class="verdict is-sent"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">おすすめ</span></div><p>これまでのご経験がそのまま仕事になり、選考も1回なので、最初に書類を出す会社にしました。</p></div>
-    <div class="links"><a class="deck-mini" href="https://communications.brexa.com/" target="_blank" rel="noopener" aria-label="BREXA Communicationsのホームページ">会社のHP →</a></div>
-  </article>
-  <article class="card">
-    <h3>BREXA Technology（IT）</h3>
-    <p class="what">サーバー運用・インフラから始めて、開発へ</p>
-    <dl>
-      <dt>勤務地</dt><dd>東京・神奈川ほか全国</dd><dt>月給</dt><dd>20.5万円〜（想定年収 270万〜400万円）</dd><dt>休日</dt><dd>土日祝休み・年間休日120日以上</dd>
-    </dl>
-    <p class="point"><b>ここが合う</b>　上のBREXA Communicationsの兄弟会社で、こちらがエンジニアの本体です。IT事務から入ってこちらへ移る道もありますが、最初からエンジニアを目指すなら直接こちらを受けられます。ヤオコーでの正社員のご経験が応募の条件を満たしています。</p>
-    <p class="caution">会社自身は雇用形態を「無期雇用派遣」と説明している（正社員として雇われて客先へ派遣される形）。 求人票の経験者欄には「開発職：テスト工程以上1年以上」の記載があるが、表看板の求人票はインフラエンジニアのみ＝開発職そのものの求人票は無い。 賞与は会社の実績提示（昨年度2.6か月分）と、社員の証言（0.6〜1.5か月分）に幅があり、金額は確定していない。</p>
-    <div class="verdict is-next"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">次点</span></div><p>応募の条件（正社員のご経験1年以上）を満たしていて、上の会社とつながりがあるので次の候補にしました。</p></div>
-    <div class="links"><a class="deck-mini" href="https://technology.brexa.com/" target="_blank" rel="noopener" aria-label="BREXA Technology（IT）のホームページ">会社のHP →</a></div>
-  </article>
-  <article class="card">
-    <h3>オープンアップITエンジニア</h3>
-    <p class="what">ITエンジニア（未経験から、インフラ・開発など）</p>
-    <dl>
-      <dt>勤務地</dt><dd>全国（全国／地域限定／通勤限定から選べる）</dd><dt>条件</dt><dd>勤務地区分（全国転勤／地域限定／通勤限定）は書類選考の通りやすさを変えない。</dd><dt>月給</dt><dd>22万円〜（スタート年収 264万円〜）</dd><dt>休日</dt><dd>年間休日122日</dd>
-    </dl>
-    <p class="point"><b>ここが合う</b>　入社する方の8割が未経験の会社です。「未経験でも大きい会社なら放置されないのが安心」とおっしゃっていた点がそのまま当てはまります。関東は通勤できる範囲で配属先を限定できるので、本八幡から通える範囲で相談できます。</p>
-    <p class="caution">「通勤限定」を選ぶと案件の母数が細り、配属までの待機が伸びる傾向がある（採用の可否には影響しない）。 契約上の「変更の範囲」は会社の定める全場所＝地域限定・通勤限定を選んでも契約上は全国異動の可能性が排除されていない。</p>
-    <div class="verdict is-next"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">次点</span></div><p>池田さんがいちばん受けたいとおっしゃった会社です。資格の勉強を少し触ってから受けると、面接で話せることが増えます。</p></div>
-    <div class="links"><a class="deck-mini" href="https://www.openupitengineer.co.jp/" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1X-Vx5IOL5tOttgAh9UkghjaAwBRyZppq/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料">会社の資料 →</a></div>
-  </article>
-</div>
-
-<h2>あわせてご紹介する会社</h2>
-<p class="lead">上の会社のほかに、未経験から入れる会社です。</p>
-
-<div class="table-wrap">
-<table>
-  <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
-  <tbody>
-    <tr class="has-verdict"><td class="co">テクノプロ（テクノプロ・エンジニアリング社）<a class="deck-mini" href="https://www.technopro.com/eng/" target="_blank" rel="noopener" aria-label="テクノプロ（テクノプロ・エンジニアリング社）のホームページ">会社のHP →</a></td><td>完全未経験から始めるITエンジニア（ヘルプデスク・運用/監視業務からスタートし、経験を積みながらIT分野の仕事へ進む）。株式会社テクノプロの社内カンパニー「テクノプロ・エンジニアリング社」の募集。<small>Winスクール（グループ会社）の教育プログラムを自己負担ゼロで受講できる（Word・Excel・プログラミング・ネットワーク等）。配属後もスタンダード研修・カスタマイズ研修を継続受講。先輩エンジニアがキャリア形成を支えるCDA（キャリアデザインアドバイザー）制度あり。</small><small>勤務先は当社支店のほか顧客企業先で、客先常駐になる可能性がある。配属先は希望を最大限考慮するとされているが、転勤の有無は求人票に明記がない。</small><small>完全未経験の入社は、勤務地を政令指定都市の中から選ぶ形になる。熊谷など政令指定都市でない拠点が、この枠で選べるかは求人票からは分からない。</small><small>選考は書類選考、一次面接（オンライン）、二次面接（オンライン）を経て、条件提示、内定の順。原則2回の面接がある（言語化能力が高い場合は面接1回で内定となった実績もあると会社は説明している）。</small><small>祝日のある週は土曜出勤の場合があり、休日は完全な土日祝休みとは限らない。</small><small>月平均の残業は20時間ほど、就業時間は就業先に準ずるため、参画するプロジェクトにより働き方が変わる。</small><small>求人票にある年収例（入社5年目512万円・10年目720万円・15年目810万円）は「一例」で、全員がその金額になる保証ではない。</small></td><td class="num">当社各支店＋全国の顧客企業先（22拠点。熊谷・さいたまを含む。リモートワークを含む）。完全未経験の入社は政令指定都市の中から選択。<small>35歳以下・高卒以上。</small><small>エンジニア経験がない方が対象。ITパスポートなどの独学は問題にならない（プログラミングスクールや職業訓練校に通った方は、別の枠「学習済み未経験」の案内になる）。</small><small>社会人経験1年以上（アルバイトは不可）。</small></td><td class="num">月給22.5万〜25万円（想定年収360万〜400万円）。賞与は年2回で、実績は4ヶ月（会社の説明）。残業代は全額・1分単位。試用期間は2ヶ月で条件の変更なし。<small>年収 求人票の想定は360万〜400万円（賞与込み）。固定給だけなら年270万円（月給22.5万円×12）＋賞与（年2回・実績は4か月分＝月給下限で約90万円）</small></td><td class="num">完全週休2日制（土日祝。ただし祝日のある週は土曜出勤の場合あり）・年間休日122日・月平均残業20時間ほど・就業時間は9:00〜18:00（就業先や参画プロジェクトにより異なる場合あり）</td></tr>
-<tr class="verdict-row"><td colspan="5"><div class="verdict is-later"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">その次</span></div><p>勤務地を政令指定都市から選べるので、千葉市の拠点を選べる見込みです。スクールの費用は自己負担ゼロです。</p></div></td></tr>
-<tr class="has-verdict"><td class="co">スタッフサービス・エンジニアリング（IT）<a class="deck-mini" href="https://www.staffservice-engineering.jp/" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）のホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1mvmhuABSzSJRxpq6TI5Bn3TNaD2u9u0L/view" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリング（IT）の資料">会社の資料 →</a></td><td>ITエンジニア（未経験可）。バックエンド／フロントエンド／インフラ（サーバー・ネットワーク）／運用保守・ヘルプデスクなど、案件に応じて配属される。<small>入社直後の研修（ヒューマンスキル・ITパスポート・信頼性・Excel・ビジネスメール等）。経験の浅い人にはチームのベテランエンジニアがサポートに付く。</small><small>雇用形態は「正社員」だが、実際はスタッフサービスに雇用され就業先企業で働く「無期雇用派遣」。就業先が決まるまでの待機期間中も給与は支給されるが、1か月以上の待機で有給休暇が消滅することがある。</small><small>会社は「案件を選べる」「待機中も給与が出る」と説明しているが、当事者の声には「実際は派遣に近い」「案件を断りづらい」というものもある。</small><small>転勤は「無い」とする記載と「可能性はあるが最大限考慮する」という記載が同じ求人票内にあり、言い切れない。</small><small>賞与は全社の募集要項に項目が無く、求人ごとに書き方が違う（年1回とする説明と、年2回・7月/12月支給と書く求人がある）。</small></td><td class="num">全国46都道府県（居住エリアでの就業率92%）<small>理系（学部・学科卒／工業・高専含む）は経験不問。文系未経験は転居可能・夜勤対応可であることが実質の条件になるが、総合判断のため必須ではない。</small></td><td class="num">月給23万円〜23.5万円ほど（エリアにより異なる・想定年収258万〜480万円）。残業代は全額・1分単位（固定残業の設定なし）。</td><td class="num">年間休日125日・有給取得実績 年12日ほど・月平均残業10時間程度</td></tr>
-<tr class="verdict-row"><td colspan="5"><div class="verdict is-later"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">その次</span></div><p>資格の研修から積み上げられる会社です。引っ越しをしなくても応募できます。</p></div></td></tr>
-<tr class="has-verdict"><td class="co">プラウドデータ<a class="deck-mini" href="http://www.proud-g.jp/" target="_blank" rel="noopener" aria-label="プラウドデータのホームページ">会社のHP →</a></td><td>未経験からのインフラエンジニア（サーバー・ネットワーク）。入社後はヒアリングとOJTで方向性を決め、Linux・ネットワーク基礎やAWSの学習を経て、運用・保守・監視・テクニカルサポート・社内SEなどの現場へ（SES＝客先常駐が中心）<small>入社後ヒアリングのうえ、ビジネスマナー・IT業界理解・PC基礎・Office操作を学び、Linux／ネットワーク基礎・Linuxサーバ構築課題・AWS実習環境での実践学習へ進む。管理営業が伴走し、事業部リーダーと1on1あり</small><small>業種はSIer・SESで、勤務は客先常駐が前提。配属先によって勤務地・勤務時間・休日が変わる。</small><small>賞与は現在なし。基本給21万円〜は初年度は高くない可能性があると求人票に書かれており、昇給は配属先の案件と社内評価しだい。</small><small>最初の方向性（開発・インフラ・検証）は入社後のヒアリングと適性で決まる。</small><small>会社の育成方針は「手をかけすぎない」で、自分で学び続ける姿勢が求められる。</small><small>転勤の可能性は「あるが最大限考慮」と書かれている。</small></td><td class="num">東京・神奈川・千葉・埼玉（一都三県のプロジェクト先。品川・川崎・横浜エリアが中心。客先常駐・配属先で勤務地が変わる。本社は東京都千代田区麹町）<small>日本国籍の方が対象。</small><small>関東圏外にお住まいの場合は引越しが可能なことが選考条件。</small><small>選考は書類選考→面接（対面1回。関東圏外はオンライン可）→内定。適性テストなし。</small></td><td class="num">月給21万円〜（基本給＋職務手当＋諸手当＋交通費。配属先の案件と社内評価に応じて上がる。想定年収280万〜1,000万円）。賞与は現在なし<small>年収 求人票の年収イメージは、未経験入社後に毎年60万円前後の年収アップ実績あり・1年あたり月額5〜8万円の昇給を目指す設計・5〜6年で年収500万〜600万円を目指す想定。年収1,000万円レンジは経験・配属先の案件しだいで、入社時の数字ではない</small></td><td class="num">完全週休2日制（土日祝休み）・年間休日125日・勤務は9:00〜18:00・月平均残業10時間以下（残業代・深夜・休日出勤手当は別途支給）</td></tr>
-<tr class="verdict-row"><td colspan="5"><div class="verdict is-pass"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">参考</span></div><p>面接1回で結果が出ます。関東の勤務です。</p></div></td></tr>
-<tr class="has-verdict"><td class="co">エイトビット<a class="deck-mini" href="https://eightbit.co.jp/" target="_blank" rel="noopener" aria-label="エイトビットのホームページ">会社のHP →</a></td><td>一般事務・営業事務・採用アシスタント・総務事務・経理アシスタント・IT事務（ヘルプデスク含む）のいずれか（配属先と仕事内容は希望と適性をもとに決定。データ入力・電話や来客対応・書類作成・見積書や請求書の作成・アカウント発行やPC管理など）<small>未経験の方は正社員として採用し、研修（ビジネスマナー・PCスキルなどの基礎）からスタート。研修後に希望や適性に合わせて配属。資格取得の受験費用は会社負担で、取得後は資格手当あり（例: 基本情報 月1万円・AWSアソシエイト 月1万円）</small><small>勤務は客先常駐で、配属先のプロジェクトによって勤務地や休みが変わる。</small><small>業種に「人材派遣」を含む会社で、配属先は希望と適性をもとに会社が決める。</small><small>想定年収267万円は未経験・入社1年目の例（残業代は別途支給）。310万円は入社3年目の例。</small><small>入社後3か月は試用期間（待遇・給与の変更なし）。</small></td><td class="num">東京23区内・埼玉・千葉・神奈川（客先常駐・配属先のプロジェクトによって変わる・転居を伴う転勤なし・勤務地は希望を考慮）。本社は東京都豊島区東池袋<small>最終学歴は高卒以上。就業経験6か月以上（アルバイト可）。半年以上のブランクはNGだが、アルバイトや職業訓練校など何かしら活動をしていればOK。</small><small>主要都市（新宿・渋谷・大崎・東京・品川）へ70分以内で通えること。</small><small>選考は書類選考→オンライン面接（1〜2回）→内定。</small></td><td class="num">月給21万〜25万円ほど（想定年収267万〜350万円・賞与年2回・昇給年1回）</td><td class="num">土日祝休み・年間休日123日・勤務は9:00〜18:00・月平均残業20時間以下</td></tr>
-<tr class="verdict-row"><td colspan="5"><div class="verdict is-pass"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">参考</span></div><p>事務職で面接1回です。IT事務と並べて受けられます。</p></div></td></tr>
-<tr class="has-verdict"><td class="co">リクルートスタッフィング キャリアウィンク事業部<a class="deck-mini" href="https://www.r-staffing.co.jp/corporate/" target="_blank" rel="noopener" aria-label="リクルートスタッフィング キャリアウィンク事業部のホームページ">会社のHP →</a></td><td>一般事務（データ入力・集計・各種資料作成・電話やメール対応・受発注サポートなど。テレフォンアポインター・コールセンターオペレーター・専門事務業務を含む）<small>入社前3日間のオンライン研修（ビジネスマナー・OAスキル、パソコンが必要）＋eラーニング「ELAN」。就業開始まで最短10日ほど。</small><small>雇用形態は「正社員」表記だが、実際はリクルートスタッフィングに無期雇用され取引先企業で働く「無期雇用派遣」。</small><small>配属先・仕事内容は選べない（一般事務・営業事務・コールセンター等、会社が指示する業務に従事）。</small><small>選考にWEB適性検査があり、入社前研修3日間は自分のパソコンが必要（無い場合はネットカフェ等での受講を案内される）。</small><small>宮城の仙台エリアは、求人票に「面接枠充足のため募集を停止（2026年7月現在）」とある＝今の募集状況は不明なので、出す前に募集の再開を確認する。</small></td><td class="num">東京・神奈川・千葉・埼玉・愛知・大阪・兵庫・京都・北海道・宮城（仙台近郊の在住者のみ・下記条件）・福岡の有名企業・グループ企業（駅近オフィス中心・転勤なし・本拠地から片道120分以内の配属先）<small>最終学歴は高卒以上が必須。</small><small>宮城は在住地で可否が分かれる（求人票の記載）＝仙台市内5区（泉・青葉・太白・若林・宮城野）は基本OK／多賀城市・塩釜市・利府町・名取市・岩沼市は車通勤が可能ならOK／それ以外の地域は基本NG。</small></td><td class="num">月給17.1万〜22.4万円ほど（勤務地により異なる・東京都は20.1万〜22.5万円・想定年収241万〜310万円・賞与年2回）</td><td class="num">土日祝休み（配属先に準ずる）・年間休日122日・残業月平均6時間（最大20時間）</td></tr>
-<tr class="verdict-row"><td colspan="5"><div class="verdict is-pass"><div class="vhead"><span class="vlabel">今回の判断</span><span class="vbadge">参考</span></div><p>事務職で選考1回です。</p></div></td></tr>
-<tr><td class="co">コクー<a class="deck-mini" href="https://cocoo.co.jp/corporate/" target="_blank" rel="noopener" aria-label="コクーのホームページ">会社のHP →</a></td><td>IT事務職（SES事業部のバックオフィス。データ入力・見積書/納品書などの資料作成・売上データ集計・電話対応・BI更新作業など）<small>入社後Excel研修からスタートし、MOS（Excel等）取得率100%。VBA・BI・RPAなど実務直結スキルを段階的に学べる。</small><small>勤務地に埼玉が無い（東京23区内・富山・静岡（浜松）・大阪・福岡のみ）。</small><small>選考は書類選考→一次面接→最終選考→内定の複数回（求人票に「選考フローは変更になることがある」と明記）。</small><small>月給24万円〜には固定残業代20時間分（32,900円〜）が含まれる。</small><small>東京23区内の勤務は客先常駐になることがある。</small></td><td class="num">東京23区内・富山県・静岡県浜松市・大阪府・福岡県（福岡市/北九州市）の本社・各拠点（客先常駐・自社内勤務の両方あり）</td><td class="num">月給24万〜32万円ほど（想定年収288万〜400万円・業績賞与＋昇給年2回）</td><td class="num">土日祝休み・完全週休2日制・年間休日124日・残業月平均20時間以下</td></tr>
-<tr><td class="co">GOOYA（ゴーヤ）<a class="deck-mini" href="https://www.gooya.co.jp/" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）のホームページ">会社のHP →</a></td><td>未経験から始めるITインフラエンジニア（運用・監視・パソコンの設定・問い合わせ対応などから始める）<small>テクニカル研修・ビジネススキル研修・資格取得支援制度</small><small>月給にはみなし残業代（15時間分・月2.8万〜3.6万円）が含まれる。</small><small>試用期間は6か月。未経験からの入社は契約社員スタートになる例が多いという情報がある（正社員登用は年2回）。</small><small>求人に賞与の記載が無く、口コミには賞与なし・給与水準は低めという声がある。口コミの評価は配属先によって幅がある。</small><small>客先で働く形（ITエンジニア派遣が主の会社）。</small></td><td class="num">東京都渋谷区（本社）＋東京・神奈川・千葉・埼玉の客先（転居を伴う転勤なし）<small>東京・神奈川・千葉・埼玉から通える方。</small><small>公開求人の応募資格は高卒以上・32歳以下。</small></td><td class="num">月給27万〜35万円（15時間分のみなし残業代 月2.8万〜3.6万円を含む・公開求人の例）</td><td class="num">週休2日制・年間休日122日以上</td></tr>
-  </tbody>
-</table>
-</div>
-
-<h2>参考動画</h2>
-<ul class="videos">
-  <li><a href="https://drive.google.com/file/d/16mW-tQadTQLpFd0mIaw4BNuX5Oqt-Tyz/view" target="_blank" rel="noopener">オープンアップITエンジニア 会社説明の動画</a>
-    <span class="meta"></span>
-    <span class="why">研修や働き方のイメージがつかめます</span></li>
-</ul>
-
-</section>
-<section id="documents" data-section="documents">
+<div data-no-figure="あなたの書類へのリンク"><section id="documents" data-section="documents">
 <h2>あなたの書類</h2>
 <p class="lead">フォルダの中には、編集できる形式（Word/Google Docs）もあります。</p>
 <div class="links">
@@ -341,7 +733,7 @@ tr.verdict-row td { padding-top: 0; }
     <a class="deck-mini" href="https://drive.google.com/file/d/1nd0YfunG6WyasgT31TjKvXPcx6Chp_Ok/view" target="_blank" rel="noopener">職務経歴書（PDF） →</a>
 </div>
 </section>
-<section id="industry" data-section="industry">
+</div><section id="industry" data-section="industry" data-no-figure="資料へのリンクの一覧">
 <h2>業界の説明資料</h2>
 <ul class="videos">
   <li><a href="https://drive.google.com/file/d/1rMe1E4_EpphASnW63x9ubO1gtUm55174/view" target="_blank" rel="noopener">インフラエンジニアの仕事</a>
@@ -352,9 +744,118 @@ tr.verdict-row td { padding-top: 0; }
     <span class="meta">営業の仕事内容と将来性をまとめた資料</span></li>
 </ul>
 </section>
-
-<footer>※条件は各社の求人票・会社資料（2026年10月時点）に書かれている内容です。月給の幅は、これまでの経験と選考での評価で決まります。<br>※「会社のHP →」は各社の公式ホームページに、「会社の資料 →」は会社説明の資料（PDF）につながります。</footer>
+<section id="flow" data-section="flow" data-chapter="next">
+<h2>これからの進め方</h2>
+<figure class="fig fig-flow-w" data-figure="flow"><svg class="fig-flow" viewBox="0 0 400 212" role="img" aria-labelledby="fig-flow-t fig-flow-d" preserveAspectRatio="xMidYMid meet"><title id="fig-flow-t">これからの進め方</title><desc id="fig-flow-d">1. 12月スタートを目指すので、11月中旬までに受ける会社を決めます／2. 1社だけでなく複数受けて、内定をもらったところから選びます／3. 次回は面接の練習をします（面接は練習した人が有利です）</desc><defs><marker id="fl-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="fl-l" x1="20" y1="38" x2="20" y2="76" marker-end="url(#fl-ar)"/><line class="fl-l" x1="20" y1="114" x2="20" y2="152" marker-end="url(#fl-ar)"/><circle class="fl-c" cx="20" cy="20" r="16"/><text class="fl-n" x="20" y="26" text-anchor="middle">1</text><text class="fl-t" x="46" y="26">12月スタートを目指すので、11月中旬ま</text><text class="fl-t" x="46" y="50">でに受ける会社を決めます</text><circle class="fl-c" cx="20" cy="96" r="16"/><text class="fl-n" x="20" y="102" text-anchor="middle">2</text><text class="fl-t" x="46" y="102">1社だけでなく複数受けて、内定をもらっ</text><text class="fl-t" x="46" y="126">たところから選びます</text><circle class="fl-c" cx="20" cy="172" r="16"/><text class="fl-n" x="20" y="178" text-anchor="middle">3</text><text class="fl-t" x="46" y="178">次回は面接の練習をします（面接は練習し</text><text class="fl-t" x="46" y="202">た人が有利です）</text></svg></figure>
+</section>
+</div>
+<footer>※条件は各社の求人票・会社資料（2026年10月時点）に書かれている内容です。月給の幅は、これまでの経験と選考での評価で決まります。<br>※「会社のHP →」は各社の公式ホームページに、「会社の資料 →」は会社説明の資料（PDF・画像）につながります。</footer>
 
 </div>
+<script>
+(function live() {
+  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", live); return; }
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".cards.live > .card"));
+  if (!cards.length) return;
+  var pos = document.querySelector(".band-pos");
+  var NAMES = ["オープンアップITエンジニア", "BREXA Technology（IT）", "テクノプロ①", "スタッフサービス・エンジニアリング（IT）", "SPIN TECHNOLOGY", "コクー"];
+  function off() {
+    var v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--band-offset"));
+    return isNaN(v) ? 56 : v;
+  }
+  function at(line) {  // 上端が line より上にある最後の社
+    var idx = -1;
+    cards.forEach(function (c, i) { if (c.getBoundingClientRect().top <= line) idx = i; });
+    return idx;
+  }
+  function inZone() {
+    var f = cards[0].getBoundingClientRect(), l = cards[cards.length - 1].getBoundingClientRect();
+    return f.top <= window.innerHeight * 0.6 && l.bottom > off() + 8;
+  }
+  function show() {
+    if (!pos) return;
+    var i = at(off() + window.innerHeight * 0.3);
+    pos.textContent = (inZone() && i >= 0) ? (i + 1) + "/" + cards.length + " 社目 " + NAMES[i] : "";
+  }
+  function goTop(i) {
+    i = Math.max(0, Math.min(cards.length - 1, i));
+    window.scrollTo(0, window.scrollY + cards[i].getBoundingClientRect().top - off());
+  }
+  function next() {  // 長い社は残り（判断・資料）を見せてから次の社へ
+    var i = at(off() + 4);
+    if (i < 0) { goTop(0); return; }
+    var r = cards[i].getBoundingClientRect(), page = window.innerHeight - off() - 60;
+    if (r.bottom > window.innerHeight + 4) { window.scrollBy(0, Math.min(r.bottom - window.innerHeight + 24, page)); return; }
+    if (i < cards.length - 1) goTop(i + 1);  // 最後の社は下端まで見せたら止まる
+  }
+  function prev() {
+    var i = at(off() + 4);
+    if (i < 0) { goTop(0); return; }
+    if (cards[i].getBoundingClientRect().top < off() - 4) { goTop(i); return; }
+    goTop(i - 1);
+  }
+  document.addEventListener("keydown", function (e) {
+    if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey) return;
+    var t = e.target, tag = t && t.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (t && t.isContentEditable)) return;
+    var k = e.key, step = 0;
+    if (k === "ArrowDown" || k === "ArrowRight" || k === "PageDown" || (k === " " && !e.shiftKey)) step = 1;
+    else if (k === "ArrowUp" || k === "ArrowLeft" || k === "PageUp" || (k === " " && e.shiftKey)) step = -1;
+    if (!step || !inZone()) return;
+    e.preventDefault();
+    if (step > 0) next(); else prev();
+    show();
+  });
+  window.addEventListener("scroll", show, { passive: true });
+  window.addEventListener("hashchange", show);
+  show();
+})();
+</script>
+<script data-fold="js">
+(function fold() {
+  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", fold); return; }
+  var all = function () { return Array.prototype.slice.call(document.querySelectorAll("details.fold")); };
+  if (!all().length) return;
+  function openFor(hash) {
+    if (!hash || hash.length < 2) return;
+    var id; try { id = decodeURIComponent(hash.slice(1)); } catch (e) { return; }
+    var el = document.getElementById(id);
+    if (!el) return;
+    var d = el.matches("details.fold") ? el : el.querySelector("details.fold");
+    if (d && !d.open) d.open = true;
+  }
+  window.addEventListener("hashchange", function () { openFor(location.hash); });
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#card-"]');
+    if (a) openFor(a.getAttribute("href"));
+  }, true);
+  openFor(location.hash);
+  // 当日の送り（shigoto_live_layer の Space＝次の社）が summary・ボタンの上の Space を奪わないよう、そこで止める
+  // （既定の動き＝開閉・押下は残る。押し試験で Space が開閉しなかった）
+  document.addEventListener("keydown", function (e) {
+    var tag = e.target && e.target.tagName;
+    if (e.key === " " && (tag === "SUMMARY" || tag === "BUTTON")) e.stopPropagation();
+  }, true);
+  Array.prototype.slice.call(document.querySelectorAll(".fold-ctl")).forEach(function (ctl) {
+    ctl.hidden = false;
+    ctl.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-fold-all]");
+      if (!b) return;
+      var open = b.getAttribute("data-fold-all") === "open";
+      all().forEach(function (d) { d.open = open; });
+    });
+  });
+  var saved = null;
+  window.addEventListener("beforeprint", function () {
+    saved = all().map(function (d) { return d.open; });
+    all().forEach(function (d) { d.open = true; });
+  });
+  window.addEventListener("afterprint", function () {
+    if (!saved) return;
+    all().forEach(function (d, i) { d.open = saved[i]; });
+    saved = null;
+  });
+})();
+</script>
 </body>
 </html>
