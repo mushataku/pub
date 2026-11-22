@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><!--gp-portal:s--><meta name="x-build" content="04474e5c5a"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e-->
+<head><!--gp-portal:s--><meta name="x-build" content="f92f74d067"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e-->
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -205,6 +205,13 @@ tr.verdict-row td { padding-top: 0; }
   margin: 0 0 16px; font-size: 14.5px; line-height: 1.65;
 }
 .card .place dt { color: var(--sub); font-size: 13px; font-weight: 600; padding-top: 1px; }
+.card .detail { margin: 0 0 16px; font-size: 14px; line-height: 1.65; }
+.card .detail:empty { margin: 0; }
+.card .detail .d-row + .d-row { margin-top: 10px; }
+.card .detail dt { color: var(--sub); font-size: 13px; font-weight: 600; letter-spacing: .04em; line-height: 1.4; }
+.card .detail dd + dd { margin-top: 3px; }
+.card .detail .d-head { display: block; color: var(--sub); font-size: 12.5px; line-height: 1.5; }
+.card .detail .d-more { color: var(--sub); font-size: 13px; }
 .card .point {
   margin: 0 0 12px; padding: 2px 0 2px 12px; font-size: 14.5px; line-height: 1.7;
   border-left: 2px solid var(--good); color: var(--ink);
@@ -218,17 +225,19 @@ tr.verdict-row td { padding-top: 0; }
 .card .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
 @supports (grid-template-rows: subgrid) {
   @media (min-width: 861px) {
-    .card { display: grid; grid-template-rows: subgrid; grid-row: span 9; row-gap: 0; align-content: start; }
+    .card { display: grid; grid-template-rows: subgrid; grid-row: span 10; row-gap: 0; align-content: start; }
     .card > h3 { grid-row: 1 / span 1; }
     .card > .what { grid-row: 2 / span 1; }
     .card > .nums { grid-row: 3 / span 3; }
     .card > .place { grid-row: 6 / span 1; }
-    .card > .point { grid-row: 7 / span 1; }
-    .card > .verdict { grid-row: 8 / span 1; }
-    .card > .links { grid-row: 9 / span 1; }
+    .card > .detail { grid-row: 7 / span 1; }
+    .card > .point { grid-row: 8 / span 1; }
+    .card > .verdict { grid-row: 9 / span 1; }
+    .card > .links { grid-row: 10 / span 1; }
     .card > .nums { display: grid; grid-template-rows: subgrid; }
     .card .s-salary { grid-row: 1; } .card .s-annual { grid-row: 2; } .card .s-holidays { grid-row: 3; }
     .card > .place { align-content: start; }
+    .card > .detail { align-self: start; }
     .card > .point, .card > .verdict { align-self: start; }
     .card > .links { align-self: start; margin-top: 0; }
   }
@@ -322,7 +331,6 @@ table.cmp th { color: var(--sub); font-weight: 600; font-size: 13.5px; backgroun
 table.cmp th:nth-child(1) { width: 26%; } table.cmp th:nth-child(2) { width: 14%; } table.cmp th:nth-child(3) { width: 24%; }
 table.cmp th:nth-child(4) { width: 20%; }
 .cmp .clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.cmp .clamp.sub { color: var(--sub); font-size: 13.5px; }
 .cmp .main { display: block; }
 .fig-how { margin-top: 6px; font-size: 14.5px; }
 .fig-how summary { cursor: pointer; color: var(--accent); }
@@ -389,10 +397,76 @@ table.cmp th:nth-child(4) { width: 20%; }
   .cards.live > .card { min-height: calc(100vh - var(--band-offset) - 12px); }
 }
 
-h1,h2,h3{word-break:auto-phrase}
+/* ---- 会社カードの畳み（shigoto_fold_layer）---- */
+.cards.folded { grid-template-columns: 1fr; gap: 10px; }
+.cards.folded > article.card { display: block; padding: 0; min-height: 0; }
+details.fold > summary {
+  list-style: none; cursor: pointer; display: grid; gap: 2px; padding: 14px 44px 14px 16px; position: relative;
+  border-radius: 14px;
+}
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary::after {
+  content: "＋"; position: absolute; right: 16px; top: 14px; color: var(--accent); font-weight: 700;
+}
+details.fold[open] > summary::after { content: "－"; }
+details.fold > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+details.fold > summary:hover .f-name { text-decoration: underline; }
+.f-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+.f-name { font-size: 18px; font-weight: 700; line-height: 1.45; overflow-wrap: anywhere; }
+.f-what { color: var(--ink); font-size: 14.5px; line-height: 1.6; overflow-wrap: anywhere; }
+.f-meta { color: var(--sub); font-size: 13.5px; line-height: 1.6; overflow-wrap: anywhere; }
+.fold-body { padding: 4px 16px 16px; border-top: 1px solid var(--line); }
+.fold-body > h3, .fold-body > .what { display: none; }
+.fold-body > .nums { margin-top: 12px; }
+details.fold.is-dropped > summary { opacity: .55; }
+details.fold.is-dropped[open] > .fold-body { opacity: .7; }
+.cards.folded > article.card > .ans { margin: 0 16px 14px; }
+.st {
+  display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 700;
+  line-height: 1.6; white-space: nowrap; border: 1px solid var(--line);
+}
+.st-mensetsu, .st-shorui, .st-suisen { background: var(--good-soft); color: var(--good); border-color: var(--good); }
+.st-teian { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.st-drop { background: var(--pass-soft); color: var(--sub); }
+.fold-ctl { display: flex; gap: 8px; margin: 0 0 10px; }
+.fold-ctl[hidden] { display: none; }
+.fold-ctl button {
+  font: inherit; font-size: 14px; padding: 6px 14px; min-height: 40px; border: 1px solid var(--accent);
+  border-radius: 999px; background: var(--paper); color: var(--accent); cursor: pointer;
+}
+.fold-ctl button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#dropped h2 { font-size: 17px; color: var(--sub); }
+@media print {
+  details.fold::details-content { content-visibility: visible; display: block; }
+  details.fold > summary::after, .fold-ctl { display: none; }
+  details.fold.is-dropped > summary { opacity: 1; }
+}
 </style>
-</head>
-<body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=04474e5c5a">ホーム</a></li><li class="gp-cur"><a href="./t6168f1fc.html?v=04474e5c5a" aria-current="page">ご紹介したお仕事</a></li><li><a href="./t9ca51e0a.html?v=04474e5c5a">AI講習</a></li></ul></nav><!--gp-portal:e-->
+<style data-honnin-answer="css">
+.ans{margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.ans[hidden]{display:none}
+.ans-q{margin:0 0 8px;font-size:.92rem;color:var(--sub)}
+.ans-btns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ans-b{font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;
+  padding:6px 4px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);cursor:pointer;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.ans-b .ans-m{font-size:1.35rem;line-height:1}
+.ans-b .ans-t{font-size:.8rem;color:var(--sub);word-break:keep-all;line-height:1.35;text-align:center}
+.ans-b[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.ans-b[aria-pressed="true"] .ans-t{color:var(--ink);font-weight:600}
+.ans-b:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ans-cl{display:block;margin-top:10px;font-size:.88rem;color:var(--sub)}
+.ans-c{display:block;box-sizing:border-box;width:100%;margin-top:4px;padding:8px 10px;font:inherit;font-size:1rem;line-height:1.6;
+  border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);resize:vertical;min-height:2.8em}
+.ans-st{display:flex;justify-content:space-between;gap:8px;margin:6px 0 0;font-size:.82rem;color:var(--sub);min-height:1.3em}
+.ans-st .ans-msg.ok{color:var(--good)}
+.ans-st .ans-msg.ng{color:var(--note);font-weight:600}
+.ans-fb{margin:6px 0 0;font-size:.82rem;color:var(--note)}
+.ans-fb[hidden]{display:none}
+
+h1,h2,h3{word-break:auto-phrase}
+</style></head>
+<body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=f92f74d067">ホーム</a></li><li class="gp-cur"><a href="./t6168f1fc.html?v=f92f74d067" aria-current="page">ご紹介したお仕事</a></li><li><a href="./t9ca51e0a.html?v=f92f74d067">AI講習</a></li></ul></nav><!--gp-portal:e-->
 <div class="band" id="band">
 <div class="band-in">
   <a class="band-title" href="#top">廣森さんにご紹介したいお仕事</a>
@@ -406,7 +480,7 @@ h1,h2,h3{word-break:auto-phrase}
     document.addEventListener("DOMContentLoaded", spy);
     return;
   }
-  var MAP = [["top", "intro", "ごあいさつ"], ["heard", "intro", "伺ったこと"], ["compare", "compare", "選んだ会社の比較"], ["companies", "detail", "ご紹介した会社"], ["industry", "docs", "業界の説明資料"], ["flow", "next", "これからの進め方"]];
+  var MAP = [["top", "intro", "ごあいさつ"], ["heard", "intro", "伺ったこと"], ["compare", "compare", "ご確認いただきたい会社の比較"], ["companies", "detail", "ご紹介した会社"], ["industry", "docs", "業界の説明資料"], ["flow", "next", "これからの進め方"]];
   var band = document.getElementById("band");
   if (!band || !("IntersectionObserver" in window)) return;
   var now = band.querySelector(".band-now");
@@ -460,116 +534,125 @@ h1,h2,h3{word-break:auto-phrase}
 </div>
 </section>
 <section id="compare" data-section="compare" data-chapter="compare">
-<h2>選んだ会社の比較</h2>
-<div class="cmp-top"><figure class="fig" data-figure="compare"><svg class="fig-cmp" viewBox="0 0 560 272" role="img" aria-labelledby="fig-cmp-t fig-cmp-d" preserveAspectRatio="xMidYMid meet"><title id="fig-cmp-t">選んだ6社の比較（2026年11月時点の求人票・会社資料より）</title><desc id="fig-cmp-d">1 エコリング: 月給のまん中 30万円・年間休日 122日／2 買取大吉: 月給のまん中 30.1万円・年間休日 120日／3 IDOM（ガリバー）: 月給のまん中 27.5万円・年間休日 125日／4 カイマス: 月給のまん中 38.75万円・年間休日 120日／5 BuySell Technologies（バイセル）: 月給のまん中 27万円・年間休日 128日</desc><defs><marker id="cmp-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="grid" x1="72.0" y1="14" x2="72.0" y2="212"/><text class="tick" x="72.0" y="237" text-anchor="middle">26</text><line class="grid" x1="137.4" y1="14" x2="137.4" y2="212"/><text class="tick" x="137.4" y="237" text-anchor="middle">28</text><line class="grid" x1="202.9" y1="14" x2="202.9" y2="212"/><text class="tick" x="202.9" y="237" text-anchor="middle">30</text><line class="grid" x1="268.3" y1="14" x2="268.3" y2="212"/><text class="tick" x="268.3" y="237" text-anchor="middle">32</text><line class="grid" x1="333.7" y1="14" x2="333.7" y2="212"/><text class="tick" x="333.7" y="237" text-anchor="middle">34</text><line class="grid" x1="399.1" y1="14" x2="399.1" y2="212"/><text class="tick" x="399.1" y="237" text-anchor="middle">36</text><line class="grid" x1="464.6" y1="14" x2="464.6" y2="212"/><text class="tick" x="464.6" y="237" text-anchor="middle">38</text><line class="grid" x1="530.0" y1="14" x2="530.0" y2="212"/><text class="tick" x="530.0" y="237" text-anchor="middle">40</text><line class="grid" x1="72" y1="212.0" x2="530" y2="212.0"/><text class="tick" x="60" y="217.0" text-anchor="end">110</text><line class="grid" x1="72" y1="172.4" x2="530" y2="172.4"/><text class="tick" x="60" y="177.4" text-anchor="end">115</text><line class="grid" x1="72" y1="132.8" x2="530" y2="132.8"/><text class="tick" x="60" y="137.8" text-anchor="end">120</text><line class="grid" x1="72" y1="93.2" x2="530" y2="93.2"/><text class="tick" x="60" y="98.2" text-anchor="end">125</text><line class="grid" x1="72" y1="53.6" x2="530" y2="53.6"/><text class="tick" x="60" y="58.6" text-anchor="end">130</text><line class="grid" x1="72" y1="14.0" x2="530" y2="14.0"/><text class="tick" x="60" y="19.0" text-anchor="end">135</text><line class="axis" x1="72" y1="212" x2="530" y2="212"/><line class="axis" x1="72" y1="14" x2="72" y2="212"/><text class="ax-l" x="301.0" y="264" text-anchor="middle">月給の目安（万円）→</text><text class="ax-l" x="20" y="113.0" text-anchor="middle" transform="rotate(-90 20 113.0)">年間休日（日）→</text><a class="pt" href="#card-ecoring" aria-label="1. エコリング（カードへ）" data-key="ecoring"><title>1. エコリング（カードへ）</title><circle class="mk cat-0" cx="202.9" cy="117.0" r="13.0"/><text class="pt-n" x="202.9" y="122.5">1</text></a><line class="lead" x1="206.1" y1="132.8" x2="242.1" y2="132.8"/><circle class="true-pos" cx="206.1" cy="132.8" r="3"/><line class="open-ar" x1="259.1" y1="132.8" x2="286.1" y2="132.8" marker-end="url(#cmp-ar)"/><a class="pt" href="#card-kaitori_daikichi" aria-label="2. 買取大吉（カードへ）" data-key="kaitori_daikichi"><title>2. 買取大吉（カードへ）</title><circle class="mk cat-0" cx="242.1" cy="132.8" r="13.0"/><text class="pt-n" x="242.1" y="138.3">2</text></a><a class="pt" href="#card-idom" aria-label="3. IDOM（ガリバー）（カードへ）" data-key="idom"><title>3. IDOM（ガリバー）（カードへ）</title><circle class="mk cat-0" cx="121.1" cy="93.2" r="13.0"/><text class="pt-n" x="121.1" y="98.7">3</text></a><a class="pt" href="#card-name_dc1a7b" aria-label="4. カイマス（カードへ）" data-key="name_dc1a7b"><title>4. カイマス（カードへ）</title><polygon class="mk cat-3" points="489.1,115.9 506.0,132.8 489.1,149.7 472.2,132.8"/><text class="pt-n" x="489.1" y="138.3">4</text></a><line class="lead" x1="104.7" y1="69.4" x2="176.7" y2="69.4"/><circle class="true-pos" cx="104.7" cy="69.4" r="3"/><line class="open-ar" x1="193.7" y1="69.4" x2="220.7" y2="69.4" marker-end="url(#cmp-ar)"/><a class="pt" href="#card-buysell" aria-label="5. BuySell Technologies（バイセル）（カードへ）" data-key="buysell"><title>5. BuySell Technologies（バイセル）（カードへ）</title><circle class="mk cat-0" cx="176.7" cy="69.4" r="13.0"/><text class="pt-n" x="176.7" y="74.9">5</text></a></svg></figure><div class="cmp-side"><p class="lead">面談の希望から6社を選びました。右ほど月給が高く、上ほど年間休日が多い会社です。番号や社名を押すと詳しい説明に移ります。気になる会社は番号か社名でLINEへ（例「2が気になります」）。</p><ul class="legend" aria-label="図の見方"><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><circle class="mk cat-0" cx="15.0" cy="15.0" r="9.0"/></svg>営業</li><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><polygon class="mk cat-3" points="15.0,3.3 26.7,15.0 15.0,26.7 3.3,15.0"/></svg>販売</li><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><path class="fl-a" d="M4,13 H20 V9 L28,15 L20,21 V17 H4 z"/></svg>月給の上限なし</li></ul><p class="fig-note">図に載せていない: 6 ベルパーク（年間休日の日数が書かれていない）</p><details class="fig-how"><summary>図の見方</summary><p class="fig-note">2、5 は月給の上限が書かれていないため、下限の位置に置いて → を付けました。</p><p class="fig-note">年間休日の差は最大8日です。月給は書かれた幅のまん中に置いています。</p></details></div></div>
+<h2>ご確認いただきたい会社の比較</h2>
+<div class="cmp-top"><figure class="fig" data-figure="compare"><svg class="fig-cmp" viewBox="0 0 560 272" role="img" aria-labelledby="fig-cmp-t fig-cmp-d" preserveAspectRatio="xMidYMid meet"><title id="fig-cmp-t">ご確認中の7社の比較（2026年11月時点の求人票・会社資料より）</title><desc id="fig-cmp-d">1 エコリング: 月給のまん中 30万円・年間休日 122日／2 買取大吉: 月給のまん中 30.1万円・年間休日 120日／3 IDOM（ガリバー）: 月給のまん中 27.5万円・年間休日 125日／4 カイマス: 月給のまん中 38.8万円・年間休日 120日／6 ベルパーク: 月給のまん中 33.4万円・年間休日 116日</desc><defs><marker id="cmp-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="grid" x1="72.0" y1="14" x2="72.0" y2="212"/><text class="tick" x="72.0" y="237" text-anchor="middle">26</text><line class="grid" x1="137.4" y1="14" x2="137.4" y2="212"/><text class="tick" x="137.4" y="237" text-anchor="middle">28</text><line class="grid" x1="202.9" y1="14" x2="202.9" y2="212"/><text class="tick" x="202.9" y="237" text-anchor="middle">30</text><line class="grid" x1="268.3" y1="14" x2="268.3" y2="212"/><text class="tick" x="268.3" y="237" text-anchor="middle">32</text><line class="grid" x1="333.7" y1="14" x2="333.7" y2="212"/><text class="tick" x="333.7" y="237" text-anchor="middle">34</text><line class="grid" x1="399.1" y1="14" x2="399.1" y2="212"/><text class="tick" x="399.1" y="237" text-anchor="middle">36</text><line class="grid" x1="464.6" y1="14" x2="464.6" y2="212"/><text class="tick" x="464.6" y="237" text-anchor="middle">38</text><line class="grid" x1="530.0" y1="14" x2="530.0" y2="212"/><text class="tick" x="530.0" y="237" text-anchor="middle">40</text><line class="grid" x1="72" y1="212.0" x2="530" y2="212.0"/><text class="tick" x="60" y="217.0" text-anchor="end">105</text><line class="grid" x1="72" y1="179.0" x2="530" y2="179.0"/><text class="tick" x="60" y="184.0" text-anchor="end">110</text><line class="grid" x1="72" y1="146.0" x2="530" y2="146.0"/><text class="tick" x="60" y="151.0" text-anchor="end">115</text><line class="grid" x1="72" y1="113.0" x2="530" y2="113.0"/><text class="tick" x="60" y="118.0" text-anchor="end">120</text><line class="grid" x1="72" y1="80.0" x2="530" y2="80.0"/><text class="tick" x="60" y="85.0" text-anchor="end">125</text><line class="grid" x1="72" y1="47.0" x2="530" y2="47.0"/><text class="tick" x="60" y="52.0" text-anchor="end">130</text><line class="grid" x1="72" y1="14.0" x2="530" y2="14.0"/><text class="tick" x="60" y="19.0" text-anchor="end">135</text><line class="axis" x1="72" y1="212" x2="530" y2="212"/><line class="axis" x1="72" y1="14" x2="72" y2="212"/><text class="ax-l" x="301.0" y="264" text-anchor="middle">月給の目安（万円）→</text><text class="ax-l" x="20" y="113.0" text-anchor="middle" transform="rotate(-90 20 113.0)">年間休日（日）→</text><a class="pt" href="#card-ecoring" aria-label="1. エコリング（カードへ）" data-key="ecoring"><title>1. エコリング（カードへ）</title><circle class="mk cat-0" cx="202.9" cy="99.8" r="13.0"/><text class="pt-n" x="202.9" y="105.3">1</text></a><line class="lead" x1="206.1" y1="113.0" x2="242.1" y2="113.0"/><circle class="true-pos" cx="206.1" cy="113.0" r="3"/><line class="open-ar" x1="259.1" y1="113.0" x2="286.1" y2="113.0" marker-end="url(#cmp-ar)"/><a class="pt" href="#card-kaitori_daikichi" aria-label="2. 買取大吉（カードへ）" data-key="kaitori_daikichi"><title>2. 買取大吉（カードへ）</title><circle class="mk cat-0" cx="242.1" cy="113.0" r="13.0"/><text class="pt-n" x="242.1" y="118.5">2</text></a><a class="pt" href="#card-idom" aria-label="3. IDOM（ガリバー）（カードへ）" data-key="idom"><title>3. IDOM（ガリバー）（カードへ）</title><circle class="mk cat-0" cx="121.1" cy="80.0" r="13.0"/><text class="pt-n" x="121.1" y="85.5">3</text></a><a class="pt" href="#card-name_dc1a7b" aria-label="4. カイマス（カードへ）" data-key="name_dc1a7b"><title>4. カイマス（カードへ）</title><polygon class="mk cat-3" points="489.1,96.1 506.0,113.0 489.1,129.9 472.2,113.0"/><text class="pt-n" x="489.1" y="118.5">4</text></a><a class="pt" href="#card-bellpark" aria-label="6. ベルパーク（カードへ）" data-key="bellpark"><title>6. ベルパーク（カードへ）</title><polygon class="mk cat-3" points="313.8,122.5 330.7,139.4 313.8,156.3 296.9,139.4"/><text class="pt-n" x="313.8" y="144.9">6</text></a></svg></figure><div class="cmp-side"><p class="lead">面談の希望から7社を選びました。右ほど月給が高く、上ほど年間休日が多い会社です。番号や社名を押すと詳しい説明に移ります。<span class="ans-line">気になる会社は番号か社名でLINEへ（例「2が気になります」）。</span><span class="ans-on" hidden>各社のカードで ◯（受けてみたい）・▲（迷う・聞きたい）・✖（今回は見送り）を押すと、その場で担当に届きます。ひとことも書けます。</span></p><ul class="legend" aria-label="図の見方"><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><circle class="mk cat-0" cx="15.0" cy="15.0" r="9.0"/></svg>営業</li><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><polygon class="mk cat-3" points="15.0,3.3 26.7,15.0 15.0,26.7 3.3,15.0"/></svg>販売</li><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><path class="fl-a" d="M4,13 H20 V9 L28,15 L20,21 V17 H4 z"/></svg>月給の上限なし</li></ul><p class="fig-note">図に載せていない: 5 BuySell Technologies（バイセル）（年間休日の日数が書かれていない）　図は1〜6の会社です（7は下の表に）。</p><details class="fig-how"><summary>図の見方</summary><p class="fig-note">2 は月給の上限が書かれていないため、下限の位置に置いて → を付けました。</p><p class="fig-note">年間休日の差は最大9日です。月給は書かれた幅のまん中に置いています。</p></details></div></div>
 <table class="cmp">
-  <caption>選んだ6社の比較（2026年11月時点の求人票・会社資料より）</caption>
-  <thead><tr><th>会社</th><th>仕事の種類</th><th>勤務地</th><th>月給（月額）</th><th>休日（年間）</th></tr></thead>
+  <caption>ご確認中の7社の比較（2026年11月時点の求人票・会社資料より）</caption>
+  <thead><tr><th>会社</th><th>仕事の種類</th><th>勤務地</th><th>年収（年額）</th><th>月給（月額）</th><th>休日（年間）</th></tr></thead>
   <tbody>
     <tr data-key="ecoring"><td class="c-co" data-h="会社"><span class="no">1</span><a class="to-card" href="#card-ecoring">エコリング</a><span class="links"><a class="deck-mini" href="https://ecoring.co.jp/" target="_blank" rel="noopener" aria-label="エコリングのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/138ntsQMSCZVe-luSQcEZiCu9TebNoIX0/view" target="_blank" rel="noopener" aria-label="エコリングの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">営業</td><td data-h="勤務地"><span class="main">全国の店舗</span><span class="clamp sub">（広島・兵庫・大阪・愛知・香川など。広島の求人は通勤90分以内の店舗に配属）</span><span class="clamp sub">会社全体の公式指標（コーポレートブック2026年6月）: 月平均残業7.95時間・年間休日122日・平均年齢33.8歳・男性育休利用率90.0%・女性社員比率45.0%。</span></td><td data-h="月給（月額）"><span class="main">月給30万円</span><span class="clamp sub">（中四国・近畿・東海・九州の求人。固定残業代を含む。試用期間の6か月は25万〜26万円で賞与の対象外）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日122日</span></td></tr>
+    <a class="deck-mini" href="https://drive.google.com/file/d/138ntsQMSCZVe-luSQcEZiCu9TebNoIX0/view" target="_blank" rel="noopener" aria-label="エコリングの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">営業</td><td data-h="勤務地"><span class="clamp">広島県</span></td><td data-h="年収（年額）"><span class="clamp">460万円</span></td><td data-h="月給（月額）"><span class="clamp">30万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日122日</span></td></tr>
 <tr data-key="kaitori_daikichi"><td class="c-co" data-h="会社"><span class="no">2</span><a class="to-card" href="#card-kaitori_daikichi">買取大吉</a><span class="links"><a class="deck-mini" href="https://www.en-power.jp/" target="_blank" rel="noopener" aria-label="買取大吉のホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1YZAFvYuRrHXCR2E3h2Q-2i_vuCc3KINF/view" target="_blank" rel="noopener" aria-label="買取大吉の資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">営業</td><td data-h="勤務地"><span class="main">全国27都道府県の直営店舗</span><span class="clamp sub">（中国・四国は岡山・広島・山口・愛媛）。配属は希望・通勤時間・人員状況を考慮して決まり、確定してから入社。通勤1時間30分以内が基本で、転居を伴う転勤はなし</span><span class="clamp sub">運営は株式会社エンパワー（東京都新宿区・2010年設立）。買取専門店「買取大吉」の直営店の運営とフランチャイズ本部の会社。</span></td><td data-h="月給（月額）"><span class="main">月給30.1万円〜</span><span class="clamp sub">（45時間分の固定残業代7.4万円〜を含む・超過分は別途支給）＋インセンティブ。賞与年2回・昇給の機会は年4回（求人票）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日120日</span></td></tr>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1YZAFvYuRrHXCR2E3h2Q-2i_vuCc3KINF/view" target="_blank" rel="noopener" aria-label="買取大吉の資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">営業</td><td data-h="勤務地"><span class="clamp">全国</span></td><td data-h="年収（年額）"><span class="empty">まだ不明</span></td><td data-h="月給（月額）"><span class="clamp">30.1万円〜</span></td><td data-h="休日（年間）"><span class="clamp">年間休日120日</span></td></tr>
 <tr data-key="idom"><td class="c-co" data-h="会社"><span class="no">3</span><a class="to-card" href="#card-idom">IDOM（ガリバー）</a><span class="links"><a class="deck-mini" href="https://idom-inc.com/" target="_blank" rel="noopener" aria-label="IDOM（ガリバー）のホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1u34MC3np6eBEiYoXtlmD7Br9ewUg1Ky3/view" target="_blank" rel="noopener" aria-label="IDOM（ガリバー）の資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">営業</td><td data-h="勤務地"><span class="main">全国47都道府県の店舗</span><span class="clamp sub">（転勤はできるだけ考慮）</span><span class="clamp sub">選考: 書類 → WEB面接1回 → 性格の適性検査</span></td><td data-h="月給（月額）"><span class="clamp">25万円〜30万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1u34MC3np6eBEiYoXtlmD7Br9ewUg1Ky3/view" target="_blank" rel="noopener" aria-label="IDOM（ガリバー）の資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">営業</td><td data-h="勤務地"><span class="clamp">北海道ほか</span></td><td data-h="年収（年額）"><span class="clamp">450万〜500万円</span></td><td data-h="月給（月額）"><span class="clamp">25万〜30万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
 <tr data-key="name_dc1a7b"><td class="c-co" data-h="会社"><span class="no">4</span><a class="to-card" href="#card-name_dc1a7b">カイマス</a><span class="links"><a class="deck-mini" href="https://kuranoya-kobe.com/" target="_blank" rel="noopener" aria-label="カイマスのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1T0Nn6ZN81EgYcVTaTjztqYGLv1H6TJqG/view" target="_blank" rel="noopener" aria-label="カイマスの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">販売</td><td data-h="勤務地"><span class="main">広島県内の催事会場</span><span class="clamp sub">（自宅からの距離を踏まえて決定・直行直帰）。関西エリアの募集もある。転勤なし</span><span class="clamp sub">選考: 書類（履歴書・職務経歴書）→ 一次面接（原則WEB・割愛の場合あり）→ 最終面接</span></td><td data-h="月給（月額）"><span class="main">月給27.5万〜50万円</span><span class="clamp sub">（基本給）＋インセンティブ</span></td><td data-h="休日（年間）"><span class="clamp">年間休日120日</span></td></tr>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1T0Nn6ZN81EgYcVTaTjztqYGLv1H6TJqG/view" target="_blank" rel="noopener" aria-label="カイマスの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">販売</td><td data-h="勤務地"><span class="clamp">広島県ほか</span></td><td data-h="年収（年額）"><span class="clamp">350万〜750万円</span></td><td data-h="月給（月額）"><span class="clamp">27.5万〜50万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日120日以上</span></td></tr>
 <tr data-key="buysell"><td class="c-co" data-h="会社"><span class="no">5</span><a class="to-card" href="#card-buysell">BuySell Technologies（バイセル）</a><span class="links"><a class="deck-mini" href="https://buysell-technologies.com/" target="_blank" rel="noopener" aria-label="BuySell Technologies（バイセル）のホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1OXCMCyQi0VxDzmb0DubxdMdp2yr5ke-c/view" target="_blank" rel="noopener" aria-label="BuySell Technologies（バイセル）の資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">営業</td><td data-h="勤務地"><span class="main">全国の拠点</span><span class="clamp sub">（埼玉は越谷市・白岡市。東京は江戸川区・立川、千葉・柏、群馬・高崎ほか）。配属先は希望を聞いて内定のときに会社が選ぶ。転勤なしの区分と全国転勤ありの区分がある</span><span class="clamp sub">普通自動車運転免許（AT限定可）が必要。</span></td><td data-h="月給（月額）"><span class="main">転勤なし</span><span class="clamp sub">（エリア採用）は月給27万円〜（基本給20万円＋職務手当2万円＋30時間分の固定残業代5万円）、全国転勤ありは月給30万円〜。毎月のインセンティブと賞与（年2回）あり。社員の平均月収は40万円（会社の説明）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日128日</span></td></tr>
-<tr data-key="bellpark"><td class="c-co" data-h="会社"><span class="no">6</span><a class="to-card" href="#card-bellpark">ベルパーク</a><span class="links"><a class="deck-mini" href="https://www.bellpark.co.jp/" target="_blank" rel="noopener" aria-label="ベルパークのホームページ">会社のHP →</a></span></td><td data-h="仕事の種類">販売</td><td data-h="勤務地"><span class="main">全国のソフトバンクショップ</span><span class="clamp sub">（関東・名古屋・岡山など）・法人営業は麹町本社。ドコモショップの求人は子会社の株式会社ベルパークネクストが雇用主</span><span class="clamp sub">応募資格: 中途は異業種・未経験から育成すると案内。求人により「営業・販売・接客2年以上」を必須とする版がある</span></td><td data-h="月給（月額）"><span class="main">ソフトバンクショップ</span><span class="clamp sub">（関東）想定月収25.98万〜40.80万円（固定残業手当込み・残業25時間込みの額。HRMOS）</span></td><td data-h="休日（年間）"><span class="main">シフト制・月9休</span><span class="clamp sub">（平日休みが基本）。年間休日は店舗職の求人で116日（見出しの128日は有給消化を足した実質表現）、本社系は127〜128日</span></td></tr>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1OXCMCyQi0VxDzmb0DubxdMdp2yr5ke-c/view" target="_blank" rel="noopener" aria-label="BuySell Technologies（バイセル）の資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">営業</td><td data-h="勤務地"><span class="clamp">東京都ほか</span></td><td data-h="年収（年額）"><span class="clamp">374万〜500万円</span></td><td data-h="月給（月額）"><span class="clamp">27万円〜</span></td><td data-h="休日（年間）"><span class="clamp">シフト制</span></td></tr>
+<tr data-key="bellpark"><td class="c-co" data-h="会社"><span class="no">6</span><a class="to-card" href="#card-bellpark">ベルパーク</a><span class="links"><a class="deck-mini" href="https://www.bellpark.co.jp/" target="_blank" rel="noopener" aria-label="ベルパークのホームページ">会社のHP →</a></span></td><td data-h="仕事の種類">販売</td><td data-h="勤務地"><span class="clamp">東京都ほか</span></td><td data-h="年収（年額）"><span class="empty">まだ不明</span></td><td data-h="月給（月額）"><span class="clamp">26万〜40.8万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日116日</span></td></tr>
+<tr data-key="teleport_mobile"><td class="c-co" data-h="会社"><span class="no">7</span><a class="to-card" href="#card-teleport_mobile">テレポートモバイル</a><span class="links"><a class="deck-mini" href="https://www.teleportmobile.co.jp/" target="_blank" rel="noopener" aria-label="テレポートモバイルのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1UDsZHNnKsWxAqeNsboWJlGGNUEghtfDk/view" target="_blank" rel="noopener" aria-label="テレポートモバイルの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">販売</td><td data-h="勤務地"><span class="clamp">三重県ほか</span></td><td data-h="年収（年額）"><span class="clamp">300万〜450万円</span></td><td data-h="月給（月額）"><span class="clamp">22万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日115日</span></td></tr>
   </tbody>
 </table>
-<p class="cmp-key">続きは各社の説明に。</p>
+<p class="cmp-key">まだ不明＝求人票・資料で確かめられていない。続きは各社の説明に。</p>
 </section>
 <section id="companies" data-section="companies" data-no-figure="各社カードと表＝詳しい層（図はトップの比較）">
 <h2>ご紹介した会社</h2>
 <h2>ご紹介している会社</h2>
 <p class="lead">伺ったお話から、3つの物差しで選びました。①買取と店舗運営の経験がそのまま活きること　②月給30万円前後から始められること　③ITやAIの力を先々も活かせること。前回の4社に、新しく3社（バイセル・ベルパーク・テレポートモバイル）を足しました。</p>
-
-<div class="cards live" data-live="picks">
-  <article class="card" id="card-ecoring">
+<div class="fold-ctl" hidden><button type="button" data-fold-all="open">全部開く</button><button type="button" data-fold-all="close">全部閉じる</button></div>
+<div class="cards live folded" data-live="picks">
+  <article class="card" id="card-ecoring" data-key="ecoring" data-name="エコリング"><details class="fold"><summary><span class="f-head"><span class="f-name">エコリング</span></span><span class="f-what">ブランド品などの査定・買取のカウンターセールス（未経験歓迎・社内資格の鑑定士を目指す）</span><span class="f-meta">広島県　年収 求人掲載では未経験でも年収460万円スタート・賞与年2回</span></summary><div class="fold-body">
     <h3>エコリング</h3>
     <p class="what">ブランド品などの査定・買取のカウンターセールス（未経験歓迎・社内資格の鑑定士を目指す）</p>
     <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給30万円</span><span class="aside">（中四国・近畿・東海・九州の求人。固定残業代を含む。試用期間の6か月は25万〜26万円で賞与の対象外）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>求人掲載では未経験でも年収460万円スタート・賞与年2回</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日122日</dd></div></dl>
     <dl class="place">
-      <dt>勤務地</dt><dd>全国の店舗（広島・兵庫・大阪・愛知・香川など。広島の求人は通勤90分以内の店舗に配属）</dd><dt>条件</dt><dd>会社全体の公式指標（コーポレートブック2026年6月）: 月平均残業7.95時間・年間休日122日・平均年齢33.8歳・男性育休利用率90.0%・女性社員比率45.0%。</dd><dt>条件</dt><dd>買取アドバイザーは月給30万円（関東32万円・札幌28万円）。固定残業代を含む。試用6か月は月給25〜26万円で賞与対象外。</dd><dt>条件</dt><dd>応募は高卒以上・普通自動車免許（AT限定可）必須。未経験歓迎。</dd><dt>条件</dt><dd>入社時研修「エコリング大学」は約2か月。入社3〜6か月で社内の鑑定士試験を受ける。</dd>
+      <dt>勤務地</dt><dd>広島県</dd><dt>条件</dt><dd>会社全体の公式指標（コーポレートブック2026年6月）: 月平均残業7.95時間・年間休日122日・平均年齢33.8歳・男性育休利用率90.0%・女性社員比率45.0%。</dd><dt>条件</dt><dd>買取アドバイザーは月給30万円（関東32万円・札幌28万円）。固定残業代を含む。試用6か月は月給25〜26万円で賞与対象外。</dd><dt>条件</dt><dd>応募は高卒以上・普通自動車免許（AT限定可）必須。未経験歓迎。</dd><dt>条件</dt><dd>入社時研修「エコリング大学」は約2か月。入社3〜6か月で社内の鑑定士試験を受ける。</dd><dt>条件</dt><dd>未経験から可</dd>
     </dl>
+    <dl class="detail"></dl>
     <p class="point"><b>ここが合う</b>　ブランド品や時計、着物などを、自分の目で査定して買い取る仕事です。入社後は社内の研修（エコリング大学・約2か月）で学び、3〜6か月で社内の鑑定士試験に進みます。お店で値付けを任されるのが楽しいと話されていた廣森さんに、いちばん近い仕事だと考えました。広島の店舗（中区）の求人があり、配属は通勤90分以内の店舗です。本社には社内SEやDXを進める部署もあります。</p>
     
     <div class="links"><a class="deck-mini" href="https://ecoring.co.jp/" target="_blank" rel="noopener" aria-label="エコリングのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/138ntsQMSCZVe-luSQcEZiCu9TebNoIX0/view" target="_blank" rel="noopener" aria-label="エコリングの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-kaitori_daikichi">
+  </div></details><div class="ans" data-ans-key="ecoring" data-ans-name="エコリング" hidden><p class="ans-q">エコリングへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="エコリングへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-kaitori_daikichi" data-key="kaitori_daikichi" data-name="買取大吉"><details class="fold"><summary><span class="f-head"><span class="f-name">買取大吉</span></span><span class="f-what">リユース店舗での買取スタッフ（お客様の品物を査定・買取する接客の仕事）</span><span class="f-meta">全国27都道府県の直営店舗　月給 月給30.1万円〜（45時間分の固定残業代7.4万円〜を含む・超過分は別途支給）＋インセンティブ。賞与年2回・昇給の機会は年4回（求人票）</span></summary><div class="fold-body">
     <h3>買取大吉</h3>
     <p class="what">リユース店舗での買取スタッフ（お客様の品物を査定・買取する接客の仕事）</p>
     <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給30.1万円〜</span><span class="aside">（45時間分の固定残業代7.4万円〜を含む・超過分は別途支給）＋インセンティブ。賞与年2回・昇給の機会は年4回（求人票）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">年間休日120日・完全週休2日制</span><span class="aside">（シフト制）・希望休は月3日まで。残業は月20時間以内（求人票）</span></dd></div></dl>
     <dl class="place">
       <dt>勤務地</dt><dd>全国27都道府県の直営店舗（中国・四国は岡山・広島・山口・愛媛）。配属は希望・通勤時間・人員状況を考慮して決まり、確定してから入社。通勤1時間30分以内が基本で、転居を伴う転勤はなし</dd><dt>条件</dt><dd>運営は株式会社エンパワー（東京都新宿区・2010年設立）。買取専門店「買取大吉」の直営店の運営とフランチャイズ本部の会社。</dd><dt>条件</dt><dd>仕事は店舗でのカウンターセールス（査定・買取）。来店されたお客様への対応が中心で、テレアポや飛び込み営業は無い。査定額は品物の写真をもとに本部の専門スタッフがオンラインで算出する。</dd><dt>条件</dt><dd>応募は接客・販売・営業いずれかの経験1年以上・高卒以上（求人票）。</dd><dt>条件</dt><dd>月給30.1万円〜の内訳は基本給22.7万円〜＋固定残業代7.4万円〜（45時間分）。超過分は別途支給。交通費は上限月3万円。</dd><dt>条件</dt><dd>勤務は1か月単位の変形労働時間制・実働8時間（9:30〜18:30／10:00〜19:00／11:00〜20:00 など）。夜勤なし。</dd><dt>条件</dt><dd>選考は書類選考→オンライン面接1回→内定（最短2週間）。</dd><dt>条件</dt><dd>通勤が2時間以上になる場合は借上社宅（会社負担）。</dd>
     </dl>
+    <dl class="detail"></dl>
     <p class="point"><b>ここが合う</b>　テレビCMの「買取大吉」のお店で、来店されたお客様の品物を買い取る仕事です。月給は30.1万円からで、役職が上がるのが早く、最短2か月で店長になった例があります。お店を回してきた経験が、店長を任される側でそのまま活きます。査定の金額は本部の専門の担当がオンラインで出す仕組みで、お店では接客と店舗の運営に集中します。広島にも複数のお店があり、配属は希望と通勤時間をみて入社前に決まります。選考はオンラインの面接1回です。</p>
     
     <div class="links"><a class="deck-mini" href="https://www.en-power.jp/" target="_blank" rel="noopener" aria-label="買取大吉のホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1YZAFvYuRrHXCR2E3h2Q-2i_vuCc3KINF/view" target="_blank" rel="noopener" aria-label="買取大吉の資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-idom">
+  </div></details><div class="ans" data-ans-key="kaitori_daikichi" data-ans-name="買取大吉" hidden><p class="ans-q">買取大吉への気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="買取大吉への気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-idom" data-key="idom" data-name="IDOM（ガリバー）"><details class="fold"><summary><span class="f-head"><span class="f-name">IDOM（ガリバー）</span></span><span class="f-what">中古車の「ガリバー」の店舗で、来店や問い合わせのお客様に車の購入・売却を案内する営業（飛び込み・電話営業なし）</span><span class="f-meta">北海道、青森、岩手、宮城、秋田、山形、福島、茨城、栃木、群馬、埼玉、千葉、　年収 450万〜500万円</span></summary><div class="fold-body">
     <h3>IDOM（ガリバー）</h3>
     <p class="what">中古車の「ガリバー」の店舗で、来店や問い合わせのお客様に車の購入・売却を案内する営業（飛び込み・電話営業なし）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd>25万円〜30万円</dd></div><div class="stat s-annual"><dt>年収</dt><dd><span class="lead">求人票の想定は</span><span class="main">450万〜500万円。</span><span class="aside">1年目の例は450万円（月給27万円＋成果給＋賞与）。固定給だけなら年300万円＋賞与（昨年度の実績は3か月分）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>シフト制・年間休日125日</dd></div></dl>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd>25万円〜30万円</dd></div><div class="stat s-annual"><dt>年収</dt><dd>450万〜500万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日125日・シフト制</dd></div></dl>
     <dl class="place">
-      <dt>勤務地</dt><dd>全国47都道府県の店舗（転勤はできるだけ考慮）</dd><dt>条件</dt><dd>選考: 書類 → WEB面接1回 → 性格の適性検査</dd><dt>条件</dt><dd>子ども手当あり（公式ブログ2025年6月: 18歳まで月2万円・ひとり親は3万円。求人票では子1人あたり月5,000円と別記述）</dd>
+      <dt>勤務地</dt><dd>北海道、青森、岩手、宮城、秋田、山形、福島、茨城、栃木、群馬、埼玉、千葉、</dd><dt>条件</dt><dd>選考: 書類 → WEB面接1回 → 性格の適性検査</dd><dt>条件</dt><dd>子ども手当あり（公式ブログ2025年6月: 18歳まで月2万円・ひとり親は3万円。求人票では子1人あたり月5,000円と別記述）</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd>
     </dl>
+    <dl class="detail"><div class="d-row d-requirement"><dt>必須</dt><dd>・学歴：高卒以上</dd><dd>・資格取得：自動車運転免許（AT必須）※入社までに取得できれば問題ございません</dd><dd><span class="d-head">採用区分: 契約社員</span>契約社員は「店舗限定採用」になるため、通勤可能店舗のみ配属</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>┗Better：同業経験、保険セールス経験、高額商材の売買経験など</dd><dd>┗Best　：中古車販売店、新車ディーラー・または同様の業界のご経験がある方</dd><dd>・同業経験者</dd><dd class="d-more">続きは求人票で</dd></div></dl>
     <p class="point"><b>ここが合う</b>　中古車の「ガリバー」の店舗で、車の買取と販売をご案内する仕事です。扱うものは車に変わりますが、お客様から買い取って次の方へつなぐ流れは今のお仕事と同じです。査定には社内の専門の担当とAIの仕組みを使っていて、お店の仕事にAIが入っている会社です。求人票の想定年収は450万〜500万円、年間休日は125日です。求人の勤務地は全国で、広島も含まれます。店長には社内の試験で上がる仕組みで、1年以内に店長になった例もあります。</p>
     
     <div class="links"><a class="deck-mini" href="https://idom-inc.com/" target="_blank" rel="noopener" aria-label="IDOM（ガリバー）のホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1u34MC3np6eBEiYoXtlmD7Br9ewUg1Ky3/view" target="_blank" rel="noopener" aria-label="IDOM（ガリバー）の資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-name_dc1a7b">
+  </div></details><div class="ans" data-ans-key="idom" data-ans-name="IDOM（ガリバー）" hidden><p class="ans-q">IDOM（ガリバー）への気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="IDOM（ガリバー）への気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-name_dc1a7b" data-key="name_dc1a7b" data-name="カイマス"><details class="fold"><summary><span class="f-head"><span class="f-name">カイマス</span></span><span class="f-what">スーパーやホームセンターに1週間ずつ買取の特設ブースを出し、来られたお客様の品物を査定して買い取る仕事（催事買取営業）</span><span class="f-meta">広島、大阪　年収 350万〜750万円</span></summary><div class="fold-body">
     <h3>カイマス</h3>
     <p class="what">スーパーやホームセンターに1週間ずつ買取の特設ブースを出し、来られたお客様の品物を査定して買い取る仕事（催事買取営業）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給27.5万〜50万円</span><span class="aside">（基本給）＋インセンティブ</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>求人票の想定は350万〜750万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">土日休み（完全週休2日）・</span><span class="main">年間休日120日以上</span></dd></div></dl>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給27.5万〜50万円</span><span class="aside">（基本給）＋インセンティブ</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>350万〜750万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">土日休み（完全週休2日）・</span><span class="main">年間休日120日以上</span></dd></div></dl>
     <dl class="place">
-      <dt>勤務地</dt><dd>広島県内の催事会場（自宅からの距離を踏まえて決定・直行直帰）。関西エリアの募集もある。転勤なし</dd><dt>条件</dt><dd>選考: 書類（履歴書・職務経歴書）→ 一次面接（原則WEB・割愛の場合あり）→ 最終面接</dd><dt>条件</dt><dd>応募は高卒以上・普通自動車免許（入社時までに取得でも可）。職種・業種とも未経験可。</dd><dt>条件</dt><dd>勤務は10:00〜18:00・夜勤なし・残業は月10時間以下（残業手当は時間に応じて全額支給）。</dd><dt>条件</dt><dd>有給休暇は10日〜最大20日。夏季・年末年始・GW休暇あり。社会保険完備・健康診断・交通費全額支給。</dd>
+      <dt>勤務地</dt><dd>広島、大阪</dd><dt>条件</dt><dd>選考: 書類（履歴書・職務経歴書）→ 一次面接（原則WEB・割愛の場合あり）→ 最終面接</dd><dt>条件</dt><dd>応募は高卒以上・普通自動車免許（入社時までに取得でも可）。職種・業種とも未経験可。</dd><dt>条件</dt><dd>勤務は10:00〜18:00・夜勤なし・残業は月10時間以下（残業手当は時間に応じて全額支給）。</dd><dt>条件</dt><dd>有給休暇は10日〜最大20日。夏季・年末年始・GW休暇あり。社会保険完備・健康診断・交通費全額支給。</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>転勤なし</dd>
     </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>スーパーやホームセンターなどに、特設ブースを設け買取を行う催事買取営業をお任せします。・＊月〜金のサイクルで 1週間同じ現場で実施・買取商品は主に〈ブランド／時計／宝飾品／貴金属／切手／古銭／毛皮／カメラ〉など</dd><dd>・ブース設営・・お客様へのお声がけ・・キャンペーン告知・・商品査定・・商談・・商品管理・・数値管理</dd><dd>1週間ごとのサイクルで、各現場の直行直帰となります。・社用車の貸与する場合がございます。</dd></div><div class="d-row d-appeal"><dt>仕事の魅力</dt><dd>会社の成長とともに管理職や本部のポジションなど様々なキャリアアップが実現可能です。</dd><dd>メンバーも若く、和気藹々としながらも、切磋琢磨しながら成長できる環境です。・9割が未経験からスタートしているので、安心してチャレンジできる環境です。</dd><dd>創業メンバーで管理職も目指せる</dd></div><div class="d-row d-salary_breakdown"><dt>給与の内訳</dt><dd>インセンティブ制度も充実しているので、自身が頑張った分だけ稼ぐことが可能です。</dd><dd>給与形態：月給制</dd><dd>275,000〜500,000円/月</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>賞与回数：業績賞与・賞与回数：会社の業績による</dd></div><div class="d-row d-leave"><dt>休暇</dt><dd>有給休暇、産休・育休、夏季休暇、・GW休暇</dd><dd>＊2024年は年末年始休みが16連休ありました。</dd><dd>有給休暇（10⽇〜勤続年数に応じて最大20⽇）</dd></div><div class="d-row d-work_hours"><dt>勤務時間</dt><dd>10:00〜18:00</dd></div><div class="d-row d-overtime"><dt>残業</dt><dd>月間平均残業時間：10時間以下</dd></div><div class="d-row d-remote"><dt>在宅</dt><dd>自社内勤務</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>最終学歴: 高卒以上・最終学歴: 高卒以上</dd><dd>普通自動車免許を入社時までに取得可能な方or所持している方</dd><dd>職種未経験OK・職種未経験OK</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>明るく、元気な対応ができる方・明るく、元気な対応ができる方</dd><dd>人とお話しすることが好きな方・人とお話しすることが好きな方</dd><dd>相手の潜在的なニーズを引き出すことが上手な方・相手の潜在的なニーズを引き出すことが上手な方</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>＊メイン査定士には、社用車を1台貸与します。</dd><dd>社会保険完備</dd><dd>健康診断・社用車貸与</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>履歴書の提出: 必須・職務経歴書の提出: 必須</dd><dd>カジュアル面談の有無 : なし・カジュアル面談の有無 : なし・会社説明会の有無: なし・会社説明会の有無: なし</dd><dd>適性テストの有無: なし・適性テストの有無: なし</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-hiring"><dt>募集の概要</dt><dd>増員募集</dd></div><div class="d-row d-company"><dt>会社</dt><dd>株式会社カイマス</dd><dd>その他流通・小売、組織・人事コンサルティング、環境・リサイクル、その他サービス（無形）</dd><dd>その他流通・小売、組織・人事コンサルティング、環境・リサイクル、その他サービ</dd><dd class="d-more">続きは求人票で</dd></div></dl>
     <p class="point"><b>ここが合う</b>　スーパーやホームセンターに特設の買取ブースを出し、1週間同じ場所でお客様の品物を査定して買い取る仕事です。直行直帰・土日休みで、年間休日は120日以上あります。月給は27.5万〜50万円にインセンティブが加わります（求人票）。まだ小さな会社で、立ち上げの時期から入る形になります。広島に支店をつくる予定と求人票にあり、開設の時期と場所はこれから確認してお伝えします。</p>
     
     <div class="links"><a class="deck-mini" href="https://kuranoya-kobe.com/" target="_blank" rel="noopener" aria-label="カイマスのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1T0Nn6ZN81EgYcVTaTjztqYGLv1H6TJqG/view" target="_blank" rel="noopener" aria-label="カイマスの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-buysell">
+  </div></details><div class="ans" data-ans-key="name_dc1a7b" data-ans-name="カイマス" hidden><p class="ans-q">カイマスへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="カイマスへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-buysell" data-key="buysell" data-name="BuySell Technologies（バイセル）"><details class="fold"><summary><span class="f-head"><span class="f-name">BuySell Technologies（バイセル）</span></span><span class="f-what">お問い合わせをくださったお宅へ伺い、着物・ブランド品・時計・ジュエリーなどを査定して買い取る訪問買取（約束を取る担当は別の部署で、テレアポ・飛び込みはない）</span><span class="f-meta">東京、神奈川、埼玉、千葉、愛知、大阪、香川、兵庫、群馬、愛媛　年収 374万〜500万円</span></summary><div class="fold-body">
     <h3>BuySell Technologies（バイセル）</h3>
     <p class="what">お問い合わせをくださったお宅へ伺い、着物・ブランド品・時計・ジュエリーなどを査定して買い取る訪問買取（約束を取る担当は別の部署で、テレアポ・飛び込みはない）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="lead">転勤なし（エリア採用）は月給</span><span class="main">27万円〜</span><span class="aside">（基本給20万円＋職務手当2万円＋30時間分の固定残業代5万円）、全国転勤ありは月給30万円〜。毎月のインセンティブと賞与（年2回）あり。社員の平均月収は40万円（会社の説明）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd><span class="lead">求人票の想定は</span><span class="main">374万〜500万円</span><span class="aside">（インセンティブ・賞与込み）。モデル年収は510万円（23歳・入社1年）・850万円（25歳・入社2年）・1,000万円（28歳・入社3年）で、上のほうは一部の社員の実績。固定給だけなら年324万円（転勤なしの月給27万円×12・固定残業代込み）＋賞与（年2回・額の記載なし）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">シフト制（月7〜12日休み）・</span><span class="main">年間休日128日。</span><span class="aside">公休のうち月2〜3日は希望休を出せるので、土日に休むこともできる（必ず通るとは限らない）</span></dd></div></dl>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="lead">転勤なし（エリア採用）は月給</span><span class="main">27万円〜</span><span class="aside">（基本給20万円＋職務手当2万円＋30時間分の固定残業代5万円）、全国転勤ありは月給30万円〜。毎月のインセンティブと賞与（年2回）あり。社員の平均月収は40万円（会社の説明）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>374万〜500万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>シフト制</dd></div></dl>
     <dl class="place">
-      <dt>勤務地</dt><dd>全国の拠点（埼玉は越谷市・白岡市。東京は江戸川区・立川、千葉・柏、群馬・高崎ほか）。配属先は希望を聞いて内定のときに会社が選ぶ。転勤なしの区分と全国転勤ありの区分がある</dd><dt>条件</dt><dd>普通自動車運転免許（AT限定可）が必要。</dd><dt>条件</dt><dd>選考: 書類選考 → 最終選考1回（面接はオンライン・適性テストあり）</dd>
+      <dt>勤務地</dt><dd>東京、神奈川、埼玉、千葉、愛知、大阪、香川、兵庫、群馬、愛媛</dd><dt>条件</dt><dd>普通自動車運転免許（AT限定可）が必要。</dd><dt>条件</dt><dd>選考: 書類選考 → 最終選考1回（面接はオンライン・適性テストあり）</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd>
     </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>仕事内容 着物、ブランド品、高級腕時計、ジュエリーなどの出張買取をお任せ！・ご自宅に眠る資産を新たな方のもとへ届けるリユース事業に関わるため、社会貢献性も高い仕事です。・《具体的な業務内容》</dd><dd>▼「買う」営業・ご依頼主宅を訪問し、商品査定</dd><dd>☆査定してお客様対応するだけの仕事ではありません。・扱うのはお客様の想いのこもった一品。売却したい背景を伺い、想いに寄り添うことも大事です。価格勝負だけでなく人柄を評価いただき、「あなたにならお願いしたい」と信頼してもらえる関係を築きます。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-appeal"><dt>仕事の魅力</dt><dd>【当社の魅力No.1の『働く人』がアナタを全力サポート◎】モチベーションや成長意欲の高いメンバーが多く、目標に向かってチームで協力し合いながら切磋琢磨できる風土のため、自分自身も大きく成長できます！・「人を大切にする文化」が根付いているた…</dd><dd>また、毎⽇のランキングや年に1回の表彰制度により、頑張りを認められる機会が豊富にあります。</dd><dd>◎チーフ⇒リーダー⇒スーパーバイザー（SV）⇒支店長キャリアステップ＆昇格基準が明確、くわえて、年功序列ではない実力主義の環境なので、目標を持って働くことができます。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-salary_breakdown"><dt>給与の内訳</dt><dd>転勤なしの場合、25万円→27万円へ給与の引き上げ！・転勤ありの場合、25万円→30万円へ大幅向上をさせていただいております！</dd><dd>◆頑張りが給与に反映される！正当評価に自信有り！◆上期と下期の2回の面談により、ベース給与と昇格有無を決定します。ベースの給与に加え、年2回の賞与と毎月のインセンティブにより、結果と過程を正当に評価します。</dd><dd><span class="d-head">区分: 全国転勤あり</span>195,000円/月</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>月額給与の引き上げや「職務手当」「全国転勤手当」を新設。</dd><dd>◆頑張りが給与に反映される！正当評価に自信有り！◆上期と下期の2回の面談により、ベース給与と昇格有無を決定します。ベースの給与に加え、年2回の賞与と毎月のインセンティブにより、結果と過程を正当に評価します。</dd><dd>◆昇給/年2回</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-leave"><dt>休暇</dt><dd>休暇制度：有給休暇、年末年始休暇、産休・育休、介 護 休 暇 、 慶</dd><dd>有給休暇・夏季休暇・年末年始休暇・産前産後休暇・育児休暇・介護休暇・結婚休暇・慶弔休暇 など</dd><dd>休暇制度：有給休暇、年末年始休暇、産休・育休、介護休暇、慶</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-work_hours"><dt>勤務時間</dt><dd>〈勤務時間〉09:00~18:00</dd><dd>休憩：60分</dd></div><div class="d-row d-overtime"><dt>残業</dt><dd>月間平均残業時間：30時間以下</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>最終学歴: 高卒以上・・学歴：高卒以上</dd><dd>職種経験: 職種未経験OK</dd><dd>業種経験: 業種未経験OK</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>◎未経験、第二新卒の方も歓迎いたします</dd><dd>・営業のご経験がある方（法人個人問わず／業界不問）</dd><dd>・人とコミュニケーションをとることが好きな方</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>出産祝金、出産・育児の休暇サポート、短時間勤務や時差出勤、健康診断費用全額補助やインフルエンザ予防接種全額補助、社内購入割引制度などの様々な福利厚⽣があります。今後も、社員の成長を促すために、新しい制度の導入を検討しています。</dd><dd>▼1〜2ヵ月目・ビジネスマナーからコミュニケーションスキルまで丁寧にレクチャー！・高価格帯の品物を扱うため、専門知識もお教えします◎</dd><dd>フィールドセールスの9割は、未経験からスタートしています。教育専門チームによる入社後2ヶ月間の研修や、その後の個別フォロー体制により、早期立ち上がりを支援します。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>カジュアル面談の有無 : 状況に応じてある・会社説明会の有無: あり</dd><dd>適性テストの有無: あり</dd><dd>▼・最終選考・※面接はオンライン実施です1/23（木）以降にエントリーいただく候補者様より、</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-hiring"><dt>募集の概要</dt><dd>増員募集</dd><dd>リユース業界には大きな追い風が吹いており、10年以上も市場拡大中で、約3兆円の市場規模となっています。</dd><dd>また『かくれ資産』は66.6兆円にまで高まっておりポテンシャルが見込めることや、SDGsへの意識の高まりの影響で、今後も市場成長が予測されます。・（※かくれ資産：自宅の一年以上利用されていない不用品の推定価値）</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-company"><dt>会社</dt><dd>株式会社BuySell Technologies</dd><dd>◆持続可能な社会のリーディングカンパニーを目指して成長中！◆バイセルは、「人を超え、時を超え、たいせつなものをつなぐ架け橋となる」をミッションに、ご自宅に眠る不要なものを、必要とする人々へ届ける役割を果たしています。・SDGsの潮流に乗っ…</dd><dd>◆誰かのために、次世代のために働ける！◆・買取・販売の循環を実現する総合リユースサービス「バイセル」を展開しています。全国で年間26万件以上の訪問数を誇る出張買取を軸に、着物や切手、ブランド品など、家に眠るさまざまなものをお買取し、次に必…</dd><dd class="d-more">続きは求人票で</dd></div></dl>
     <p class="point"><b>ここが合う</b>　テレビCMの「バイセル」で、お問い合わせをくださったお客様のお宅へ伺い、着物・ブランド品・時計などを査定して買い取る仕事です。約束を取る担当は別にいて、飛び込みやテレアポはありません。今の買取の経験がいちばん直接に活きる会社のひとつです。配属先の一覧に広島が入っていて、自宅からおおむね1時間半以内の拠点に配属されます。月給は転勤なしで27万円から（全国転勤ありなら30万円から）で、毎月のインセンティブと年2回の賞与が加わります。インセンティブは自分の成約しだいなので、月30万円を超えるかは成果によります。研修は入社後に東京本社の近くで約2か月（宿泊は会社負担）。普通自動車免許が必要です。選考はWEBの面接1回で、内定まで2週間〜1か月ほどです。</p>
     
     <div class="links"><a class="deck-mini" href="https://buysell-technologies.com/" target="_blank" rel="noopener" aria-label="BuySell Technologies（バイセル）のホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1OXCMCyQi0VxDzmb0DubxdMdp2yr5ke-c/view" target="_blank" rel="noopener" aria-label="BuySell Technologies（バイセル）の資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-bellpark">
+  </div></details><div class="ans" data-ans-key="buysell" data-ans-name="BuySell Technologies（バイセル）" hidden><p class="ans-q">BuySell Technologies（バイセル）への気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="BuySell Technologies（バイセル）への気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-bellpark" data-key="bellpark" data-name="ベルパーク"><details class="fold"><summary><span class="f-head"><span class="f-name">ベルパーク</span></span><span class="f-what">ソフトバンクショップ（直営店）の受付・接客、法人向けコンサルティング営業</span><span class="f-meta">東京、埼玉、神奈川、千葉　月給 ソフトバンクショップ（関東）想定月収25.98万〜40.80万円（固定残業手当込み・残業25時間込みの額。HRMOS）</span></summary><div class="fold-body">
     <h3>ベルパーク</h3>
     <p class="what">ソフトバンクショップ（直営店）の受付・接客、法人向けコンサルティング営業</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="lead">ソフトバンクショップ（関東）想定月収</span><span class="main">25.98万〜40.80万円</span><span class="aside">（固定残業手当込み・残業25時間込みの額。HRMOS）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">シフト制・月9休</span><span class="aside">（平日休みが基本）。年間休日は店舗職の求人で116日（見出しの128日は有給消化を足した実質表現）、本社系は127〜128日</span></dd></div></dl>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="lead">ソフトバンクショップ（関東）想定月収</span><span class="main">25.98万〜40.80万円</span><span class="aside">（固定残業手当込み・残業25時間込みの額。HRMOS）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日116日・シフト制</dd></div></dl>
     <dl class="place">
-      <dt>勤務地</dt><dd>全国のソフトバンクショップ（関東・名古屋・岡山など）・法人営業は麹町本社。ドコモショップの求人は子会社の株式会社ベルパークネクストが雇用主</dd><dt>条件</dt><dd>応募資格: 中途は異業種・未経験から育成すると案内。求人により「営業・販売・接客2年以上」を必須とする版がある</dd><dt>条件</dt><dd>雇用形態: 正社員（無期）</dd>
+      <dt>勤務地</dt><dd>東京、埼玉、神奈川、千葉</dd><dt>条件</dt><dd>応募資格: 中途は異業種・未経験から育成すると案内。求人により「営業・販売・接客2年以上」を必須とする版がある</dd><dt>条件</dt><dd>雇用形態: 正社員（無期）</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd>
     </dl>
+    <dl class="detail"><div class="d-row d-salary_breakdown"><dt>給与の内訳</dt><dd>交通費全額支給（15万円まで）</dd><dd>時間外手当</dd><dd>保育手当</dd></div><div class="d-row d-leave"><dt>休暇</dt><dd>有給休暇、慶弔休暇、リフレッシュ休暇、特別休暇、・産休・育休、介護休暇</dd><dd>裁判員休暇・褒章休暇・通院休暇・ウェルネス休暇・子の看護休暇</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>■学歴：不問</dd><dd>■携帯販売経験：不問・■携帯販売経験：不問</dd><dd>学歴不問</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>★これまでの経験を活かして、新たなステージで活躍したい！</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>資格試験は年4回。・資格を取得すると最高月額8万円（年額96万円）を資格手当として追加支給します。</dd><dd>社会保険完備、交通費支給、退職金制度、資格手当、家族手当</dd><dd>各種社会保険完備（健康保険・厚⽣年金保険・雇用保険・労災保険・団体定期保険）</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>書類選考　⇒　面接1～2回（予定）※Webのみで完了可能</dd><dd>面接1～2回（予定）※オンラインのみで完結可・※状況によって選考フローが変更となる可能性がございます。</dd></div><div class="d-row d-company"><dt>会社</dt><dd>株式会社ベルパーク</dd><dd>https://www.bellpark.co.jp/</dd><dd>千代⽥区平河町1-4-12</dd><dd class="d-more">続きは求人票で</dd></div></dl>
     <p class="point"><b>ここが合う</b>　ソフトバンクやドコモ、auなどの携帯ショップを全国で367店運営している会社です。広島では南区の拠点で、法人のお客様に携帯やスマホの使い方を提案する営業の求人があり、営業が未経験でも応募できます。同じ会社にショップスタッフの求人もあり、店舗をまとめた経験がある方は店長候補として入社できると求人票にあります（広島のお店で募集があるかは確認します）。広島の求人の月給は求人票に書かれておらず、選考の中で確認します。スマホや通信を毎日扱う仕事なので、ITの知識を仕事の中で身につけられます。選考は面接1〜2回で、WEBだけで完結できます。</p>
     
     <div class="links"><a class="deck-mini" href="https://www.bellpark.co.jp/" target="_blank" rel="noopener" aria-label="ベルパークのホームページ">会社のHP →</a></div>
-  </article>
-  <article class="card" id="card-teleport_mobile">
+  </div></details><div class="ans" data-ans-key="bellpark" data-ans-name="ベルパーク" hidden><p class="ans-q">ベルパークへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="ベルパークへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-teleport_mobile" data-key="teleport_mobile" data-name="テレポートモバイル"><details class="fold"><summary><span class="f-head"><span class="f-name">テレポートモバイル</span></span><span class="f-what">ソフトバンクショップでの接客・受付・契約手続き（モバイルコーディネーター）</span><span class="f-meta">三重、滋賀、岡山、広島、愛媛、高知、北海道　年収 300万〜450万円</span></summary><div class="fold-body">
     <h3>テレポートモバイル</h3>
     <p class="what">ソフトバンクショップでの接客・受付・契約手続き（モバイルコーディネーター）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">基本給22万円＋インセンティブ＋各種手当。</span><span class="aside">賞与年3回（1月・5月・9月）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">月9〜11日のシフト制・</span><span class="main">年間休日120日以上</span><span class="aside">（休日115日＋有給休暇5日以上）</span></dd></div></dl>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">基本給22万円＋インセンティブ＋各種手当。</span><span class="aside">賞与年3回（1月・5月・9月）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>300万〜450万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日115日・シフト制</dd></div></dl>
     <dl class="place">
-      <dt>勤務地</dt><dd>滋賀県大津市に本社。関西・中四国・東海・関東のソフトバンクショップ（希望とお住まいに応じて配属・転居を伴う転勤なし）</dd>
+      <dt>勤務地</dt><dd>三重、滋賀、岡山、広島、愛媛、高知、北海道</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>転勤なし</dd>
     </dl>
+    <dl class="detail"><div class="d-row d-requirement"><dt>必須</dt><dd>・業界/職種未経験歓迎！</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>営業・販売の経験を活かしたい方！ 業界は問いません！</dd><dd>「お客様に提案する仕事」の経験がある方は即戦力としてそのスキルを存分に発揮できます！</dd><dd>・状況に応じた柔軟な対応ができる方：お客様一人ひとりのニーズを汲み取り臨機応変に心地よいコミュニケーションが取れる方を歓迎します！</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>③内定・面接は各エリアの課長やエリア長が実施</dd></div><div class="d-row d-hiring"><dt>募集の概要</dt><dd>募集背景 増員募集</dd></div></dl>
     <p class="point"><b>ここが合う</b>　ソフトバンクショップで、お客様のスマホ選びや契約の手続きをご案内する仕事です。勤務地の一覧に広島が入っていて、転居を伴う転勤はありません。月給は基本給22万円にインセンティブと手当が加わり、賞与は年3回です。基本給だけだと希望の月30万円には届かないため、手当とインセンティブを含めた額は選考の中で確認します。社員の8割以上が業界未経験からの入社で、新人研修があります。お店を任される立場への上がり方も、面接で確かめたい点です。選考は書類のあと、近くの店舗で対面の面接1回です。</p>
     
     <div class="links"><a class="deck-mini" href="https://www.teleportmobile.co.jp/" target="_blank" rel="noopener" aria-label="テレポートモバイルのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1UDsZHNnKsWxAqeNsboWJlGGNUEghtfDk/view" target="_blank" rel="noopener" aria-label="テレポートモバイルの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
+  </div></details><div class="ans" data-ans-key="teleport_mobile" data-ans-name="テレポートモバイル" hidden><p class="ans-q">テレポートモバイルへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="テレポートモバイルへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
 </div>
 
 </section>
@@ -651,5 +734,149 @@ h1,h2,h3{word-break:auto-phrase}
   show();
 })();
 </script>
-<!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=04474e5c5a">ホーム</a></li><li class="gp-cur"><a href="./t6168f1fc.html?v=04474e5c5a" aria-current="page">ご紹介したお仕事</a></li><li><a href="./t9ca51e0a.html?v=04474e5c5a">AI講習</a></li></ul></nav><!--gp-portal:e--></body>
+<script data-fold="js">
+(function fold() {
+  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", fold); return; }
+  var all = function () { return Array.prototype.slice.call(document.querySelectorAll("details.fold")); };
+  if (!all().length) return;
+  function openFor(hash) {
+    if (!hash || hash.length < 2) return;
+    var id; try { id = decodeURIComponent(hash.slice(1)); } catch (e) { return; }
+    var el = document.getElementById(id);
+    if (!el) return;
+    var d = el.matches("details.fold") ? el : el.querySelector("details.fold");
+    if (d && !d.open) d.open = true;
+  }
+  window.addEventListener("hashchange", function () { openFor(location.hash); });
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#card-"]');
+    if (a) openFor(a.getAttribute("href"));
+  }, true);
+  openFor(location.hash);
+  // 当日の送り（shigoto_live_layer の Space＝次の社）が summary・ボタンの上の Space を奪わないよう、そこで止める
+  // （既定の動き＝開閉・押下は残る。押し試験で Space が開閉しなかった）
+  document.addEventListener("keydown", function (e) {
+    var tag = e.target && e.target.tagName;
+    if (e.key === " " && (tag === "SUMMARY" || tag === "BUTTON")) e.stopPropagation();
+  }, true);
+  Array.prototype.slice.call(document.querySelectorAll(".fold-ctl")).forEach(function (ctl) {
+    ctl.hidden = false;
+    ctl.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-fold-all]");
+      if (!b) return;
+      var open = b.getAttribute("data-fold-all") === "open";
+      all().forEach(function (d) { d.open = open; });
+    });
+  });
+  var saved = null;
+  window.addEventListener("beforeprint", function () {
+    saved = all().map(function (d) { return d.open; });
+    all().forEach(function (d) { d.open = true; });
+  });
+  window.addEventListener("afterprint", function () {
+    if (!saved) return;
+    all().forEach(function (d, i) { d.open = saved[i]; });
+    saved = null;
+  });
+})();
+</script>
+<script type="application/json" id="honnin-answer-cfg" data-honnin-answer="cfg">{"t": "1sUAiuPoCeQn50A9xke_efkuR3sNA4QC", "u": "https://gooner-recruit-server-vlu26jpgea-an.a.run.app/honnin/answer", "max": 200}</script><script data-honnin-answer="js">
+(function(){
+  var cfgEl = document.getElementById('honnin-answer-cfg');
+  if (!cfgEl || !window.fetch) return;
+  var cfg; try { cfg = JSON.parse(cfgEl.textContent || '{}'); } catch (e) { return; }
+  if (!cfg.t || !cfg.u) return;
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.ans[data-ans-key]'));
+  if (!boxes.length) return;
+  var MAX = cfg.max || 200, WAIT = 1200;
+  var S = {};
+  function st(k){ return S[k] || (S[k] = {choice:'', comment:'', seq:0, ver:0, sent:0, busy:false, timer:0, name:''}); }
+  function boxesOf(k){ return boxes.filter(function(b){ return b.getAttribute('data-ans-key') === k; }); }
+  function chars(s){ return Array.from ? Array.from(s).length : s.length; }
+  function paint(k){
+    var s = st(k);
+    boxesOf(k).forEach(function(b){
+      b.querySelectorAll('.ans-b').forEach(function(x){ x.setAttribute('aria-pressed', x.getAttribute('data-choice') === s.choice ? 'true' : 'false'); });
+      var ta = b.querySelector('.ans-c');
+      if (ta && document.activeElement !== ta && ta.value !== s.comment) ta.value = s.comment;
+      var left = b.querySelector('.ans-left'); if (left) left.textContent = 'あと' + (MAX - chars(ta ? ta.value : s.comment)) + '字';
+    });
+  }
+  function say(k, text, cls, fallback){
+    boxesOf(k).forEach(function(b){
+      var m = b.querySelector('.ans-msg'); if (m) { m.textContent = text; m.className = 'ans-msg' + (cls ? ' ' + cls : ''); }
+      var fb = b.querySelector('.ans-fb'); if (fb) fb.hidden = !fallback;
+    });
+  }
+  function nextSeq(s){ var n = Date.now(); s.seq = n > s.seq ? n : s.seq + 1; return s.seq; }
+  function send(k, keepalive){
+    var s = st(k);
+    if (s.busy) return;   // 送っている間の変更は、返ってきた後に最後の1つだけ送る
+    if (s.ver === s.sent) return;
+    s.busy = true;
+    var ver = s.ver;
+    var body = JSON.stringify({key:k, choice:s.choice, comment:s.comment, seq:nextSeq(s), name:s.name});
+    say(k, '保存しています…', '', false);
+    fetch(cfg.u, {method:'POST', mode:'cors', credentials:'omit', keepalive:!!keepalive,
+                  headers:{'Content-Type':'application/json', 'X-Honnin-Token':cfg.t}, body:body})
+      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ return {ok:r.ok, j:j}; }); })
+      .then(function(res){
+        if (res.ok && res.j && res.j.ok && res.j.stale) {
+          var a = res.j.answer || {};
+          s.seq = Math.max(s.seq, a.seq || 0);   // 次の送信が同じ理由で捨てられないよう、操作が続いていても上げる
+          if (s.ver === ver) { s.choice = a.choice || ''; s.comment = a.comment || ''; paint(k); }
+          s.sent = ver; s.failed = false;
+          if (s.ver === ver) say(k, 'ほかの画面での新しい選択を表示しています', 'ok', false);
+        } else if (res.ok && res.j && res.j.ok) {
+          s.sent = ver; s.failed = false;
+          if (s.ver === ver) say(k, '保存しました', 'ok', false);
+        } else {
+          s.failed = true;
+          say(k, (res.j && res.j.error) || '保存できませんでした・もう一度押してください', 'ng', true);
+        }
+      })
+      .catch(function(){ s.failed = true; say(k, '保存できませんでした・もう一度押してください', 'ng', true); })
+      .then(function(){ s.busy = false; if (s.ver !== ver) send(k); });
+  }
+  function change(k){ var s = st(k); s.ver += 1; paint(k); }
+  boxes.forEach(function(b){
+    var k = b.getAttribute('data-ans-key'), s = st(k);
+    s.name = b.getAttribute('data-ans-name') || '';
+    b.querySelectorAll('.ans-b').forEach(function(x){
+      x.addEventListener('click', function(){
+        var c = x.getAttribute('data-choice');
+        // 保存に失敗した直後に同じ記号を押したら「もう一度送る」（外さない＝失敗の文言の約束どおり）
+        if (s.failed && s.choice === c && s.ver !== s.sent) { send(k); return; }
+        s.choice = (s.choice === c) ? '' : c;
+        change(k); send(k);
+      });
+    });
+    var ta = b.querySelector('.ans-c');
+    if (!ta) return;
+    ta.addEventListener('input', function(){
+      s.comment = ta.value; change(k);
+      boxesOf(k).forEach(function(o){ var t = o.querySelector('.ans-c'); if (t && t !== ta) t.value = ta.value; });
+      clearTimeout(s.timer); s.timer = setTimeout(function(){ send(k); }, WAIT);
+    });
+    ta.addEventListener('blur', function(){ clearTimeout(s.timer); send(k); });
+  });
+  document.addEventListener('visibilitychange', function(){
+    if (document.visibilityState !== 'hidden') return;
+    Object.keys(S).forEach(function(k){ clearTimeout(S[k].timer); send(k, true); });
+  });
+  fetch(cfg.u, {method:'GET', mode:'cors', credentials:'omit', headers:{'X-Honnin-Token':cfg.t}})
+    .then(function(r){ if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+    .then(function(j){
+      if (!j || !j.ok) throw new Error('ng');
+      if (j.max_comment) MAX = j.max_comment;
+      var a = j.answers || {};
+      Object.keys(a).forEach(function(k){ var s = st(k); s.choice = a[k].choice || ''; s.comment = a[k].comment || ''; s.seq = a[k].seq || 0; });
+      boxes.forEach(function(b){ b.hidden = false; });
+      document.querySelectorAll('.ans-line').forEach(function(x){ x.hidden = true; });
+      document.querySelectorAll('.ans-on').forEach(function(x){ x.hidden = false; });
+      Object.keys(S).forEach(paint);
+    })
+    .catch(function(){ /* 受け口に届かない＝部品を出さず LINE の文言のまま（黙って消さない） */ });
+})();
+</script><!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=f92f74d067">ホーム</a></li><li class="gp-cur"><a href="./t6168f1fc.html?v=f92f74d067" aria-current="page">ご紹介したお仕事</a></li><li><a href="./t9ca51e0a.html?v=f92f74d067">AI講習</a></li></ul></nav><!--gp-portal:e--></body>
 </html>
