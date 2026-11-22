@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><!--gp-portal:s--><meta name="x-build" content="421f93451a"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e-->
+<head><!--gp-portal:s--><meta name="x-build" content="e5ed32df0b"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e-->
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -204,6 +204,13 @@ tr.verdict-row td { padding-top: 0; }
   margin: 0 0 16px; font-size: 14.5px; line-height: 1.65;
 }
 .card .place dt { color: var(--sub); font-size: 13px; font-weight: 600; padding-top: 1px; }
+.card .detail { margin: 0 0 16px; font-size: 14px; line-height: 1.65; }
+.card .detail:empty { margin: 0; }
+.card .detail .d-row + .d-row { margin-top: 10px; }
+.card .detail dt { color: var(--sub); font-size: 13px; font-weight: 600; letter-spacing: .04em; line-height: 1.4; }
+.card .detail dd + dd { margin-top: 3px; }
+.card .detail .d-head { display: block; color: var(--sub); font-size: 12.5px; line-height: 1.5; }
+.card .detail .d-more { color: var(--sub); font-size: 13px; }
 .card .point {
   margin: 0 0 12px; padding: 2px 0 2px 12px; font-size: 14.5px; line-height: 1.7;
   border-left: 2px solid var(--good); color: var(--ink);
@@ -211,23 +218,25 @@ tr.verdict-row td { padding-top: 0; }
 .card .point b { color: var(--good); font-size: 13px; letter-spacing: .04em; }
 .card .links { margin-top: auto; padding-top: 12px; }
 .card .deck-mini {
-  align-self: flex-start; padding: 4px 14px;
+  align-self: flex-start; padding: 4px 14px; max-width: 100%; white-space: normal;
   border: 1px solid var(--accent); border-radius: 999px;
 }
 .card .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
 @supports (grid-template-rows: subgrid) {
   @media (min-width: 861px) {
-    .card { display: grid; grid-template-rows: subgrid; grid-row: span 9; row-gap: 0; align-content: start; }
+    .card { display: grid; grid-template-rows: subgrid; grid-row: span 10; row-gap: 0; align-content: start; }
     .card > h3 { grid-row: 1 / span 1; }
     .card > .what { grid-row: 2 / span 1; }
     .card > .nums { grid-row: 3 / span 3; }
     .card > .place { grid-row: 6 / span 1; }
-    .card > .point { grid-row: 7 / span 1; }
-    .card > .verdict { grid-row: 8 / span 1; }
-    .card > .links { grid-row: 9 / span 1; }
+    .card > .detail { grid-row: 7 / span 1; }
+    .card > .point { grid-row: 8 / span 1; }
+    .card > .verdict { grid-row: 9 / span 1; }
+    .card > .links { grid-row: 10 / span 1; }
     .card > .nums { display: grid; grid-template-rows: subgrid; }
     .card .s-salary { grid-row: 1; } .card .s-annual { grid-row: 2; } .card .s-holidays { grid-row: 3; }
     .card > .place { align-content: start; }
+    .card > .detail { align-self: start; }
     .card > .point, .card > .verdict { align-self: start; }
     .card > .links { align-self: start; margin-top: 0; }
   }
@@ -321,7 +330,6 @@ table.cmp th { color: var(--sub); font-weight: 600; font-size: 13.5px; backgroun
 table.cmp th:nth-child(1) { width: 26%; } table.cmp th:nth-child(2) { width: 14%; } table.cmp th:nth-child(3) { width: 24%; }
 table.cmp th:nth-child(4) { width: 20%; }
 .cmp .clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.cmp .clamp.sub { color: var(--sub); font-size: 13.5px; }
 .cmp .main { display: block; }
 .fig-how { margin-top: 6px; font-size: 14.5px; }
 .fig-how summary { cursor: pointer; color: var(--accent); }
@@ -330,7 +338,7 @@ table.cmp th:nth-child(4) { width: 20%; }
 .cmp .to-card { color: var(--ink); font-weight: 700; }
 .cmp .cmp-chosen { display: block; font-size: 13px; font-weight: 700; color: var(--ink); }
 .cmp .links { display: flex; flex-wrap: wrap; gap: 2px 10px; margin-top: 4px; }
-.cmp .links .deck-mini { font-size: 13px; }
+.cmp .links .deck-mini { font-size: 13px; max-width: 100%; white-space: normal; }
 .cmp .empty { color: var(--sub); }
 .cmp-key { margin: 6px 0 0; font-size: 13.5px; color: var(--sub); }
 @media (max-width: 760px) {
@@ -388,14 +396,59 @@ table.cmp th:nth-child(4) { width: 20%; }
   .cards.live > .card { min-height: calc(100vh - var(--band-offset) - 12px); }
 }
 
+/* ---- 会社カードの畳み（shigoto_fold_layer）---- */
+.cards.folded { grid-template-columns: 1fr; gap: 10px; }
+.cards.folded > article.card { display: block; padding: 0; min-height: 0; }
+details.fold > summary {
+  list-style: none; cursor: pointer; display: grid; gap: 2px; padding: 14px 44px 14px 16px; position: relative;
+  border-radius: 14px;
+}
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary::after {
+  content: "＋"; position: absolute; right: 16px; top: 14px; color: var(--accent); font-weight: 700;
+}
+details.fold[open] > summary::after { content: "－"; }
+details.fold > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+details.fold > summary:hover .f-name { text-decoration: underline; }
+.f-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+.f-name { font-size: 18px; font-weight: 700; line-height: 1.45; overflow-wrap: anywhere; }
+.f-what { color: var(--ink); font-size: 14.5px; line-height: 1.6; overflow-wrap: anywhere; }
+.f-meta { color: var(--sub); font-size: 13.5px; line-height: 1.6; overflow-wrap: anywhere; }
+.fold-body { padding: 4px 16px 16px; border-top: 1px solid var(--line); }
+.fold-body > h3, .fold-body > .what { display: none; }
+.fold-body > .nums { margin-top: 12px; }
+details.fold.is-dropped > summary { opacity: .55; }
+details.fold.is-dropped[open] > .fold-body { opacity: .7; }
+.cards.folded > article.card > .ans { margin: 0 16px 14px; }
+.st {
+  display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 700;
+  line-height: 1.6; white-space: nowrap; border: 1px solid var(--line);
+}
+.st-mensetsu, .st-shorui, .st-suisen { background: var(--good-soft); color: var(--good); border-color: var(--good); }
+.st-teian { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.st-drop { background: var(--pass-soft); color: var(--sub); }
+.fold-ctl { display: flex; gap: 8px; margin: 0 0 10px; }
+.fold-ctl[hidden] { display: none; }
+.fold-ctl button {
+  font: inherit; font-size: 14px; padding: 6px 14px; min-height: 40px; border: 1px solid var(--accent);
+  border-radius: 999px; background: var(--paper); color: var(--accent); cursor: pointer;
+}
+.fold-ctl button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#dropped h2 { font-size: 17px; color: var(--sub); }
+@media print {
+  details.fold::details-content { content-visibility: visible; display: block; }
+  details.fold > summary::after, .fold-ctl { display: none; }
+  details.fold.is-dropped > summary { opacity: 1; }
+}
+
 h1,h2,h3{word-break:auto-phrase}
 </style>
 </head>
-<body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=421f93451a">ホーム</a></li><li><a href="./t79f00554.html?v=421f93451a">面接対策</a></li><li><a href="./t37793c33.html?v=421f93451a">書類のフィードバック</a></li><li><a href="./t988b1977.html?v=421f93451a">10秒面接ドリル</a></li><li class="gp-cur"><a href="./t6168f1fc.html?v=421f93451a" aria-current="page">ご紹介したお仕事</a></li></ul></nav><!--gp-portal:e-->
+<body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=e5ed32df0b">ホーム</a></li><li><a href="./t79f00554.html?v=e5ed32df0b">面接対策</a></li><li><a href="./t37793c33.html?v=e5ed32df0b">書類のフィードバック</a></li><li><a href="./t988b1977.html?v=e5ed32df0b">10秒面接ドリル</a></li><li class="gp-cur"><a href="./t6168f1fc.html?v=e5ed32df0b" aria-current="page">ご紹介したお仕事</a></li></ul></nav><!--gp-portal:e-->
 <div class="band" id="band">
 <div class="band-in">
   <a class="band-title" href="#top">根本さんにご紹介したいお仕事</a>
-  <nav class="band-ch" aria-label="章"><ol><li><a href="#top" data-ch="intro">はじめに</a></li><li><a href="#compare" data-ch="compare">比べる</a></li><li><a href="#companies" data-ch="detail">詳しく</a></li><li><a href="#industry" data-ch="docs">資料</a></li><li><a href="#flow" data-ch="next">これから</a></li></ol></nav>
+  <nav class="band-ch" aria-label="章"><ol><li><a href="#top" data-ch="intro">はじめに</a></li><li><a href="#applying" data-ch="detail">詳しく</a></li><li><a href="#industry" data-ch="docs">資料</a></li><li><a href="#flow" data-ch="next">これから</a></li></ol></nav>
   <span class="band-now" aria-live="polite"></span><span class="band-pos" aria-live="polite"></span>
 </div>
 </div>
@@ -405,7 +458,7 @@ h1,h2,h3{word-break:auto-phrase}
     document.addEventListener("DOMContentLoaded", spy);
     return;
   }
-  var MAP = [["top", "intro", "ごあいさつ"], ["heard", "intro", "伺ったこと"], ["compare", "compare", "選んだ会社の比較"], ["companies", "detail", "ご紹介した会社"], ["chosen", "detail", "応募する会社"], ["industry", "docs", "業界の説明資料"], ["flow", "next", "これからの進め方"]];
+  var MAP = [["top", "intro", "ごあいさつ"], ["heard", "intro", "伺ったこと"], ["applying", "detail", "応募中の会社"], ["companies", "detail", "ご紹介した会社"], ["industry", "docs", "業界の説明資料"], ["flow", "next", "これからの進め方"], ["dropped", "detail", "今回は見送った会社"]];
   var band = document.getElementById("band");
   if (!band || !("IntersectionObserver" in window)) return;
   var now = band.querySelector(".band-now");
@@ -440,7 +493,7 @@ h1,h2,h3{word-break:auto-phrase}
   <p class="date">2026年11月6日（金）</p>
 </header>
 
-<nav class="page-nav" aria-label="ページ内リンク"><ul><li><a href="#companies">ご紹介した会社</a></li><li><a href="#chosen">応募する会社</a></li><li><a href="#industry">業界の説明資料</a></li></ul></nav>
+<nav class="page-nav" aria-label="ページ内リンク"><ul><li><a href="#applying">応募中の会社</a></li><li><a href="#companies">ご紹介した会社</a></li><li><a href="#industry">業界の説明資料</a></li><li><a href="#dropped">今回は見送った会社</a></li></ul></nav>
 <div class="live-flow" data-layer="live">
 <section class="thanks" data-no-figure="あいさつの数文">
 <p><b>本日もお時間をいただきありがとうございます。</b></p>
@@ -457,122 +510,97 @@ h1,h2,h3{word-break:auto-phrase}
   
 </div>
 </section>
-<section id="compare" data-section="compare" data-chapter="compare">
-<h2>選んだ会社の比較</h2>
-<div class="cmp-top"><figure class="fig" data-figure="compare"><svg class="fig-cmp" viewBox="0 0 560 272" role="img" aria-labelledby="fig-cmp-t fig-cmp-d" preserveAspectRatio="xMidYMid meet"><title id="fig-cmp-t">選んだ5社の比較（2026年11月時点の求人票・会社資料より）</title><desc id="fig-cmp-d">1 オープンアップITエンジニア: 月給のまん中 22万円・年間休日 122日／2 GOOYA（ゴーヤ）: 月給のまん中 31万円・年間休日 122日／4 AXISホールディングス: 月給のまん中 40万円・年間休日 125日／5 DYMキャリア: 月給のまん中 21万円・年間休日 120日</desc><defs><marker id="cmp-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="grid" x1="72.0" y1="14" x2="72.0" y2="212"/><text class="tick" x="72.0" y="237" text-anchor="middle">15</text><line class="grid" x1="148.3" y1="14" x2="148.3" y2="212"/><text class="tick" x="148.3" y="237" text-anchor="middle">20</text><line class="grid" x1="224.7" y1="14" x2="224.7" y2="212"/><text class="tick" x="224.7" y="237" text-anchor="middle">25</text><line class="grid" x1="301.0" y1="14" x2="301.0" y2="212"/><text class="tick" x="301.0" y="237" text-anchor="middle">30</text><line class="grid" x1="377.3" y1="14" x2="377.3" y2="212"/><text class="tick" x="377.3" y="237" text-anchor="middle">35</text><line class="grid" x1="453.7" y1="14" x2="453.7" y2="212"/><text class="tick" x="453.7" y="237" text-anchor="middle">40</text><line class="grid" x1="530.0" y1="14" x2="530.0" y2="212"/><text class="tick" x="530.0" y="237" text-anchor="middle">45</text><line class="grid" x1="72" y1="212.0" x2="530" y2="212.0"/><text class="tick" x="60" y="217.0" text-anchor="end">110</text><line class="grid" x1="72" y1="172.4" x2="530" y2="172.4"/><text class="tick" x="60" y="177.4" text-anchor="end">115</text><line class="grid" x1="72" y1="132.8" x2="530" y2="132.8"/><text class="tick" x="60" y="137.8" text-anchor="end">120</text><line class="grid" x1="72" y1="93.2" x2="530" y2="93.2"/><text class="tick" x="60" y="98.2" text-anchor="end">125</text><line class="grid" x1="72" y1="53.6" x2="530" y2="53.6"/><text class="tick" x="60" y="58.6" text-anchor="end">130</text><line class="grid" x1="72" y1="14.0" x2="530" y2="14.0"/><text class="tick" x="60" y="19.0" text-anchor="end">135</text><line class="axis" x1="72" y1="212" x2="530" y2="212"/><line class="axis" x1="72" y1="14" x2="72" y2="212"/><text class="ax-l" x="301.0" y="264" text-anchor="middle">月給の目安（万円）→</text><text class="ax-l" x="20" y="113.0" text-anchor="middle" transform="rotate(-90 20 113.0)">年間休日（日）→</text><line class="open-ar" x1="195.9" y1="117.0" x2="222.9" y2="117.0" marker-end="url(#cmp-ar)"/><a class="pt" href="#card-openup_it" aria-label="1. オープンアップITエンジニア（カードへ）" data-key="openup_it"><title>1. オープンアップITエンジニア（カードへ）</title><circle class="ring" cx="178.9" cy="117.0" r="21"/><polygon class="mk cat-2" points="178.9,100.7 193.8,128.0 163.9,128.0"/><text class="pt-n" x="178.9" y="122.5">1</text></a><a class="pt" href="#card-gooya" aria-label="2. GOOYA（ゴーヤ）（カードへ）" data-key="gooya"><title>2. GOOYA（ゴーヤ）（カードへ）</title><circle class="ring" cx="316.3" cy="117.0" r="21"/><polygon class="mk cat-2" points="316.3,100.7 331.2,128.0 301.3,128.0"/><text class="pt-n" x="316.3" y="122.5">2</text></a><a class="pt" href="#card-axis_holdings" aria-label="4. AXISホールディングス（カードへ）" data-key="axis_holdings"><title>4. AXISホールディングス（カードへ）</title><circle class="ring" cx="453.7" cy="93.2" r="21"/><rect class="mk cat-1" x="440.7" y="80.2" width="26.0" height="26.0"/><text class="pt-n" x="453.7" y="98.7">4</text></a><line class="lead" x1="163.6" y1="132.8" x2="235.6" y2="132.8"/><circle class="true-pos" cx="163.6" cy="132.8" r="3"/><a class="pt" href="#card-dym" aria-label="5. DYMキャリア（カードへ）" data-key="dym"><title>5. DYMキャリア（カードへ）</title><circle class="ring" cx="235.6" cy="132.8" r="21"/><rect class="mk cat-1" x="222.6" y="119.8" width="26.0" height="26.0"/><text class="pt-n" x="235.6" y="138.3">5</text></a></svg></figure><div class="cmp-side"><p class="lead">面談の希望から5社を選びました。右ほど月給が高く、上ほど年間休日が多い会社です。番号や社名を押すと詳しい説明に移ります。気になる会社は番号か社名でLINEへ（例「2が気になります」）。</p><ul class="legend" aria-label="図の見方"><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><rect class="mk cat-1" x="6.0" y="6.0" width="18.0" height="18.0"/></svg>事務</li><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><polygon class="mk cat-2" points="15.0,3.8 25.4,22.6 4.7,22.6"/></svg>IT</li><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><circle class="ring" cx="15" cy="15" r="11"/></svg>応募する会社</li><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><path class="fl-a" d="M4,13 H20 V9 L28,15 L20,21 V17 H4 z"/></svg>月給の上限なし</li></ul><p class="fig-note">図に載せていない: 3 KSKテクノサポート（月給が数字で書かれていない）</p><details class="fig-how"><summary>図の見方</summary><p class="fig-note">1 は月給の上限が書かれていないため、下限の位置に置いて → を付けました。</p><p class="fig-note">年間休日の差は最大5日です。月給は書かれた幅のまん中に置いています。</p></details></div></div>
-<table class="cmp">
-  <caption>選んだ5社の比較（2026年11月時点の求人票・会社資料より）</caption>
-  <thead><tr><th>会社</th><th>仕事の種類</th><th>勤務地</th><th>月給（月額）</th><th>休日（年間）</th></tr></thead>
-  <tbody>
-    <tr data-key="openup_it"><td class="c-co" data-h="会社"><span class="no">1</span><a class="to-card" href="#card-openup_it">オープンアップITエンジニア</a><span class="cmp-chosen">応募する会社</span><span class="links"><a class="deck-mini" href="https://www.openupitengineer.co.jp/" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1X-Vx5IOL5tOttgAh9UkghjaAwBRyZppq/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料（候補者様向け資料）">候補者様向け資料 →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1x8gG4uYKRJOoAtqBFKcwQCnnUVe7zdNb/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料（企業説明）">企業説明 →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1DcTOpcai5RRSLF6zTiNs_1oy70KNn11d/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">IT</td><td data-h="勤務地"><span class="main">全国</span><span class="clamp sub">（全国／地域限定／通勤限定から選べる）</span><span class="clamp sub">勤務地区分（全国転勤／地域限定／通勤限定）は書類選考の通りやすさを変えない。</span></td><td data-h="月給（月額）"><span class="main">22万円〜</span><span class="clamp sub">（スタート年収 264万円〜）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日122日</span></td></tr>
-<tr data-key="gooya"><td class="c-co" data-h="会社"><span class="no">2</span><a class="to-card" href="#card-gooya">GOOYA（ゴーヤ）</a><span class="cmp-chosen">応募する会社</span><span class="links"><a class="deck-mini" href="https://www.gooya.co.jp/" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）のホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1Em-Agim5iGO9aESyaZIjBOdvqrwr4VNI/view" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）の資料（会社説明資料（会社作成））">会社説明資料（会社作成） →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1QoKfHcjID15CCLpU_tXLB8mKdkmMySQV/view" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）の資料（入社後研修）">入社後研修 →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/10Xu-Gun-2S91dgfOogI_04X5MbY0ZUHq/view" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）の資料（魅力3選）">魅力3選 →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1B0mnWZjmHvCP5cJGRFSCwXOqZUQT362x/view" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）の資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">IT</td><td data-h="勤務地"><span class="main">東京都渋谷区</span><span class="clamp sub">（本社）＋東京・神奈川・千葉・埼玉の客先（転居を伴う転勤なし）</span><span class="clamp sub">東京・神奈川・千葉・埼玉から通える方。</span></td><td data-h="月給（月額）"><span class="main">月給27万〜35万円</span><span class="clamp sub">（15時間分のみなし残業代 月2.8万〜3.6万円を含む・公開求人の例）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日122日</span></td></tr>
-<tr data-key="ksk_techno_support"><td class="c-co" data-h="会社"><span class="no">3</span><a class="to-card" href="#card-ksk_techno_support">KSKテクノサポート</a><span class="cmp-chosen">応募する会社</span><span class="links"><a class="deck-mini" href="https://www.kts.ksk.co.jp/" target="_blank" rel="noopener" aria-label="KSKテクノサポートのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1-s_JttOMEkc_8wXHU6-R9zIrG01TW4hB/view" target="_blank" rel="noopener" aria-label="KSKテクノサポートの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">IT</td><td data-h="勤務地"><span class="main">東京・神奈川・埼玉・千葉の一都三県</span><span class="clamp sub">（配属先による）。案件の約75%は東京23区で、地方勤務はない</span><span class="clamp sub">自宅から通勤1.5時間以内か、引越し可能な方</span></td><td data-h="月給（月額）"><span class="main">月給225,000円〜</span><span class="clamp sub">（公式募集要項）。モデル年収 392万円（22歳・経験1年）／414万円（25歳・経験3年）／505万円（27歳・経験5年・扶養手当を含む）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日120日</span></td></tr>
-<tr data-key="axis_holdings"><td class="c-co" data-h="会社"><span class="no">4</span><a class="to-card" href="#card-axis_holdings">AXISホールディングス</a><span class="cmp-chosen">応募する会社</span><span class="links"><a class="deck-mini" href="https://axis-company.jp/" target="_blank" rel="noopener" aria-label="AXISホールディングスのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1N4Aj-JThnCNvJYPT62HYtmSVKgYllsqh/view" target="_blank" rel="noopener" aria-label="AXISホールディングスの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="main">東京都新宿区西新宿3丁目</span><span class="clamp sub">（Circles西新宿）</span><span class="clamp sub">大卒以上・社会人経験1年半以上・転職回数2回まで・基本的なPC操作（営業事務の必須条件）</span></td><td data-h="月給（月額）"><span class="main">月給30万〜50万円</span><span class="clamp sub">（30時間分の固定残業代を含む。超過分は別途支給）</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
-<tr data-key="dym"><td class="c-co" data-h="会社"><span class="no">5</span><a class="to-card" href="#card-dym">DYMキャリア</a><span class="cmp-chosen">応募する会社</span><span class="links"><a class="deck-mini" href="https://dymcareer.jp/" target="_blank" rel="noopener" aria-label="DYMキャリアのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1__iQf-UT0FoNY6RHu5CMwd2qKcZvn52x/view" target="_blank" rel="noopener" aria-label="DYMキャリアの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="main">東京・神奈川・千葉・埼玉・大阪・愛知</span><span class="clamp sub">（本社＝品川区大崎・客先常駐/自社内勤務・勤務地は入社前に住まいに応じて決定・転居を伴う異動なし）</span><span class="clamp sub">最終学歴は高卒以上が必須。</span></td><td data-h="月給（月額）"><span class="main">月給21万円</span><span class="clamp sub">（東京勤務・基本給15万円＋地域手当6万円。神奈川20万円・大阪20万〜20.2万円・愛知19.5万〜19.6万円）・固定残業なし・賞与年1回165,000円〜（入社1年後支給）・想定年収252万〜270万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日120日</span></td></tr>
-  </tbody>
-</table>
-<p class="cmp-key">続きは各社の説明に。</p>
-</section>
-<section id="companies" data-section="companies" data-no-figure="各社カードと表＝詳しい層（図はトップの比較）">
-<h2>ご紹介した会社</h2>
-<h2>ご紹介する会社</h2>
-<p class="lead">昨日伺ったお話（仕事として落ち着きたいこと・土日祝休み・ITかIT事務・ご自宅から通いやすいこと・好きになったらとことん知りにいくこと）から、根本さんにとってプラスになると考えた会社です。</p>
-
-<div class="cards live" data-live="picks">
-  <article class="card" id="card-openup_it">
+<section id="applying" data-section="applying" data-no-figure="応募中の会社のカード">
+<h2>応募中の会社</h2>
+<p class="lead">応募の手続きや選考が進んでいる会社です。押すと詳しい説明が開きます。</p>
+<div class="cards folded" data-fold="line">
+  <article class="card decided" id="card-proud_data" data-key="proud_data" data-name="プラウドデータ"><details class="fold" data-status="面接予定"><summary><span class="f-head"><span class="f-name">プラウドデータ</span><span class="st st-mensetsu" data-status="面接予定">面接予定</span></span><span class="f-what">未経験からのインフラエンジニア（サーバー・ネットワーク）。入社後はヒアリングとOJTで方向性を決め、Linux・ネットワーク基礎やAWSの学習を経て、運用・保守・監視・テクニカルサポート・社内SEなどの現場へ（SES＝客先常駐が中心）</span><span class="f-meta">東京、神奈川、千葉、埼玉　年収 500万〜600万円</span></summary><div class="fold-body">
+    <h3>プラウドデータ</h3>
+    <p class="what">未経験からのインフラエンジニア（サーバー・ネットワーク）。入社後はヒアリングとOJTで方向性を決め、Linux・ネットワーク基礎やAWSの学習を経て、運用・保守・監視・テクニカルサポート・社内SEなどの現場へ（SES＝客先常駐が中心）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給21万円〜</span><span class="aside">（基本給＋職務手当＋諸手当＋交通費。配属先の案件と社内評価に応じて上がる。想定年収280万〜1,000万円）。賞与は現在なし</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>500万〜600万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日125日</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京、神奈川、千葉、埼玉</dd><dt>条件</dt><dd>日本国籍の方が対象。</dd><dt>条件</dt><dd>関東圏外にお住まいの場合は引越しが可能なことが選考条件。</dd><dt>条件</dt><dd>選考は書類選考→面接（対面1回。関東圏外はオンライン可）→内定。適性テストなし。</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>転勤なし</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>■ 情報なし</dd><dd>この上流企業で不足している技術者に対して常駐勤務によりフォローする事業形態をSES(System Engineering Service)と呼びます。</dd><dd>開発事業部・NWインフラ事業部・検証事業部</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-appeal"><dt>仕事の魅力</dt><dd>プロジェクトを変える際に単価(＝給与)を・上げることができる・業務内容や新しい技術などにトライして</dd><dd>方向性ごとのキャリアパス・戦略的プロジェクト変更1つの会社にいながら、「プロジェクト変更」とい</dd><dd>③安心して成長できる未来・持続可能なキャリア形成を支援</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-salary_breakdown"><dt>給与の内訳</dt><dd>月末締めの翌月末日で支払います。</dd><dd><span class="d-head">区分: 経験者層／経験: 経験者</span>単価と社内評価基準を考慮して職務手当を設定します。・職務手当は現場PJに稼働中に支給されます。職務手当に応じて基本給額も見直していきます。</dd><dd><span class="d-head">区分: 経験者層／経験: 経験者</span>基本給 +職務手当 +諸手当 +交通費 =</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>プロジェクト異動毎</dd><dd>社内規定による</dd><dd>現在はありません。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-leave"><dt>休暇</dt><dd>半年以上の勤務で10日付与します。</dd><dd>年末年始と夏季休暇があります。</dd></div><div class="d-row d-work_hours"><dt>勤務時間</dt><dd>社内：10:00-19:00（土日祝休み）</dd><dd>社内：10:00-19:00・※現場プロジェクト参画中は現場のカレンダー・に従います。</dd></div><div class="d-row d-remote"><dt>在宅</dt><dd>常駐・テレワーク</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>学歴：高卒</dd><dd>高卒以上</dd><dd>＜開発プログラマの例＞ プログラミング以外に必要なスキル仕様書や設計書を・しっかり読解できること・望ましいコーディングルールに沿って・ソースコードを記述できること・自分で作った範囲のテストを行い・的確に修正できること・報連相など、チームワ…</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>・自走でき、覚悟感のある方</dd><dd>・本気でキャリアを築きたいという思いがあり、きつくても継続できる方</dd><dd>技術以上に必要なスキル Soft Skills &amp; Professional Mindset各方向性ごとの技術課題をクリアしても・社会人としての必須スキル・振る舞い・たしなみ・機密情報、個人情報などの・データや情報の取り扱い・報連相、コミ…</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>完備(健康保険、厚生年金、雇用保険、労災、</dd><dd>入社研修・専任講師(元IT技術者)が対応します・未経験からプロを目指せるカリキュラム Curriculum &amp; Career Path数あるIT業界の職種の中から、「未経験からでもスタートを切れる」職種に絞ってカリキュラムを育ててきました。</dd><dd>入社研修・専任講師(元IT技術者)が対応します・ビジネスマナー・スキルシートの作成・開発基礎 / 行程・ネットワーク基礎・Java課題</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>書類選考➝一時選考（対面）➝結果出し</dd></div><div class="d-row d-hiring"><dt>募集の概要</dt><dd>20人〜</dd></div><div class="d-row d-status"><dt>募集状況</dt><dd>採用中・通常採用</dd></div><div class="d-row d-company"><dt>会社</dt><dd>株式会社プラウドデータ</dd><dd>代表取締役社長 大久保 学</dd><dd>SES支援システム・ビジネスコミュニティ運営・SESコンサルティング・システム開発、インフラ構築等の請負業・SES事業</dd><dd class="d-more">続きは求人票で</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　運用監視の続き・土日祝</p>
+    
+    <div class="links"><a class="deck-mini" href="http://www.proud-g.jp/" target="_blank" rel="noopener" aria-label="プラウドデータのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/16J2rgLrphgxT7jwbA7VvSLKzQdreFyKX/view" target="_blank" rel="noopener" aria-label="プラウドデータの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details></article>
+  <article class="card decided" id="card-staffservice_mirai" data-key="staffservice_mirai" data-name="スタッフサービス ミラエール推進部"><details class="fold" data-status="面接予定"><summary><span class="f-head"><span class="f-name">スタッフサービス ミラエール推進部</span><span class="st st-mensetsu" data-status="面接予定">面接予定</span></span><span class="f-what">一般事務（人事・総務・経理・貿易・金融・英文事務・受付・データ入力など、案件により内容が変わる）</span><span class="f-meta">転勤なし・自宅から90分以内の配属先　年収 270万〜330万円</span></summary><div class="fold-body">
+    <h3>スタッフサービス ミラエール推進部</h3>
+    <p class="what">一般事務（人事・総務・経理・貿易・金融・英文事務・受付・データ入力など、案件により内容が変わる）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">270万〜330万円ほど</span><span class="aside">（地域別の月給・エリアにより異なる）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>270万〜330万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日125日・土日祝休み</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>転勤なし・自宅から90分以内の配属先（東京・神奈川・埼玉・千葉・大阪・京都・滋賀・広島・愛知・兵庫）</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>転勤なし</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>英語力を活かしていただける配属先はございます。</dd><dd>クリニックの受付はありませんが、大手企業の受付の仕事はあります。</dd><dd>経験や保有資格によります。未経験の方は、一般事務・営業事務がほとんどで・す。経理事務の場合、簿記3級以上を持っている方であれば未経験でも求人があ・貿易事務の場合は英語の資格が必要で・営業事務の割合は多く、営業事務をやりたい方は叶う可能性が…</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-appeal"><dt>仕事の魅力</dt><dd>①カウンセラーによる伴走体制：プライベートや仕事の悩みをしっかり受け止める体</dd><dd>②昇給制度：クラス制度で明確に金額まで提示している</dd><dd>③派遣先の豊富さ：約4,000社と豊富で、約11,350名の働いている先輩がい</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-salary_breakdown"><dt>給与の内訳</dt><dd>変わりません。</dd><dd>全額支給されます。車通勤の場合、ガソリン代も交通費として支給されます。就業・ただしご本人様都合での転居により通勤手当が変更する場合は上限3万円とさせ</dd><dd>自宅から最寄駅までバスを利用される場合、バス代も交通費として支給されますで</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>クラスが上がらないと、昇給ゼロでしょうか。・ので、クラスがずっと上がらない方はいないと思っていただければと思います。</dd><dd>クラス給はどのような評価によって上がるのでしょうか。・目標設定を半期ごとに行い、企業評価（配属先による評価）・本部評価・日常・度はございませんので、必ずクラス1の次はクラス2となります。</dd><dd>1番はじめにクラス給が上がるのは入社後どのくらい働いてからでしょうか。・人によりますが、早い方ですと1年くらいです。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-leave"><dt>休暇</dt><dd>そのようにご回答いただいて結構です。</dd><dd>ございません。入社後すぐでも産休・育休の取得が可能ですが、その場合休職扱・となり、給与の支給はございません。</dd><dd>100％となっております。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-work_hours"><dt>勤務時間</dt><dd>所定労働時間が8時間ですので基本的には9時〜18時まで働ける方ということで・ただ、絶対に最寄り駅までに18:15着をお約束できる制度ではないということだけは</dd><dd><span class="d-head">区分: 全国／経験: 未経験／勤務地の地域: 全国／職種: 事務職・オフィスワーク／職種: 事務職・オフィスワーク(未経験)</span>・9:00〜18:00(休憩時間 1時間00分)</dd><dd><span class="d-head">区分: 東京エリア／勤務地: 東京都／職種: 事務職・オフィスワーク(未経験)</span>・9:00〜18:00(休憩時間 1時間00分)</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-overtime"><dt>残業</dt><dd>月平均5h程度です。</dd><dd><span class="d-head">区分: 全国／経験: 未経験／勤務地の地域: 全国／職種: 事務職・オフィスワーク／職種: 事務職・オフィスワーク(未経験)</span>・残業：あり・※配属先により異なります。&quot;,社会保険,雇用保険、労災保険、健康保険、厚生年金保険</dd><dd><span class="d-head">区分: 東京エリア／勤務地: 東京都／職種: 事務職・オフィスワーク(未経験)</span>・残業：あり・※就業時間や残業時間は配属先により異なります。&quot;,社会保険,雇用保険、労災保険、健康保険、厚生年金保険</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-remote"><dt>在宅</dt><dd>就業先企業に、リアル出社しています。</dd><dd>リモートでの仕事はほとんどありません。</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>フルタイム勤務可能(8H)・フルタイム勤務可能(8H)</dd><dd>フルタイム勤務可能者(8H）・フルタイム勤務可能者(8H）</dd><dd><span class="d-head">区分: 熊本</span>何かしらの就業経験のある方・何かしらの就業経験のある方・何かしらの就業経験のある方</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd><span class="d-head">区分: 東京エリア</span>販売・接客経験がある方大歓迎</dd><dd><span class="d-head">区分: 東京エリア</span>事務職・営業職・コールセンターでの勤務経験がある方</dd><dd><span class="d-head">区分: 東京エリア</span>事務職未経験・第2新卒・社会人経験がない方(アルバイトのみ)</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>退職金制度はございますが、退職金相当額を含んだ給与額の設定をし毎月支</dd><dd>派遣先が終了した場合、次の派遣先が見つかるまで給与の保障はありますか。・休業補償があり、平均賃金の6割が支給されます。</dd><dd>入社前研修は無給でしょうか。・入社前研修の参加は任意としておりますので、お支払いはしておりません。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>基本的にはエージェント様を介してご連絡となりますので、一般的な人材紹介と同</dd><dd>平日のみとなります。</dd><dd>原則として10時スタート〜17時スタートまでですが、東京と大阪のみ19時スタート</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-hiring"><dt>募集の概要</dt><dd>400〜500人</dd><dd>月末5営業日を除き、入社日は毎日設定可能です。ご本人がお仕事をされておら・ずすぐ職場見学に行ける・働ける状態であれば、内定承諾後8日〜2週間程度で</dd><dd>5人</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-status"><dt>募集状況</dt><dd><span class="d-head">勤務地の地域: 福岡</span>福岡エリア：応募受付を再開いたしました。</dd><dd><span class="d-head">勤務地の地域: 岡山・広島／採用区分: 新卒</span>岡山/広島エリア：新卒採用を停止</dd><dd><span class="d-head">区分: 福島</span>（2025年12/8 OPEN）</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-company"><dt>会社</dt><dd>全国で4000社程度でございます。</dd><dd>稼働率は約99.8%となっており、待機期間の発生はほぼありません。派遣先が終</dd><dd>競合他社と比較した際の、貴社ならではの強みは何ですか。・①カウンセラーによる伴走体制：プライベートや仕事の悩みをしっかり受け止める体・②昇給制度：クラス制度で明確に金額まで提示している・③派遣先の豊富さ：約4,000社と豊富で、約11,3…</dd><dd class="d-more">続きは求人票で</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　土日祝の確実さ・研修</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1o31QH1qaAuheG_WwoFBcrVvgKVDLC1iP/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料（会社の資料）">会社の資料 →</a></div>
+  </div></details></article>
+  <article class="card decided" id="card-openup_it" data-key="openup_it" data-name="オープンアップITエンジニア"><details class="fold" data-status="推薦中"><summary><span class="f-head"><span class="f-name">オープンアップITエンジニア</span><span class="st st-suisen" data-status="推薦中">応募の手続き中</span><span class="chosen f-chosen">応募する会社</span></span><span class="f-what">ITエンジニア（未経験から、インフラ・開発など）</span><span class="f-meta">全国　年収 264万〜420万円</span></summary><div class="fold-body">
     <h3>オープンアップITエンジニア<span class="chosen">応募する会社</span></h3>
     <p class="what">ITエンジニア（未経験から、インフラ・開発など）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">22万円〜</span><span class="aside">（スタート年収 264万円〜）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日122日</dd></div></dl>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">22万円〜</span><span class="aside">（スタート年収 264万円〜）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>264万〜420万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日122日</dd></div></dl>
     <dl class="place">
-      <dt>勤務地</dt><dd>全国（全国／地域限定／通勤限定から選べる）</dd><dt>条件</dt><dd>勤務地区分（全国転勤／地域限定／通勤限定）は書類選考の通りやすさを変えない。</dd>
+      <dt>勤務地</dt><dd>全国（全国／地域限定／通勤限定から選べる）</dd><dt>条件</dt><dd>勤務地区分（全国転勤／地域限定／通勤限定）は書類選考の通りやすさを変えない。</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd>
     </dl>
-    <p class="point"><b>ここが合う</b>　勤務地の範囲を自分で選べる制度があります。会社資料の年収モデルは25歳で390万円・30歳で470万円。</p>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>配属先は、本人の目指すキャリア意向のヒアリングを行い、スキル習熟度・人柄も含めて総合的に判断しています。</dd><dd>配属先は全国900社以上の大手・先端企業が中心。</dd><dd>入社後は、システム開発・テスト・ネットワーク構築・システム運用保守・データベース管理・ヘルプデスク対応など、・ITに関する幅広い業務に携わっていただきます。・スキルや希望に応じて、製品評価・データ分析などの技術系業務を中心に担当いただくケ…</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-appeal"><dt>仕事の魅力</dt><dd>ゼロから市場価値の高いITエンジニアへ成長できる環境・月平均残業7時間程度</dd><dd>取引先900社 × 豊富な配属先・大手・有名企業から成長中のベンチャーまで、幅広い現場があり、スキルや適性に合わせた配属が可能です。</dd><dd>完全自社製・オリジナル研修（全9種類）・業界の最新ニーズを反映したカリキュラムを自社で開発。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-salary_breakdown"><dt>給与の内訳</dt><dd>また、当社の給与制度は「スキル・技術を仕事で活かせているか」を正しく評価する仕組みになっています。・努力や成果がしっかり給与に反映されます。</dd><dd>業務に役立つ資格を取得すると手当が付与されるほか、お客様への貢献度や提供するサービス内容に応じて変動する「単価連動給」</dd><dd>※経験・能力・資格を考慮の上、当社規定に基づき決定</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>賞与回数：2回</dd><dd>昇給：年1回（7月）</dd><dd>賞与：年2回（9月、3月）</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-leave"><dt>休暇</dt><dd>休暇制度：年末年始休暇、夏季休暇、慶弔休暇、・介護休暇・祝祭日・夏季休暇・慶弔休暇・年次有給休暇・育児・介護休業・産前産後休暇・⽣理休暇・子の看護等休暇等</dd></div><div class="d-row d-work_hours"><dt>勤務時間</dt><dd>09:00~18:00</dd><dd>勤務時間については、実労働時間8時間。・※ただし、配属先に応じて時間が異なる場合あり</dd><dd>（休憩1時間）</dd></div><div class="d-row d-overtime"><dt>残業</dt><dd>月間平均残業時間：10時間以下</dd><dd>月間平均残業時間：７時間以下</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>最終学歴: 高卒以上・最終学歴: 高卒以上</dd><dd>職種経験: 職種未経験OK・職種経験: 職種未経験OK</dd><dd>業種経験: 業種未経験OK・業種経験: 業種未経験OK</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>ITエンジニアとして成長意欲が高く、やる気のある方</dd><dd>新しい知識を積極的に学べる方</dd><dd>仕事を通じて成長していきたい方</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>「働きながら学ぶ」のではなく、研修に集中して成長できる環境 が整っています。</dd><dd>最先端のカリキュラムを常に更新・専任講師による丁寧な指導・配属後も教育担当・営業担当が継続フォロー</dd><dd>未経験から入社された方には、まず 最大3カ月間のOPE Learning Course（研修） を受講いただきます。・ITの基礎から実務を想定した演習まで段階的に習得できるカリキュラムとなっており、・研修でしっかり土台をつくることで、現場…</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>カジュアル面談の有無 : なし・会社説明会の有無: 状況に応じてある</dd><dd>適性テストの有無: あり</dd><dd>【STEP１】書類選考</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-hiring"><dt>募集の概要</dt><dd>増員募集 / 更なる組織強化</dd><dd>★入社時期など、お気軽にご相談ください。</dd></div><div class="d-row d-company"><dt>会社</dt><dd>株式会社オープンアップITエンジニア</dd><dd>人材派遣、IT×HR（採用・教育・労務・組織管理）、SIer・SES</dd><dd>1998年</dd><dd class="d-more">続きは求人票で</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　上流55%・研修・経験2年を活かせる</p>
     
     <div class="links"><a class="deck-mini" href="https://www.openupitengineer.co.jp/" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1X-Vx5IOL5tOttgAh9UkghjaAwBRyZppq/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料（候補者様向け資料）">候補者様向け資料 →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1x8gG4uYKRJOoAtqBFKcwQCnnUVe7zdNb/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料（企業説明）">企業説明 →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1DcTOpcai5RRSLF6zTiNs_1oy70KNn11d/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-gooya">
+  </div></details></article>
+  <article class="card decided" id="card-gooya" data-key="gooya" data-name="GOOYA（ゴーヤ）"><details class="fold" data-status="推薦中"><summary><span class="f-head"><span class="f-name">GOOYA（ゴーヤ）</span><span class="st st-suisen" data-status="推薦中">応募の手続き中</span><span class="chosen f-chosen">応募する会社</span></span><span class="f-what">未経験から始めるITインフラエンジニア（運用・監視・パソコンの設定・問い合わせ対応などから始める）</span><span class="f-meta">東京都渋谷区　年収 252万〜276万円</span></summary><div class="fold-body">
     <h3>GOOYA（ゴーヤ）<span class="chosen">応募する会社</span></h3>
     <p class="what">未経験から始めるITインフラエンジニア（運用・監視・パソコンの設定・問い合わせ対応などから始める）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給27万〜35万円</span><span class="aside">（15時間分のみなし残業代 月2.8万〜3.6万円を含む・公開求人の例）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>週休2日制・年間休日122日以上</dd></div></dl>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給27万〜35万円</span><span class="aside">（15時間分のみなし残業代 月2.8万〜3.6万円を含む・公開求人の例）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>252万〜276万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>週休2日制・年間休日122日以上</dd></div></dl>
     <dl class="place">
-      <dt>勤務地</dt><dd>東京都渋谷区（本社）＋東京・神奈川・千葉・埼玉の客先（転居を伴う転勤なし）</dd><dt>条件</dt><dd>東京・神奈川・千葉・埼玉から通える方。</dd><dt>条件</dt><dd>公開求人の応募資格は高卒以上・32歳以下。</dd>
+      <dt>勤務地</dt><dd>東京都渋谷区（本社）＋東京・神奈川・千葉・埼玉の客先（転居を伴う転勤なし）</dd><dt>条件</dt><dd>東京・神奈川・千葉・埼玉から通える方。</dd><dt>条件</dt><dd>公開求人の応募資格は高卒以上・32歳以下。</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>転勤なし</dd>
     </dl>
-    <p class="point"><b>ここが合う</b>　渋谷に本社があるITエンジニアの会社です。未経験から運用・監視などの入口の仕事で始め、じっくり育てる方針を掲げています。転居を伴う転勤はありません。</p>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>平均年齢は30代前半となります。配属先により、GOOYA社員の人数は異なります。・一人配属の可能性もありますが、</dd><dd>エンジニアとして、クライアント企業のIT課題を解決する【客先常駐】スタイル。</dd><dd>IT企業だけでなく、金融・食品・ホテル・保険など、3,800社以上の幅広い業種の案件があります。</dd></div><div class="d-row d-appeal"><dt>仕事の魅力</dt><dd>https://hikoma.jp/gooya/staffs/8110・https://hikoma.jp/gooya/staffs/8169</dd></div><div class="d-row d-work_hours"><dt>勤務時間</dt><dd>勤務時間10:00 - 19:00(所定労働時間8時間、休憩60分)・※プロジェクト先に準じます。</dd></div><div class="d-row d-overtime"><dt>残業</dt><dd>月平均7時間程度</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>☑ 社会人経験1年以上・■社会人経験1年以上・社会人経験1年以上</dd><dd>☑ 1年以上継続して就業した経験がある方</dd><dd>ITエンジニア（未経験者）</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>下記のようなご経験を積んでいる方は、入社後もご活躍いただける傾向にあります。</dd><dd>◆オフィスワーク経験・コールセンターやテレアポの就業経験</dd><dd>◆接客のご経験</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>平均1.5週間で内定</dd><dd>書類選考,一次面接,最終面接・2書類選考通過の場合、一次面接の準備課題(面接前課題)として「会社説明動画」をご視聴いただきます。・一次面接の中で、動画を視聴したうえで「仕事内容」「会社体制」などをどう解釈したか、お伺いいたします。</dd></div><div class="d-row d-company"><dt>会社</dt><dd>株式会社GOOYA(ゴーヤ)</dd><dd>東京都渋谷区渋谷1-17-4 PMO渋谷10F</dd><dd>ソフトウェア 情報処理</dd><dd class="d-more">続きは求人票で</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　OJT・勉強会・毎月30人採用（OPE と並行必須）</p>
     
     <div class="links"><a class="deck-mini" href="https://www.gooya.co.jp/" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）のホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1Em-Agim5iGO9aESyaZIjBOdvqrwr4VNI/view" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）の資料（会社説明資料（会社作成））">会社説明資料（会社作成） →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1QoKfHcjID15CCLpU_tXLB8mKdkmMySQV/view" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）の資料（入社後研修）">入社後研修 →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/10Xu-Gun-2S91dgfOogI_04X5MbY0ZUHq/view" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）の資料（魅力3選）">魅力3選 →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1B0mnWZjmHvCP5cJGRFSCwXOqZUQT362x/view" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）の資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-ksk_techno_support">
+  </div></details></article>
+  <article class="card decided" id="card-ksk_techno_support" data-key="ksk_techno_support" data-name="KSKテクノサポート"><details class="fold" data-status="推薦中"><summary><span class="f-head"><span class="f-name">KSKテクノサポート</span><span class="st st-suisen" data-status="推薦中">応募の手続き中</span><span class="chosen f-chosen">応募する会社</span></span><span class="f-what">ネットワークを中心としたインフラエンジニア（ネットワークの管理・運用・構築）</span><span class="f-meta">東京、神奈川、埼玉　年収 322万〜420万円</span></summary><div class="fold-body">
     <h3>KSKテクノサポート<span class="chosen">応募する会社</span></h3>
     <p class="what">ネットワークを中心としたインフラエンジニア（ネットワークの管理・運用・構築）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給225,000円〜</span><span class="aside">（公式募集要項）。モデル年収 392万円（22歳・経験1年）／414万円（25歳・経験3年）／505万円（27歳・経験5年・扶養手当を含む）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日120日以上・土日祝休み・賞与年2回</dd></div></dl>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給225,000円〜</span><span class="aside">（公式募集要項）。モデル年収 392万円（22歳・経験1年）／414万円（25歳・経験3年）／505万円（27歳・経験5年・扶養手当を含む）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>322万〜420万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日120日以上・土日祝休み・賞与年2回</dd></div></dl>
     <dl class="place">
-      <dt>勤務地</dt><dd>東京・神奈川・埼玉・千葉の一都三県（配属先による）。案件の約75%は東京23区で、地方勤務はない</dd><dt>条件</dt><dd>自宅から通勤1.5時間以内か、引越し可能な方</dd>
+      <dt>勤務地</dt><dd>東京、神奈川、埼玉</dd><dt>条件</dt><dd>自宅から通勤1.5時間以内か、引越し可能な方</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>転勤なし</dd>
     </dl>
-    <p class="point"><b>ここが合う</b>　全員ほぼ未経験から。入社後約1ヶ月の宿泊研修でCCNAに合格（会社の説明では合格率100%）。資格手当は60〜120万円</p>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>■大手メーカー、IT企業のネットワークシステムの設計・構築・運用</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>◎賞与2回</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>【未経験歓迎／ネットワークに特化したインフラエンジニア】</dd><dd>最終学歴: 高卒以上・■ 高卒以上</dd><dd>職種経験: 職種未経験OK</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>■社会人未経験者、職種・業種未経験者、第二新卒者、既卒者、歓迎します！</dd><dd>【こんな方は歓迎！】・◎未経験から新しいことを学ぶ意欲のある方</dd><dd>◎やりたい業務・フェーズに挑戦するチャンスを求めている方</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>◎自社ITスクールで30日研修が出来てCCNA取得可能！</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　教育投資・CCNA 研修・資格手当</p>
     
     <div class="links"><a class="deck-mini" href="https://www.kts.ksk.co.jp/" target="_blank" rel="noopener" aria-label="KSKテクノサポートのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1-s_JttOMEkc_8wXHU6-R9zIrG01TW4hB/view" target="_blank" rel="noopener" aria-label="KSKテクノサポートの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-axis_holdings">
-    <h3>AXISホールディングス<span class="chosen">応募する会社</span></h3>
-    <p class="what">SNS広告事業を軸にした会社の広告事業部で、広告配信の準備、請求・売上データの整理、管理表の更新を担う営業事務の仕事</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給30万〜50万円</span><span class="aside">（30時間分の固定残業代を含む。超過分は別途支給）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">年間休日125日・完全週休2日制</span><span class="aside">（土日祝休み）・勤務10:00〜19:00</span></dd></div></dl>
-    <dl class="place">
-      <dt>勤務地</dt><dd>東京都新宿区西新宿3丁目（Circles西新宿）</dd><dt>条件</dt><dd>大卒以上・社会人経験1年半以上・転職回数2回まで・基本的なPC操作（営業事務の必須条件）</dd><dt>条件</dt><dd>試用期間6か月（本採用と同条件）</dd><dt>条件</dt><dd>勤務地は本社（西新宿）のみ。履歴書・職務経歴書は応募時には不要（はたらいく）</dd>
-    </dl>
-    <p class="point"><b>ここが合う</b>　—</p>
-    
-    <div class="links"><a class="deck-mini" href="https://axis-company.jp/" target="_blank" rel="noopener" aria-label="AXISホールディングスのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1N4Aj-JThnCNvJYPT62HYtmSVKgYllsqh/view" target="_blank" rel="noopener" aria-label="AXISホールディングスの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card" id="card-dym">
+  </div></details></article>
+  <article class="card decided" id="card-dym" data-key="dym" data-name="DYMキャリア"><details class="fold" data-status="推薦中"><summary><span class="f-head"><span class="f-name">DYMキャリア</span><span class="st st-suisen" data-status="推薦中">応募の手続き中</span><span class="chosen f-chosen">応募する会社</span></span><span class="f-what">事務職（配属先に応じて一般事務・営業事務・貿易事務・経理事務・人事総務・医療事務のいずれか）</span><span class="f-meta">大阪府　月給 月給21万円（東京勤務・基本給15万円＋地域手当6万円。神奈川20万円・大阪20万〜20.2万円・愛知19.5万〜19.6万円）・固定残業なし・賞与年1回165,000円〜（入社1年後支給）・想定年収252万〜270万円</span></summary><div class="fold-body">
     <h3>DYMキャリア<span class="chosen">応募する会社</span></h3>
     <p class="what">事務職（配属先に応じて一般事務・営業事務・貿易事務・経理事務・人事総務・医療事務のいずれか）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給21万円</span><span class="aside">（東京勤務・基本給15万円＋地域手当6万円。神奈川20万円・大阪20万〜20.2万円・愛知19.5万〜19.6万円）・固定残業なし・賞与年1回165,000円〜（入社1年後支給）・想定年収252万〜270万円</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">土日祝休み（一部シフト制あり）・完全週休2日制・</span><span class="main">年間休日120日以上</span><span class="aside">（派遣先により異なる）・残業は少なめ（Green掲載の平均5.91時間）</span></dd></div></dl>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給21万円</span><span class="aside">（東京勤務・基本給15万円＋地域手当6万円。神奈川20万円・大阪20万〜20.2万円・愛知19.5万〜19.6万円）・固定残業なし・賞与年1回165,000円〜（入社1年後支給）・想定年収252万〜270万円</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日120日・土日休み</dd></div></dl>
     <dl class="place">
-      <dt>勤務地</dt><dd>東京・神奈川・千葉・埼玉・大阪・愛知（本社＝品川区大崎・客先常駐/自社内勤務・勤務地は入社前に住まいに応じて決定・転居を伴う異動なし）</dd><dt>条件</dt><dd>最終学歴は高卒以上が必須。</dd>
+      <dt>勤務地</dt><dd>大阪府</dd><dt>条件</dt><dd>最終学歴は高卒以上が必須。</dd><dt>条件</dt><dd>未経験から可</dd>
     </dl>
-    <p class="point"><b>ここが合う</b>　未経験・第二新卒・ブランクありも歓迎。直接雇用への切り替え実績（公式では約2〜3年で切り替わった例が複数、2025年度の切替率は5人に1人）があり、資格取得の費用補助（MOS・日商簿記等）もあります。</p>
+    <dl class="detail"></dl>
+    <p class="point"><b>ここが合う</b>　事務の並行先</p>
     
     <div class="links"><a class="deck-mini" href="https://dymcareer.jp/" target="_blank" rel="noopener" aria-label="DYMキャリアのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1__iQf-UT0FoNY6RHu5CMwd2qKcZvn52x/view" target="_blank" rel="noopener" aria-label="DYMキャリアの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
+  </div></details></article>
 </div>
-
-<h2>応募を進めている会社</h2>
-<p class="lead">すでに応募を進めている会社です。結果や日程が決まったらLINEでお知らせします。</p>
-
-<div class="table-wrap">
-<table>
-  <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
-  <tbody>
-    <tr><td class="co">BREXA Communications<a class="deck-mini" href="https://communications.brexa.com/" target="_blank" rel="noopener" aria-label="BREXA Communicationsのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1enC8GuJqNI5dTR0d9e_EUQIdOFDnFCTZ/view" target="_blank" rel="noopener" aria-label="BREXA Communicationsの資料（会社概要・採用情報）">会社概要・採用情報 →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1qAC1gce92uipaXEOPcfoAJH69GSXooe3/view" target="_blank" rel="noopener" aria-label="BREXA Communicationsの資料（会社説明スライド）">会社説明スライド →</a></td><td>通信インフラの事務サポート（携帯キャリア向け専用システムへのデータ入力・法人顧客からの電話/メール問い合わせ対応・スマホ/タブレットの発注手配や在庫管理・基地局工事の日程調整・申請書類作成・法人営業担当のサポートなど）<small>選考はWEB面接1回のみ。第一級陸上特殊無線技士など専門資格の取得セミナー・対策本を自社で提供。</small></td><td class="num">東京・神奈川・埼玉・千葉（客先常駐・転勤なし・勤務エリアの選択は不可）</td><td class="num">月給22万〜25万円ほど（想定年収320万〜350万円・賞与年2回）</td><td class="num">土日祝休み・年間休日124日・月平均残業10時間以下</td></tr>
-<tr><td class="co">プラウドデータ<a class="deck-mini" href="http://www.proud-g.jp/" target="_blank" rel="noopener" aria-label="プラウドデータのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/16J2rgLrphgxT7jwbA7VvSLKzQdreFyKX/view" target="_blank" rel="noopener" aria-label="プラウドデータの資料（会社説明スライド）">会社説明スライド →</a></td><td>未経験からのインフラエンジニア（サーバー・ネットワーク）。入社後はヒアリングとOJTで方向性を決め、Linux・ネットワーク基礎やAWSの学習を経て、運用・保守・監視・テクニカルサポート・社内SEなどの現場へ（SES＝客先常駐が中心）<small>入社後ヒアリングのうえ、ビジネスマナー・IT業界理解・PC基礎・Office操作を学び、Linux／ネットワーク基礎・Linuxサーバ構築課題・AWS実習環境での実践学習へ進む。管理営業が伴走し、事業部リーダーと1on1あり</small></td><td class="num">東京・神奈川・千葉・埼玉（一都三県のプロジェクト先。品川・川崎・横浜エリアが中心。客先常駐・配属先で勤務地が変わる。本社は東京都千代田区麹町）<small>日本国籍の方が対象。</small><small>関東圏外にお住まいの場合は引越しが可能なことが選考条件。</small><small>選考は書類選考→面接（対面1回。関東圏外はオンライン可）→内定。適性テストなし。</small></td><td class="num">月給21万円〜（基本給＋職務手当＋諸手当＋交通費。配属先の案件と社内評価に応じて上がる。想定年収280万〜1,000万円）。賞与は現在なし<small>年収 求人票の年収イメージは、未経験入社後に毎年60万円前後の年収アップ実績あり・1年あたり月額5〜8万円の昇給を目指す設計・5〜6年で年収500万〜600万円を目指す想定。年収1,000万円レンジは経験・配属先の案件しだいで、入社時の数字ではない</small></td><td class="num">完全週休2日制（土日祝休み）・年間休日125日・勤務は9:00〜18:00・月平均残業10時間以下（残業代・深夜・休日出勤手当は別途支給）</td></tr>
-<tr><td class="co">スタッフサービス ミラエール推進部<a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1o31QH1qaAuheG_WwoFBcrVvgKVDLC1iP/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料（会社の資料）">会社の資料 →</a></td><td>一般事務（人事・総務・経理・貿易・金融・英文事務・受付・データ入力など、案件により内容が変わる）</td><td class="num">転勤なし・自宅から90分以内の配属先（東京・神奈川・埼玉・千葉・大阪・京都・滋賀・広島・愛知・兵庫）</td><td class="num">270万〜330万円ほど（地域別の月給・エリアにより異なる）</td><td class="num">土日祝・完全週休2日・年間休日125日（祝日は配属先により異なる）・残業月10時間以下</td></tr>
-  </tbody>
-</table>
-</div>
+</section>
+<section id="companies" data-section="companies" data-no-figure="各社カードと表＝詳しい層（図はトップの比較）">
+<h2>ご紹介した会社</h2>
 
 <h2>ほかの会社</h2>
 <p class="lead">土日休みの事務を中心に、受けられる会社を載せています。気になる会社があれば教えてください。</p>
@@ -582,95 +610,44 @@ h1,h2,h3{word-break:auto-phrase}
   <thead><tr><th>会社</th><th>仕事</th><th>勤務地</th><th>月給</th><th>休日</th></tr></thead>
   <tbody>
     <tr><td class="co">リクルートスタッフィング<a class="deck-mini" href="https://www.r-staffing.co.jp/" target="_blank" rel="noopener" aria-label="リクルートスタッフィングのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1bGzeJ-puqS2M3KTNXPKZQeVJIdlcJ5ds/view" target="_blank" rel="noopener" aria-label="リクルートスタッフィングの資料（会社説明スライド）">会社説明スライド →</a></td><td>大手・有名企業での事務職（リクルートスタッフィングの無期雇用派遣・未経験から）</td><td class="num">東京都内（千代田区・新宿区・港区ほか）</td><td class="num">—</td><td class="num">土日祝休み・年間休日125日（就業先に準じる）</td></tr>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1bGzeJ-puqS2M3KTNXPKZQeVJIdlcJ5ds/view" target="_blank" rel="noopener" aria-label="リクルートスタッフィングの資料（会社説明スライド）">会社説明スライド →</a></td><td>大手・有名企業での事務職（リクルートスタッフィングの無期雇用派遣・未経験から）</td><td class="num">東京都内（千代田区・新宿区・港区ほか）<small>未経験から可</small><small>転勤なし</small></td><td class="num">—</td><td class="num">年間休日122〜130日・土日祝休み</td></tr>
 <tr><td class="co">メルディア（契約書づくりの事務）<a class="deck-mini" href="https://meldia.co.jp/" target="_blank" rel="noopener" aria-label="メルディア（契約書づくりの事務）のホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1lVW_go_m_OqRHxtsg0Us0nQTBJHQT0uq/view" target="_blank" rel="noopener" aria-label="メルディア（契約書づくりの事務）の資料（採用案内）">採用案内 →</a></td><td>不動産の売買で使う契約書や重要事項説明書をつくる内勤の事務（物件の調査・書類の作成・印刷・電話対応など）。宅地建物取引士の資格があれば、契約の場で説明書を読み上げる仕事も加わる</td><td class="num">荻窪本店・横浜・溝の口・朝霞台・足立・江戸川・さいたま・本八幡のいずれかの支店（配属先は応募から内定までの間に決まり、希望は考慮される。転勤なし）<small>選考: 書類 → 一次面接（現場・人事・Webも可）→ 最終面接（社長）</small></td><td class="num">月給30万円〜35万円（下限の月給30万円は基本給22.55万円＋みなし残業代7.45万円）。賞与は年2回（6月・12月）<small>年収 求人票の想定は400万〜500万円（賞与込み）。固定給だけなら年360万円（月給30万円×12・みなし残業代込み）＋賞与（年2回・額の記載なし）</small></td><td class="num">完全週休2日制（火曜・水曜休み）・年間休日115日（計画有給5日を含む）</td></tr>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1lVW_go_m_OqRHxtsg0Us0nQTBJHQT0uq/view" target="_blank" rel="noopener" aria-label="メルディア（契約書づくりの事務）の資料（採用案内）">採用案内 →</a></td><td>不動産の売買で使う契約書や重要事項説明書をつくる内勤の事務（物件の調査・書類の作成・印刷・電話対応など）。宅地建物取引士の資格があれば、契約の場で説明書を読み上げる仕事も加わる</td><td class="num">東京、神奈川、千葉、埼玉<small>選考: 書類 → 一次面接（現場・人事・Webも可）→ 最終面接（社長）</small><small>雇用形態 正社員</small><small>未経験から可</small><small>転勤なし</small></td><td class="num">月給30万円〜35万円（下限の月給30万円は基本給22.55万円＋みなし残業代7.45万円）。賞与は年2回（6月・12月）<small>年収 400万〜500万円</small></td><td class="num">年間休日115日</td></tr>
 <tr><td class="co">貴瞬<a class="deck-mini" href="https://kishun.co.jp/" target="_blank" rel="noopener" aria-label="貴瞬のホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1SG2tXvaV4zvOks10gM-NmHBfJplpgS0K/view" target="_blank" rel="noopener" aria-label="貴瞬の資料（会社説明スライド）">会社説明スライド →</a></td><td>ジュエリーの会社の本社内勤（インサイドセールス・営業サポートなど）</td><td class="num">東京（台東区）</td><td class="num">23.5万〜33.5万円（想定年収 350〜600万円）</td><td class="num">完全週休2日制（土日）・年間休日120日・勤務10:00〜19:00（実働8時間）</td></tr>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1SG2tXvaV4zvOks10gM-NmHBfJplpgS0K/view" target="_blank" rel="noopener" aria-label="貴瞬の資料（会社説明スライド）">会社説明スライド →</a></td><td>ジュエリーの会社の本社内勤（インサイドセールス・営業サポートなど）</td><td class="num">東京都（台東区）<small>雇用形態 正社員</small><small>未経験から可</small><small>夜勤なし</small><small>転勤なし</small></td><td class="num">23.5万〜33.5万円（想定年収 350〜600万円）<small>年収 350万〜600万円</small></td><td class="num">年間休日120日・土日休み</td></tr>
 <tr><td class="co">リクルートスタッフィング キャリアウィンク事業部<a class="deck-mini" href="https://www.r-staffing.co.jp/corporate/" target="_blank" rel="noopener" aria-label="リクルートスタッフィング キャリアウィンク事業部のホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1r52qPWiomxDgI7kh5Yunv-6WW_1NyzsL/view" target="_blank" rel="noopener" aria-label="リクルートスタッフィング キャリアウィンク事業部の資料（会社説明スライド）">会社説明スライド →</a></td><td>一般事務（データ入力・集計・各種資料作成・電話やメール対応・受発注サポートなど。テレフォンアポインター・コールセンターオペレーター・専門事務業務を含む）<small>入社前3日間のオンライン研修（ビジネスマナー・OAスキル、パソコンが必要）＋eラーニング「ELAN」。就業開始まで最短10日ほど。</small></td><td class="num">東京・神奈川・千葉・埼玉・愛知・大阪・兵庫・京都・北海道・宮城（仙台近郊の在住者のみ・下記条件）・福岡の有名企業・グループ企業（駅近オフィス中心・転勤なし・本拠地から片道120分以内の配属先）<small>最終学歴は高卒以上が必須。</small><small>宮城は在住地で可否が分かれる（求人票の記載）＝仙台市内5区（泉・青葉・太白・若林・宮城野）は基本OK／多賀城市・塩釜市・利府町・名取市・岩沼市は車通勤が可能ならOK／それ以外の地域は基本NG。</small><small>給与は枠が違う可能性: 求人票の枠は東京20.1万〜22.5万円、公式の紹介ページは東京21.3万〜32.8万円。提案前に枠を確認する。</small></td><td class="num">月給17.1万〜22.4万円ほど（勤務地により異なる・東京都は20.1万〜22.5万円・想定年収241万〜310万円・賞与年2回）</td><td class="num">土日祝休み（配属先に準ずる）・年間休日125日・残業月平均6時間（最大20時間）</td></tr>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1l-PXR9eKfSMVtYIneyNCqGHzttwRxKEG/view" target="_blank" rel="noopener" aria-label="リクルートスタッフィング キャリアウィンク事業部の資料（会社説明スライド）">会社説明スライド →</a></td><td>一般事務（データ入力・集計・各種資料作成・電話やメール対応・受発注サポートなど。テレフォンアポインター・コールセンターオペレーター・専門事務業務を含む）<small>入社前3日間のオンライン研修（ビジネスマナー・OAスキル、パソコンが必要）＋eラーニング「ELAN」。就業開始まで最短10日ほど。</small></td><td class="num">東京・神奈川・千葉・埼玉・愛知・大阪・兵庫・京都・北海道・宮城（仙台近郊の在住者のみ・下記条件）・福岡の有名企業・グループ企業（駅近オフィス中心・転勤なし・本拠地から片道120分以内の配属先）<small>最終学歴は高卒以上が必須。</small><small>宮城は在住地で可否が分かれる（求人票の記載）＝仙台市内5区（泉・青葉・太白・若林・宮城野）は基本OK／多賀城市・塩釜市・利府町・名取市・岩沼市は車通勤が可能ならOK／それ以外の地域は基本NG。</small><small>給与は枠が違う可能性: 求人票の枠は東京20.1万〜22.5万円、公式の紹介ページは東京21.3万〜32.8万円。提案前に枠を確認する。</small><small>未経験から可</small><small>転勤なし</small></td><td class="num">月給17.1万〜22.4万円ほど（勤務地により異なる・東京都は20.1万〜22.5万円・想定年収241万〜310万円・賞与年2回）</td><td class="num">年間休日122〜130日・土日祝休み</td></tr>
 <tr><td class="co">弁護士法人東京新橋法律事務所<a class="deck-mini" href="https://tslaw.or.jp/" target="_blank" rel="noopener" aria-label="弁護士法人東京新橋法律事務所のホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1Vk2TPMYb_TTOROaGBqfMCi7BRnkHk55H/view" target="_blank" rel="noopener" aria-label="弁護士法人東京新橋法律事務所の資料（会社説明スライド）">会社説明スライド →</a></td><td>パラリーガル（法律事務）。刑事事件・交通事故などを担当する弁護士のサポート業務＝事件管理（記録作成・スケジュール管理・文書管理をKintone等のシステムで）・訴訟文書や契約書の作成補助と裁判所などへの提出・電話/来客応対。データ入力など簡単な業務からスタート。<small>教育担当（20代・30代の年の近い先輩）がマンツーマンで育成し、3ヶ月〜半年ほどで独り立ちを目指す。部署ごとのミーティングで弁護士へ直接質問できる。</small></td><td class="num">東京都中央区銀座8丁目（ACN銀座8ビル・新橋駅から徒歩約7分・築地市場駅から徒歩約5分。自社内勤務・転勤なし）<small>応募可能年齢は20歳〜40歳。</small><small>基本的なPCスキル（WordやExcelでの文字入力ができるレベル）が必須。</small></td><td class="num">月給25万〜30万円（想定年収300万〜360万円・賞与年2回）。月給には20時間分（3万3,800円以上）のみなし残業代を含み、超過分は別途全額支給。<small>年収 求人票の想定は300万〜360万円（経験やスキルを考慮して決定）</small></td><td class="num">土日祝休み・完全週休2日制・年間休日125日（年末年始・夏季・GW休暇あり）・勤務時間10:00〜19:00・月平均残業20時間程度</td></tr>
 <tr><td class="co">MISM<a class="deck-mini" href="https://mism.co.jp/" target="_blank" rel="noopener" aria-label="MISMのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1oUHUMBWLU7dlaI2NVvWDphDp4Wocd8BY/view" target="_blank" rel="noopener" aria-label="MISMの資料（会社説明スライド）">会社説明スライド →</a></td><td>縦型動画広告の制作会社で、モデルのキャスティングと撮影現場への同行を担う事務職（モデルマネジメント）</td><td class="num">東京都（本社は港区六本木6-10-1 六本木ヒルズ森タワー31階）<small>学歴・経験不問、事務未経験でも歓迎（Wantedly事務募集）</small><small>撮影現場への同行（早朝・夜間を含む）に対応できること（Wantedly事務募集）</small></td><td class="num">—</td><td class="num">土日祝休み</td></tr>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1oUHUMBWLU7dlaI2NVvWDphDp4Wocd8BY/view" target="_blank" rel="noopener" aria-label="MISMの資料（会社説明スライド）">会社説明スライド →</a></td><td>縦型動画広告の制作会社で、モデルのキャスティングと撮影現場への同行を担う事務職（モデルマネジメント）</td><td class="num">東京<small>学歴・経験不問、事務未経験でも歓迎（Wantedly事務募集）</small><small>撮影現場への同行（早朝・夜間を含む）に対応できること（Wantedly事務募集）</small><small>雇用形態 契約社員</small><small>未経験から可</small><small>転勤なし</small></td><td class="num">—<small>年収 300万〜360万円</small></td><td class="num">年間休日120日・シフト制</td></tr>
 <tr><td class="co">BOAST<a class="deck-mini" href="https://boast-investment.com/" target="_blank" rel="noopener" aria-label="BOASTのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1lwQxwLc90NFGn-vZfHCkoKKPatbcW8_z/view" target="_blank" rel="noopener" aria-label="BOASTの資料（会社説明スライド）">会社説明スライド →</a></td><td>個人投資家だった代表を支える社長秘書。スケジュール管理・メール対応・発注・経費精算など、事務全般で経営をサポートする仕事</td><td class="num">東京都新宿区西新宿<small>土日祝休み・年間休日120日以上。勤務は8:00〜17:00、残業は月平均20時間以内と掲載（リクルートエージェント）。</small><small>勤務地は東京都新宿区西新宿、転勤なし。</small><small>応募資格は求人により「未経験可（大卒以上または高専卒以上）」と「事務経験3年以上」が併存。どの求人が現行かは未確認。</small></td><td class="num">月給28.5万円以上（進行支援）・想定年収450〜700万円（掲載により下限が450/456/500万円と異なる。希望は面接を経て決定）・賞与年2回</td><td class="num">年間休日120日以上・完全週休2日制（土日祝休み）</td></tr>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1lwQxwLc90NFGn-vZfHCkoKKPatbcW8_z/view" target="_blank" rel="noopener" aria-label="BOASTの資料（会社説明スライド）">会社説明スライド →</a></td><td>個人投資家だった代表を支える社長秘書。スケジュール管理・メール対応・発注・経費精算など、事務全般で経営をサポートする仕事</td><td class="num">東京<small>土日祝休み・年間休日120日以上。勤務は8:00〜17:00、残業は月平均20時間以内と掲載（リクルートエージェント）。</small><small>勤務地は東京都新宿区西新宿、転勤なし。</small><small>応募資格は求人により「未経験可（大卒以上または高専卒以上）」と「事務経験3年以上」が併存。どの求人が現行かは未確認。</small><small>雇用形態 正社員</small><small>未経験から可</small><small>転勤なし</small></td><td class="num">月給28.5万円以上（進行支援）・想定年収450〜700万円（掲載により下限が450/456/500万円と異なる。希望は面接を経て決定）・賞与年2回<small>年収 500万〜700万円</small></td><td class="num">年間休日120日・土日祝休み</td></tr>
 <tr><td class="co">ウィルオブ・コンストラクション<a class="deck-mini" href="https://willof-construction.co.jp/" target="_blank" rel="noopener" aria-label="ウィルオブ・コンストラクションのホームページ">会社のHP →</a>
     <a class="deck-mini" href="https://drive.google.com/file/d/1jSIH8WKBITcULNG18cFh38xWTqNf60Mj/view" target="_blank" rel="noopener" aria-label="ウィルオブ・コンストラクションの資料（採用案内）">採用案内 →</a></td><td>建設プロジェクトを支える管理・事務業務（アクティブ事務／施工管理サポート。スタッフの労務管理、書類・図面・資料の整理作成保管、日報や報告書の作成支援、データ入力・電話応対等の営業サポート、プロジェクト全体の進捗管理）<small>配属前3週間のオンライン座学研修（建設業の基礎・AutoCAD・PCスキル・ビジネスマナー等）＋配属後6か月間のフォロー研修（専任担当者が対応）</small></td><td class="num">全国（北海道〜沖縄）。うち東京・神奈川・埼玉・千葉・愛知・大阪・福岡・沖縄は自宅からの通勤圏内のみでの就業も可（それ以外のエリアはエリア内出張の可能性あり）<small>年齢20〜35歳（長期キャリア形成のため）。</small><small>通勤限定を希望する場合は運転免許が必須（ペーパードライバー不可）。</small></td><td class="num">月給21万〜30万円（地域により下限が異なる。固定残業代〈30時間分・地域により月3.9万〜5.5万円〉を含む）・想定年収270万〜500万円</td><td class="num">土日祝休み・年間休日120日（昨年度実績121日）・有給休暇取得実績 平均8.2日</td></tr>
   </tbody>
 </table>
 </div>
 
-</section>
-<section id="chosen" data-section="chosen" data-no-figure="応募先のカードそのものが一覧（比較の図はトップ）">
-<h2>応募する会社</h2>
-<div class="cards">
-  <article class="card">
-    <h3>オープンアップITエンジニア<span class="chosen">応募する会社</span></h3>
-    <p class="what">ITエンジニア（未経験から、インフラ・開発など）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">22万円〜</span><span class="aside">（スタート年収 264万円〜）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日122日</dd></div></dl>
-    <dl class="place">
-      <dt>勤務地</dt><dd>全国（全国／地域限定／通勤限定から選べる）</dd><dt>条件</dt><dd>勤務地区分（全国転勤／地域限定／通勤限定）は書類選考の通りやすさを変えない。</dd>
-    </dl>
-    <p class="point"><b>ここが合う</b>　勤務地の範囲を自分で選べる制度があります。会社資料の年収モデルは25歳で390万円・30歳で470万円。</p>
-    
-    <div class="links"><a class="deck-mini" href="https://www.openupitengineer.co.jp/" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1X-Vx5IOL5tOttgAh9UkghjaAwBRyZppq/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料（候補者様向け資料）">候補者様向け資料 →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1x8gG4uYKRJOoAtqBFKcwQCnnUVe7zdNb/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料（企業説明）">企業説明 →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1DcTOpcai5RRSLF6zTiNs_1oy70KNn11d/view" target="_blank" rel="noopener" aria-label="オープンアップITエンジニアの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card">
-    <h3>GOOYA（ゴーヤ）<span class="chosen">応募する会社</span></h3>
-    <p class="what">未経験から始めるITインフラエンジニア（運用・監視・パソコンの設定・問い合わせ対応などから始める）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給27万〜35万円</span><span class="aside">（15時間分のみなし残業代 月2.8万〜3.6万円を含む・公開求人の例）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>週休2日制・年間休日122日以上</dd></div></dl>
-    <dl class="place">
-      <dt>勤務地</dt><dd>東京都渋谷区（本社）＋東京・神奈川・千葉・埼玉の客先（転居を伴う転勤なし）</dd><dt>条件</dt><dd>東京・神奈川・千葉・埼玉から通える方。</dd><dt>条件</dt><dd>公開求人の応募資格は高卒以上・32歳以下。</dd>
-    </dl>
-    <p class="point"><b>ここが合う</b>　渋谷に本社があるITエンジニアの会社です。未経験から運用・監視などの入口の仕事で始め、じっくり育てる方針を掲げています。転居を伴う転勤はありません。</p>
-    
-    <div class="links"><a class="deck-mini" href="https://www.gooya.co.jp/" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）のホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1Em-Agim5iGO9aESyaZIjBOdvqrwr4VNI/view" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）の資料（会社説明資料（会社作成））">会社説明資料（会社作成） →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1QoKfHcjID15CCLpU_tXLB8mKdkmMySQV/view" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）の資料（入社後研修）">入社後研修 →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/10Xu-Gun-2S91dgfOogI_04X5MbY0ZUHq/view" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）の資料（魅力3選）">魅力3選 →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1B0mnWZjmHvCP5cJGRFSCwXOqZUQT362x/view" target="_blank" rel="noopener" aria-label="GOOYA（ゴーヤ）の資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card">
-    <h3>KSKテクノサポート<span class="chosen">応募する会社</span></h3>
-    <p class="what">ネットワークを中心としたインフラエンジニア（ネットワークの管理・運用・構築）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給225,000円〜</span><span class="aside">（公式募集要項）。モデル年収 392万円（22歳・経験1年）／414万円（25歳・経験3年）／505万円（27歳・経験5年・扶養手当を含む）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日120日以上・土日祝休み・賞与年2回</dd></div></dl>
-    <dl class="place">
-      <dt>勤務地</dt><dd>東京・神奈川・埼玉・千葉の一都三県（配属先による）。案件の約75%は東京23区で、地方勤務はない</dd><dt>条件</dt><dd>自宅から通勤1.5時間以内か、引越し可能な方</dd>
-    </dl>
-    <p class="point"><b>ここが合う</b>　全員ほぼ未経験から。入社後約1ヶ月の宿泊研修でCCNAに合格（会社の説明では合格率100%）。資格手当は60〜120万円</p>
-    
-    <div class="links"><a class="deck-mini" href="https://www.kts.ksk.co.jp/" target="_blank" rel="noopener" aria-label="KSKテクノサポートのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1-s_JttOMEkc_8wXHU6-R9zIrG01TW4hB/view" target="_blank" rel="noopener" aria-label="KSKテクノサポートの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card">
-    <h3>AXISホールディングス<span class="chosen">応募する会社</span></h3>
-    <p class="what">SNS広告事業を軸にした会社の広告事業部で、広告配信の準備、請求・売上データの整理、管理表の更新を担う営業事務の仕事</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給30万〜50万円</span><span class="aside">（30時間分の固定残業代を含む。超過分は別途支給）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">年間休日125日・完全週休2日制</span><span class="aside">（土日祝休み）・勤務10:00〜19:00</span></dd></div></dl>
-    <dl class="place">
-      <dt>勤務地</dt><dd>東京都新宿区西新宿3丁目（Circles西新宿）</dd><dt>条件</dt><dd>大卒以上・社会人経験1年半以上・転職回数2回まで・基本的なPC操作（営業事務の必須条件）</dd><dt>条件</dt><dd>試用期間6か月（本採用と同条件）</dd><dt>条件</dt><dd>勤務地は本社（西新宿）のみ。履歴書・職務経歴書は応募時には不要（はたらいく）</dd>
-    </dl>
-    <p class="point"><b>ここが合う</b>　—</p>
-    
-    <div class="links"><a class="deck-mini" href="https://axis-company.jp/" target="_blank" rel="noopener" aria-label="AXISホールディングスのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1N4Aj-JThnCNvJYPT62HYtmSVKgYllsqh/view" target="_blank" rel="noopener" aria-label="AXISホールディングスの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-  <article class="card">
-    <h3>DYMキャリア<span class="chosen">応募する会社</span></h3>
-    <p class="what">事務職（配属先に応じて一般事務・営業事務・貿易事務・経理事務・人事総務・医療事務のいずれか）</p>
-    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給21万円</span><span class="aside">（東京勤務・基本給15万円＋地域手当6万円。神奈川20万円・大阪20万〜20.2万円・愛知19.5万〜19.6万円）・固定残業なし・賞与年1回165,000円〜（入社1年後支給）・想定年収252万〜270万円</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="lead">土日祝休み（一部シフト制あり）・完全週休2日制・</span><span class="main">年間休日120日以上</span><span class="aside">（派遣先により異なる）・残業は少なめ（Green掲載の平均5.91時間）</span></dd></div></dl>
-    <dl class="place">
-      <dt>勤務地</dt><dd>東京・神奈川・千葉・埼玉・大阪・愛知（本社＝品川区大崎・客先常駐/自社内勤務・勤務地は入社前に住まいに応じて決定・転居を伴う異動なし）</dd><dt>条件</dt><dd>最終学歴は高卒以上が必須。</dd>
-    </dl>
-    <p class="point"><b>ここが合う</b>　未経験・第二新卒・ブランクありも歓迎。直接雇用への切り替え実績（公式では約2〜3年で切り替わった例が複数、2025年度の切替率は5人に1人）があり、資格取得の費用補助（MOS・日商簿記等）もあります。</p>
-    
-    <div class="links"><a class="deck-mini" href="https://dymcareer.jp/" target="_blank" rel="noopener" aria-label="DYMキャリアのホームページ">会社のHP →</a>
-    <a class="deck-mini" href="https://drive.google.com/file/d/1__iQf-UT0FoNY6RHu5CMwd2qKcZvn52x/view" target="_blank" rel="noopener" aria-label="DYMキャリアの資料（会社説明スライド）">会社説明スライド →</a></div>
-  </article>
-</div>
+<h2>参考動画</h2>
+<ul class="videos">
+  <li><a href="https://www.youtube.com/watch?v=RAEhPhi1Rl8" target="_blank" rel="noopener">OPE × esports（候補者様向け資料 p14 の動画）</a>
+    <span class="meta">オープンアップITエンジニアの会社の動画</span>
+    <span class="why"></span></li>
+  <li><a href="https://www.kts.ksk.co.jp/recruit/infosession/" target="_blank" rel="noopener">会社説明会動画（説明会資料 p12（印字13）の動画・公式の説明会ページ・7本・面接前までに必ず視聴）</a>
+    <span class="meta">KSKテクノサポートの会社の動画</span>
+    <span class="why"></span></li>
+  <li><a href="https://link.directcloud.jp/qj9w0Wzla0" target="_blank" rel="noopener">事業紹介動画（説明会資料 p12（印字13）の動画・2分30秒・KSK の DirectCloud 共有リンク）</a>
+    <span class="meta">KSKテクノサポートの会社の動画</span>
+    <span class="why"></span></li>
+  <li><a href="https://convert.jobtv.mynavi.jp/rlink?uc=27s207261vod07" target="_blank" rel="noopener">配属先はどんなところ？（ミラエール・約3分）</a>
+    <span class="meta">スタッフサービス ミラエール推進部の会社の動画</span>
+    <span class="why"></span></li>
+  <li><a href="https://convert.jobtv.mynavi.jp/rlink?uc=27s207261vod09" target="_blank" rel="noopener">昇給・評価査定について（ミラエール・約3分）</a>
+    <span class="meta">スタッフサービス ミラエール推進部の会社の動画</span>
+    <span class="why"></span></li>
+</ul>
+
 </section>
 <section id="industry" data-section="industry" data-no-figure="資料へのリンクの一覧">
 <h2>業界の説明資料</h2>
@@ -687,68 +664,87 @@ h1,h2,h3{word-break:auto-phrase}
 <h2>これからの進め方</h2>
 <figure class="fig fig-flow-w" data-figure="flow"><svg class="fig-flow" viewBox="0 0 400 270" role="img" aria-labelledby="fig-flow-t fig-flow-d" preserveAspectRatio="xMidYMid meet"><title id="fig-flow-t">これからの進め方</title><desc id="fig-flow-d">1. 上の5社へ、お作りした書類で応募を進めます／2. 11月9日（月）12:00から、面接の練習をします／3. 書類選考の結果や面接の日程が決まったら、すぐLINEでお知らせします／4. 2週間ほどで内定を2〜3社いただき、その中から根本さんが選ぶ形を目指します</desc><defs><marker id="fl-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="fl-l" x1="20" y1="38" x2="20" y2="58" marker-end="url(#fl-ar)"/><line class="fl-l" x1="20" y1="96" x2="20" y2="134" marker-end="url(#fl-ar)"/><line class="fl-l" x1="20" y1="172" x2="20" y2="210" marker-end="url(#fl-ar)"/><circle class="fl-c" cx="20" cy="20" r="16"/><text class="fl-n" x="20" y="26" text-anchor="middle">1</text><text class="fl-t" x="46" y="26">上の5社へ、お作りした書類で応募を進めます</text><circle class="fl-c" cx="20" cy="78" r="16"/><text class="fl-n" x="20" y="84" text-anchor="middle">2</text><text class="fl-t" x="46" y="84">11月9日（月）12:00から、面接の練習を</text><text class="fl-t" x="46" y="108">します</text><circle class="fl-c" cx="20" cy="154" r="16"/><text class="fl-n" x="20" y="160" text-anchor="middle">3</text><text class="fl-t" x="46" y="160">書類選考の結果や面接の日程が決まったら、</text><text class="fl-t" x="46" y="184">すぐLINEでお知らせします</text><circle class="fl-c" cx="20" cy="230" r="16"/><text class="fl-n" x="20" y="236" text-anchor="middle">4</text><text class="fl-t" x="46" y="236">2週間ほどで内定を2〜3社いただき、その</text><text class="fl-t" x="46" y="260">中から根本さんが選ぶ形を目指します</text></svg></figure>
 </section>
+<section id="dropped" class="is-dropped" data-section="dropped" data-no-figure="見送った会社のカード">
+<h2>今回は見送った会社</h2>
+<div class="cards folded" data-fold="drop">
+  <article class="card decided" id="card-axis_holdings" data-key="axis_holdings" data-name="AXISホールディングス"><details class="fold is-dropped" data-status="見送り（本人）"><summary><span class="f-head"><span class="f-name">AXISホールディングス</span><span class="st st-drop" data-status="見送り（本人）">今回は見送り</span><span class="chosen f-chosen">応募する会社</span></span><span class="f-what">SNS広告事業を軸にした会社の広告事業部で、広告配信の準備、請求・売上データの整理、管理表の更新を担う営業事務の仕事</span><span class="f-meta">東京都　月給 月給30万〜50万円（30時間分の固定残業代を含む。超過分は別途支給）</span></summary><div class="fold-body">
+    <h3>AXISホールディングス<span class="chosen">応募する会社</span></h3>
+    <p class="what">SNS広告事業を軸にした会社の広告事業部で、広告配信の準備、請求・売上データの整理、管理表の更新を担う営業事務の仕事</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給30万〜50万円</span><span class="aside">（30時間分の固定残業代を含む。超過分は別途支給）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd><span class="main">年間休日125日・完全週休2日制</span><span class="aside">（土日祝休み）・勤務10:00〜19:00</span></dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京都</dd><dt>条件</dt><dd>大卒以上・社会人経験1年半以上・転職回数2回まで・基本的なPC操作（営業事務の必須条件）</dd><dt>条件</dt><dd>試用期間6か月（本採用と同条件）</dd><dt>条件</dt><dd>勤務地は本社（西新宿）のみ。履歴書・職務経歴書は応募時には不要（はたらいく）</dd><dt>条件</dt><dd>未経験から可</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>①採用業務全般・・候補者の選考対応（日程調整、連絡対応等）・・スカウト候補者ピックアップ、スカウトメール送信・・求人媒体の管理・・カジュアル面談/面接・＊各採用媒体の応募者対応から面接までを一任します！</dd><dd>②採用戦略立案・・採用ペルソナ設計・・採用オペレーションの設計、改善・・人材紹介会社等とのリレーション・＊採用にのターゲット選定を最適化し、ポジションの担当者や外部関係者へ連携を行なっていただきます！</dd><dd>③採用マーケティング・・採用ブランディング設計・・採用広報戦略設計・＊長期的な採用計画から、戦略を立てていく役割を期待します！</dd></div><div class="d-row d-appeal"><dt>仕事の魅力</dt><dd>将来的には会社の顔としてご活躍いただきたいです。</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>学歴不問</dd><dd>Yes</dd><dd>・社会人経験1年以上</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>＊営業職のご経験1年以上</dd><dd>＊人材業界のご経験</dd><dd>◎前職経験からスキルに自信がある方はもちろん、これから人事に挑戦していきたい未経験の方も歓迎です！</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>１）書類選考・２）一次面接・３）最終面接・４）内定</dd></div><div class="d-row d-status"><dt>募集状況</dt><dd>通常採用・採用中</dd></div><div class="d-row d-company"><dt>会社</dt><dd>株式会社AXISホールディングス</dd><dd>建設</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　給与面・固定残業30h</p>
+    
+    <div class="links"><a class="deck-mini" href="https://axis-company.jp/" target="_blank" rel="noopener" aria-label="AXISホールディングスのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1N4Aj-JThnCNvJYPT62HYtmSVKgYllsqh/view" target="_blank" rel="noopener" aria-label="AXISホールディングスの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details></article>
+  <article class="card decided" id="card-brexa_communications" data-key="brexa_communications" data-name="BREXA Communications"><details class="fold is-dropped" data-status="見送り（本人）"><summary><span class="f-head"><span class="f-name">BREXA Communications</span><span class="st st-drop" data-status="見送り（本人）">今回は見送り</span></span><span class="f-what">通信インフラの事務サポート（携帯キャリア向け専用システムへのデータ入力・法人顧客からの電話/メール問い合わせ対応・スマホ/タブレットの発注手配や在庫管理・基地局工事の日程調整・申請書類作成・法人営業担当のサポートなど）</span><span class="f-meta">東京、神奈川、埼玉、千葉　年収 320万〜350万円</span></summary><div class="fold-body">
+    <h3>BREXA Communications</h3>
+    <p class="what">通信インフラの事務サポート（携帯キャリア向け専用システムへのデータ入力・法人顧客からの電話/メール問い合わせ対応・スマホ/タブレットの発注手配や在庫管理・基地局工事の日程調整・申請書類作成・法人営業担当のサポートなど）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給22万〜25万円ほど</span><span class="aside">（想定年収320万〜350万円・賞与年2回）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>320万〜350万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日祝休み</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京、神奈川、埼玉、千葉</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>転勤なし</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>工事に関する積算業務（見積依頼・請求書のフォーマット作成・月末月初の請求処理）・Excelや専用システムを用いたデータ集計・レポート作成（VLOOKUP・ピボットなど）・社内外との調整・折衝を通じたプロジェクト進行サポート・業務フローの見…</dd><dd>部署の人数：100・※プロジェクト先によって異なるため上記はあくまでも例となっております</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-salary_breakdown"><dt>給与の内訳</dt><dd>経験・スキルなどを考慮し決定します。・給与形態：月給制・※経験・スキルなどを考慮し、話し合いのうえで決定します。</dd><dd>時間外手当は別途全額支給いたします。</dd><dd>インセンティブ：なし</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>賞与は年2回支給。・賞与回数：2回</dd></div><div class="d-row d-leave"><dt>休暇</dt><dd>年末年始休暇、夏季休暇、慶弔休暇、有給休暇、産・休・育休</dd></div><div class="d-row d-work_hours"><dt>勤務時間</dt><dd>09:30〜18:00・夜間勤務：あり</dd></div><div class="d-row d-overtime"><dt>残業</dt><dd>月間平均残業時間：10時間以下</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>最終学歴: 学歴不問</dd><dd>職種経験: 職種未経験OK</dd><dd>業種経験: 業種未経験OK</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>人物重視の採用です。</dd><dd>変化の多い通信・IT業界の中で、柔軟に対応しながら成長したい方</dd><dd>指示待ちではなく、自ら業務の優先度を考え行動できる方</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>（WEB面接も可）</dd><dd>選考1回のみ</dd></div><div class="d-row d-company"><dt>会社</dt><dd>株式会社BREXA Communications</dd><dd>2001年</dd><dd>1001 ~ 5000名</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　IT事務そのもの・SESの経験・面接1回</p>
+    
+    <div class="links"><a class="deck-mini" href="https://communications.brexa.com/" target="_blank" rel="noopener" aria-label="BREXA Communicationsのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1enC8GuJqNI5dTR0d9e_EUQIdOFDnFCTZ/view" target="_blank" rel="noopener" aria-label="BREXA Communicationsの資料（会社概要・採用情報）">会社概要・採用情報 →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1qAC1gce92uipaXEOPcfoAJH69GSXooe3/view" target="_blank" rel="noopener" aria-label="BREXA Communicationsの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details></article>
 </div>
-<footer>※条件は各社の求人票・会社資料（2026年11月時点）に書かれている内容です。月給の幅は、これまでの経験と選考での評価で決まります。<br>※「会社のHP →」は各社の公式ホームページに、「会社の資料 →」は会社説明の資料（PDF）につながります。</footer>
+</section>
+</div>
+<footer>※条件は各社の求人票・会社資料（2026年11月時点）に書かれている内容です。月給の幅は、これまでの経験と選考での評価で決まります。<br>※「会社のHP →」は各社の公式ホームページに、「会社の資料 →」は会社説明の資料（PDF・画像）につながります。</footer>
 
 </div>
-<script>
-(function live() {
-  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", live); return; }
-  var cards = Array.prototype.slice.call(document.querySelectorAll(".cards.live > .card"));
-  if (!cards.length) return;
-  var pos = document.querySelector(".band-pos");
-  var NAMES = ["オープンアップITエンジニア", "GOOYA（ゴーヤ）", "KSKテクノサポート", "AXISホールディングス", "DYMキャリア"];
-  function off() {
-    var v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--band-offset"));
-    return isNaN(v) ? 56 : v;
+<script data-fold="js">
+(function fold() {
+  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", fold); return; }
+  var all = function () { return Array.prototype.slice.call(document.querySelectorAll("details.fold")); };
+  if (!all().length) return;
+  function openFor(hash) {
+    if (!hash || hash.length < 2) return;
+    var id; try { id = decodeURIComponent(hash.slice(1)); } catch (e) { return; }
+    var el = document.getElementById(id);
+    if (!el) return;
+    var d = el.matches("details.fold") ? el : el.querySelector("details.fold");
+    if (d && !d.open) d.open = true;
   }
-  function at(line) {  // 上端が line より上にある最後の社
-    var idx = -1;
-    cards.forEach(function (c, i) { if (c.getBoundingClientRect().top <= line) idx = i; });
-    return idx;
-  }
-  function inZone() {
-    var f = cards[0].getBoundingClientRect(), l = cards[cards.length - 1].getBoundingClientRect();
-    return f.top <= window.innerHeight * 0.6 && l.bottom > off() + 8;
-  }
-  function show() {
-    if (!pos) return;
-    var i = at(off() + window.innerHeight * 0.3);
-    pos.textContent = (inZone() && i >= 0) ? (i + 1) + "/" + cards.length + " 社目 " + NAMES[i] : "";
-  }
-  function goTop(i) {
-    i = Math.max(0, Math.min(cards.length - 1, i));
-    window.scrollTo(0, window.scrollY + cards[i].getBoundingClientRect().top - off());
-  }
-  function next() {  // 長い社は残り（判断・資料）を見せてから次の社へ
-    var i = at(off() + 4);
-    if (i < 0) { goTop(0); return; }
-    var r = cards[i].getBoundingClientRect(), page = window.innerHeight - off() - 60;
-    if (r.bottom > window.innerHeight + 4) { window.scrollBy(0, Math.min(r.bottom - window.innerHeight + 24, page)); return; }
-    if (i < cards.length - 1) goTop(i + 1);  // 最後の社は下端まで見せたら止まる
-  }
-  function prev() {
-    var i = at(off() + 4);
-    if (i < 0) { goTop(0); return; }
-    if (cards[i].getBoundingClientRect().top < off() - 4) { goTop(i); return; }
-    goTop(i - 1);
-  }
+  window.addEventListener("hashchange", function () { openFor(location.hash); });
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#card-"]');
+    if (a) openFor(a.getAttribute("href"));
+  }, true);
+  openFor(location.hash);
+  // 当日の送り（shigoto_live_layer の Space＝次の社）が summary・ボタンの上の Space を奪わないよう、そこで止める
+  // （既定の動き＝開閉・押下は残る。押し試験で Space が開閉しなかった）
   document.addEventListener("keydown", function (e) {
-    if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey) return;
-    var t = e.target, tag = t && t.tagName;
-    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (t && t.isContentEditable)) return;
-    var k = e.key, step = 0;
-    if (k === "ArrowDown" || k === "ArrowRight" || k === "PageDown" || (k === " " && !e.shiftKey)) step = 1;
-    else if (k === "ArrowUp" || k === "ArrowLeft" || k === "PageUp" || (k === " " && e.shiftKey)) step = -1;
-    if (!step || !inZone()) return;
-    e.preventDefault();
-    if (step > 0) next(); else prev();
-    show();
+    var tag = e.target && e.target.tagName;
+    if (e.key === " " && (tag === "SUMMARY" || tag === "BUTTON")) e.stopPropagation();
+  }, true);
+  Array.prototype.slice.call(document.querySelectorAll(".fold-ctl")).forEach(function (ctl) {
+    ctl.hidden = false;
+    ctl.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-fold-all]");
+      if (!b) return;
+      var open = b.getAttribute("data-fold-all") === "open";
+      all().forEach(function (d) { d.open = open; });
+    });
   });
-  window.addEventListener("scroll", show, { passive: true });
-  window.addEventListener("hashchange", show);
-  show();
+  var saved = null;
+  window.addEventListener("beforeprint", function () {
+    saved = all().map(function (d) { return d.open; });
+    all().forEach(function (d) { d.open = true; });
+  });
+  window.addEventListener("afterprint", function () {
+    if (!saved) return;
+    all().forEach(function (d, i) { d.open = saved[i]; });
+    saved = null;
+  });
 })();
 </script>
-<!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=421f93451a">ホーム</a></li><li><a href="./t79f00554.html?v=421f93451a">面接対策</a></li><li><a href="./t37793c33.html?v=421f93451a">書類のフィードバック</a></li><li><a href="./t988b1977.html?v=421f93451a">10秒面接ドリル</a></li><li class="gp-cur"><a href="./t6168f1fc.html?v=421f93451a" aria-current="page">ご紹介したお仕事</a></li></ul></nav><!--gp-portal:e--></body>
+<!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=e5ed32df0b">ホーム</a></li><li><a href="./t79f00554.html?v=e5ed32df0b">面接対策</a></li><li><a href="./t37793c33.html?v=e5ed32df0b">書類のフィードバック</a></li><li><a href="./t988b1977.html?v=e5ed32df0b">10秒面接ドリル</a></li><li class="gp-cur"><a href="./t6168f1fc.html?v=e5ed32df0b" aria-current="page">ご紹介したお仕事</a></li></ul></nav><!--gp-portal:e--></body>
 </html>
