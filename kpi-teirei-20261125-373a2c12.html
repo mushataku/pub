@@ -185,7 +185,7 @@ table.md td:first-child{position:static}
 <ul class="note" style="color:var(--fg)">
 <li><b>Indeed は月 約73万＝今の 72万 を据え置き</b>（面談60件 × 1.22万）。</li>
 <li>着座率を 50% に上げられた月は面談1件 1.0万 → 約60万 まで下げられる。</li>
-<li>確かめる日: <b>12月10日（水）</b>。12月度の途中の ①推薦率 40% 以上 ②面談1件あたりの広告費 1.5万 以下 の2つを見る。①が届かなければ広告ではなく推薦の打ち手を見直す。②を超えたら心の IT事務を削る。</li>
+<li>確かめる日: <b>12月10日（木）</b>。12月度の途中の ①推薦率 40% 以上 ②面談1件あたりの広告費 1.5万 以下 の2つを見る。①が届かなければ広告ではなく推薦の打ち手を見直す。②を超えたら心の IT事務を削る。</li>
 </ul>
 <ul class="note">
 <li>面談1件 1.22万 は 10月（87万÷70件）と 11月度（72万÷59件）の Indeed 2アカウントの実績。10月の70件は月例会の発言の数字。</li>
@@ -219,7 +219,7 @@ table.md td:first-child{position:static}
 <p class="cap" style="margin-top:12px">提案</p>
 <ul class="note" style="color:var(--fg)">
 <li><b>Indeed は 約60万 にする</b>（−12万）。代わりに 12月度は「新規面談60件・着座率50%・面談→承諾12%」を目標の率として置く。</li>
-<li>12月10日（水）に ①着座率 45% 以上 ②推薦率 40% 以上 を見る。届いていなければ MK に広告を足してもらう（月の途中で足せるかは MK に確認する）。</li>
+<li>12月10日（木）に ①着座率 45% 以上 ②推薦率 40% 以上 を見る。届いていなければ MK に広告を足してもらう（月の途中で足せるかは MK に確認する）。</li>
 <li>②リファラル と ③35歳以上・SNS は広告費の計算に入れない。上振れした分は、翌月の Indeed の広告費をさらに下げる材料にする。</li>
 <li>リスク: 応募の数は広告費にきれいに比例するとは限らない。広告を減らすと、応募の質や面談の日程の埋まり方も変わりうる。</li>
 </ul>
@@ -232,53 +232,134 @@ table.md td:first-child{position:static}
 </ul>
 </section>
 <section class="tab" id="tab-today" hidden>
+<style>
+#tab-today .dg{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:10px 0}
+#tab-today .stack{display:flex;height:64px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+#tab-today .stack div{display:flex;flex-direction:column;justify-content:center;padding:0 10px;color:#fff;font-size:.8rem;line-height:1.3;min-width:0}
+#tab-today .stack b{font-size:1.15rem}
+#tab-today .c1{background:#1d5fa8}#tab-today .c2{background:#2f8a5b}#tab-today .c3{background:#b3541e}
+#tab-today .axis{display:flex;justify-content:space-between;font-size:.75rem;color:var(--sub);margin-top:4px}
+#tab-today .flow{display:grid;grid-template-columns:1fr 36px 1fr 36px .8fr;align-items:center;gap:0}
+#tab-today .srcs{display:grid;gap:8px}
+#tab-today .box{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--bg);font-size:.82rem;line-height:1.45}
+#tab-today .box .t{font-weight:700;font-size:.9rem}
+#tab-today .box .o{color:var(--sub);font-size:.75rem}
+#tab-today .b1{border-left:5px solid #1d5fa8}#tab-today .b2{border-left:5px solid #2f8a5b}#tab-today .b3{border-left:5px solid #b3541e}#tab-today .b4{border-left:5px dashed #1d5fa8}
+#tab-today .arr{text-align:center;font-size:1.4rem;color:var(--sub)}
+#tab-today .hub{border:2px solid var(--fg);border-radius:10px;padding:12px;text-align:center;font-size:.85rem}
+#tab-today .hub b{font-size:1rem;display:block}
+#tab-today .goal{border-radius:10px;padding:12px;text-align:center;background:var(--fg);color:var(--bg);font-size:.85rem}
+#tab-today .goal b{font-size:1.4rem;display:block}
+#tab-today .tl{display:grid;grid-template-columns:1fr 28px 1fr 28px 1fr;align-items:stretch}
+#tab-today .tl .arr{align-self:center}
+#tab-today .node{border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--bg);font-size:.82rem;line-height:1.5}
+#tab-today .node .d{font-weight:700;font-size:.95rem}
+#tab-today .branch{display:grid;gap:6px}
+#tab-today .ok{border-left:5px solid var(--good)}#tab-today .ng{border-left:5px solid var(--warn)}
+#tab-today .steps{display:grid;grid-template-columns:1fr 36px 1fr;align-items:center}
+#tab-today .months{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;font-size:.72rem;color:var(--sub);text-align:center}
+#tab-today .lane{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin:4px 0;align-items:center}
+#tab-today .lane span{height:26px;border-radius:3px;background:var(--line)}
+#tab-today .lane span.red{background:#d9a08a}#tab-today .lane span.blk{background:var(--good);color:#fff;font-size:.72rem;display:flex;align-items:center;justify-content:center;font-weight:700}
+#tab-today .lbl{font-size:.8rem;margin-top:8px}
+#tab-today .people{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+#tab-today .person{border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--bg);font-size:.82rem;line-height:1.5}
+#tab-today .person .n{font-weight:700;font-size:.95rem}
+#tab-today .chips{display:flex;flex-wrap:wrap;gap:8px}
+#tab-today .chip{border:1px dashed var(--warn);border-radius:16px;padding:4px 12px;font-size:.8rem}
+#tab-today .src{font-size:.75rem;color:var(--sub);margin-top:6px}
+@media (max-width:640px){
+ #tab-today .flow,#tab-today .tl,#tab-today .steps{grid-template-columns:1fr}
+ #tab-today .flow .arr,#tab-today .tl .arr,#tab-today .steps .arr{transform:rotate(90deg);height:28px;line-height:28px}
+ #tab-today .stack div{padding:0 6px;font-size:.7rem}#tab-today .stack b{font-size:.95rem}
+}
+</style>
 <h2 data-t="今日のMTG（11/25 人材定例）" style="border-top:none;margin-top:16px">11月25日（水）人材定例で決まったこと</h2>
-<p class="cap">15:08〜（Zoom 録画 100分・中原さんの部屋）。出席: 宇宙さん・中原さん・齋藤さん・武者野。中身は録画の文字起こしから拾った（話者の記録が崩れているため、誰の発言かは内容から決めた。数字は発言ベースで検算していない）。</p>
+<p class="cap">15:08〜（Zoom 録画 100分）。出席: 宇宙さん・中原さん・齋藤さん・武者野。録画の文字起こしから拾った（数字は発言ベース・検算していない）。</p>
 
-<h2 data-t="決まったこと">1. 決まったこと</h2>
-<div class="tiles">
-  <div class="tile"><div class="k">12月度の売上目標</div><div class="v">600万</div><div class="s">Indeed 以外はプラスオンで数える</div></div>
-  <div class="tile"><div class="k">① Indeed（CA 3人 × 150万）</div><div class="v">450万</div><div class="s">従来どおりの MK の広告経由</div></div>
-  <div class="tile"><div class="k">② リファラル</div><div class="v">100万</div><div class="s">バー経由が中心</div></div>
-  <div class="tile"><div class="k">③ SNS・35歳以上</div><div class="v">50万</div><div class="s">承諾 1件の見込み</div></div>
+<h2 data-t="① 12月度の目標">① 12月度の売上目標 600万 の内訳</h2>
+<div class="dg">
+  <div class="stack">
+    <div class="c1" style="flex:450"><b>450万</b>Indeed（CA 3人 × 150万）</div>
+    <div class="c2" style="flex:100"><b>100万</b>リファラル</div>
+    <div class="c3" style="flex:50"><b>50万</b>横尾さん</div>
+  </div>
+  <div class="axis"><span>0</span><span>Indeed 以外はプラスオンで数える</span><span>600万</span></div>
 </div>
-<ul class="note" style="color:var(--fg)">
-<li><b>Indeed の広告費は絞る</b>。中原さんの案は「50万で始めて、追加 10万を考えておく」。KPI タブ §6 の 約60万 と同じ大きさ。12月10日（水）に着座率 45%・推薦率 40% を見て、届いていなければ追加 10万を MK に頼む。</li>
-<li><b>バー経由のリファラルに 6万円前後を出すのはあり</b>。新規面談の着座1件が 約2万円 で取れるなら Indeed と同じ効率、という見方。ただし先にバーとの付き合いを作る（事業部で月に1回は顔を出す・二次会に使う・知り合いを紹介する）。頼むのはそのあと。</li>
-<li><b>MK のスキーム（IT 中心の大手へ流す）だけで 600万 は見込みにくい</b>。MK と同じ土俵で戦わず、バー・リファラル・35歳以上の層という、うちにしか無いものを使う。</li>
-<li>キャッシュの面では大きな新しい挑戦をする時期ではない＝ Indeed の 450万 は固く取りにいき、新しい手は小さく試す。</li>
-</ul>
 
-<h2 data-t="誰が何を">2. 誰が何をするか</h2>
-<table>
-<thead><tr><th>担当</th><th>やること</th><th>期限・目安</th></tr></thead>
-<tbody>
-<tr><td>CA 3人（中原さん・齋藤さん・武者野）</td><td>Indeed 経由で 1人 150万。リファラル・SNS から来た人も新規面談からクロージングまで持つ</td><td>12月度</td></tr>
-<tr><td>小野さん</td><td>有効応募にならなかった応募（35歳超など MK が切る層）に電話し、タクシー・清掃・工場など年齢の幅が広い先へつなぐ。新規面談 20件を目安に、まず1件決める</td><td>12月度</td></tr>
-<tr><td>中原さん</td><td>小野さんの目標設定と伴走。バーのメンバーとの橋渡し</td><td>継続</td></tr>
-<tr><td>武者野</td><td>MK とは別の求人で自前の Indeed 広告を試す（オンラインでできる仕事など、応募単価が安い職種）。SNS の数字の管理</td><td>12月1日（月）に始められるかを詰める</td></tr>
-<tr><td>宇宙さん</td><td>バーとの付き合いづくりに協力</td><td>—</td></tr>
-<tr><td>佐藤さん（前回の月例会から）</td><td>リファラルの設定数 10件。返事が遅れている分は CA 側が巻き取る</td><td>継続</td></tr>
-</tbody>
-</table>
+<h2 data-t="② 集客の流れ">② 誰がどこから連れてきて、誰が決めるか</h2>
+<div class="dg">
+  <div class="flow">
+    <div class="srcs">
+      <div class="box b1"><div class="t">Indeed（MK の広告）</div>有効応募<div class="o">広告費 50万＋追加 10万の枠</div></div>
+      <div class="box b3"><div class="t">有効にならなかった応募</div>35歳超など MK が切る層 → 横尾さんが電話<div class="o">タクシー・清掃・工場など年齢の幅が広い先へ</div></div>
+      <div class="box b2"><div class="t">バー（リファラル）</div>佐藤さんがつなぐ（設定数 10件）<div class="o">返事が遅い分は CA が巻き取る</div></div>
+      <div class="box b4"><div class="t">自前の Indeed 広告（試し）</div>武者野が MK と別の求人で出す<div class="o">12月1日（火）開始を目指す</div></div>
+    </div>
+    <div class="arr">→</div>
+    <div class="hub"><b>CA 3人</b>中原さん・齋藤さん・武者野<br>新規面談からクロージングまで持つ</div>
+    <div class="arr">→</div>
+    <div class="goal"><b>600万</b>12月度</div>
+  </div>
+  <div class="src">横尾さんは新規面談 20件を目安に、まず1件決める（中原さんが目標設定と伴走）。</div>
+</div>
 
-<h2 data-t="見通し">3. 事業の見通し（中原さんの共有）</h2>
-<ul class="note" style="color:var(--fg)">
-<li>月の損益分岐は 約228万（支払いベース）。</li>
-<li>月の売上 600万 の形ができれば来年4月、500万 なら来年7月に、事業として黒字に転じる（売上ベース。入金は約2か月遅れ・売上の約8割）。</li>
-<li>600万 が当たり前になり黒字が見えた時点で、人を増やす話ができる。</li>
-<li>11月度の着地見込み: 低くて 約425万・最大 約657万（定例の時点の CA の見立て）。</li>
-</ul>
+<h2 data-t="③ 広告費">③ Indeed の広告費は絞る（50万で始めて、足すかは12月10日に決める）</h2>
+<div class="dg">
+  <div class="tl">
+    <div class="node"><div class="d">12月1日（火）</div>MK の広告 <b>50万</b> で始める<br><span class="o" style="color:var(--sub)">11月度は 72万</span></div>
+    <div class="arr">→</div>
+    <div class="node"><div class="d">12月10日（木）に見る</div>着座率 <b>45%</b> 以上？<br>推薦率 <b>40%</b> 以上？</div>
+    <div class="arr">→</div>
+    <div class="branch">
+      <div class="node ok"><b>両方届いた</b> → 50万のまま</div>
+      <div class="node ng"><b>届かない</b> → MK に <b>＋10万</b> を頼む</div>
+    </div>
+  </div>
+  <div class="src">計算の中身は「今日のKPI・広告費の検討」タブ §6（着座率 50%・面談→承諾 12% がそろえば 約60万で Indeed 450万に届く）。</div>
+</div>
 
-<h2 data-t="未決">4. まだ決まっていないこと</h2>
-<table>
-<thead><tr><th>問い</th><th>状態</th></tr></thead>
-<tbody>
-<tr><td>月の途中で MK に広告費を足してもらえるか</td><td>未確認（追加 10万の前提）</td></tr>
-<tr><td>バーへの 6万円前後をどの形で出すか（1回の会・クーポンなど）</td><td>案の段階。「バー紹介クーポン（相談）」タブが案</td></tr>
-<tr><td>自前の Indeed 広告の求人・予算・開始日</td><td>12月1日（月）開始を目指して詰める</td></tr>
-</tbody>
-</table>
+<h2 data-t="④ バー">④ バーは「付き合いが先、頼むのはあと」</h2>
+<div class="dg">
+  <div class="steps">
+    <div class="node"><div class="d">1. 付き合いを作る</div>事業部で月に1回は顔を出す・二次会に使う・知り合いを紹介する<br>（宇宙さんに協力をお願いする）</div>
+    <div class="arr">→</div>
+    <div class="node"><div class="d">2. 頼む</div>1回 <b>6万円前後</b> を出すのはあり<br>着座1件が 約2万円 なら Indeed と同じ効率</div>
+  </div>
+  <div class="src">MK の土俵（IT 中心の大手へ流す）で戦わず、バー・リファラル・35歳超の層という、うちにしか無いものを使う。キャッシュの面では大きな挑戦の時期ではない＝Indeed 450万は固く取り、新しい手は小さく試す。</div>
+</div>
+
+<h2 data-t="⑤ 見通し">⑤ 事業の見通し（宇宙さんの共有）</h2>
+<div class="dg">
+  <div class="tiles" style="margin-top:0">
+    <div class="tile"><div class="k">月の損益分岐（支払いベース）</div><div class="v">約228万</div></div>
+    <div class="tile"><div class="k">11月度の着地見込み（定例の時点）</div><div class="v">425〜657万</div></div>
+  </div>
+  <div class="lbl">いつ事業が黒字に転じるか（売上ベース）</div>
+  <div class="months"><span>26/12</span><span>27/1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span></div>
+  <div class="lbl" style="margin-top:2px">月 600万 のとき</div>
+  <div class="lane"><span class="red"></span><span class="red"></span><span class="red"></span><span class="red"></span><span class="blk">黒字</span><span class="blk"></span><span class="blk"></span><span class="blk"></span></div>
+  <div class="lbl">月 500万 のとき</div>
+  <div class="lane"><span class="red"></span><span class="red"></span><span class="red"></span><span class="red"></span><span class="red"></span><span class="red"></span><span class="red"></span><span class="blk">黒字</span></div>
+  <div class="src">赤＝まだ事業投資の回収中／緑＝黒字。入金は売上の約8割・約2か月遅れ。600万 が当たり前になり黒字が見えたら、人を増やす話ができる。</div>
+</div>
+
+<h2 data-t="⑥ 誰が何を">⑥ 誰が何をするか</h2>
+<div class="people">
+  <div class="person b1"><div class="n">CA 3人</div>Indeed 経由で 1人 150万。リファラル・SNS から来た人も最後まで持つ</div>
+  <div class="person b3"><div class="n">横尾さん</div>有効にならなかった応募に電話 → 年齢の幅が広い先へ。新規面談 20件・まず1件</div>
+  <div class="person"><div class="n">中原さん</div>横尾さんの目標設定と伴走・バーとの橋渡し</div>
+  <div class="person b4"><div class="n">武者野</div>自前の Indeed 広告を試す（12月1日（火）開始を目指す）・SNS の数字の管理</div>
+  <div class="person"><div class="n">宇宙さん</div>バーとの付き合いづくりに協力</div>
+  <div class="person b2"><div class="n">佐藤さん</div>リファラルの設定数 10件（前回の月例会から）</div>
+</div>
+
+<h2 data-t="⑦ 未決">⑦ まだ決まっていないこと</h2>
+<div class="chips">
+  <span class="chip">月の途中で MK に広告費を足せるか（＋10万の前提）</span>
+  <span class="chip">バーへの 6万円前後をどの形で出すか（案＝「バー紹介クーポン（相談）」タブ）</span>
+  <span class="chip">自前の Indeed 広告の求人・予算・開始日</span>
+</div>
 </section>
 <section class="tab" id="tab-mtg" hidden>
 <h2 data-t="前回MTG（11/20 月例会）" style="border-top:none;margin-top:16px">前回MTG（11月20日（金）月例会）の図解</h2>
