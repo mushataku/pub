@@ -31,12 +31,24 @@ thead th{font-size:.8rem;color:var(--sub);font-weight:600}
 tr.total td{font-weight:700;border-top:2px solid var(--fg)}
 .good{color:var(--good);font-weight:700}.warn{color:var(--warn);font-weight:700}
 ul.note{font-size:.85rem;color:var(--sub);padding-left:1.2em;margin:8px 0}
+.tabs{display:flex;gap:4px;margin:16px 0 0;border-bottom:2px solid var(--fg)}
+.tabs button{font:inherit;font-size:.95rem;padding:8px 14px;border:1px solid var(--line);border-bottom:none;background:var(--bg);color:var(--sub);border-radius:8px 8px 0 0;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--fg);color:var(--bg);font-weight:700;border-color:var(--fg)}
+.tab[hidden]{display:none}
+table.md td,table.md th{text-align:left;white-space:normal}
+table.md td:first-child{position:static}
+#tab-mtg h3{font-size:1rem;margin:20px 0 6px}
+#tab-mtg li,#tab-mtg p{font-size:.95rem}
+.tieback{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:6px;padding:10px 14px;font-size:.9rem;margin:12px 0}
 </style>
 </head>
 <body>
-<div class="band"><b>人材定例 KPI</b><span>2026年11月25日（水）13:10 時点</span><span id="cur">§1 着座率</span></div>
+<div class="band"><b>人材定例 KPI</b><span>2026年11月25日（水）13:10 時点</span><span id="cur">KPI</span></div>
 <main>
-<h1>11月度・12月度の歩留まりと着座率</h1>
+<h1>人材定例 2026年11月25日（水）</h1>
+<div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="tab-kpi">今日のKPI・広告戦略</button><button role="tab" aria-selected="false" data-tab="tab-mtg">前回MTG（11/20 月例会）</button></div>
+<section class="tab" id="tab-kpi">
+<h2 style="border-top:none;margin-top:16px" data-t="KPI">11月度・12月度の歩留まりと着座率</h2>
 <p class="lead">人材事業部（CA 6人）。数字は MK の歩留まり管理シートに各自が入力した分と、Slack の応募リスト（有効応募）から数えた値です。今日の入力が増えると変わります。</p>
 
 <h2 id="s1" data-t="§1 着座率">1. 着座率（新規面談数 ÷ 有効応募数・目標 50%）</h2>
@@ -139,11 +151,312 @@ ul.note{font-size:.85rem;color:var(--sub);padding-left:1.2em;margin:8px 0}
 <li>出どころ: 【Gooner様】歩留まり管理シート（各 CA の daily_ タブ）・Slack 応募リスト4本。期間の決め方は KPI 集計期間の表どおり。</li>
 <li>武者野の分は面談記録とシートを突き合わせ済み（入力漏れ 0件）。他の CA は入力どおり。</li>
 </ul>
+</section>
+<section class="tab" id="tab-mtg" hidden>
+<h2 data-t="前回MTG（11/20 月例会）" style="border-top:none;margin-top:16px">前回MTG（11月20日（金）月例会）の図解</h2>
+<div class="tieback"><b>今日の資料とのつながり</b>: 前回「12月は750万＝CA（Indeed）600万＋リファラル100万＋SNS 1件、Indeed 以外の分を除いた600万円分の広告費を MK にオーダーする」という意見が出ていた。今日のKPIタブの §5 は、この CA 600万の逆算。中原さんは広告費を下げる方向と話していた。</div>
+<iframe id="mtgframe" title="11/20 月例会の図解" style="width:100%;border:1px solid var(--line);border-radius:8px;background:#fff;min-height:600px" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
+&lt;meta name=&quot;robots&quot; content=&quot;noindex&quot;&gt;
+&lt;title&gt;月例会 11月20日&lt;/title&gt;
+&lt;style&gt;
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--mute:#62615c;--line:#dedcd5;--card:#ffffff;--soft:#f2f0ea;--blue:#2a78d6;--red:#e34948;--n1:#4a4945;--n2:#8a8882}
+@media (prefers-color-scheme:dark){:root:not([data-theme=&quot;light&quot;]){--bg:#1a1a19;--fg:#ecebe6;--mute:#a9a8a2;--line:#3a3936;--card:#232321;--soft:#2b2b29;--blue:#3987e5;--red:#e66767;--n1:#6d6c67;--n2:#4c4b47}}
+:root[data-theme=&quot;dark&quot;]{--bg:#1a1a19;--fg:#ecebe6;--mute:#a9a8a2;--line:#3a3936;--card:#232321;--soft:#2b2b29;--blue:#3987e5;--red:#e66767;--n1:#6d6c67;--n2:#4c4b47}
+@media print{:root,:root:not([data-theme=&quot;light&quot;]),:root[data-theme=&quot;dark&quot;]{--bg:#fff;--fg:#1d1d1b;--mute:#555;--line:#ccc;--card:#fff;--soft:#f0f0f0;--blue:#2a78d6;--red:#e34948;--n1:#4a4945;--n2:#8a8882}.band{display:none}main{padding-top:0}section{break-inside:avoid}}
+*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html{scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:&quot;Hiragino Sans&quot;,&quot;Hiragino Kaku Gothic ProN&quot;,&quot;Noto Sans JP&quot;,&quot;Yu Gothic UI&quot;,&quot;Yu Gothic&quot;,Meiryo,sans-serif;line-height:1.75;font-size:15px}
+.band{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+.band-in{max-width:880px;margin:0 auto;padding:8px 16px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.band b{font-size:.92rem}
+.band span{font-size:.82rem;color:var(--mute)}
+.band nav{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;font-size:.78rem}
+.band nav a{color:var(--mute);text-decoration:none;white-space:nowrap}
+.band nav a.on{color:var(--fg);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+main{max-width:880px;margin:0 auto;padding:20px 16px 56px}
+h1{font-size:1.5rem;margin:8px 0 4px;line-height:1.4}
+.sub{color:var(--mute);font-size:.88rem;margin:0 0 6px}
+.caveat{font-size:.8rem;color:var(--mute);border-left:3px solid var(--line);padding:2px 10px;margin:10px 0 22px}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 16px;margin:0 0 20px}
+h2{font-size:1.1rem;margin:0 0 2px;line-height:1.5;word-break:keep-all;overflow-wrap:anywhere}
+.msg{margin:0 0 14px;color:var(--mute);font-size:.88rem}
+.note{font-size:.8rem;color:var(--mute);margin:10px 0 0}
+ol.dec{margin:0;padding-left:1.4em}
+ol.dec li{margin:6px 0}
+/* 達成率の横棒 */
+.bars{display:grid;grid-template-columns:7.5em 1fr;gap:10px 12px;align-items:center}
+.bars .lab{font-size:.88rem;text-align:right;line-height:1.35}
+.bars .lab small{display:block;color:var(--mute);font-size:.74rem}
+.track{position:relative;height:30px;background:var(--soft);border-radius:4px}
+.fill{position:absolute;left:0;top:0;bottom:0;border-radius:4px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;color:#fff;font-weight:700;font-size:.86rem;white-space:nowrap}
+.fill.out{justify-content:flex-start}
+.fill.out em{position:absolute;left:calc(100% + 6px);color:var(--fg);font-style:normal}
+.f-good{background:var(--blue)}.f-bad{background:var(--red)}
+.goal{position:absolute;top:-6px;bottom:-6px;border-left:2px dashed var(--fg)}
+.goal-lab{font-size:.74rem;color:var(--mute);text-align:center}
+.axis{display:grid;grid-template-columns:7.5em 1fr;gap:0 12px;margin-top:4px}
+.axis div:last-child{position:relative;height:16px;font-size:.72rem;color:var(--mute)}
+.axis i{position:absolute;font-style:normal;transform:translateX(-50%)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.8rem;color:var(--mute);margin-top:10px}
+.legend span::before{content:&quot;&quot;;display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:5px;vertical-align:-1px;background:var(--c)}
+.legend span.dash::before{width:0;height:12px;border-left:2px dashed var(--fg);background:none;border-radius:0}
+/* 進捗と内訳（途中・計画＝灰色） */
+.prog{height:34px;background:var(--soft);border-radius:4px;position:relative;overflow:hidden;border:1px solid var(--line)}
+.prog .fill{background:var(--n1)}
+.stackrow{display:flex;gap:8px;align-items:stretch}
+.stack{display:flex;flex:1;height:46px;border-radius:4px;overflow:hidden;gap:2px}
+.stack div{display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem;font-weight:700;text-align:center;line-height:1.25;padding:0 2px;min-width:0}
+.s-ca{background:var(--n1)}.s-ref{background:var(--n2)}
+.chip{display:flex;align-items:center;border:2px dashed var(--n2);border-radius:4px;padding:0 8px;font-size:.78rem;font-weight:700;line-height:1.3;white-space:nowrap}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.kpi{font-size:1.6rem;font-weight:700;line-height:1.2}
+.kpi small{font-size:.85rem;font-weight:400;color:var(--mute)}
+/* 体制の流れ（柱ごとの横帯） */
+.lanes{display:grid;grid-template-columns:7em 1fr auto 1fr;gap:8px 8px;align-items:stretch}
+.lanes .hd{font-size:.76rem;color:var(--mute);font-weight:700}
+.lane-name{display:flex;align-items:center;font-weight:700;font-size:.92rem;border-left:4px solid var(--fg);padding-left:8px}
+.node{border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:.86rem;line-height:1.5;background:var(--card)}
+.node b{display:block;font-size:.9rem}
+.node.thin{border-style:dashed;color:var(--mute)}
+.end{grid-column:4;grid-row:2/5;border:2px solid var(--fg);border-radius:8px;padding:10px 12px;font-size:.86rem;line-height:1.55;display:flex;flex-direction:column;justify-content:center}
+.end b{font-size:.95rem}
+.arrow{display:flex;align-items:center;justify-content:center;color:var(--mute);font-size:1.2rem}
+/* 段の流れ */
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;counter-reset:st}
+.step{border:1px solid var(--line);border-radius:8px;padding:10px;font-size:.84rem;line-height:1.5;position:relative;background:var(--card)}
+.step::before{counter-increment:st;content:counter(st);display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--fg);color:var(--bg);font-size:.72rem;align-items:center;justify-content:center;margin-bottom:4px}
+.step b{display:block;font-size:.9rem}
+.step.kpi-on{border:2px solid var(--fg)}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;color:var(--bg);background:var(--fg);border-radius:99px;padding:0 7px;margin-top:4px}
+/* CA の受けたい人 */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.card{border:1px solid var(--line);border-radius:8px;padding:12px;font-size:.86rem;line-height:1.6}
+.card h3{font-size:.98rem;margin:0 0 6px}
+.card dl{margin:0}
+.card dt{font-size:.74rem;color:var(--mute);font-weight:700;margin-top:6px}
+.card dd{margin:0}
+/* 論点の図 */
+.logic{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;align-items:stretch}
+.lg{border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:.86rem;line-height:1.6}
+.lg h3{font-size:.86rem;margin:0 0 6px}
+.lg ul{margin:0;padding-left:1.2em}
+.lg.q{border-left:4px dotted var(--fg)}
+.lg.h{border-left:4px dashed var(--n2)}
+.lg.a{border:2px solid var(--fg)}
+/* SNS の週 */
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day{border:1px solid var(--line);border-radius:8px;padding:8px 4px;text-align:center;font-size:.8rem;line-height:1.5}
+.day b{display:block;font-size:.88rem}
+.dot{display:block;margin:4px auto 0;width:max-content;padding:0 6px;border-radius:99px;background:var(--soft);border:1px solid var(--line);font-size:.72rem;font-weight:700}
+.day.fri{border:2px solid var(--fg)}
+.rev{display:block;margin-top:6px;font-size:.72rem;font-weight:700;color:var(--bg);background:var(--fg);border-radius:4px;padding:1px 2px}
+table{border-collapse:collapse;width:100%;font-size:.86rem}
+th,td{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+th{font-size:.78rem;color:var(--mute)}
+@media (max-width:720px){
+ .lanes{grid-template-columns:1fr}.lanes .hd,.lanes .arrow{display:none}.end{grid-column:auto;grid-row:auto;order:99;margin-top:8px}
+ .lane-name{margin-top:6px}.hide-sm{display:none}
+ .steps{grid-template-columns:1fr 1fr}.cards,.logic{grid-template-columns:1fr}.two{grid-template-columns:1fr}
+ .week{grid-template-columns:repeat(4,1fr)}.band nav{display:none}
+ .bars,.axis{grid-template-columns:5.6em 1fr}
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;band&quot;&gt;&lt;div class=&quot;band-in&quot;&gt;&lt;b&gt;月例会 11月20日（金）&lt;/b&gt;&lt;span id=&quot;cur&quot;&gt;決まったこと&lt;/span&gt;
+&lt;nav id=&quot;toc&quot;&gt;&lt;a href=&quot;#s1&quot;&gt;決まったこと&lt;/a&gt;&lt;a href=&quot;#s2&quot;&gt;数字&lt;/a&gt;&lt;a href=&quot;#s3&quot;&gt;体制&lt;/a&gt;&lt;a href=&quot;#s4&quot;&gt;目標の論点&lt;/a&gt;&lt;a href=&quot;#s5&quot;&gt;リファラル&lt;/a&gt;&lt;a href=&quot;#s6&quot;&gt;SNS&lt;/a&gt;&lt;a href=&quot;#s7&quot;&gt;宿題&lt;/a&gt;&lt;/nav&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;main&gt;
+&lt;h1&gt;月例会 2026年11月20日（金）&lt;/h1&gt;
+&lt;p class=&quot;sub&quot;&gt;13:21〜14:55（Zoom 94分）｜進行 中原さん｜齋藤さん・佐藤さん・武者野（横尾さんの同席は不明）&lt;/p&gt;
+&lt;p class=&quot;caveat&quot;&gt;話者の名札は録画で壊れていたため、内容から組み直しています。数字は発言どおりで、画面共有の資料とは突き合わせていません。詳しい記録は要約（md）にあります。&lt;/p&gt;
+
+&lt;section id=&quot;s1&quot; data-name=&quot;決まったこと&quot;&gt;
+&lt;h2&gt;決まったこと&lt;/h2&gt;
+&lt;ol class=&quot;dec&quot;&gt;
+&lt;li&gt;集客を &lt;b&gt;Indeed・リファラル・SNS の3本柱&lt;/b&gt;にする。CA 3人が決める役、佐藤さんが CS とつなぐ役に分かれる&lt;/li&gt;
+&lt;li&gt;リファラルは &lt;b&gt;設定数10件&lt;/b&gt;が目標。追う数字は「設定数」と「着座数」の2つで、&lt;b&gt;11月20日から&lt;/b&gt;始める&lt;/li&gt;
+&lt;li&gt;新規面談・推薦の&lt;b&gt;目標の立て方を中原さんが見直し&lt;/b&gt;、MK とすり合わせる&lt;/li&gt;
+&lt;li&gt;SNS は&lt;b&gt;投稿1日2件が必須&lt;/b&gt;。&lt;b&gt;毎週金曜 17:30&lt;/b&gt; に振り返る&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;s2&quot; data-name=&quot;数字&quot;&gt;
+&lt;h2&gt;10月：売上は目標を超えたが、新規面談と推薦は届かなかった&lt;/h2&gt;
+&lt;p class=&quot;msg&quot;&gt;10月の実績の達成率（目標＝100%・発言ベース・11月20日の月例会で報告）&lt;/p&gt;
+&lt;div class=&quot;bars&quot;&gt;
+&lt;div class=&quot;lab&quot;&gt;売上&lt;small&gt;5,362,000円&lt;/small&gt;&lt;/div&gt;
+&lt;div class=&quot;track&quot;&gt;&lt;div class=&quot;fill f-good&quot; style=&quot;width:89.3%&quot;&gt;134%&lt;/div&gt;&lt;div class=&quot;goal&quot; style=&quot;left:66.7%&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;lab&quot;&gt;新規面談&lt;small&gt;70件（目標件数は未報告）&lt;/small&gt;&lt;/div&gt;
+&lt;div class=&quot;track&quot;&gt;&lt;div class=&quot;fill f-bad&quot; style=&quot;width:43.3%&quot;&gt;約65%&lt;/div&gt;&lt;div class=&quot;goal&quot; style=&quot;left:66.7%&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;lab&quot;&gt;推薦&lt;small&gt;15件／目標44件&lt;/small&gt;&lt;/div&gt;
+&lt;div class=&quot;track&quot;&gt;&lt;div class=&quot;fill f-bad out&quot; style=&quot;width:22.7%&quot;&gt;&lt;em&gt;約34%&lt;/em&gt;&lt;/div&gt;&lt;div class=&quot;goal&quot; style=&quot;left:66.7%&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;axis&quot;&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;i style=&quot;left:0&quot;&gt;0%&lt;/i&gt;&lt;i style=&quot;left:33.3%&quot;&gt;50%&lt;/i&gt;&lt;i style=&quot;left:66.7%&quot;&gt;100%&lt;span class=&quot;hide-sm&quot;&gt;（目標）&lt;/span&gt;&lt;/i&gt;&lt;i style=&quot;left:100%;transform:translateX(-100%)&quot;&gt;150%&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;legend&quot;&gt;&lt;span style=&quot;--c:var(--blue)&quot;&gt;目標に届いた&lt;/span&gt;&lt;span style=&quot;--c:var(--red)&quot;&gt;目標に届かなかった&lt;/span&gt;&lt;span class=&quot;dash&quot;&gt;破線＝目標（100%）&lt;/span&gt;&lt;/div&gt;
+&lt;p class=&quot;note&quot;&gt;新規面談の目標比は発言（「60パ…65%位かな」）のまま。推薦は 15÷44 で計算した値。&lt;/p&gt;
+
+&lt;div class=&quot;two&quot; style=&quot;margin-top:22px&quot;&gt;
+&lt;div&gt;
+&lt;h2 style=&quot;font-size:1rem&quot;&gt;11月：目標の約38%まで来ている&lt;/h2&gt;
+&lt;p class=&quot;msg&quot;&gt;11月の売上の途中経過（11月20日時点）&lt;/p&gt;
+&lt;div class=&quot;kpi&quot;&gt;2,270,000円 &lt;small&gt;／ 目標 6,000,000円&lt;/small&gt;&lt;/div&gt;
+&lt;div class=&quot;prog&quot; style=&quot;margin-top:8px&quot;&gt;&lt;div class=&quot;fill&quot; style=&quot;width:37.8%&quot;&gt;約38%&lt;/div&gt;&lt;/div&gt;
+&lt;div style=&quot;display:flex;justify-content:space-between;font-size:.72rem;color:var(--mute);margin-top:4px&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;span&gt;目標 600万円&lt;/span&gt;&lt;/div&gt;
+&lt;p class=&quot;note&quot;&gt;ここまで3件。灰色は月の途中の数字。12〜1月は休みが多く売上が落ちるので「11月が勝負」（中原さん）。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+&lt;h2 style=&quot;font-size:1rem&quot;&gt;12月：目標 750万円の内訳のイメージ&lt;/h2&gt;
+&lt;p class=&quot;msg&quot;&gt;柱ごとの売上の見込み（発言・ざっくり）&lt;/p&gt;
+&lt;div class=&quot;stackrow&quot;&gt;
+&lt;div class=&quot;stack&quot;&gt;
+&lt;div class=&quot;s-ca&quot; style=&quot;flex:200&quot;&gt;CA&lt;br&gt;200万&lt;/div&gt;&lt;div class=&quot;s-ca&quot; style=&quot;flex:200&quot;&gt;CA&lt;br&gt;200万&lt;/div&gt;&lt;div class=&quot;s-ca&quot; style=&quot;flex:200&quot;&gt;CA&lt;br&gt;200万&lt;/div&gt;
+&lt;div class=&quot;s-ref&quot; style=&quot;flex:100&quot;&gt;100万&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;chip&quot;&gt;＋SNS&lt;br&gt;1件&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;legend&quot;&gt;&lt;span style=&quot;--c:var(--n1)&quot;&gt;CA（Indeed から・1人200万×3人）&lt;/span&gt;&lt;span style=&quot;--c:var(--n2)&quot;&gt;リファラル&lt;/span&gt;&lt;span class=&quot;dash&quot;&gt;SNS（件数で話された・金額は未定）&lt;/span&gt;&lt;/div&gt;
+&lt;p class=&quot;note&quot;&gt;3つの合計が「750万」と話された。帯の幅は CA とリファラルの金額だけ。現実には 600万前後が理想という見立て（中原さん）。&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;s3&quot; data-name=&quot;体制&quot;&gt;
+&lt;h2&gt;新しい体制：「つなぐ人」と「決める人」を分ける&lt;/h2&gt;
+&lt;p class=&quot;msg&quot;&gt;集客の柱ごとに、誰が集めて、誰が決めるか&lt;/p&gt;
+&lt;div class=&quot;lanes&quot;&gt;
+&lt;div class=&quot;hd&quot;&gt;柱&lt;/div&gt;&lt;div class=&quot;hd&quot;&gt;集める・つなぐ&lt;/div&gt;&lt;div class=&quot;hd&quot;&gt;&lt;/div&gt;&lt;div class=&quot;hd&quot;&gt;決める&lt;/div&gt;
+&lt;div class=&quot;lane-name&quot;&gt;Indeed&lt;/div&gt;
+&lt;div class=&quot;node thin&quot;&gt;応募がそのまま CA へ（これまでどおり。いまの強み）&lt;/div&gt;
+&lt;div class=&quot;arrow&quot;&gt;→&lt;/div&gt;
+&lt;div class=&quot;end&quot;&gt;&lt;b&gt;CA：齋藤さん・中原さん・武者野&lt;/b&gt;新規面談から推薦・クロージングまで責任を持つ。3つの柱のどこから来ても決めきる&lt;/div&gt;
+&lt;div class=&quot;lane-name&quot;&gt;リファラル&lt;/div&gt;
+&lt;div class=&quot;node&quot;&gt;&lt;b&gt;佐藤さん&lt;/b&gt;CS・アポ取り・バーでの関係づくり・トスアップ。クロージングは意識しなくてよい&lt;/div&gt;
+&lt;div class=&quot;arrow&quot;&gt;→&lt;/div&gt;
+&lt;div class=&quot;lane-name&quot;&gt;SNS&lt;/div&gt;
+&lt;div class=&quot;node&quot;&gt;&lt;b&gt;中原さん・横尾さん&lt;/b&gt;投稿で認知をつくる（中原さんは指示出しも）。数字の管理は武者野&lt;/div&gt;
+&lt;div class=&quot;arrow&quot;&gt;→&lt;/div&gt;
+&lt;/div&gt;
+&lt;p class=&quot;note&quot;&gt;理由：Indeed だけだと倒れたときに困る。売上が500万円規模になった今のうちに次の手を打つ（MK も気にしていた点）。佐藤さんは CS を在宅でも持つ形で、ミーティングは夕方以降に組む。&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;s4&quot; data-name=&quot;目標の論点&quot;&gt;
+&lt;h2&gt;目標の論点：推薦が3分の1でも売上は達成。目標の前提を見直す&lt;/h2&gt;
+&lt;p class=&quot;msg&quot;&gt;武者野の問題提起から結論まで&lt;/p&gt;
+&lt;div class=&quot;logic&quot;&gt;
+&lt;div class=&quot;lg q&quot;&gt;&lt;h3&gt;問い（武者野）&lt;/h3&gt;
+&lt;ul&gt;&lt;li&gt;推薦は目標の約34%なのに、売上は134%&lt;/li&gt;
+&lt;li&gt;目標が正しければ、推薦が3分の1なら売上も3分の1くらいのはず&lt;/li&gt;
+&lt;li&gt;新規面談70件で500万円立つなら、MK に頼む広告の中身も金額も変わる&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+&lt;div class=&quot;lg h&quot;&gt;&lt;h3&gt;食い違いの理由の候補&lt;/h3&gt;
+&lt;ul&gt;&lt;li&gt;&lt;b&gt;単価の前提&lt;/b&gt;：MK は1件50万円・1人150万円で逆算している（佐藤さん）&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;人数の前提&lt;/b&gt;：推薦の目標（新規面談の目標の60%）は MK の CA 8〜9人が前提では（齋藤さん）&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;月またぎ&lt;/b&gt;：10月の承諾の一部は9月の推薦から来ている（齋藤さん）&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;たまたま&lt;/b&gt;：10月はイレギュラーな承諾で跳ねた面もある（武者野）&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+&lt;div class=&quot;lg a&quot;&gt;&lt;h3&gt;結論&lt;/h3&gt;
+&lt;ul&gt;&lt;li&gt;&lt;b&gt;中原さんが目標の立て方を見直す&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;今月・来月で、3か月ほどかけて MK とすり合わせる&lt;/li&gt;
+&lt;li&gt;広告費は下げる方向。Indeed 以外で立てる分を引いて、残りの分の広告費をこちらから頼む（出席者から）&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p class=&quot;note&quot;&gt;中原さん：「これまでは MK から出された数字に乗っていただけだった。自分たちで考え、広告費を最低限にして1件1件の質を上げる」。&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;s5&quot; data-name=&quot;リファラル&quot;&gt;
+&lt;h2&gt;リファラル：追うのは「設定数」と「着座数」の2つだけ&lt;/h2&gt;
+&lt;p class=&quot;msg&quot;&gt;バーで出会ってから承諾までの段（11月20日から開始・設定数の目標 10件・数える期間は未決）&lt;/p&gt;
+&lt;div class=&quot;steps&quot;&gt;
+&lt;div class=&quot;step&quot;&gt;&lt;b&gt;出会う&lt;/b&gt;バー・飲み会でのやり取り（佐藤さん・バーのメンバー）&lt;/div&gt;
+&lt;div class=&quot;step&quot;&gt;&lt;b&gt;聞く&lt;/b&gt;QR のアンケートや「面談練習の相手」で項目を集める&lt;/div&gt;
+&lt;div class=&quot;step kpi-on&quot;&gt;&lt;b&gt;設定&lt;/b&gt;LINE で CA につなぐ&lt;br&gt;&lt;span class=&quot;tag&quot;&gt;数える①　目標10件&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;step kpi-on&quot;&gt;&lt;b&gt;着座&lt;/b&gt;面談の席に座る&lt;br&gt;&lt;span class=&quot;tag&quot;&gt;数える②&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;step&quot;&gt;&lt;b&gt;決める&lt;/b&gt;CA が推薦・クロージング。振った翌日までにフィードバック&lt;/div&gt;
+&lt;/div&gt;
+&lt;p class=&quot;note&quot;&gt;飛んでも問わない。佐藤さんは各 CA の特色で振り、振った翌日までに「どうだった？」を聞いてすり合わせる。紹介した人の進み具合を紹介した側も見られるようにしたい（中原さん）。佐藤さんとのミーティングは週1回（水曜あたり）。&lt;/p&gt;
+
+&lt;h2 style=&quot;font-size:1rem;margin-top:22px&quot;&gt;誰にどんな人を振るか&lt;/h2&gt;
+&lt;p class=&quot;msg&quot;&gt;各 CA が受けたい人と、佐藤さんへの頼み（11月20日中に佐藤さんへ渡す）&lt;/p&gt;
+&lt;div class=&quot;cards&quot;&gt;
+&lt;div class=&quot;card&quot;&gt;&lt;h3&gt;中原さん&lt;/h3&gt;&lt;dl&gt;
+&lt;dt&gt;受けたい人&lt;/dt&gt;&lt;dd&gt;年齢が上の人や、家族への責任など「何のために稼ぐか」が転職の軸になっている人&lt;/dd&gt;
+&lt;dt&gt;頼み&lt;/dt&gt;&lt;dd&gt;ヒアリングシートを出して、なるべく対面で会える場のセッティングまで&lt;/dd&gt;&lt;/dl&gt;&lt;/div&gt;
+&lt;div class=&quot;card&quot;&gt;&lt;h3&gt;齋藤さん&lt;/h3&gt;&lt;dl&gt;
+&lt;dt&gt;受けたい人&lt;/dt&gt;&lt;dd&gt;20代後半くらいで、やりたいことはあるが不安が大きい人。ロジカルに詰めたいタイプは武者野へ&lt;/dd&gt;
+&lt;dt&gt;頼み&lt;/dt&gt;&lt;dd&gt;シートに転職意欲の自由記述欄を足す。意欲が高ければ対面、低ければ先に Zoom&lt;/dd&gt;&lt;/dl&gt;&lt;/div&gt;
+&lt;div class=&quot;card&quot;&gt;&lt;h3&gt;武者野&lt;/h3&gt;&lt;dl&gt;
+&lt;dt&gt;受けたい人&lt;/dt&gt;&lt;dd&gt;誰でもよい。情報ゼロでもよい&lt;/dd&gt;
+&lt;dt&gt;頼み&lt;/dt&gt;&lt;dd&gt;LINE でのやり取りは苦手なので、着座までは全力で支えてほしい&lt;/dd&gt;&lt;/dl&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p class=&quot;note&quot;&gt;ヒアリングシートの項目：生年月日・ステータス・現職と経験社数（＋齋藤さんの自由記述欄）。振り方の目安に、スポーツや年齢などの共通点も挙がった。&lt;/p&gt;
+
+&lt;h2 style=&quot;font-size:1rem;margin-top:22px&quot;&gt;バーでの拾い方の案&lt;/h2&gt;
+&lt;div class=&quot;two&quot;&gt;
+&lt;div class=&quot;node&quot;&gt;&lt;b&gt;案1：アンケートに特典&lt;/b&gt;テーブルの QR からアンケートに答えるとドリンク1杯無料&lt;/div&gt;
+&lt;div class=&quot;node&quot;&gt;&lt;b&gt;案2：面談練習の相手&lt;/b&gt;「CA の面談練習に付き合ってくれたら 5,000円分飲める」（武者野）。チャージ無料なども&lt;/div&gt;
+&lt;/div&gt;
+&lt;p class=&quot;note&quot;&gt;比べる相手：Indeed の新規面談の獲得単価は約2万円。それより安く座ってもらえれば割に合う。経費で出せるかは中原さんが話す。着座率が低いかもしれないという心配も出ている。&lt;b&gt;求職者に特典を出すことが職業紹介の規制に当たらないかは未確認&lt;/b&gt;（経費の可否と一緒に確かめる）。&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;s6&quot; data-name=&quot;SNS&quot;&gt;
+&lt;h2&gt;SNS：まずは自分で動かせる数字＝投稿数&lt;/h2&gt;
+&lt;p class=&quot;msg&quot;&gt;1週間の動き（投稿は1日2件が必須・振り返りは金曜 17:30・今日から）&lt;/p&gt;
+&lt;div class=&quot;week&quot;&gt;
+&lt;div class=&quot;day&quot;&gt;&lt;b&gt;月&lt;/b&gt;&lt;span class=&quot;dot&quot;&gt;12:15&lt;/span&gt;&lt;span class=&quot;dot&quot;&gt;20:00&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;day&quot;&gt;&lt;b&gt;火&lt;/b&gt;&lt;span class=&quot;dot&quot;&gt;12:15&lt;/span&gt;&lt;span class=&quot;dot&quot;&gt;20:00&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;day&quot;&gt;&lt;b&gt;水&lt;/b&gt;&lt;span class=&quot;dot&quot;&gt;12:15&lt;/span&gt;&lt;span class=&quot;dot&quot;&gt;20:00&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;day&quot;&gt;&lt;b&gt;木&lt;/b&gt;&lt;span class=&quot;dot&quot;&gt;12:15&lt;/span&gt;&lt;span class=&quot;dot&quot;&gt;20:00&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;day fri&quot;&gt;&lt;b&gt;金&lt;/b&gt;&lt;span class=&quot;dot&quot;&gt;12:15&lt;/span&gt;&lt;span class=&quot;dot&quot;&gt;20:00&lt;/span&gt;&lt;span class=&quot;rev&quot;&gt;17:30 振り返り&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;day&quot;&gt;&lt;b&gt;土&lt;/b&gt;&lt;span class=&quot;dot&quot;&gt;12:15&lt;/span&gt;&lt;span class=&quot;dot&quot;&gt;20:00&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;day&quot;&gt;&lt;b&gt;日&lt;/b&gt;&lt;span class=&quot;dot&quot;&gt;12:15&lt;/span&gt;&lt;span class=&quot;dot&quot;&gt;20:00&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p class=&quot;note&quot;&gt;12:15 と 20:00 は中原さんがいま投稿している時刻（決まりは1日2件まで）。振り返りでは今週の投稿の中身と見ている人の数を確かめ、来週の方針を決める。具体的なゴールの数字も今後決める。数字の管理は武者野。&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;s7&quot; data-name=&quot;宿題&quot;&gt;
+&lt;h2&gt;宿題と未決&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;&lt;tr&gt;&lt;th&gt;やること&lt;/th&gt;&lt;th&gt;担当&lt;/th&gt;&lt;th&gt;期限&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;新規面談・推薦の目標の立て方を見直し、MK とすり合わせる&lt;/td&gt;&lt;td&gt;中原さん&lt;/td&gt;&lt;td&gt;3か月ほど&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;バーの特典を経費で出せるか・規制に当たらないかを確かめる&lt;/td&gt;&lt;td&gt;中原さん&lt;/td&gt;&lt;td&gt;期限なし&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;紹介した人の進み具合を紹介した側も見られるようにする&lt;/td&gt;&lt;td&gt;中原さん&lt;/td&gt;&lt;td&gt;期限なし&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;各 CA の受けたい人と受け方を佐藤さんへ渡す&lt;/td&gt;&lt;td&gt;武者野（おそらく）&lt;/td&gt;&lt;td&gt;11月20日（金）中&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;リファラルの設定数 10件（数える期間は未決）&lt;/td&gt;&lt;td&gt;佐藤さん&lt;/td&gt;&lt;td&gt;11月20日（金）から&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;トスアップの受け渡し方（誰に・どの情報を・どの時間帯に）を決める&lt;/td&gt;&lt;td&gt;佐藤さん・CA&lt;/td&gt;&lt;td&gt;週1のミーティングで&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;SNS の投稿 1日2件・金曜 17:30 の振り返り&lt;/td&gt;&lt;td&gt;中原さん・横尾さん・武者野&lt;/td&gt;&lt;td&gt;毎週&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p class=&quot;note&quot;&gt;未決：MK の「60%」の根拠／10月の発言の「推薦率70%」が何の率か／12月の SNS 1件をいくらと見るか／リファラルの設定数を数える期間。SNS の振り返りの時刻は文字起こしに「11時半」も出るが、話の流れでは 17:30。&lt;/p&gt;
+&lt;/section&gt;
+&lt;/main&gt;
+&lt;script&gt;
+(function(){
+  var secs=[].slice.call(document.querySelectorAll(&#x27;section[id]&#x27;));
+  var cur=document.getElementById(&#x27;cur&#x27;);
+  var links=[].slice.call(document.querySelectorAll(&#x27;#toc a&#x27;));
+  function upd(){
+    var y=window.scrollY+80, act=secs[0];
+    secs.forEach(function(s){ if(s.offsetTop&lt;=y) act=s; });
+    cur.textContent=act.getAttribute(&#x27;data-name&#x27;);
+    links.forEach(function(a){ a.classList.toggle(&#x27;on&#x27;, a.getAttribute(&#x27;href&#x27;)===&#x27;#&#x27;+act.id); });
+  }
+  window.addEventListener(&#x27;scroll&#x27;,upd,{passive:true}); upd();
+})();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+</section>
 </main>
 <script>
-(function(){var cur=document.getElementById('cur');var hs=[].slice.call(document.querySelectorAll('h2[data-t]'));
-function upd(){var t=hs[0].dataset.t;for(var i=0;i<hs.length;i++){if(hs[i].getBoundingClientRect().top<70)t=hs[i].dataset.t;}cur.textContent=t;}
-window.addEventListener('scroll',upd,{passive:true});upd();})();
+(function(){var cur=document.getElementById('cur');function vis(){return [].slice.call(document.querySelectorAll('.tab:not([hidden]) h2[data-t]'));}
+function upd(){var hs=vis();if(!hs.length)return;var t=hs[0].dataset.t;for(var i=0;i<hs.length;i++){if(hs[i].getBoundingClientRect().top<70)t=hs[i].dataset.t;}cur.textContent=t;}
+window.addEventListener('scroll',upd,{passive:true});upd();
+[].slice.call(document.querySelectorAll('.tabs button')).forEach(function(b){b.addEventListener('click',function(){[].slice.call(document.querySelectorAll('.tabs button')).forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false');document.getElementById(x.dataset.tab).hidden=(x!==b);});try{history.replaceState(null,'','#'+b.dataset.tab);}catch(e){}window.scrollTo(0,0);upd();});});
+var fr=document.getElementById('mtgframe');function fit(){try{var d=fr.contentDocument;if(d&&d.documentElement){fr.style.height=(d.documentElement.scrollHeight+20)+'px';}}catch(e){}}fr.addEventListener('load',fit);document.querySelector('[data-tab=tab-mtg]').addEventListener('click',function(){setTimeout(fit,50);});window.addEventListener('resize',function(){setTimeout(fit,100);});
+if(location.hash==='#tab-mtg'){document.querySelector('[data-tab=tab-mtg]').click();}})();
 </script>
 </body>
 </html>
