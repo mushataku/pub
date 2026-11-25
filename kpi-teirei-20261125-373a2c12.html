@@ -31,7 +31,8 @@ thead th{font-size:.8rem;color:var(--sub);font-weight:600}
 tr.total td{font-weight:700;border-top:2px solid var(--fg)}
 .good{color:var(--good);font-weight:700}.warn{color:var(--warn);font-weight:700}
 ul.note{font-size:.85rem;color:var(--sub);padding-left:1.2em;margin:8px 0}
-.tabs{display:flex;gap:4px;margin:16px 0 0;border-bottom:2px solid var(--fg)}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;margin:16px 0 0;border-bottom:2px solid var(--fg)}
+#tab-today th,#tab-today td{white-space:normal;text-align:left;vertical-align:top}
 .tabs button{font:inherit;font-size:.95rem;padding:8px 14px;border:1px solid var(--line);border-bottom:none;background:var(--bg);color:var(--sub);border-radius:8px 8px 0 0;cursor:pointer}
 .tabs button[aria-selected="true"]{background:var(--fg);color:var(--bg);font-weight:700;border-color:var(--fg)}
 .tab[hidden]{display:none}
@@ -46,7 +47,7 @@ table.md td:first-child{position:static}
 <div class="band"><b>人材定例 KPI</b><span>2026年11月25日（水）13:10 時点</span><span id="cur">KPI</span></div>
 <main>
 <h1>人材定例 2026年11月25日（水）</h1>
-<div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="tab-kpi">今日のKPI・広告費の検討</button><button role="tab" aria-selected="false" data-tab="tab-mtg">前回MTG（11/20 月例会）</button><button role="tab" aria-selected="false" data-tab="tab-bar">バー紹介クーポン（相談）</button><button role="tab" aria-selected="false" data-tab="tab-staff">バー スタッフ用の説明</button></div>
+<div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="tab-kpi">今日のKPI・広告費の検討</button><button role="tab" aria-selected="false" data-tab="tab-today">今日のMTGで決まったこと（11/25）</button><button role="tab" aria-selected="false" data-tab="tab-mtg">前回MTG（11/20 月例会）</button><button role="tab" aria-selected="false" data-tab="tab-bar">バー紹介クーポン（相談）</button><button role="tab" aria-selected="false" data-tab="tab-staff">バー スタッフ用の説明</button></div>
 <section class="tab" id="tab-kpi">
 <h2 style="border-top:none;margin-top:16px" data-t="KPI">11月度・12月度の歩留まりと着座率</h2>
 <p class="lead">人材事業部（CA 6人）。数字は MK の歩留まり管理シートに各自が入力した分と、Slack の応募リスト（有効応募）から数えた値です。今日の入力が増えると変わります。</p>
@@ -223,22 +224,61 @@ table.md td:first-child{position:static}
 <li>リスク: 応募の数は広告費にきれいに比例するとは限らない。広告を減らすと、応募の質や面談の日程の埋まり方も変わりうる。</li>
 </ul>
 
-<h2 id="s7" data-t="§7 定例で決まったこと">7. 11月25日（水）人材定例で決まったこと（録画の文字起こしから）</h2>
-<p class="cap">15:08〜（Zoom 100分）。出席: 宇宙さん・中原さん・齋藤さん・武者野。発言は文字起こしから拾ったもので、聞き取りの崩れがある。</p>
-<ul class="note" style="color:var(--fg)">
-<li><b>12月度の目標は 600万</b>。内訳は Indeed 450万（CA 3人 × 150万）・リファラル 100万・SNS／35歳以上 50万（§6 の前提どおり）。Indeed 以外はプラスオンで数える。</li>
-<li><b>Indeed の広告費は絞る</b>。中原さんの案は「50万で始め、追加 10万を考えておく」。§6 の 約60万 と同じ大きさで、§6 の 12月10日（水）の確認を追加 10万 を足すかの分かれ目にする。</li>
-<li><b>リファラル（バー）に 1回 6万円前後を出すのはあり</b>。新規面談の着座1件が 約2万円 で取れるなら Indeed と同じ効率、という見方で合意。先にバーとの付き合い（月に1回は顔を出す・二次会に使うなど）を作ってから頼む。宇宙さんに協力をお願いする。</li>
-<li><b>小野さん</b>は、有効応募にならなかった応募（35歳超など MK が切る層）に電話し、タクシーなど年齢の幅が広い先へつなぐ。新規面談 20件を目安に、まず1件決める。</li>
-<li><b>武者野</b>は、自前の Indeed 広告（MK のスキームと別の求人）を試す。12月1日（月）に始められるかを詰める。</li>
-<li>事業の見通し（中原さん）: 月の損益分岐は 約228万。売上 600万 の形を作れれば来年4月、500万 なら来年7月に黒字に転じる。</li>
-<li>11月度の着地見込み: 低くて 約425万・最大 約657万（定例の時点の CA の見立て）。</li>
-</ul>
+<p class="cap" style="margin-top:12px">今日の定例でこの検討をどう決めたかは「今日のMTGで決まったこと（11/25）」タブ。</p>
 
 <ul class="note" style="margin-top:28px">
 <li>出どころ: 【Gooner様】歩留まり管理シート（各 CA の daily_ タブ）・Slack 応募リスト4本。期間の決め方は KPI 集計期間の表どおり。</li>
 <li>武者野の分は面談記録とシートを突き合わせ済み（入力漏れ 0件）。他の CA は入力どおり。</li>
 </ul>
+</section>
+<section class="tab" id="tab-today" hidden>
+<h2 data-t="今日のMTG（11/25 人材定例）" style="border-top:none;margin-top:16px">11月25日（水）人材定例で決まったこと</h2>
+<p class="cap">15:08〜（Zoom 録画 100分・中原さんの部屋）。出席: 宇宙さん・中原さん・齋藤さん・武者野。中身は録画の文字起こしから拾った（話者の記録が崩れているため、誰の発言かは内容から決めた。数字は発言ベースで検算していない）。</p>
+
+<h2 data-t="決まったこと">1. 決まったこと</h2>
+<div class="tiles">
+  <div class="tile"><div class="k">12月度の売上目標</div><div class="v">600万</div><div class="s">Indeed 以外はプラスオンで数える</div></div>
+  <div class="tile"><div class="k">① Indeed（CA 3人 × 150万）</div><div class="v">450万</div><div class="s">従来どおりの MK の広告経由</div></div>
+  <div class="tile"><div class="k">② リファラル</div><div class="v">100万</div><div class="s">バー経由が中心</div></div>
+  <div class="tile"><div class="k">③ SNS・35歳以上</div><div class="v">50万</div><div class="s">承諾 1件の見込み</div></div>
+</div>
+<ul class="note" style="color:var(--fg)">
+<li><b>Indeed の広告費は絞る</b>。中原さんの案は「50万で始めて、追加 10万を考えておく」。KPI タブ §6 の 約60万 と同じ大きさ。12月10日（水）に着座率 45%・推薦率 40% を見て、届いていなければ追加 10万を MK に頼む。</li>
+<li><b>バー経由のリファラルに 6万円前後を出すのはあり</b>。新規面談の着座1件が 約2万円 で取れるなら Indeed と同じ効率、という見方。ただし先にバーとの付き合いを作る（事業部で月に1回は顔を出す・二次会に使う・知り合いを紹介する）。頼むのはそのあと。</li>
+<li><b>MK のスキーム（IT 中心の大手へ流す）だけで 600万 は見込みにくい</b>。MK と同じ土俵で戦わず、バー・リファラル・35歳以上の層という、うちにしか無いものを使う。</li>
+<li>キャッシュの面では大きな新しい挑戦をする時期ではない＝ Indeed の 450万 は固く取りにいき、新しい手は小さく試す。</li>
+</ul>
+
+<h2 data-t="誰が何を">2. 誰が何をするか</h2>
+<table>
+<thead><tr><th>担当</th><th>やること</th><th>期限・目安</th></tr></thead>
+<tbody>
+<tr><td>CA 3人（中原さん・齋藤さん・武者野）</td><td>Indeed 経由で 1人 150万。リファラル・SNS から来た人も新規面談からクロージングまで持つ</td><td>12月度</td></tr>
+<tr><td>小野さん</td><td>有効応募にならなかった応募（35歳超など MK が切る層）に電話し、タクシー・清掃・工場など年齢の幅が広い先へつなぐ。新規面談 20件を目安に、まず1件決める</td><td>12月度</td></tr>
+<tr><td>中原さん</td><td>小野さんの目標設定と伴走。バーのメンバーとの橋渡し</td><td>継続</td></tr>
+<tr><td>武者野</td><td>MK とは別の求人で自前の Indeed 広告を試す（オンラインでできる仕事など、応募単価が安い職種）。SNS の数字の管理</td><td>12月1日（月）に始められるかを詰める</td></tr>
+<tr><td>宇宙さん</td><td>バーとの付き合いづくりに協力</td><td>—</td></tr>
+<tr><td>佐藤さん（前回の月例会から）</td><td>リファラルの設定数 10件。返事が遅れている分は CA 側が巻き取る</td><td>継続</td></tr>
+</tbody>
+</table>
+
+<h2 data-t="見通し">3. 事業の見通し（中原さんの共有）</h2>
+<ul class="note" style="color:var(--fg)">
+<li>月の損益分岐は 約228万（支払いベース）。</li>
+<li>月の売上 600万 の形ができれば来年4月、500万 なら来年7月に、事業として黒字に転じる（売上ベース。入金は約2か月遅れ・売上の約8割）。</li>
+<li>600万 が当たり前になり黒字が見えた時点で、人を増やす話ができる。</li>
+<li>11月度の着地見込み: 低くて 約425万・最大 約657万（定例の時点の CA の見立て）。</li>
+</ul>
+
+<h2 data-t="未決">4. まだ決まっていないこと</h2>
+<table>
+<thead><tr><th>問い</th><th>状態</th></tr></thead>
+<tbody>
+<tr><td>月の途中で MK に広告費を足してもらえるか</td><td>未確認（追加 10万の前提）</td></tr>
+<tr><td>バーへの 6万円前後をどの形で出すか（1回の会・クーポンなど）</td><td>案の段階。「バー紹介クーポン（相談）」タブが案</td></tr>
+<tr><td>自前の Indeed 広告の求人・予算・開始日</td><td>12月1日（月）開始を目指して詰める</td></tr>
+</tbody>
+</table>
 </section>
 <section class="tab" id="tab-mtg" hidden>
 <h2 data-t="前回MTG（11/20 月例会）" style="border-top:none;margin-top:16px">前回MTG（11月20日（金）月例会）の図解</h2>
@@ -558,7 +598,7 @@ window.addEventListener('scroll',upd,{passive:true});upd();
 var fr=document.getElementById('mtgframe');function fit(){try{var d=fr.contentDocument;if(d&&d.documentElement){fr.style.height=(d.documentElement.scrollHeight+20)+'px';}}catch(e){}}fr.addEventListener('load',fit);document.querySelector('[data-tab=tab-mtg]').addEventListener('click',function(){setTimeout(fit,50);});window.addEventListener('resize',function(){setTimeout(fit,100);});
 var bf=document.getElementById('barframe');function fitb(){try{var d=bf.contentDocument;if(d&&d.documentElement){bf.style.height=(d.documentElement.scrollHeight+20)+'px';}}catch(e){}}bf.addEventListener('load',fitb);document.querySelector('[data-tab=tab-bar]').addEventListener('click',function(){setTimeout(fitb,50);});window.addEventListener('resize',function(){setTimeout(fitb,100);});
 var sf=document.getElementById('staffframe');function fits(){try{var d=sf.contentDocument;if(d&&d.documentElement){sf.style.height=(d.documentElement.scrollHeight+20)+'px';}}catch(e){}}sf.addEventListener('load',fits);document.querySelector('[data-tab=tab-staff]').addEventListener('click',function(){setTimeout(fits,50);});window.addEventListener('resize',function(){setTimeout(fits,100);});
-if(location.hash==='#tab-mtg'){document.querySelector('[data-tab=tab-mtg]').click();}if(location.hash==='#tab-bar'){document.querySelector('[data-tab=tab-bar]').click();}if(location.hash==='#tab-staff'){document.querySelector('[data-tab=tab-staff]').click();}})();
+if(location.hash==='#tab-today'){document.querySelector('[data-tab=tab-today]').click();}if(location.hash==='#tab-mtg'){document.querySelector('[data-tab=tab-mtg]').click();}if(location.hash==='#tab-bar'){document.querySelector('[data-tab=tab-bar]').click();}if(location.hash==='#tab-staff'){document.querySelector('[data-tab=tab-staff]').click();}})();
 </script>
 </body>
 </html>
