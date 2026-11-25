@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>「話を聞く」1時間の型（バー紹介のお客様専用）</title>
+<style>
+:root{
+  --bg:#fbfaf7; --surface:#ffffff; --sunk:#f1eee6; --text:#1d1d1b; --muted:#4a4a46; --line:#d6d2c6;
+  --accent:#b23c0f; --accent-bg:#fff1e8; --on-accent:#ffffff;
+  --ok:#14532d; --ok-bg:#e8f5ec; --ng:#8a1c1c; --ng-bg:#fdecec; --gold:#7a4f00; --gold-bg:#fff6dc;
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:44px;
+  --font:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Meiryo","Noto Sans JP",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161513; --surface:#22211e; --sunk:#2c2a26; --text:#f2f0ea; --muted:#d0cdc4; --line:#45423c;
+    --accent:#ff9b6b; --accent-bg:#3a2418; --on-accent:#1d1208;
+    --ok:#a7e3b9; --ok-bg:#16291c; --ng:#f7b2b2; --ng-bg:#361a1a; --gold:#ffd27a; --gold-bg:#3a2e12;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.8;letter-spacing:0.01em}
+.band{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);padding:var(--s2) var(--s3);font-size:14px;line-height:1.5;color:var(--muted)}
+.band b{color:var(--text)}
+main{max-width:52em;margin:0 auto;padding:var(--s4) var(--s3) var(--s5)}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere;line-height:1.45;letter-spacing:0}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
+h1{font-size:1.6rem;margin:0 0 var(--s3)}
+h2{font-size:1.3rem;margin:var(--s5) 0 var(--s3);padding-top:var(--s3);border-top:2px solid var(--line)}
+h2 .no{display:inline-block;min-width:1.8em;height:1.8em;line-height:1.8em;text-align:center;border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:0.85em;margin-right:0.4em}
+p,li{max-width:40em}
+p{margin:0 0 var(--s3)}
+ul,ol{padding-left:1.4em;margin:0 0 var(--s3)}
+li{margin:0 0 var(--s1)}
+code{font-family:ui-monospace,Consolas,monospace;font-size:0.95em;overflow-wrap:anywhere}
+.lead{background:var(--accent-bg);border-left:5px solid var(--accent);border-radius:6px;padding:var(--s3);margin:0 0 var(--s3)}
+.lead p:last-child{margin:0}
+.meta{font-size:16px;color:var(--muted)}
+.say{background:var(--sunk);border-radius:14px 14px 14px 4px;padding:var(--s3);margin:0 0 var(--s3)}
+.say p{margin:0}
+.tablewrap{overflow-x:auto;margin:0 0 var(--s3);border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:32em}
+th,td{padding:var(--s2) var(--s3);border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:16px;line-height:1.6}
+thead th{background:var(--sunk)}
+tbody th{font-weight:700;white-space:normal}
+tr:last-child th,tr:last-child td{border-bottom:0}
+.verdict{display:grid;grid-template-columns:1fr;gap:var(--s2);margin:0 0 var(--s3)}
+@media (min-width:640px){.verdict{grid-template-columns:repeat(3,1fr)}}
+.verdict div{border-radius:10px;padding:var(--s3);border:1px solid var(--line);background:var(--surface)}
+.verdict .go{background:var(--ok-bg);border-color:var(--ok)}
+.verdict b{display:block}
+.ng{background:var(--ng-bg);border-left:5px solid var(--ng);border-radius:6px;padding:var(--s3);margin:0 0 var(--s3)}
+.ng ul{margin:0}
+@media print{.band{position:static}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="band" data-chrome><b>「話を聞く」1時間の型</b> <span id="cur"></span></div>
+<main>
+<h1>「話を聞く」1時間の型<wbr>（バー紹介のお客様専用）</h1>
+<p class="meta">CA 向け。Gooner Bar のスタッフの紹介で、卓上POP・カードの QR から予約してきたお客様と話すときの型です。通常の新規面談の型（アポ後処理プレイブック §6.2「面談設計＝逆算スキーム」）との違いだけを書いています。</p>
+
+<h2 id="ondo"><span class="no">1</span>温度感（いちばん大事）</h2>
+<div class="lead"><p><b>「がっつり面談」ではなく「話を聞いてきてもらう」場。</b>お客様はバーで声をかけられて、軽い気持ちで来ている。仕事を探しに来た人ではない。1時間ほどで終わらせ、来てよかったと思って帰ってもらうのがゴール。本気の人だけ、通常の新規面談へつなぐ。</p></div>
+
+<h2 id="chigai"><span class="no">2</span>通常の新規面談との違い</h2>
+<div class="tablewrap" role="region" aria-labelledby="chigai" tabindex="0">
+<table>
+<thead><tr><th scope="col"></th><th scope="col">通常の新規面談（§6.2）</th><th scope="col">バー紹介の1時間</th></tr></thead>
+<tbody>
+<tr><th scope="row">入口</th><td>求人への応募</td><td>バーのスタッフの声かけ → QR で予約</td></tr>
+<tr><th scope="row">事前の素材</th><td>履歴書・応募求人・架電の主観</td><td><b>ほぼ無い</b>（予約の呼び名・紹介したスタッフ・Zoom か対面か だけ）</td></tr>
+<tr><th scope="row">事前の設計</th><td>出せる企業を確定して面談を逆算する</td><td><b>しない</b>。聞く順だけ決めて臨む</td></tr>
+<tr><th scope="row">時間</th><td>面談の枠いっぱい</td><td><b>1時間ほどで終える</b>（延ばすのは本気の人が自分から望んだときだけ）</td></tr>
+<tr><th scope="row">目的</th><td>関係づくり＋推薦の材料を取る</td><td>話を聞く。本気かどうかを見分ける</td></tr>
+<tr><th scope="row">求人の話</th><td>する</td><td><b>こちらからは出さない</b>（聞かれたら一般論まで）</td></tr>
+<tr><th scope="row">終わり方</th><td>次の工程へ進む</td><td>本気なら新規面談の日程／そうでなければ気持ちよく帰す</td></tr>
+<tr><th scope="row">クーポン</th><td>なし</td><td>話を聞いたら全員に。本気かどうかで変えない</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="jikan"><span class="no">3</span>時間の割り方（1時間）</h2>
+<div class="tablewrap" role="region" aria-labelledby="jikan" tabindex="0">
+<table>
+<thead><tr><th scope="col">時間</th><th scope="col">やること</th></tr></thead>
+<tbody>
+<tr><th scope="row">0〜5分</th><td>最初に言うこと（下）。場の目的とクーポンの位置づけを先に言い切る</td></tr>
+<tr><th scope="row">5〜45分</th><td>聞く（今の仕事 → 引っかかっていること → やってみたいこと）。こちらが話すのは2割まで</td></tr>
+<tr><th scope="row">45〜55分</th><td>本気度を見分ける問いを1〜2個</td></tr>
+<tr><th scope="row">55〜60分</th><td>締め（本気なら次の日程／そうでなければお礼で帰す）</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="saisho"><span class="no">4</span>0〜5分: 最初に言うこと</h2>
+<div class="say"><p>「今日は来てくださってありがとうございます。最初にお伝えしておくと、今日は<b>転職を勧める場ではありません</b>。今のお仕事の話を、1時間ほど気楽に聞かせてもらえたらうれしいです。クーポンは、<b>お時間をいただいたお礼</b>なので、今日話して終わりでも、もちろんお渡しします。」</p></div>
+<ul>
+<li>「お礼」であって「何かの見返り」ではないことを、この5分で必ず言う（言い忘れると、お客様は「何か申し込まされるのでは」と身構えたまま30分を過ごす）</li>
+<li>紹介してくれたスタッフの名前を出すと場がほぐれる（「○○さんからご紹介いただいたんですよね」）</li>
+</ul>
+
+<h2 id="kiku"><span class="no">5</span>5〜45分: 聞く順</h2>
+<ol>
+<li><b>今の仕事</b>: 「今はどんなお仕事をされてるんですか」「1日の流れってどんな感じですか」「どのくらい続けてますか」</li>
+<li><b>引っかかっていること</b>: 「今のお仕事で、ここはちょっとなあ、ってところありますか」「逆に、ここは気に入ってる、ってところは」（良いところも必ず聞く＝不満だけを掘ると愚痴の場になる）</li>
+<li><b>やってみたいこと</b>: 「もし何でもできるとしたら、どんな働き方がいいですか」「昔ちょっと興味があったことってありますか」</li>
+</ol>
+<p>聞き方の決まり:</p>
+<ul>
+<li>こちらが話すのは2割まで。相づちと「それってどういうことですか」で深める</li>
+<li>求人・会社の名前をこちらから出さない。聞かれたら「そういう方向なら、こういう仕事の選び方がありますよ」と一般論まで</li>
+<li>メモは取ってよい（「あとで振り返りたいので、メモさせてもらってもいいですか」と一言断る）</li>
+</ul>
+
+<h2 id="honki"><span class="no">6</span>45〜55分: 本気度の見分け方</h2>
+<p>次の5つのうち、<b>お客様が自分から</b>言ったものを数える（こちらが誘導して言わせたものは数えない）。</p>
+<div class="tablewrap" role="region" aria-labelledby="honki" tabindex="0">
+<table>
+<thead><tr><th scope="col">#</th><th scope="col">本気のしるし</th><th scope="col">例</th></tr></thead>
+<tbody>
+<tr><th scope="row">1</th><td>時期を具体で言う</td><td>「来年の春までには」「今の契約が切れる3月に」</td></tr>
+<tr><th scope="row">2</th><td>条件を具体で言う</td><td>年収の額・勤務地・休みの形を数字や地名で</td></tr>
+<tr><th scope="row">3</th><td>もう動いている</td><td>求人を見ている・資格の勉強を始めた・上司に話した</td></tr>
+<tr><th scope="row">4</th><td>周りに話している</td><td>家族・パートナーに相談している（決めるときに誰に相談するか）</td></tr>
+<tr><th scope="row">5</th><td>「どうしたらいいですか」と自分から聞く</td><td>次の一歩を自分で求めてくる</td></tr>
+</tbody>
+</table>
+</div>
+<div class="verdict">
+<div class="go"><b>3つ以上 → 本気</b>通常の新規面談へつなぐ（下）</div>
+<div><b>1〜2つ → 様子見</b>今日は帰し、「また話したくなったら LINE ください」で扉だけ開けておく</div>
+<div><b>0 → 今は無い</b>気持ちよく帰す</div>
+</div>
+<p>見分けに使う問い（1〜2個だけ・尋問にしない）:</p>
+<ul>
+<li>「もし動くとしたら、いつごろのイメージですか」</li>
+<li>「こういうことを決めるとき、誰かに相談されますか」（本気の人ほど、最後に決める人・相談する人が具体で出てくる）</li>
+</ul>
+
+<h2 id="tsunagu"><span class="no">7</span>本気の人を通常の新規面談へつなぐ言い方</h2>
+<div class="say"><p>「今日のお話を聞いていて、○○さんは本気で次を考えてらっしゃるんだなと感じました。よければ、次は今日のお話をもとに、○○さんに合う働き方を具体的に一緒に探す回にしませんか。」</p></div>
+<ul>
+<li>その場で次の日程を決める（「今週と来週だと、どこが空いてますか」）。持ち帰らせると温度が下がる</li>
+<li>次の回は<b>通常の新規面談</b>として扱う＝アポ後処理プレイブック §6.2 の逆算スキームで準備する（このときから履歴書などの素材を集める）</li>
+<li>今日のクーポンはこれとは関係なく渡す（「今日のお礼のクーポンは、このあと LINE でお送りしますね」）。次の面談に進むことを、クーポンと結びつけて言わない</li>
+</ul>
+
+<h2 id="kaesu"><span class="no">8</span>本気でない人を気持ちよく帰す締め方</h2>
+<div class="say"><p>「今日は1時間ありがとうございました。話してみて、今のお仕事の良いところも見えたなら、それもすごく大事なことだと思います。お礼のクーポンは、このあと LINE でお送りしますので、ぜひ Gooner Bar で使ってください。また何か考えたくなったら、いつでも気軽に LINE くださいね。」</p></div>
+<ul>
+<li>「せっかくなので」と求人を出さない。押すと、バーのスタッフの信頼まで傷つく（紹介した人の顔をつぶさない）</li>
+<li>1時間を過ぎて引き止めない</li>
+</ul>
+
+<h2 id="iwanai"><span class="no">9</span>言わないこと</h2>
+<div class="ng"><ul>
+<li>クーポンを、仕事を決めること・どこかに申し込むこと・選考の結果と結びつける言い方（「〜まで進んだら」「〜したらもう1枚」など）。クーポンは<b>話を聞いたことへのお礼</b>だけ</li>
+<li>「今日中に決めてください」など、急がせる言い方</li>
+<li>「現金に換えられます」「ほかのお店でも」など、クーポンの決まりから外れる案内。決まりは、Gooner Bar 店内のご飲食だけ・1人1回まで・現金にしない・発行から90日間有効</li>
+</ul></div>
+
+<h2 id="owari"><span class="no">10</span>終わったら</h2>
+<ul>
+<li>本気度を1語で残す: <b>本気／様子見／今は無い</b>（＋本気のしるしの番号）</li>
+<li>本気なら、次の新規面談の日程をカレンダーに入れる（通常の手順＝アポ後処理プレイブック §3）</li>
+<li>クーポンを渡す手順は仕組みの側（SPEC「バー紹介クーポン」節）に従う</li>
+</ul>
+</main>
+<script>
+(function(){
+  var cur = document.getElementById('cur');
+  var hs = Array.prototype.slice.call(document.querySelectorAll('main h2'));
+  function upd(){
+    var t = '';
+    for (var i = 0; i < hs.length; i++){ if (hs[i].getBoundingClientRect().top < 80) t = hs[i].textContent; }
+    cur.textContent = t ? '｜' + t : '';
+  }
+  window.addEventListener('scroll', upd, {passive:true}); upd();
+})();
+</script>
+</body>
+</html>
