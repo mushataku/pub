@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>労働局への確認電話メモ（バー紹介クーポン）</title>
+<style>
+:root{
+  --bg:#fbfaf7; --surface:#ffffff; --sunk:#f1eee6; --text:#1d1d1b; --muted:#4a4a46; --line:#d6d2c6;
+  --accent:#b23c0f; --accent-bg:#fff1e8; --on-accent:#ffffff;
+  --ok:#14532d; --ok-bg:#e8f5ec; --ng:#8a1c1c; --ng-bg:#fdecec; --gold:#7a4f00; --gold-bg:#fff6dc;
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:44px;
+  --font:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Meiryo","Noto Sans JP",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161513; --surface:#22211e; --sunk:#2c2a26; --text:#f2f0ea; --muted:#d0cdc4; --line:#45423c;
+    --accent:#ff9b6b; --accent-bg:#3a2418; --on-accent:#1d1208;
+    --ok:#a7e3b9; --ok-bg:#16291c; --ng:#f7b2b2; --ng-bg:#361a1a; --gold:#ffd27a; --gold-bg:#3a2e12;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.8;letter-spacing:0.01em}
+.band{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);padding:var(--s2) var(--s3);font-size:14px;line-height:1.5;color:var(--muted)}
+.band b{color:var(--text)}
+main{max-width:52em;margin:0 auto;padding:var(--s4) var(--s3) var(--s5)}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere;line-height:1.45;letter-spacing:0}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
+h1{font-size:1.6rem;margin:0 0 var(--s3)}
+h2{font-size:1.3rem;margin:var(--s5) 0 var(--s3);padding-top:var(--s3);border-top:2px solid var(--line)}
+h2 .no{display:inline-block;min-width:1.8em;height:1.8em;line-height:1.8em;text-align:center;border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:0.85em;margin-right:0.4em}
+h3{font-size:1.05rem;margin:0 0 var(--s2)}
+p,li,dd{max-width:40em}
+p{margin:0 0 var(--s3)}
+ul,ol{padding-left:1.4em;margin:0 0 var(--s3)}
+a{color:var(--accent);overflow-wrap:anywhere}
+.call{background:var(--accent-bg);border:2px solid var(--accent);border-radius:10px;padding:var(--s3);margin:0 0 var(--s3)}
+.call .tel{font-size:1.5rem;font-weight:800;letter-spacing:0.02em;margin:0}
+.call .tel a{color:var(--text);text-decoration:none}
+.call p{margin:0 0 var(--s2)}
+.src{font-size:16px;line-height:1.6;color:var(--muted);margin:0 0 var(--s3)}
+.src a{color:var(--muted)}
+blockquote{margin:0 0 var(--s2);padding:var(--s3);background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--muted);border-radius:6px}
+blockquote p{margin:0}
+.tablewrap{overflow-x:auto;margin:0 0 var(--s3);border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:30em}
+th,td{padding:var(--s2) var(--s3);border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:16px;line-height:1.6}
+th{background:var(--sunk);width:9em;font-weight:700}
+tr:last-child th,tr:last-child td{border-bottom:0}
+.say{background:var(--sunk);border-radius:14px 14px 14px 4px;padding:var(--s2) var(--s3);margin:0 0 var(--s3)}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:var(--s3);margin:0 0 var(--s3)}
+.q h3::before{content:attr(data-n) " ";color:var(--accent)}
+.q .why{font-size:16px;color:var(--muted);margin:0 0 var(--s2)}
+.choices{display:flex;flex-wrap:wrap;gap:var(--s2);margin:0 0 var(--s2);border:0;padding:0}
+.choices legend{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.choices label{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;background:var(--bg);font-size:16px}
+.choices input{width:18px;height:18px;margin:0;accent-color:var(--accent)}
+.choices label:has(input:checked){border-color:var(--accent);background:var(--accent-bg);font-weight:700}
+textarea,input[type=text]{width:100%;font:inherit;font-size:16px;line-height:1.6;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:var(--s2)}
+textarea{min-height:4.8em;resize:vertical}
+textarea:focus-visible,input[type=text]:focus-visible,button:focus-visible,.choices input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.field{margin:0 0 var(--s3)}
+.field label{display:block;font-weight:700;margin:0 0 var(--s1)}
+.tools{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:center;margin:0 0 var(--s3)}
+.tools button{font:inherit;font-size:16px;font-weight:700;padding:10px 18px;border-radius:8px;cursor:pointer;border:2px solid var(--accent)}
+.tools .primary{background:var(--accent);color:var(--on-accent)}
+.tools .ghost{background:transparent;color:var(--text);border-color:var(--line)}
+.status{font-size:14px;color:var(--muted)}
+.after{background:var(--gold-bg);border-left:5px solid var(--gold);border-radius:6px;padding:var(--s3);margin:0 0 var(--s3)}
+.after p:last-child,.after ul:last-child{margin-bottom:0}
+@media print{
+  .band,.tools{display:none !important}
+  body{background:#fff}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="band" data-chrome><b>労働局への確認電話メモ</b> <span id="cur"></span></div>
+<main>
+<h1>労働局への確認電話メモ<wbr>（バー紹介クーポン）</h1>
+<p>電話しながら上から順に見る1枚です。答えは各問いの欄に書き込むと、このブラウザに自動で残ります（いちばん下の「答えをまとめてコピー」で文字にして貼れます）。</p>
+
+<h2 id="tel"><span class="no">0</span>電話先</h2>
+<div class="call">
+<p><b>東京労働局 需給調整事業部 需給調整事業第二課</b>（職業紹介事業の事業運営・制度・運用の相談）</p>
+<p class="tel"><a href="tel:0334521474">03-3452-1474</a></p>
+<p>受付: 平日 8時30分〜17時15分（土日祝・12月29日〜1月3日は休み）</p>
+</div>
+<p>許可・届出の手続きの話になったら、<b>需給調整事業第一課</b>（有料・無料職業紹介事業の許可、更新、各種変更届出）<a href="tel:0334521472">03-3452-1472</a> に回されます。所在地: 〒108-8432 東京都港区海岸3-9-45（東京労働局 海岸庁舎）。</p>
+<p class="src">出典: <a href="https://jsite.mhlw.go.jp/tokyo-roudoukyoku/riyousha_mokuteki_menu/mokuteki_naiyou/haken_part/madoguchi003/002.html">東京労働局「相談窓口のご案内（需給調整事業部）」</a>（第一課・第二課の受け持ち・所在地・受付時間）／<a href="https://jsite.mhlw.go.jp/tokyo-roudoukyoku/madoguchi_annai/gosoudan_naiyou_madoguchi.html">東京労働局「ご相談の内容から窓口をさがす」</a>（03-3452-1472・03-3452-1474）／<a href="https://jsite.mhlw.go.jp/tokyo-roudoukyoku/roudoukyoku/roudoukyoku/organization_x.html">東京労働局「組織・所在地・部署一覧」</a>（業務取扱時間・休み）。2026年11月25日に3ページとも開いて番号が一致することを確かめた。</p>
+
+<h3>最初に言うこと</h3>
+<p class="say">「Gooner 人材事業部の武者野と申します。職業紹介事業の運営について、お祝い金の扱いに当たるかを確認したくお電話しました。いまから始めようとしている来店クーポンの仕組みを1分ほどご説明して、いくつか、はい・いいえでお答えいただける形でお聞きしてもよろしいでしょうか。」</p>
+<p>手元に置くもの: 事業者名と許可番号（聞かれたら答える）・このメモ・卓上POP の画面。</p>
+
+<h2 id="shikumi"><span class="no">1</span>仕組み（1分で話す）</h2>
+<p>Gooner Bar（東新宿のバー）のスタッフが、お客様に「仕事のこと、1時間ほど話を聞いてみませんか」と声をかけ、店内の卓上POP・カードの QR から日時を予約してもらいます。話を聞く相手は Gooner 人材事業部のキャリア担当で、Zoom か東新宿のオフィスで30分です。話を聞いてくれた方に、<b>Gooner Bar の店内のご飲食にだけ使える3,000円のクーポン</b>を、お一人様1回お渡しします（発行から90日間有効・現金やギフト券には換えない）。仕事を決めるかどうか、どこかに申し込むかどうかは条件にしません。クーポンの費用は人材事業部が持ち、使われた分を月末に、紹介したスタッフ別にバーと精算します。</p>
+
+<h2 id="joubun"><span class="no">2</span>根拠の条文（原文）</h2>
+<h3>職業安定法に基づく指針 第6の9(3)</h3>
+<blockquote><p>「求職の申込みの勧奨については、求職者が希望する地域においてその能力に適合する職業に就くことができるよう、職業紹介事業の質を向上させ、これを訴求することによって行うべきものであり、職業紹介事業者が求職者に金銭等を提供することによって行うことは好ましくなく、お祝い金その他これに類する名目で社会通念上相当と認められる程度を超えて金銭等を提供することによって行ってはならないこと。」</p></blockquote>
+<p class="src">出典: 「職業紹介事業者、求人者、労働者の募集を行う者、募集受託者、募集情報等提供事業を行う者、労働者供給事業者、労働者供給を受けようとする者等がその責務等に関して適切に対処するための指針（平成11年労働省告示第141号）」第6の9(3)＝<a href="https://jsite.mhlw.go.jp/tokyo-roudoukyoku/content/contents/0000180307.pdf">東京労働局 掲載の指針 PDF</a>。同じ文が厚生労働省「職業紹介事業の業務運営要領」第9 職業紹介事業の運営 5(8)ハ（119ページ）にもある＝<a href="https://www.mhlw.go.jp/content/11600000/001681217.pdf">要領 第9 の PDF</a>（<a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000172486.html">令和8年10月1日から適用される版の一覧ページ</a>）。</p>
+
+<h3>許可の条件（業務運営要領 第3 許可基準）</h3>
+<blockquote><p>「チ 転職及び求職の勧奨関係 ……(ﾛ) 求職の申込みの勧奨については、お祝い金その他これに類する名目で社会通念上相当と認められる程度を超えて求職者に金銭等を提供することによって行ってはならないこと。（理由）早期の転職勧奨やお祝い金等による求職の申込みの勧奨は、労働者の行動選択に影響を与え、これにより適正な労働力需給調整機能の発揮に支障が生じるため。」</p></blockquote>
+<p class="src">出典: <a href="https://www.mhlw.go.jp/content/11600000/001681211.pdf">業務運営要領 第3 許可基準の PDF</a>（「許可の条件を付す場合」のチ）。</p>
+
+<h3>厚生労働省の案内（チラシ）</h3>
+<blockquote><p>「「お祝い金」その他これに類する名目で、求職者に社会通念上相当と認められる程度を超えて金銭などを提供することで求職の申し込みの勧奨を行ってはいけません。」「・求職の申し込みの勧奨は、金銭の提供ではなく、職業紹介事業の質を向上させ、それをPRすることで行ってください。」</p></blockquote>
+<p class="src">出典: <a href="https://www.mhlw.go.jp/content/11600000/001603370.pdf">厚生労働省・都道府県労働局のチラシ PDF</a>（「令和３年４月１日から職業安定法に基づく指針が一部改正されます」）／<a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000049528_00007.html">厚生労働省「「就職お祝い金」などの名目で求職者に金銭等を提供して求職の申し込みの勧奨を行うことを禁止しました」</a>。</p>
+
+<h3>「職業紹介」とは（バーのスタッフの声かけに関わる）</h3>
+<blockquote><p>「「職業紹介」とは、「求人及び求職の申込みを受け、求人者と求職者との間における雇用関係の成立のあっせんをすること」と定義されている。」「なお、「あっせん」とは、「求人者と求職者との間をとりもって雇用関係の成立が円滑に行われるように第三者として世話すること」をいう。」「イ 自ら求人・求職を受理せず、求人・求職の申込みを勧誘する業務、職業紹介事業者に求人・求職を全数送付する業務のみを行うことは、職業紹介に該当しない。」</p></blockquote>
+<p class="src">出典: <a href="https://www.mhlw.go.jp/content/11600000/001749103.pdf">業務運営要領 第1 職業紹介事業の概要の PDF</a>（1 職業紹介 (1)(2)）。</p>
+
+<h2 id="atehame"><span class="no">3</span>自社の当てはめ</h2>
+<div class="tablewrap" role="region" aria-labelledby="atehame" tabindex="0">
+<table>
+<tbody>
+<tr><th>何に付けるか</th><td>1時間ほど話を聞いてくれたこと。仕事を決めること・どこかに申し込むこと・選考の結果・働き続けることは条件にしない</td></tr>
+<tr><th>金額</th><td>3,000円（1回の飲み代の程度）</td></tr>
+<tr><th>形</th><td>Gooner Bar 店内のご飲食にだけ使えるクーポン。現金・ギフト券に換えない</td></tr>
+<tr><th>回数・期限</th><td>お一人様1回。発行から90日間</td></tr>
+<tr><th>告知</th><td>バーの来店キャンペーンとして、店内の卓上POP・名刺カード・スタッフの声かけで知らせる</td></tr>
+<tr><th>バーのスタッフがすること</th><td>声をかけて QR を案内するだけ。求人や求職の申込みを受け付けない・仕事の紹介をしない</td></tr>
+<tr><th>費用</th><td>人材事業部が持つ。使われた分を月末に、紹介したスタッフ別にバーと精算し、そのスタッフの売上として数える</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="toi"><span class="no">4</span>聞くこと（はい・いいえで答えられる形）</h2>
+<form id="memo" autocomplete="off">
+<div class="q"><h3 data-n="問1">話を聞いたことに付ける3,000円の飲食クーポンは、指針 第6の9(3) の「お祝い金その他これに類する名目」の金銭等に当たりますか。</h3>
+<p class="why">仕事を決めること・申し込むことは条件にしない、を添えて聞く。</p>
+<fieldset class="choices"><legend>問1の答え</legend><label><input type="radio" name="q1" value="はい">はい</label><label><input type="radio" name="q1" value="いいえ">いいえ</label><label><input type="radio" name="q1" value="要確認">要確認</label></fieldset>
+<textarea name="q1_memo" aria-label="問1のメモ" placeholder="言われたこと・条件"></textarea></div>
+
+<div class="q"><h3 data-n="問2">当たる場合、3,000円・店内のご飲食だけ・お一人様1回は「社会通念上相当と認められる程度」の内に入りますか。</h3>
+<p class="why">入らないなら、いくらまで・どの形なら入るかを聞く。</p>
+<fieldset class="choices"><legend>問2の答え</legend><label><input type="radio" name="q2" value="はい">はい</label><label><input type="radio" name="q2" value="いいえ">いいえ</label><label><input type="radio" name="q2" value="要確認">要確認</label></fieldset>
+<textarea name="q2_memo" aria-label="問2のメモ" placeholder="言われたこと・金額の目安"></textarea></div>
+
+<div class="q"><h3 data-n="問3">現金やギフト券にせず、Gooner Bar 店内のご飲食にだけ使える形にすることで、扱いは変わりますか。</h3>
+<fieldset class="choices"><legend>問3の答え</legend><label><input type="radio" name="q3" value="はい">はい</label><label><input type="radio" name="q3" value="いいえ">いいえ</label><label><input type="radio" name="q3" value="要確認">要確認</label></fieldset>
+<textarea name="q3_memo" aria-label="問3のメモ" placeholder="言われたこと"></textarea></div>
+
+<div class="q"><h3 data-n="問4">バーのスタッフが声をかけて QR を案内するだけ（求人・求職の申込みを受け付けない）なら、要領 第1 の「申込みを勧誘する業務……のみ」に当たり、スタッフやバーは職業紹介をしていない、という理解で合っていますか。</h3>
+<fieldset class="choices"><legend>問4の答え</legend><label><input type="radio" name="q4" value="はい">はい</label><label><input type="radio" name="q4" value="いいえ">いいえ</label><label><input type="radio" name="q4" value="要確認">要確認</label></fieldset>
+<textarea name="q4_memo" aria-label="問4のメモ" placeholder="言われたこと（募集の行為に当たるか、も）"></textarea></div>
+
+<div class="q"><h3 data-n="問5">クーポンの費用を人材事業部が持ち、使われた分を紹介したスタッフの売上として数えることは、問題になりますか。</h3>
+<fieldset class="choices"><legend>問5の答え</legend><label><input type="radio" name="q5" value="はい">はい</label><label><input type="radio" name="q5" value="いいえ">いいえ</label><label><input type="radio" name="q5" value="要確認">要確認</label></fieldset>
+<textarea name="q5_memo" aria-label="問5のメモ" placeholder="言われたこと"></textarea></div>
+
+<div class="q"><h3 data-n="問6">店内の POP・カードに「お話の相手は Gooner のキャリア担当です」と、人材事業部の名前を出してよいですか。</h3>
+<p class="why">いいえなら、POP の最後の1文を消す（直す場所は報告書の📌に書いてある）。</p>
+<fieldset class="choices"><legend>問6の答え</legend><label><input type="radio" name="q6" value="はい">はい</label><label><input type="radio" name="q6" value="いいえ">いいえ</label><label><input type="radio" name="q6" value="要確認">要確認</label></fieldset>
+<textarea name="q6_memo" aria-label="問6のメモ" placeholder="言われたこと"></textarea></div>
+
+<div class="q"><h3 data-n="問7">話を聞いたあと本人が仕事を探したいと言い、そのまま通常の職業紹介に進んだ場合も、クーポンは同じ形で渡してよいですか。</h3>
+<p class="why">クーポンは話を聞いた時点で出し、その後どうなっても変えない、を添えて聞く。</p>
+<fieldset class="choices"><legend>問7の答え</legend><label><input type="radio" name="q7" value="はい">はい</label><label><input type="radio" name="q7" value="いいえ">いいえ</label><label><input type="radio" name="q7" value="要確認">要確認</label></fieldset>
+<textarea name="q7_memo" aria-label="問7のメモ" placeholder="言われたこと"></textarea></div>
+
+<h2 id="kiroku"><span class="no">5</span>電話の記録</h2>
+<div class="field"><label for="f_when">電話した日時</label><input type="text" id="f_when" name="when" placeholder="例: 11月26日（木）10:15"></div>
+<div class="field"><label for="f_who">応対した方（課・お名前）</label><input type="text" id="f_who" name="who" placeholder="例: 需給調整事業第二課 ○○さん"></div>
+<div class="field"><label for="f_paper">書面（メール等）で答えをもらえるか・その他</label><textarea id="f_paper" name="paper" placeholder="言われたこと"></textarea></div>
+</form>
+
+<div class="tools">
+<button type="button" class="primary" id="copybtn">📋 答えをまとめてコピー</button>
+<button type="button" class="ghost" id="clearbtn">書いた答えを消す</button>
+<span class="status" id="status" role="status" aria-live="polite"></span>
+</div>
+<textarea id="copyout" aria-label="まとめた答え（コピーできなかったときはここから選んでコピー）" readonly hidden></textarea>
+
+<div class="after">
+<p><b>電話のあと</b></p>
+<ul>
+<li>問1が「いいえ」、または問2が「はい」なら、そのまま始めてよい</li>
+<li>問1が「はい」で問2が「いいえ」なら、言われた金額・形に直すまで店に置かない</li>
+<li>問4〜問6のどれかで止められたら、POP・カード・スタッフ用の1枚の該当の文を直す</li>
+</ul>
+</div>
+</main>
+<script>
+(function(){
+  var KEY = 'bar_roudoukyoku_memo_v1';
+  var form = document.getElementById('memo');
+  var status = document.getElementById('status');
+  function load(){
+    var d; try { d = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { d = {}; }
+    Array.prototype.forEach.call(form.elements, function(el){
+      if (!el.name || !(el.name in d)) return;
+      if (el.type === 'radio') el.checked = (el.value === d[el.name]);
+      else el.value = d[el.name];
+    });
+  }
+  function save(){
+    var d = {};
+    Array.prototype.forEach.call(form.elements, function(el){
+      if (!el.name) return;
+      if (el.type === 'radio') { if (el.checked) d[el.name] = el.value; }
+      else if (el.value) d[el.name] = el.value;
+    });
+    try { localStorage.setItem(KEY, JSON.stringify(d)); status.textContent = '自動で残しました'; }
+    catch (e) { status.textContent = 'このブラウザでは残せません（コピーで控えてください）'; }
+  }
+  function summary(){
+    var lines = ['労働局への確認電話（バー紹介クーポン）'];
+    var g = function(n){ return (form.elements[n] && form.elements[n].value || '').trim(); };
+    lines.push('日時: ' + (g('when') || '未記入'));
+    lines.push('応対: ' + (g('who') || '未記入'));
+    var qs = form.querySelectorAll('.q');
+    Array.prototype.forEach.call(qs, function(q, i){
+      var n = 'q' + (i + 1);
+      var c = form.querySelector('input[name="' + n + '"]:checked');
+      var title = q.querySelector('h3').textContent.trim();
+      lines.push('問' + (i + 1) + ' ' + title);
+      lines.push('  → ' + (c ? c.value : '未回答') + (g(n + '_memo') ? '／' + g(n + '_memo') : ''));
+    });
+    lines.push('書面・その他: ' + (g('paper') || 'なし'));
+    return lines.join('\n');
+  }
+  form.addEventListener('input', save);
+  form.addEventListener('change', save);
+  form.addEventListener('submit', function(e){ e.preventDefault(); });
+  document.getElementById('copybtn').addEventListener('click', function(){
+    var text = summary();
+    var out = document.getElementById('copyout');
+    out.value = text;
+    function fallback(){ out.hidden = false; out.focus(); out.select(); status.textContent = 'コピーできなかったので下の欄に出しました（選んでコピーしてください）'; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function(){ out.hidden = true; status.textContent = 'コピーしました'; }, fallback);
+    } else { fallback(); }
+  });
+  document.getElementById('clearbtn').addEventListener('click', function(){
+    if (!window.confirm('書いた答えを全部消します。よろしいですか？')) return;
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    form.reset();
+    document.getElementById('copyout').hidden = true;
+    status.textContent = '消しました';
+  });
+  load();
+  var cur = document.getElementById('cur');
+  var hs = Array.prototype.slice.call(document.querySelectorAll('main h2'));
+  function upd(){
+    var t = '';
+    for (var i = 0; i < hs.length; i++){ if (hs[i].getBoundingClientRect().top < 80) t = hs[i].textContent; }
+    cur.textContent = t ? '｜' + t : '';
+  }
+  window.addEventListener('scroll', upd, {passive:true}); upd();
+})();
+</script>
+</body>
+</html>
