@@ -145,7 +145,7 @@ code{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:0.92e
 <circle cx="181" cy="51" r="11" class="num"/><text x="181" y="55.5" text-anchor="middle" class="num-t">5</text>
 </svg>
 <ul class="legend">
-<li><span class="n">1</span><span>バーのスタッフが、お客様に<strong>紹介QR</strong>を渡す</span></li>
+<li><span class="n">1</span><span>バーのスタッフがスマホで<strong>店のQR</strong>を見せ、お客様が読んで<strong>紹介したスタッフを選ぶ</strong></span></li>
 <li><span class="n">2</span><span>お客様が人材事業部に<strong>話を聞きに来る</strong>（30分ほど・オンライン可）</span></li>
 <li><span class="n">3</span><span>人材事業部から、お客様のLINEに<strong>3,000円クーポン</strong>が届く</span></li>
 <li><span class="n">4</span><span>お客様が<strong>バーに来て使う</strong>（バーの売上になる）</span></li>
@@ -169,7 +169,7 @@ code{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:0.92e
 <text x="299" y="30" text-anchor="middle" class="t-b t-sys">システム</text>
 <!-- 1 -->
 <rect x="10" y="50" width="102" height="56" rx="8" class="f-bar" stroke-width="1.5"/>
-<text x="61" y="74" text-anchor="middle" class="t">紹介QRを</text><text x="61" y="93" text-anchor="middle" class="t">渡す</text>
+<text x="61" y="74" text-anchor="middle" class="t">スマホで</text><text x="61" y="93" text-anchor="middle" class="t">QRを見せる</text>
 <!-- 2 -->
 <rect x="129" y="130" width="102" height="56" rx="8" class="f-guest" stroke-width="1.5"/>
 <text x="180" y="154" text-anchor="middle" class="t">友だち追加</text><text x="180" y="173" text-anchor="middle" class="t">日程を決める</text>
@@ -205,8 +205,22 @@ code{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:0.92e
 
 <section>
 <h2 id="screens">お客様とスタッフが見る画面</h2>
-<p>クーポンはLINEで届くURLを開くと出ます。店ではこの画面を見せるだけです。</p>
+<p>紹介のときは、スタッフがスマホで店のQRを見せます。お客様がそれを読むと、Gooner公式LINE（@870sazug）のトークが開きます。送るとボットが「紹介してくれたスタッフは？」と聞くので、お客様がその場でスタッフの名前のボタンを押します。これで紹介者が紐づきます。クーポンはLINEで届くURLを開くと出ます。店ではこの画面を見せるだけです。</p>
 <div class="phones">
+<div class="phone">
+<div class="cap">① スタッフのスマホ（店のQR）</div>
+<div class="sub">Gooner Bar 紹介QR</div>
+<svg viewBox="0 0 90 90" role="img" aria-label="QRコードのイメージ" style="width:140px;height:140px;margin:8px auto;display:block"><rect width="90" height="90" fill="#fff"/><g fill="#111"><rect x="6" y="6" width="24" height="24"/><rect x="60" y="6" width="24" height="24"/><rect x="6" y="60" width="24" height="24"/></g><g fill="#fff"><rect x="10" y="10" width="16" height="16"/><rect x="64" y="10" width="16" height="16"/><rect x="10" y="64" width="16" height="16"/></g><g fill="#111"><rect x="14" y="14" width="8" height="8"/><rect x="68" y="14" width="8" height="8"/><rect x="14" y="68" width="8" height="8"/><rect x="38" y="8" width="6" height="6"/><rect x="46" y="16" width="6" height="6"/><rect x="38" y="30" width="6" height="6"/><rect x="40" y="42" width="8" height="6"/><rect x="56" y="40" width="6" height="8"/><rect x="70" y="44" width="8" height="6"/><rect x="36" y="56" width="6" height="8"/><rect x="48" y="62" width="8" height="6"/><rect x="62" y="64" width="6" height="6"/><rect x="74" y="70" width="8" height="8"/><rect x="44" y="76" width="6" height="6"/><rect x="8" y="40" width="6" height="8"/><rect x="20" y="44" width="8" height="6"/></g></svg>
+<div class="note" style="font-size:14px">店で1つのQR。スタッフは全員これを見せる</div>
+</div>
+<div class="phone">
+<div class="cap">② お客様のLINE（その場で選ぶ）</div>
+<div style="text-align:left;background:var(--bg);border-radius:12px;padding:10px;font-size:14px;line-height:1.6">
+<div style="background:var(--sys-bg);border-radius:10px;padding:8px 10px;margin-bottom:8px">ご紹介ありがとうございます！紹介してくれたスタッフを選んでください</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px"><span style="border:1px solid var(--sys);color:var(--sys);border-radius:999px;padding:2px 10px">スタッフA</span><span style="border:1px solid var(--sys);color:var(--sys);border-radius:999px;padding:2px 10px">スタッフB</span><span style="border:1px solid var(--sys);color:var(--sys);border-radius:999px;padding:2px 10px">スタッフC</span><span style="border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:2px 10px">わからない</span></div>
+</div>
+<div class="note" style="font-size:14px;margin-top:8px">ボタンで選ぶので、名前の打ち間違いが起きない</div>
+</div>
 <div class="phone">
 <div class="cap">お客様の画面</div>
 <div class="ticket">
@@ -263,7 +277,7 @@ code{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:0.92e
 <svg viewBox="0 0 360 210" role="img" aria-label="お客様が使ったクーポンは、紹介コードの持ち主のスタッフの売上に3000円ずつ付く図">
 <defs><marker id="ah5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="head"/></marker></defs>
 <rect x="6" y="20" width="110" height="52" rx="10" class="f-guest" stroke-width="1.5"/><text x="61" y="42" text-anchor="middle" class="t">お客様が</text><text x="61" y="61" text-anchor="middle" class="t">クーポンを使う</text>
-<rect x="125" y="20" width="110" height="52" rx="10" class="f-sys" stroke-width="1.5"/><text x="180" y="42" text-anchor="middle" class="t">紹介コードで</text><text x="180" y="61" text-anchor="middle" class="t">誰の紹介か判る</text>
+<rect x="125" y="20" width="110" height="52" rx="10" class="f-sys" stroke-width="1.5"/><text x="180" y="42" text-anchor="middle" class="t">最初に選んだ</text><text x="180" y="61" text-anchor="middle" class="t">スタッフを引く</text>
 <rect x="244" y="20" width="110" height="52" rx="10" class="f-bar" stroke-width="1.5"/><text x="299" y="42" text-anchor="middle" class="t">そのスタッフの</text><text x="299" y="61" text-anchor="middle" class="t">売上 +3,000円</text>
 <line x1="118" y1="46" x2="121" y2="46" class="ar" marker-end="url(#ah5)"/>
 <line x1="237" y1="46" x2="240" y2="46" class="ar" marker-end="url(#ah5)"/>
@@ -272,7 +286,7 @@ code{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:0.92e
 <text x="60" y="154" class="t">BAR-A（スタッフA）</text><text x="300" y="154" text-anchor="end" class="t">2枚 → 6,000円</text>
 <text x="60" y="180" class="t">BAR-C（スタッフC）</text><text x="300" y="180" text-anchor="end" class="t">1枚 → 3,000円</text>
 </svg>
-<figcaption>使ったときに別のスタッフが受けても、売上は紹介コードの持ち主に付きます。数字は説明用の例です。</figcaption>
+<figcaption>使ったときに別のスタッフが受けても、売上はQRを読んだときに選ばれたスタッフに付きます。数字は説明用の例です。</figcaption>
 </figure>
 </section>
 
@@ -332,7 +346,11 @@ code{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:0.92e
 <li>3,000円の予算は人材事業部が出す。
 <span class="rec">使われた分だけ、月に1回バーへ精算する。</span></li>
 <li>その3,000円は、紹介したスタッフの売上に付ける。
-<span class="rec">スタッフへの別の紹介料は出さない。紹介コードごとに、使われた枚数と売上を毎月まとめる。</span></li>
+<span class="rec">スタッフへの別の紹介料は出さない。使ったときに別のスタッフが受けても、紹介コードの持ち主に付ける。紹介コードごとに、使われた枚数と売上を毎月まとめる。</span></li>
+<li>入口はGooner公式LINE（@870sazug）。新しいアカウントは作らない。
+<span class="rec">QRは店で1つ。読んだお客様がその場でスタッフの名前をボタンで選び、紹介者を紐づける（「わからない」を選んだ分は誰の売上にも付けない）。</span></li>
+<li>紹介はまず、スタッフがスマホでQRを見せる形で始める。
+<span class="rec">カードやPOPは後から足す。</span></li>
 </ol>
 </section>
 </main>
