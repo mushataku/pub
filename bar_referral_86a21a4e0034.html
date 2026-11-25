@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>バー紹介クーポンの仕組み</title>
+<style>
+:root{
+  --bg:#fbfaf7; --surface:#ffffff; --ink:#1d1c1a; --muted:#4a4844; --line:#dedad2;
+  --accent:#a14a12; --accent-bg:#fbeee3; --ok:#1f6b3a; --ok-bg:#e6f3ea; --warn:#8a5a00; --warn-bg:#fdf3dc;
+  --s1:4px; --s2:8px; --s3:16px; --s4:32px; --s5:56px;
+  --font:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Yu Gothic","Meiryo","Noto Sans JP",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#171614; --surface:#211f1c; --ink:#f1eee8; --muted:#c9c4ba; --line:#3a3732;
+    --accent:#f0a46a; --accent-bg:#3a2618; --ok:#8fd4a5; --ok-bg:#1c3324; --warn:#f2c86b; --warn-bg:#3a2f14;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.8;letter-spacing:0.01em}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere;line-height:1.45;letter-spacing:0}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3), main section > :is(h2,h3){word-break:auto-phrase;text-wrap:balance}}
+.band{position:sticky;top:0;z-index:10;background:var(--surface);border-bottom:1px solid var(--line);padding:var(--s2) var(--s3);font-size:14px;line-height:1.5;color:var(--muted);display:flex;gap:var(--s2);flex-wrap:wrap}
+.band b{color:var(--ink);font-weight:700}
+main{max-width:46em;margin:0 auto;padding:var(--s4) var(--s3) var(--s5)}
+main p, main li{max-width:40em}
+h1{font-size:1.75rem;margin:0 0 var(--s3)}
+h2{font-size:1.35rem;margin:var(--s5) 0 var(--s3);padding-top:var(--s2);border-top:2px solid var(--line)}
+h3{font-size:1.1rem;margin:var(--s4) 0 var(--s2)}
+p{margin:0 0 1.2em}
+ul,ol{padding-left:1.4em;margin:0 0 1.2em}
+li{margin-bottom:0.4em}
+.lead{background:var(--accent-bg);border-left:4px solid var(--accent);padding:var(--s3);border-radius:6px;margin-bottom:var(--s4)}
+.lead p:last-child{margin-bottom:0}
+.flow{list-style:none;padding:0;margin:var(--s3) 0 var(--s4);counter-reset:step}
+.flow li{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:var(--s3) var(--s3) var(--s3) 3.4em;margin:0 0 var(--s4);max-width:none}
+.flow li::before{counter-increment:step;content:counter(step);position:absolute;left:var(--s3);top:var(--s3);width:1.8em;height:1.8em;border-radius:50%;background:var(--accent);color:var(--surface);font-weight:700;text-align:center;line-height:1.8em}
+.flow li:not(:last-child)::after{content:"";position:absolute;left:calc(var(--s3) + 0.9em);bottom:calc(-1 * var(--s4));height:var(--s4);border-left:2px dashed var(--line)}
+.who{display:inline-block;font-size:14px;font-weight:700;padding:0 var(--s2);border-radius:4px;margin-right:var(--s2)}
+.who.bar{background:var(--warn-bg);color:var(--warn)}
+.who.guest{background:var(--accent-bg);color:var(--accent)}
+.who.sys{background:var(--ok-bg);color:var(--ok)}
+.flow strong{display:block;font-size:1.05rem;margin:var(--s1) 0}
+.flow p{margin:0}
+.scroll{overflow-x:auto;margin:0 0 var(--s4);border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:15px;line-height:1.6}
+td:first-child{white-space:nowrap}
+#law ~ .scroll td:first-child{white-space:normal;width:50%}
+th,td{text-align:left;vertical-align:top;padding:var(--s2) var(--s3);border-bottom:1px solid var(--line)}
+th{background:var(--bg);font-weight:700}
+tr:last-child td{border-bottom:none}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:var(--s3);margin:0 0 var(--s3)}
+.card p:last-child,.card ul:last-child{margin-bottom:0}
+blockquote{margin:0 0 var(--s3);padding:var(--s3);background:var(--surface);border-left:4px solid var(--muted);border-radius:4px;font-size:15px}
+.ok{color:var(--ok);font-weight:700}
+.ng{color:var(--accent);font-weight:700}
+.note{color:var(--muted)}
+code{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:0.92em;background:var(--bg);padding:0 0.25em;border-radius:3px}
+</style>
+</head>
+<body>
+<div class="band" data-chrome aria-hidden="true"><b>バー紹介クーポンの仕組み</b><span id="cur">はじめに</span></div>
+<main>
+<h1>バー紹介クーポンの仕組み</h1>
+
+<div class="lead">
+<p><strong>ひとことで言うと</strong>：バーのスタッフが紹介したお客様が、人材事業部に<strong>ちょっと話を聞きに来てくれたら</strong>、そのお客様にバーで使える3,000円分のクーポンが自動で届く仕組みです。</p>
+<p>温度感は「がっつり面談」ではなく「話を聞いてきてもらう」くらいです。転職を決めていなくても、聞くだけで対象になります。話を聞いたかどうかはシステムが判定します。お客様はクーポンを店で見せ、スタッフはボタンを1回押して消し込みます。月末に、使われた分だけ部署間で精算します。</p>
+</div>
+
+<section>
+<h2 id="flow">全体の流れ</h2>
+<p>登場するのは、<span class="who bar">バー</span>のスタッフ、<span class="who guest">お客様</span>、それと人材事業部の<span class="who sys">システム</span>です。</p>
+<ol class="flow">
+<li><span class="who bar">バー</span><strong>紹介QRを渡す</strong><p>スタッフ1人ごとに自分専用のQRを持ちます。QRには紹介コード（例 <code>BAR-A01</code>）が入っていて、誰の紹介かが自動で残ります。</p></li>
+<li><span class="who guest">お客様</span><strong>QRから友だち追加して、話を聞く日を決める</strong><p>人材事業部の公式LINEにつながり、30分ほど話を聞く日程を決めます（オンラインでも可）。経路「バー紹介」と紹介コードが応募リストに記録されます。</p></li>
+<li><span class="who sys">システム</span><strong>話を聞いたかを判定する</strong><p>当日話を聞いてステータスが「新規面談済」になり、Zoomの録画かカレンダーに実績があれば対象です。転職の意思は問いません。人の手での確認はしません。</p></li>
+<li><span class="who sys">システム</span><strong>クーポンを発行してLINEで届ける</strong><p>お客様1人に1枚、専用のURLを発行します。開くと「3,000円分」の券と有効期限が表示されます。</p></li>
+<li><span class="who guest">お客様</span><span class="who bar">バー</span><strong>店で見せて、スタッフが消し込む</strong><p>お客様が画面を見せ、スタッフが店のPINを入れて「使用済み」を押します。一度押すと二度と使えません。</p></li>
+<li><span class="who sys">システム</span><strong>月末にまとめて精算する</strong><p>毎月1日に、前月に使われた枚数・金額・紹介コードごとの件数をSlackに流します。費用は使われた分だけです。</p></li>
+</ol>
+</section>
+
+<section>
+<h2 id="parts">システムの部品</h2>
+<div class="scroll" tabindex="0" role="region" aria-labelledby="parts">
+<table>
+<thead><tr><th>部品</th><th>何をするか</th></tr></thead>
+<tbody>
+<tr><td>紹介コード</td><td>スタッフ1人に1つ。QRは公式LINEの友だち追加URLにコードを付けて作ります。</td></tr>
+<tr><td>経路の記録</td><td>応募リストに「バー紹介」と紹介コードを残します。どのスタッフ経由かが後から分かります。</td></tr>
+<tr><td>対象の判定</td><td>ステータスと面談の実績から機械が判定します。重複は電話番号で見て1人1回、もともと面談していた人は対象外です。</td></tr>
+<tr><td>クーポン台帳</td><td>発行した券を1枚ずつ記録します（紹介コード・発行日・期限・使用日・使用店）。お客様の個人情報は台帳に直接持たせません。</td></tr>
+<tr><td>消し込みの画面</td><td>お客様が券を表示し、スタッフがPINで「使用済み」にする1画面です。二重使用はここで止めます。</td></tr>
+<tr><td>月次のまとめ</td><td>使われた枚数と金額、紹介コード別の面談数を毎月Slackに投稿します。</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section>
+<h2 id="law">法律の線</h2>
+<p>職業紹介の会社が求職者にお金やモノを渡すことについて、厚生労働省の業務運営要領はこう書いています。</p>
+<blockquote>職業紹介事業者が求職者に金銭等を提供することによって行うことは好ましくなく、お祝い金その他これに類する名目で社会通念上相当と認められる程度を超えて金銭等を提供することによって行ってはならないこと。</blockquote>
+<p>禁止されているのは「相当な程度を超える額」です。少額でも「好ましくない」とされているので、次の形にそろえて説明できるようにします。</p>
+<div class="scroll" tabindex="0" role="region" aria-labelledby="law">
+<table>
+<thead><tr><th>そろえる形</th><th>避ける形</th></tr></thead>
+<tbody>
+<tr><td><span class="ok">話を聞いたこと</span>に付ける</td><td><span class="ng">就職・内定</span>に付ける（名指しで禁止されているお祝い金と同じ形）</td></tr>
+<tr><td><span class="ok">Goonerのバー限定</span>の来店クーポン</td><td><span class="ng">現金・ギフト券</span>など換金できるもの</td></tr>
+<tr><td><span class="ok">3,000円まで</span>・1人1回</td><td>額を上げる・何度ももらえる</td></tr>
+<tr><td>バー側の<span class="ok">来店キャンペーン</span>として告知</td><td>「転職相談で3,000円もらえる」という告知</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note">あわせて、所轄の労働局に「この形で問題ないか」を電話で一度確認しておくのが安全です。</p>
+</section>
+
+<section>
+<h2 id="abuse">悪用を防ぐ工夫</h2>
+<div class="card">
+<ul>
+<li>すっぽかし（来なかった回）は対象外にします。録画やカレンダーの実績で機械が判定します。</li>
+<li>紹介コードごとに、話を聞いた人数とその先の推薦・承諾の数を並べて見ます。クーポン目当てで来るだけの人ばかりのコードは数字で分かります。</li>
+<li>クーポンはお客様本人のLINEにだけ届きます。URLを他人に渡しても、「使用済み」は1回しか押せません。</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h2 id="open">これから決めておくこと</h2>
+<ol>
+<li>法律の線を上の4つの形で引くか。労働局への確認を先に済ませるか。</li>
+<li>バーのスタッフ本人にも紹介の報酬を出すか。出すなら、額と条件（話を聞いた人数か承諾か）。</li>
+<li>3,000円を人材事業部が全額持つか、バー事業部と折半するか。</li>
+</ol>
+</section>
+</main>
+<script>
+(function(){
+  var cur=document.getElementById('cur');
+  var hs=[].slice.call(document.querySelectorAll('main h2'));
+  function upd(){
+    var t='はじめに';
+    for(var i=0;i<hs.length;i++){ if(hs[i].getBoundingClientRect().top<64){ t=hs[i].textContent; } }
+    cur.textContent=t;
+  }
+  window.addEventListener('scroll',upd,{passive:true}); upd();
+})();
+</script>
+</body>
+</html>
