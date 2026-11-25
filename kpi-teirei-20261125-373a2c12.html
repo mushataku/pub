@@ -46,7 +46,7 @@ table.md td:first-child{position:static}
 <div class="band"><b>人材定例 KPI</b><span>2026年11月25日（水）13:10 時点</span><span id="cur">KPI</span></div>
 <main>
 <h1>人材定例 2026年11月25日（水）</h1>
-<div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="tab-kpi">今日のKPI・広告費の検討</button><button role="tab" aria-selected="false" data-tab="tab-mtg">前回MTG（11/20 月例会）</button><button role="tab" aria-selected="false" data-tab="tab-bar">バー紹介クーポン（相談）</button></div>
+<div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="tab-kpi">今日のKPI・広告費の検討</button><button role="tab" aria-selected="false" data-tab="tab-mtg">前回MTG（11/20 月例会）</button><button role="tab" aria-selected="false" data-tab="tab-bar">バー紹介クーポン（相談）</button><button role="tab" aria-selected="false" data-tab="tab-staff">バー スタッフ用の説明</button></div>
 <section class="tab" id="tab-kpi">
 <h2 style="border-top:none;margin-top:16px" data-t="KPI">11月度・12月度の歩留まりと着座率</h2>
 <p class="lead">人材事業部（CA 6人）。数字は MK の歩留まり管理シートに各自が入力した分と、Slack の応募リスト（有効応募）から数えた値です。今日の入力が増えると変わります。</p>
@@ -499,6 +499,12 @@ th{font-size:.78rem;color:var(--mute)}
 <iframe id="barframe" title="バー紹介クーポンの仕組み" src="bar_referral_86a21a4e0034.html" loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:8px;min-height:900px"></iframe>
 <p class="note">別ページで開く: <a href="https://mushataku.github.io/pub/bar_referral_86a21a4e0034.html" target="_blank" rel="noopener">バー紹介クーポンの仕組み</a></p>
 </section>
+<section class="tab" id="tab-staff" hidden>
+<h2 data-t="バー スタッフ用の説明" style="border-top:none;margin-top:16px">バーのスタッフに渡す説明の1枚</h2>
+<div class="tieback"><b>今日の資料とのつながり</b>: バー紹介クーポンを、バーの責任者からスタッフへ回すときの1枚。紹介の流れ・クーポンの使い方・お金の流れ・言っていいこと／いけないこと・トーク例を図にした。</div>
+<iframe id="staffframe" title="バーのスタッフ用の説明" src="bar_staff_sheet_5c19e7a2.html" loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:8px;min-height:900px"></iframe>
+<p class="note">別ページで開く: <a href="https://mushataku.github.io/pub/bar_staff_sheet_5c19e7a2.html" target="_blank" rel="noopener">バーのスタッフ用の説明</a></p>
+</section>
 </main>
 <script>
 (function(){var cur=document.getElementById('cur');function vis(){return [].slice.call(document.querySelectorAll('.tab:not([hidden]) h2[data-t]'));}
@@ -507,7 +513,8 @@ window.addEventListener('scroll',upd,{passive:true});upd();
 [].slice.call(document.querySelectorAll('.tabs button')).forEach(function(b){b.addEventListener('click',function(){[].slice.call(document.querySelectorAll('.tabs button')).forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false');document.getElementById(x.dataset.tab).hidden=(x!==b);});try{history.replaceState(null,'','#'+b.dataset.tab);}catch(e){}window.scrollTo(0,0);upd();});});
 var fr=document.getElementById('mtgframe');function fit(){try{var d=fr.contentDocument;if(d&&d.documentElement){fr.style.height=(d.documentElement.scrollHeight+20)+'px';}}catch(e){}}fr.addEventListener('load',fit);document.querySelector('[data-tab=tab-mtg]').addEventListener('click',function(){setTimeout(fit,50);});window.addEventListener('resize',function(){setTimeout(fit,100);});
 var bf=document.getElementById('barframe');function fitb(){try{var d=bf.contentDocument;if(d&&d.documentElement){bf.style.height=(d.documentElement.scrollHeight+20)+'px';}}catch(e){}}bf.addEventListener('load',fitb);document.querySelector('[data-tab=tab-bar]').addEventListener('click',function(){setTimeout(fitb,50);});window.addEventListener('resize',function(){setTimeout(fitb,100);});
-if(location.hash==='#tab-mtg'){document.querySelector('[data-tab=tab-mtg]').click();}if(location.hash==='#tab-bar'){document.querySelector('[data-tab=tab-bar]').click();}})();
+var sf=document.getElementById('staffframe');function fits(){try{var d=sf.contentDocument;if(d&&d.documentElement){sf.style.height=(d.documentElement.scrollHeight+20)+'px';}}catch(e){}}sf.addEventListener('load',fits);document.querySelector('[data-tab=tab-staff]').addEventListener('click',function(){setTimeout(fits,50);});window.addEventListener('resize',function(){setTimeout(fits,100);});
+if(location.hash==='#tab-mtg'){document.querySelector('[data-tab=tab-mtg]').click();}if(location.hash==='#tab-bar'){document.querySelector('[data-tab=tab-bar]').click();}if(location.hash==='#tab-staff'){document.querySelector('[data-tab=tab-staff]').click();}})();
 </script>
 </body>
 </html>
