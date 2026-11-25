@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="ja"><head><!--gp-portal:s--><meta name="x-build" content="317c2f8368"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e--><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>CCNAの入口 高橋さん</title>
+<style>
+/* ===== 本人ページ共通（ひな形 2026-11-12・手本＝松山さんFBの調子） ===== */
+:root{color-scheme:light;
+  --bg:#fdfcfa;--fg:#241f1a;--mut:#5c534b;--line:#e6e0d6;--card:#ffffff;--box:#f4f2ef;
+  --acc:#c2622f;--accink:#8a3c15;--accbg:#fdf3ec;
+  --good:#2f6b45;--goodink:#24553a;--goodbg:#eef6f0;
+  --term:#1f1b17;--termbar:#2e2924;--termfg:#ece6dd;--tgrn:#9fd8b0;--tdim:#b3a99e;--thl:#34402c;--tdot:#6a6158}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
+  --bg:#191714;--fg:#f0ebe3;--mut:#b8afa5;--line:#37322b;--card:#221f1b;--box:#201e1b;
+  --acc:#e79b63;--accink:#f0b081;--accbg:#2b201a;
+  --good:#8fd0a6;--goodink:#9ad8b0;--goodbg:#1a2620;
+  --term:#100e0c;--termbar:#262019;--termfg:#ece6dd;--tgrn:#9fd8b0;--tdim:#b3a99e;--thl:#34402c;--tdot:#5a524a}}
+:root[data-theme="dark"]{color-scheme:dark;
+  --bg:#191714;--fg:#f0ebe3;--mut:#b8afa5;--line:#37322b;--card:#221f1b;--box:#201e1b;
+  --acc:#e79b63;--accink:#f0b081;--accbg:#2b201a;
+  --good:#8fd0a6;--goodink:#9ad8b0;--goodbg:#1a2620;
+  --term:#100e0c;--termbar:#262019;--termfg:#ece6dd;--tgrn:#9fd8b0;--tdim:#b3a99e;--thl:#34402c;--tdot:#5a524a}
+*{box-sizing:border-box}
+html{scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Meiryo",system-ui,sans-serif;font-size:17px;line-height:1.8;letter-spacing:.02em;overflow-wrap:anywhere}
+.band{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 24px;font-size:14px;line-height:1.5;display:flex;gap:.6em;align-items:baseline;flex-wrap:wrap}
+.band span{color:var(--mut)}
+main{max-width:820px;margin:0 auto;padding:40px 24px 64px}
+main p{max-width:40em;margin:.8em 0}
+h1{font-size:1.7rem;line-height:1.4;margin:0 0 6px}
+h2{font-size:1.2rem;line-height:1.5;color:var(--accink);margin:3.2em 0 .8em}
+h3{font-size:1.04rem;line-height:1.5;margin:2.2em 0 .6em}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere}
+@supports (word-break:auto-phrase){main :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
+.meta{color:var(--mut);font-size:14px;margin:0 0 24px}
+.mut{color:var(--mut)}
+.cap{color:var(--mut);font-size:15px;margin:10px 0 0}
+a{color:var(--accink);text-underline-offset:.2em}
+code,kbd{font-family:ui-monospace,"SFMono-Regular",Consolas,Menlo,monospace;font-size:.92em}
+:not(pre)>code{background:var(--box);border:1px solid var(--line);border-radius:4px;padding:0 .3em}
+kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:0 .45em;background:var(--card);font-weight:700;line-height:1.5}
+
+/* 目次 */
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:20px 0;padding:0;list-style:none}
+.toc a{display:block;border:1px solid var(--line);border-radius:10px;padding:9px 12px;text-decoration:none;color:var(--fg);background:var(--card);min-height:44px;font-size:15px;line-height:1.45}
+.toc a b{color:var(--accink);margin-right:.35em}
+
+/* 対比の箱2つ（そのままで良い／次に直す） */
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px;margin:16px 0}
+.keep,.fix{border-radius:12px;padding:14px 18px;border:1px solid var(--line);font-size:16px;line-height:1.75;min-width:0}
+.keep{background:var(--goodbg)}
+.fix{background:var(--accbg);border-color:var(--acc)}
+.keep .h,.fix .h{font-weight:700;font-size:14px;letter-spacing:.08em;margin:0 0 6px}
+.keep .h{color:var(--goodink)}.fix .h{color:var(--accink)}
+.ex{display:block;color:var(--mut);font-size:15px;margin-top:6px}
+
+/* 注記（左に細い線） */
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--good);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;max-width:40em}
+.say{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;max-width:40em}
+
+/* 段階図（終わった＝緑の薄塗り／いまここ＝テラコッタ／これから＝灰の線） */
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--mut);margin:8px 0}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;border:1px solid var(--line)}
+.legend .d::before{background:var(--goodbg);border-color:var(--goodbg)}
+.legend .n::before{background:var(--accbg);border:2px solid var(--acc)}
+.track{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:14px 0;background:var(--card)}
+.track .hd{font-weight:700;margin:0 0 10px}
+.track .nt{font-size:15px;margin:10px 0 0;line-height:1.7}
+.stages{display:flex;list-style:none;margin:0;padding:0;gap:6px}
+.stages li{flex:1 1 0;min-width:0;border:1px solid var(--line);border-radius:10px;padding:8px 6px;text-align:center;font-size:14px;line-height:1.5;color:var(--mut);background:transparent}
+.stages li .mk{display:block;font-size:16px;line-height:1.4;font-weight:700}
+.stages li small{display:block;font-size:13px;color:var(--fg);margin-top:2px}
+.stages li.done{background:var(--goodbg);border-color:var(--goodbg);color:var(--goodink)}
+.stages li.now{background:var(--accbg);border:2px solid var(--acc);color:var(--accink);font-weight:700}
+
+/* チェックリスト */
+.prog{display:flex;align-items:center;gap:12px;margin:12px 0;font-size:15px}
+.prog .bar{flex:1;max-width:320px;height:10px;border-radius:5px;background:var(--box);border:1px solid var(--line);overflow:hidden}
+.prog .bar i{display:block;height:100%;width:0;background:var(--good)}
+.tl{list-style:none;margin:18px 0;padding:0 0 0 16px;border-left:2px solid var(--line)}
+.tl > li{position:relative;margin:0 0 26px;padding-left:16px}
+.tl > li::before{content:"";position:absolute;left:-24px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--acc)}
+.tl > li.big::before{background:var(--acc)}
+.tl .dt{font-weight:700;margin-bottom:6px}
+.tag{display:inline-block;margin-left:8px;border-radius:999px;padding:0 .65em;font-size:13px;font-weight:700;border:1px solid var(--line);background:var(--box);color:var(--mut)}
+.chk{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0;background:var(--card);min-height:44px;cursor:pointer;max-width:40em}
+.chk input{flex:none;width:22px;height:22px;margin-top:3px;accent-color:var(--good)}
+.chk span{font-size:16px;line-height:1.65}
+.chk input:checked + span{color:var(--mut);text-decoration:line-through}
+.chk input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+
+/* 開く箱 */
+details{border:1px solid var(--line);border-radius:10px;padding:6px 16px;margin:10px 0;background:var(--card)}
+summary{cursor:pointer;font-weight:700;padding:6px 0;min-height:32px}
+details[open]{background:var(--box)}
+details p{margin:.3em 0 .6em}
+
+@media (max-width:560px){
+  .band{padding:8px 16px}
+  main{padding:28px 16px 48px}
+  h1{font-size:1.4rem}
+  .stages{flex-direction:column}
+  .stages li{text-align:left;display:flex;gap:10px;align-items:baseline}
+  .stages li .mk{flex:none;width:1.4em}
+  .stages li small{display:inline;margin:0 0 0 .4em}
+}
+/* ===== ここまで共通 ===== */
+/* ===== CCNA の入口だけの部品（色はトークンだけ） ===== */
+.blank{display:inline-block;min-width:5em;border-bottom:2px solid var(--acc);margin:0 .2em}
+.goals{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0}
+.goal{border-radius:12px;padding:14px 16px;border:1px solid var(--line);background:var(--card)}
+.goal .n{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--accink);color:var(--bg);font-weight:700;font-size:14px;margin-right:8px}
+.goal .h{font-weight:700}
+.goal .e{font-size:15px;color:var(--mut);margin-top:6px;line-height:1.65}
+.wt{margin:14px 0;max-width:620px}
+.wt .row{display:grid;grid-template-columns:minmax(9em,13em) 1fr 3em;gap:10px;align-items:center;margin:6px 0;font-size:15px;line-height:1.45}
+.wt .bar{height:12px;border-radius:6px;background:var(--box);border:1px solid var(--line);overflow:hidden}
+.wt .bar i{display:block;height:100%;background:var(--acc)}
+.wt .row.lo .bar i{background:var(--mut)}
+.wt .pct{text-align:right;color:var(--mut);font-variant-numeric:tabular-nums}
+@media (max-width:480px){.wt .row{grid-template-columns:1fr 3em}.wt .row .bar{grid-column:1/-1;grid-row:2}}
+.stack{display:flex;flex-direction:column;gap:6px;margin:16px 0;max-width:560px}
+.layer{border-radius:10px;padding:10px 14px;display:grid;grid-template-columns:2.2em 1fr;gap:4px 12px;align-items:center;border:1px solid var(--line);background:var(--card)}
+.layer .no{font-weight:700;color:var(--accink);font-size:15px}
+.layer .t{font-weight:700;line-height:1.45}
+.layer .s{grid-column:2;font-size:14px;color:var(--mut);line-height:1.55}
+.layer.hot{border-color:var(--acc);background:var(--accbg)}
+.flow{display:flex;align-items:stretch;flex-wrap:wrap;margin:16px 0}
+.node{flex:1 1 120px;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;background:var(--card);min-width:110px}
+.node.sw{border-color:var(--good)}
+.node.rt{border-color:var(--acc)}
+.node .ic{font-size:28px;line-height:1.2}
+.node .t{font-weight:700;line-height:1.45}
+.node .s{font-size:14px;color:var(--mut);line-height:1.55}
+.arrow{flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4px 8px;font-size:14px;color:var(--mut);text-align:center;line-height:1.4}
+.arrow .a{font-size:22px;color:var(--accink);font-weight:700;line-height:1}
+@media (max-width:560px){.flow{flex-direction:column}.arrow .a{transform:rotate(90deg)}.arrow{padding:6px 0}}
+.ip{font-family:ui-monospace,"SFMono-Regular",Consolas,Menlo,monospace;font-size:18px;letter-spacing:0;display:flex;flex-wrap:wrap;gap:4px;margin:12px 0;align-items:center}
+.ip b{border-radius:6px;padding:2px 8px;border:1px solid var(--line)}
+.ip .net{background:var(--accbg);border-color:var(--acc);color:var(--accink)}
+.ip .host{background:var(--goodbg);border-color:var(--good);color:var(--goodink)}
+.ip .dot{color:var(--mut)}
+table.sm{border-collapse:collapse;margin:12px 0;font-size:15px;width:100%;max-width:560px}
+table.sm th,table.sm td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+table.sm th{background:var(--box);font-weight:700}
+table.sm td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tblwrap{overflow-x:auto;max-width:100%}
+.term{background:var(--term);color:var(--termfg);border-radius:10px;overflow:hidden;margin:8px 0;font-family:ui-monospace,"SFMono-Regular",Consolas,Menlo,monospace;font-size:14px;line-height:1.65;letter-spacing:0;max-width:620px}
+.term .bar{background:var(--termbar);padding:5px 10px;display:flex;gap:6px;align-items:center;color:var(--tdim);font-size:13px}
+.term .bar i{width:10px;height:10px;border-radius:50%;display:inline-block;background:var(--tdot)}
+.term pre{margin:0;padding:10px 12px;white-space:pre-wrap;overflow-wrap:anywhere}
+.term .p{color:var(--tgrn);font-weight:700}
+.term .d{color:var(--tdim)}
+.reset{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--card);color:var(--mut);border-radius:8px;padding:4px 12px;min-height:36px;cursor:pointer}
+.reset:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+</style></head><body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=317c2f8368">ホーム</a></li><li><a href="./t6168f1fc.html?v=317c2f8368">ご紹介したお仕事</a></li><li><a href="./tf761eb8a.html?v=317c2f8368">3社のいま</a></li><li><a href="./t1575b689.html?v=317c2f8368">これからやること</a></li><li><a href="./t05de6be6.html?v=317c2f8368">面接練習のふりかえり</a></li><li><a href="./te94ab580.html?v=317c2f8368">Linuxの復習</a></li><li><a href="./ta24e5af9.html?v=317c2f8368">10秒面接ドリル</a></li><li><a href="./t93d95a16.html?v=317c2f8368">面接練習のふりかえり（11/11）</a></li><li class="gp-cur"><a href="./tc1c60c7c.html?v=317c2f8368" aria-current="page">CCNAの入口</a></li></ul></nav><!--gp-portal:e-->
+<div class="band" data-chrome aria-hidden="true"><b>CCNAの入口（高橋さん）</b><span id="cur"></span></div>
+<main>
+<h1>CCNAの入口（高橋さん）</h1>
+<p class="meta">11月25日　高橋さんへ　／　株式会社SeeD 武者野</p>
+
+<p>高橋さん、Ping-t で CCNA を進めているとのことなので、最初につまずきやすい「さわり」の部分だけを1枚にまとめました。全部覚えなくて大丈夫です。<b>まず地図を持って、問題集で迷子にならない</b>ことがこのページの目的です。</p>
+
+<h2 id="s0">ゴール：2週間でこの3つを言えるように</h2>
+<div class="goals">
+  <div class="goal"><span class="n">1</span><span class="h">データの通り道</span><div class="e">パソコン → スイッチ → ルーター → 相手、で何が起きているかを口で説明できる</div></div>
+  <div class="goal"><span class="n">2</span><span class="h">IPアドレスの読み方</span><div class="e">「192.168.1.10/24」を見て、どこまでが住所の番地か言える</div></div>
+  <div class="goal"><span class="n">3</span><span class="h">自分の進み具合</span><div class="e">面接で「いま何を・どこまで・次は何」を具体で言える</div></div>
+</div>
+
+<ul class="toc">
+  <li><a href="#s1"><b>1</b>CCNAってどんな資格？</a></li>
+  <li><a href="#s2"><b>2</b>出る範囲の地図</a></li>
+  <li><a href="#s3"><b>3</b>層で考える（OSI）</a></li>
+  <li><a href="#s4"><b>4</b>スイッチとルーター</a></li>
+  <li><a href="#s5"><b>5</b>IPアドレスと /24</a></li>
+  <li><a href="#s6"><b>6</b>Linuxとつなげる</a></li>
+  <li><a href="#s7"><b>7</b>2週間のメニュー</a></li>
+  <li><a href="#s8"><b>8</b>面接での言い方</a></li>
+  <li><a href="#s9"><b>9</b>確認クイズ</a></li>
+</ul>
+
+<h2 id="s1">1. CCNAってどんな資格？</h2>
+<p>ネットワーク機器の大手 Cisco（シスコ）が出している資格で、<b>ネットワークの基礎を一通りわかっている</b>ことの証明になります。インフラの未経験採用では「Linux（LinuC など）」と並んで、いちばん名前が通じる資格です。</p>
+<div class="note">
+  <b>Linux とのちがい</b><br>
+  Linux＝<b>サーバーの中</b>（OS・コマンド・設定）。CCNA＝<b>サーバー同士をつなぐ道</b>（ケーブル・スイッチ・ルーター・住所のルール）。高橋さんが Linux で立てたサーバーに、ブラウザからたどり着けたのは、この「道」が動いていたからです。
+</div>
+<p class="cap">試験は1回で全範囲（2時間・選択問題が中心）。受験料や試験の細かい形式は変わることがあるので、申し込むときに Cisco の公式ページで確かめてください。</p>
+
+<h2 id="s2">2. 出る範囲の地図</h2>
+<p>試験範囲は6つの分野に分かれています。数字は出題の割合の目安です。<b>上の3つで全体の6割以上</b>。最初はここに時間を使います。</p>
+<div class="wt" role="list">
+  <div class="row" role="listitem"><span>IPの接続（ルーティング）</span><span class="bar"><i style="width:100%"></i></span><span class="pct">25%</span></div>
+  <div class="row" role="listitem"><span>ネットワークの基礎</span><span class="bar"><i style="width:80%"></i></span><span class="pct">20%</span></div>
+  <div class="row" role="listitem"><span>ネットワークアクセス（スイッチ・VLAN・無線）</span><span class="bar"><i style="width:80%"></i></span><span class="pct">20%</span></div>
+  <div class="row lo" role="listitem"><span>セキュリティの基礎</span><span class="bar"><i style="width:60%"></i></span><span class="pct">15%</span></div>
+  <div class="row lo" role="listitem"><span>IPサービス（DHCP・DNS・NAT など）</span><span class="bar"><i style="width:40%"></i></span><span class="pct">10%</span></div>
+  <div class="row lo" role="listitem"><span>自動化とプログラマビリティ</span><span class="bar"><i style="width:40%"></i></span><span class="pct">10%</span></div>
+</div>
+<p class="cap">Ping-t の章立てもだいたいこの分野ごとです。迷ったら「いまどの分野をやっているか」をこの表で確かめてください。</p>
+
+<h2 id="s3">3. 層で考える（OSI参照モデル）</h2>
+<p>ネットワークの話は、ほぼ全部「<b>何層の話か</b>」で整理できます。7つの層を丸暗記するより、<b>色のついた3つの層</b>を先に押さえてください。CCNA の大半はこの3つの話です。</p>
+<div class="stack">
+  <div class="layer"><span class="no">7</span><span class="t">アプリケーション層</span><span class="s">ブラウザ・メールなど（HTTP・DNS）</span></div>
+  <div class="layer"><span class="no">6</span><span class="t">プレゼンテーション層</span><span class="s">文字コード・暗号化の形</span></div>
+  <div class="layer"><span class="no">5</span><span class="t">セッション層</span><span class="s">通信の始まりと終わり</span></div>
+  <div class="layer hot"><span class="no">4</span><span class="t">トランスポート層</span><span class="s">TCP と UDP・ポート番号（80＝HTTP、22＝SSH）</span></div>
+  <div class="layer hot"><span class="no">3</span><span class="t">ネットワーク層</span><span class="s">IPアドレス・<b>ルーター</b>の仕事</span></div>
+  <div class="layer hot"><span class="no">2</span><span class="t">データリンク層</span><span class="s">MACアドレス・<b>スイッチ</b>の仕事</span></div>
+  <div class="layer"><span class="no">1</span><span class="t">物理層</span><span class="s">ケーブル・電気の信号</span></div>
+</div>
+<div class="say"><b>覚え方のコツ</b>：トラブルの調べ方も下から。「ケーブル刺さってる？（1）→ スイッチまで届いてる？（2）→ IPは合ってる？（3）」。現場でも同じ順番で見ます。</div>
+
+<h2 id="s4">4. スイッチとルーター：何がちがう？</h2>
+<p>いちばん最初に混ざるのがここです。<b>スイッチ＝同じ部屋の中</b>、<b>ルーター＝部屋と部屋（建物と建物）の間</b>、と考えると整理できます。</p>
+<div class="flow" aria-label="パソコンからWebサーバーまでの通り道">
+  <div class="node"><div class="ic">💻</div><div class="t">パソコン</div><div class="s">192.168.1.10</div></div>
+  <div class="arrow"><span class="a">→</span>同じ部屋</div>
+  <div class="node sw"><div class="ic">🔀</div><div class="t">スイッチ</div><div class="s">MACアドレスで<br>相手を探す（L2）</div></div>
+  <div class="arrow"><span class="a">→</span>出口へ</div>
+  <div class="node rt"><div class="ic">🧭</div><div class="t">ルーター</div><div class="s">IPアドレスで<br>道を選ぶ（L3）</div></div>
+  <div class="arrow"><span class="a">→</span>別の部屋</div>
+  <div class="node"><div class="ic">🖥️</div><div class="t">Webサーバー</div><div class="s">10.0.0.5</div></div>
+</div>
+<div class="tblwrap"><table class="sm">
+  <tr><th></th><th>スイッチ</th><th>ルーター</th></tr>
+  <tr><td>見る住所</td><td>MACアドレス（機械の番号）</td><td>IPアドレス（ネットワーク上の住所）</td></tr>
+  <tr><td>つなぐ範囲</td><td>同じネットワークの中</td><td>ちがうネットワークの間</td></tr>
+  <tr><td>層</td><td>2（データリンク）</td><td>3（ネットワーク）</td></tr>
+  <tr><td>よく出る話</td><td>VLAN・MACアドレステーブル</td><td>ルーティングテーブル・デフォルトゲートウェイ</td></tr>
+</table></div>
+<p class="cap">「デフォルトゲートウェイ」＝部屋の出口のルーターのこと。同じ部屋にいない相手には、とりあえずここに渡します。</p>
+
+<h2 id="s5">5. IPアドレスと「/24」の読み方</h2>
+<p>IPアドレスは「<b>何丁目（ネットワーク部）</b>＋<b>何番地（ホスト部）</b>」の2つでできています。<code>/24</code> は「前から24ビット（＝前の3つの数字）が丁目」という意味です。</p>
+<div class="ip" aria-label="192.168.1.10/24 の内訳"><b class="net">192</b><span class="dot">.</span><b class="net">168</b><span class="dot">.</span><b class="net">1</b><span class="dot">.</span><b class="host">10</b><span class="mut" style="font-family:inherit;font-size:15px;margin-left:8px">/24</span></div>
+<p class="legend"><span class="n">ネットワーク部（丁目）</span><span class="d">ホスト部（番地）</span></p>
+<div class="tblwrap"><table class="sm">
+  <tr><th>書き方</th><th>丁目の長さ</th><th>番地に使える数</th><th>つなげる台数</th></tr>
+  <tr><td class="n">/24</td><td>前から24ビット</td><td>8ビット＝256</td><td class="n">254台</td></tr>
+  <tr><td class="n">/25</td><td>前から25ビット</td><td>7ビット＝128</td><td class="n">126台</td></tr>
+  <tr><td class="n">/26</td><td>前から26ビット</td><td>6ビット＝64</td><td class="n">62台</td></tr>
+</table></div>
+<div class="note"><b>なぜ「2台引く」のか</b>：番地の最初（例 192.168.1.0）は「丁目そのものの名前」、最後（192.168.1.255）は「丁目全員へのお知らせ用（ブロードキャスト）」で、パソコンには使えないからです。<br>→ 計算式は <b>2の（32−スラッシュの数）乗 − 2</b>。/26 なら 2⁶−2＝62。</div>
+<p>サブネットの計算は CCNA でいちばん点差がつく所です。最初は<b>/24〜/30 の表を手で書けるようにする</b>だけで十分。慣れたら Ping-t のサブネット問題を毎日5問ずつ。</p>
+
+<h2 id="s6">6. Linux とつなげて覚える</h2>
+<p>高橋さんはもう Linux を触っているので、同じことを<b>自分の仮想サーバーで確かめられます</b>。これが他の未経験の人より強いところです。</p>
+<div class="term"><div class="bar"><i></i><i></i><i></i>&nbsp;Linux（いつもの仮想サーバー）</div><pre><span class="p">$</span> ip a              <span class="d"># 自分のIPアドレスと /24 などを見る（3層）</span>
+<span class="p">$</span> ip route          <span class="d"># デフォルトゲートウェイ（出口）を見る</span>
+<span class="p">$</span> ping 8.8.8.8      <span class="d"># 相手まで届くか確かめる</span>
+<span class="p">$</span> traceroute 8.8.8.8 <span class="d"># 途中で通るルーターを順に見る</span>
+<span class="p">$</span> ss -tln           <span class="d"># 待ち受け中のポート（4層・nginx なら 80）</span></pre></div>
+<p>CCNA では Cisco の機器を同じように操作します。雰囲気だけ見ておいてください（Ping-t の後半や、無料の練習ソフト <b>Packet Tracer</b> で触れます）。</p>
+<div class="term"><div class="bar"><i></i><i></i><i></i>&nbsp;Cisco の機器（ルーター）</div><pre><span class="p">Router&gt;</span> enable                       <span class="d"># 管理者モードに入る</span>
+<span class="p">Router#</span> show ip interface brief       <span class="d"># 各ポートのIPと、つながっているか</span>
+<span class="p">Router#</span> show ip route                 <span class="d"># ルーティングテーブル（道の一覧）</span>
+<span class="p">Router#</span> configure terminal            <span class="d"># 設定モードへ</span></pre></div>
+<p class="cap">Linux の <code>ip a</code> ↔ Cisco の <code>show ip interface brief</code>、<code>ip route</code> ↔ <code>show ip route</code>。対にして覚えると早いです。</p>
+
+<h2 id="s7">7. 2週間のメニュー</h2>
+<p>1日30分〜1時間で回せる量にしています。終わったらチェックを付けてください（チェックはこの端末のブラウザにだけ残ります）。</p>
+<div class="prog"><span class="bar"><i id="pbar"></i></span><span id="ptxt">0 / 8</span><button type="button" class="reset" id="preset">チェックを外す</button></div>
+<div id="chks">
+<label class="chk"><input type="checkbox" data-k="c1"><span><b>1〜2日目</b>　このページの3章（層）と4章（スイッチとルーター）を、紙に何も見ずに書いてみる</span></label>
+<label class="chk"><input type="checkbox" data-k="c2"><span><b>3〜4日目</b>　Ping-t「ネットワークの基礎」の章を1周（正解率は気にしない）</span></label>
+<label class="chk"><input type="checkbox" data-k="c3"><span><b>5日目</b>　自分の仮想サーバーで6章のコマンド5つを全部打ち、出た結果を1行ずつ説明してみる</span></label>
+<label class="chk"><input type="checkbox" data-k="c4"><span><b>6〜7日目</b>　/24〜/30 の表（台数）を手で書けるようにする</span></label>
+<label class="chk"><input type="checkbox" data-k="c5"><span><b>8〜10日目</b>　Ping-t の「サブネット」関連を毎日5問</span></label>
+<label class="chk"><input type="checkbox" data-k="c6"><span><b>11〜12日目</b>　Ping-t「ネットワークアクセス（スイッチ・VLAN）」を1周</span></label>
+<label class="chk"><input type="checkbox" data-k="c7"><span><b>13日目</b>　1〜12日目で間違えた問題だけをもう一度</span></label>
+<label class="chk"><input type="checkbox" data-k="c8"><span><b>14日目</b>　8章の「面接での言い方」の空欄を、自分の数字で埋める</span></label>
+</div>
+<div class="say"><b>つまずいたら</b>：わからない言葉が出たら、その場で調べ切らずにメモだけして先へ。2周目でだいたい解けます。どこで手が止まったかは武者野に LINE で教えてください（点数は聞きません）。</div>
+
+<h2 id="s8">8. 面接での言い方</h2>
+<p>面接で強いのは「研修で頑張ります」より、<b>いま自分で進めていることを具体で言える</b>ことです。空欄を自分の数字で埋めておいてください。</p>
+<div class="pair">
+  <div class="keep"><p class="h">こう言える形</p>
+  「Linux で仮想サーバーを立てて Web ページを表示するところまで自分でやりました。いまはその次として、Ping-t で CCNA を<span class="blank"></span>の章まで進めています。<span class="blank"></span>月の受験を目標に、毎日<span class="blank"></span>分続けています。」</div>
+  <div class="fix"><p class="h">避けたい形</p>
+  「CCNA の勉強をしています。」<span class="ex">→ 何を・どこまで・いつまでが無いと、面接官は進み具合を想像できません。</span></div>
+</div>
+<p>「なぜ CCNA？」と聞かれたら：<b>「サーバーを立ててみて、そこに届くまでの道（ネットワーク）がわかっていないと、止まったときに原因を探せないと感じたからです」</b>。高橋さん自身の体験から出る理由なので、そのまま使えます。</p>
+
+<h2 id="s9">9. 確認クイズ（押すと答えが開きます）</h2>
+<details><summary>Q1. MACアドレスを見て相手を探すのは、スイッチ？ルーター？</summary><p><b>スイッチ</b>（2層）。ルーターは IPアドレスを見ます（3層）。</p></details>
+<details><summary>Q2. 192.168.1.10/24 のネットワーク部（丁目）はどこまで？</summary><p><b>192.168.1</b> まで。最後の 10 が番地（ホスト部）です。</p></details>
+<details><summary>Q3. /26 のネットワークには、パソコンを何台つなげる？</summary><p><b>62台</b>。2⁶＝64 から、丁目の名前と全員へのお知らせ用の2つを引きます。</p></details>
+<details><summary>Q4. 違うネットワークの相手に送るとき、パソコンはまずどこに渡す？</summary><p><b>デフォルトゲートウェイ</b>（部屋の出口のルーター）。Linux では <code>ip route</code> の default の行で見られます。</p></details>
+<details><summary>Q5. nginx が待ち受けている 80 番は何層の話？</summary><p><b>4層（トランスポート層）</b>のポート番号です。SSH は 22 番。</p></details>
+<details><summary>Q6. 通信がつながらないとき、どの順番で確かめる？</summary><p><b>下の層から</b>：ケーブル（1）→ スイッチまで（2）→ IP・ゲートウェイ（3）→ ポート（4）。</p></details>
+</main>
+<script>
+(function(){
+  var cur=document.getElementById('cur');
+  var hs=[].slice.call(document.querySelectorAll('main h2'));
+  function upd(){
+    var t='';
+    for(var i=0;i<hs.length;i++){ if(hs[i].getBoundingClientRect().top<80){ t=hs[i].textContent; } }
+    if(hs.length && window.scrollY>0 && window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-2){ t=hs[hs.length-1].textContent; }
+    cur.textContent=t?'／ '+t:'';
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd);
+  upd();
+})();
+(function(){
+  var KEY='ccna_iriguchi_v1';
+  var boxes=[].slice.call(document.querySelectorAll('#chks input[type=checkbox]'));
+  var bar=document.getElementById('pbar'), txt=document.getElementById('ptxt');
+  var st={};
+  try{ st=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ st={}; }
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} }
+  function paint(){
+    var n=0; boxes.forEach(function(b){ if(b.checked) n++; });
+    bar.style.width=(boxes.length? n*100/boxes.length:0)+'%';
+    txt.textContent=n+' / '+boxes.length;
+  }
+  boxes.forEach(function(b){
+    b.checked=!!st[b.getAttribute('data-k')];
+    b.addEventListener('change',function(){ st[b.getAttribute('data-k')]=b.checked; save(); paint(); });
+  });
+  document.getElementById('preset').addEventListener('click',function(){
+    if(!boxes.some(function(b){return b.checked;})) return;
+    if(!window.confirm('チェックを全部外しますか？')) return;
+    st={}; boxes.forEach(function(b){ b.checked=false; }); save(); paint();
+  });
+  paint();
+})();
+</script>
+<!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=317c2f8368">ホーム</a></li><li><a href="./t6168f1fc.html?v=317c2f8368">ご紹介したお仕事</a></li><li><a href="./tf761eb8a.html?v=317c2f8368">3社のいま</a></li><li><a href="./t1575b689.html?v=317c2f8368">これからやること</a></li><li><a href="./t05de6be6.html?v=317c2f8368">面接練習のふりかえり</a></li><li><a href="./te94ab580.html?v=317c2f8368">Linuxの復習</a></li><li><a href="./ta24e5af9.html?v=317c2f8368">10秒面接ドリル</a></li><li><a href="./t93d95a16.html?v=317c2f8368">面接練習のふりかえり（11/11）</a></li><li class="gp-cur"><a href="./tc1c60c7c.html?v=317c2f8368" aria-current="page">CCNAの入口</a></li></ul></nav><!--gp-portal:e--></body></html>
