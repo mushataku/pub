@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Gooner Bar 卓上POPと名刺カード（印刷用）</title>
+<style>
+:root{
+  --bg:#fbfaf7; --surface:#ffffff; --sunk:#f1eee6; --text:#1d1d1b; --muted:#4a4a46; --line:#d6d2c6;
+  --accent:#b23c0f; --accent-bg:#fff1e8; --on-accent:#ffffff;
+  --gold:#7a4f00; --gold-bg:#fff6dc;
+  --paper:#ffffff; --ink:#1d1d1b; --ink-muted:#45453f; --ink-accent:#a8360c; --ink-accent-bg:#fff1e8;
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:44px;
+  --font:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Meiryo","Noto Sans JP",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161513; --surface:#22211e; --sunk:#2c2a26; --text:#f2f0ea; --muted:#d0cdc4; --line:#45423c;
+    --accent:#ff9b6b; --accent-bg:#3a2418; --on-accent:#1d1208;
+    --gold:#ffd27a; --gold-bg:#3a2e12;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.8;letter-spacing:0.01em}
+.band{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);padding:var(--s2) var(--s3);font-size:14px;line-height:1.5;color:var(--muted)}
+.band b{color:var(--text)}
+main{max-width:52em;margin:0 auto;padding:var(--s4) var(--s3) var(--s5)}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere;line-height:1.45;letter-spacing:0}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
+h1{font-size:1.6rem;margin:0 0 var(--s3)}
+h2{font-size:1.3rem;margin:var(--s5) 0 var(--s3);padding-top:var(--s3);border-top:2px solid var(--line)}
+p,li{max-width:40em}
+p{margin:0 0 var(--s3)}
+ul{padding-left:1.4em;margin:0 0 var(--s3)}
+code{font-family:ui-monospace,Consolas,monospace;font-size:0.95em;overflow-wrap:anywhere}
+.note{background:var(--gold-bg);border-left:5px solid var(--gold);border-radius:6px;padding:var(--s3);margin:0 0 var(--s3)}
+.note p{margin:0}
+.printbtn{font:inherit;font-size:16px;font-weight:700;padding:10px 20px;border-radius:8px;border:2px solid var(--accent);background:var(--accent);color:var(--on-accent);cursor:pointer;margin:0 0 var(--s3)}
+.printbtn:focus-visible{outline:3px solid var(--text);outline-offset:2px}
+
+/* ===== 刷る面（紙）: 画面では幅に合わせて流し、印刷では寸法を固定する ===== */
+.sheet{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.08);margin:0 auto var(--s4)}
+.sheet .kicker{display:inline-block;background:var(--ink-accent);color:#fff;font-weight:700;border-radius:999px;padding:2px 12px;font-size:14px;letter-spacing:0.02em}
+.sheet .big{color:var(--ink-accent);font-weight:800;line-height:1.3;letter-spacing:0;word-break:keep-all;overflow-wrap:anywhere}
+.sheet .big .yen{font-size:1.35em}
+.sheet .lines{list-style:none;padding:0;margin:0}
+.sheet .lines li{position:relative;padding-left:1.3em;max-width:none}
+.sheet .lines li::before{content:"";position:absolute;left:0.15em;top:0.62em;width:0.62em;height:0.62em;border-radius:50%;background:var(--ink-accent)}
+.sheet .qrbox{background:#fff;line-height:0}
+.sheet .qrbox svg{display:block;width:100%;height:auto}
+.sheet .how{color:var(--ink-muted)}
+.sheet .fine{color:var(--ink-muted);border-top:1px solid #d6d2c6}
+.sheet .fine p{margin:0}
+.sheet b{color:var(--ink)}
+
+/* A6 縦（105×148mm） */
+.pop{max-width:105mm;padding:var(--s4) var(--s3)}
+.pop .big{font-size:1.9rem;margin:var(--s2) 0 var(--s1)}
+.pop .sub{font-size:16px;font-weight:700;margin:0 0 var(--s3)}
+.pop .lines{font-size:16px;line-height:1.6;margin:0 0 var(--s3)}
+.pop .lines li{margin:0 0 var(--s2)}
+.pop .qrrow{display:flex;gap:var(--s3);align-items:center;margin:0 0 var(--s3)}
+.pop .qrbox{flex:none;width:118px}
+.pop .how{font-size:16px;line-height:1.6;margin:0}
+.pop .fine{font-size:16px;line-height:1.6;padding-top:var(--s2)}
+
+/* 名刺（91×55mm） */
+.card{max-width:91mm;padding:var(--s3);display:flex;gap:var(--s3);align-items:center}
+.card .txt{flex:1;min-width:0}
+.card .big{font-size:1.25rem;margin:var(--s1) 0}
+.card .lines{font-size:16px;line-height:1.5}
+.card .qrbox{flex:none;width:96px}
+.card .fine{font-size:16px;line-height:1.5;padding-top:var(--s1);margin-top:var(--s1)}
+
+@page{size:105mm 148mm;margin:0}
+@page pop{size:105mm 148mm;margin:0}
+@page card{size:91mm 55mm;margin:0}
+@media print{
+  html,body{background:#fff}
+  .band,.screen-only,main > h1{display:none !important}
+  main{max-width:none;margin:0;padding:0}
+  .sheet{border:0;border-radius:0;box-shadow:none;margin:0;overflow:hidden;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pop{page:pop;width:105mm;height:148mm;max-width:none;padding:8mm 7mm 6mm;display:flex;flex-direction:column;break-after:page}
+  .pop .kicker{font-size:8.5pt;padding:0.5mm 3mm}
+  .pop .big{font-size:22pt;margin:3mm 0 1mm}
+  .pop .sub{font-size:10pt;margin:0 0 4mm}
+  .pop .lines{font-size:10.5pt;line-height:1.55;margin:0 0 4mm}
+  .pop .lines li{margin:0 0 1.6mm}
+  .pop .qrrow{gap:4mm;margin:0 0 3mm}
+  .pop .qrbox{width:40mm}
+  .pop .how{font-size:10pt;line-height:1.5}
+  .pop .fine{margin-top:auto;font-size:7.5pt;line-height:1.5;padding-top:2mm}
+  .card{page:card;width:91mm;height:55mm;max-width:none;padding:4mm;gap:3mm;break-after:auto}
+  .card .kicker{font-size:6.5pt;padding:0.3mm 2mm}
+  .card .big{font-size:12pt;margin:1mm 0}
+  .card .lines{font-size:7.5pt;line-height:1.45}
+  .card .lines li{padding-left:1.2em}
+  .card .qrbox{width:25mm}
+  .card .fine{font-size:6pt;line-height:1.4;padding-top:1mm;margin-top:1mm}
+}
+</style>
+</head>
+<body>
+<div class="band" data-chrome><b>卓上POPと名刺カード（印刷用）</b> <span id="cur"></span></div>
+<main>
+<h1>Gooner Bar 卓上POPと<wbr>名刺カード（印刷用）</h1>
+
+<div class="screen-only">
+<p>バーのテーブルに置く <b>A6 縦の卓上POP</b> と、お客様に渡す <b>名刺大のカード（91×55mm）</b> の2面です。下の「印刷する」を押すと、1枚目が A6、2枚目が名刺の大きさで出ます。</p>
+<ul>
+<li>Chrome で開いて印刷し、用紙の大きさは「ページの指定どおり」・余白は「なし」にする</li>
+<li>名刺の面は、名刺用紙に刷るか、厚紙に刷って枠どおりに切る</li>
+<li>QR の行き先: <code>https://gooner-saiyo.web.app/bar</code>（日時を選んで、公式LINEで予約を確定する画面）</li>
+</ul>
+<div class="note"><p>文面の決まり: クーポンは「話を聞いてくれたお礼」で、Gooner Bar の来店キャンペーンとして告知します。仕事を決めることや選考に進むことと結びつけた言い方はしません。現金・ギフト券にはしません（お一人様1回）。</p></div>
+<button type="button" class="printbtn" id="printbtn">🖨 印刷する</button>
+<h2 id="pop-h">1枚目: 卓上POP（A6 縦）</h2>
+</div>
+
+<section class="sheet pop" aria-labelledby="pop-big">
+  <span class="kicker">Gooner Bar 来店キャンペーン</span>
+  <p class="big" id="pop-big">話を聞くだけで、<br><span class="yen">3,000</span>円クーポン</p>
+  <p class="sub">Gooner Bar で使える飲み代クーポンです</p>
+  <ul class="lines">
+    <li>仕事のこと、ちょっと話してみたい人へ。<b>転職するか決めていなくて大丈夫</b>です</li>
+    <li><b>1時間ほど</b>、話を聞くだけ。<b>Zoom</b> か <b>東新宿のオフィス</b>で</li>
+    <li>QR から空いている日時を選ぶだけ</li>
+  </ul>
+  <div class="qrrow">
+    <div class="qrbox" role="img" aria-label="予約の画面を開くQRコード"><svg viewBox="0 0 37 37" class="segno"><path fill="#fff" d="M0 0h37v37h-37z"/><path class="qrline" stroke="#000" d="M4 4.5h7m2 0h1m2 0h1m1 0h1m7 0h7m-29 1h1m5 0h1m1 0h2m3 0h2m1 0h2m1 0h2m1 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m3 0h2m1 0h1m5 0h1m2 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m2 0h1m2 0h4m2 0h1m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h6m2 0h4m2 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m3 0h1m5 0h3m1 0h1m1 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-21 1h4m2 0h3m1 0h1m-18 1h1m1 0h4m1 0h4m1 0h1m1 0h1m1 0h2m1 0h3m1 0h2m1 0h1m-28 1h6m1 0h1m1 0h4m2 0h1m1 0h3m3 0h2m2 0h1m-26 1h1m1 0h7m1 0h1m1 0h3m4 0h2m2 0h2m-25 1h1m2 0h1m2 0h1m1 0h1m2 0h3m1 0h2m5 0h2m2 0h1m-29 1h1m2 0h4m2 0h2m1 0h4m3 0h4m4 0h1m-28 1h3m4 0h1m1 0h2m2 0h1m1 0h4m3 0h1m1 0h1m1 0h1m1 0h1m-29 1h2m1 0h1m1 0h2m1 0h1m1 0h2m2 0h1m1 0h2m1 0h2m1 0h2m1 0h1m2 0h1m-29 1h5m2 0h1m1 0h1m3 0h1m5 0h1m1 0h2m1 0h5m-27 1h1m2 0h4m1 0h1m1 0h4m4 0h1m4 0h1m1 0h1m-28 1h5m2 0h1m5 0h1m2 0h5m3 0h1m1 0h1m-27 1h5m1 0h1m2 0h2m1 0h1m1 0h4m1 0h2m2 0h1m2 0h1m1 0h1m-29 1h3m5 0h1m6 0h1m5 0h3m2 0h1m-27 1h3m3 0h2m1 0h1m2 0h1m1 0h2m1 0h1m2 0h9m-21 1h4m2 0h2m4 0h1m3 0h3m-27 1h7m2 0h1m2 0h1m2 0h2m1 0h3m1 0h1m1 0h1m1 0h1m-27 1h1m5 0h1m1 0h1m3 0h2m3 0h4m3 0h2m1 0h1m-28 1h1m1 0h3m1 0h1m1 0h1m3 0h2m5 0h6m2 0h2m-29 1h1m1 0h3m1 0h1m1 0h3m1 0h5m1 0h1m4 0h1m4 0h1m-29 1h1m1 0h3m1 0h1m4 0h3m1 0h1m1 0h2m1 0h2m1 0h2m1 0h3m-29 1h1m5 0h1m1 0h3m2 0h1m2 0h1m1 0h1m3 0h1m1 0h1m1 0h1m1 0h1m-29 1h7m2 0h2m3 0h2m2 0h1m1 0h5"/></svg></div>
+    <p class="how">① QR を読む<br>② 日時を選ぶ<br>③ 公式LINEで確定</p>
+  </div>
+  <div class="fine">
+    <p>お一人様1回限り・Gooner Bar 店内のご飲食にお使いいただけます・現金とのお引き換えはできません・発行から90日間有効。お話の相手は Gooner のキャリア担当です。</p>
+  </div>
+</section>
+
+<div class="screen-only"><h2 id="card-h">2枚目: 名刺カード（91×55mm）</h2></div>
+
+<section class="sheet card" aria-labelledby="card-big">
+  <div class="txt">
+    <span class="kicker">Gooner Bar 来店キャンペーン</span>
+    <p class="big" id="card-big">話を聞くだけで<br>3,000円クーポン</p>
+    <ul class="lines">
+      <li>1時間ほど・Zoomか東新宿で</li>
+      <li>転職するか決めていなくてOK</li>
+    </ul>
+    <div class="fine"><p>お一人様1回・店内のご飲食に・現金不可・90日間有効</p></div>
+  </div>
+  <div class="qrbox" role="img" aria-label="予約の画面を開くQRコード"><svg viewBox="0 0 37 37" class="segno"><path fill="#fff" d="M0 0h37v37h-37z"/><path class="qrline" stroke="#000" d="M4 4.5h7m2 0h1m2 0h1m1 0h1m7 0h7m-29 1h1m5 0h1m1 0h2m3 0h2m1 0h2m1 0h2m1 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m3 0h2m1 0h1m5 0h1m2 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m2 0h1m2 0h4m2 0h1m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h6m2 0h4m2 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m3 0h1m5 0h3m1 0h1m1 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-21 1h4m2 0h3m1 0h1m-18 1h1m1 0h4m1 0h4m1 0h1m1 0h1m1 0h2m1 0h3m1 0h2m1 0h1m-28 1h6m1 0h1m1 0h4m2 0h1m1 0h3m3 0h2m2 0h1m-26 1h1m1 0h7m1 0h1m1 0h3m4 0h2m2 0h2m-25 1h1m2 0h1m2 0h1m1 0h1m2 0h3m1 0h2m5 0h2m2 0h1m-29 1h1m2 0h4m2 0h2m1 0h4m3 0h4m4 0h1m-28 1h3m4 0h1m1 0h2m2 0h1m1 0h4m3 0h1m1 0h1m1 0h1m1 0h1m-29 1h2m1 0h1m1 0h2m1 0h1m1 0h2m2 0h1m1 0h2m1 0h2m1 0h2m1 0h1m2 0h1m-29 1h5m2 0h1m1 0h1m3 0h1m5 0h1m1 0h2m1 0h5m-27 1h1m2 0h4m1 0h1m1 0h4m4 0h1m4 0h1m1 0h1m-28 1h5m2 0h1m5 0h1m2 0h5m3 0h1m1 0h1m-27 1h5m1 0h1m2 0h2m1 0h1m1 0h4m1 0h2m2 0h1m2 0h1m1 0h1m-29 1h3m5 0h1m6 0h1m5 0h3m2 0h1m-27 1h3m3 0h2m1 0h1m2 0h1m1 0h2m1 0h1m2 0h9m-21 1h4m2 0h2m4 0h1m3 0h3m-27 1h7m2 0h1m2 0h1m2 0h2m1 0h3m1 0h1m1 0h1m1 0h1m-27 1h1m5 0h1m1 0h1m3 0h2m3 0h4m3 0h2m1 0h1m-28 1h1m1 0h3m1 0h1m1 0h1m3 0h2m5 0h6m2 0h2m-29 1h1m1 0h3m1 0h1m1 0h3m1 0h5m1 0h1m4 0h1m4 0h1m-29 1h1m1 0h3m1 0h1m4 0h3m1 0h1m1 0h2m1 0h2m1 0h2m1 0h3m-29 1h1m5 0h1m1 0h3m2 0h1m2 0h1m1 0h1m3 0h1m1 0h1m1 0h1m1 0h1m-29 1h7m2 0h2m3 0h2m2 0h1m1 0h5"/></svg></div>
+</section>
+</main>
+<script>
+document.getElementById('printbtn').addEventListener('click', function(){ window.print(); });
+(function(){
+  var cur = document.getElementById('cur');
+  var hs = Array.prototype.slice.call(document.querySelectorAll('main h2'));
+  function upd(){
+    var t = '';
+    for (var i = 0; i < hs.length; i++){ if (hs[i].getBoundingClientRect().top < 80) t = hs[i].textContent; }
+    cur.textContent = t ? '｜' + t : '';
+  }
+  window.addEventListener('scroll', upd, {passive:true}); upd();
+})();
+</script>
+</body>
+</html>
