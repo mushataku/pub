@@ -7,52 +7,84 @@
 <title>紹介クーポン スタッフ用</title>
 <style>
 :root{
-  --bg:#fbfaf7; --surface:#ffffff; --text:#1d1d1b; --muted:#4a4a46; --line:#dedbd2;
-  --accent:#9a3412; --accent-bg:#fff1e8; --ok:#14532d; --ok-bg:#ecf7ef; --ng:#8a1c1c; --ng-bg:#fdeeee;
-  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px;
+  --bg:#fbfaf7; --surface:#ffffff; --sunk:#f1eee6; --text:#1d1d1b; --muted:#4a4a46; --line:#d6d2c6;
+  --accent:#b23c0f; --accent-bg:#fff1e8; --on-accent:#ffffff;
+  --ok:#14532d; --ok-bg:#e8f5ec; --ng:#8a1c1c; --ng-bg:#fdecec;
+  --linegreen:#05843d; --gold:#8a5a00; --gold-bg:#fff6dc;
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:44px;
   --font:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Meiryo","Noto Sans JP",system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#161513; --surface:#201f1c; --text:#f2f0ea; --muted:#cfccc3; --line:#3a3833;
-    --accent:#fdba8c; --accent-bg:#3a2418; --ok:#a7e3b9; --ok-bg:#16291c; --ng:#f7b2b2; --ng-bg:#361a1a;
+    --bg:#161513; --surface:#22211e; --sunk:#2c2a26; --text:#f2f0ea; --muted:#d0cdc4; --line:#45423c;
+    --accent:#ff9b6b; --accent-bg:#3a2418; --on-accent:#1d1208;
+    --ok:#a7e3b9; --ok-bg:#16291c; --ng:#f7b2b2; --ng-bg:#361a1a;
+    --linegreen:#3ddc84; --gold:#ffd27a; --gold-bg:#3a2e12;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#161513; --surface:#201f1c; --text:#f2f0ea; --muted:#cfccc3; --line:#3a3833;
-  --accent:#fdba8c; --accent-bg:#3a2418; --ok:#a7e3b9; --ok-bg:#16291c; --ng:#f7b2b2; --ng-bg:#361a1a;
+  --bg:#161513; --surface:#22211e; --sunk:#2c2a26; --text:#f2f0ea; --muted:#d0cdc4; --line:#45423c;
+  --accent:#ff9b6b; --accent-bg:#3a2418; --on-accent:#1d1208;
+  --ok:#a7e3b9; --ok-bg:#16291c; --ng:#f7b2b2; --ng-bg:#361a1a;
+  --linegreen:#3ddc84; --gold:#ffd27a; --gold-bg:#3a2e12;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.8;letter-spacing:0.01em}
 .band{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);padding:var(--s2) var(--s3);font-size:14px;line-height:1.5;color:var(--muted)}
 .band b{color:var(--text)}
-main{max-width:44em;margin:0 auto;padding:var(--s4) var(--s3) var(--s5)}
+main{max-width:52em;margin:0 auto;padding:var(--s4) var(--s3) var(--s5)}
 h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere;line-height:1.45;letter-spacing:0}
 @supports (word-break:auto-phrase){main > :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
 h1{font-size:1.6rem;margin:0 0 var(--s3)}
-h2{font-size:1.25rem;margin:var(--s5) 0 var(--s3);padding-top:var(--s2);border-top:2px solid var(--line)}
-p,li{max-width:40em}
+h2{font-size:1.3rem;margin:var(--s5) 0 var(--s3);padding-top:var(--s3);border-top:2px solid var(--line)}
+h2 .no{display:inline-block;min-width:1.8em;height:1.8em;line-height:1.8em;text-align:center;border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:0.85em;margin-right:0.4em}
+p,li,dd{max-width:40em}
 p{margin:0 0 var(--s3)}
-.lead{font-size:1.1rem;background:var(--accent-bg);border-left:4px solid var(--accent);padding:var(--s3);border-radius:6px}
-.lead strong{color:var(--accent)}
-ol.flow{padding-left:1.6em;margin:0 0 var(--s3)}
-ol.flow li{margin-bottom:var(--s2)}
-.note{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:var(--s3);margin:0 0 var(--s3)}
-.two{display:grid;grid-template-columns:1fr;gap:var(--s3)}
-@media (min-width:640px){.two{grid-template-columns:1fr 1fr}}
-.box{border-radius:6px;padding:var(--s3)}
-.box h3{margin:0 0 var(--s2);font-size:1.05rem}
-.box ul{margin:0;padding-left:1.2em}
-.box li{margin-bottom:var(--s2)}
-.ok{background:var(--ok-bg)} .ok h3{color:var(--ok)}
-.ng{background:var(--ng-bg)} .ng h3{color:var(--ng)}
-.talk{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:var(--s3);margin:0 0 var(--s3)}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:var(--font)}
+/* svg tokens */
+.f-surf{fill:var(--surface)} .f-sunk{fill:var(--sunk)} .f-bg{fill:var(--bg)}
+.f-acc{fill:var(--accent)} .f-accbg{fill:var(--accent-bg)} .f-onacc{fill:var(--on-accent)}
+.f-text{fill:var(--text)} .f-muted{fill:var(--muted)} .f-line{fill:var(--line)}
+.f-ok{fill:var(--ok)} .f-okbg{fill:var(--ok-bg)} .f-ng{fill:var(--ng)} .f-ngbg{fill:var(--ng-bg)}
+.f-lg{fill:var(--linegreen)} .f-gold{fill:var(--gold)} .f-goldbg{fill:var(--gold-bg)}
+.s-line{stroke:var(--line)} .s-text{stroke:var(--text)} .s-acc{stroke:var(--accent)} .s-muted{stroke:var(--muted)} .s-gold{stroke:var(--gold)}
+.fig{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:var(--s3);margin:0 0 var(--s3)}
+.cap{font-size:16px;color:var(--muted);margin:var(--s2) 0 0}
+/* phone steps */
+.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s3);margin:0 0 var(--s3)}
+@media (min-width:720px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:var(--s2) var(--s2) var(--s3);text-align:center}
+.step .num{display:inline-block;width:1.9em;height:1.9em;line-height:1.9em;border-radius:50%;background:var(--accent);color:var(--on-accent);font-weight:700;margin:var(--s1) 0 var(--s2)}
+.step svg{max-width:150px;margin:0 auto var(--s2)}
+.step p{margin:0;font-size:16px;line-height:1.6;text-align:left;padding:0 var(--s1)}
+.step .who{display:block;font-size:14px;color:var(--muted);margin-top:var(--s1);text-align:left;padding:0 var(--s1)}
+.warn{display:flex;gap:var(--s2);align-items:flex-start;background:var(--accent-bg);border-left:5px solid var(--accent);border-radius:6px;padding:var(--s3);margin:0 0 var(--s3)}
+.warn .ic{font-size:1.5rem;line-height:1.2}
+.warn p{margin:0}
+/* ok/ng bubbles */
+.talkgrid{display:grid;grid-template-columns:1fr;gap:var(--s3);margin:0 0 var(--s3)}
+@media (min-width:640px){.talkgrid{grid-template-columns:1fr 1fr}}
+.col h3{margin:0 0 var(--s2);font-size:1.1rem}
+.col.ok h3{color:var(--ok)} .col.ng h3{color:var(--ng)}
+.bub{position:relative;border-radius:14px;padding:var(--s2) var(--s3);margin:0 0 var(--s3) 2.4em}
+.bub::before{position:absolute;left:-2.2em;top:0.2em;font-size:1.4rem;line-height:1}
+.ok .bub{background:var(--ok-bg)} .ok .bub::before{content:"⭕"}
+.ng .bub{background:var(--ng-bg)} .ng .bub::before{content:"❌"}
+.talk{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:var(--s3);margin:0 0 var(--s3)}
 .talk h3{margin:0 0 var(--s2);font-size:1rem;color:var(--muted)}
-.talk p{margin:0}
-dl{margin:0}
-dt{font-weight:700;margin-top:var(--s3)}
-dd{margin:var(--s1) 0 0 0;max-width:40em}
+.talk .say{background:var(--sunk);border-radius:14px 14px 14px 4px;padding:var(--s2) var(--s3);margin:0}
+.faq{display:grid;grid-template-columns:1fr;gap:var(--s3)}
+@media (min-width:640px){.faq{grid-template-columns:1fr 1fr}}
+.qa{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:var(--s3)}
+.qa h3{margin:0 0 var(--s2);font-size:1rem}
+.qa h3::before{content:"Q. ";color:var(--accent)}
+.qa p{margin:0}
+.qa p::before{content:"A. ";font-weight:700;color:var(--ok)}
+.qrslot{display:flex;gap:var(--s3);align-items:center;background:var(--gold-bg);border:2px dashed var(--gold);border-radius:10px;padding:var(--s3);margin:0 0 var(--s3)}
+.qrslot svg{width:64px;flex:none}
+.qrslot p{margin:0}
 @media print{.band{position:static}body{background:#fff}}
 </style>
 </head>
@@ -60,84 +92,189 @@ dd{margin:var(--s1) 0 0 0;max-width:40em}
 <div class="band" data-chrome><b>紹介クーポン スタッフ用の1枚</b> <span id="cur"></span></div>
 <main>
 <h1>Gooner Bar 紹介クーポン<wbr>（スタッフ用の1枚）</h1>
-<p class="lead">お客様が人材事業部で<strong>「話を聞く」</strong>（30分ほど・Zoomか東新宿のオフィス）と、Gooner Barで使える<strong>3,000円のクーポン</strong>がお客様のLINEに届きます。その3,000円は、<strong>紹介したあなたの売上</strong>になります。</p>
-<p>12月1日（月）から全体で始めます。準備ができしだい、それより前から使えます。</p>
 
-<h2 id="flow">紹介の流れ</h2>
-<ol class="flow">
-<li>仕事や転職の話が出たら、キャンペーンのことを伝える。</li>
-<li>スマホで店のQRを見せる。</li>
-<li>お客様がQRを読んで開いたページで、「紹介してくれたスタッフ」から<b>あなたの名前</b>を選ぶ。</li>
-<li>お客様が日程を選ぶ。「今すぐ話したい」を選んだら、担当からすぐに連絡が行く。</li>
-<li>お客様が名前と電話番号を入れ、Zoomか対面かを選び、公式LINEを友だち追加して完了。</li>
-<li>話を聞き終わったら、お客様のLINEにクーポンが届く。</li>
-</ol>
-<p class="note">名前を選び忘れると、誰の売上にも付きません。お客様が名前を選ぶところまで、一緒に画面を見て確かめてください。</p>
-<p class="note">店のQRはこのページから開けるようにします（準備中・用意できたらここにリンクが入ります）。</p>
-
-<h2 id="use">クーポンを使うとき</h2>
-<ol class="flow">
-<li>お客様にクーポンの画面を見せてもらう。</li>
-<li>「使えます」と出ていて、期限が切れていないことを確かめる。</li>
-<li>店のPINを入れて「使用済み」にする。</li>
-<li>お会計から3,000円を引く。</li>
-</ol>
-<p>クーポンは1人1回だけ使えます。期限は届いてから90日です。現金には換えられず、おつりも出ません。会計するのが別のスタッフでも、売上はQRで選ばれたスタッフに付きます。</p>
-
-<h2 id="say">言っていいこと・言ってはいけないこと</h2>
-<div class="two">
-<div class="box ok">
-<h3>言っていいこと</h3>
-<ul>
-<li>話を聞くだけで、ここで使える3,000円のクーポンがもらえる</li>
-<li>30分くらいで、Zoomでもいい</li>
-<li>転職するかどうか決めていなくても、話を聞くだけでいい</li>
-</ul>
-</div>
-<div class="box ng">
-<h3>言ってはいけないこと</h3>
-<ul>
-<li>「転職したら」「応募したら」「内定が出たら」3,000円</li>
-<li>現金で渡す、と言う</li>
-<li>しつこく誘う</li>
-<li>前に一度使った人に、もう一度すすめる</li>
-</ul>
-</div>
-</div>
-<p>仕事の紹介の見返りにお金を渡すのは、法律で決まった線を越えます。このクーポンは「話を聞いてくれたお礼」で、バーで使う来店のクーポンです。その線を外さない言い方だけにしてください。</p>
-
-<h2 id="talk">トークの例</h2>
-<div class="talk">
-<h3>仕事の話が出たとき</h3>
-<p>「いま、うちの会社の人材の部署でキャンペーンやってて。30分くらい話を聞くだけで、ここで使える3,000円のクーポンがもらえるんですよ。転職するかは全然決めてなくて大丈夫です」</p>
-</div>
-<div class="talk">
-<h3>興味がありそうなとき</h3>
-<p>「これ読んでもらえれば、そのまま日程を選べます。オフィスが東新宿なんで、このあとすぐ話を聞くこともできますよ」</p>
-</div>
-<div class="talk">
-<h3>迷っているとき</h3>
-<p>「Zoomでもいいんで、家からでも大丈夫です。日程は空いてるところから選ぶだけです」</p>
+<div class="fig">
+<svg viewBox="0 0 360 250" role="img" aria-label="お客様が話を聞くと3,000円のクーポンが届き、その3,000円が紹介したスタッフの売上になる図">
+  <!-- customer -->
+  <circle cx="45" cy="52" r="16" class="f-sunk s-text" stroke-width="2"/>
+  <path d="M17 100 q28 -34 56 0 z" class="f-sunk s-text" stroke-width="2"/>
+  <text x="45" y="122" text-anchor="middle" font-size="14" class="f-text" font-weight="700">お客様</text>
+  <!-- arrow -->
+  <path d="M80 70 h30" class="s-acc" stroke-width="3" marker-end="url(#ah)"/>
+  <!-- talk -->
+  <rect x="118" y="34" width="112" height="66" rx="12" class="f-accbg s-acc" stroke-width="2"/>
+  <text x="174" y="62" text-anchor="middle" font-size="15" font-weight="700" class="f-acc">話を聞く</text>
+  <text x="174" y="84" text-anchor="middle" font-size="12" class="f-text">30分・Zoomか対面</text>
+  <text x="174" y="122" text-anchor="middle" font-size="12" class="f-muted">人材事業部（東新宿）</text>
+  <path d="M236 70 h30" class="s-acc" stroke-width="3" marker-end="url(#ah)"/>
+  <!-- ticket -->
+  <path d="M274 40 h76 v18 a8 8 0 0 0 0 24 v18 h-76 v-18 a8 8 0 0 0 0 -24 z" class="f-goldbg s-gold" stroke-width="2"/>
+  <text x="312" y="66" text-anchor="middle" font-size="16" font-weight="700" class="f-gold">3,000円</text>
+  <text x="312" y="86" text-anchor="middle" font-size="11" class="f-text">クーポン</text>
+  <text x="312" y="122" text-anchor="middle" font-size="12" class="f-muted">LINEに届く</text>
+  <!-- down to staff -->
+  <path d="M312 132 v26 q0 10 -10 10 h-90" class="s-gold" stroke-width="3" fill="none" stroke-dasharray="6 4" marker-end="url(#ahg)"/>
+  <!-- staff -->
+  <rect x="60" y="150" width="146" height="84" rx="12" class="f-okbg"/>
+  <circle cx="92" cy="182" r="13" class="f-surf s-text" stroke-width="2"/>
+  <path d="M70 222 q22 -28 44 0 z" class="f-surf s-text" stroke-width="2"/>
+  <text x="168" y="184" text-anchor="middle" font-size="16" font-weight="700" class="f-ok">あなたの</text>
+  <text x="168" y="206" text-anchor="middle" font-size="16" font-weight="700" class="f-ok">売上 +3,000円</text>
+  <text x="290" y="210" text-anchor="middle" font-size="12" class="f-muted">紹介したスタッフに</text>
+  <text x="290" y="228" text-anchor="middle" font-size="12" class="f-muted">そのまま付く</text>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="f-acc"/></marker>
+    <marker id="ahg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="f-gold"/></marker>
+  </defs>
+</svg>
+<p class="cap">12月1日（月）から全体で始めます。準備ができしだい、それより前から使えます。</p>
 </div>
 
-<h2 id="faq">よくある質問</h2>
-<dl>
-<dt>別のスタッフがクーポンを受けたら、誰の売上？</dt>
-<dd>QRのページで選ばれたスタッフの売上です。</dd>
-<dt>名前を選び忘れたら？</dt>
-<dd>「わからない」「その他」になり、誰の売上にも付きません。気づいたら武者野に連絡してください。</dd>
-<dt>予約したのに来なかったら？</dt>
-<dd>クーポンは出ません。話を聞いた人にだけ届きます。</dd>
-<dt>1人で何回もらえる？</dt>
-<dd>1人1回です。電話番号で見ています。</dd>
-<dt>売上はいつ付く？</dt>
-<dd>月末に、使われたクーポンをスタッフ別に数えて、1枚3,000円で売上に付けます。</dd>
-</dl>
+<h2 id="flow"><span class="no">1</span>紹介の流れ（6ステップ）</h2>
+<div class="steps">
+  <div class="step"><span class="num">1</span>
+    <svg viewBox="0 0 140 240" aria-hidden="true"><rect x="10" y="4" width="120" height="232" rx="18" class="f-sunk s-text" stroke-width="3"/><rect x="20" y="24" width="100" height="192" rx="6" class="f-surf"/>
+      <g class="f-text"><rect x="32" y="62" width="76" height="76" rx="4" class="f-surf s-text" stroke-width="3"/><rect x="38" y="68" width="20" height="20"/><rect x="82" y="68" width="20" height="20"/><rect x="38" y="112" width="20" height="20"/><rect x="64" y="70" width="8" height="8"/><rect x="66" y="92" width="10" height="10"/><rect x="84" y="96" width="8" height="8"/><rect x="62" y="116" width="8" height="8"/><rect x="88" y="114" width="12" height="12"/><rect x="74" y="124" width="6" height="8"/></g>
+      <text x="70" y="166" text-anchor="middle" font-size="14" font-weight="700" class="f-text">店のQR</text><text x="70" y="188" text-anchor="middle" font-size="11" class="f-muted">スマホで見せる</text></svg>
+    <p>仕事の話が出たら、スマホで<b>店のQR</b>を見せる。</p><span class="who">あなた</span></div>
+  <div class="step"><span class="num">2</span>
+    <svg viewBox="0 0 140 240" aria-hidden="true"><rect x="10" y="4" width="120" height="232" rx="18" class="f-sunk s-text" stroke-width="3"/><rect x="20" y="24" width="100" height="192" rx="6" class="f-surf"/>
+      <text x="70" y="44" text-anchor="middle" font-size="10" font-weight="700" class="f-text">紹介してくれたスタッフは？</text>
+      <g font-size="11"><rect x="28" y="54" width="84" height="22" rx="11" class="f-sunk"/><text x="70" y="69" text-anchor="middle" class="f-text">だいき</text>
+      <rect x="28" y="82" width="84" height="22" rx="11" class="f-sunk"/><text x="70" y="97" text-anchor="middle" class="f-text">たける</text>
+      <rect x="28" y="110" width="84" height="22" rx="11" class="f-acc"/><text x="70" y="125" text-anchor="middle" font-weight="700" class="f-onacc">あなたの名前</text>
+      <rect x="28" y="138" width="84" height="22" rx="11" class="f-sunk"/><text x="70" y="153" text-anchor="middle" class="f-text">ゆうし</text>
+      <rect x="28" y="166" width="84" height="22" rx="11" class="f-sunk"/><text x="70" y="181" text-anchor="middle" class="f-text">…</text></g>
+      <path d="M116 124 l10 -6 v12 z" class="f-acc"/></svg>
+    <p>お客様が<b>あなたの名前</b>を選ぶ。</p><span class="who">お客様（一緒に画面を見る）</span></div>
+  <div class="step"><span class="num">3</span>
+    <svg viewBox="0 0 140 240" aria-hidden="true"><rect x="10" y="4" width="120" height="232" rx="18" class="f-sunk s-text" stroke-width="3"/><rect x="20" y="24" width="100" height="192" rx="6" class="f-surf"/>
+      <text x="70" y="44" text-anchor="middle" font-size="11" font-weight="700" class="f-text">日程を選ぶ</text>
+      <rect x="28" y="54" width="84" height="30" rx="8" class="f-acc"/><text x="70" y="74" text-anchor="middle" font-size="11" font-weight="700" class="f-onacc">今すぐ話したい</text>
+      <g font-size="10"><rect x="28" y="94" width="84" height="22" rx="6" class="f-sunk"/><text x="70" y="109" text-anchor="middle" class="f-text">空いている枠 1</text>
+      <rect x="28" y="122" width="84" height="22" rx="6" class="f-sunk"/><text x="70" y="137" text-anchor="middle" class="f-text">空いている枠 2</text>
+      <rect x="28" y="150" width="84" height="22" rx="6" class="f-sunk"/><text x="70" y="165" text-anchor="middle" class="f-text">空いている枠 3</text></g>
+      <text x="70" y="196" text-anchor="middle" font-size="10" class="f-muted">当日の枠も出る</text></svg>
+    <p>お客様が日程を選ぶ。<b>「今すぐ」</b>なら担当からすぐ連絡が行く。</p><span class="who">お客様</span></div>
+  <div class="step"><span class="num">4</span>
+    <svg viewBox="0 0 140 240" aria-hidden="true"><rect x="10" y="4" width="120" height="232" rx="18" class="f-sunk s-text" stroke-width="3"/><rect x="20" y="24" width="100" height="192" rx="6" class="f-surf"/>
+      <g font-size="10"><text x="28" y="48" class="f-muted">お名前</text><rect x="28" y="54" width="84" height="22" rx="4" class="f-bg s-line" stroke-width="1.5"/>
+      <text x="28" y="94" class="f-muted">電話番号</text><rect x="28" y="100" width="84" height="22" rx="4" class="f-bg s-line" stroke-width="1.5"/>
+      <text x="28" y="140" class="f-muted">話す形</text>
+      <rect x="28" y="146" width="40" height="24" rx="12" class="f-acc"/><text x="48" y="162" text-anchor="middle" font-weight="700" class="f-onacc">Zoom</text>
+      <rect x="72" y="146" width="40" height="24" rx="12" class="f-sunk"/><text x="92" y="162" text-anchor="middle" class="f-text">対面</text></g></svg>
+    <p>名前・電話番号を入れ、<b>Zoomか対面</b>を選ぶ。</p><span class="who">お客様</span></div>
+  <div class="step"><span class="num">5</span>
+    <svg viewBox="0 0 140 240" aria-hidden="true"><rect x="10" y="4" width="120" height="232" rx="18" class="f-sunk s-text" stroke-width="3"/><rect x="20" y="24" width="100" height="192" rx="6" class="f-surf"/>
+      <rect x="44" y="60" width="52" height="44" rx="12" class="f-lg"/><text x="70" y="88" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">LINE</text>
+      <rect x="28" y="124" width="84" height="30" rx="15" class="f-lg"/><text x="70" y="144" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">友だち追加</text>
+      <circle cx="70" cy="184" r="14" class="f-okbg"/><path d="M62 184 l6 6 l11 -12" class="s-text" stroke-width="3" fill="none"/></svg>
+    <p>公式LINEを<b>友だち追加</b>して予約完了。</p><span class="who">お客様</span></div>
+  <div class="step"><span class="num">6</span>
+    <svg viewBox="0 0 140 240" aria-hidden="true"><rect x="10" y="4" width="120" height="232" rx="18" class="f-sunk s-text" stroke-width="3"/><rect x="20" y="24" width="100" height="192" rx="6" class="f-surf"/>
+      <text x="70" y="50" text-anchor="middle" font-size="10" class="f-muted">話を聞いたあと</text>
+      <path d="M30 72 h80 v22 a9 9 0 0 0 0 26 v22 h-80 v-22 a9 9 0 0 0 0 -26 z" class="f-goldbg s-gold" stroke-width="2"/>
+      <text x="70" y="104" text-anchor="middle" font-size="17" font-weight="700" class="f-gold">3,000円</text>
+      <text x="70" y="124" text-anchor="middle" font-size="10" class="f-text">Barクーポン</text>
+      <text x="70" y="176" text-anchor="middle" font-size="11" font-weight="700" class="f-ok">LINEに届く</text></svg>
+    <p>話を聞き終わると、お客様のLINEに<b>クーポン</b>が届く。</p><span class="who">自動</span></div>
+</div>
+<div class="warn"><span class="ic" aria-hidden="true">⚠️</span><p><b>2で名前を選び忘れると、誰の売上にも付きません。</b>お客様が名前を選ぶところまで、一緒に画面を見て確かめてください。</p></div>
+<div class="qrslot"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="6" class="f-surf s-gold" stroke-width="3"/><g class="f-gold"><rect x="10" y="10" width="16" height="16"/><rect x="38" y="10" width="16" height="16"/><rect x="10" y="38" width="16" height="16"/><rect x="40" y="40" width="10" height="10"/></g></svg><p>店のQRはこのページから開けるようにします（準備中・用意できたらここにリンクが入ります）。</p></div>
+
+<h2 id="near"><span class="no">2</span>オフィスはバーから歩いてすぐ</h2>
+<div class="fig">
+<svg viewBox="0 0 360 200" role="img" aria-label="歌舞伎町のGooner Barと東新宿のオフィスは歩いて行ける距離の図">
+  <rect x="0" y="0" width="360" height="200" rx="8" class="f-sunk"/>
+  <path d="M0 70 H360 M0 150 H360 M110 0 V200 M250 0 V200" class="s-line" stroke-width="10"/>
+  <path d="M78 104 C140 40, 220 170, 282 96" class="s-acc" stroke-width="4" fill="none" stroke-dasharray="8 6"/>
+  <g><circle cx="70" cy="110" r="26" class="f-acc"/><text x="70" y="106" text-anchor="middle" font-size="12" font-weight="700" class="f-onacc">Gooner</text><text x="70" y="121" text-anchor="middle" font-size="12" font-weight="700" class="f-onacc">Bar</text>
+    <text x="70" y="160" text-anchor="middle" font-size="14" font-weight="700" class="f-text">歌舞伎町</text></g>
+  <g><rect x="262" y="66" width="60" height="56" rx="8" class="f-surf s-text" stroke-width="2"/><text x="292" y="92" text-anchor="middle" font-size="12" font-weight="700" class="f-text">オフィス</text><text x="292" y="110" text-anchor="middle" font-size="10" class="f-muted">人材事業部</text>
+    <text x="292" y="146" text-anchor="middle" font-size="14" font-weight="700" class="f-text">東新宿</text></g>
+  <rect x="134" y="16" width="96" height="30" rx="15" class="f-surf s-acc" stroke-width="2"/><text x="182" y="36" text-anchor="middle" font-size="13" font-weight="700" class="f-acc">🚶 歩いてすぐ</text>
+</svg>
+<p class="cap">「今すぐ話したい」を選んだお客様には、担当がその場で連絡します。対面ならそのまま歩いて来てもらえます。</p>
+</div>
+
+<h2 id="use"><span class="no">3</span>クーポンを使うとき</h2>
+<div class="fig">
+<svg viewBox="0 0 360 230" role="img" aria-label="クーポン画面を見せてもらい、店のPINを入れて使用済みにし、会計から3,000円引く手順の図">
+  <defs><marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="f-muted"/></marker></defs>
+  <!-- phone 1 -->
+  <rect x="8" y="10" width="92" height="160" rx="14" class="f-sunk s-text" stroke-width="2.5"/><rect x="16" y="26" width="76" height="128" rx="4" class="f-surf"/>
+  <text x="54" y="56" text-anchor="middle" font-size="14" font-weight="700" class="f-gold">3,000円</text>
+  <rect x="24" y="70" width="60" height="22" rx="11" class="f-okbg"/><text x="54" y="85" text-anchor="middle" font-size="11" font-weight="700" class="f-ok">使えます</text>
+  <text x="54" y="114" text-anchor="middle" font-size="9" class="f-muted">期限 ○月○日</text>
+  <path d="M104 90 h22" class="s-muted" stroke-width="2.5" marker-end="url(#ah2)"/>
+  <!-- phone 2 -->
+  <rect x="134" y="10" width="92" height="160" rx="14" class="f-sunk s-text" stroke-width="2.5"/><rect x="142" y="26" width="76" height="128" rx="4" class="f-surf"/>
+  <text x="180" y="52" text-anchor="middle" font-size="11" class="f-text">店のPIN</text>
+  <g class="f-text"><circle cx="160" cy="72" r="5"/><circle cx="173" cy="72" r="5"/><circle cx="186" cy="72" r="5"/><circle cx="199" cy="72" r="5"/></g>
+  <rect x="145" y="96" width="70" height="26" rx="6" class="f-acc"/><text x="180" y="113" text-anchor="middle" font-size="9" font-weight="700" class="f-onacc">使用済みにする</text>
+  <path d="M230 90 h22" class="s-muted" stroke-width="2.5" marker-end="url(#ah2)"/>
+  <!-- phone 3 -->
+  <rect x="260" y="10" width="92" height="160" rx="14" class="f-sunk s-text" stroke-width="2.5"/><rect x="268" y="26" width="76" height="128" rx="4" class="f-surf"/>
+  <text x="306" y="56" text-anchor="middle" font-size="14" font-weight="700" class="f-muted">3,000円</text>
+  <rect x="276" y="70" width="60" height="22" rx="11" class="f-ngbg"/><text x="306" y="85" text-anchor="middle" font-size="11" font-weight="700" class="f-ng">使用済み</text>
+  <text x="306" y="118" text-anchor="middle" font-size="10" class="f-text">会計から</text><text x="306" y="134" text-anchor="middle" font-size="12" font-weight="700" class="f-text">−3,000円</text>
+  <g font-size="13" font-weight="700" class="f-text" text-anchor="middle"><text x="54" y="196">①見せてもらう</text><text x="180" y="196">②PINを入れる</text><text x="306" y="196">③3,000円引く</text></g>
+  <text x="180" y="222" text-anchor="middle" font-size="11" class="f-muted">1人1回・期限は届いてから90日・現金に換えない・おつりは出ない</text>
+</svg>
+</div>
+
+<h2 id="money"><span class="no">4</span>お金の流れ</h2>
+<div class="fig">
+<svg viewBox="0 0 360 250" role="img" aria-label="人材事業部が月末にバーへ3,000円ずつ精算し、QRで選ばれたスタッフの売上に付く図。会計した人が別でも選ばれた人に付く">
+  <defs><marker id="ah3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="f-gold"/></marker></defs>
+  <rect x="10" y="20" width="104" height="60" rx="10" class="f-surf s-text" stroke-width="2"/><text x="62" y="47" text-anchor="middle" font-size="13" font-weight="700" class="f-text">人材事業部</text><text x="62" y="66" text-anchor="middle" font-size="11" class="f-muted">お金を出す</text>
+  <path d="M118 50 h106" class="s-gold" stroke-width="3" marker-end="url(#ah3)"/>
+  <text x="170" y="40" text-anchor="middle" font-size="11" font-weight="700" class="f-gold">月末に精算</text>
+  <rect x="230" y="20" width="120" height="60" rx="10" class="f-accbg s-acc" stroke-width="2"/><text x="290" y="47" text-anchor="middle" font-size="13" font-weight="700" class="f-acc">Gooner Bar</text><text x="290" y="66" text-anchor="middle" font-size="11" class="f-text">使われた枚数×3,000円</text>
+  <path d="M290 84 v40" class="s-gold" stroke-width="3" marker-end="url(#ah3)"/>
+  <rect x="200" y="130" width="150" height="56" rx="10" class="f-okbg"/><text x="275" y="154" text-anchor="middle" font-size="13" font-weight="700" class="f-ok">QRで選ばれた</text><text x="275" y="174" text-anchor="middle" font-size="13" font-weight="700" class="f-ok">スタッフの売上</text>
+  <rect x="10" y="130" width="160" height="56" rx="10" class="f-sunk"/><text x="90" y="154" text-anchor="middle" font-size="12" class="f-text">会計した人が</text><text x="90" y="172" text-anchor="middle" font-size="12" class="f-text">別のスタッフでも</text>
+  <path d="M172 158 h24" class="s-muted" stroke-width="2.5" marker-end="url(#ah2)"/>
+  <text x="180" y="218" text-anchor="middle" font-size="12" class="f-muted">名前が選ばれていない（わからない・その他）は</text>
+  <text x="180" y="238" text-anchor="middle" font-size="12" class="f-muted">誰の売上にも付かない</text>
+</svg>
+</div>
+
+<h2 id="say"><span class="no">5</span>言っていいこと・言ってはいけないこと</h2>
+<div class="talkgrid">
+  <div class="col ok"><h3>言っていい</h3>
+    <p class="bub">話を聞くだけで、ここで使える3,000円のクーポンがもらえる</p>
+    <p class="bub">30分くらい。Zoomでもいい</p>
+    <p class="bub">転職するか決めてなくても、話を聞くだけでいい</p></div>
+  <div class="col ng"><h3>言ってはいけない</h3>
+    <p class="bub">転職したら／応募したら／内定が出たら 3,000円</p>
+    <p class="bub">現金で渡す</p>
+    <p class="bub">しつこく誘う・前に使った人にもう一度すすめる</p></div>
+</div>
+<div class="warn"><span class="ic" aria-hidden="true">⚖️</span><p>仕事の紹介の見返りにお金を渡すのは、法律で決まった線を越えます。このクーポンは<b>「話を聞いてくれたお礼」のバーの来店クーポン</b>です。その線を外さない言い方だけにしてください。</p></div>
+
+<h2 id="talk"><span class="no">6</span>トークの例</h2>
+<div class="talk"><h3>💬 仕事の話が出たとき</h3>
+<p class="say">「いま、うちの会社の人材の部署でキャンペーンやってて。30分くらい話を聞くだけで、ここで使える3,000円のクーポンがもらえるんですよ。転職するかは全然決めてなくて大丈夫です」</p></div>
+<div class="talk"><h3>💬 興味がありそうなとき</h3>
+<p class="say">「これ読んでもらえれば、そのまま日程を選べます。オフィスが東新宿なんで、このあとすぐ話を聞くこともできますよ」</p></div>
+<div class="talk"><h3>💬 迷っているとき</h3>
+<p class="say">「Zoomでもいいんで、家からでも大丈夫です。日程は空いてるところから選ぶだけです」</p></div>
+
+<h2 id="faq"><span class="no">7</span>よくある質問</h2>
+<div class="faq">
+  <div class="qa"><h3>別のスタッフがクーポンを受けたら、誰の売上？</h3><p>QRのページで選ばれたスタッフの売上です。</p></div>
+  <div class="qa"><h3>名前を選び忘れたら？</h3><p>誰の売上にも付きません。気づいたら武者野に連絡してください。</p></div>
+  <div class="qa"><h3>予約したのに来なかったら？</h3><p>クーポンは出ません。話を聞いた人にだけ届きます。</p></div>
+  <div class="qa"><h3>1人で何回もらえる？</h3><p>1人1回です。電話番号で見ています。</p></div>
+  <div class="qa"><h3>売上はいつ付く？</h3><p>月末に、使われたクーポンをスタッフ別に数えて、1枚3,000円で付けます。</p></div>
+  <div class="qa"><h3>転職する気がない人でもいい？</h3><p>大丈夫です。話を聞くだけでクーポンの対象です。</p></div>
+</div>
 </main>
 <script>
 (function(){
   var hs=[].slice.call(document.querySelectorAll('main h2'));var cur=document.getElementById('cur');
-  function upd(){var t='';for(var i=0;i<hs.length;i++){if(hs[i].getBoundingClientRect().top<80)t=hs[i].textContent;}cur.textContent=t?'／ '+t:'';}
+  function upd(){var t='';for(var i=0;i<hs.length;i++){if(hs[i].getBoundingClientRect().top<80)t=hs[i].textContent.replace(/^\d+/,'');}cur.textContent=t?'／ '+t:'';}
   window.addEventListener('scroll',upd,{passive:true});upd();
 })();
 </script>
