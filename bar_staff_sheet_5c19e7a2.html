@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>紹介クーポン スタッフ用</title>
+<style>
+:root{
+  --bg:#fbfaf7; --surface:#ffffff; --text:#1d1d1b; --muted:#4a4a46; --line:#dedbd2;
+  --accent:#9a3412; --accent-bg:#fff1e8; --ok:#14532d; --ok-bg:#ecf7ef; --ng:#8a1c1c; --ng-bg:#fdeeee;
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px;
+  --font:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Meiryo","Noto Sans JP",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161513; --surface:#201f1c; --text:#f2f0ea; --muted:#cfccc3; --line:#3a3833;
+    --accent:#fdba8c; --accent-bg:#3a2418; --ok:#a7e3b9; --ok-bg:#16291c; --ng:#f7b2b2; --ng-bg:#361a1a;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161513; --surface:#201f1c; --text:#f2f0ea; --muted:#cfccc3; --line:#3a3833;
+  --accent:#fdba8c; --accent-bg:#3a2418; --ok:#a7e3b9; --ok-bg:#16291c; --ng:#f7b2b2; --ng-bg:#361a1a;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.8;letter-spacing:0.01em}
+.band{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);padding:var(--s2) var(--s3);font-size:14px;line-height:1.5;color:var(--muted)}
+.band b{color:var(--text)}
+main{max-width:44em;margin:0 auto;padding:var(--s4) var(--s3) var(--s5)}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere;line-height:1.45;letter-spacing:0}
+@supports (word-break:auto-phrase){main > :is(h1,h2,h3){word-break:auto-phrase;text-wrap:balance}}
+h1{font-size:1.6rem;margin:0 0 var(--s3)}
+h2{font-size:1.25rem;margin:var(--s5) 0 var(--s3);padding-top:var(--s2);border-top:2px solid var(--line)}
+p,li{max-width:40em}
+p{margin:0 0 var(--s3)}
+.lead{font-size:1.1rem;background:var(--accent-bg);border-left:4px solid var(--accent);padding:var(--s3);border-radius:6px}
+.lead strong{color:var(--accent)}
+ol.flow{padding-left:1.6em;margin:0 0 var(--s3)}
+ol.flow li{margin-bottom:var(--s2)}
+.note{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:var(--s3);margin:0 0 var(--s3)}
+.two{display:grid;grid-template-columns:1fr;gap:var(--s3)}
+@media (min-width:640px){.two{grid-template-columns:1fr 1fr}}
+.box{border-radius:6px;padding:var(--s3)}
+.box h3{margin:0 0 var(--s2);font-size:1.05rem}
+.box ul{margin:0;padding-left:1.2em}
+.box li{margin-bottom:var(--s2)}
+.ok{background:var(--ok-bg)} .ok h3{color:var(--ok)}
+.ng{background:var(--ng-bg)} .ng h3{color:var(--ng)}
+.talk{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:var(--s3);margin:0 0 var(--s3)}
+.talk h3{margin:0 0 var(--s2);font-size:1rem;color:var(--muted)}
+.talk p{margin:0}
+dl{margin:0}
+dt{font-weight:700;margin-top:var(--s3)}
+dd{margin:var(--s1) 0 0 0;max-width:40em}
+@media print{.band{position:static}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="band" data-chrome><b>紹介クーポン スタッフ用の1枚</b> <span id="cur"></span></div>
+<main>
+<h1>Gooner Bar 紹介クーポン<wbr>（スタッフ用の1枚）</h1>
+<p class="lead">お客様が人材事業部で<strong>「話を聞く」</strong>（30分ほど・Zoomか東新宿のオフィス）と、Gooner Barで使える<strong>3,000円のクーポン</strong>がお客様のLINEに届きます。その3,000円は、<strong>紹介したあなたの売上</strong>になります。</p>
+<p>12月1日（月）から全体で始めます。準備ができしだい、それより前から使えます。</p>
+
+<h2 id="flow">紹介の流れ</h2>
+<ol class="flow">
+<li>仕事や転職の話が出たら、キャンペーンのことを伝える。</li>
+<li>スマホで店のQRを見せる。</li>
+<li>お客様がQRを読んで開いたページで、「紹介してくれたスタッフ」から<b>あなたの名前</b>を選ぶ。</li>
+<li>お客様が日程を選ぶ。「今すぐ話したい」を選んだら、担当からすぐに連絡が行く。</li>
+<li>お客様が名前と電話番号を入れ、Zoomか対面かを選び、公式LINEを友だち追加して完了。</li>
+<li>話を聞き終わったら、お客様のLINEにクーポンが届く。</li>
+</ol>
+<p class="note">名前を選び忘れると、誰の売上にも付きません。お客様が名前を選ぶところまで、一緒に画面を見て確かめてください。</p>
+<p class="note">店のQRはこのページから開けるようにします（準備中・用意できたらここにリンクが入ります）。</p>
+
+<h2 id="use">クーポンを使うとき</h2>
+<ol class="flow">
+<li>お客様にクーポンの画面を見せてもらう。</li>
+<li>「使えます」と出ていて、期限が切れていないことを確かめる。</li>
+<li>店のPINを入れて「使用済み」にする。</li>
+<li>お会計から3,000円を引く。</li>
+</ol>
+<p>クーポンは1人1回だけ使えます。期限は届いてから90日です。現金には換えられず、おつりも出ません。会計するのが別のスタッフでも、売上はQRで選ばれたスタッフに付きます。</p>
+
+<h2 id="say">言っていいこと・言ってはいけないこと</h2>
+<div class="two">
+<div class="box ok">
+<h3>言っていいこと</h3>
+<ul>
+<li>話を聞くだけで、ここで使える3,000円のクーポンがもらえる</li>
+<li>30分くらいで、Zoomでもいい</li>
+<li>転職するかどうか決めていなくても、話を聞くだけでいい</li>
+</ul>
+</div>
+<div class="box ng">
+<h3>言ってはいけないこと</h3>
+<ul>
+<li>「転職したら」「応募したら」「内定が出たら」3,000円</li>
+<li>現金で渡す、と言う</li>
+<li>しつこく誘う</li>
+<li>前に一度使った人に、もう一度すすめる</li>
+</ul>
+</div>
+</div>
+<p>仕事の紹介の見返りにお金を渡すのは、法律で決まった線を越えます。このクーポンは「話を聞いてくれたお礼」で、バーで使う来店のクーポンです。その線を外さない言い方だけにしてください。</p>
+
+<h2 id="talk">トークの例</h2>
+<div class="talk">
+<h3>仕事の話が出たとき</h3>
+<p>「いま、うちの会社の人材の部署でキャンペーンやってて。30分くらい話を聞くだけで、ここで使える3,000円のクーポンがもらえるんですよ。転職するかは全然決めてなくて大丈夫です」</p>
+</div>
+<div class="talk">
+<h3>興味がありそうなとき</h3>
+<p>「これ読んでもらえれば、そのまま日程を選べます。オフィスが東新宿なんで、このあとすぐ話を聞くこともできますよ」</p>
+</div>
+<div class="talk">
+<h3>迷っているとき</h3>
+<p>「Zoomでもいいんで、家からでも大丈夫です。日程は空いてるところから選ぶだけです」</p>
+</div>
+
+<h2 id="faq">よくある質問</h2>
+<dl>
+<dt>別のスタッフがクーポンを受けたら、誰の売上？</dt>
+<dd>QRのページで選ばれたスタッフの売上です。</dd>
+<dt>名前を選び忘れたら？</dt>
+<dd>「わからない」「その他」になり、誰の売上にも付きません。気づいたら武者野に連絡してください。</dd>
+<dt>予約したのに来なかったら？</dt>
+<dd>クーポンは出ません。話を聞いた人にだけ届きます。</dd>
+<dt>1人で何回もらえる？</dt>
+<dd>1人1回です。電話番号で見ています。</dd>
+<dt>売上はいつ付く？</dt>
+<dd>月末に、使われたクーポンをスタッフ別に数えて、1枚3,000円で売上に付けます。</dd>
+</dl>
+</main>
+<script>
+(function(){
+  var hs=[].slice.call(document.querySelectorAll('main h2'));var cur=document.getElementById('cur');
+  function upd(){var t='';for(var i=0;i<hs.length;i++){if(hs[i].getBoundingClientRect().top<80)t=hs[i].textContent;}cur.textContent=t?'／ '+t:'';}
+  window.addEventListener('scroll',upd,{passive:true});upd();
+})();
+</script>
+</body>
+</html>
