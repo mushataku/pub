@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>ネオン夜市 VR</title>
+<style>
+:root{--bg:#f4f2ff;--fg:#1d1838;--sub:#5d5880;--card:#ffffff;--line:#dcd6f5;--acc:#c026d3;--acc2:#0891b2;--chip:#efe6ff}
+@media (prefers-color-scheme:dark){:root{--bg:#0b0a18;--fg:#ece9ff;--sub:#a59fcc;--card:#15132a;--line:#2d2950;--acc:#f472f6;--acc2:#22d3ee;--chip:#221c42}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;line-height:1.75;overflow-x:hidden}
+.badge{position:fixed;top:10px;right:10px;background:#ffd84d;color:#3a2e00;font-size:12px;padding:4px 10px;border-radius:999px;z-index:20;font-weight:700}
+header{position:relative;min-height:80vh;display:flex;align-items:flex-end;padding:40px 16px;color:#fff;overflow:hidden;background:#07061a}
+.grid{position:absolute;left:-50%;right:-50%;bottom:-10%;height:60%;background-image:linear-gradient(#f472f6 1px,transparent 1px),linear-gradient(90deg,#22d3ee 1px,transparent 1px);background-size:48px 48px;transform:perspective(320px) rotateX(62deg);opacity:.45;animation:run 3s linear infinite}
+@keyframes run{to{background-position:0 48px,0 0}}
+.sun{position:absolute;left:50%;top:14%;width:240px;height:240px;margin-left:-120px;border-radius:50%;background:linear-gradient(#ffd86b,#f472f6 60%,#7c3aed);filter:blur(.5px);box-shadow:0 0 80px #f472f6aa}
+.stars span{position:absolute;width:3px;height:3px;background:#fff;border-radius:50%;animation:tw 2.2s infinite}
+@keyframes tw{50%{opacity:.2}}
+.hero{position:relative;max-width:960px;margin:0 auto;width:100%}
+.hero small{letter-spacing:.25em;color:#22d3ee;font-weight:700}
+.hero h1{font-size:clamp(36px,9vw,70px);line-height:1.15;margin:.15em 0;text-shadow:0 0 18px #f472f6,0 0 4px #fff}
+.hero p{font-size:clamp(15px,3.6vw,19px);margin:0 0 20px}
+.cd{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.cd div{background:rgba(255,255,255,.08);border:1px solid #f472f688;border-radius:12px;padding:8px 14px;text-align:center;min-width:70px}
+.cd b{display:block;font-size:26px;line-height:1.1;color:#22d3ee}
+.cd i{font-style:normal;font-size:12px;opacity:.8}
+.btn{display:inline-block;background:linear-gradient(90deg,#c026d3,#0891b2);color:#fff;text-decoration:none;font-weight:700;padding:12px 26px;border-radius:999px;border:0;font-size:16px;cursor:pointer;box-shadow:0 0 18px #c026d377}
+main{max-width:960px;margin:0 auto;padding:0 16px 60px}
+section{padding:44px 0 8px}
+h2{font-size:24px;margin:0 0 16px;display:flex;align-items:center;gap:10px}
+h2::before{content:"";width:8px;height:26px;background:linear-gradient(var(--acc),var(--acc2));border-radius:4px}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card .k{font-size:12px;color:var(--sub)}
+.card .v{font-size:18px;font-weight:700}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tabs button{border:1px solid var(--line);background:var(--card);color:var(--fg);padding:6px 14px;border-radius:999px;cursor:pointer;font-size:14px}
+.tabs button.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.shops{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.shop{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:transform .15s}
+.shop:hover{transform:translateY(-3px)}
+.shop .em{font-size:44px;text-align:center;padding:18px 0;background:var(--chip)}
+.shop .b{padding:12px 14px}
+.shop .n{font-weight:700}
+.shop .t{font-size:12px;color:var(--acc);font-weight:700}
+.shop .d{font-size:13px;color:var(--sub)}
+.tl{list-style:none;margin:0;padding:0;border-left:3px solid var(--line);margin-left:8px}
+.tl li{position:relative;padding:0 0 18px 20px}
+.tl li::before{content:"";position:absolute;left:-9px;top:6px;width:15px;height:15px;border-radius:50%;background:var(--acc2);box-shadow:0 0 8px var(--acc2)}
+.tl b{color:var(--acc2);margin-right:8px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;counter-reset:s}
+.steps .card::before{counter-increment:s;content:"STEP " counter(s);display:block;font-size:12px;font-weight:700;color:var(--acc)}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:8px}
+.faq summary{cursor:pointer;font-weight:700}
+form{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:12px}
+label{font-size:14px;font-weight:700}
+input,select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:16px}
+.done{display:none;background:#e5f7ea;color:#14532d;border-radius:12px;padding:14px;font-weight:700}
+@media (prefers-color-scheme:dark){.done{background:#123222;color:#b9f5cb}}
+footer{text-align:center;color:var(--sub);font-size:12px;padding:24px 16px}
+
+h1,h2,h3{word-break:auto-phrase}
+</style>
+</head>
+<body>
+<div class="badge">見本で動く体験版</div>
+<header>
+  <div class="stars" id="stars"></div>
+  <div class="sun"></div>
+  <div class="grid"></div>
+  <div class="hero">
+    <small>VR NIGHT MARKET 2026</small>
+    <h1>ネオン夜市<br>VR</h1>
+    <p>アバターで集まる、年末のバーチャル夜市。<br>ワールドを歩いて、遊んで、つながる2夜。</p>
+    <div class="cd" id="cd"></div>
+    <a class="btn" href="#entry">参加を申し込む</a>
+  </div>
+</header>
+<main>
+  <section>
+    <h2>開催概要</h2>
+    <div class="info">
+      <div class="card"><div class="k">日程</div><div class="v">12月13日（土）・14日（日）</div></div>
+      <div class="card"><div class="k">時間</div><div class="v">21:00〜24:00</div></div>
+      <div class="card"><div class="k">会場</div><div class="v">VRChat 内 特設ワールド</div></div>
+      <div class="card"><div class="k">対応</div><div class="v">PC VR・Quest・デスクトップ</div></div>
+    </div>
+  </section>
+  <section>
+    <h2>エリアとブース</h2>
+    <div class="tabs" id="tabs"></div>
+    <div class="shops" id="shops"></div>
+  </section>
+  <section>
+    <h2>タイムテーブル</h2>
+    <div class="tabs" id="days"></div>
+    <ul class="tl" id="tl"></ul>
+  </section>
+  <section>
+    <h2>はじめての方へ（参加の流れ）</h2>
+    <div class="steps">
+      <div class="card">申し込みフォームから参加日と表示名を登録</div>
+      <div class="card">当日、主催のアカウントにフレンド申請 → Join で会場へ</div>
+      <div class="card">入口の案内ボードでエリアを選んでワープ</div>
+    </div>
+  </section>
+  <section class="faq">
+    <h2>よくある質問</h2>
+    <details><summary>VR機器がなくても参加できる？</summary>はい。PCのデスクトップモードでも歩いて楽しめます。</details>
+    <details><summary>アバターは何でもいい？</summary>どんなアバターでも大歓迎です。重いアバターは混雑時に自動で表示を軽くします。</details>
+    <details><summary>出展したい場合は？</summary>ブース出展フォームを別途ご用意しています（見本）。</details>
+  </section>
+  <section id="entry">
+    <h2>参加申し込み</h2>
+    <form id="f">
+      <div><label>表示名（VRChat の名前）</label><input required placeholder="Neko_Neon"></div>
+      <div><label>参加する日</label><select id="fd"><option>12月13日（土）</option><option>12月14日（日）</option><option>両日</option></select></div>
+      <div><label>参加スタイル</label><select id="fw"><option>PC VR</option><option>Quest</option><option>デスクトップ</option></select></div>
+      <div><label>いちばん楽しみなもの</label><select id="fn"><option>DJライブ</option><option>アバター撮影会</option><option>ワールド巡りツアー</option><option>交流会</option></select></div>
+      <button class="btn" type="submit">申し込む</button>
+      <div class="done" id="done"></div>
+    </form>
+  </section>
+</main>
+<footer>※このページは見本です。イベント・ワールド・出展は架空のものです。</footer>
+<script>
+const S=document.getElementById('stars');
+for(let i=0;i<60;i++){const s=document.createElement('span');s.style.left=Math.random()*100+'%';s.style.top=Math.random()*55+'%';s.style.animationDelay=(Math.random()*2.2)+'s';S.appendChild(s)}
+const target=new Date('2026-12-13T21:00:00+09:00');
+function tick(){let d=Math.max(0,target-new Date());const u=[['日',864e5],['時間',36e5],['分',6e4],['秒',1e3]];
+document.getElementById('cd').innerHTML=u.map(([n,ms])=>{const v=Math.floor(d/ms);d-=v*ms;return `<div><b>${v}</b><i>${n}</i></div>`}).join('')}
+tick();setInterval(tick,1000);
+const shops=[
+ {c:'ステージ',e:'🎧',n:'ネオンDJステージ',t:'メイン',d:'ライトが音に合わせて光るクラブフロア。'},
+ {c:'ステージ',e:'🎤',n:'バーチャル歌ライブ',t:'各日22時',d:'アバター歌い手による生歌ライブ。'},
+ {c:'ショップ',e:'👘',n:'アバター衣装マーケット',t:'試着OK',d:'その場で着せ替えして試せる衣装ブース。'},
+ {c:'ショップ',e:'🎁',n:'アクセサリー屋台',t:'限定',d:'イベント限定の光るアクセサリー。'},
+ {c:'あそび',e:'🎯',n:'射的・ヨーヨー釣り',t:'景品あり',d:'お祭りゲームでポイントを集めよう。'},
+ {c:'あそび',e:'📸',n:'アバター撮影スタジオ',t:'人気',d:'夜景と花火の背景で記念写真。'},
+ {c:'交流',e:'🍵',n:'まったり縁側エリア',t:'初心者歓迎',d:'座っておしゃべりできる静かなエリア。'},
+ {c:'交流',e:'🗺️',n:'ワールド巡りツアー',t:'ガイド付き',d:'案内役と一緒にエリアを一周。'}];
+const cats=['すべて',...new Set(shops.map(s=>s.c))];let cur='すべて';
+function renderShops(){document.getElementById('tabs').innerHTML=cats.map(c=>`<button class="${c===cur?'on':''}" data-c="${c}">${c}</button>`).join('');
+document.getElementById('shops').innerHTML=shops.filter(s=>cur==='すべて'||s.c===cur).map(s=>`<div class="shop"><div class="em">${s.e}</div><div class="b"><div class="t">${s.t}</div><div class="n">${s.n}</div><div class="d">${s.d}</div></div></div>`).join('')}
+document.getElementById('tabs').onclick=e=>{if(e.target.dataset.c){cur=e.target.dataset.c;renderShops()}};renderShops();
+const tt={'12/13（土）':[['21:00','開場・オープニング'],['21:30','ワールド巡りツアー'],['22:00','バーチャル歌ライブ'],['23:00','ネオンDJタイム'],['23:50','集合写真・クローズ']],
+'12/14（日）':[['21:00','開場'],['21:30','アバター撮影会'],['22:00','バーチャル歌ライブ'],['23:00','DJ＆花火フィナーレ'],['23:50','集合写真・クローズ']]};
+let day=Object.keys(tt)[0];
+function renderTT(){document.getElementById('days').innerHTML=Object.keys(tt).map(d=>`<button class="${d===day?'on':''}" data-d="${d}">${d}</button>`).join('');
+document.getElementById('tl').innerHTML=tt[day].map(([t,x])=>`<li><b>${t}</b>${x}</li>`).join('')}
+document.getElementById('days').onclick=e=>{if(e.target.dataset.d){day=e.target.dataset.d;renderTT()}};renderTT();
+document.getElementById('f').onsubmit=e=>{e.preventDefault();const d=document.getElementById('done');
+d.textContent=`受付しました！ ${fd.value}・${fw.value}で参加、楽しみは「${fn.value}」ですね。当日のJoin方法をお送りします。（見本のため実際には送信されません）`;d.style.display='block'};
+</script>
+</body>
+</html>
