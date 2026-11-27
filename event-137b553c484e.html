@@ -101,13 +101,20 @@ h1,h2,h3{word-break:auto-phrase}
     <h2>はじめての方へ（参加の流れ）</h2>
     <div class="steps">
       <div class="card">申し込みフォームから参加日と表示名を登録</div>
-      <div class="card">当日、主催のアカウントにフレンド申請 → Join で会場へ</div>
-      <div class="card">入口の案内ボードでエリアを選んでワープ</div>
+      <div class="card">イベントのVRChatグループ「ネオン夜市VR」に参加（下のボタンからグループページへ）</div>
+      <div class="card">開催時間になったら、グループページの「インスタンス」からグループインスタンスに Join</div>
+      <div class="card">会場の入口にある案内ボードでエリアを選んでワープ</div>
+    </div>
+    <div class="card" style="margin-top:12px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+      <div><div class="k">イベントグループ</div><div class="v">ネオン夜市VR <span style="font-size:13px;color:var(--sub)">（グループコード NEON.2026・見本）</span></div>
+      <div style="font-size:13px;color:var(--sub)">グループインスタンスはグループメンバー限定です。フレンド申請は不要です。</div></div>
+      <a class="btn" href="#entry">グループに参加する</a>
     </div>
   </section>
   <section class="faq">
     <h2>よくある質問</h2>
     <details><summary>VR機器がなくても参加できる？</summary>はい。PCのデスクトップモードでも歩いて楽しめます。</details>
+    <details><summary>会場に入れないときは？</summary>グループに参加しているか確認してください。グループインスタンスはメンバーだけが入れます。満員のときは第2会場のインスタンスが開きます。</details>
     <details><summary>アバターは何でもいい？</summary>どんなアバターでも大歓迎です。重いアバターは混雑時に自動で表示を軽くします。</details>
     <details><summary>出展したい場合は？</summary>ブース出展フォームを別途ご用意しています（見本）。</details>
   </section>
@@ -151,7 +158,7 @@ function renderTT(){document.getElementById('days').innerHTML=Object.keys(tt).ma
 document.getElementById('tl').innerHTML=tt[day].map(([t,x])=>`<li><b>${t}</b>${x}</li>`).join('')}
 document.getElementById('days').onclick=e=>{if(e.target.dataset.d){day=e.target.dataset.d;renderTT()}};renderTT();
 document.getElementById('f').onsubmit=e=>{e.preventDefault();const d=document.getElementById('done');
-d.textContent=`受付しました！ ${fd.value}・${fw.value}で参加、楽しみは「${fn.value}」ですね。当日のJoin方法をお送りします。（見本のため実際には送信されません）`;d.style.display='block'};
+d.textContent=`受付しました！ ${fd.value}・${fw.value}で参加、楽しみは「${fn.value}」ですね。次はイベントグループ「ネオン夜市VR」に参加して、当日はグループインスタンスから Join してください。（見本のため実際には送信されません）`;d.style.display='block'};
 </script>
 </body>
 </html>
