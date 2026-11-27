@@ -1,0 +1,28 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>reCAPTCHA 住宅IPの腕の比較</title>
+<style>:root{--bg:#fff;--fg:#111827;--mute:#4b5563;--line:#d1d5db}@media (prefers-color-scheme:dark){:root{--bg:#111827;--fg:#f3f4f6;--mute:#9ca3af;--line:#374151}}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Yu Gothic","Noto Sans CJK JP",sans-serif;line-height:1.75;font-feature-settings:"palt"}
+main{max-width:900px;margin:0 auto;padding:20px 16px 48px}h1{font-size:1.4rem}h2{font-size:1.1rem;margin-top:1.8em}
+table{border-collapse:collapse;width:100%;font-size:.88rem}th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}.mute{color:var(--mute);font-size:.85rem}
+.scroll{overflow-x:auto}code{font-size:.85em}
+h1,h2,h3{word-break:auto-phrase}
+</style></head><body><main>
+<h1>reCAPTCHA の即時通過: 素の GCP と住宅IP（クラウドの箱）</h1>
+<p class="mute">撃った時刻: 11-28 01:43 開始（JST・run_id <code>20261128-014311-c2753b</code>）。数字は撃った行の集計（持ち時間で止まった時点の腕あたりの試行数）。</p>
+<p class="mute">的＝自陣の公開ミラー・鍵＝public（enterprise・最強セット `measure/recaptcha_cloud_bestset.py`）・同じ走りで2腕を交互に撃った。数字は即時通過＝チェックボックスだけで通った試行の割合、トークン＝音声の課題の後を含めて通った割合（区間は Wilson 95%）。</p>
+<h2>要点</h2>
+<p>2 巡の走りで、即時通過は住宅IP 0/2・素の GCP 0/2（差 +0.0（-65.8〜+65.8））、音声の後まで含めたトークンは住宅IP 2/2・素の GCP 2/2（差 +0.0（-65.8〜+65.8））。差の区間が 0 をまたぐなら、この回数では差があるとも無いとも言えない。WebRTC の漏れ無し。時刻の効果と出口の効果は、同じ時刻の GCP→家を並べていないとこの走りだけでは分けられない。</p>
+<h2>1. 腕ごとの結果</h2>
+<div class="scroll"><table><thead><tr><th>腕</th><th>出口</th><th>即時通過（Wilson 95%）</th><th>トークン・音声込み（Wilson 95%）</th><th>試行</th><th>error</th><th>blocked</th></tr></thead><tbody><tr><td>cloud_headed+linux</td><td>GCP（素）</td><td>0/2＝0.0%（0.0〜65.8）</td><td>2/2＝100.0%（34.2〜100.0）</td><td>2</td><td>0</td><td>0</td></tr><tr><td>cloud_headed+linux@resi</td><td>住宅IP（AS17676 SoftBank Corp.・JP）</td><td>0/2＝0.0%（0.0〜65.8）</td><td>2/2＝100.0%（34.2〜100.0）</td><td>2</td><td>0</td><td>0</td></tr></tbody></table></div>
+<h2>2. 差</h2>
+<div class="scroll"><table><thead><tr><th>差（住宅IP − 素の GCP）</th><th>即時通過</th><th>トークン</th></tr></thead><tbody><tr><td>cloud_headed+linux@resi − cloud_headed+linux</td><td>+0.0（-65.8〜+65.8）</td><td>+0.0（-65.8〜+65.8）</td></tr></tbody></table></div>
+<p class="mute">差は住宅IPの腕 − 素の GCP の腕（点・Newcombe 95%）。区間が 0 をまたぐなら、この回数では差があるとも無いとも言えない。</p>
+<h2>3. 時刻順の即時通過（行がある期間から今日の撃ちまで）</h2>
+<svg viewBox="0 0 860 350" role="img" aria-label="時刻順の即時通過率" style="width:100%;height:auto"><line x1="70" x2="852" y1="250.0" y2="250.0" stroke="#d1d5db" stroke-width="1"/><text x="64" y="254.0" text-anchor="end" font-size="11" fill="currentColor">0%</text><line x1="70" x2="852" y1="191.5" y2="191.5" stroke="#d1d5db" stroke-width="1"/><text x="64" y="195.5" text-anchor="end" font-size="11" fill="currentColor">25%</text><line x1="70" x2="852" y1="133.0" y2="133.0" stroke="#d1d5db" stroke-width="1"/><text x="64" y="137.0" text-anchor="end" font-size="11" fill="currentColor">50%</text><line x1="70" x2="852" y1="74.5" y2="74.5" stroke="#d1d5db" stroke-width="1"/><text x="64" y="78.5" text-anchor="end" font-size="11" fill="currentColor">75%</text><line x1="70" x2="852" y1="16.0" y2="16.0" stroke="#d1d5db" stroke-width="1"/><text x="64" y="20.0" text-anchor="end" font-size="11" fill="currentColor">100%</text><line x1="199.0" x2="199.0" y1="250.0" y2="135.4" stroke="#6b7280" stroke-width="2"/><circle cx="199.0" cy="250.0" r="5" fill="#6b7280"/><text transform="translate(199.0,262) rotate(-60)" text-anchor="end" font-size="10" fill="currentColor">11-28 01:27 GCP素+linux</text><line x1="457.0" x2="457.0" y1="250.0" y2="96.1" stroke="#059669" stroke-width="2"/><circle cx="457.0" cy="250.0" r="5" fill="#059669"/><text transform="translate(457.0,262) rotate(-60)" text-anchor="end" font-size="10" fill="currentColor">今日・GCP素</text><line x1="715.0" x2="715.0" y1="250.0" y2="96.1" stroke="#dc2626" stroke-width="2"/><circle cx="715.0" cy="250.0" r="5" fill="#dc2626"/><text transform="translate(715.0,262) rotate(-60)" text-anchor="end" font-size="10" fill="currentColor">今日・住宅IP</text></svg>
+<p class="mute">灰＝GCP（素の回線）・青＝GCP から家の回線（PC の出口ノード）・緑／赤＝今日の素の GCP／住宅IP（腕の名乗りは各点のラベル）。縦棒は Wilson 95%。同じ時刻の効果が乗っているので、点どうしの上下は今日の2腕の差ほど強くは読めない（比べる根拠は今日の同じ走りの2腕）。</p>
+<h2>4. 通信量と漏れの確かめ</h2>
+<ul><li>住宅IPの中継が運んだ実バイト: 70,092,838（1回の上限 450,000,000）</li>
+<li>撃つ前の門: 住宅IPの出口は素の出口と違う・国 JP・AS17676 SoftBank Corp.（IP は載せない）</li>
+<li>WebRTC の候補（封じあり）。<code>{&quot;ok&quot;: true, &quot;n&quot;: 2, &quot;by_type&quot;: {&quot;host&quot;: 2}, &quot;addrs&quot;: {&quot;host:udp:mdns&quot;: 2}, &quot;leak&quot;: false, &quot;direct_known&quot;: true}</code></li></ul>
+<p class="mute">脚注（参考）: 1回目（11-19 朝・別の時刻・別の鍵 fresh2・classic）は素の GCP 0/22・住宅IP 0/21 だった。通過率は時刻で動くため、この表とは並べない＝比べているのは今回同じ窓で交互に撃った2腕のマスどうしだけ。</p>
+</main></body></html>
