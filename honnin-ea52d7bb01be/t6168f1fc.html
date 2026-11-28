@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head><!--gp-portal:s--><meta name="x-build" content="0dfe15f4ea"><style id="gp-portal-style">#gp-portal-nav,#gp-portal-nav *{all:revert !important;}#gp-portal-nav{display:block !important;box-sizing:border-box !important;grid-column:1/-1 !important;flex-basis:100% !important;width:100% !important;max-width:none !important;margin:0 !important;padding:6px 8px !important;background:#f4f6f8 !important;border-bottom:1px solid #d0d7de !important;overflow-x:auto !important;white-space:nowrap !important;position:static !important;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif !important;font-size:15px !important;color:#1f2328 !important;line-height:1.5 !important;letter-spacing:normal !important;text-align:left !important;visibility:visible !important;opacity:1 !important;z-index:auto !important;}#gp-portal-nav.gp-bottom{border-top:1px solid #d0d7de !important;border-bottom:0 !important;}#gp-portal-nav ul{display:inline-flex !important;gap:6px !important;list-style:none !important;margin:0 !important;padding:0 !important;}#gp-portal-nav li{display:inline-block !important;margin:0 !important;padding:0 !important;}#gp-portal-nav a{display:inline-block !important;padding:8px 12px !important;border-radius:6px !important;color:#0b5cad !important;background:#ffffff !important;border:1px solid #d0d7de !important;text-decoration:none !important;font:inherit !important;cursor:pointer !important;pointer-events:auto !important;}#gp-portal-nav a[aria-current="page"]{color:#ffffff !important;background:#0b5cad !important;border-color:#0b5cad !important;font-weight:bold !important;}@media (max-width:640px){#gp-portal-nav li.gp-cur{order:-1 !important;}}</style><!--gp-portal:e-->
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="shigoto-omitted" content="documents">
+<title>お仕事のご紹介</title>
+<style>
+:root {
+  --bg: #f6f7f9;
+  --paper: #ffffff;
+  --ink: #1d2433;
+  --sub: #5a6478;
+  --line: #e1e5ec;
+  --accent: #1f6feb;
+  --accent-soft: #e8f0fe;
+  --good: #1a7f4b;
+  --good-soft: #e6f4ec;
+  --note: #8a5a00;
+  --note-soft: #fff6e0;
+  --pass-soft: #eef0f3;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11151c; --paper: #1a202b; --ink: #e8ecf3; --sub: #a3adbf; --line: #2c3444;
+    --accent: #6ea8ff; --accent-soft: #1c2a44; --good: #5cc98f; --good-soft: #17301f;
+    --note: #f0c060; --note-soft: #33290f; --pass-soft: #232a38;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11151c; --paper: #1a202b; --ink: #e8ecf3; --sub: #a3adbf; --line: #2c3444;
+  --accent: #6ea8ff; --accent-soft: #1c2a44; --good: #5cc98f; --good-soft: #17301f;
+  --note: #f0c060; --note-soft: #33290f; --pass-soft: #232a38;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  font-size: 17px; line-height: 1.7;
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding: 32px 16px 48px; }
+header h1 { font-size: 30px; margin: 0 0 4px; letter-spacing: .02em; }
+header { position: relative; }
+header .date { color: var(--sub); margin: 0 0 20px; }
+.deck-mini {
+  display: inline-block; font-size: 13.5px; font-weight: 600; color: var(--accent);
+  text-decoration: none; white-space: nowrap;
+}
+.deck-mini:hover { text-decoration: underline; }
+.deck-mini:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+td.co .deck-mini { display: block; margin-top: 4px; }
+.axis {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px;
+  padding: 14px 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+}
+.axis .label { font-weight: 700; margin-right: 4px; align-self: center; }
+.chip {
+  display: inline-block; padding: 3px 12px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 15px;
+}
+h2 { font-size: 22px; margin: 36px 0 6px; }
+h2 + .lead { margin: 0 0 14px; color: var(--sub); }
+.chosen {
+  display: inline-block; margin-left: 8px; padding: 2px 10px; border-radius: 999px;
+  background: var(--good-soft); color: var(--good); font-size: 12.5px; font-weight: 700;
+  vertical-align: middle; white-space: nowrap;
+}
+td small { display: block; color: var(--sub); font-size: 14px; }
+.table-wrap { overflow-x: auto; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 15.5px; }
+th, td { text-align: left; vertical-align: top; padding: 11px 14px; border-bottom: 1px solid var(--line); }
+th { color: var(--sub); font-weight: 600; font-size: 14px; background: var(--bg); }
+tr:last-child td { border-bottom: none; }
+td.co { font-weight: 700; }
+td.num { white-space: normal; }
+@media (min-width: 761px) { .table-wrap thead th:nth-child(1) { width: 16%; } .table-wrap thead th:nth-child(2) { width: 34%; } .table-wrap thead th:nth-child(3) { width: 18%; } }
+.also {
+  margin: 12px 0 0; padding: 10px 14px; border-radius: 10px;
+  background: var(--note-soft); color: var(--ink); font-size: 15px;
+}
+.videos { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.videos li { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.videos a { font-weight: 700; color: var(--accent); text-decoration: none; }
+.videos a:hover { text-decoration: underline; }
+.videos .meta { display: block; color: var(--sub); font-size: 14px; margin-top: 2px; }
+.videos .why { display: block; margin-top: 6px; font-size: 15px; }
+footer { margin-top: 32px; color: var(--sub); font-size: 14px; }
+@media (max-width: 860px) {
+  header h1 { font-size: 24px; }
+}
+@media (max-width: 760px) {
+  table { min-width: 0; }
+  thead { display: none; }
+  tr { display: block; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  tr:last-child { border-bottom: none; }
+  td { display: block; border: none; padding: 1px 0; white-space: normal; }
+  td.co { font-size: 17px; margin-bottom: 2px; }
+  td:nth-child(3)::before { content: "勤務地\3000"; color: var(--sub); }
+  td:nth-child(4)::before { content: "月給\3000"; color: var(--sub); }
+  td:nth-child(5)::before { content: "休日\3000"; color: var(--sub); }
+  td.num br { display: none; }
+}
+@media print {
+  body { background: #fff; }
+  .table-wrap, .axis { break-inside: avoid; }
+}
+.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+#documents .deck-mini { padding: 4px 14px; border: 1px solid var(--accent); border-radius: 999px; }
+#documents .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
+.thanks { margin: 0 0 20px; padding: 16px 18px; border-radius: 14px; background: var(--good-soft); border: 1px solid var(--line); }
+.thanks p { margin: 0 0 6px; }
+.thanks p:last-child { margin: 0; }
+.page-nav { margin: 0 0 24px; }
+.page-nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; }
+.page-nav a {
+  display: inline-block; padding: 6px 14px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); font-weight: 600;
+  font-size: 14.5px; text-decoration: none;
+}
+.page-nav a:hover { text-decoration: underline; }
+.page-nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.decision {
+  margin: 0 0 32px; padding: 16px 18px; background: var(--paper);
+  border: 1px solid var(--line); border-radius: 14px;
+}
+.decision h2 { margin: 0 0 10px; font-size: 20px; }
+.decision ul { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.decision li { padding: 4px 12px; border-radius: 999px; background: var(--good-soft); color: var(--ink); font-size: 15px; }
+.decision li b { color: var(--good); }
+.decision p { margin: 8px 0 0; font-size: 15px; }
+.decision p.yardstick { color: var(--sub); }
+.decision h3.tier-h { margin: 16px 0 6px; font-size: 16px; }
+.decision h3.tier-h.t-sent { color: var(--good); }
+.decision h3.tier-h.t-next { color: var(--accent); }
+.decision h3.tier-h.t-later { color: var(--note); }
+.decision h3.tier-h.t-pass { color: var(--sub); }
+.decision ul.t-next li { background: var(--accent-soft); }
+.decision ul.t-next li b { color: var(--accent); }
+.decision ul.t-later li { background: var(--note-soft); }
+.decision ul.t-later li b { color: var(--note); }
+.decision ul.t-pass li { background: var(--pass-soft); }
+.decision p.tier-note { margin: 0 0 6px; color: var(--sub); font-size: 14.5px; }
+.decision ul.tier-more { display: block; margin: 0 0 6px; }
+.decision ul.tier-more li { display: block; border-radius: 10px; background: var(--note-soft); margin: 0 0 6px; padding: 6px 12px; font-size: 14.5px; }
+.decision ul.tier-more li b { color: var(--note); }
+.verdict {
+  margin-top: 10px; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--pass-soft); color: var(--ink);
+  font-size: 15px; line-height: 1.65; font-weight: 400; white-space: normal;
+}
+.verdict.is-sent { background: var(--good-soft); border-color: var(--good); }
+.verdict.is-next { background: var(--accent-soft); border-color: var(--accent); }
+.is-next .vbadge { background: var(--accent); color: var(--paper); }
+.verdict.is-later { background: var(--note-soft); border-color: var(--note); }
+.is-later .vbadge { background: var(--note); color: var(--paper); }
+.verdict .vhead { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-bottom: 4px; }
+.verdict .vlabel { font-size: 13px; font-weight: 600; color: var(--sub); }
+.vbadge {
+  display: inline-block; padding: 2px 10px; border-radius: 999px;
+  font-size: 13px; font-weight: 700; white-space: nowrap;
+  background: var(--sub); color: var(--paper);
+}
+.is-sent .vbadge { background: var(--good); color: var(--paper); }
+.verdict p { margin: 0; }
+tr.has-verdict td { border-bottom: none; padding-bottom: 6px; }
+tr.verdict-row td { padding-top: 0; }
+@media (max-width: 760px) {
+  tr.has-verdict { border-bottom: none; padding-bottom: 4px; }
+  tr.verdict-row { padding-top: 0; }
+}
+
+/* ---- 会社カード（shigoto_card_layer）---- */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 14px;
+  padding: 20px 20px 18px; display: flex; flex-direction: column; min-width: 0;
+  overflow-wrap: anywhere;
+}
+.card h3 { margin: 0 0 4px; font-size: 20px; line-height: 1.4; letter-spacing: .01em; }
+.card .chosen { background: transparent; border: 1px solid var(--good); }
+.card .what { margin: 0 0 12px; color: var(--sub); font-size: 14px; line-height: 1.6; }
+.card dl { margin: 0; }
+.card dd { margin: 0; }
+.card .nums {
+  display: grid; padding: 10px 0; margin: 0 0 12px;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.card .stat { padding-bottom: 10px; }
+.card .stat:last-child { padding-bottom: 0; }
+.card .stat dt { color: var(--sub); font-size: 13px; font-weight: 600; letter-spacing: .04em; line-height: 1.4; }
+.card .s-salary dt::after { content: "（月額）"; font-weight: 400; }
+.card .s-salary.is-yearly dt::after { content: "（年額で記載）"; }
+.card .stat dd { font-size: 17px; font-weight: 700; line-height: 1.45; }
+.card .s-salary dd { font-size: 22px; letter-spacing: .01em; }
+.card .stat dd .main { display: block; }
+.card .stat dd .lead { display: block; color: var(--sub); font-size: 13.5px; font-weight: 600; line-height: 1.5; letter-spacing: 0; }
+.card .stat dd .aside {
+  display: block; margin-top: 3px; color: var(--ink);
+  font-size: 13px; font-weight: 400; line-height: 1.55; letter-spacing: 0;
+}
+.card .place {
+  display: grid; grid-template-columns: 3.6em 1fr; gap: 8px 10px;
+  margin: 0 0 16px; font-size: 14.5px; line-height: 1.65;
+}
+.card .place dt { color: var(--sub); font-size: 13px; font-weight: 600; padding-top: 1px; }
+.card .detail { margin: 0 0 16px; font-size: 14px; line-height: 1.65; }
+.card .detail:empty { margin: 0; }
+.card .detail .d-row + .d-row { margin-top: 10px; }
+.card .detail dt { color: var(--sub); font-size: 13px; font-weight: 600; letter-spacing: .04em; line-height: 1.4; }
+.card .detail dd + dd { margin-top: 3px; }
+.card .detail .d-head { display: block; color: var(--sub); font-size: 12.5px; line-height: 1.5; }
+.card .detail .d-more { color: var(--sub); font-size: 13px; }
+.card .point {
+  margin: 0 0 12px; padding: 2px 0 2px 12px; font-size: 14.5px; line-height: 1.7;
+  border-left: 2px solid var(--good); color: var(--ink);
+}
+.card .point b { color: var(--good); font-size: 13px; letter-spacing: .04em; }
+.card .links { margin-top: auto; padding-top: 12px; }
+.card .deck-mini {
+  align-self: flex-start; padding: 4px 14px; max-width: 100%; white-space: normal;
+  border: 1px solid var(--accent); border-radius: 999px;
+}
+.card .deck-mini:hover { text-decoration: none; background: var(--accent-soft); }
+@supports (grid-template-rows: subgrid) {
+  @media (min-width: 861px) {
+    .card { display: grid; grid-template-rows: subgrid; grid-row: span 10; row-gap: 0; align-content: start; }
+    .card > h3 { grid-row: 1 / span 1; }
+    .card > .what { grid-row: 2 / span 1; }
+    .card > .nums { grid-row: 3 / span 3; }
+    .card > .place { grid-row: 6 / span 1; }
+    .card > .detail { grid-row: 7 / span 1; }
+    .card > .point { grid-row: 8 / span 1; }
+    .card > .verdict { grid-row: 9 / span 1; }
+    .card > .links { grid-row: 10 / span 1; }
+    .card > .nums { display: grid; grid-template-rows: subgrid; }
+    .card .s-salary { grid-row: 1; } .card .s-annual { grid-row: 2; } .card .s-holidays { grid-row: 3; }
+    .card > .place { align-content: start; }
+    .card > .detail { align-self: start; }
+    .card > .point, .card > .verdict { align-self: start; }
+    .card > .links { align-self: start; margin-top: 0; }
+  }
+}
+@media (max-width: 860px) {
+  .cards { grid-template-columns: 1fr; }
+}
+@media print {
+  .card { break-inside: avoid; }
+}
+
+:root {
+  --band-offset: 56px;
+  --cat-0: #0b5cad; --cat-1: #b35c00; --cat-2: #08795a; --cat-3: #a3317a; --cat-4: #b8370b; --cat-5: #2b6f97; --cat-6: #5a6478;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --cat-0: #7db4f0; --cat-1: #f0a64d; --cat-2: #49c79f; --cat-3: #e58cc4; --cat-4: #f08a5d; --cat-5: #7cc4ec; --cat-6: #a3adbf;
+  }
+}
+:root[data-theme="dark"] {
+  --cat-0: #7db4f0; --cat-1: #f0a64d; --cat-2: #49c79f; --cat-3: #e58cc4; --cat-4: #f08a5d; --cat-5: #7cc4ec; --cat-6: #a3adbf;
+}
+html { scroll-padding-top: var(--band-offset); }
+.band {
+  position: sticky; top: 0; z-index: 10; background: var(--paper); color: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+.band-in {
+  max-width: 1080px; margin: 0 auto; padding: 0 16px; min-height: 40px;
+  display: flex; align-items: center; gap: 4px 18px; font-size: 14px; line-height: 1.4;
+}
+.band-title {
+  color: var(--ink); font-weight: 700; text-decoration: none; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 0 1 auto;
+}
+.band-ch ol { list-style: none; display: flex; gap: 14px; margin: 0; padding: 0; }
+.band-ch a { color: var(--accent); text-decoration: none; white-space: nowrap; }
+.band-ch a[aria-current] { color: var(--ink); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.band-now { color: var(--sub); margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.band a:focus-visible, .fig a:focus-visible, .cmp a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 760px) {
+  :root { --band-offset: 72px; }
+  .band-in { flex-wrap: wrap; padding: 4px 12px; min-height: 0; font-size: 13.5px; }
+  .band-title { flex: 1 1 100%; }
+  .band-now { flex: 1 1 auto; text-align: right; }
+}
+.band ~ .wrap { padding-top: 18px; }
+.band ~ .wrap header .date { margin-bottom: 12px; }
+svg.lg-ic { width: 18px; height: 18px; flex: none; }
+.cmp-side .lead { margin: 0 0 10px; color: var(--ink); }
+@media (min-width: 900px) {
+  .intro { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; align-items: start; }
+  .intro #flow h2 { margin-top: 0; }
+  .cmp-top { display: grid; grid-template-columns: minmax(0, 560px) minmax(0, 1fr); gap: 0 28px; align-items: start; }
+}
+.fig { margin: 0 0 12px; }
+.fig svg { display: block; width: 100%; height: auto; max-width: 640px; }
+.fig-narrow svg { max-width: 560px; }
+.fig .grid { stroke: var(--line); stroke-width: 1; }
+.fig .axis { stroke: var(--sub); stroke-width: 1.5; }
+.fig .tick { fill: var(--sub); font-size: 16px; }
+.fig .ax-l { fill: var(--ink); font-size: 16px; }
+.fig .mk { fill: var(--paper); stroke-width: 3; }
+.cat-0 { stroke: var(--cat-0); } .cat-1 { stroke: var(--cat-1); } .cat-2 { stroke: var(--cat-2); }
+.cat-3 { stroke: var(--cat-3); } .cat-4 { stroke: var(--cat-4); } .cat-5 { stroke: var(--cat-5); } .cat-6 { stroke: var(--cat-6); }
+.fig .bar { stroke-width: 10; stroke-linecap: round; }
+.fig .ring, .legend .ring { fill: none; stroke: var(--ink); stroke-width: 2; }
+.fig .pt-n { fill: var(--ink); font-size: 16px; font-weight: 700; text-anchor: middle; }
+.fig .lead { stroke: var(--sub); stroke-width: 1; }
+.fig .open-ar { stroke: var(--sub); stroke-width: 2; }
+.fig .true-pos { fill: var(--sub); }
+.fig .lead, .fig .true-pos, .fig .open-ar { pointer-events: none; }  /* 飾りは押下を受けない＝重なった番号の点（a.pt）を中心で押せる */
+.fig a.pt:hover .mk, .fig a.pt:focus .mk { stroke-width: 5; }
+.legend .mk { fill: var(--paper); stroke-width: 3; }
+.legend { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 14.5px; color: var(--ink); }
+.legend li { display: inline-flex; align-items: center; gap: 6px; }
+.fig-note { margin: 4px 0 0; font-size: 14.5px; color: var(--ink); }
+.fig .fl-c { fill: var(--paper); stroke: var(--ink); stroke-width: 2; }
+.fig .fl-n { fill: var(--ink); font-size: 16px; font-weight: 700; }
+.fig .fl-t { fill: var(--ink); font-size: 17px; }
+.fig-flow-w svg { max-width: 400px; }
+.fig .fl-l { stroke: var(--sub); stroke-width: 2; }
+.fig .fl-a { fill: var(--sub); }
+.fig .tr-b { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; }
+.fig .tr-t { fill: var(--ink); font-size: 15px; font-weight: 700; }
+.fig .tr-c { fill: var(--sub); font-size: 15px; }
+table.cmp { border-collapse: collapse; width: 100%; font-size: 15px; background: var(--paper); table-layout: fixed; }
+table.cmp caption { text-align: left; font-size: 14px; color: var(--sub); padding: 0 0 6px; }
+table.cmp th, table.cmp td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+table.cmp th { color: var(--sub); font-weight: 600; font-size: 13.5px; background: var(--paper); border-bottom: 1.5px solid var(--sub); }
+table.cmp th:nth-child(1) { width: 26%; } table.cmp th:nth-child(2) { width: 14%; } table.cmp th:nth-child(3) { width: 24%; }
+table.cmp th:nth-child(4) { width: 20%; }
+.cmp .clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.cmp .main { display: block; }
+.fig-how { margin-top: 6px; font-size: 14.5px; }
+.fig-how summary { cursor: pointer; color: var(--accent); }
+.fig-how summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cmp .no { display: inline-block; min-width: 1.6em; font-weight: 700; }
+.cmp .to-card { color: var(--ink); font-weight: 700; }
+.cmp .cmp-chosen { display: block; font-size: 13px; font-weight: 700; color: var(--ink); }
+.cmp .links { display: flex; flex-wrap: wrap; gap: 2px 10px; margin-top: 4px; }
+.cmp .links .deck-mini { font-size: 13px; max-width: 100%; white-space: normal; }
+.cmp .empty { color: var(--sub); }
+.cmp-key { margin: 6px 0 0; font-size: 13.5px; color: var(--sub); }
+@media (max-width: 760px) {
+  table.cmp, table.cmp caption, table.cmp tbody, table.cmp tr, table.cmp td { display: block; width: auto !important; }
+  table.cmp thead { display: none; }
+  table.cmp tr { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  table.cmp td { border: none; padding: 1px 0; }
+  table.cmp td:not(.c-co)::before { content: attr(data-h); display: block; color: var(--sub); font-size: 12.5px; }
+  .fig .tick { font-size: 18px; } .fig .ax-l { font-size: 17px; }
+  .fig .pt-n { font-size: 20px; }
+}
+@media print {
+  .band { position: static; }
+  .cmp .clamp { -webkit-line-clamp: unset; display: block; }
+}
+
+/* ---- 当日の画面共有（shigoto_live_layer）---- */
+.band-pos { color: var(--ink); font-weight: 700; white-space: nowrap; }
+@media (min-width: 861px) { .band-pos { font-size: 18px; } }
+.band-pos:empty { padding: 0; }
+.draft-note { margin: 0 0 16px; padding: 10px 14px; border: 2px dashed var(--note); border-radius: 10px; color: var(--ink); font-weight: 700; }
+.qa { margin: 0; padding: 14px 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+.qa dt { margin: 10px 0 2px; font-weight: 700; }
+.qa dt:first-child { margin-top: 0; }
+.qa dd { margin: 0 0 6px; }
+.qa .qa-m { display: inline-block; margin-right: 8px; padding: 0 8px; border-radius: 6px; font-size: 14px; font-weight: 700; background: var(--accent-soft); color: var(--accent); }
+.qa dd .qa-m { background: var(--good-soft); color: var(--good); }
+@media (min-width: 861px) {
+  .cards.live { grid-template-columns: 1fr; gap: 28px; }
+  .cards.live > .card {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    grid-template-rows: auto auto auto auto auto 1fr; grid-row: auto; column-gap: 28px; row-gap: 0;
+    padding: 16px 24px 18px;
+  }
+  .cards.live > .card > h3 { grid-column: 1 / -1; grid-row: 1; margin: 0 0 2px; font-size: 34px; line-height: 1.3; }
+  .cards.live > .card > .what { grid-column: 1 / -1; grid-row: 2; margin: 0 0 6px; font-size: 18px; line-height: 1.5; }
+  .cards.live > .card > .nums { grid-column: 1; grid-row: 3 / span 2; display: block; margin: 0; padding: 6px 0 4px; align-self: start; }
+  .cards.live > .card > .place { grid-column: 2; grid-row: 3; margin: 0 0 12px; font-size: 20px; line-height: 1.5; align-self: start; }
+  .cards.live > .card > .point { grid-column: 2; grid-row: 4; margin: 0; font-size: 20px; line-height: 1.55; align-self: start; }
+  .cards.live > .card > .verdict { grid-column: 1 / -1; grid-row: 5; margin-top: 12px; font-size: 17px; align-self: start; }
+  .cards.live > .card > .links { grid-column: 1 / -1; grid-row: 6; margin-top: 0; padding-top: 12px; align-self: start; }
+  .cards.live .stat { padding-bottom: 6px; }
+  .cards.live .stat dt { font-size: 16px; }
+  .cards.live .stat dd, .cards.live .s-salary dd { font-size: 32px; line-height: 1.3; }
+  .cards.live .stat dd .lead { font-size: 16px; line-height: 1.45; }
+  .cards.live .stat dd .aside { margin-top: 2px; font-size: 16px; line-height: 1.45; }
+  .cards.live .place { grid-template-columns: 1fr; gap: 0; }
+  .cards.live .place dt { font-size: 16px; padding-top: 0; }
+  .cards.live .place dd { margin-bottom: 8px; }
+  .cards.live .point b { font-size: 16px; }
+  .cards.live .deck-mini { font-size: 16px; }
+}
+@media screen and (min-width: 861px) {
+  /* 1社を話している間、次の社が画面に入らない（読者役 critic: 下に次の社の見出しが見えて目がそちらへ行く） */
+  .cards.live > .card { min-height: calc(100vh - var(--band-offset) - 12px); }
+}
+
+/* ---- 会社カードの畳み（shigoto_fold_layer）---- */
+.cards.folded { grid-template-columns: 1fr; gap: 10px; }
+.cards.folded > article.card { display: block; padding: 0; min-height: 0; }
+details.fold > summary {
+  list-style: none; cursor: pointer; display: grid; gap: 2px; padding: 14px 44px 14px 16px; position: relative;
+  border-radius: 14px;
+}
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary::after {
+  content: "＋"; position: absolute; right: 16px; top: 14px; color: var(--accent); font-weight: 700;
+}
+details.fold[open] > summary::after { content: "－"; }
+details.fold > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+details.fold > summary:hover .f-name { text-decoration: underline; }
+.f-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+.f-name { font-size: 18px; font-weight: 700; line-height: 1.45; overflow-wrap: anywhere; }
+.f-what { color: var(--ink); font-size: 14.5px; line-height: 1.6; overflow-wrap: anywhere; }
+.f-meta { color: var(--sub); font-size: 13.5px; line-height: 1.6; overflow-wrap: anywhere; }
+.fold-body { padding: 4px 16px 16px; border-top: 1px solid var(--line); }
+.fold-body > h3, .fold-body > .what { display: none; }
+.fold-body > .nums { margin-top: 12px; }
+details.fold.is-dropped > summary { opacity: .55; }
+details.fold.is-dropped[open] > .fold-body { opacity: .7; }
+.cards.folded > article.card > .ans { margin: 0 16px 14px; }
+.st {
+  display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 700;
+  line-height: 1.6; white-space: nowrap; border: 1px solid var(--line);
+}
+.st-mensetsu, .st-shorui, .st-suisen { background: var(--good-soft); color: var(--good); border-color: var(--good); }
+.st-teian { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.st-drop { background: var(--pass-soft); color: var(--sub); }
+.fold-ctl { display: flex; gap: 8px; margin: 0 0 10px; }
+.fold-ctl[hidden] { display: none; }
+.fold-ctl button {
+  font: inherit; font-size: 14px; padding: 6px 14px; min-height: 40px; border: 1px solid var(--accent);
+  border-radius: 999px; background: var(--paper); color: var(--accent); cursor: pointer;
+}
+.fold-ctl button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#dropped h2 { font-size: 17px; color: var(--sub); }
+@media print {
+  details.fold::details-content { content-visibility: visible; display: block; }
+  details.fold > summary::after, .fold-ctl { display: none; }
+  details.fold.is-dropped > summary { opacity: 1; }
+}
+</style>
+<style data-honnin-answer="css">
+.ans{margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.ans[hidden]{display:none}
+.ans-q{margin:0 0 8px;font-size:.92rem;color:var(--sub)}
+.ans-btns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ans-b{font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;
+  padding:6px 4px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);cursor:pointer;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.ans-b .ans-m{font-size:1.35rem;line-height:1}
+.ans-b .ans-t{font-size:.8rem;color:var(--sub);word-break:keep-all;line-height:1.35;text-align:center}
+.ans-b[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.ans-b[aria-pressed="true"] .ans-t{color:var(--ink);font-weight:600}
+.ans-b:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ans-cl{display:block;margin-top:10px;font-size:.88rem;color:var(--sub)}
+.ans-c{display:block;box-sizing:border-box;width:100%;margin-top:4px;padding:8px 10px;font:inherit;font-size:1rem;line-height:1.6;
+  border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);resize:vertical;min-height:2.8em}
+.ans-st{display:flex;justify-content:space-between;gap:8px;margin:6px 0 0;font-size:.82rem;color:var(--sub);min-height:1.3em}
+.ans-st .ans-msg.ok{color:var(--good)}
+.ans-st .ans-msg.ng{color:var(--note);font-weight:600}
+.ans-fb{margin:6px 0 0;font-size:.82rem;color:var(--note)}
+.ans-fb[hidden]{display:none}
+
+h1,h2,h3{word-break:auto-phrase}
+</style></head>
+<body><!--gp-portal:s--><nav id="gp-portal-nav" aria-label="ページのタブ"><ul><li><a href="./?v=0dfe15f4ea">ホーム</a></li><li class="gp-cur"><a href="./t6168f1fc.html?v=0dfe15f4ea" aria-current="page">ご紹介したお仕事</a></li></ul></nav><!--gp-portal:e-->
+<div class="band" id="band">
+<div class="band-in">
+  <a class="band-title" href="#top">合田さんにご紹介したいお仕事</a>
+  <nav class="band-ch" aria-label="章"><ol><li><a href="#top" data-ch="intro">はじめに</a></li><li><a href="#compare" data-ch="compare">比べる</a></li><li><a href="#companies" data-ch="detail">詳しく</a></li><li><a href="#industry" data-ch="docs">資料</a></li><li><a href="#flow" data-ch="next">これから</a></li></ol></nav>
+  <span class="band-now" aria-live="polite"></span><span class="band-pos" aria-live="polite"></span>
+</div>
+</div>
+<script>
+(function spy() {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", spy);
+    return;
+  }
+  var MAP = [["top", "intro", "ごあいさつ"], ["heard", "intro", "伺ったこと"], ["compare", "compare", "ご確認いただきたい会社の比較"], ["companies", "detail", "ご紹介した会社"], ["industry", "docs", "業界の説明資料"], ["flow", "next", "これからの進め方"]];
+  var band = document.getElementById("band");
+  if (!band || !("IntersectionObserver" in window)) return;
+  var now = band.querySelector(".band-now");
+  var chs = band.querySelectorAll("[data-ch]");
+  var items = MAP.map(function (m) { return [document.getElementById(m[0]), m[1], m[2]]; })
+    .filter(function (m) { return m[0]; });
+  function pick() {
+    var line = window.innerHeight * 0.4, cur = items[0];
+    var atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    items.forEach(function (it) {
+      var top = it[0].getBoundingClientRect().top;
+      if (top <= line || (atEnd && top < window.innerHeight)) cur = it;
+    });
+    if (!cur) return;
+    now.textContent = "いま: " + cur[2];
+    chs.forEach(function (a) {
+      if (a.getAttribute("data-ch") === cur[1]) a.setAttribute("aria-current", "location");
+      else a.removeAttribute("aria-current");
+    });
+  }
+  var io = new IntersectionObserver(pick, { rootMargin: "0px 0px -60% 0px", threshold: [0, 1] });
+  items.forEach(function (it) { io.observe(it[0]); });
+  var foot = document.querySelector("footer");
+  if (foot) new IntersectionObserver(pick).observe(foot);
+  pick();
+})();
+</script>
+<div class="wrap">
+
+<header id="top">
+  <h1>合田さんにご紹介したいお仕事</h1>
+  <p class="date">2026年11月28日（土）</p>
+</header>
+
+<nav class="page-nav" aria-label="ページ内リンク"><ul><li><a href="#companies">ご紹介した会社</a></li><li><a href="#industry">業界の説明資料</a></li></ul></nav>
+<div class="live-flow" data-layer="live">
+<section class="thanks" data-no-figure="あいさつの数文">
+<p><b>本日はお時間をいただきありがとうございます。</b></p>
+  <p>前回の面談で伺った「人をサポートする事務で、まずスキルをつけたい。家から近いところで」をもとに会社を選びました。</p>
+</section>
+<section id="heard" data-section="heard" data-no-figure="伺った条件の短い札">
+<div class="axis">
+  <span class="label">伺ったこと</span>
+  <span class="chip">人をサポートしたい気持ちが大きく、事務の仕事がしたい</span>
+  <span class="chip">リモートより先に、まず事務のスキルをつけたい</span>
+  <span class="chip">西川口から近いところで働きたい</span>
+  <span class="chip">施工管理の現場で、新入社員や職人さんにCADや写真管理ソフトの使い方を教えていた</span>
+  <span class="chip">写真の達人・AQuick・CheX・BricsCAD・Adobe を使ってきた</span>
+  <span class="chip">ホテルで5年働いた</span>
+  <span class="chip">MOSの勉強に興味がある</span>
+  <span class="chip">Excelの関数を使っての作業をたくさんやって早く覚えたい</span>
+  <span class="chip">ブラインドタッチができるくらいタイピングしたい</span>
+  
+</div>
+</section>
+<section id="compare" data-section="compare" data-chapter="compare">
+<h2>ご確認いただきたい会社の比較</h2>
+<div class="cmp-top"><figure class="fig" data-figure="compare"><svg class="fig-cmp" viewBox="0 0 560 272" role="img" aria-labelledby="fig-cmp-t fig-cmp-d" preserveAspectRatio="xMidYMid meet"><title id="fig-cmp-t">ご確認中の9社の比較（2026年11月28日（土）時点の求人票・会社資料より）</title><desc id="fig-cmp-d">1 ワールドコーポレーション（事務）: 月給のまん中 27万円・年間休日 120日／2 コクー: 月給のまん中 28万円・年間休日 124日／5 マンパワーグループ（M-Shine）: 月給のまん中 21.1万円・年間休日 125日／6 DYMキャリア: 月給のまん中 21万円・年間休日 120日</desc><defs><marker id="cmp-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="grid" x1="72.0" y1="14" x2="72.0" y2="212"/><text class="tick" x="72.0" y="237" text-anchor="middle">18</text><line class="grid" x1="148.3" y1="14" x2="148.3" y2="212"/><text class="tick" x="148.3" y="237" text-anchor="middle">20</text><line class="grid" x1="224.7" y1="14" x2="224.7" y2="212"/><text class="tick" x="224.7" y="237" text-anchor="middle">22</text><line class="grid" x1="301.0" y1="14" x2="301.0" y2="212"/><text class="tick" x="301.0" y="237" text-anchor="middle">24</text><line class="grid" x1="377.3" y1="14" x2="377.3" y2="212"/><text class="tick" x="377.3" y="237" text-anchor="middle">26</text><line class="grid" x1="453.7" y1="14" x2="453.7" y2="212"/><text class="tick" x="453.7" y="237" text-anchor="middle">28</text><line class="grid" x1="530.0" y1="14" x2="530.0" y2="212"/><text class="tick" x="530.0" y="237" text-anchor="middle">30</text><line class="grid" x1="72" y1="212.0" x2="530" y2="212.0"/><text class="tick" x="60" y="217.0" text-anchor="end">110</text><line class="grid" x1="72" y1="172.4" x2="530" y2="172.4"/><text class="tick" x="60" y="177.4" text-anchor="end">115</text><line class="grid" x1="72" y1="132.8" x2="530" y2="132.8"/><text class="tick" x="60" y="137.8" text-anchor="end">120</text><line class="grid" x1="72" y1="93.2" x2="530" y2="93.2"/><text class="tick" x="60" y="98.2" text-anchor="end">125</text><line class="grid" x1="72" y1="53.6" x2="530" y2="53.6"/><text class="tick" x="60" y="58.6" text-anchor="end">130</text><line class="grid" x1="72" y1="14.0" x2="530" y2="14.0"/><text class="tick" x="60" y="19.0" text-anchor="end">135</text><line class="axis" x1="72" y1="212" x2="530" y2="212"/><line class="axis" x1="72" y1="14" x2="72" y2="212"/><text class="ax-l" x="301.0" y="264" text-anchor="middle">月給の目安（万円）→</text><text class="ax-l" x="20" y="113.0" text-anchor="middle" transform="rotate(-90 20 113.0)">年間休日（日）→</text><a class="pt" href="#card-worldcorp_jimu" aria-label="1. ワールドコーポレーション（事務）（カードへ）" data-key="worldcorp_jimu"><title>1. ワールドコーポレーション（事務）（カードへ）</title><rect class="mk cat-1" x="402.5" y="119.8" width="26.0" height="26.0"/><text class="pt-n" x="415.5" y="138.3">1</text></a><a class="pt" href="#card-cocoo" aria-label="2. コクー（カードへ）" data-key="cocoo"><title>2. コクー（カードへ）</title><rect class="mk cat-1" x="440.7" y="88.1" width="26.0" height="26.0"/><text class="pt-n" x="453.7" y="106.6">2</text></a><a class="pt" href="#card-manpower_mshine" aria-label="5. マンパワーグループ（M-Shine）（カードへ）" data-key="manpower_mshine"><title>5. マンパワーグループ（M-Shine）（カードへ）</title><rect class="mk cat-1" x="179.2" y="80.2" width="26.0" height="26.0"/><text class="pt-n" x="192.2" y="98.7">5</text></a><a class="pt" href="#card-dym" aria-label="6. DYMキャリア（カードへ）" data-key="dym"><title>6. DYMキャリア（カードへ）</title><rect class="mk cat-1" x="173.5" y="119.8" width="26.0" height="26.0"/><text class="pt-n" x="186.5" y="138.3">6</text></a></svg></figure><div class="cmp-side"><p class="lead">面談の希望から9社を選びました。右ほど月給が高く、上ほど年間休日が多い会社です。番号や社名を押すと詳しい説明に移ります。<span class="ans-line">気になる会社は番号か社名でLINEへ（例「2が気になります」）。</span><span class="ans-on" hidden>各社のカードで ◯（受けてみたい）・▲（迷う・聞きたい）・✖（今回は見送り）を押すと、その場で担当に届きます。ひとことも書けます。</span></p><ul class="legend" aria-label="図の見方"><li><svg class="lg-ic" viewBox="0 0 30 30" width="18" height="18" aria-hidden="true"><rect class="mk cat-1" x="6.0" y="6.0" width="18.0" height="18.0"/></svg>事務</li></ul><p class="fig-note">図に載せていない: 3 テラスカイ・テクノロジーズ（年収で書かれていて月給が分からない）、4 スタッフサービス ミラエール推進部（年収で書かれていて月給が分からない）　図は1〜6の会社です（7〜9は下の表に）。</p><details class="fig-how"><summary>図の見方</summary><p class="fig-note">年間休日の差は最大5日です。月給は書かれた幅のまん中に置いています。</p></details></div></div>
+<table class="cmp">
+  <caption>ご確認中の9社の比較（2026年11月28日（土）時点の求人票・会社資料より）</caption>
+  <thead><tr><th>会社</th><th>仕事の種類</th><th>勤務地</th><th>年収（年額）</th><th>月給（月額）</th><th>休日（年間）</th></tr></thead>
+  <tbody>
+    <tr data-key="worldcorp_jimu"><td class="c-co" data-h="会社"><span class="no">1</span><a class="to-card" href="#card-worldcorp_jimu">ワールドコーポレーション（事務）</a><span class="links"><a class="deck-mini" href="https://worldcorp-jp.com/" target="_blank" rel="noopener" aria-label="ワールドコーポレーション（事務）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1COxWMhGTZEsBqVqAwAug9lBZlbAJT4gD/view" target="_blank" rel="noopener" aria-label="ワールドコーポレーション（事務）の資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="clamp">東京都千代田区</span></td><td data-h="年収（年額）"><span class="clamp">350万〜400万円</span></td><td data-h="月給（月額）"><span class="clamp">27万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日120日</span></td></tr>
+<tr data-key="cocoo"><td class="c-co" data-h="会社"><span class="no">2</span><a class="to-card" href="#card-cocoo">コクー</a><span class="links"><a class="deck-mini" href="https://cocoo.co.jp/corporate/" target="_blank" rel="noopener" aria-label="コクーのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1tCYi0UNVlTHRr4ySzXC0ENQnmnS_f2fC/view" target="_blank" rel="noopener" aria-label="コクーの資料（EXCEL女子の紹介（会社作成・画像1枚・小さい字に崩れあり））">EXCEL女子の紹介（会社作成・画像1枚・小さい字に崩れあり） →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1L9dp3hvYCocRwZSJQ5GZAC0UMuk3-Z-m/view" target="_blank" rel="noopener" aria-label="コクーの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="clamp">東京都</span></td><td data-h="年収（年額）"><span class="empty">まだ不明</span></td><td data-h="月給（月額）"><span class="clamp">24万〜32万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日124日</span></td></tr>
+<tr data-key="name_40af81"><td class="c-co" data-h="会社"><span class="no">3</span><a class="to-card" href="#card-name_40af81">テラスカイ・テクノロジーズ</a><span class="links"><a class="deck-mini" href="https://www.terrasky-tech.co.jp/" target="_blank" rel="noopener" aria-label="テラスカイ・テクノロジーズのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1Eqy8dHmTLsvHh7flRSRYTDCUcK1LQRdy/view" target="_blank" rel="noopener" aria-label="テラスカイ・テクノロジーズの資料（テラスカイ・テクノロジーズ 会社資料（採用ガイダンス・12枚））">テラスカイ・テクノロジーズ 会社資料（採用ガイダンス・12枚） →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1AMjrslMm0ncEh7t73rnV0wZL3zdR7G2g/view" target="_blank" rel="noopener" aria-label="テラスカイ・テクノロジーズの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="clamp">東京都ほか</span></td><td data-h="年収（年額）"><span class="clamp">336万〜350万円</span></td><td data-h="月給（月額）"><span class="empty">まだ不明</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
+<tr data-key="staffservice_mirai"><td class="c-co" data-h="会社"><span class="no">4</span><a class="to-card" href="#card-staffservice_mirai">スタッフサービス ミラエール推進部</a><span class="links"><a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1o31QH1qaAuheG_WwoFBcrVvgKVDLC1iP/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料（会社の資料）">会社の資料 →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="clamp">東京都ほか</span></td><td data-h="年収（年額）"><span class="clamp">270万〜330万円</span></td><td data-h="月給（月額）"><span class="empty">まだ不明</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
+<tr data-key="manpower_mshine"><td class="c-co" data-h="会社"><span class="no">5</span><a class="to-card" href="#card-manpower_mshine">マンパワーグループ（M-Shine）</a><span class="links"><a class="deck-mini" href="https://www.manpowerjobnet.com/lp/m-shine/" target="_blank" rel="noopener" aria-label="マンパワーグループ（M-Shine）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1n7D76CMVJSOy53SjyDqzOTeUyuy3S-fe/view" target="_blank" rel="noopener" aria-label="マンパワーグループ（M-Shine）の資料（会社説明資料（東京・神奈川））">会社説明資料（東京・神奈川） →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1eSkGuEgtedc2zvT8uFEY_xXKVI4JVFFS/view" target="_blank" rel="noopener" aria-label="マンパワーグループ（M-Shine）の資料（会社説明資料（埼玉・千葉））">会社説明資料（埼玉・千葉） →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="clamp">兵庫県ほか</span></td><td data-h="年収（年額）"><span class="empty">まだ不明</span></td><td data-h="月給（月額）"><span class="clamp">20.7万〜21.6万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
+<tr data-key="dym"><td class="c-co" data-h="会社"><span class="no">6</span><a class="to-card" href="#card-dym">DYMキャリア</a><span class="links"><a class="deck-mini" href="https://dymcareer.jp/" target="_blank" rel="noopener" aria-label="DYMキャリアのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1__iQf-UT0FoNY6RHu5CMwd2qKcZvn52x/view" target="_blank" rel="noopener" aria-label="DYMキャリアの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="clamp">大阪府</span></td><td data-h="年収（年額）"><span class="clamp">252万〜270万円</span></td><td data-h="月給（月額）"><span class="clamp">21万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日120日</span></td></tr>
+<tr data-key="recruit_careerwink"><td class="c-co" data-h="会社"><span class="no">7</span><a class="to-card" href="#card-recruit_careerwink">リクルートスタッフィング キャリアウィンク事業部</a><span class="links"><a class="deck-mini" href="https://www.r-staffing.co.jp/corporate/" target="_blank" rel="noopener" aria-label="リクルートスタッフィング キャリアウィンク事業部のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1l-PXR9eKfSMVtYIneyNCqGHzttwRxKEG/view" target="_blank" rel="noopener" aria-label="リクルートスタッフィング キャリアウィンク事業部の資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">事務</td><td data-h="勤務地"><span class="clamp">東京都ほか</span></td><td data-h="年収（年額）"><span class="empty">まだ不明</span></td><td data-h="月給（月額）"><span class="clamp">17.1万〜22.4万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日122〜130日</span></td></tr>
+<tr data-key="sse_kiden"><td class="c-co" data-h="会社"><span class="no">8</span><a class="to-card" href="#card-sse_kiden">スタッフサービス・エンジニアリング</a><span class="links"><a class="deck-mini" href="https://www.staffservice-engineering.jp/" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリングのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1Sa95m02htPx5DvxOjNivjD79jmRV5xaf/view" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリングの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">機械・電気の技術</td><td data-h="勤務地"><span class="clamp">北海道ほか</span></td><td data-h="年収（年額）"><span class="clamp">282万〜400万円</span></td><td data-h="月給（月額）"><span class="clamp">21.5万〜30万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日125日</span></td></tr>
+<tr data-key="recruit_rd"><td class="c-co" data-h="会社"><span class="no">9</span><a class="to-card" href="#card-recruit_rd">リクルートR&amp;Dスタッフィング</a><span class="links"><a class="deck-mini" href="https://www.recruit-rds.co.jp/" target="_blank" rel="noopener" aria-label="リクルートR&amp;Dスタッフィングのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1xc3r2R3Uob4d4OjPuENUh7qGM4VMLMo_/view" target="_blank" rel="noopener" aria-label="リクルートR&amp;Dスタッフィングの資料（会社説明スライド）">会社説明スライド →</a></span></td><td data-h="仕事の種類">機械・電気の技術</td><td data-h="勤務地"><span class="clamp">東京都ほか</span></td><td data-h="年収（年額）"><span class="clamp">350万〜600万円</span></td><td data-h="月給（月額）"><span class="clamp">21万〜40万円</span></td><td data-h="休日（年間）"><span class="clamp">年間休日120日</span></td></tr>
+  </tbody>
+</table>
+<p class="cmp-key">まだ不明＝求人票・資料で確かめられていない。続きは各社の説明に。</p>
+</section>
+<section id="companies" data-section="companies" data-no-figure="各社カードと表＝詳しい層（図はトップの比較）">
+<h2>ご紹介した会社</h2>
+<h2>ご紹介する会社</h2>
+<p class="lead">上から順におすすめです。どの会社も、事務が未経験でも研修を受けて始められます。</p>
+<div class="fold-ctl" hidden><button type="button" data-fold-all="open">全部開く</button><button type="button" data-fold-all="close">全部閉じる</button></div>
+<div class="cards live folded" data-live="picks">
+  <article class="card" id="card-worldcorp_jimu" data-key="worldcorp_jimu" data-name="ワールドコーポレーション（事務）"><details class="fold"><summary><span class="f-head"><span class="f-name">ワールドコーポレーション（事務）</span></span><span class="f-what">営業サポート事務（顧客・案件管理・データ集計・資料作成・業務フローの整備）／経理事務（給与計算担当）</span><span class="f-meta">東京本社
+東京都千代田区二番町　年収 350万〜400万円</span></summary><div class="fold-body">
+    <h3>ワールドコーポレーション（事務）</h3>
+    <p class="what">営業サポート事務（顧客・案件管理・データ集計・資料作成・業務フローの整備）／経理事務（給与計算担当）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="lead">営業サポート: 月給</span><span class="main">27万200円〜＋賞与年2回／経理</span><span class="aside">（給与計算）: 想定年収350万円〜・月給26.1万円〜</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>350万〜400万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日120日・土日祝休み</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京本社
+東京都千代田区二番町</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>経験者のみ</dd><dt>条件</dt><dd>夜勤なし</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>顧客・案件管理・データ集計・資料作成から業務フローの整備・マニュアル化まで幅広く担当</dd><dd>PORTERS等の管理ツール活用</dd><dd>コンストラクション事業部</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-appeal"><dt>仕事の魅力</dt><dd>千代田区二番町（麹町）の好立地オフィスで通勤便利</dd><dd>周囲を先回りして支え感謝されるポジション</dd><dd>チームワーク抜群の環境</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-salary_breakdown"><dt>給与の内訳</dt><dd>※上記金額には40時間分の固定残業代が含まれます（超過分は別途支給）。</dd><dd>※年収はスキルや経験によって変動いたします。</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>賞与年2回</dd><dd>昇給年1回</dd><dd>昇給：年1回（12月）</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-leave"><dt>休暇</dt><dd>夏季・年末年始休暇あり</dd></div><div class="d-row d-overtime"><dt>残業</dt><dd>新設ポジションのため、20時間～30時間を想定しております。</dd></div><div class="d-row d-remote"><dt>在宅</dt><dd>※本ポジションは、在宅勤務・リモートワークの対象ではありません。</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>職種経験: 職種未経験NG・職種経験: 職種未経験NG</dd><dd>事務・営業アシスタント経験、または営業経験（法人・個人、業界・商材不問）・事務・営業アシスタント経験、または営業経験（法人・個人、業界・商材不問）</dd><dd>PC基本操作（Excelでのデータ入力・集計、メール対応）・PC基本操作（Excelでのデータ入力・集計、メール対応）</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>・管理ツールの使用経験がある方（PORTERSやジョブカンなど）・・管理ツールの使用経験がある方（PORTERSやジョブカンなど）</dd><dd>・業務プロセスの効率化やマニュアル作成・標準化に関心がある方・・業務プロセスの効率化やマニュアル作成・標準化に関心がある方</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>未経験へのサポート体制</dd></div><div class="d-row d-hiring"><dt>募集の概要</dt><dd>事業拡大および営業組織の体制強化に伴い、営業メンバーを支える営業サポート業務をお任せする方を増員募集いたします。</dd><dd>複数名募集※営業サポート</dd></div><div class="d-row d-company"><dt>会社</dt><dd>株式会社ワールドコーポレーション</dd><dd>株式会社ナレルグループ launch・株式会社コントラフト launch・一般社団法人 全国建設人材協会 launch</dd><dd>㈱ワールドコーポレーション</dd><dd class="d-more">続きは求人票で</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　建設会社に施工管理の技術者を送り出している会社の、本社（千代田区二番町）の営業サポート事務です。正社員で自社のオフィス勤務・土日祝休み。営業の人たちの案件や数字を整理し、資料をつくって先回りで支えます。合田さんが現場で回覧の管理をしたり、新入社員さんや職人さんにソフトの使い方を教えていた経験は、建設の言葉が分かる事務としてそのまま活きます。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://worldcorp-jp.com/" target="_blank" rel="noopener" aria-label="ワールドコーポレーション（事務）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1COxWMhGTZEsBqVqAwAug9lBZlbAJT4gD/view" target="_blank" rel="noopener" aria-label="ワールドコーポレーション（事務）の資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details><div class="ans" data-ans-key="worldcorp_jimu" data-ans-name="ワールドコーポレーション（事務）" hidden><p class="ans-q">ワールドコーポレーション（事務）への気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="ワールドコーポレーション（事務）への気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-cocoo" data-key="cocoo" data-name="コクー"><details class="fold"><summary><span class="f-head"><span class="f-name">コクー</span></span><span class="f-what">IT事務職（SES事業部のバックオフィス。データ入力・見積書/納品書などの資料作成・売上データ集計・電話対応・BI更新作業など）</span><span class="f-meta">東京都　月給 月給24万〜32万円ほど（想定年収288万〜400万円・業績賞与＋昇給年2回）</span></summary><div class="fold-body">
+    <h3>コクー</h3>
+    <p class="what">IT事務職（SES事業部のバックオフィス。データ入力・見積書/納品書などの資料作成・売上データ集計・電話対応・BI更新作業など）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給24万〜32万円ほど</span><span class="aside">（想定年収288万〜400万円・業績賞与＋昇給年2回）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>土日祝休み・完全週休2日制・年間休日124日・残業月平均20時間以下</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京都</dd><dt>条件</dt><dd>未経験から可</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-requirement"><dt>必須</dt><dd>最終学歴: 学歴不問</dd><dd>職種経験: 職種未経験OK</dd><dd>業種経験: 業種未経験OK</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>※未経験・第二新卒大歓迎</dd><dd>未経験からでもスキルを身につけて成長したい</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　応募していただいた IT事務に一番近いお仕事です。入社後の研修で Excel を基礎から学べるので、合田さんが話していた「関数を使った作業をたくさんやって早く覚えたい」がそのまま研修の中身になります。未経験から始めた女性が多く活躍しています。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://cocoo.co.jp/corporate/" target="_blank" rel="noopener" aria-label="コクーのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1tCYi0UNVlTHRr4ySzXC0ENQnmnS_f2fC/view" target="_blank" rel="noopener" aria-label="コクーの資料（EXCEL女子の紹介（会社作成・画像1枚・小さい字に崩れあり））">EXCEL女子の紹介（会社作成・画像1枚・小さい字に崩れあり） →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1L9dp3hvYCocRwZSJQ5GZAC0UMuk3-Z-m/view" target="_blank" rel="noopener" aria-label="コクーの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details><div class="ans" data-ans-key="cocoo" data-ans-name="コクー" hidden><p class="ans-q">コクーへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="コクーへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-name_40af81" data-key="name_40af81" data-name="テラスカイ・テクノロジーズ"><details class="fold"><summary><span class="f-head"><span class="f-name">テラスカイ・テクノロジーズ</span></span><span class="f-what">お客様先に常駐し、Salesforce を安心して使えるように運用・事務の面から支える仕事（問い合わせの一次対応・アカウント管理・データ整備・マニュアル作成など）。東証プライム上場テラスカイのグループ会社</span><span class="f-meta">東京、神奈川、埼玉、千葉　年収 336万〜350万円</span></summary><div class="fold-body">
+    <h3>テラスカイ・テクノロジーズ</h3>
+    <p class="what">お客様先に常駐し、Salesforce を安心して使えるように運用・事務の面から支える仕事（問い合わせの一次対応・アカウント管理・データ整備・マニュアル作成など）。東証プライム上場テラスカイのグループ会社</p>
+    <dl class="nums"><div class="stat s-salary is-yearly"><dt>月給</dt><dd><span class="main">想定年収336万〜350万円</span><span class="aside">（月給28万〜29.1万円・固定残業20時間分を含む・超過分は別途支給）・昇給年1回</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>336万〜350万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日125日・土日祝休み</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京、神奈川、埼玉、千葉</dd><dt>条件</dt><dd>日本での正社員雇用の勤続年数が1年以上</dd><dt>条件</dt><dd>転職回数4回まで（当社で5社目まで）。アルバイトも社数に数える運用（2026-11-20 書類見送りの理由・n=1）</dd><dt>条件</dt><dd>書類選考は職歴と雇用形態を重視。正社員経験が1年以上ないと書類で落ちることがある（昼ドリ担当 2026-11-20 17:02・傾向の説明）</dd><dt>条件</dt><dd>PC を使った業務の経験</dd><dt>条件</dt><dd>外国籍の人は上の要件に加え N1・就労ビザ取得済み（取得予定は不可）</dd><dt>条件</dt><dd>高卒以上・職種未経験OK</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>転勤なし</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>＜配属先での業務例＞</dd><dd>配属先により範囲は異なりますが、主に以下のような運用事務／ITサポートを担当します。</dd><dd>■法人顧客の営業活動におけるDX推進やシステム（Salesforce）の活用改善サポート</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-appeal"><dt>仕事の魅力</dt><dd>親会社は東証プライム上場グループ/成長率1000％/設立3年で社員数350名超え。</dd><dd>安定基盤のもと、今後も需要の大きいSalesforceのスキルを習得できる！</dd><dd>土日祝休／平均残業時間は月8.14時間／ 有給休暇消化率は82%以上！（日本平均は65%）リモート率42%（勤務形態はプロジェクトにより異なります。）</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-salary_breakdown"><dt>給与の内訳</dt><dd>■転勤手当</dd><dd>給与形態：月給制</dd><dd>※未経験の方は年収336万円のスタートとなります月給28万円以上</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>■昇給年1回（3月）</dd><dd>3年働くと年収100万UP！年平均昇給率9%と着実に給与が上がる体制！</dd><dd>賞与回数：賞与なし</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-leave"><dt>休暇</dt><dd>年末年始休暇、有給休暇、慶弔休暇、産休・育休、介</dd><dd>補足情報：初年度分の有給休暇については入社日付けにて付与</dd><dd>（以降、入社日を迎える毎に所定日数を付与）</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-work_hours"><dt>勤務時間</dt><dd>09:00〜18:00</dd></div><div class="d-row d-overtime"><dt>残業</dt><dd>月間平均残業時間：10時間以下</dd><dd>※平均残業時間10時間以内</dd></div><div class="d-row d-remote"><dt>在宅</dt><dd>※大阪勤務の方については、研修はオンライン（講師との毎日のやり取り有）、配属先はご自宅から1時間半程度で通える案件先をご紹介予定です</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>最終学歴: 高卒以上</dd><dd>文系・理系も問いません。</dd><dd>職種経験: 職種未経験OK・未経験からでもIT事務／運用サポートのスキルを習得できます。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>▼求める人物像・明るくハキハキしたコミュニケーションが取れる方</dd><dd>▼求める人物像・新しい知識を習得するために“調べる”という行動を起こせる方</dd><dd>▼求める人物像・お客様の課題解決に力を発揮し、直接喜びや感謝の声を聞ける仕事がしたい方</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>■研修制度（独自カリキュラムのSalesforce・IT研修、そのほかビジネススキル、PM・PL研修など）</dd><dd>■社用PC貸与</dd><dd>■フリーアドレスオフィス</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>履歴書の提出: 必須</dd><dd>職務経歴書の提出: 必須</dd><dd>カジュアル面談の有無 : 状況に応じてある</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-hiring"><dt>募集の概要</dt><dd>増員募集 / 更なる組織強化</dd></div><div class="d-row d-company"><dt>会社</dt><dd>株式会社テラスカイ・テクノロジーズ</dd><dd>SIer・SES</dd><dd>2021年</dd><dd class="d-more">続きは求人票で</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　会社や現場の人たちが Salesforce というシステムを安心して使えるように、問い合わせの対応・データの整理・マニュアルづくりで支える IT事務です。研修が4か月あり、未経験から始められます。合田さんが現場で新入社員さんや職人さんにソフトの使い方を教えていた経験が、そのまま「使う人を支える」仕事につながります。埼玉の勤務先もあり、土日祝休み・年間休日125日です。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.terrasky-tech.co.jp/" target="_blank" rel="noopener" aria-label="テラスカイ・テクノロジーズのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1Eqy8dHmTLsvHh7flRSRYTDCUcK1LQRdy/view" target="_blank" rel="noopener" aria-label="テラスカイ・テクノロジーズの資料（テラスカイ・テクノロジーズ 会社資料（採用ガイダンス・12枚））">テラスカイ・テクノロジーズ 会社資料（採用ガイダンス・12枚） →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1AMjrslMm0ncEh7t73rnV0wZL3zdR7G2g/view" target="_blank" rel="noopener" aria-label="テラスカイ・テクノロジーズの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details><div class="ans" data-ans-key="name_40af81" data-ans-name="テラスカイ・テクノロジーズ" hidden><p class="ans-q">テラスカイ・テクノロジーズへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="テラスカイ・テクノロジーズへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-staffservice_mirai" data-key="staffservice_mirai" data-name="スタッフサービス ミラエール推進部"><details class="fold"><summary><span class="f-head"><span class="f-name">スタッフサービス ミラエール推進部</span></span><span class="f-what">一般事務（人事・総務・経理・貿易・金融・英文事務・受付・データ入力など、案件により内容が変わる）</span><span class="f-meta">転勤なし・自宅から90分以内の配属先　年収 270万〜330万円</span></summary><div class="fold-body">
+    <h3>スタッフサービス ミラエール推進部</h3>
+    <p class="what">一般事務（人事・総務・経理・貿易・金融・英文事務・受付・データ入力など、案件により内容が変わる）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">270万〜330万円ほど</span><span class="aside">（地域別の月給・エリアにより異なる）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>270万〜330万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日125日・土日祝休み</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>転勤なし・自宅から90分以内の配属先（東京・神奈川・埼玉・千葉・大阪・京都・滋賀・広島・愛知・兵庫）</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>転勤なし</dd><dt>条件</dt><dd>貿易事務の場合は英語の資格が必要で（職種: 貿易事務）</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>英語力を活かしていただける配属先はございます。</dd><dd>クリニックの受付はありませんが、大手企業の受付の仕事はあります。</dd><dd>経験や保有資格によります。未経験の方は、一般事務・営業事務がほとんどで・す。経理事務の場合、簿記3級以上を持っている方であれば未経験でも求人があ・貿易事務の場合は英語の資格が必要で・営業事務の割合は多く、営業事務をやりたい方は叶う可能性が…</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-appeal"><dt>仕事の魅力</dt><dd>①カウンセラーによる伴走体制：プライベートや仕事の悩みをしっかり受け止める体</dd><dd>②昇給制度：クラス制度で明確に金額まで提示している</dd><dd>③派遣先の豊富さ：約4,000社と豊富で、約11,350名の働いている先輩がい</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-salary_breakdown"><dt>給与の内訳</dt><dd>変わりません。</dd><dd>全額支給されます。車通勤の場合、ガソリン代も交通費として支給されます。就業・ただしご本人様都合での転居により通勤手当が変更する場合は上限3万円とさせ</dd><dd>自宅から最寄駅までバスを利用される場合、バス代も交通費として支給されますで</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>クラスが上がらないと、昇給ゼロでしょうか。・ので、クラスがずっと上がらない方はいないと思っていただければと思います。</dd><dd>クラス給はどのような評価によって上がるのでしょうか。・目標設定を半期ごとに行い、企業評価（配属先による評価）・本部評価・日常・度はございませんので、必ずクラス1の次はクラス2となります。</dd><dd>1番はじめにクラス給が上がるのは入社後どのくらい働いてからでしょうか。・人によりますが、早い方ですと1年くらいです。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-leave"><dt>休暇</dt><dd>そのようにご回答いただいて結構です。</dd><dd>ございません。入社後すぐでも産休・育休の取得が可能ですが、その場合休職扱・となり、給与の支給はございません。</dd><dd>100％となっております。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-work_hours"><dt>勤務時間</dt><dd>所定労働時間が8時間ですので基本的には9時〜18時まで働ける方ということで・ただ、絶対に最寄り駅までに18:15着をお約束できる制度ではないということだけは</dd><dd><span class="d-head">区分: 全国／経験: 未経験／勤務地の地域: 全国／職種: 事務職・オフィスワーク／職種: 事務職・オフィスワーク(未経験)</span>・9:00〜18:00(休憩時間 1時間00分)</dd><dd><span class="d-head">区分: 東京エリア／勤務地: 東京都／職種: 事務職・オフィスワーク(未経験)</span>・9:00〜18:00(休憩時間 1時間00分)</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-overtime"><dt>残業</dt><dd>月平均5h程度です。</dd><dd><span class="d-head">区分: 全国／経験: 未経験／勤務地の地域: 全国／職種: 事務職・オフィスワーク／職種: 事務職・オフィスワーク(未経験)</span>・残業：あり・※配属先により異なります。&quot;,社会保険,雇用保険、労災保険、健康保険、厚生年金保険</dd><dd><span class="d-head">区分: 東京エリア／勤務地: 東京都／職種: 事務職・オフィスワーク(未経験)</span>・残業：あり・※就業時間や残業時間は配属先により異なります。&quot;,社会保険,雇用保険、労災保険、健康保険、厚生年金保険</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-remote"><dt>在宅</dt><dd>就業先企業に、リアル出社しています。</dd><dd>リモートでの仕事はほとんどありません。</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>フルタイム勤務可能(8H)・フルタイム勤務可能(8H)</dd><dd>フルタイム勤務可能者(8H）・フルタイム勤務可能者(8H）</dd><dd><span class="d-head">区分: 熊本</span>何かしらの就業経験のある方・何かしらの就業経験のある方・何かしらの就業経験のある方</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd><span class="d-head">区分: 東京エリア</span>販売・接客経験がある方大歓迎</dd><dd><span class="d-head">区分: 東京エリア</span>事務職・営業職・コールセンターでの勤務経験がある方</dd><dd><span class="d-head">区分: 東京エリア</span>事務職未経験・第2新卒・社会人経験がない方(アルバイトのみ)</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>退職金制度はございますが、退職金相当額を含んだ給与額の設定をし毎月支</dd><dd>派遣先が終了した場合、次の派遣先が見つかるまで給与の保障はありますか。・休業補償があり、平均賃金の6割が支給されます。</dd><dd>入社前研修は無給でしょうか。・入社前研修の参加は任意としておりますので、お支払いはしておりません。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>基本的にはエージェント様を介してご連絡となりますので、一般的な人材紹介と同</dd><dd>平日のみとなります。</dd><dd>原則として10時スタート〜17時スタートまでですが、東京と大阪のみ19時スタート</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-hiring"><dt>募集の概要</dt><dd>400〜500人</dd><dd>月末5営業日を除き、入社日は毎日設定可能です。ご本人がお仕事をされておら・ずすぐ職場見学に行ける・働ける状態であれば、内定承諾後8日〜2週間程度で</dd><dd>5人</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-status"><dt>募集状況</dt><dd><span class="d-head">勤務地の地域: 福岡</span>福岡エリア：応募受付を再開いたしました。</dd><dd><span class="d-head">勤務地の地域: 岡山・広島／採用区分: 新卒</span>岡山/広島エリア：新卒採用を停止</dd><dd><span class="d-head">区分: 福島</span>（2025年12/8 OPEN）</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-company"><dt>会社</dt><dd>全国で4000社程度でございます。</dd><dd>稼働率は約99.8%となっており、待機期間の発生はほぼありません。派遣先が終</dd><dd>競合他社と比較した際の、貴社ならではの強みは何ですか。・①カウンセラーによる伴走体制：プライベートや仕事の悩みをしっかり受け止める体・②昇給制度：クラス制度で明確に金額まで提示している・③派遣先の豊富さ：約4,000社と豊富で、約11,3…</dd><dd class="d-more">続きは求人票で</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　自宅から90分以内・転勤なしで、埼玉の配属先もある事務中心の会社です。合田さんが現場で新入社員さんや職人さんにソフトの使い方を教えていたように、周りの人が仕事を進めやすいように支える役回りが、そのまま事務の仕事になります。扱うお仕事の9割以上が土日休みです。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.staffservice.co.jp/staff/joyohaken/mirayell.html" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1o31QH1qaAuheG_WwoFBcrVvgKVDLC1iP/view" target="_blank" rel="noopener" aria-label="スタッフサービス ミラエール推進部の資料（会社の資料）">会社の資料 →</a></div>
+  </div></details><div class="ans" data-ans-key="staffservice_mirai" data-ans-name="スタッフサービス ミラエール推進部" hidden><p class="ans-q">スタッフサービス ミラエール推進部への気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="スタッフサービス ミラエール推進部への気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-manpower_mshine" data-key="manpower_mshine" data-name="マンパワーグループ（M-Shine）"><details class="fold"><summary><span class="f-head"><span class="f-name">マンパワーグループ（M-Shine）</span></span><span class="f-what">一般事務・営業事務・総務・人事などの事務職（事務未経験・PCスキル不問から育てて派遣する、無期雇用の正社員枠）</span><span class="f-meta">兵庫、京都、静岡　月給 東京・神奈川 月給20.7万〜21.6万円（想定年収277万〜292万円）／埼玉・千葉 20.1万円〜（賞与年1回・昇給制度あり・残業代は別途支給）</span></summary><div class="fold-body">
+    <h3>マンパワーグループ（M-Shine）</h3>
+    <p class="what">一般事務・営業事務・総務・人事などの事務職（事務未経験・PCスキル不問から育てて派遣する、無期雇用の正社員枠）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="lead">東京・神奈川 月給</span><span class="main">20.7万〜21.6万円</span><span class="aside">（想定年収277万〜292万円）／埼玉・千葉 20.1万円〜（賞与年1回・昇給制度あり・残業代は別途支給）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日125日・土日祝休み</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>兵庫、京都、静岡</dd><dt>条件</dt><dd>アルバイトを含め職歴が計半年以上あること（雇用形態は問わない）。事務の経験・資格は問わない。</dd><dt>条件</dt><dd>年齢は入社時点で20歳以上〜32歳以下（東北・関東の場合。ほかの地域は34歳以下）。</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>転勤なし</dd><dt>条件</dt><dd>日商簿記3級以上もしくは全商簿記2級以上ご取得済みの方（職種: 経理M-Shine (経理事務)）</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>・お客様からの問い合わせ対応・・PCへの入力業務・・書類の作成サポート など</dd><dd>問い合わせ対応やPC入力など事務業務をお任せします ★残業月5h程度 ★服装・ネイル自由</dd><dd>・配属先は誰もが知る大手・優良企業★</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-appeal"><dt>仕事の魅力</dt><dd>複数名採用なので、中途入社でも”同期”の存在が!</dd><dd>中途入社でも”同期”の存在が！</dd><dd>仲間と支え合って一緒に成長できます♪・もちろん先輩もしっかりサポート!</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-salary_breakdown"><dt>給与の内訳</dt><dd>給与形態:月給制</dd><dd>※配属先により給与が異なります。</dd><dd>※残業代別途支給</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>賞与回数:1回・昨年度賞与実績:1ヶ月分</dd><dd>※賞与は年1回支給、月給1か月分程度支給</dd><dd>・高い昇給率！仕事の取り組み姿勢や成果などの頑張りを評価してお給料へ還元します！</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-leave"><dt>休暇</dt><dd>産育休の取得実績も豊富なので、ライフステージの変化に合わせて仕事を続けることができます。</dd><dd>・最大9連休の取得実績あり</dd><dd>休暇制度:年末年始休暇、GW休暇、産休・育休、有給休暇、介</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-work_hours"><dt>勤務時間</dt><dd>09:00〜18:00・9:00〜18:00(休憩1h/実働8h)または・9:00〜17:30(休憩1h/実働7.5h)・※勤務時間・残業時間は配属先企業により異なります。</dd><dd>09:00〜18:00</dd></div><div class="d-row d-overtime"><dt>残業</dt><dd>・残業もかなり少なめ!(月5h程度)</dd><dd>月間平均残業時間:10時間以下・残業は月5h程度のため、終業後の買い物や家族・友人との時間など、プライベートも大切にして働けます!</dd><dd>月間平均残業時間：10時間以下</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>最初から経理の専門知識やビジネス英語を求めることはありませんので、ご安心ください。</dd><dd>最終学歴: 高卒以上・最終学歴: 高卒以上</dd><dd>職種経験: 職種未経験OK・職種経験: 職種未経験OK</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>＼こんな方は活躍の素質あり！／・未経験から英語を使用した事務職の経験者として成長したい方・\こんな方は活躍の素質あり!/・未経験から英語を使用した事務職の経験者として成長したい方</dd><dd>人と関わることが好きな方・人と関わることが好きな方</dd><dd>社会や人の役に立つ仕事がしたい方・社会や人の役に立つ仕事がしたい方</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>実際のお仕事に配属する前に研修を行うので未経験でも安心です。・研修内容は基本的なPC操作やビジネスメールなど。</dd><dd>・服装・ネイル自由</dd><dd>◎社会保険完備(雇用・労災・健康・厚生年金)</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>履歴書の提出: 必須・職務経歴書の提出: 必須</dd><dd>会社説明会の有無: あり</dd><dd>適性テストの有無: あり</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-hiring"><dt>募集の概要</dt><dd>入社時期はご相談ください。</dd><dd>増員募集</dd></div><div class="d-row d-company"><dt>会社</dt><dd>マンパワーグループ株式会社【東日本】</dd><dd>https://www.manpowergroup.jp/</dd><dd>東京都 港区芝浦3-1-1 田町ステーションタワーN 30F</dd><dd class="d-more">続きは求人票で</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　事務は未経験でも大丈夫なコースです。資格は要りません（アルバイトを含めて職歴が計半年以上あれば応募できます）。活躍している人の8割が事務未経験からのスタートで、100%事務職に配属（コールセンターなど別の職種への配属はありません）。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.manpowerjobnet.com/lp/m-shine/" target="_blank" rel="noopener" aria-label="マンパワーグループ（M-Shine）のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1n7D76CMVJSOy53SjyDqzOTeUyuy3S-fe/view" target="_blank" rel="noopener" aria-label="マンパワーグループ（M-Shine）の資料（会社説明資料（東京・神奈川））">会社説明資料（東京・神奈川） →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1eSkGuEgtedc2zvT8uFEY_xXKVI4JVFFS/view" target="_blank" rel="noopener" aria-label="マンパワーグループ（M-Shine）の資料（会社説明資料（埼玉・千葉））">会社説明資料（埼玉・千葉） →</a></div>
+  </div></details><div class="ans" data-ans-key="manpower_mshine" data-ans-name="マンパワーグループ（M-Shine）" hidden><p class="ans-q">マンパワーグループ（M-Shine）への気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="マンパワーグループ（M-Shine）への気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-dym" data-key="dym" data-name="DYMキャリア"><details class="fold"><summary><span class="f-head"><span class="f-name">DYMキャリア</span></span><span class="f-what">事務職（配属先に応じて一般事務・営業事務・貿易事務・経理事務・人事総務・医療事務のいずれか）</span><span class="f-meta">大阪府　月給 月給21万円（東京勤務・基本給15万円＋地域手当6万円。神奈川20万円・大阪20万〜20.2万円・愛知19.5万〜19.6万円）・固定残業なし・賞与年1回165,000円〜（入社1年後支給）・想定年収252万〜270万円</span></summary><div class="fold-body">
+    <h3>DYMキャリア</h3>
+    <p class="what">事務職（配属先に応じて一般事務・営業事務・貿易事務・経理事務・人事総務・医療事務のいずれか）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給21万円</span><span class="aside">（東京勤務・基本給15万円＋地域手当6万円。神奈川20万円・大阪20万〜20.2万円・愛知19.5万〜19.6万円）・固定残業なし・賞与年1回165,000円〜（入社1年後支給）・想定年収252万〜270万円</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日120日・土日休み</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>大阪府</dd><dt>条件</dt><dd>最終学歴は高卒以上が必須。</dd><dt>条件</dt><dd>未経験から可</dd>
+    </dl>
+    <dl class="detail"></dl>
+    <p class="point"><b>ここが合う</b>　未経験・ブランクありも歓迎の事務職で、MOSや簿記の資格取得の費用補助があります。合田さんが興味を持っていたMOSの勉強を、会社の支えを受けながら進められます。埼玉・東京どちらの勤務もあり、直接雇用への切り替えの実績もあります。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://dymcareer.jp/" target="_blank" rel="noopener" aria-label="DYMキャリアのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1__iQf-UT0FoNY6RHu5CMwd2qKcZvn52x/view" target="_blank" rel="noopener" aria-label="DYMキャリアの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details><div class="ans" data-ans-key="dym" data-ans-name="DYMキャリア" hidden><p class="ans-q">DYMキャリアへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="DYMキャリアへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-recruit_careerwink" data-key="recruit_careerwink" data-name="リクルートスタッフィング キャリアウィンク事業部"><details class="fold"><summary><span class="f-head"><span class="f-name">リクルートスタッフィング キャリアウィンク事業部</span></span><span class="f-what">一般事務（データ入力・集計・各種資料作成・電話やメール対応・受発注サポートなど。テレフォンアポインター・コールセンターオペレーター・専門事務業務を含む）</span><span class="f-meta">東京・神奈川・千葉・埼玉・愛知・大阪・兵庫・京都・北海道・宮城　月給 月給17.1万〜22.4万円ほど（勤務地により異なる・東京都は20.1万〜22.5万円・想定年収241万〜310万円・賞与年2回）</span></summary><div class="fold-body">
+    <h3>リクルートスタッフィング キャリアウィンク事業部</h3>
+    <p class="what">一般事務（データ入力・集計・各種資料作成・電話やメール対応・受発注サポートなど。テレフォンアポインター・コールセンターオペレーター・専門事務業務を含む）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">月給17.1万〜22.4万円ほど</span><span class="aside">（勤務地により異なる・東京都は20.1万〜22.5万円・想定年収241万〜310万円・賞与年2回）</span></dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日122〜130日・土日祝休み</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京・神奈川・千葉・埼玉・愛知・大阪・兵庫・京都・北海道・宮城（仙台近郊の在住者のみ・下記条件）・福岡の有名企業・グループ企業（駅近オフィス中心・転勤なし・本拠地から片道120分以内の配属先）</dd><dt>条件</dt><dd>最終学歴は高卒以上が必須。</dd><dt>条件</dt><dd>宮城は在住地で可否が分かれる（求人票の記載）＝仙台市内5区（泉・青葉・太白・若林・宮城野）は基本OK／多賀城市・塩釜市・利府町・名取市・岩沼市は車通勤が可能ならOK／それ以外の地域は基本NG。</dd><dt>条件</dt><dd>給与は枠が違う可能性: 求人票の枠は東京20.1万〜22.5万円、公式の紹介ページは東京21.3万〜32.8万円。提案前に枠を確認する。</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>転勤なし</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>100％事務職です。</dd><dd>優先的に配属は可能ですが、配属先のボリュームゾーンは23区内のため・そちらの配属の可能性もございます。</dd><dd>事務職ですので電話対応が全くない就業先は無いのでその点はご理解く・ださい。その中でも取次程度にしてほしいという希望であれば考慮はいたし・ます。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-appeal"><dt>仕事の魅力</dt><dd>①弊社は長く人材派遣業をしており、配属先も大手企業が中心です。</dd><dd>②明確な評価・昇給制度を設けております。</dd><dd>③コールセンターや営業寄りのお仕事への配属は基本的にございません。・オフィスワーク・PCのスキルを習得できる環境への配属に力を入れております。コールセンター業務を行っている方は1％にも満たしておりません。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-salary_breakdown"><dt>給与の内訳</dt><dd>・交通費支給（上限3万円/月）</dd><dd>退職金は給与に含んで支給されております。（退職金割合は5%）</dd><dd>実働8時間を超えたところから1分単位で全額支給致します。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>・有：年2回(1回：0.5ヵ月分)</dd><dd>入社1年目から支給がございます。一律で６月・12月にそれぞれ10万円・ずつの支給となりますが、1回目の賞与については上期・下期それぞれの・評価期間（4～9月分→12月支給、10～3月分→6月支給）におけ・る在籍日数に応じた日割り計算で算出…</dd><dd>明確な評価・昇給制度</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-leave"><dt>休暇</dt><dd>■産休取得率100％</dd><dd>・有給休暇</dd><dd>・有給休暇（入社半年後に10日付与）</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-work_hours"><dt>勤務時間</dt><dd>・9:00～18:00 (休憩：1時間)</dd><dd>休憩：1時間</dd><dd>9時～18時が最も多いです。その他には9時～17時30分、8時30分～・17時30分などの企業様もございます。一概に9時～18時とは言えません・が、最もオーソドックスな時間帯は9時～18時です。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-overtime"><dt>残業</dt><dd>・残業：有り</dd><dd>平均は月6時間となっており、最大で月20時間以内の配属先をご案内し・ています。</dd><dd>20時間/月までをMAXとして配属先をご案内・※平均：約6時間/月・※基本は定時帰宅かor残業20分/日</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-remote"><dt>在宅</dt><dd>・リモートワーク制度(社内規定による)</dd><dd>※テレワークにて就業する場合は、自宅または配置先のサテライトオフィスでの勤務となります。</dd><dd>首都圏・関西エリアではテレワークの割合は3割程度(週1テレワークなども・含むので、フルリモートとなると数%しか存在しない)です。他の地域ではも・う少し低い割合となります。・リモートワークの希望についてはお約束は出来かねます。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd>未経験から事務職を通じ</dd><dd>高等学校卒業以上</dd><dd>※必須資格や経験はございません。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd>オフィスワーク経験や接客・販売のご経験がある方</dd><dd>社会人経験がある方</dd><dd>笑顔で明るくコミュニケーションがとれる方。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>●コピー・マナー研修・・コピー機の使い方研修</dd><dd>●ビジネスメール研修（Outlook使用）・・メール作成のポイント・・電子メールを使った文書作成・・ビジネスメールのマナー（社内向け・社外向け）・・メールの作成、送受信、転送、添付ファイルの送信、CC・BCCの使い方、署名の作成・・メール…</dd><dd>●情報セキュリティ研修・・個人/機密情報の取り扱いに関する事例に基づいた、情報セキュリティに関する知識を取得</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>○応募⇒適性検査・WEB面接（1回）⇒内定⇒内定承諾⇒入社前研修⇒入社</dd><dd>1回</dd><dd>適性検査</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-hiring"><dt>募集の概要</dt><dd>入社日は派遣先での就業開始日または仮入社日のいずれか早い方の日付となります。</dd><dd>もし1ヶ月以内の間に配属先が決定せず入社日が確定しなかった場合は・入社前研修を受けてから約1ヶ月後を入社日と設定をしており、</dd><dd>1,500人〜</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-status"><dt>募集状況</dt><dd><span class="d-head">勤務地の地域: 福岡</span>※福岡は充足中</dd></div><div class="d-row d-company"><dt>会社</dt><dd>株式会社リクルートスタッフィング</dd><dd>・人材派遣事業（許可NO：派13-010563）・・人材紹介（紹介予定派遣）事業（許可NO：13-ユ-010249）・・アウトソーシング事業</dd><dd>・1987年6月</dd><dd class="d-more">続きは求人票で</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　書類通過率・内定率が高く（内定率50%以上）、リクルートグループならではの大手就業先が中心です。育休産休取得率100%で、直接雇用への切り替えも後押ししています。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.r-staffing.co.jp/corporate/" target="_blank" rel="noopener" aria-label="リクルートスタッフィング キャリアウィンク事業部のホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1l-PXR9eKfSMVtYIneyNCqGHzttwRxKEG/view" target="_blank" rel="noopener" aria-label="リクルートスタッフィング キャリアウィンク事業部の資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details><div class="ans" data-ans-key="recruit_careerwink" data-ans-name="リクルートスタッフィング キャリアウィンク事業部" hidden><p class="ans-q">リクルートスタッフィング キャリアウィンク事業部への気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="リクルートスタッフィング キャリアウィンク事業部への気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-sse_kiden" data-key="sse_kiden" data-name="スタッフサービス・エンジニアリング"><details class="fold"><summary><span class="f-head"><span class="f-name">スタッフサービス・エンジニアリング</span></span><span class="f-what">機械の設計・CADなど（機電エンジニア）</span><span class="f-meta">北海道、青森、岩手、宮城、秋田、山形、福島、東京、神奈川、埼玉、千葉、茨　年収 282万〜400万円</span></summary><div class="fold-body">
+    <h3>スタッフサービス・エンジニアリング</h3>
+    <p class="what">機械の設計・CADなど（機電エンジニア）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd>21.5万〜30万円</dd></div><div class="stat s-annual"><dt>年収</dt><dd>282万〜400万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日125日</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>北海道、青森、岩手、宮城、秋田、山形、福島、東京、神奈川、埼玉、千葉、茨</dd><dt>条件</dt><dd>雇用形態 契約社員</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>転勤なし</dd>
+    </dl>
+    <dl class="detail"></dl>
+    <p class="point"><b>ここが合う</b>　こちらは事務ではなく、CAD を使う機械系のお仕事です。合田さんは現場で BricsCAD を使って打ち合わせ図面の修正・色付け・寸法入力・レイアウトをしていたので、その経験を一番まっすぐ活かせる選択肢として載せています。未経験から研修で始められ、年間休日125日です。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.staffservice-engineering.jp/" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリングのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1Sa95m02htPx5DvxOjNivjD79jmRV5xaf/view" target="_blank" rel="noopener" aria-label="スタッフサービス・エンジニアリングの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details><div class="ans" data-ans-key="sse_kiden" data-ans-name="スタッフサービス・エンジニアリング" hidden><p class="ans-q">スタッフサービス・エンジニアリングへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="スタッフサービス・エンジニアリングへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+  <article class="card" id="card-recruit_rd" data-key="recruit_rd" data-name="リクルートR&amp;Dスタッフィング"><details class="fold"><summary><span class="f-head"><span class="f-name">リクルートR&amp;Dスタッフィング</span></span><span class="f-what">機械の設計・開発など（メーカーの開発現場で働くエンジニア）</span><span class="f-meta">東京、神奈川、埼玉、千葉、茨城、栃木、群馬、山梨、宮城、山形、福島、長野、　年収 350万〜600万円</span></summary><div class="fold-body">
+    <h3>リクルートR&amp;Dスタッフィング</h3>
+    <p class="what">機械の設計・開発など（メーカーの開発現場で働くエンジニア）</p>
+    <dl class="nums"><div class="stat s-salary"><dt>月給</dt><dd><span class="main">21万〜40万円</span><span class="aside">（想定年収 350万〜600万円）</span></dd></div><div class="stat s-annual"><dt>年収</dt><dd>350万〜600万円</dd></div><div class="stat s-holidays"><dt>休日</dt><dd>年間休日120日・土日祝休み</dd></div></dl>
+    <dl class="place">
+      <dt>勤務地</dt><dd>東京、神奈川、埼玉、千葉、茨城、栃木、群馬、山梨、宮城、山形、福島、長野、</dd><dt>条件</dt><dd>東海以外は転居必須（不可なら契約社員での内定の可能性）。</dd><dt>条件</dt><dd>雇用形態 正社員</dd><dt>条件</dt><dd>未経験から可</dd><dt>条件</dt><dd>資格なくてもOK・⑦～⑫エンジニア（職種: ⑦～⑫エンジニア）</dd>
+    </dl>
+    <dl class="detail"><div class="d-row d-description"><dt>仕事内容</dt><dd>HR部</dd></div><div class="d-row d-appeal"><dt>仕事の魅力</dt><dd>リクルートグループの・正社員にもなれる。・メーカー企業に直接雇用も・可能。</dd><dd>ブランドのある会社だから、多種多様、様々なレベルの・案件を獲得できる。</dd><dd>リクルートブランドを称する唯一のアウトソー ング企業機電・化学・バイオおよびITを網羅するアウトソー ング企業で唯一「リクルートブランド」（リクルートの冠）企業。</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-bonus"><dt>賞与・昇給</dt><dd>1回・給与改定・派遣先の指揮命令者の評価基準に準じて評価・単価が がれば給与アップは必然ですが、単価が がってなくてもエンジニアの成長をきちんと評価し給与に反映します。</dd><dd>賞与：  2回/合計で３.2ヶ月分の実績があります・＋当社の評価基準に準じて評価</dd></div><div class="d-row d-requirement"><dt>必須</dt><dd><span class="d-head">区分: 東1東京都フィールドエンジニア</span>高卒以上</dd><dd><span class="d-head">職種: ⑦～⑫エンジニア</span>資格なくてもOK・⑦～⑫エンジニア</dd><dd><span class="d-head">職種: ⑦～⑫エンジニア</span>①～⑥の実務 験のない・⑦～⑫エンジニア</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-welcome"><dt>歓迎</dt><dd><span class="d-head">区分: 東1東京都フィールドエンジニア</span>工具の取り扱い</dd><dd><span class="d-head">区分: 東1東京都フィールドエンジニア</span>組み立てや分解の経験</dd><dd><span class="d-head">区分: 東1東京都フィールドエンジニア</span>現場作業の経験</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-benefits"><dt>福利厚生</dt><dd>リクルートブランドの安心感・信頼感、  の実績から、大手派遣先企業の 業員と同様の研修を受けることが可能です。</dd><dd>入社・入社研修 共通・担当業務の・検討・配属決定・Eラーニング／座学受講などの・スキル研修が行えます・プロジェクト・を担当・プロジェクト・の完了</dd><dd>全100コース以 の研修を用意。・キャリアの醸成を全面的にサポートします</dd><dd class="d-more">続きは求人票で</dd></div><div class="d-row d-selection"><dt>選考</dt><dd>⇒求人票A・B・Cは継続しつつ、新しい切り口でエリアをテーマに・Web説明会を開催しました（2026年7月23日/24日）</dd></div><div class="d-row d-hiring"><dt>募集の概要</dt><dd>10〜50人</dd></div><div class="d-row d-company"><dt>会社</dt><dd>株式会社リクルートR&amp;Dスタッフィング</dd><dd>2006 2月1日</dd><dd>代表取締役社長 福知 郁夫 取締役 田口 貴章取締役 田中 智己</dd><dd class="d-more">続きは求人票で</dd></div></dl>
+    <p class="point"><b>ここが合う</b>　メーカーの開発の現場で働く、機械系のお仕事です。CAD を使ったことがある人は評価してもらえることがあり、合田さんが現場で図面の修正・寸法入力・レイアウトをしてきた経験を、ものづくりの仕事で伸ばせます。想定年収は350万〜600万円です。</p>
+    
+    <div class="links"><a class="deck-mini" href="https://www.recruit-rds.co.jp/" target="_blank" rel="noopener" aria-label="リクルートR&amp;Dスタッフィングのホームページ">会社のHP →</a>
+    <a class="deck-mini" href="https://drive.google.com/file/d/1xc3r2R3Uob4d4OjPuENUh7qGM4VMLMo_/view" target="_blank" rel="noopener" aria-label="リクルートR&amp;Dスタッフィングの資料（会社説明スライド）">会社説明スライド →</a></div>
+  </div></details><div class="ans" data-ans-key="recruit_rd" data-ans-name="リクルートR&amp;Dスタッフィング" hidden><p class="ans-q">リクルートR&amp;Dスタッフィングへの気持ちを1つ押してください（押し直し・取り消しもできます）</p><div class="ans-btns" role="group" aria-label="リクルートR&amp;Dスタッフィングへの気持ち"><button type="button" class="ans-b" data-choice="yes" aria-pressed="false" aria-label="◯ 受けてみたい"><span class="ans-m" aria-hidden="true">◯</span><span class="ans-t">受けて<wbr>みたい</span></button><button type="button" class="ans-b" data-choice="maybe" aria-pressed="false" aria-label="▲ 迷う・聞きたい"><span class="ans-m" aria-hidden="true">▲</span><span class="ans-t">迷う・<wbr>聞きたい</span></button><button type="button" class="ans-b" data-choice="no" aria-pressed="false" aria-label="✖ 今回は見送り"><span class="ans-m" aria-hidden="true">✖</span><span class="ans-t">今回は<wbr>見送り</span></button></div><label class="ans-cl">ひとこと（任意・200字まで）<textarea class="ans-c" rows="2" maxlength="200" placeholder="例: 勤務地が近いので気になります"></textarea></label><p class="ans-st"><span class="ans-msg" aria-live="polite"></span><span class="ans-left"></span></p><p class="ans-fb" hidden>届かないときは、番号か社名をLINEで送ってください。</p></div></article>
+</div>
+
+<h2>参考動画</h2>
+<ul class="videos">
+  <li><a href="https://drive.google.com/file/d/10okLIxTaAFpWF5kxgs7_5q2EnjcFFMl_/view" target="_blank" rel="noopener">会社説明動画（コクー 人財開発本部・会社作成）</a>
+    <span class="meta">コクーの会社の動画</span>
+    <span class="why"></span></li>
+  <li><a href="https://youtu.be/1CUGJQYCyu8" target="_blank" rel="noopener">紹介動画1（事前確認資料に添付）</a>
+    <span class="meta">テラスカイ・テクノロジーズの会社の動画</span>
+    <span class="why"></span></li>
+  <li><a href="https://youtu.be/IgJw5gDRvaY" target="_blank" rel="noopener">紹介動画2（事前確認資料に添付）</a>
+    <span class="meta">テラスカイ・テクノロジーズの会社の動画</span>
+    <span class="why"></span></li>
+  <li><a href="https://www.youtube.com/watch?v=MGf6cDNnh_Q" target="_blank" rel="noopener">紹介動画3（事前確認資料に添付）</a>
+    <span class="meta">テラスカイ・テクノロジーズの会社の動画</span>
+    <span class="why"></span></li>
+  <li><a href="https://convert.jobtv.mynavi.jp/rlink?uc=27s207261vod07" target="_blank" rel="noopener">配属先はどんなところ？（ミラエール・約3分）</a>
+    <span class="meta">スタッフサービス ミラエール推進部の会社の動画</span>
+    <span class="why"></span></li>
+  <li><a href="https://convert.jobtv.mynavi.jp/rlink?uc=27s207261vod09" target="_blank" rel="noopener">昇給・評価査定について（ミラエール・約3分）</a>
+    <span class="meta">スタッフサービス ミラエール推進部の会社の動画</span>
+    <span class="why"></span></li>
+</ul>
+
+</section>
+<section id="industry" data-section="industry" data-no-figure="資料へのリンクの一覧">
+<h2>業界の説明資料</h2>
+<ul class="videos">
+  <li><a href="https://drive.google.com/file/d/1aaqbrGWGHvvOBhfCRVNETd7fdiUqzovh/view" target="_blank" rel="noopener">機械系エンジニアの仕事</a>
+    <span class="meta">機械系エンジニア（開発設計・組み込み・ものづくり）の仕事内容と将来性をまとめた資料</span></li>
+  <li><a href="https://drive.google.com/file/d/1rMe1E4_EpphASnW63x9ubO1gtUm55174/view" target="_blank" rel="noopener">インフラエンジニアの仕事</a>
+    <span class="meta">インフラエンジニアの仕事内容と将来性をまとめた資料</span></li>
+  <li><a href="https://drive.google.com/file/d/1hH4k9m57BCrY0_OQTSqg1CsMrRuFJVHK/view" target="_blank" rel="noopener">営業の仕事</a>
+    <span class="meta">営業の仕事内容と将来性をまとめた資料</span></li>
+</ul>
+</section>
+<section id="flow" data-section="flow" data-chapter="next">
+<h2>これからの進め方</h2>
+<figure class="fig fig-flow-w" data-figure="flow"><svg class="fig-flow" viewBox="0 0 400 160" role="img" aria-labelledby="fig-flow-t fig-flow-d" preserveAspectRatio="xMidYMid meet"><title id="fig-flow-t">これからの進め方</title><desc id="fig-flow-d">1. このページの会社と資料を見て、気になった会社をLINEで教えてください／2. 受ける会社が決まったら、こちらから応募を進めます。面接の前には練習の時間を取ります</desc><defs><marker id="fl-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="fl-a" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="fl-l" x1="20" y1="38" x2="20" y2="76" marker-end="url(#fl-ar)"/><circle class="fl-c" cx="20" cy="20" r="16"/><text class="fl-n" x="20" y="26" text-anchor="middle">1</text><text class="fl-t" x="46" y="26">このページの会社と資料を見て、気になっ</text><text class="fl-t" x="46" y="50">た会社をLINEで教えてください</text><circle class="fl-c" cx="20" cy="96" r="16"/><text class="fl-n" x="20" y="102" text-anchor="middle">2</text><text class="fl-t" x="46" y="102">受ける会社が決まったら、こちらから応募</text><text class="fl-t" x="46" y="126">を進めます。面接の前には練習の時間を取</text><text class="fl-t" x="46" y="150">ります</text></svg></figure>
+</section>
+</div>
+<footer>※条件は各社の求人票・会社資料（2026年11月28日（土）時点）に書かれている内容です。月給の幅は、これまでの経験と選考での評価で決まります。<br>※「会社のHP →」は各社の公式ホームページに、「会社の資料 →」は会社説明の資料（PDF・画像）につながります。</footer>
+
+</div>
+<script>
+(function live() {
+  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", live); return; }
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".cards.live > .card"));
+  if (!cards.length) return;
+  var pos = document.querySelector(".band-pos");
+  var NAMES = ["ワールドコーポレーション（事務）", "コクー", "テラスカイ・テクノロジーズ", "スタッフサービス ミラエール推進部", "マンパワーグループ（M-Shine）", "DYMキャリア", "リクルートスタッフィング キャリアウィンク事業部", "スタッフサービス・エンジニアリング", "リクルートR&Dスタッフィング"];
+  function off() {
+    var v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--band-offset"));
+    return isNaN(v) ? 56 : v;
+  }
+  function at(line) {  // 上端が line より上にある最後の社
+    var idx = -1;
+    cards.forEach(function (c, i) { if (c.getBoundingClientRect().top <= line) idx = i; });
+    return idx;
+  }
+  function inZone() {
+    var f = cards[0].getBoundingClientRect(), l = cards[cards.length - 1].getBoundingClientRect();
+    return f.top <= window.innerHeight * 0.6 && l.bottom > off() + 8;
+  }
+  function show() {
+    if (!pos) return;
+    var i = at(off() + window.innerHeight * 0.3);
+    pos.textContent = (inZone() && i >= 0) ? (i + 1) + "/" + cards.length + " 社目 " + NAMES[i] : "";
+  }
+  function goTop(i) {
+    i = Math.max(0, Math.min(cards.length - 1, i));
+    window.scrollTo(0, window.scrollY + cards[i].getBoundingClientRect().top - off());
+  }
+  function next() {  // 長い社は残り（判断・資料）を見せてから次の社へ
+    var i = at(off() + 4);
+    if (i < 0) { goTop(0); return; }
+    var r = cards[i].getBoundingClientRect(), page = window.innerHeight - off() - 60;
+    if (r.bottom > window.innerHeight + 4) { window.scrollBy(0, Math.min(r.bottom - window.innerHeight + 24, page)); return; }
+    if (i < cards.length - 1) goTop(i + 1);  // 最後の社は下端まで見せたら止まる
+  }
+  function prev() {
+    var i = at(off() + 4);
+    if (i < 0) { goTop(0); return; }
+    if (cards[i].getBoundingClientRect().top < off() - 4) { goTop(i); return; }
+    goTop(i - 1);
+  }
+  document.addEventListener("keydown", function (e) {
+    if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey) return;
+    var t = e.target, tag = t && t.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (t && t.isContentEditable)) return;
+    var k = e.key, step = 0;
+    if (k === "ArrowDown" || k === "ArrowRight" || k === "PageDown" || (k === " " && !e.shiftKey)) step = 1;
+    else if (k === "ArrowUp" || k === "ArrowLeft" || k === "PageUp" || (k === " " && e.shiftKey)) step = -1;
+    if (!step || !inZone()) return;
+    e.preventDefault();
+    if (step > 0) next(); else prev();
+    show();
+  });
+  window.addEventListener("scroll", show, { passive: true });
+  window.addEventListener("hashchange", show);
+  show();
+})();
+</script>
+<script data-fold="js">
+(function fold() {
+  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", fold); return; }
+  var all = function () { return Array.prototype.slice.call(document.querySelectorAll("details.fold")); };
+  if (!all().length) return;
+  function openFor(hash) {
+    if (!hash || hash.length < 2) return;
+    var id; try { id = decodeURIComponent(hash.slice(1)); } catch (e) { return; }
+    var el = document.getElementById(id);
+    if (!el) return;
+    var d = el.matches("details.fold") ? el : el.querySelector("details.fold");
+    if (d && !d.open) d.open = true;
+  }
+  window.addEventListener("hashchange", function () { openFor(location.hash); });
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#card-"]');
+    if (a) openFor(a.getAttribute("href"));
+  }, true);
+  openFor(location.hash);
+  // 当日の送り（shigoto_live_layer の Space＝次の社）が summary・ボタンの上の Space を奪わないよう、そこで止める
+  // （既定の動き＝開閉・押下は残る。押し試験で Space が開閉しなかった）
+  document.addEventListener("keydown", function (e) {
+    var tag = e.target && e.target.tagName;
+    if (e.key === " " && (tag === "SUMMARY" || tag === "BUTTON")) e.stopPropagation();
+  }, true);
+  Array.prototype.slice.call(document.querySelectorAll(".fold-ctl")).forEach(function (ctl) {
+    ctl.hidden = false;
+    ctl.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-fold-all]");
+      if (!b) return;
+      var open = b.getAttribute("data-fold-all") === "open";
+      all().forEach(function (d) { d.open = open; });
+    });
+  });
+  var saved = null;
+  window.addEventListener("beforeprint", function () {
+    saved = all().map(function (d) { return d.open; });
+    all().forEach(function (d) { d.open = true; });
+  });
+  window.addEventListener("afterprint", function () {
+    if (!saved) return;
+    all().forEach(function (d, i) { d.open = saved[i]; });
+    saved = null;
+  });
+})();
+</script>
+<script type="application/json" id="honnin-answer-cfg" data-honnin-answer="cfg">{"t": "c2yIdhlsj4FVLYl_axhD5-qy2sKS-tif", "u": "https://gooner-recruit-server-vlu26jpgea-an.a.run.app/honnin/answer", "max": 200}</script><script data-honnin-answer="js">
+(function(){
+  var cfgEl = document.getElementById('honnin-answer-cfg');
+  if (!cfgEl || !window.fetch) return;
+  var cfg; try { cfg = JSON.parse(cfgEl.textContent || '{}'); } catch (e) { return; }
+  if (!cfg.t || !cfg.u) return;
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.ans[data-ans-key]'));
+  if (!boxes.length) return;
+  var MAX = cfg.max || 200, WAIT = 1200;
+  var S = {};
+  function st(k){ return S[k] || (S[k] = {choice:'', comment:'', seq:0, ver:0, sent:0, busy:false, timer:0, name:''}); }
+  function boxesOf(k){ return boxes.filter(function(b){ return b.getAttribute('data-ans-key') === k; }); }
+  function chars(s){ return Array.from ? Array.from(s).length : s.length; }
+  function paint(k){
+    var s = st(k);
+    boxesOf(k).forEach(function(b){
+      b.querySelectorAll('.ans-b').forEach(function(x){ x.setAttribute('aria-pressed', x.getAttribute('data-choice') === s.choice ? 'true' : 'false'); });
+      var ta = b.querySelector('.ans-c');
+      if (ta && document.activeElement !== ta && ta.value !== s.comment) ta.value = s.comment;
+      var left = b.querySelector('.ans-left'); if (left) left.textContent = 'あと' + (MAX - chars(ta ? ta.value : s.comment)) + '字';
+    });
+  }
+  function say(k, text, cls, fallback){
+    boxesOf(k).forEach(function(b){
+      var m = b.querySelector('.ans-msg'); if (m) { m.textContent = text; m.className = 'ans-msg' + (cls ? ' ' + cls : ''); }
+      var fb = b.querySelector('.ans-fb'); if (fb) fb.hidden = !fallback;
+    });
+  }
+  function nextSeq(s){ var n = Date.now(); s.seq = n > s.seq ? n : s.seq + 1; return s.seq; }
+  function send(k, keepalive){
+    var s = st(k);
+    if (s.busy) return;   // 送っている間の変更は、返ってきた後に最後の1つだけ送る
+    if (s.ver === s.sent) return;
+    s.busy = true;
+    var ver = s.ver;
+    var body = JSON.stringify({key:k, choice:s.choice, comment:s.comment, seq:nextSeq(s), name:s.name});
+    say(k, '保存しています…', '', false);
+    fetch(cfg.u, {method:'POST', mode:'cors', credentials:'omit', keepalive:!!keepalive,
+                  headers:{'Content-Type':'application/json', 'X-Honnin-Token':cfg.t}, body:body})
+      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ return {ok:r.ok, j:j}; }); })
+      .then(function(res){
+        if (res.ok && res.j && res.j.ok && res.j.stale) {
+          var a = res.j.answer || {};
+          s.seq = Math.max(s.seq, a.seq || 0);   // 次の送信が同じ理由で捨てられないよう、操作が続いていても上げる
+          if (s.ver === ver) { s.choice = a.choice || ''; s.comment = a.comment || ''; paint(k); }
+          s.sent = ver; s.failed = false;
+          if (s.ver === ver) say(k, 'ほかの画面での新しい選択を表示しています', 'ok', false);
+        } else if (res.ok && res.j && res.j.ok) {
+          s.sent = ver; s.failed = false;
+          if (s.ver === ver) say(k, '保存しました', 'ok', false);
+        } else {
+          s.failed = true;
+          say(k, (res.j && res.j.error) || '保存できませんでした・もう一度押してください', 'ng', true);
+        }
+      })
+      .catch(function(){ s.failed = true; say(k, '保存できませんでした・もう一度押してください', 'ng', true); })
+      .then(function(){ s.busy = false; if (s.ver !== ver) send(k); });
+  }
+  function change(k){ var s = st(k); s.ver += 1; paint(k); }
+  boxes.forEach(function(b){
+    var k = b.getAttribute('data-ans-key'), s = st(k);
+    s.name = b.getAttribute('data-ans-name') || '';
+    b.querySelectorAll('.ans-b').forEach(function(x){
+      x.addEventListener('click', function(){
+        var c = x.getAttribute('data-choice');
+        // 保存に失敗した直後に同じ記号を押したら「もう一度送る」（外さない＝失敗の文言の約束どおり）
+        if (s.failed && s.choice === c && s.ver !== s.sent) { send(k); return; }
+        s.choice = (s.choice === c) ? '' : c;
+        change(k); send(k);
+      });
+    });
+    var ta = b.querySelector('.ans-c');
+    if (!ta) return;
+    ta.addEventListener('input', function(){
+      s.comment = ta.value; change(k);
+      boxesOf(k).forEach(function(o){ var t = o.querySelector('.ans-c'); if (t && t !== ta) t.value = ta.value; });
+      clearTimeout(s.timer); s.timer = setTimeout(function(){ send(k); }, WAIT);
+    });
+    ta.addEventListener('blur', function(){ clearTimeout(s.timer); send(k); });
+  });
+  document.addEventListener('visibilitychange', function(){
+    if (document.visibilityState !== 'hidden') return;
+    Object.keys(S).forEach(function(k){ clearTimeout(S[k].timer); send(k, true); });
+  });
+  fetch(cfg.u, {method:'GET', mode:'cors', credentials:'omit', headers:{'X-Honnin-Token':cfg.t}})
+    .then(function(r){ if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+    .then(function(j){
+      if (!j || !j.ok) throw new Error('ng');
+      if (j.max_comment) MAX = j.max_comment;
+      var a = j.answers || {};
+      Object.keys(a).forEach(function(k){ var s = st(k); s.choice = a[k].choice || ''; s.comment = a[k].comment || ''; s.seq = a[k].seq || 0; });
+      boxes.forEach(function(b){ b.hidden = false; });
+      document.querySelectorAll('.ans-line').forEach(function(x){ x.hidden = true; });
+      document.querySelectorAll('.ans-on').forEach(function(x){ x.hidden = false; });
+      Object.keys(S).forEach(paint);
+    })
+    .catch(function(){ /* 受け口に届かない＝部品を出さず LINE の文言のまま（黙って消さない） */ });
+})();
+</script><!--gp-portal:s--><nav id="gp-portal-nav" class="gp-bottom" aria-label="ページのタブ"><ul><li><a href="./?v=0dfe15f4ea">ホーム</a></li><li class="gp-cur"><a href="./t6168f1fc.html?v=0dfe15f4ea" aria-current="page">ご紹介したお仕事</a></li></ul></nav><!--gp-portal:e--></body>
+</html>
